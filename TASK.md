@@ -41,7 +41,11 @@ sources/<today>/manifest.md and continue with what you have.
 5. INDEX + SITE: Regenerate problems/INDEX.md (sorted by score desc). The site
    is rendered by GitHub Pages from the problem files directly - verify
    frontmatter is valid YAML on every file you touched; that is the entire
-   "site build".
+   "site build". Also regenerate the signal ledgers in site/sources.html from
+   normalized/: grouped by origin (bottom-up users / top-down governments /
+   capital investors / market operators), every signal one tbody with its id
+   as the anchor, English-only objective copy, follow the design-language
+   skill and the page's existing table structure exactly.
 
 6. NEWSLETTER: Write newsletter/<today>.md: top 3 problems by score this week
    (2 short paragraphs + receipts links each), 3-5 one-line "movers" (new or

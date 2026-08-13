@@ -14,7 +14,7 @@
   --ink:       #1A1814;
   --ink-muted: #6E6A5F;
   --rule:      #CBC6B9;
-  --stamp:     #BB271A;   /* úřední razítko */
+  --stamp:     #BB271A;   /* official-stamp red */
   --signal:    #1A7A3C;   /* status lifecycle only */
 
   /* -- spacing scale (4px base — the only spacing values) ---- */
@@ -145,7 +145,7 @@ table.signals { border-collapse: collapse; font: 400 var(--fs-data)/1.5 var(--mo
 ol.receipts { list-style: none; margin: 0; padding: 0; counter-reset: exhibit; }
 .receipts li { counter-increment: exhibit; position: relative; padding: var(--sp-4) 0 var(--sp-4) 7.5rem; border-bottom: 1px solid var(--rule); }
 .receipts li::before {                        /* the exhibit chip */
-  content: "Doklad " counter(exhibit, upper-alpha);
+  content: "Exhibit " counter(exhibit, upper-alpha);
   position: absolute; left: 0; top: var(--sp-4);
   font: 600 var(--fs-label)/1 var(--mono); letter-spacing: 0.06em;
   border: 1px solid var(--ink); padding: 0.1875rem 0.375rem;   /* optical, chip-internal */
