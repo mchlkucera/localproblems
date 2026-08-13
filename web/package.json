@@ -1,0 +1,25 @@
+{
+  "name": "localproblems-web",
+  "private": true,
+  "description": "localproblems.org — the generated register. Pure SSG; a pure function of ../data. See ../SPEC.md §5.",
+  "scripts": {
+    "predev": "node scripts/check-css.mjs",
+    "prebuild": "node scripts/check-css.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "js-yaml": "^5.2.3",
+    "next": "^16.3.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^26.2.0",
+    "@types/react": "^19.2.18",
+    "typescript": "^7.0.2"
+  }
+}

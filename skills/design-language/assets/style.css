@@ -130,7 +130,7 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
 }
 .index .t-cat { text-transform: uppercase; font-size: var(--fs-label); letter-spacing: 0.06em; }
-.index .t-num, .index thead .t-num { text-align: right; white-space: nowrap; }
+.index .t-num, .index thead .t-num { text-align: left; white-space: nowrap; }  /* v2: every column left-aligns */
 .index .t-date { color: var(--ink-muted); }
 .index tr.is-solved .t-title { color: var(--ink-muted); }
 .index td:first-child, .index th:first-child { text-align: center; width: 1.75rem; padding-inline: var(--sp-1); }
@@ -205,7 +205,7 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 /* ---- signals breakdown ---------------------------------------- */
 table.signals { border-collapse: collapse; font: 400 var(--fs-data)/1.5 var(--mono); min-width: 60%; }
 .signals td { padding: var(--sp-2) var(--sp-5) var(--sp-2) 0; border-bottom: 1px solid var(--rule); }
-.signals .t-num { text-align: right; font-weight: 600; }
+.signals .t-num { text-align: left; font-weight: 600; }  /* v2: every column left-aligns */
 .signals .note { font: 400 var(--fs-data)/1.4 var(--serif); color: var(--ink-muted); }
 .signals .t-src { white-space: nowrap; }     /* → S1, S3 refs into the sources list */
 .signals tr.total td { border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 600; }
@@ -270,6 +270,22 @@ ol.receipts { list-style: none; margin: 0; padding: 0; counter-reset: exhibit; }
   text-decoration: none;
 }
 .btn:hover { background: var(--ink); color: var(--paper); }  /* inverts, instantly */
+
+/* ---- signal ledgers: the fixed column layout (sources v2) --------
+   Every signal table shares one column layout, declared by a colgroup
+   (c-name … c-date). :has() switches those tables to fixed layout so
+   the serif name column can never be starved by nowrap mono columns. */
+.index:has(col.c-name) { table-layout: fixed; }
+.index:has(col.c-name) td { overflow: hidden; text-overflow: ellipsis; }
+.index:has(col.c-name) td:first-child,                 /* no dot column here — */
+.index:has(col.c-name) th:first-child { text-align: left; width: auto; padding-inline: var(--sp-3); }
+.index col.c-name { width: 30%; }
+.index col.c-src  { width: 12%; }
+.index col.c-cat  { width: 11%; }
+.index col.c-geo  { width: 7%; }
+.index col.c-val  { width: 8%; }
+.index col.c-rec  { width: 20%; }
+.index col.c-date { width: 12%; }
 
 /* ---- footer ----------------------------------------------------- */
 footer { margin-top: var(--sp-8); border-top: 3px double var(--ink); padding-top: var(--sp-4); font: 400 var(--fs-meta)/1.7 var(--mono); color: var(--ink-muted); }
