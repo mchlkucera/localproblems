@@ -6,10 +6,10 @@ title: Czech building owners face the EPBD retrofit wave with no portfolio analy
   product
 category: housing
 geo: CZ-national
-score: 5
+score: 6
 scores:
   proof: 2
-  money: 0
+  money: 1
   urgency: 2
   demand: 0
   gap: 1
@@ -37,6 +37,17 @@ sources:
     (dates not yet fixed in CZ law).'
   date: '2026-07-15'
   signal: reg-epbd-recast
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/384935-2026
+  note: 'ted-384935-2026: Klatovská nemocnice awarded ~€8.3M for energy performance contracting
+    (Jun 2026) — part of an EPC wave of 15 TED records from 11 distinct public buyers (~€58M
+    distinct value) in Jun–Aug 2026: three Plzeň-kraj hospitals in one week (Stod ~€3.3M,
+    Domažlice ~€5.3M, Klatovy), Praha 6 ~€15.7M, Praha 16/18, Hodonín, Kuřim, ČD. Public
+    owners are paying for retrofit triage-plus-delivery through ESCOs — adjacent execution
+    spend, so money scored 1 (relevant tenders exist), not 2: the tenders buy EPC delivery,
+    not the portfolio-analytics layer this record is about.'
+  date: '2026-06-04'
+  signal: ted-384935-2026
 created: '2026-08-13'
 updated: '2026-08-13'
 ---
@@ -48,5 +59,7 @@ Why now: portfolio owners cannot answer those questions today — Czech commerci
 Who pays: commercial and institutional building owners triaging retrofit capex; banks pricing green mortgages and sustainability-linked loans are a second buyer for the same building-level data. Municipal building stock — obligated early under EPBD's public-building provisions — is a procurement channel.
 
 Existing non-solutions: energy specialists issuing PENB certificates one building at a time (PKV Build the scale player), ESG consultancies producing PDFs, and spreadsheets. The quick check found no Czech portfolio-level retrofit analytics product.
+
+Updated 2026-08-13: the money side is now receipted from the EPC market — 11 public buyers awarded ~€58M of energy-performance contracting between June and August 2026, including three Plzeň-region hospitals in a single week. That is exactly the spend a portfolio-analytics layer front-ends (which buildings, in what order, at what capex), receipted as adjacent tenders (money 1). The EPC supplier side (ENESA, ČEZ ESCO, MVV and the APES ecosystem) is mature — the unoccupied position remains the owner-side analytics product, not retrofit delivery.
 
 Deadline scored 1 rather than 2 because the Czech implementing dates are not yet fixed — the infringement procedure makes acceleration likely, and the moment the law publishes with dates, this record's deadline dimension and rank should jump.

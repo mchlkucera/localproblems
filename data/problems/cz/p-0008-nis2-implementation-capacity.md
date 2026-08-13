@@ -61,6 +61,25 @@ sources:
     record''s open follow-up on NPO funding.'
   date: '2026-08-11'
   signal: hlidac-39084314
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/38911766
+  note: 'hlidac-38911766: Domov pro seniory Napajedla ordered an ''NIS 2 package — cyber security''
+    from Lexnova Energy (~91k CZK, Jun 2026); a second Lexnova package order followed within
+    weeks (Zlín-region disability services, hlidac-38723900) and Týn nad Vltavou bought a
+    NIS2 scope analysis (hlidac-38370127) — the smallest obligated tier is buying productised
+    compliance packages off the shelf. The 2026-08-13 TED run adds scale: ~77 cyber-security
+    records from ~45 distinct public buyers (~€33M) in the Jun–Aug window alone.'
+  date: '2026-06-22'
+  signal: hlidac-38911766
+- type: subsidy
+  url: https://smlouvy.gov.cz/smlouva/38438158
+  note: 'hlidac-38438158: Boskovice paid enovation to write its IROP 21-27 call No. 120 ''Cyber
+    security'' subsidy application (~121k CZK, Jun 2026) — one of a grant-application cluster
+    with České Budějovice (hlidac-38351500, incl. mandatory OHA/Archimate paperwork) and PN
+    Jihlava (hlidac-38824338). A dedicated EU subsidy channel funds the municipal compliance
+    market, and towns pay consultants just to enter the queue.'
+  date: '2026-06-19'
+  signal: hlidac-38438158
 created: '2026-08-13'
 updated: '2026-08-13'
 ---
@@ -75,4 +94,6 @@ Existing non-solutions: the supply side exists (security consultancies, MSPs) bu
 
 Money is now receipted from the first successful TED run (2026-08-13): hospitals and municipalities placed at least five cyber-security awards between June and August 2026, from Motol's ~€6.1M detection-and-response buy to Prague's ~€5.3M SIEM — recurring spend, multiple buyers, values above the 5M CZK bar. The demand side also widened: zákon č. 266/2025 Sb. (CER transposition) puts a parallel physical-resilience compliance stack on an overlapping entity set, with designations landing July 2026 and plan obligations running through 2027.
 
-A follow-up gap check on productized CZ NIS2 offerings is still the missing dimension; with money, deadline and demand all receipted, gap evidence is what separates this from newsletter-lead territory.
+Updated 2026-08-13: the buying wave now runs the full size spectrum. TED shows ~77 cyber records from ~45 public buyers (~€33M) between June and August 2026; below the threshold, care homes and small towns order productised "NIS 2 packages" from Lexnova Energy repeatedly, Týn nad Vltavou paid to find out which parts of it are even regulated, and an IROP call-120 subsidy channel funds municipal projects — with towns hiring consultants just to write the applications. Note for the gap dimension: Lexnova's repeat package sales and Institut kybernetické bezpečnosti's scope-analysis product are evidence that productised CZ offerings for the small-entity tier are emerging — the supply side is no longer only fragmented consulting.
+
+A structured gap check on productized CZ NIS2 offerings at the 6,000-entity scale is still the missing dimension; with money, deadline and demand all receipted and first productised sellers named, gap evidence is what separates this from newsletter-lead territory.

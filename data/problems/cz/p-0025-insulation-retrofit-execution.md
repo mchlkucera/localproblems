@@ -5,11 +5,11 @@ title: Czech home insulation runs through a long tail of one-man firms while NZ�
   wait — Berlin's VARM shows the tech-enabled installer model nobody runs here
 category: energy
 geo: CZ-national
-score: 5
+score: 6
 scores:
   proof: 2
   money: 1
-  urgency: 1
+  urgency: 2
   demand: 0
   gap: 1
 status: candidate
@@ -34,6 +34,24 @@ sources:
     but does not do insulation; the insulation trade remains a long tail of small firms with
     no tech-enabled consolidator. Gap 1 (quick search only).'
   date: '2026-08-13'
+- type: arbitrage
+  url: https://www.vestbee.com/insights/articles/top-european-funding-rounds-closed-in-july-2026
+  note: 'round-dsb-sanierung: dsb Deutsche Sanierungsberatung (Berlin) raised €10M Series
+    A (Jul 2026, IBB Ventures + Vireo + FJ Labs) packaging energy-renovation consulting, subsidy
+    applications and contractor delivery for homeowners — a SECOND funded DE company on home-renovation
+    execution within a month of VARM, attacking the demand-side wedge (subsidy navigation
+    + delivery packaging) that maps directly onto NZÚ. Same market as VARM, so proof stays
+    2; the wedge coverage now spans install labor AND homeowner navigation.'
+  date: '2026-07-31'
+  signal: round-dsb-sanierung
+- type: regulation
+  url: https://energy.ec.europa.eu/news/commission-calls-eu-countries-transpose-reinforced-rules-energy-performance-buildings-2026-07-15_en
+  note: 'reg-epbd-recast: EPBD recast (2024/1275) — transposition overdue since May 2026,
+    infringement procedure opened against CZ on 15 Jul 2026; residential renovation trajectories
+    and MEPS timelines dated 2030/2033 put a dated regulatory driver behind household insulation
+    demand. Deadline sub-score 1 (>18mo, CZ dates pending): urgency 1→2.'
+  date: '2026-07-15'
+  signal: reg-epbd-recast
 created: '2026-08-13'
 updated: '2026-08-13'
 ---
@@ -45,5 +63,7 @@ Why now: VARM in Berlin just raised €17.5M for the answer: train career-change
 Who pays: homeowners (with NZÚ co-payment), later SVJ/bytová družstva for multi-unit buildings. The fixed-price, one-day product is the wedge; subsidy handling in-house removes the paperwork objection that suppresses demand today.
 
 Existing non-solutions: the fragmented installer long tail; general contractors for whom insulation is a side line; energy-consulting firms that specify but don't build. Woltair is the proof the CZ market rewards this model — and the proof it's unoccupied for insulation.
+
+Updated 2026-08-13: Berlin funded the second half of the model within a month of the first — dsb Deutsche Sanierungsberatung (€10M Series A) packages renovation consulting, subsidy applications and contractor delivery for homeowners, the demand-side navigation wedge to VARM's supply-side installer wedge. Both rounds are German, so proof honestly stays at 2, but the full stack (find the homeowner, handle the subsidy, deliver the retrofit at fixed price) is now venture-validated next door. EPBD gives the same work a dated regulatory driver: transposition is overdue, the Commission opened infringement against CZ in July 2026, and residential MEPS trajectories (2030/2033) mean household insulation stops being optional — deadline receipted at 1, urgency 2.
 
 EPBD pressure (p-0024) is upstream demand for the same work: as renovation obligations firm up, execution capacity becomes the bottleneck this model builds. Next evidence: NZÚ zateplení application/backlog statistics as a demand receipt, and a check on whether Woltair or ENBRA have insulation expansion plans (the competitive risk).

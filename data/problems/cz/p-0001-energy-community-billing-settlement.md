@@ -5,10 +5,10 @@ title: Czech energy communities lose up to half the value of shared electricity 
   and settlement, and have no software to run member billing
 category: energy
 geo: CZ-national
-score: 9
+score: 10
 scores:
   proof: 3
-  money: 1
+  money: 2
   urgency: 1
   demand: 2
   gap: 2
@@ -43,8 +43,8 @@ sources:
   url: https://ted.europa.eu/en/notice/-/detail/385664-2026
   note: 'ted-385664-2026: obec Petrovice u Karviné awarded ~€278k design-and-build for ''Komunitní
     energetika'' (TED, closed award, Jun 2026) — municipal budgets are flowing into community-energy
-    delivery; each completed build becomes a settlement/billing customer. Money scored 1 (relevant
-    tender exists).'
+    delivery; each completed build becomes a settlement/billing customer. Money scored 1 at
+    creation; upgraded to 2 on 2026-08-13 by the sharing-series receipts below.'
   date: '2026-06-05'
   signal: ted-385664-2026
 - type: contract
@@ -55,6 +55,25 @@ sources:
     contracts in registr smluv since Jun 2026.'
   date: '2026-07-01'
   signal: hlidac-38899662
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/38667544
+  note: 'hlidac-38667544: MŠ Dětská, Liberec signed sharing contract č. 32 with Energetické
+    společenství Liberec (Jun 2026) — representative of ~14 near-identical contracts by Liberec
+    school/kindergarten organisations in Jun–Jul 2026, with series numbering observed up to
+    č. 58. One community is systematically enrolling every city organisation: sharing administration
+    is recurring, multi-org service spend, not one-off projects. Money upgraded to 2 (recurring
+    annual spend, receipted across the series plus the 37-contract registr-smluv wave).'
+  date: '2026-06-29'
+  signal: hlidac-38667544
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/38760740
+  note: 'hlidac-38760740: Jihomoravská energetická agentura signed a sharing-administration
+    contract covering Sonnentor within the sdílEjme community (Jun 2026) — the first private-company
+    participant in the evidence bucket, and a public regional agency acting as the administration-service
+    provider. Extends who-pays beyond public institutions; also names JMEA on the services
+    (not SaaS) side of the gap.'
+  date: '2026-06-29'
+  signal: hlidac-38760740
 created: '2026-08-13'
 updated: '2026-08-13'
 ---
@@ -65,6 +84,8 @@ Why now: the regulatory window opened in 2024 (Lex OZE II, EDC data exchange liv
 
 Who pays: community founders (municipalities, housing cooperatives, groups of firms) and — following the Exnaton go-to-market — utilities and DSO-adjacent service firms that want a white-label product to offer communities. The value proposition is direct: recovered settlement value, which the demand receipt quantifies at up to ~50% of shared electricity.
 
-Existing non-solutions: EDC (data exchange only), ministry guidance, and ASITIS-style consultancies selling services rather than product. The absence check of 2026-08-13 found no dedicated Czech community-energy billing/settlement SaaS.
+Existing non-solutions: EDC (data exchange only), ministry guidance, and ASITIS-style consultancies selling services rather than product; Jihomoravská energetická agentura now administers sharing for the sdílEjme community as a manual regional service. The absence check of 2026-08-13 found no dedicated Czech community-energy billing/settlement SaaS — the emerging administration providers are exactly the white-label customer base the Exnaton model sells into.
 
 Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across DACH and the Nordics; Austrian community-energy players eFriends and OurPower prove tooling demand under EU RED II in a market bordering Czechia. The July 2026 Pstryk round in Poland shows CEE investors funding adjacent consumer/SME energy software.
+
+Updated 2026-08-13: the registr smluv now shows the spend is structural, not anecdotal. The Liberec community alone signed ~14 near-identical sharing contracts with city schools and kindergartens in June–July 2026 (series numbering to č. 58), Pardubice-region institutions follow the same pattern, and Sonnentor became the first private company in the evidence bucket, administered by a public energy agency. Recurring, multi-organisation service spend on sharing administration is receipted — money moves 1→2 and the record enters PRIME territory: every operating community is a billing/settlement customer paying for a manual service today.

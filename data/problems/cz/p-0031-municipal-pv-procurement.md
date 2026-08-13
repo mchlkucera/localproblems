@@ -1,0 +1,63 @@
+---
+id: p-0031
+region: cz
+title: Fifty-three Czech public buyers tendered rooftop PV separately in ten weeks — ~€60M
+  of fragmented small-lot design-build procurement, with the same tenders re-published up
+  to three times to find bidders
+category: energy
+geo: CZ-national
+score: 3
+scores:
+  proof: 0
+  money: 2
+  urgency: 1
+  demand: 0
+  gap: 0
+status: candidate
+sources:
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/450591-2026
+  note: 'ted-450591-2026: Jihomoravský kraj — OPEN ~€1.0M (~24M CZK) competition for PV plants
+    with battery storage on regional buildings (Jul 2026). Open tender ≥5M CZK: money 2. One
+    of ~80 PV procurement records from 53 distinct public buyers (~€60M) in the Jun–Aug TED
+    window — towns, school districts, zoos, WWTPs, regional governments — most lots between
+    €120k and €1M, each tendered as bespoke design-build.'
+  date: '2026-07-01'
+  signal: ted-450591-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/427895-2026
+  note: 'ted-427895-2026: Town of Špindlerův Mlýn published the same WWTP-building PV tender
+    for the THIRD time in ten weeks (ted-417514, ted-421736, ted-427895); Hrabová and Nymburk
+    also re-ran identical lots in the window. Small municipal PV lots repeatedly fail to close
+    — the transaction-cost receipt for procurement fragmentation.'
+  date: '2026-06-22'
+  signal: ted-427895-2026
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/38371366
+  note: 'hlidac-38371366: Jindřichův Hradec signed a ~2.5M CZK works-and-service contract
+    for PV on a municipal building (Jun 2026) — the below-TED-threshold layer of the same
+    wave, bundling build with ongoing servicing town by town.'
+  date: '2026-06-11'
+  signal: hlidac-38371366
+- type: gap-check
+  url: https://zakazky.sako.cz/contract_display_128.html
+  note: 'Gap check 2026-08-13: aggregation mechanisms already exist — Brno runs a "36 FVE"
+    multi-district framework via SAKO, SFŽP''s RES+ / Modernizační fond calls explicitly fund
+    joint multi-site municipal PV projects, and kraje package design-builds (Královéhradecký
+    packages 3-5, Vysočina IV in this window). The supply side (ESCOs, installers) is dense.
+    Field not empty: gap 0 with channels named — the residual problem is that the long tail
+    of municipalities does not use them.'
+  date: '2026-08-13'
+created: '2026-08-13'
+updated: '2026-08-13'
+---
+
+Between June and August 2026, 53 distinct Czech public buyers went to market for rooftop photovoltaics — towns, regional governments, school and hospital organisations, a zoo, wastewater plants — generating ~80 TED records worth roughly €60M. Almost every lot is a bespoke design-build tender for a standard product: panels on a public roof, sized €120k to €1M, with its own documentation, its own evaluation, its own contract administration.
+
+Why now: subsidy programs (RES+ under the Modernizační fond) keep pushing municipal PV money out on fixed call deadlines, so the tenders keep coming — and the fragmentation cost is documented in the procurement record itself. Špindlerův Mlýn published the same WWTP PV tender three times in ten weeks; Hrabová and Nymburk re-ran identical lots. Small lots struggle to attract bidders at all, while every re-run burns administrative months against subsidy clocks.
+
+Who pays: municipalities, through procurement overhead and failed procedures on lots too small to interest efficient suppliers; the state, through subsidy administration of hundreds of micro-projects; and ultimately the energy transition's schedule. A standardized, aggregated route — fixed-price design-build against a catalogue specification, or dynamic purchasing across many municipalities — is what the fragmentation implies.
+
+Existing non-solutions — and why gap scores 0: the aggregation answer partially exists and is named rather than wished for. Brno pools its city districts through SAKO's "36 FVE" framework, kraje package their own buildings (Královéhradecký ran design-build packages 3 through 5 in this window), and RES+ explicitly funds joint multi-site projects. The supply side of installers and ESCOs is dense. What the evidence shows is that these channels do not reach the long tail: 53 buyers still tendered alone in one summer.
+
+No foreign analog is receipted (proof 0) and no buyer-side complaint is documented (demand 0) — the record is carried by receipted money and the freshness of the wave. It exists in the register because ~€60M a quarter of duplicated small-lot procurement is a measured, recurring inefficiency; it will re-rank if a demand receipt (SMO ČR or svazek complaints about PV procurement burden) or an aggregation-service analog appears.
