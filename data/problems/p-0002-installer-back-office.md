@@ -14,8 +14,9 @@ signals:
 status: candidate
 receipts:
   - type: arbitrage
+    dims: [proof, demand]
     url: https://www.ycombinator.com/companies/autarc
-    note: "yc-autarc: autarc (YC S24, Berlin, ~30 people) — agentic OS for heat-pump/solar installers: heat-load calc, quoting, subsidy paperwork, project management. Germany-proven where installer workflows and subsidy bureaucracy mirror CZ. No CZ player found (absence check 2026-08-13)."
+    note: "yc-autarc: autarc (YC S24, Berlin, ~30 people) — agentic OS for heat-pump/solar installers: heat-load calc, quoting, subsidy paperwork, project management. Germany-proven where installer workflows and subsidy bureaucracy mirror CZ. No CZ player found (absence check 2026-08-13). Demand point: hundreds of small montážní firmy drowning in NZÚ paperwork per the signal — evidence carried here, hence the dims tag."
     date: 2026-08-13
   - type: subsidy
     url: https://www.ycombinator.com/companies/autarc
