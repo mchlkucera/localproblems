@@ -9,67 +9,11 @@
 <!-- localproblems.org design system v1.1 — see design-language skill. Content runs never edit shared.css. -->
 <link rel="stylesheet" href="shared.css">
 <style>
-/* sources.html page-local · condensed signal register
-   The signal lists render as ledger tables: one tbody per signal —
-   a main row of recorded values plus a note row. Tokens only. */
-
-/* section heads compress to a single ruled line, label inline right */
-h2.sec, h2.sec-sub {
-  display: flex; align-items: baseline; gap: var(--sp-3); flex-wrap: wrap;
-  padding-bottom: var(--sp-1);
-}
-h2.sec { font-size: var(--fs-body); margin: var(--sp-6) 0 var(--sp-2); border-bottom: 1px solid var(--ink); }
-h2.sec-sub { font-size: var(--fs-data); margin: var(--sp-5) 0 var(--sp-2); border-bottom: 1px solid var(--rule); }
-h2.sec .label, h2.sec-sub .label { margin-left: auto; text-align: right; }
-
-/* section intros tighten to data size; still serif, still prose */
-section > p { font-size: var(--fs-data); margin-block-end: var(--sp-2); }
-
-/* ---- the ledger ------------------------------------------------ */
-table.ledger {
-  width: 100%; border-collapse: collapse;
-  font: 400 var(--fs-data)/1.4 var(--mono);
-  border-bottom: 1px solid var(--rule);
-  margin: 0 0 var(--sp-2);
-}
-.ledger thead th {
-  font: 500 var(--fs-label)/1 var(--mono);
-  text-transform: uppercase; letter-spacing: 0.08em; text-align: left;
-  background: var(--paper-2); padding: var(--sp-1) var(--sp-2);
-  border-bottom: 3px double var(--ink);
-}
-.ledger td { padding: var(--sp-1) var(--sp-2); vertical-align: baseline; }
-.ledger th:first-child, .ledger td:first-child { padding-left: 0; }
-.ledger tr.r td { border-top: 1px solid var(--rule); }
-.ledger tbody:hover td { background: var(--paper-2); }   /* instant, no transition */
-.ledger tbody:target td { background: var(--paper-2); }  /* deep-link landing */
-
-.ledger .t-sig { font: 500 var(--fs-label)/1.4 var(--mono); color: var(--ink-muted); white-space: nowrap; }
-.ledger .t-name { font: 600 0.9375rem/1.3 var(--serif); width: 44%; }  /* the only serif cell */
-.ledger .t-cat { text-transform: uppercase; font-size: var(--fs-label); letter-spacing: 0.06em; white-space: nowrap; }
-.ledger .t-geo { font-size: var(--fs-label); color: var(--ink-muted); white-space: nowrap; }
-.ledger .t-status { white-space: nowrap; }
-.ledger .t-num, .ledger th.t-num { text-align: right; white-space: nowrap; }
-.ledger .t-amt { font-weight: 600; }
-.ledger .t-date time { color: var(--ink-muted); }
-
-/* note row: muted serif second line, source + record ref flush right */
-.ledger .t-note { padding: 0 var(--sp-2) var(--sp-2); }
-.ledger .t-note > div {
-  display: flex; flex-wrap: wrap; align-items: baseline;
-  gap: var(--sp-1) var(--sp-5);
-}
-.ledger .note {
-  flex: 1 1 32rem; max-width: var(--w-prose);
-  font: 400 var(--fs-meta)/1.5 var(--serif); font-style: italic;
-  color: var(--ink-muted);
-}
-.ledger .src { font: 400 var(--fs-label)/1.5 var(--mono); color: var(--ink-muted); white-space: nowrap; }
-
-@media print {
-  .ledger tbody { break-inside: avoid; }
-  .ledger tbody:hover td, .ledger tbody:target td { background: none; }
-}
+/* sources.html page-local — signal registers reuse table.index verbatim.
+   FLAGGED for incorporation into the reference stylesheet: tr:target highlight. */
+.index tr:target { background: var(--paper-2); }
+.index .t-title a[title] { cursor: help; }
+h2 .label { margin-left: 0.75ch; }
 </style>
 </head>
 <body>
@@ -87,190 +31,101 @@ table.ledger {
   <a href="#">Newsletter</a>
 </nav>
 
-<p>The register's inputs. Every problem record is synthesized from normalized signals — one file per signal, public in the repo, grouped here by who stated the problem.</p>
+<p>The register's inputs. Every problem record is synthesized from normalized signals — one file per signal, public in the repo, grouped by who stated the problem and sorted by signal value. Hover a name for the recorded note; the record column links each signal to the problem it feeds.</p>
 
 <p class="crumb">updated <time>2026-08-13</time></p>
 
 <nav class="filters">
-  <a href="#bottom-up">Bottom-up — the users (00)</a> ·
+  <a href="#market">The market — the operators (01)</a> ·
   <a href="#top-down">Top-down — the governments (11)</a> ·
-  <a href="#capital">The capital — the investors (21)</a> ·
-  <a href="#market">The market — the operators (01)</a>
+  <a href="#bottom-up">Bottom-up — the users (00)</a> ·
+  <a href="#capital">The capital — the investors (21)</a>
 </nav>
 
+<section id="market">
+  <h2>The market — the operators<span class="label">01 signal · data/normalized/de/</span></h2>
+  <p>Companies already operating a proven model in one market that is absent in another. The highest-value signal on the register: it pre-validates both demand and business model.</p>
+  <table class="index">
+    <caption>Absence checks run <time>2026-08-13</time> · scans keyed by country scanned</caption>
+    <thead>
+      <tr><th>Signal</th><th>Name</th><th>Category</th><th>Geo</th><th class="t-num">Value</th><th>Record</th><th class="t-num">Date</th></tr>
+    </thead>
+    <tbody>
+      <tr id="de-exnaton"><td class="t-id">de-exnaton</td><td class="t-title"><a href="https://exnaton.com/" title="White-label billing and settlement SaaS for energy communities and P2P electricity sharing, deployed by utilities across DACH and the Nordics. No local equivalent on record.">Exnaton — white-label energy-community billing · DE/CH</a></td><td class="t-cat">Energy</td><td>DE/CH</td><td class="t-num">—</td><td class="t-id"><a href="problem-p-0001.html">P-0001</a></td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="top-down">
+  <h2>Top-down — the governments<span class="label">11 signals · data/normalized/reg/</span></h2>
+  <p>Regulation with a compliance deadline creates a market on a date. The date on each signal is the operative deadline, verified against the primary legal text. Public tenders and grant calls join this category when the procurement feed lands.</p>
+  <table class="index">
+    <caption>Sorted by deadline, ascending · sources EUR-Lex, zakonyprolidi.cz · T−n counted from <time>2026-08-13</time></caption>
+    <thead>
+      <tr><th>Signal</th><th>Name</th><th>Category</th><th>Geo</th><th class="t-num">Value</th><th>Record</th><th class="t-num">Deadline</th></tr>
+    </thead>
+    <tbody>
+      <tr id="reg-ai-act-milestones"><td class="t-id">reg-ai-act-milestones</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" title="Transparency obligations for AI providers and deployers — disclose AI interaction, label synthetic content — apply from 2 Aug 2026; high-risk obligations follow Dec 2027 / Aug 2028. Fines up to €35M or 7% of global turnover.">EU AI Act — Art 50 transparency obligations</a></td><td class="t-cat">Legal</td><td>EU</td><td class="t-num">in force</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-02</time></td></tr>
+      <tr id="reg-ppwr-packaging"><td class="t-id">reg-ppwr-packaging</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/reg/2025/40/oj" title="Recyclability, minimization, labelling and PFAS requirements for every business placing packaged products on the EU market, from 12 Aug 2026.">PPWR — packaging requirements apply</a></td><td class="t-cat">Environment</td><td>EU</td><td class="t-num">in force</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-12</time></td></tr>
+      <tr id="reg-cra-reporting"><td class="t-id">reg-cra-reporting</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/reg/2024/2847/oj" title="Manufacturers of products with digital elements, including software, must report actively exploited vulnerabilities and severe incidents within 24 hours from 11 Sep 2026. Fines up to €15M or 2.5% of turnover.">Cyber Resilience Act — 24-hour vulnerability reporting</a></td><td class="t-cat">Legal</td><td>EU</td><td class="t-num">T−29</td><td class="t-id">P-0016</td><td class="t-num t-date"><time>2026-09-11</time></td></tr>
+      <tr id="reg-eudr-deforestation"><td class="t-id">reg-eudr-deforestation</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/reg/2023/1115/oj" title="Geolocation-based due diligence for operators trading cattle, cocoa, coffee, palm oil, rubber, soy and wood products, filed by 30 Dec 2026 (micro/small: 30 Jun 2027). Penalties up to 4% of EU turnover.">EUDR — due-diligence statements due</a></td><td class="t-cat">Environment</td><td>EU</td><td class="t-num">T−139</td><td class="t-id">P-0012</td><td class="t-num t-date"><time>2026-12-30</time></td></tr>
+      <tr id="reg-nis2-cz-zkb"><td class="t-id">reg-nis2-cz-zkb</td><td class="t-title"><a href="https://www.zakonyprolidi.cz/cs/2025-264" title="National NIS2 transposition: 6,000+ firms and municipalities must register with the cybersecurity authority and implement security measures within one year of registration — rolling deadlines through 2027. Fines up to 2% of turnover.">Cybersecurity Act 264/2025 — NIS2 transposition, rolling deadlines</a></td><td class="t-cat">Legal</td><td>CZ</td><td class="t-num">T−140</td><td class="t-id">P-0008</td><td class="t-num t-date"><time>2026-12-31</time></td></tr>
+      <tr id="reg-eidas2-eudi-wallet"><td class="t-id">reg-eidas2-eudi-wallet</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/reg/2024/1183/oj" title="Every member state must offer at least one EUDI Wallet to citizens and businesses by end of 2026; banks, telcos and large platforms must accept it for strong authentication during 2027.">eIDAS 2.0 — EU Digital Identity Wallet due</a></td><td class="t-cat">Govtech</td><td>EU</td><td class="t-num">T−140</td><td class="t-id">P-0017</td><td class="t-num t-date"><time>2026-12-31</time></td></tr>
+      <tr id="reg-instant-payments-cz"><td class="t-id">reg-instant-payments-cz</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/reg/2024/886/oj" title="Non-eurozone payment providers must receive instant euro credit transfers by 9 Jan 2027, and send them plus run Verification of Payee by 9 Jul 2027.">Instant Payments Regulation — receive instant EUR</a></td><td class="t-cat">Fintech</td><td>CZ</td><td class="t-num">T−149</td><td class="t-id">P-0013</td><td class="t-num t-date"><time>2027-01-09</time></td></tr>
+      <tr id="reg-machinery-2023-1230"><td class="t-id">reg-machinery-2023-1230</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/reg/2023/1230/oj" title="Replaces the Machinery Directive on 20 Jan 2027 with no transition period; manufacturers, importers and firms doing substantial modifications must meet new requirements on cybersecurity, AI-enabled safety functions and digital instructions.">Machinery Regulation — hard cutover, no transition</a></td><td class="t-cat">B2B</td><td>EU</td><td class="t-num">T−160</td><td class="t-id">P-0014</td><td class="t-num t-date"><time>2027-01-20</time></td></tr>
+      <tr id="reg-amlr-single-rulebook"><td class="t-id">reg-amlr-single-rulebook</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/reg/2024/1624/oj" title="Harmonised customer due diligence, beneficial-ownership and internal-policy requirements for banks, crypto firms, real-estate agents and newly scoped sectors from 10 Jul 2027, under the new AMLA supervisor. A €10 000 cash payment cap applies from the same date.">EU AML Regulation — single rulebook applies</a></td><td class="t-cat">Fintech</td><td>EU</td><td class="t-num">T−331</td><td class="t-id">P-0006</td><td class="t-num t-date"><time>2027-07-10</time></td></tr>
+      <tr id="reg-cbam-definitive"><td class="t-id">reg-cbam-definitive</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/reg/2023/956/oj" title="Importers of iron, steel, aluminium, cement, fertilisers, hydrogen and electricity above 50 t/year need authorised declarant status; certificates on sale from Feb 2027; first annual declaration for 2026 imports due 30 Sep 2027. Liability accrues already; certificate cost tracks the EU ETS price.">CBAM definitive regime — first annual declaration</a></td><td class="t-cat">Environment</td><td>EU</td><td class="t-num">T−413</td><td class="t-id">P-0015</td><td class="t-num t-date"><time>2027-09-30</time></td></tr>
+      <tr id="reg-csrd-post-omnibus"><td class="t-id">reg-csrd-post-omnibus</td><td class="t-title"><a href="https://eur-lex.europa.eu/eli/dir/2022/2464/oj" title="Companies with 1,000+ employees and €450M+ turnover publish ESRS sustainability reports for FY2027 during 2028; their value-chain data requests cascade to smaller suppliers. Scope and dates agreed but not yet in the Official Journal.">CSRD post-Omnibus — FY2027 reporting cycle</a></td><td class="t-cat">Legal</td><td>EU</td><td class="t-num">T−506</td><td class="t-id">—</td><td class="t-num t-date"><time>2028-01-01</time></td></tr>
+    </tbody>
+  </table>
+</section>
+
 <section id="bottom-up">
-  <h2 class="sec">Bottom-up — the users <span class="label">00 signals · feed pending</span></h2>
+  <h2>Bottom-up — the users<span class="label">00 signals · feed pending</span></h2>
   <p>Problems stated directly by the people who have them: civic complaint platforms, participatory budgets, reviews, forums. The most authentic signal and the noisiest.</p>
   <p class="crumb">No signals on record in this category. As of <time>2026-08-13</time>. Feed pending.</p>
 </section>
 
-<section id="top-down">
-  <h2 class="sec">Top-down — the governments <span class="label">11 signals · sorted by deadline · data/normalized/reg/</span></h2>
-  <p>Regulation with a compliance deadline creates a market on a date. The date on each signal is the operative deadline, verified against the primary legal text. Public tenders and grant calls join this category when the procurement feed lands.</p>
-  <table class="ledger">
-    <thead>
-      <tr><th scope="col">signal</th><th scope="col">name</th><th scope="col">category</th><th scope="col">geo</th><th scope="col">status</th><th scope="col" class="t-num">deadline</th><th scope="col" class="t-num">t−n</th></tr>
-    </thead>
-    <tbody id="reg-ai-act-milestones">
-      <tr class="r"><td class="t-sig">reg-ai-act-milestones</td><td class="t-name">EU AI Act — Art 50 transparency obligations</td><td class="t-cat">legal-compliance</td><td class="t-geo">EU</td><td class="t-status">in force</td><td class="t-num"><time>2026-08-02</time></td><td class="t-num"></td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Transparency obligations for AI providers and deployers — disclose AI interaction, label synthetic content — apply from 2 Aug 2026; high-risk obligations follow Dec 2027 / Aug 2028. Fines up to €35M or 7% of global turnover.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">eur-lex.europa.eu/eli/reg/2024/1689/oj</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-ppwr-packaging">
-      <tr class="r"><td class="t-sig">reg-ppwr-packaging</td><td class="t-name">PPWR — packaging requirements apply</td><td class="t-cat">environment</td><td class="t-geo">EU</td><td class="t-status">in force</td><td class="t-num"><time>2026-08-12</time></td><td class="t-num"></td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Recyclability, minimization, labelling and PFAS requirements for every business placing packaged products on the EU market, from 12 Aug 2026.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/reg/2025/40/oj">eur-lex.europa.eu/eli/reg/2025/40/oj</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-cra-reporting">
-      <tr class="r"><td class="t-sig">reg-cra-reporting</td><td class="t-name">Cyber Resilience Act — 24-hour vulnerability reporting</td><td class="t-cat">legal-compliance</td><td class="t-geo">EU</td><td class="t-status">by</td><td class="t-num"><time>2026-09-11</time></td><td class="t-num">T−29</td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Manufacturers of products with digital elements, including software, must report actively exploited vulnerabilities and severe incidents within 24 hours from 11 Sep 2026. Fines up to €15M or 2.5% of turnover.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/reg/2024/2847/oj">eur-lex.europa.eu/eli/reg/2024/2847/oj</a> · → feeds record P-0016</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-eudr-deforestation">
-      <tr class="r"><td class="t-sig">reg-eudr-deforestation</td><td class="t-name">EUDR — due-diligence statements due</td><td class="t-cat">environment</td><td class="t-geo">EU</td><td class="t-status">by</td><td class="t-num"><time>2026-12-30</time></td><td class="t-num">T−139</td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Geolocation-based due diligence for operators trading cattle, cocoa, coffee, palm oil, rubber, soy and wood products, filed by 30 Dec 2026 (micro/small: 30 Jun 2027). Penalties up to 4% of EU turnover.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/reg/2023/1115/oj">eur-lex.europa.eu/eli/reg/2023/1115/oj</a> · → feeds record P-0012</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-nis2-cz-zkb">
-      <tr class="r"><td class="t-sig">reg-nis2-cz-zkb</td><td class="t-name">Cybersecurity Act 264/2025 — NIS2 transposition, rolling deadlines</td><td class="t-cat">legal-compliance</td><td class="t-geo">CZ-national</td><td class="t-status">by</td><td class="t-num"><time>2026-12-31</time></td><td class="t-num">T−140</td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">National NIS2 transposition: 6,000+ firms and municipalities must register with the cybersecurity authority and implement security measures within one year of registration — rolling deadlines through 2027. Fines up to 2% of turnover.</span><span class="src"><a href="https://www.zakonyprolidi.cz/cs/2025-264">zakonyprolidi.cz/cs/2025-264</a> · → feeds record P-0008</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-eidas2-eudi-wallet">
-      <tr class="r"><td class="t-sig">reg-eidas2-eudi-wallet</td><td class="t-name">eIDAS 2.0 — EU Digital Identity Wallet due</td><td class="t-cat">govtech</td><td class="t-geo">EU</td><td class="t-status">by</td><td class="t-num"><time>2026-12-31</time></td><td class="t-num">T−140</td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Every member state must offer at least one EUDI Wallet to citizens and businesses by end of 2026; banks, telcos and large platforms must accept it for strong authentication during 2027.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/reg/2024/1183/oj">eur-lex.europa.eu/eli/reg/2024/1183/oj</a> · → feeds record P-0017</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-instant-payments-cz">
-      <tr class="r"><td class="t-sig">reg-instant-payments-cz</td><td class="t-name">Instant Payments Regulation — receive instant EUR</td><td class="t-cat">fintech</td><td class="t-geo">CZ-national</td><td class="t-status">by</td><td class="t-num"><time>2027-01-09</time></td><td class="t-num">T−149</td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Non-eurozone payment providers must receive instant euro credit transfers by 9 Jan 2027, and send them plus run Verification of Payee by 9 Jul 2027.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/reg/2024/886/oj">eur-lex.europa.eu/eli/reg/2024/886/oj</a> · → feeds record P-0013</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-machinery-2023-1230">
-      <tr class="r"><td class="t-sig">reg-machinery-2023-1230</td><td class="t-name">Machinery Regulation — hard cutover, no transition</td><td class="t-cat">b2b</td><td class="t-geo">EU</td><td class="t-status">by</td><td class="t-num"><time>2027-01-20</time></td><td class="t-num">T−160</td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Replaces the Machinery Directive on 20 Jan 2027 with no transition period; manufacturers, importers and firms doing substantial modifications must meet new requirements on cybersecurity, AI-enabled safety functions and digital instructions.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/reg/2023/1230/oj">eur-lex.europa.eu/eli/reg/2023/1230/oj</a> · → feeds record P-0014</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-amlr-single-rulebook">
-      <tr class="r"><td class="t-sig">reg-amlr-single-rulebook</td><td class="t-name">EU AML Regulation — single rulebook applies</td><td class="t-cat">fintech</td><td class="t-geo">EU</td><td class="t-status">by</td><td class="t-num"><time>2027-07-10</time></td><td class="t-num">T−331</td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Harmonised customer due diligence, beneficial-ownership and internal-policy requirements for banks, crypto firms, real-estate agents and newly scoped sectors from 10 Jul 2027, under the new AMLA supervisor. A €10 000 cash payment cap applies from the same date.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/reg/2024/1624/oj">eur-lex.europa.eu/eli/reg/2024/1624/oj</a> · → feeds record P-0006</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-cbam-definitive">
-      <tr class="r"><td class="t-sig">reg-cbam-definitive</td><td class="t-name">CBAM definitive regime — first annual declaration</td><td class="t-cat">environment</td><td class="t-geo">EU</td><td class="t-status">by</td><td class="t-num"><time>2027-09-30</time></td><td class="t-num">T−413</td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Importers of iron, steel, aluminium, cement, fertilisers, hydrogen and electricity above 50 t/year need authorised declarant status; certificates on sale from Feb 2027; first annual declaration for 2026 imports due 30 Sep 2027. Liability accrues already; certificate cost tracks the EU ETS price.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/reg/2023/956/oj">eur-lex.europa.eu/eli/reg/2023/956/oj</a> · → feeds record P-0015</span></div></td></tr>
-    </tbody>
-    <tbody id="reg-csrd-post-omnibus">
-      <tr class="r"><td class="t-sig">reg-csrd-post-omnibus</td><td class="t-name">CSRD post-Omnibus — FY2027 reporting cycle</td><td class="t-cat">legal-compliance</td><td class="t-geo">EU</td><td class="t-status">from</td><td class="t-num"><time>2028-01-01</time></td><td class="t-num">T−506</td></tr>
-      <tr><td></td><td colspan="6" class="t-note"><div><span class="note">Companies with 1,000+ employees and €450M+ turnover publish ESRS sustainability reports for FY2027 during 2028; their value-chain data requests cascade to smaller suppliers. Scope and dates agreed but not yet in the Official Journal.</span><span class="src"><a href="https://eur-lex.europa.eu/eli/dir/2022/2464/oj">eur-lex.europa.eu/eli/dir/2022/2464/oj</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-  </table>
-</section>
-
 <section id="capital">
-  <h2 class="sec">The capital — the investors <span class="label">21 signals · accelerator batch + funding rounds</span></h2>
+  <h2>The capital — the investors<span class="label">21 signals · data/normalized/yc/ + round/</span></h2>
   <p>Where money already went. Accelerator companies prove a model works somewhere; funding rounds confirm investors pay for the category. Capital signals never create a record on their own — they corroborate one.</p>
 
-  <h2 class="sec-sub">Accelerator batch <span class="label">11 signals · ycombinator.com · data/normalized/yc/</span></h2>
-  <table class="ledger">
+  <table class="index">
+    <caption>Accelerator batch · absence checks run <time>2026-08-13</time> · source ycombinator.com</caption>
     <thead>
-      <tr><th scope="col">signal</th><th scope="col">name</th><th scope="col">category</th><th scope="col" class="t-num">recorded</th></tr>
+      <tr><th>Signal</th><th>Name</th><th>Category</th><th>Geo</th><th class="t-num">Value</th><th>Record</th><th class="t-num">Date</th></tr>
     </thead>
-    <tbody id="yc-autarc">
-      <tr class="r"><td class="t-sig">yc-autarc</td><td class="t-name">autarc — OS for heat-pump &amp; solar installers · YC S24, Berlin</td><td class="t-cat">energy</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">Vertical operating system for energy-installation companies — site survey, heat-load calculation, quoting, subsidy paperwork, project tracking on one platform. No local equivalent on record.</span><span class="src"><a href="https://www.ycombinator.com/companies/autarc">ycombinator.com/companies/autarc</a> · → feeds record P-0002</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-mercura">
-      <tr class="r"><td class="t-sig">yc-mercura</td><td class="t-name">Mercura — AI quote &amp; order processing for distributors · YC W25</td><td class="t-cat">b2b</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">Extracts inbound RFQs and orders from e-mail, PDF and spreadsheets into ERP quotes for building-supply distributors and manufacturers. No local vertical equivalent on record.</span><span class="src"><a href="https://www.ycombinator.com/companies/mercura">ycombinator.com/companies/mercura</a> · → feeds record P-0005</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-permitportal">
-      <tr class="r"><td class="t-sig">yc-permitportal</td><td class="t-name">PermitPortal — AI pre-construction &amp; permits · YC F24</td><td class="t-cat">housing</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">AI operating system for pre-construction — site entitlements, zoning intelligence and permit navigation for developers. No local equivalent on record.</span><span class="src"><a href="https://www.ycombinator.com/companies/permitportal">ycombinator.com/companies/permitportal</a> · → feeds record P-0003</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-oma-care">
-      <tr class="r"><td class="t-sig">yc-oma-care</td><td class="t-name">Oma Care — family caregivers, trained and paid · YC W24</td><td class="t-cat">health</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">Infrastructure that trains family caregivers and routes state caregiving benefits to them. No equivalent navigation layer on record for the local care-allowance scheme.</span><span class="src"><a href="https://www.ycombinator.com/companies/oma-care">ycombinator.com/companies/oma-care</a> · → feeds record P-0004</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-gale">
-      <tr class="r"><td class="t-sig">yc-gale</td><td class="t-name">Gale — corporate work-visa automation · YC W25</td><td class="t-cat">legal-compliance</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">Automates the corporate work-visa pipeline — application preparation, compliance, HR-system integration. Only form-help sites and law firms on record locally.</span><span class="src"><a href="https://www.ycombinator.com/companies/gale">ycombinator.com/companies/gale</a> · → feeds record P-0009</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-hammr">
-      <tr class="r"><td class="t-sig">yc-hammr</td><td class="t-name">Hammr — construction payroll, HR &amp; compliance · YC W23</td><td class="t-cat">housing</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">Construction-specific payroll, HR and compliance. Only generic payroll and site-diary tools on record locally.</span><span class="src"><a href="https://www.ycombinator.com/companies/hammr">ycombinator.com/companies/hammr</a> · → feeds record P-0007</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-cocrafter">
-      <tr class="r"><td class="t-sig">yc-cocrafter</td><td class="t-name">CoCrafter — contractor-to-subcontractor marketplace · YC W24</td><td class="t-cat">housing</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">B2B marketplace matching general contractors with vetted subcontractors; 3,000+ SMB companies onboard. Only consumer-grade marketplaces on record locally.</span><span class="src"><a href="https://www.ycombinator.com/companies/cocrafter">ycombinator.com/companies/cocrafter</a> · → feeds record P-0007</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-hemut">
-      <tr class="r"><td class="t-sig">yc-hemut</td><td class="t-name">Hemut — AI back office for trucking · YC Spring 25</td><td class="t-cat">mobility</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">AI operating system for trucking companies — phone agents, document ingestion, load sourcing, automated accounting. Only legacy transport-management software on record locally.</span><span class="src"><a href="https://www.ycombinator.com/companies/hemut">ycombinator.com/companies/hemut</a> · → feeds record P-0010</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-sagecare">
-      <tr class="r"><td class="t-sig">yc-sagecare</td><td class="t-name">Sage Care — AI ops for home-care agencies · YC S24</td><td class="t-cat">health</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">AI operations layer for home-care agencies — intake, communication and scheduling busywork. Only legacy record-keeping software on record locally.</span><span class="src"><a href="https://www.ycombinator.com/companies/sagecare">ycombinator.com/companies/sagecare</a> · → feeds record P-0011</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-saturn">
-      <tr class="r"><td class="t-sig">yc-saturn</td><td class="t-name">Saturn — compliance OS for wealth managers · YC S24</td><td class="t-cat">legal-compliance</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">Compliance and back-office workflow software for wealth managers and investment intermediaries. Only consultancies on record locally, no product.</span><span class="src"><a href="https://www.ycombinator.com/companies/saturn">ycombinator.com/companies/saturn</a> · → feeds record P-0006</span></div></td></tr>
-    </tbody>
-    <tbody id="yc-sanvivo">
-      <tr class="r"><td class="t-sig">yc-sanvivo</td><td class="t-name">Sanvivo — e-commerce layer for independent pharmacies · YC W23</td><td class="t-cat">health</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">Online ordering, advice and click-and-collect infrastructure for independent pharmacies. No equivalent for the independent segment on record locally. Caveat on file: validate segment size before promoting to a record.</span><span class="src"><a href="https://www.ycombinator.com/companies/sanvivo">ycombinator.com/companies/sanvivo</a> · → no problem record yet</span></div></td></tr>
+    <tbody>
+      <tr id="yc-autarc"><td class="t-id">yc-autarc</td><td class="t-title"><a href="https://www.ycombinator.com/companies/autarc" title="Vertical operating system for energy-installation companies — site survey, heat-load calculation, quoting, subsidy paperwork, project tracking on one platform. No local equivalent on record.">autarc — OS for heat-pump &amp; solar installers · YC S24</a></td><td class="t-cat">Energy</td><td>DE</td><td class="t-num">—</td><td class="t-id">P-0002</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-mercura"><td class="t-id">yc-mercura</td><td class="t-title"><a href="https://www.ycombinator.com/companies/mercura" title="Extracts inbound RFQs and orders from e-mail, PDF and spreadsheets into ERP quotes for building-supply distributors and manufacturers. No local vertical equivalent on record.">Mercura — AI quote &amp; order processing for distributors · YC W25</a></td><td class="t-cat">B2B</td><td>DE</td><td class="t-num">—</td><td class="t-id">P-0005</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-permitportal"><td class="t-id">yc-permitportal</td><td class="t-title"><a href="https://www.ycombinator.com/companies/permitportal" title="AI operating system for pre-construction — site entitlements, zoning intelligence and permit navigation for developers. No local equivalent on record.">PermitPortal — AI pre-construction &amp; permits · YC F24</a></td><td class="t-cat">Housing</td><td>US</td><td class="t-num">—</td><td class="t-id">P-0003</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-oma-care"><td class="t-id">yc-oma-care</td><td class="t-title"><a href="https://www.ycombinator.com/companies/oma-care" title="Infrastructure that trains family caregivers and routes state caregiving benefits to them. No equivalent navigation layer on record for the local care-allowance scheme.">Oma Care — family caregivers, trained and paid · YC W24</a></td><td class="t-cat">Health</td><td>US</td><td class="t-num">—</td><td class="t-id">P-0004</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-gale"><td class="t-id">yc-gale</td><td class="t-title"><a href="https://www.ycombinator.com/companies/gale" title="Automates the corporate work-visa pipeline — application preparation, compliance, HR-system integration. Only form-help sites and law firms on record locally.">Gale — corporate work-visa automation · YC W25</a></td><td class="t-cat">Legal</td><td>US</td><td class="t-num">—</td><td class="t-id">P-0009</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-hammr"><td class="t-id">yc-hammr</td><td class="t-title"><a href="https://www.ycombinator.com/companies/hammr" title="Construction-specific payroll, HR and compliance. Only generic payroll and site-diary tools on record locally.">Hammr — construction payroll, HR &amp; compliance · YC W23</a></td><td class="t-cat">Housing</td><td>US</td><td class="t-num">—</td><td class="t-id">P-0007</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-cocrafter"><td class="t-id">yc-cocrafter</td><td class="t-title"><a href="https://www.ycombinator.com/companies/cocrafter" title="B2B marketplace matching general contractors with vetted subcontractors; 3,000+ SMB companies onboard. Only consumer-grade marketplaces on record locally.">CoCrafter — contractor-to-subcontractor marketplace · YC W24</a></td><td class="t-cat">Housing</td><td>DE</td><td class="t-num">—</td><td class="t-id">P-0007</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-hemut"><td class="t-id">yc-hemut</td><td class="t-title"><a href="https://www.ycombinator.com/companies/hemut" title="AI operating system for trucking companies — phone agents, document ingestion, load sourcing, automated accounting. Only legacy transport-management software on record locally.">Hemut — AI back office for trucking · YC Spring 25</a></td><td class="t-cat">Mobility</td><td>US</td><td class="t-num">—</td><td class="t-id">P-0010</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-sagecare"><td class="t-id">yc-sagecare</td><td class="t-title"><a href="https://www.ycombinator.com/companies/sagecare" title="AI operations layer for home-care agencies — intake, communication and scheduling busywork. Only legacy record-keeping software on record locally.">Sage Care — AI ops for home-care agencies · YC S24</a></td><td class="t-cat">Health</td><td>US</td><td class="t-num">—</td><td class="t-id">P-0011</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-saturn"><td class="t-id">yc-saturn</td><td class="t-title"><a href="https://www.ycombinator.com/companies/saturn" title="Compliance and back-office workflow software for wealth managers and investment intermediaries. Only consultancies on record locally, no product.">Saturn — compliance OS for wealth managers · YC S24</a></td><td class="t-cat">Legal</td><td>GB</td><td class="t-num">—</td><td class="t-id">P-0006</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
+      <tr id="yc-sanvivo"><td class="t-id">yc-sanvivo</td><td class="t-title"><a href="https://www.ycombinator.com/companies/sanvivo" title="Online ordering, advice and click-and-collect infrastructure for independent pharmacies. No equivalent for the independent segment on record locally. Caveat on file: validate segment size before promoting to a record.">Sanvivo — e-commerce layer for independent pharmacies · YC W23</a></td><td class="t-cat">Health</td><td>DE</td><td class="t-num">—</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
     </tbody>
   </table>
 
-  <h2 class="sec-sub">Funding rounds <span class="label">10 signals · sorted by size · vestbee.com · data/normalized/round/</span></h2>
-  <table class="ledger">
+  <table class="index">
+    <caption>Funding rounds · sorted by size, descending · captured <time>2026-08-04</time> · source vestbee.com</caption>
     <thead>
-      <tr><th scope="col">signal</th><th scope="col">name</th><th scope="col">category</th><th scope="col">geo</th><th scope="col" class="t-num">amount</th><th scope="col" class="t-num">recorded</th></tr>
+      <tr><th>Signal</th><th>Name</th><th>Category</th><th>Geo</th><th class="t-num">Value</th><th>Record</th><th class="t-num">Date</th></tr>
     </thead>
-    <tbody id="round-oxylabs">
-      <tr class="r"><td class="t-sig">round-oxylabs</td><td class="t-name">Oxylabs — web intelligence infrastructure · LT</td><td class="t-cat">b2b</td><td class="t-geo">LT-national</td><td class="t-num t-amt">€112M</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Series A led by Warburg Pincus. Web intelligence and data collection infrastructure.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="round-ominimo">
-      <tr class="r"><td class="t-sig">round-ominimo</td><td class="t-name">Ominimo — AI digital car insurance · HU</td><td class="t-cat">fintech</td><td class="t-geo">HU-national</td><td class="t-num t-amt">€19.4M</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Series B led by EBRD. AI-powered digital car insurance.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="round-pstryk">
-      <tr class="r"><td class="t-sig">round-pstryk</td><td class="t-name">Pstryk — dynamic electricity pricing · PL</td><td class="t-cat">energy</td><td class="t-geo">PL-national</td><td class="t-num t-amt">€7M</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Series A led by Future Energy Ventures. Dynamic electricity pricing platform for households and SMEs — corroborates investor appetite for consumer/SME energy tooling.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → feeds record <a href="problem-p-0001.html">P-0001</a></span></div></td></tr>
-    </tbody>
-    <tbody id="round-foractive">
-      <tr class="r"><td class="t-sig">round-foractive</td><td class="t-name">ForActive — fitness business management · PL</td><td class="t-cat">b2b</td><td class="t-geo">PL-national</td><td class="t-num t-amt">€3.1M</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Seed round led by Simpact Ventures. Fitness business management platform.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="round-cthings-co">
-      <tr class="r"><td class="t-sig">round-cthings-co</td><td class="t-name">CTHINGS.CO — IoT device management · PL</td><td class="t-cat">b2b</td><td class="t-geo">PL-national</td><td class="t-num t-amt">€1.8M</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Growth round led by Navivo Capital. IoT device management platform.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="round-trueengage">
-      <tr class="r"><td class="t-sig">round-trueengage</td><td class="t-name">TrueEngage — omnichannel customer engagement · PL</td><td class="t-cat">b2b</td><td class="t-geo">PL-national</td><td class="t-num t-amt">€1.3M</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Seed round led by Digital Ocean Ventures. Omnichannel customer engagement platform.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="round-sigvi">
-      <tr class="r"><td class="t-sig">round-sigvi</td><td class="t-name">Sigvi — AI car rental platform · LT</td><td class="t-cat">mobility</td><td class="t-geo">LT-national</td><td class="t-num t-amt">€1.2M</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Pre-seed led by Superhero Capital. AI-powered car rental platform.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="round-trinity-robotics">
-      <tr class="r"><td class="t-sig">round-trinity-robotics</td><td class="t-name">Trinity Robotics — autonomous ground vehicles · UA</td><td class="t-cat">other</td><td class="t-geo">UA-national</td><td class="t-num t-amt">€500k</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Seed round led by Hede Capital Partners. Autonomous unmanned ground vehicles for defense and logistics.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="round-display-dev">
-      <tr class="r"><td class="t-sig">round-display-dev</td><td class="t-name">Display.dev — AI document collaboration · EE</td><td class="t-cat">b2b</td><td class="t-geo">EE-national</td><td class="t-num t-amt">€470k</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Pre-seed led by Outlast Fund. AI document collaboration platform.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-    <tbody id="round-htg-medical">
-      <tr class="r"><td class="t-sig">round-htg-medical</td><td class="t-name">HTG Medical — ICU urine-output monitoring · CZ</td><td class="t-cat">health</td><td class="t-geo">CZ-national</td><td class="t-num t-amt">€450k</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
-      <tr><td></td><td colspan="5" class="t-note"><div><span class="note">Pre-seed led by Garage Angels. Automation of urine-output monitoring in intensive care units.</span><span class="src"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> · → no problem record yet</span></div></td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section id="market">
-  <h2 class="sec">The market — the operators <span class="label">01 signal · proven models · data/normalized/de/</span></h2>
-  <p>Companies already operating a model in one market that is absent in another. Each signal records the model and a dated absence check; scans are keyed by the country scanned.</p>
-  <table class="ledger">
-    <thead>
-      <tr><th scope="col">signal</th><th scope="col">name</th><th scope="col">category</th><th scope="col" class="t-num">recorded</th></tr>
-    </thead>
-    <tbody id="de-exnaton">
-      <tr class="r"><td class="t-sig">de-exnaton</td><td class="t-name">Exnaton — white-label energy-community billing · DE/CH</td><td class="t-cat">energy</td><td class="t-num t-date"><time>2026-08-13</time></td></tr>
-      <tr><td></td><td colspan="3" class="t-note"><div><span class="note">White-label billing and settlement SaaS for energy communities and P2P electricity sharing, deployed by utilities across DACH and the Nordics. No local equivalent on record where the register's open records sit.</span><span class="src"><a href="https://exnaton.com/">exnaton.com</a> · → feeds record <a href="problem-p-0001.html">P-0001</a></span></div></td></tr>
+    <tbody>
+      <tr id="round-oxylabs"><td class="t-id">round-oxylabs</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Series A led by Warburg Pincus. Web intelligence and data collection infrastructure.">Oxylabs — web intelligence infrastructure</a></td><td class="t-cat">B2B</td><td>LT</td><td class="t-num">€112M</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
+      <tr id="round-ominimo"><td class="t-id">round-ominimo</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Series B led by EBRD. AI-powered digital car insurance.">Ominimo — AI digital car insurance</a></td><td class="t-cat">Fintech</td><td>HU</td><td class="t-num">€19.4M</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
+      <tr id="round-pstryk"><td class="t-id">round-pstryk</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Series A led by Future Energy Ventures. Dynamic electricity pricing platform for households and SMEs — corroborates investor appetite for consumer/SME energy tooling.">Pstryk — dynamic electricity pricing</a></td><td class="t-cat">Energy</td><td>PL</td><td class="t-num">€7M</td><td class="t-id"><a href="problem-p-0001.html">P-0001</a></td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
+      <tr id="round-foractive"><td class="t-id">round-foractive</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Seed round led by Simpact Ventures. Fitness business management platform.">ForActive — fitness business management</a></td><td class="t-cat">B2B</td><td>PL</td><td class="t-num">€3.1M</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
+      <tr id="round-cthings-co"><td class="t-id">round-cthings-co</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Growth round led by Navivo Capital. IoT device management platform.">CTHINGS.CO — IoT device management</a></td><td class="t-cat">B2B</td><td>PL</td><td class="t-num">€1.8M</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
+      <tr id="round-trueengage"><td class="t-id">round-trueengage</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Seed round led by Digital Ocean Ventures. Omnichannel customer engagement platform.">TrueEngage — omnichannel customer engagement</a></td><td class="t-cat">B2B</td><td>PL</td><td class="t-num">€1.3M</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
+      <tr id="round-sigvi"><td class="t-id">round-sigvi</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Pre-seed led by Superhero Capital. AI-powered car rental platform.">Sigvi — AI car rental platform</a></td><td class="t-cat">Mobility</td><td>LT</td><td class="t-num">€1.2M</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
+      <tr id="round-trinity-robotics"><td class="t-id">round-trinity-robotics</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Seed round led by Hede Capital Partners. Autonomous unmanned ground vehicles for defense and logistics.">Trinity Robotics — autonomous ground vehicles</a></td><td class="t-cat">Other</td><td>UA</td><td class="t-num">€500k</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
+      <tr id="round-display-dev"><td class="t-id">round-display-dev</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Pre-seed led by Outlast Fund. AI document collaboration platform.">Display.dev — AI document collaboration</a></td><td class="t-cat">B2B</td><td>EE</td><td class="t-num">€470k</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
+      <tr id="round-htg-medical"><td class="t-id">round-htg-medical</td><td class="t-title"><a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026" title="Pre-seed led by Garage Angels. Automation of urine-output monitoring in intensive care units.">HTG Medical — ICU urine-output monitoring</a></td><td class="t-cat">Health</td><td>CZ</td><td class="t-num">€450k</td><td class="t-id">—</td><td class="t-num t-date"><time>2026-08-04</time></td></tr>
     </tbody>
   </table>
 </section>
