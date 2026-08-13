@@ -46,18 +46,21 @@ data/signals/
   funded/<run-date>.jsonl       # companies founded/funded: yc, rounds, foreign-market scans
   regulation/<run-date>.jsonl   # regulatory triggers with dates
   tenders/<run-date>.jsonl      # tenders, grants, public contracts (ted, hlidac)
+  demand/<run-date>.jsonl       # bottom-up documented complaints & unmet needs (demand-scan)
   seen.txt                      # one canonical id per line, sorted — the dedup index
 ```
 
 One JSONL file per **evidence type** per run date, append-only, committed to git.
-`bootstrapped/` is a reserved fourth type (indie-hacker/revenue signals) — created only
-when a fetchable source exists.
+`demand` records bottom-up documented complaints and unmet needs — NKÚ audit findings,
+ombudsman reports, civic complaint data, chamber/NGO surveys, consultations — fed by
+research harvests (source `demand-scan`). `bootstrapped/` stays reserved
+(indie-hacker/revenue signals) — created only when a fetchable source exists.
 
 ### Record schema (one JSON object per line)
 
 ```
 id          canonical <prefix>-<nativeid>; v1 ids grandfathered unchanged
-source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan | feed
+source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan | demand-scan | feed
 url, date   primary source URL, native ISO date
 title       native title, EN
 sector      the fixed category list in CONVENTIONS.md
@@ -126,8 +129,8 @@ demand + gap`, every point justified by a `sources[]` entry, verdict words
 ## 5. The site (`web/` — Next.js, pure SSG)
 
 **Minimal: list the problems, list the evidence.** A Next.js app (latest stable, App
-Router, TypeScript) in `web/`, deployed on Vercel — chosen for owner familiarity and
-the v3 claiming seam. Discipline keeps it exactly as simple as a static generator:
+Router, TypeScript) in `web/`, deployed on Vercel — chosen for owner familiarity.
+Discipline keeps it exactly as simple as a static generator:
 
 - **Pure SSG.** Server Components only — no client components, no hydration, no ISR,
   no runtime data reads. Every route statically generated (`generateStaticParams`,
@@ -141,10 +144,13 @@ the v3 claiming seam. Discipline keeps it exactly as simple as a static generato
 
 | Route | Content |
 |---|---|
-| `/` | register table ranked by score: id · title · category · score meter · verdict · updated. `rejected` excluded, `stale` greyed at the bottom. |
-| `/problem/[region]/[id]` | one rundown page for **every** problem: docket · scorecard band · prose statement · sources ledger (S1…Sn, each linking its evidence record) · one-line claim `mailto:` · provenance footer |
-| `/signals/[type]` | the evidence pages (funded · regulation · tenders): recent records per type, anchor per id — the provenance target (replace the v1 per-fetch-source pages) |
+| `/` | register table ranked by score: id · title · category · locality · score meter · updated. `rejected` excluded, `stale` greyed at the bottom. |
+| `/problem/[region]/[id]` | one rundown page for **every** problem: docket · scorecard band · prose statement · sources ledger (S1…Sn, each linking its evidence record) · provenance footer. Score rundown dialogs embed the referenced source records (external links only, close cross). |
+| `/sources/[type]` | the source ledgers (funded · regulation · tenders · demand): recent records per type, anchor per id — the provenance target (replace the v1 per-fetch-source pages) |
 | 404 | house string: "Record not found. Either it never existed, or it was solved so thoroughly it disappeared." |
+
+The problem register and the source ledgers are two clearly separated surfaces: site
+nav reads `Problems` then `Sources: Funded · Regulation · Tenders · Demand`.
 
 Nothing else: no redirects (v1 was never publicly deployed), no test suite (the
 build's validation IS the gate), no OG images, no middleware, no API routes.
@@ -152,8 +158,7 @@ build's validation IS the gate), no OG images, no middleware, no API routes.
 - **Design:** the `design-language` skill is binding. `web/shared.css` is a verbatim
   copy of the skill stylesheet — the build asserts checksum equality and fails on
   drift; no new classes, colors, or components; fonts load exactly as the skill
-  specifies. The skill's `v2-spec.md` refinements are design-owner backlog,
-  independent of this spec.
+  specifies.
 - **Deploy:** Vercel project rooted at `web/`; push to `main` = production; wire
   `localproblems.org` when registered. **The local build is the gate:** the weekly
   agent runs `npm --prefix web run build` before committing — a red build means bad
@@ -168,7 +173,8 @@ filler. **Draft only — a human reviews and sends. Nothing is ever auto-sent.**
 
 ## 7. Non-goals (cut, explicitly)
 
-- **Claiming** — v3; the `mailto:` link is the whole v2 claim flow. No accounts, forms, moderation.
+- **Claiming** — cut entirely (owner, 2026-08-13). No claim UI. Revisit only if the
+  register earns an audience. Lifecycle statuses live in data frontmatter only.
 - **Client-side JavaScript** beyond the sanctioned relative-dates snippet — no client
   components, no hydration-dependent UI.
 - **SQLite / Postgres / servers / embeddings** — tripwires only (§10).
@@ -232,9 +238,8 @@ Ops notes that survive: TED API works locally only (cloud egress 403s); Hlídač
 
 - `bootstrapped` sources (indie-hacker lists, revenue milestones) — when fetchable.
 - Second region (PL) — after one clean CZ cycle.
-- Claiming (v3): frontmatter already carries `status`; v3 adds `claimed{date, handle,
-  link}` and upgrades the mailto to a form — a server action in the same app. Additive,
-  no schema break, no re-platform.
+- **Claiming** — cut entirely (owner, 2026-08-13). No claim UI. Revisit only if the
+  register earns an audience.
 - Monetization ladder (newsletter → Pro → B2B radar) and the month-9 fork (CEE English
   expansion vs B2B data product) — recorded in `docs/archive/02`, revisit after launch.
 

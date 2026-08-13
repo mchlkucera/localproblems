@@ -1,6 +1,6 @@
 # localproblems.org
 
-**A public register of local problems and opportunities — with receipts.**
+**A public register of local problems and opportunities. Every claim links to its source.**
 
 Solvers are abundant; well-stated problems are scarce. This repo collects public
 signals (tenders, regulation, foreign-market arbitrage, funding rounds, complaints),

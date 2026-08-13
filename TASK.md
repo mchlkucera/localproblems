@@ -9,7 +9,10 @@ Read SPEC.md, SCORING.md and data/CONVENTIONS.md before step 1.
    `direnv exec .`). Write manifest.md (per source: item count or FAILED +
    error). First run of each month only: also web-fetch the EC Have Your Say
    open consultations page, the Dealroom Czech Republic page, and skim any new
-   OECD/IMF CZ country notes; save relevant extracts under data/sources/<today>/.
+   OECD/IMF CZ country notes; harvest the top demand sources per
+   docs/sources-catalog.md (NKÚ releases, ombudsman agenda counts, ČOI stats,
+   SÚKL availability) and consider wiring the next catalog feed as a script.
+   Save relevant extracts under data/sources/<today>/.
    Delete data/sources/ folders older than 28 days.
 
 2. NORMALIZE (objective, region-blind — no opportunity judgment here):
@@ -19,8 +22,8 @@ Read SPEC.md, SCORING.md and data/CONVENTIONS.md before step 1.
    Drop ONLY if money <= 1 AND scale <= 1 AND urgency == 0 (the materiality
    filter — everything else is kept, hundreds of records is correct, not a
    failure). Append survivors as one JSON line each to
-   data/signals/<type>/<today>.jsonl (funded | regulation | tenders — mapping
-   in CONVENTIONS.md) and add their ids to seen.txt (keep it sorted).
+   data/signals/<type>/<today>.jsonl (funded | regulation | tenders | demand —
+   mapping in CONVENTIONS.md) and add their ids to seen.txt (keep it sorted).
 
 3. MATCH (REGION agent — all judgment lives here): read every problem's
    frontmatter in data/problems/<REGION>/. For each new signal or cluster of
