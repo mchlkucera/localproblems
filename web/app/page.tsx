@@ -1,7 +1,7 @@
-// The register — index.html of the gazette.
-import { extractDate, registerRows, stats } from "../lib/data";
+// The problem register — distilled from the source ledgers.
+import { extractDate, registerRows, stats, EVIDENCE_TYPES } from "../lib/data";
 import { categoryLabel, localityLabel, pad2 } from "../lib/format";
-import { FooterHouseLine, Masthead, SiteNav, StatusDot, Tally, CORRECTIONS_MAILTO } from "../lib/chrome";
+import { FooterHouseLine, Masthead, SiteNav, Tally, CORRECTIONS_MAILTO } from "../lib/chrome";
 
 export default function Register() {
   const rows = registerRows();
@@ -14,23 +14,25 @@ export default function Register() {
       <SiteNav current="/" />
 
       <p>
-        Real local problems, stated properly — with receipts. Extracted weekly from tenders,
-        regulations, complaint data and foreign markets; every claim links to a source. Pick one
-        that fits you, and claim it.
+        Real local problems, stated properly. Distilled weekly from public sources — tenders,
+        regulations, funding rounds, documented complaints. Every claim links to its source.
       </p>
 
       <p className="crumb">
-        {s.open} open problems · Czechia, pilot country · {s.sourcesOnFile} sources on file ·{" "}
-        {s.deadlinesTracked} regulatory triggers tracked
+        {s.open} problems on record · Czechia, pilot country · distilled from{" "}
+        {s.signalCount} source signals:{" "}
+        {EVIDENCE_TYPES.map((t, i) => (
+          <span key={t}>
+            {i > 0 && " · "}
+            <a href={`/sources/${t}`}>{s.byType[t]} {t}</a>
+          </span>
+        ))}
         {s.nextDeadline && (
           <>
-            , next <a href={`/signals/regulation#${s.nextDeadline.id}`}><time>{s.nextDeadline.date}</time></a>
+            {" "}· next regulatory deadline{" "}
+            <a href={`/sources/regulation#${s.nextDeadline.id}`}><time>{s.nextDeadline.date}</time></a>
           </>
-        )}{" "}
-        · {s.signalCount} signals on file:{" "}
-        <a href="/signals/funded">{s.byType.funded} funded</a> ·{" "}
-        <a href="/signals/regulation">{s.byType.regulation} regulation</a> ·{" "}
-        <a href="/signals/tenders">{s.byType.tenders} tenders</a>
+        )}
       </p>
 
       <table className="index">
@@ -39,7 +41,7 @@ export default function Register() {
         </caption>
         <thead>
           <tr>
-            <th></th><th>ID</th><th>Problem</th><th>Category</th><th>Locality</th>
+            <th>ID</th><th>Problem</th><th>Category</th><th>Locality</th>
             <th className="t-num">Score</th><th className="t-num">Updated</th>
           </tr>
         </thead>
@@ -48,7 +50,6 @@ export default function Register() {
             const href = `/problem/${p.region}/${p.id}`;
             return (
               <tr key={p.id} className={p.status === "stale" || p.status === "solved" ? "is-solved" : undefined}>
-                <td><StatusDot status={p.status} /></td>
                 <td className="t-id"><a href={href}>{p.id.toUpperCase()}</a></td>
                 <td className="t-title"><a href={href}>{p.title}</a></td>
                 <td className="t-cat">{categoryLabel(p.category)}</td>
@@ -70,7 +71,7 @@ export default function Register() {
         <FooterHouseLine />
         <br />
         <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
-        <a href="/signals/funded">source data</a>
+        <a href="/sources/funded">source ledgers</a>
       </footer>
     </>
   );

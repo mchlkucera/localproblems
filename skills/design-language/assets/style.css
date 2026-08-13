@@ -133,7 +133,6 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 .index .t-num, .index thead .t-num { text-align: left; white-space: nowrap; }  /* v2: every column left-aligns */
 .index .t-date { color: var(--ink-muted); }
 .index tr.is-solved .t-title { color: var(--ink-muted); }
-.index td:first-child, .index th:first-child { text-align: center; width: 1.75rem; padding-inline: var(--sp-1); }
 
 /* ---- problem page: docket header (the title block gets the most air) */
 /* the docket always hands off to the scorecard band directly below it */
@@ -173,12 +172,12 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 .scorecard .dim--total { margin-left: auto; padding-right: 0; }
 .scorecard .dim--total .num { font-size: var(--fs-title); } /* the loudest figure on the page */
 /* .score-high on the total dim turns .num stamp-red for totals 10–12 */
-.scorecard .tally {
+.scorecard .tally, .rundown header .tally {
   width: calc(var(--max) * 0.625rem); height: 0.625rem; position: relative;
   /* wide-tick variant of the tally — still the only *-gradient() device */
   background: repeating-linear-gradient(90deg, var(--rule) 0 6px, transparent 6px 10px);
 }
-.scorecard .tally::after {
+.scorecard .tally::after, .rundown header .tally::after {
   content: ""; position: absolute; inset: 0;
   width: calc(var(--s) / var(--max) * 100%);  /* set style="--s:3;--max:3" in HTML */
   background: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 10px);
@@ -188,19 +187,39 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   .scorecard .dim, .scorecard .dim + .dim { border-left: 0; padding: 0; }
   .scorecard .dim--total { margin-left: 0; }
 }
-/* score rundown dialogs (v1.3): native popovers — a scorecard dim
-   is a button (popovertarget) opening its proof as a centered
-   dialog. Declarative, light-dismiss, still no scripting.       */
+/* score rundown dialogs (v2): native popovers — a scorecard dim is a
+   button (popovertarget) opening an official notice that carries the
+   criterion AND the full evidence records. Declarative close cross
+   (popovertargetaction=hide), light-dismiss, still no scripting.  */
 .rundown[popover] {
   border: 2px solid var(--ink);               /* button/stamp weight — it is an official notice */
   background: var(--paper); color: var(--ink);
   padding: var(--sp-5) var(--sp-6);
-  max-width: 34rem; margin: auto;
+  width: min(32rem, calc(100vw - 2 * var(--sp-5)));
+  max-height: 80vh; overflow-y: auto;
+  margin: auto;
   font: 500 var(--fs-data)/1.6 var(--mono);
 }
 .rundown::backdrop { background: color-mix(in srgb, var(--ink) 24%, transparent); }
-.rundown .verdict { display: block; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--sp-2); }
-.rundown .t-src { display: block; margin-top: var(--sp-3); }
+.rundown .x {
+  position: absolute; top: var(--sp-2); right: var(--sp-2);
+  border: 0; background: none; cursor: pointer; padding: var(--sp-1) var(--sp-2);
+  font: 500 1rem/1 var(--mono); color: var(--ink-muted);
+}
+.rundown .x:hover { color: var(--ink); }
+.rundown header {
+  display: flex; align-items: baseline; gap: var(--sp-3);
+  padding-bottom: var(--sp-3); margin-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--rule);
+}
+.rundown header .label { font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); }
+.rundown header .num { font-weight: 600; }
+.rundown header .verdict { margin-left: auto; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+.rundown .crit { margin: 0; }
+.rundown .sig { border-top: 1px solid var(--rule); margin-top: var(--sp-4); padding-top: var(--sp-3); }
+.rundown .sig .meta { display: block; font-size: var(--fs-meta); color: var(--ink-muted); margin-bottom: var(--sp-1); }
+.rundown .sig .name { font: 600 0.9375rem/1.3 var(--serif); }
+.rundown .sig .note { margin: var(--sp-2) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); font-style: italic; max-width: none; }
 
 /* ---- signals breakdown ---------------------------------------- */
 table.signals { border-collapse: collapse; font: 400 var(--fs-data)/1.5 var(--mono); min-width: 60%; }
@@ -277,8 +296,6 @@ ol.receipts { list-style: none; margin: 0; padding: 0; counter-reset: exhibit; }
    the serif name column can never be starved by nowrap mono columns. */
 .index:has(col.c-name) { table-layout: fixed; }
 .index:has(col.c-name) td { overflow: hidden; text-overflow: ellipsis; }
-.index:has(col.c-name) td:first-child,                 /* no dot column here — */
-.index:has(col.c-name) th:first-child { text-align: left; width: auto; padding-inline: var(--sp-3); }
 .index col.c-name { width: 30%; }
 .index col.c-src  { width: 12%; }
 .index col.c-cat  { width: 11%; }

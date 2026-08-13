@@ -18,17 +18,21 @@ export function Masthead({ index = false }: { index?: boolean }) {
   );
 }
 
-export const NAV_ITEMS = [
-  ["/", "List"],
-  ["/signals/funded", "Funded"],
-  ["/signals/regulation", "Regulation"],
-  ["/signals/tenders", "Tenders"],
+export const SOURCE_NAV = [
+  ["/sources/funded", "Funded"],
+  ["/sources/regulation", "Regulation"],
+  ["/sources/tenders", "Tenders"],
+  ["/sources/demand", "Demand"],
 ] as const;
 
+/** The two surfaces, kept visibly distinct: the problem register, and the
+    source ledgers it is distilled from. */
 export function SiteNav({ current }: { current?: string }) {
   return (
     <nav className="filters">
-      {NAV_ITEMS.map(([href, label], i) => (
+      <a href="/" aria-current={current === "/" ? "page" : undefined}>Problems</a>
+      {"  ·  Sources: "}
+      {SOURCE_NAV.map(([href, label], i) => (
         <span key={href}>
           {i > 0 && " · "}
           <a href={href} aria-current={current === href ? "page" : undefined}>{label}</a>
@@ -70,16 +74,5 @@ export function Tally({ s, max }: { s: number; max?: number }) {
   return <span className="tally" style={style} />;
 }
 
-export function StatusDot({ status }: { status: string }) {
-  const cls =
-    status === "claimed" ? "dot dot--claimed" :
-    status === "solved" ? "dot dot--solved" :
-    status === "stale" || status === "rejected" ? "dot dot--closed" :
-    "dot";
-  const title =
-    status === "claimed" ? "Claimed" :
-    status === "solved" ? "Solved" :
-    status === "stale" ? "Stale" :
-    status === "rejected" ? "Closed" : "Open";
-  return <span className={cls} title={title} />;
-}
+// The status dot and claim devices are retired (owner, 2026-08-13):
+// lifecycle statuses live in data frontmatter only until they diverge.

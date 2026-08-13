@@ -1,6 +1,6 @@
 // The data layer: reads ../data at build time, zod-validated.
 // Validation failure = build failure = deploy blocked (SPEC.md §5).
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { load as yamlLoad } from "js-yaml";
 import { z } from "zod";
@@ -13,7 +13,7 @@ export const CATEGORIES = [
   "retail-services", "b2b", "legal-compliance", "education", "environment", "other",
 ] as const;
 
-export const EVIDENCE_TYPES = ["funded", "regulation", "tenders"] as const;
+export const EVIDENCE_TYPES = ["funded", "regulation", "tenders", "demand"] as const;
 export type EvidenceType = (typeof EVIDENCE_TYPES)[number];
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "ISO date required");
@@ -22,7 +22,7 @@ const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "ISO date required");
 
 const SignalSchema = z.object({
   id: z.string().regex(/^[a-z]{2,10}-[\w.-]+$/),
-  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed"]),
+  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan"]),
   url: z.string().url(),
   date: isoDate,
   title: z.string().min(1),
@@ -129,6 +129,7 @@ export function getSignals(): Signal[] {
   const signals: Signal[] = [];
   for (const type of EVIDENCE_TYPES) {
     const dir = join(DATA, "signals", type);
+    if (!existsSync(dir)) continue; // a pending feed is a registered fact — its page renders empty
     for (const f of readdirSync(dir).sort()) {
       if (!f.endsWith(".jsonl")) continue;
       const lines = readFileSync(join(dir, f), "utf8").split("\n").filter(Boolean);

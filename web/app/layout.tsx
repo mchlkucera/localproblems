@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { assertScoringVocabulary } from "../lib/scorecard";
 
 export const metadata: Metadata = {
-  title: "localproblems.org — a public register of local problems, with receipts",
+  title: "localproblems.org — a public register of local problems",
   description:
-    "Real local problems, stated properly — with receipts. Extracted weekly from tenders, regulations, complaint data and foreign markets; every claim links to a source.",
+    "Real local problems, stated properly. Distilled weekly from tenders, regulations, funding rounds and documented complaints; every claim links to its source.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
