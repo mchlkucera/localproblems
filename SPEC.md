@@ -159,11 +159,13 @@ build's validation IS the gate), no OG images, no middleware, no API routes.
   copy of the skill stylesheet — the build asserts checksum equality and fails on
   drift; no new classes, colors, or components; fonts load exactly as the skill
   specifies.
-- **Deploy:** Vercel project rooted at `web/`; push to `main` = production; wire
-  `localproblems.org` when registered. **The local build is the gate:** the weekly
-  agent runs `npm --prefix web run build` before committing — a red build means bad
-  data; fix the data, never the app. Vercel runs the same build, so a green local
-  build is a green deploy.
+- **Deploy:** Vercel project `localproblems` (live: https://localproblems.vercel.app);
+  the deploy is a LOCAL prebuilt upload — `cd web && vercel build --prod &&
+  vercel deploy --prebuilt --prod` — because the app reads `../data` at build time,
+  which remote builders can't see. (Git-driven deploys become possible once a GitHub
+  remote exists and the Vercel project sets root directory `web/` with files outside
+  the root included.) Wire `localproblems.org` when registered. **The local build is
+  the gate:** a red build means bad data; fix the data, never the app.
 
 ## 6. Newsletter
 

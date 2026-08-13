@@ -53,9 +53,12 @@ Read SPEC.md, SCORING.md and data/CONVENTIONS.md before step 1.
    rescored), 1 regulatory deadline to watch. Czech language, direct tone,
    no filler. This is a DRAFT for human review — never send anything.
 
-7. COMMIT: git add -A && git commit -m "weekly run <today>: +N signals,
-   +X new / Y updated problems" && git push. End by printing a 5-line run
-   summary (fetched / kept / new problems / updated / top mover).
+7. COMMIT + DEPLOY: git add -A && git commit -m "weekly run <today>: +N
+   signals, +X new / Y updated problems" && git push (skip push while no
+   remote exists). Then deploy: cd web && vercel build --prod &&
+   vercel deploy --prebuilt --prod (build stays local — the app reads
+   ../data). End by printing a 5-line run summary (fetched / kept / new
+   problems / updated / top mover).
 
 Quarterly (first run of Jan/Apr/Jul/Oct): dedup sweep — scan the register for
 near-duplicate problems, merge them (union sources, keep older id, dropped
