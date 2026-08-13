@@ -40,15 +40,28 @@ The design is fully decided. Your job is to APPLY it, never to reinterpret it. W
 
 - Money: mono, euro-first: compact `€450k` / `€7M` for rounded sums, space-grouped `1 250 000` for exact figures. Currency always stated.
 - Dates in data positions: ISO `2026-08-13` in `<time>`. Long dates only inside serif prose.
+- Alignment (v2): every table column is left-aligned — numerics, dates and sums included. No right-aligned columns anywhere.
 - Deadlines: `by 2026-09-30 · T−48`; when T < 14, class `.urgent` (stamp red).
 - IDs: `{CITY3}-{NNN}` zero-padded: `BRN-041`. Scores `09/12`. Issue `no. 33`. **Zero-padding is the house tic** — everything countable is padded.
-- Scores render as the **12-tick tally** (survey chain marks) + zero-padded fraction. Never progress bars, gauges, stars, or rings.
+- Scores render as **tally ticks** (survey chain marks) + zero-padded fraction: the 12-tick total tally in the index, and per-dimension tallies (`--s` of `--max`) in the scorecard. Never progress bars, gauges, stars, or rings.
+- Score verdicts: one word, mono, uppercase, taken verbatim from SCORING.md's verdict tables (e.g. `VALIDATED`, `UNFUNDED`, `STRONG`). Never invent a verdict word per page.
 
 ## Page anatomy
 
 - **Masthead on every page**: 4px ink bar, then `localproblems.org` (serif 700) with `vol. {YYYY} · no. {ISO-week}` (mono) right-aligned, then 1px rule. The weekly build IS a publication issue — the automation is the brand.
-- **Index = a register table**, not cards: 7 columns max (dot / ID / title / category / locality / score right-aligned / updated right-aligned). Title is the ONLY serif cell. ~20–24 rows per viewport. Pre-sorted by score desc at build time; caption states the sort and extract date. **Zero JavaScript** — filtering is pre-generated category pages.
-- **Problem page**: docket header (3px double rule, ID + status dot + tally, serif title, 3-column facts grid) → Summary (serif prose, max 62ch) → Score breakdown (signals table with 2px-rule total row) → **Receipts** (numbered exhibit chips "Exhibit A/B/C…" in 1px ink boxes, dotted leader from source to date, quote in serif italic) → Solved elsewhere (dot-leader lines) → claim block (1px ink border, 4px green left edge, `CLAIM THIS PROBLEM →` button that inverts on hover) → footer with record provenance.
+- **Index = a register table**, not cards: 7 columns max (dot / ID / title / category / locality / score / updated — all left-aligned per v2). Title is the ONLY serif cell. ~20–24 rows per viewport. Pre-sorted by score desc at build time; caption states the sort and extract date. **Zero JavaScript** — filtering is pre-generated category pages.
+- **Problem page**: docket header (3px double rule, ID + status dot, serif title, 3-column facts grid) → **scorecard** (the top-line band, see below — the "how good is it" answer, above the fold) → The problem (serif prose, max 62ch, every figure carries a source link) → **score rundown dialogs** (native `popover` — each scorecard dimension is a button opening its justification + `→ S1, S3` refs as a centered dialog with an ink scrim; declarative, light-dismiss, no scripting; the score is explained in exactly ONE place, no separate breakdown section) → **Sources** (one-line ledger entries S1…Sn: S-number, linked name, dot leader, date — the name IS the link, no note or URL lines) → Market math (dot-leader lines, assumptions stated) → Solved elsewhere (dot-leader lines) → claim block (1px ink border, 4px green left edge, `CLAIM THIS PROBLEM →` button that inverts on hover) → footer with record provenance.
+
+## The scorecard (the "how good is it" band)
+
+Sits immediately under the docket on every problem page — the first thing a solver reads, comparable across every record. It answers "how good is this opportunity, objectively?" before a single line of prose. Rules:
+
+- **Five dimensions + total**, exactly as defined in SCORING.md: PROOF / MONEY / URGENCY / DEMAND / GAP. Never invent, drop, or reorder a dimension per page.
+- Each dimension is a stacked mono column: uppercase label → zero-padded figure (`3/3`) → tally ticks sized by `--s`/`--max` → one-word uppercase **verdict** from SCORING.md. Nothing else — no sentences, no icons, no color-coding beyond the rules below.
+- The **TOTAL** sits right, separated by hairlines like every dimension, and carries the largest figure on the page (`--fs-title`). Totals 10–12 take `.score-high` (stamp red on the number).
+- **Zero-scoring dimensions render muted** (`.is-zero` greys number and verdict) — absence is stated, never hidden. A 0 with a receipt-less note is honest; an omitted dimension is a lie.
+- Every dimension is a **button** (`popovertarget`) opening its rundown dialog (`#d-proof` …, total → `#d-total`) — native popover, no JavaScript. The scorecard asserts, the rundown proves, the sources testify.
+- Hairline separators only; no cards, no backgrounds beyond the `--paper-2` hover on the anchor.
 
 ## The five signature moves (the only permitted flourishes)
 
@@ -56,7 +69,7 @@ The design is fully decided. Your job is to APPLY it, never to reinterpret it. W
 2. **Cadastral rules**: exactly three meanings — 4px solid = page begins; 3px double = major boundary; 1px solid = row hairline. No other border weights (2px reserved for buttons/stamps).
 3. **Gazette numbering**: `vol. 2026 · no. 33` in masthead, echoed in breadcrumbs.
 4. **The status dot**: the ONLY circle and ONLY icon on the site. Hollow green = open, filled = claimed, filled + outline ring = solved, hollow grey = closed.
-5. **Dot leaders**: any label→value or source→date pair joined by 1px dotted leader, like a form.
+5. **Dot leaders**: label→value pairs may be joined by a 1px dotted leader ONLY where the pair has no rule of its own (forms, facts). In ruled ledger lists (sources, comps, market math) the leader is a blank spacer — one row, one line, never two.
 
 ## Spacing and rhythm (v1.1)
 
@@ -65,10 +78,21 @@ The design is fully decided. Your job is to APPLY it, never to reinterpret it. W
 - **The docket is the title block**: it gets the most air on the site — 24px above the ID, 24px around the title, 48px clearance before the prose begins.
 - **Ledger density**: register and signals rows sit at 8px vertical padding; 12px cell gutters; 24px page gutter; 32px facts-grid column gap. Dense is fine, squeezed is not.
 
+## Sources architecture (v2)
+
+- `sources.html` is a hub: one register table of the four origin groups, each row linking to its page.
+- One sub-page per **origin group**, not per feed: **The market — the operators** (`source-market.html`), **Top-down — the governments** (`source-top-down.html`), **Bottom-up — the users** (`source-bottom-up.html`), **The capital — the investors** (`source-capital.html`).
+- Each origin page lists every signal from all of its member feeds in ONE table. The second column names where the signal came from — for market scans that is the **country** scanned; for the other groups the feed (Regulations, TED, Contract registry, Y Combinator, Rounds).
+- All signal tables share one fixed column layout (identical widths on every page): Name / Country-or-Source / Category / Geo / Value / Record / Date. Name is the only serif cell, links to the origin URL, carries the recorded note as its `title` attribute, truncates with ellipsis.
+- Empty groups stay on the hub and their page renders the empty-category line — a pending feed is a registered fact, not a hidden one.
+- These pages are GENERATED by `scripts/build_sources.py` from `data/normalized/`. Never hand-edit them; change the data or the script.
+
+**Implementation status:** this section and the v2 left-alignment rule are SPEC, not yet built. The current build is v1.1: one page per feed (`source-de.html`, `source-reg.html`, …) and right-aligned numeric columns. Implementing v2 means: (1) flip the numeric-column alignment to left in `assets/style.css` (and its copy `site/shared.css`), (2) rework `scripts/build_sources.py` to emit the four origin-group pages with the Country-or-Source column and delete the per-feed pages, (3) regenerate. Until then, the v1.1 output stands.
+
 ## The anti-slop rulebook (hard NEVERs)
 
 1. NEVER any font beyond Source Serif 4 + IBM Plex Mono.
-2. NEVER center text (numeric columns right-align; dot cell centers; nothing else).
+2. NEVER center or right-align text — every column, numerics included, left-aligns (v2). The dot cell centers; nothing else.
 3. NEVER `box-shadow` or blur — elevation does not exist on paper.
 4. NEVER `border-radius` except the status dot. Corners are square. Zero, not 2px.
 5. NEVER gradients as color (sole exception: the hard-stop tick pattern inside `.tally`).
@@ -84,6 +108,11 @@ The design is fully decided. Your job is to APPLY it, never to reinterpret it. W
 15. NEVER cards or section backgrounds beyond `--paper-2`. There are no cards; there are ruled records.
 16. NEVER modify `assets/style.css` during a content run. Invent no classes, colors, or sizes — if a needed class doesn't exist, flag it in the run summary instead of improvising.
 
+## Sanctioned exceptions (v1.3 — owner-approved)
+
+1. **Facts glyphs**: a facts-grid value may open with ONE text-presentation glyph (`⚡︎` category, `⌖` locality). Text presentation only (U+FE0E where needed) — never color emoji, never elsewhere than the facts grid.
+2. **Relative dates**: `time.rel[datetime]` may render Notion-style relative text (today / yesterday / N days ago; 7+ days stays ISO) via the tiny progressive script. The ISO date always remains in `datetime` + `title`; the page must read identically with JS off. This narrows NEVER 13 — no other JavaScript is permitted.
+
 ## Copy for UI chrome (exact strings)
 
 The site is English-only; render these strings exactly.
@@ -91,12 +120,13 @@ The site is English-only; render these strings exactly.
 | Slot | String |
 |---|---|
 | Claim button | `CLAIM THIS PROBLEM →` |
-| Open record | `This record is unclaimed. Nobody is working on it. Receipts above.` |
+| Open record | `This record is unclaimed. Nobody is working on it. Sources above.` |
 | Claimed stamp | `CLAIMED · 2026-08-02 · @handle` |
 | Empty category | `No open problems on record in this category. As of {date}.` |
 | Table caption | `Sorted by score, descending · extract generated {date}` |
-| Corrections | `Receipt wrong? Corrections →` |
-| Footer | `Data as recorded, no warranty. Receipts with links. Extract no. {NN}/{YYYY}, generated automatically.` |
+| Corrections | `Source wrong? Corrections →` |
+| Footer | `Data as recorded, no warranty. Sources with links. Extract no. {NN}/{YYYY}, generated automatically.` |
+| Source refs | `→ S1, S3` (mono, in rundown drawers; em dash `—` when a 0 needs no source) |
 | 404 | `Record not found. Either it never existed, or it was solved so thoroughly it disappeared.` |
 
 Buttons: uppercase mono, verb-first, one verb. Never an exclamation mark in chrome. "Problem" is never softened to "challenge".
@@ -105,7 +135,14 @@ Buttons: uppercase mono, verb-first, one verb. Never an exclamation mark in chro
 
 The complete reference stylesheet is in `assets/style.css` (part of this skill). It implements every token and component above and is the ONLY stylesheet the site uses. Copy it into the repo once; content runs never touch it.
 
-Weekly build rules: compute `no. NN` as zero-padded ISO week; compute `T−n` from deadlines; sort index by score desc then updated desc; set tally fill via inline `style="--s:9"`; verify every page against the NEVER list before committing.
+Weekly build rules: compute `no. NN` as zero-padded ISO week; compute `T−n` from deadlines; sort index by score desc then updated desc; set tally fill via inline `style="--s:9"` (scorecard tallies additionally carry `--max`); pull dimension scores and verdict words from SCORING.md; verify every page against the NEVER list before committing.
+
+## v2 (planned)
+
+Approved future direction lives in `v2-spec.md` (same folder): proof dialogs
+embedding full signal records, sources section showing record detail, market
+math as serif prose, and a native status treatment replacing the statline chip.
+Not binding for v1.x builds — do not implement during content runs.
 
 ## Quality gate (optional but recommended)
 
