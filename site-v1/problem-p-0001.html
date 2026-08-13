@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P-0001 — Energy communities lose half the value of shared electricity · Local Problems Register</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+/* problems · localproblems.org design system v1.0 — see design-language skill */
+:root {
+  --paper:#F8F6F1; --paper-2:#EFECE5; --ink:#1A1814; --ink-muted:#6E6A5F;
+  --rule:#CBC6B9; --stamp:#BB271A; --signal:#1A7A3C;
+  --serif:"Source Serif 4",Georgia,serif; --mono:"IBM Plex Mono","Courier New",monospace;
+  --fs-masthead:2.5rem; --fs-title:1.75rem; --fs-h2:1.25rem; --fs-body:1rem;
+  --fs-data:0.8125rem; --fs-meta:0.75rem; --fs-label:0.6875rem;
+  --w-page:76rem; --w-prose:62ch; color-scheme:light only;
+}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{max-width:var(--w-page);margin:0 auto;padding:0 1.25rem 4rem;font:400 var(--fs-body)/1.55 var(--serif);color:var(--ink);border-top:4px solid var(--ink)}
+p{max-width:var(--w-prose)}
+h2{font:600 var(--fs-h2)/1.3 var(--serif);margin:2.5rem 0 .75rem}
+a{color:inherit;text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:2px}
+a:hover{text-decoration-color:var(--ink)}
+time,code,.mono{font-family:var(--mono);font-size:var(--fs-data)}
+.masthead{display:flex;justify-content:space-between;align-items:baseline;padding:.75rem 0 .5rem;border-bottom:1px solid var(--ink)}
+.masthead .brand{font:700 1.25rem var(--serif);text-decoration:none}
+.masthead .issue{font:500 var(--fs-meta) var(--mono)}
+.crumb{font:400 var(--fs-meta)/1.5 var(--mono);color:var(--ink-muted);margin:.5rem 0 1.5rem}
+.dot{display:inline-block;width:.625rem;height:.625rem;border-radius:50%;border:1.5px solid var(--signal);vertical-align:-1px}
+.status{font:600 var(--fs-label)/1 var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.score{font:600 var(--fs-data)/1 var(--mono);white-space:nowrap}
+.score .tally{display:inline-block;width:3rem;height:.625rem;margin-right:.75ch;position:relative;vertical-align:-1px;background:repeating-linear-gradient(90deg,var(--rule) 0 2px,transparent 2px 4px)}
+.score .tally::after{content:"";position:absolute;inset:0;width:calc(var(--s)/12*100%);background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px)}
+.docket{position:relative;border-top:3px double var(--ink);border-bottom:1px solid var(--ink);padding:1.25rem 0 1.5rem;margin-bottom:2rem}
+.docket .id{font:600 var(--fs-meta)/1 var(--mono);letter-spacing:.08em}
+.docket .statline{float:right;font-family:var(--mono);font-size:var(--fs-data)}
+.docket h1{font:700 var(--fs-title)/1.2 var(--serif);margin:.375rem 0 1.25rem;max-width:34ch}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem 2rem;margin:0}
+.facts dt{font:500 var(--fs-label)/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted);margin-bottom:.25rem}
+.facts dd{margin:0;font:500 var(--fs-data)/1.4 var(--mono)}
+table.signals{border-collapse:collapse;font:400 var(--fs-data)/1.5 var(--mono);min-width:60%}
+.signals td{padding:.375rem 1.25rem .375rem 0;border-bottom:1px solid var(--rule)}
+.signals .t-num{text-align:right;font-weight:600}
+.signals .note{font:400 var(--fs-data)/1.4 var(--serif);color:var(--ink-muted)}
+.signals tr.total td{border-top:2px solid var(--ink);border-bottom:0;font-weight:600}
+ol.receipts{list-style:none;margin:0;padding:0;counter-reset:exhibit}
+.receipts li{counter-increment:exhibit;position:relative;padding:.75rem 0 .75rem 7.5rem;border-bottom:1px solid var(--rule)}
+.receipts li::before{content:"Exhibit " counter(exhibit,upper-alpha);position:absolute;left:0;top:.875rem;font:600 var(--fs-label)/1 var(--mono);letter-spacing:.06em;border:1px solid var(--ink);padding:.1875rem .375rem}
+.receipts .line{display:flex;align-items:baseline;gap:.75ch;font:500 var(--fs-data)/1.5 var(--mono)}
+.receipts .line .leader{flex:1;border-bottom:1px dotted var(--ink-muted)}
+.receipts .line time{color:var(--ink-muted)}
+.receipts .note{margin:.25rem 0 0;font:400 var(--fs-data)/1.5 var(--serif);font-style:italic;max-width:var(--w-prose)}
+.receipts .url{font:400 var(--fs-meta)/1.5 var(--mono);color:var(--ink-muted);word-break:break-all}
+.comps{list-style:none;margin:0;padding:0;font:400 var(--fs-data)/1.5 var(--mono)}
+.comps li{display:flex;align-items:baseline;gap:.75ch;padding:.375rem 0;border-bottom:1px solid var(--rule)}
+.comps .leader{flex:1;border-bottom:1px dotted var(--ink-muted)}
+.claim{border:1px solid var(--ink);border-left:4px solid var(--signal);padding:1rem 1.25rem 1.25rem;margin:2.5rem 0}
+.claim p{margin:.375rem 0 1rem;font-size:var(--fs-data);font-family:var(--mono)}
+.btn{display:inline-block;font:600 var(--fs-data)/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:.625rem 1.125rem;text-decoration:none}
+.btn:hover{background:var(--ink);color:var(--paper)}
+footer{margin-top:3.5rem;border-top:3px double var(--ink);padding-top:.75rem;font:400 var(--fs-meta)/1.7 var(--mono);color:var(--ink-muted)}
+@media print{body{border-top-width:2pt;max-width:none}.claim .btn{display:none}a{text-decoration:none}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <a class="brand" href="index.html">Local Problems Register</a>
+  <span class="issue">vol. 2026 · no. 33</span>
+</header>
+<nav class="crumb">no. 33 / ENERGY / P-0001</nav>
+
+<article>
+  <div class="docket">
+    <span class="statline"><span class="dot" title="OPEN"></span> <span class="status">Open</span>&emsp;<span class="score"><span class="tally" style="--s:8"></span><span class="num">08/12</span></span></span>
+    <div class="id">P-0001</div>
+    <h1>Energy communities lose up to half the value of shared electricity — and have no software to run settlement</h1>
+    <dl class="facts">
+      <div><dt>Category</dt><dd>ENERGY</dd></div>
+      <div><dt>Locality</dt><dd>Czechia — national</dd></div>
+      <div><dt>Deadline</dt><dd>—</dd></div>
+      <div><dt>Created</dt><dd><time datetime="2026-08-13">2026-08-13</time></dd></div>
+      <div><dt>Updated</dt><dd><time datetime="2026-08-13">2026-08-13</time></dd></div>
+      <div><dt>Receipts</dt><dd>04</dd></div>
+    </dl>
+  </div>
+
+  <h2>Summary</h2>
+  <p>Czech energy communities — and groups sharing electricity under the Lex OZE II framework — have been legally able to share power through the national EDC data hub since August 2024. But they run member administration, allocation keys and settlement by hand. Reporting cited in the receipts puts the loss at up to roughly <strong>half the value of shared electricity</strong>, lost to bad allocation and settlement. Municipalities founding communities — a core intended user of the regime — have no software for the task at all.</p>
+  <p>Why now: the regulatory window opened in 2024 and the first cohort of communities has now operated long enough to feel the settlement losses. The state hub handles data exchange between market participants but explicitly does not do community administration, member billing or optimization — the pain sits with the community operator, unaddressed by state infrastructure.</p>
+  <p>Who pays: community founders (municipalities, housing cooperatives, groups of firms) and — following the Exnaton go-to-market — utilities that want a white-label product to offer communities. The value proposition is direct: recovered settlement value.</p>
+  <p>Existing non-solutions: the EDC hub (data exchange only), ministry guidance, and consultancies selling services rather than product. An absence check on 2026-08-13 found no dedicated Czech community-energy billing or settlement software.</p>
+
+  <h2>Score breakdown</h2>
+  <table class="signals">
+    <tr><td class="mono">ARBITRAGE</td><td class="t-num">03/03</td><td class="note">Exnaton proven across DACH + Nordics; Austrian peers validate CEE-adjacent</td></tr>
+    <tr><td class="mono">MONEY</td><td class="t-num">00/02</td><td class="note">no tender attached this run (procurement feed pending)</td></tr>
+    <tr><td class="mono">DEADLINE</td><td class="t-num">00/02</td><td class="note">no compliance date</td></tr>
+    <tr><td class="mono">DEMAND</td><td class="t-num">02/02</td><td class="note">documented ~50% value loss; municipalities operating with zero tooling</td></tr>
+    <tr><td class="mono">GAP</td><td class="t-num">02/02</td><td class="note">absence confirmed by search, 2026-08-13</td></tr>
+    <tr><td class="mono">FRESHNESS</td><td class="t-num">01/01</td><td class="note">newest receipt &lt; 90 days</td></tr>
+    <tr class="total"><td class="mono">TOTAL</td><td class="t-num">08/12</td><td></td></tr>
+  </table>
+
+  <h2>Receipts (04)</h2>
+  <ol class="receipts">
+    <li>
+      <div class="line"><span>exnaton.com — proven model, DACH/Nordics</span><span class="leader"></span><time datetime="2026-08-13">2026-08-13</time></div>
+      <p class="note">&ldquo;White-label billing &amp; settlement SaaS for energy communities; ETH spin-off, deployed by utilities. Austrian peers eFriends and OurPower validate the category next door.&rdquo;</p>
+      <div class="url">https://exnaton.com/</div>
+    </li>
+    <li>
+      <div class="line"><span>press report — value leakage</span><span class="leader"></span><time datetime="2026-08-13">2026-08-13</time></div>
+      <p class="note">&ldquo;Czech communities reportedly lose up to ~50 % of shared electricity value to bad allocation and settlement; municipalities founding communities have zero software.&rdquo;</p>
+      <div class="url">https://exnaton.com/ (cited in signal de-exnaton)</div>
+    </li>
+    <li>
+      <div class="line"><span>gap check — CZ market search</span><span class="leader"></span><time datetime="2026-08-13">2026-08-13</time></div>
+      <p class="note">&ldquo;Searches return only the EDC hub itself, ministry PR, and consulting firms. No dedicated Czech community-energy billing/settlement product found.&rdquo;</p>
+      <div class="url">search log in record source</div>
+    </li>
+    <li>
+      <div class="line"><span>vestbee.com — CEE investor appetite</span><span class="leader"></span><time datetime="2026-08-04">2026-08-04</time></div>
+      <p class="note">&ldquo;Pstryk (PL, dynamic electricity pricing for households/SMEs) raised €7 000 000 Series A led by Future Energy Ventures, July 2026.&rdquo;</p>
+      <div class="url">https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026</div>
+    </li>
+  </ol>
+
+  <h2>Solved elsewhere</h2>
+  <ul class="comps">
+    <li><span>Exnaton — community billing &amp; settlement SaaS</span><span class="leader"></span><span>CH/DE, since 2020</span>&ensp;<a href="https://exnaton.com/">link</a></li>
+    <li><span>eFriends — peer-to-peer energy sharing</span><span class="leader"></span><span>AT, since 2017</span>&ensp;<a href="https://www.efriends.at/">link</a></li>
+    <li><span>OurPower — energy community marketplace</span><span class="leader"></span><span>AT, since 2018</span>&ensp;<a href="https://www.ourpower.coop/">link</a></li>
+  </ul>
+
+  <div class="claim">
+    <div><span class="dot" title="OPEN"></span> <span class="status">This record is unclaimed</span></div>
+    <p>Nobody is working on it. Receipts above.</p>
+    <a class="btn" href="#">Claim this problem →</a>
+  </div>
+</article>
+
+<footer>
+  Record P-0001 · created <time datetime="2026-08-13">2026-08-13</time> · updated <time datetime="2026-08-13">2026-08-13</time> · source: github.com/…/problems/p-0001.md · <a href="#">Receipt wrong? Corrections →</a><br>
+  Data as recorded, no warranty. Extract no. 33/2026, generated automatically.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sources — where the register comes from · localproblems.org</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<!-- localproblems.org design system v1.1 — see design-language skill. Content runs never edit shared.css. -->
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+
+<header class="masthead">
+  <a class="brand" href="index.html">localproblems.org</a>
+  <span class="issue">vol. 2026 · no. 33</span>
+</header>
+
+<nav class="filters">
+  <a href="index.html">List</a> ·
+  <a href="map.html">Map</a> ·
+  <a href="sources.html" aria-current="page">Sources</a> ·
+  <a href="#">About</a> ·
+  <a href="#">Newsletter</a>
+</nav>
+
+<p>Where the register comes from. The list is the output; these are the inputs: every problem record is synthesized from normalized signals — one file per signal, one directory per source, public in the repo. Nothing enters a record without appearing here first.</p>
+
+<p class="crumb">33 signals on file · 04 source feeds · 20 signals feed the 17 problem records · 13 held as supporting evidence · extract 33/2026</p>
+
+<nav class="filters">
+  <a href="#yc">YC batch scan (11)</a> ·
+  <a href="#de">Foreign-market scan (01)</a> ·
+  <a href="#reg">Regulatory triggers (11)</a> ·
+  <a href="#round">Funding rounds (10)</a>
+</nav>
+
+<section id="yc">
+  <h2>YC batch scan &ensp;<span class="label">11 signals · tier 1 · geographic arbitrage</span></h2>
+  <p>Recent Y&nbsp;Combinator companies whose model is proven abroad but absent in Czechia. Each signal records the model, the Czech transfer logic, and a dated absence check — a market search for a local equivalent. Arbitrage is the highest-value signal on the register: it pre-validates both demand and business model.</p>
+  <p class="crumb">directory <code>data/normalized/yc/</code> · source: ycombinator.com company directory · absence checks run <time>2026-08-13</time></p>
+  <ol class="receipts">
+    <li id="yc-autarc">
+      <div class="line"><span>autarc — OS for heat-pump &amp; solar installers · YC S24, Berlin</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">Agentic OS for heat-pump/solar installation companies — heat-load calculation, quoting, subsidy paperwork, project management on one platform. Czech search found no equivalent, only manufacturers' sizing tools and the installers themselves.</p>
+      <div class="url">yc-autarc · energy · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/autarc">ycombinator.com/companies/autarc</a> &ensp; → feeds record P-0002</div>
+    </li>
+    <li id="yc-mercura">
+      <div class="line"><span>Mercura — AI quote &amp; order processing for distributors · YC W25, Bavaria</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">Automates quote and order processing for construction-supply distributors and manufacturers with AI. Czech search found only global tools and generic automation agencies — no Czech vertical player.</p>
+      <div class="url">yc-mercura · b2b · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/mercura">ycombinator.com/companies/mercura</a> &ensp; → feeds record P-0005</div>
+    </li>
+    <li id="yc-permitportal">
+      <div class="line"><span>PermitPortal — AI pre-construction &amp; permits · YC F24</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">AI operating system for pre-construction — site entitlements, zoning intelligence and permit navigation for developers. No Czech equivalent found, while the state's own permit digitalization remains dysfunctional a year after launch.</p>
+      <div class="url">yc-permitportal · housing · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/permitportal">ycombinator.com/companies/permitportal</a> &ensp; → feeds record P-0003</div>
+    </li>
+    <li id="yc-oma-care">
+      <div class="line"><span>Oma Care — family caregivers, trained and paid · YC W24</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">Infrastructure to train and get family caregivers paid (53 million caregivers in the US). No Czech equivalent navigating příspěvek na péči for families — only static info portals as weak incumbents.</p>
+      <div class="url">yc-oma-care · health · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/oma-care">ycombinator.com/companies/oma-care</a> &ensp; → feeds record P-0004</div>
+    </li>
+    <li id="yc-gale">
+      <div class="line"><span>Gale — corporate work-visa automation · YC W25</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">Automates the corporate work-visa pipeline — application prep, compliance, HR-system integration — coordinating independent attorneys. No Czech equivalent for zaměstnanecké karty; only form-help sites and classic law firms.</p>
+      <div class="url">yc-gale · legal-compliance · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/gale">ycombinator.com/companies/gale</a> &ensp; → feeds record P-0009</div>
+    </li>
+    <li id="yc-hammr">
+      <div class="line"><span>Hammr — construction payroll, HR &amp; compliance · YC W23</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">Construction-specific payroll, HR and compliance — "Rippling for construction". Czech search found only generic legacy payroll and site-diary tools as weak incumbents.</p>
+      <div class="url">yc-hammr · housing · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/hammr">ycombinator.com/companies/hammr</a> &ensp; → feeds record P-0007</div>
+    </li>
+    <li id="yc-cocrafter">
+      <div class="line"><span>CoCrafter — contractor-to-subcontractor marketplace · YC W24, Munich</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">B2B marketplace matching general contractors with vetted subcontractors; 3,000+ German SMB companies onboard. No Czech B2B equivalent — only consumer home-services marketplaces.</p>
+      <div class="url">yc-cocrafter · housing · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/cocrafter">ycombinator.com/companies/cocrafter</a> &ensp; → feeds record P-0007</div>
+    </li>
+    <li id="yc-hemut">
+      <div class="line"><span>Hemut — AI back office for trucking · YC Spring 25</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">AI operating system for trucking companies — AI phone agents, document ingestion, load sourcing, automated accounting. Czech search found only legacy TMS and dispečink software as weak incumbents.</p>
+      <div class="url">yc-hemut · mobility · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/hemut">ycombinator.com/companies/hemut</a> &ensp; → feeds record P-0010</div>
+    </li>
+    <li id="yc-sagecare">
+      <div class="line"><span>Sage Care — AI ops for home-care agencies · YC S24</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">Automates home-care agency operations with AI — intake, communication and scheduling busywork. No Czech equivalent; only the legacy record-keeping system Cygnus DP as a weak incumbent.</p>
+      <div class="url">yc-sagecare · health · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/sagecare">ycombinator.com/companies/sagecare</a> &ensp; → feeds record P-0011</div>
+    </li>
+    <li id="yc-saturn">
+      <div class="line"><span>Saturn — compliance OS for wealth managers · YC S24, London</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">Compliance and back-office workflow software for wealth managers. No Czech software equivalent for investiční zprostředkovatelé under ČNB supervision — only compliance consultancies as weak incumbents.</p>
+      <div class="url">yc-saturn · legal-compliance · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/saturn">ycombinator.com/companies/saturn</a> &ensp; → feeds record P-0006</div>
+    </li>
+    <li id="yc-sanvivo">
+      <div class="line"><span>Sanvivo — "Shopify for pharmacies" · YC W23, Munich</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">Online ordering, advice and click-and-collect infrastructure for independent European pharmacies. No Czech tool serving the ~1,000 remaining independents being squeezed by chains. Caveat on file: validate segment size before promoting to a problem.</p>
+      <div class="url">yc-sanvivo · health · CZ-national · tier 1 &ensp; <a href="https://www.ycombinator.com/companies/sanvivo">ycombinator.com/companies/sanvivo</a> &ensp; → no problem record yet</div>
+    </li>
+  </ol>
+</section>
+
+<section id="de">
+  <h2>Foreign-market scan &ensp;<span class="label">01 signal · tier 1 · geographic arbitrage</span></h2>
+  <p>Direct scans of nearby markets — companies proven in DACH or CEE whose model has no Czech equivalent. Same anatomy as the YC scan: model, transfer logic, dated absence check. Scans are keyed by country code; more countries join as the pipeline widens.</p>
+  <p class="crumb">directory <code>data/normalized/de/</code> · source: manual market scan, Germany · absence checks run <time>2026-08-13</time></p>
+  <ol class="receipts">
+    <li id="de-exnaton">
+      <div class="line"><span>Exnaton — white-label energy-community billing · ETH spin-off, DACH</span><span class="leader"></span><time>2026-08-13</time></div>
+      <p class="note">Sells white-label billing and settlement SaaS for energy communities and P2P electricity sharing, used by utilities across DACH and the Nordics. No Czech equivalent found, even though Czech electricity sharing launched August 2024 and communities reportedly lose up to half of shared electricity to bad allocation and settlement.</p>
+      <div class="url">de-exnaton · energy · CZ-national · tier 1 &ensp; <a href="https://exnaton.com/">exnaton.com</a> &ensp; → feeds record <a href="problem-p-0001.html">P-0001</a></div>
+    </li>
+  </ol>
+</section>
+
+<section id="reg">
+  <h2>Regulatory triggers &ensp;<span class="label">11 signals · tier 1 · sorted by deadline</span></h2>
+  <p>EU regulations and Czech acts whose compliance deadlines create a market on a date. Rare, highest conviction: the demand is written into law. The date on each signal is the operative deadline, not the publication date; all deadlines verified against the primary legal text.</p>
+  <p class="crumb">directory <code>data/normalized/reg/</code> · sources: EUR-Lex, zakonyprolidi.cz · T−n counted from <time>2026-08-13</time></p>
+  <ol class="receipts">
+    <li id="reg-ai-act-milestones">
+      <div class="line"><span>EU AI Act — Art 50 transparency obligations</span><span class="leader"></span><span class="mono">in force · <time>2026-08-02</time></span></div>
+      <p class="note">Deployers and providers must disclose AI interaction and label synthetic content from 2 Aug 2026; high-risk obligations postponed by the Digital Omnibus to Dec 2027 / Aug 2028. Creates demand for AI inventories, conformity prep and governance consulting. Fines up to €35M or 7% of global turnover.</p>
+      <div class="url">reg-ai-act-milestones · legal-compliance · EU · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">eur-lex.europa.eu/eli/reg/2024/1689/oj</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="reg-ppwr-packaging">
+      <div class="line"><span>PPWR — packaging requirements apply</span><span class="leader"></span><span class="mono">in force · <time>2026-08-12</time></span></div>
+      <p class="note">All businesses placing packaged products on the EU market must meet recyclability, minimization, labelling and PFAS requirements from 12 Aug 2026. Creates demand for packaging audits, EPR data management and redesign services.</p>
+      <div class="url">reg-ppwr-packaging · environment · EU · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/reg/2025/40/oj">eur-lex.europa.eu/eli/reg/2025/40/oj</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="reg-cra-reporting">
+      <div class="line"><span>Cyber Resilience Act — 24-hour vulnerability reporting</span><span class="leader"></span><span class="mono">by <time>2026-09-11</time> · T−29</span></div>
+      <p class="note">Manufacturers of products with digital elements, including software, must report actively exploited vulnerabilities and severe incidents to ENISA/CSIRTs within 24 hours from 11 Sep 2026. Creates demand for vulnerability-handling processes, SBOM tooling and reporting automation. Fines up to €15M or 2.5% of turnover.</p>
+      <div class="url">reg-cra-reporting · legal-compliance · EU · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/reg/2024/2847/oj">eur-lex.europa.eu/eli/reg/2024/2847/oj</a> &ensp; → feeds record P-0016</div>
+    </li>
+    <li id="reg-eudr-deforestation">
+      <div class="line"><span>EUDR — due-diligence statements due</span><span class="leader"></span><span class="mono">by <time>2026-12-30</time> · T−139</span></div>
+      <p class="note">Large and medium operators trading cattle, cocoa, coffee, palm oil, rubber, soy and wood products must run geolocation-based due diligence and file statements by 30 Dec 2026 (micro/small: 30 Jun 2027). Creates demand for traceability platforms and due-diligence-as-a-service. Penalties up to 4% of EU turnover.</p>
+      <div class="url">reg-eudr-deforestation · environment · EU · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/reg/2023/1115/oj">eur-lex.europa.eu/eli/reg/2023/1115/oj</a> &ensp; → feeds record P-0012</div>
+    </li>
+    <li id="reg-nis2-cz-zkb">
+      <div class="line"><span>Czech Cybersecurity Act 264/2025 (NIS2) — rolling deadlines</span><span class="leader"></span><span class="mono">by <time>2026-12-31</time> · T−140</span></div>
+      <p class="note">6,000+ Czech firms and municipalities must register with NÚKIB and implement security measures within one year of registration — rolling deadlines through late 2026 and 2027. Creates demand for compliance audits, vCISO services, GRC tooling and managed security for SMEs unaware they are in scope. Fines up to 2% of turnover or 250 000 000 Kč.</p>
+      <div class="url">reg-nis2-cz-zkb · legal-compliance · CZ-national · tier 1 &ensp; <a href="https://www.zakonyprolidi.cz/cs/2025-264">zakonyprolidi.cz/cs/2025-264</a> &ensp; → feeds record P-0008</div>
+    </li>
+    <li id="reg-eidas2-eudi-wallet">
+      <div class="line"><span>eIDAS 2.0 — EU Digital Identity Wallet due</span><span class="leader"></span><span class="mono">by <time>2026-12-31</time> · T−140</span></div>
+      <p class="note">Every member state including Czechia must offer at least one EUDI Wallet to citizens and businesses by end of 2026, with banks, telcos and large platforms obliged to accept it for strong authentication during 2027. Creates demand for wallet integration and relying-party onboarding.</p>
+      <div class="url">reg-eidas2-eudi-wallet · govtech · EU · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/reg/2024/1183/oj">eur-lex.europa.eu/eli/reg/2024/1183/oj</a> &ensp; → feeds record P-0017</div>
+    </li>
+    <li id="reg-instant-payments-cz">
+      <div class="line"><span>Instant Payments Regulation — receive instant EUR</span><span class="leader"></span><span class="mono">by <time>2027-01-09</time> · T−149</span></div>
+      <p class="note">Czech and other non-eurozone PSPs must receive instant euro credit transfers by 9 Jan 2027, and send them plus run Verification of Payee by 9 Jul 2027. Creates demand for core-banking upgrades, 24/7 sanctions-screening rework and VoP matching services.</p>
+      <div class="url">reg-instant-payments-cz · fintech · CZ-national · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/reg/2024/886/oj">eur-lex.europa.eu/eli/reg/2024/886/oj</a> &ensp; → feeds record P-0013</div>
+    </li>
+    <li id="reg-machinery-2023-1230">
+      <div class="line"><span>Machinery Regulation — hard cutover, no transition</span><span class="leader"></span><span class="mono">by <time>2027-01-20</time> · T−160</span></div>
+      <p class="note">Replaces the Machinery Directive on 20 Jan 2027 with no transition period; manufacturers, importers and firms doing substantial modifications must meet new requirements on cybersecurity, AI-enabled safety functions and digital instructions. Creates demand for CE re-assessment and conformity audits.</p>
+      <div class="url">reg-machinery-2023-1230 · b2b · EU · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/reg/2023/1230/oj">eur-lex.europa.eu/eli/reg/2023/1230/oj</a> &ensp; → feeds record P-0014</div>
+    </li>
+    <li id="reg-amlr-single-rulebook">
+      <div class="line"><span>EU AML Regulation — single rulebook applies</span><span class="leader"></span><span class="mono">by <time>2027-07-10</time> · T−331</span></div>
+      <p class="note">Directly imposes harmonised customer due diligence, beneficial-ownership and internal-policy requirements on banks, crypto firms, real-estate agents and newly scoped sectors from 10 Jul 2027, under the new AMLA supervisor. Creates demand for CDD/KYB tooling, UBO data services and outsourced compliance. A €10 000 cash payment cap applies from the same date.</p>
+      <div class="url">reg-amlr-single-rulebook · fintech · EU · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/reg/2024/1624/oj">eur-lex.europa.eu/eli/reg/2024/1624/oj</a> &ensp; → feeds record P-0006</div>
+    </li>
+    <li id="reg-cbam-definitive">
+      <div class="line"><span>CBAM definitive regime — first annual declaration</span><span class="leader"></span><span class="mono">by <time>2027-09-30</time> · T−413</span></div>
+      <p class="note">Importers of iron, steel, aluminium, cement, fertilisers, hydrogen and electricity above 50 t/year must hold authorised declarant status, buy certificates from Feb 2027 and file the first annual declaration for 2026 imports by 30 Sep 2027. Liability accrues on 2026 imports already; certificate cost tracks the EU ETS price.</p>
+      <div class="url">reg-cbam-definitive · environment · EU · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/reg/2023/956/oj">eur-lex.europa.eu/eli/reg/2023/956/oj</a> &ensp; → feeds record P-0015</div>
+    </li>
+    <li id="reg-csrd-post-omnibus">
+      <div class="line"><span>CSRD post-Omnibus — FY2027 reporting cycle</span><span class="leader"></span><span class="mono">from <time>2028-01-01</time> · T−506</span></div>
+      <p class="note">As re-scoped by the Dec 2025 Omnibus agreement, companies with 1,000+ employees and €450M+ turnover publish ESRS sustainability reports for FY2027 during 2028 — and their value-chain data requests cascade to Czech SME suppliers regardless. Scope and dates agreed but not yet in the Official Journal.</p>
+      <div class="url">reg-csrd-post-omnibus · legal-compliance · EU · tier 1 &ensp; <a href="https://eur-lex.europa.eu/eli/dir/2022/2464/oj">eur-lex.europa.eu/eli/dir/2022/2464/oj</a> &ensp; → no problem record yet</div>
+    </li>
+  </ol>
+</section>
+
+<section id="round">
+  <h2>Funding rounds &ensp;<span class="label">10 signals · tier 3 · sorted by size</span></h2>
+  <p>CEE venture rounds from the July 2026 close. Rounds are lagging confirmation, never discovery — a stamp on a record, not a source of records. They enter the register as tier-3 evidence only: a round next door proves investors fund the category, nothing more.</p>
+  <p class="crumb">directory <code>data/normalized/round/</code> · source: vestbee.com CEE monthly roundup · captured <time>2026-08-04</time></p>
+  <ol class="receipts">
+    <li id="round-oxylabs">
+      <div class="line"><span>Oxylabs — web intelligence infrastructure · LT</span><span class="leader"></span><span class="mono">€112M · <time>2026-08-04</time></span></div>
+      <p class="note">Series A led by Warburg Pincus (USD 130M converted). Web intelligence and data collection infrastructure, Lithuania.</p>
+      <div class="url">round-oxylabs · b2b · LT-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="round-ominimo">
+      <div class="line"><span>Ominimo — AI digital car insurance · HU</span><span class="leader"></span><span class="mono">€19.4M · <time>2026-08-04</time></span></div>
+      <p class="note">Series B led by EBRD (USD 22.5M converted). AI-powered digital car insurance, Hungary.</p>
+      <div class="url">round-ominimo · fintech · HU-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="round-pstryk">
+      <div class="line"><span>Pstryk — dynamic electricity pricing · PL</span><span class="leader"></span><span class="mono">€7M · <time>2026-08-04</time></span></div>
+      <p class="note">Series A led by Future Energy Ventures. Dynamic electricity pricing platform for households and SMEs, Poland — cited in P-0001 as proof of CEE investor appetite for consumer/SME energy tooling.</p>
+      <div class="url">round-pstryk · energy · PL-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → feeds record <a href="problem-p-0001.html">P-0001</a></div>
+    </li>
+    <li id="round-foractive">
+      <div class="line"><span>ForActive — fitness business management · PL</span><span class="leader"></span><span class="mono">€3.1M · <time>2026-08-04</time></span></div>
+      <p class="note">Seed round led by Simpact Ventures (USD 3.6M converted). Fitness business management platform, Poland.</p>
+      <div class="url">round-foractive · b2b · PL-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="round-cthings-co">
+      <div class="line"><span>CTHINGS.CO — IoT device management · PL</span><span class="leader"></span><span class="mono">€1.8M · <time>2026-08-04</time></span></div>
+      <p class="note">Growth round led by Navivo Capital. IoT device management platform, Poland.</p>
+      <div class="url">round-cthings-co · b2b · PL-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="round-trueengage">
+      <div class="line"><span>TrueEngage — omnichannel customer engagement · PL</span><span class="leader"></span><span class="mono">€1.3M · <time>2026-08-04</time></span></div>
+      <p class="note">Seed round led by Digital Ocean Ventures (USD 1.5M converted). Omnichannel customer engagement platform, Poland.</p>
+      <div class="url">round-trueengage · b2b · PL-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="round-sigvi">
+      <div class="line"><span>Sigvi — AI car rental platform · LT</span><span class="leader"></span><span class="mono">€1.2M · <time>2026-08-04</time></span></div>
+      <p class="note">Pre-seed led by Superhero Capital. AI-powered car rental platform, Lithuania.</p>
+      <div class="url">round-sigvi · mobility · LT-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="round-trinity-robotics">
+      <div class="line"><span>Trinity Robotics — autonomous ground vehicles · UA</span><span class="leader"></span><span class="mono">€500k · <time>2026-08-04</time></span></div>
+      <p class="note">Seed round led by Hede Capital Partners. Autonomous unmanned ground vehicles for defense and logistics, Ukraine.</p>
+      <div class="url">round-trinity-robotics · other · UA-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="round-display-dev">
+      <div class="line"><span>Display.dev — AI document collaboration · EE</span><span class="leader"></span><span class="mono">€470k · <time>2026-08-04</time></span></div>
+      <p class="note">Pre-seed led by Outlast Fund. AI document collaboration platform, Estonia.</p>
+      <div class="url">round-display-dev · b2b · EE-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → no problem record yet</div>
+    </li>
+    <li id="round-htg-medical">
+      <div class="line"><span>HTG Medical — ICU urine-output monitoring · CZ</span><span class="leader"></span><span class="mono">€450k · <time>2026-08-04</time></span></div>
+      <p class="note">Pre-seed led by Garage Angels. Automation of urine output monitoring in intensive care units, Czech Republic.</p>
+      <div class="url">round-htg-medical · health · CZ-national · tier 3 &ensp; <a href="https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026">vestbee.com — top CEE rounds, July 2026</a> &ensp; → no problem record yet</div>
+    </li>
+  </ol>
+</section>
+
+<footer>
+  Signals as recorded at intake, no warranty; every signal links to its origin. Tiers per the signal hierarchy: 1 arbitrage/regulatory trigger · 2 tender/grant/complaint · 3 confirmation only.<br>
+  Pending feeds: TED procurement (fills the MONEY dimension) · Hlídač státu · Extract no. 33/2026, generated automatically · <a href="index.html">back to the list</a>
+</footer>
+
+</body>
+</html>

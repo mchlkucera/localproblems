@@ -1,0 +1,23 @@
+{
+  "run_date": "2026-08-13",
+  "agent": "connector-A-procurement",
+  "status": "FAILED_NO_DATA",
+  "fetched": 0,
+  "reason": "Egress proxy (org policy) returns 403 on CONNECT to both api.ted.europa.eu:443 and ted.europa.eu:443, so no direct HTTP client (curl/python) can reach TED. The WebFetch tool uses a separate egress path and CAN reach both hosts, but it is GET-only and robots.txt-compliant.",
+  "attempts": [
+    {"method": "curl POST https://api.ted.europa.eu/v3/notices/search", "result": "proxy CONNECT 403 (policy denial, per /__agentproxy/status recentRelayFailures)"},
+    {"method": "WebFetch GET https://api.ted.europa.eu/v3/notices/search?query=...", "result": "HTTP 405 - endpoint is POST-only (confirmed also by docs.ted.europa.eu/api/latest/search.html)"},
+    {"method": "WebFetch GET https://api.ted.europa.eu/v3/notices/{pub-num}", "result": "HTTP 400 for 1-2026, 500000-2026, 00500000-2026 - no usable single-notice GET found"},
+    {"method": "WebFetch https://api.ted.europa.eu/api-v3.yaml (OpenAPI spec)", "result": "content served as non-HTML, WebFetch reports binary data, unreadable"},
+    {"method": "WebFetch https://ted.europa.eu/en/search/result?<params>", "result": "blocked: robots.txt 'Disallow: /*/search/result?' and WebFetch honors robots"},
+    {"method": "WebFetch https://ted.europa.eu/en/search/result (bare, robots-allowed)", "result": "empty Angular SPA shell, no server-rendered results"},
+    {"method": "WebFetch https://ted.europa.eu/sitemap/notices/sitemap.xml", "result": "XML served as binary to WebFetch, unreadable"},
+    {"method": "WebFetch https://ted.europa.eu/en/notice/-/detail/1-2026", "result": "SPA shell; only <title>/<meta description> server-rendered (contains country + notice title), body content absent"}
+  ],
+  "notes_for_future_runs": [
+    "Fix is on our side, not TED's: request egress-policy allowlisting of api.ted.europa.eu:443, then the documented POST /v3/notices/search works with no auth.",
+    "TED Search API v3 is POST-only; query language fields place-of-performance, publication-date, classification-cpv as in the task prompt are correct per docs.",
+    "Notice detail pages server-render title+country in meta tags only; could serve as a last-resort per-notice validator once publication numbers are known, but not for discovery.",
+    "Did not use non-TED data sources per task instruction (stop instead of workarounds)."
+  ]
+}
