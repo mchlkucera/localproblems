@@ -1,28 +1,36 @@
 ---
 id: p-0018
-title: "Every Czech employer must rebuild hiring and pay practice for the Pay Transparency Directive from Jan 2027, and employers with 150+ staff owe pay-gap reports from 2028 — with no local tooling"
+region: cz
+title: Every Czech employer must rebuild hiring and pay practice for the Pay Transparency
+  Directive from Jan 2027, and employers with 150+ staff owe pay-gap reports from 2028 — with
+  no local tooling
 category: legal-compliance
 geo: CZ-national
 score: 4
-signals:
-  arbitrage: 1
+scores:
+  proof: 1
   money: 0
-  deadline: 2
+  urgency: 3
   demand: 0
   gap: 0
-  freshness: 1
 status: candidate
-receipts:
-  - type: regulation
-    url: https://iuslaboris.com/insights/czechia-charts-its-own-course-on-pay-transparency-directive-transposition/
-    note: "reg-pay-transparency-cz: EU Pay Transparency Directive (2023/970); CZ missed the 7 Jun 2026 transposition deadline (infringement exposure). MPSV draft law (26 Mar 2026) sets effectiveness 1 Jan 2027, most obligations 1 Jan 2028, pay-gap reporting for 150+ employee employers with first reports due 30 Apr 2028. Deadline <18 months."
-    date: 2027-01-01
-  - type: arbitrage
-    url: https://figures.hr/
-    note: "Figures (FR) sells compensation-benchmarking and EU pay-transparency compliance tooling across Europe; PayAnalytics (IS) and Syndio (US) prove the pay-equity analytics category. Named analogs only — no CZ gap check run this cycle, so arbitrage scored 1 and gap 0."
-    date: 2026-08-13
-created: 2026-08-13
-updated: 2026-08-13
+sources:
+- type: regulation
+  url: https://iuslaboris.com/insights/czechia-charts-its-own-course-on-pay-transparency-directive-transposition/
+  note: 'reg-pay-transparency-cz: EU Pay Transparency Directive (2023/970); CZ missed the
+    7 Jun 2026 transposition deadline (infringement exposure). MPSV draft law (26 Mar 2026)
+    sets effectiveness 1 Jan 2027, most obligations 1 Jan 2028, pay-gap reporting for 150+
+    employee employers with first reports due 30 Apr 2028. Deadline <18 months.'
+  date: '2027-01-01'
+  signal: reg-pay-transparency-cz
+- type: arbitrage
+  url: https://figures.hr/
+  note: Figures (FR) sells compensation-benchmarking and EU pay-transparency compliance tooling
+    across Europe; PayAnalytics (IS) and Syndio (US) prove the pay-equity analytics category.
+    Named analogs only — no CZ gap check run this cycle, so arbitrage scored 1 and gap 0.
+  date: '2026-08-13'
+created: '2026-08-13'
+updated: '2026-08-13'
 ---
 
 The EU Pay Transparency Directive lands in Czechia on a compressed and unusually prescriptive schedule: the transposition deadline passed in June 2026 with the Czech law still in draft, which converts parliamentary delay into infringement pressure and leaves employers with a shorter runway to a 1 January 2027 effective date. From then, pay ranges must appear in hiring, salary-history questions are banned, and pay-setting criteria must be transparent; from 2028, employers with 150+ employees owe pay-gap reports, with the first due 30 April 2028.

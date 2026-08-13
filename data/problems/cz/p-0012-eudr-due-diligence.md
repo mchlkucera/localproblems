@@ -1,28 +1,34 @@
 ---
 id: p-0012
-title: "Czech importers and processors of wood, coffee, rubber and soy must file geolocation-based due diligence statements by 30 Dec 2026 and mid-sized firms have no traceability stack"
+region: cz
+title: Czech importers and processors of wood, coffee, rubber and soy must file geolocation-based
+  due diligence statements by 30 Dec 2026 and mid-sized firms have no traceability stack
 category: environment
 geo: CZ-national
 score: 3
-signals:
-  arbitrage: 0
+scores:
+  proof: 0
   money: 0
-  deadline: 2
+  urgency: 2
   demand: 1
   gap: 0
-  freshness: 0
 status: candidate
-receipts:
-  - type: regulation
-    url: https://eur-lex.europa.eu/eli/reg/2023/1115/oj
-    note: "reg-eudr-deforestation: EUDR (Reg. 2023/1115 as amended Dec 2025) — large and medium operators must run geolocation-based due diligence and file DDS by 30 Dec 2026 (micro/small 30 Jun 2027); penalties up to 4% of EU turnover. Deadline <18 months."
-    date: 2026-12-30
-  - type: news
-    url: https://www.europarl.europa.eu/news/en/press-room/20251211IPR32168/deforestation-law-parliament-adopts-changes-to-postpone-and-simplify-measures
-    note: "Second postponement and simplification adopted Dec 2025 (EP vote 11 Dec 2025) — the repeated postponements under industry pushback document the pressure; simplifications: only first placer files DDS, one-off simplified declaration for micro/small primary operators."
-    date: 2025-12-11
-created: 2026-08-13
-updated: 2026-08-13
+sources:
+- type: regulation
+  url: https://eur-lex.europa.eu/eli/reg/2023/1115/oj
+  note: 'reg-eudr-deforestation: EUDR (Reg. 2023/1115 as amended Dec 2025) — large and medium
+    operators must run geolocation-based due diligence and file DDS by 30 Dec 2026 (micro/small
+    30 Jun 2027); penalties up to 4% of EU turnover. Deadline <18 months.'
+  date: '2026-12-30'
+  signal: reg-eudr-deforestation
+- type: news
+  url: https://www.europarl.europa.eu/news/en/press-room/20251211IPR32168/deforestation-law-parliament-adopts-changes-to-postpone-and-simplify-measures
+  note: 'Second postponement and simplification adopted Dec 2025 (EP vote 11 Dec 2025) — the
+    repeated postponements under industry pushback document the pressure; simplifications:
+    only first placer files DDS, one-off simplified declaration for micro/small primary operators.'
+  date: '2025-12-11'
+created: '2026-08-13'
+updated: '2026-08-13'
 ---
 
 Czech companies trading in cattle, cocoa, coffee, palm oil, rubber, soy and wood products — furniture and wood processing, coffee roasters, food producers, tyre and rubber importers — must run geolocation-based due diligence on their supply chains and file due diligence statements from 30 December 2026 (micro/small firms from 30 June 2027). Per the reg-eudr signal, the documentation burden falls heavily on mid-sized importers that have no traceability stack of any kind. Penalties reach 4% of EU turnover.

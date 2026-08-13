@@ -1,36 +1,46 @@
 ---
 id: p-0003
-title: "Czech developers and builders navigate one of the OECD's slowest building-permit processes through a still-dysfunctional state portal, with no tooling of their own"
+region: cz
+title: Czech developers and builders navigate one of the OECD's slowest building-permit processes
+  through a still-dysfunctional state portal, with no tooling of their own
 category: housing
 geo: CZ-national
 score: 6
-signals:
-  arbitrage: 1
+scores:
+  proof: 1
   money: 0
-  deadline: 0
+  urgency: 1
   demand: 2
   gap: 2
-  freshness: 1
 status: candidate
-receipts:
-  - type: arbitrage
-    url: https://www.ycombinator.com/companies/permitportal
-    note: "yc-permitportal: PermitPortal (YC F24) — AI OS for pre-construction: entitlements, zoning intelligence, permit navigation; adjacent YC analogs Permitify (W25) and Verdant (S26) confirm the cluster. All US-market, so scored as one weak (non-adjacent) analog."
-    date: 2026-08-13
-  - type: complaint
-    url: https://www.ycombinator.com/companies/permitportal
-    note: "Signal documents the July 2024 DSŘ digitalization fiasco (portál stavebníka) and archiweb reporting that digitalization 'stabilized after a year, but still faces complications'; CZ among slowest building-permit processes in OECD."
-    date: 2026-08-13
-  - type: gap-check
-    url: https://www.ycombinator.com/companies/permitportal
-    note: "Absence check 2026-08-13: searches return only news about the broken state system and US tools (CivCheck); no CZ startup automating permit preparation or navigation."
-    date: 2026-08-13
-  - type: arbitrage
-    url: https://www.ycombinator.com/companies/autositu
-    note: "yc-autositu: Autositu (YC W26) — AI-native workspace for development plan reviews; a fourth YC company on the permitting/plan-review problem within two years. Still US-only, so arbitrage stays 1."
-    date: 2026-08-13
-created: 2026-08-13
-updated: 2026-08-13
+sources:
+- type: arbitrage
+  url: https://www.ycombinator.com/companies/permitportal
+  note: 'yc-permitportal: PermitPortal (YC F24) — AI OS for pre-construction: entitlements,
+    zoning intelligence, permit navigation; adjacent YC analogs Permitify (W25) and Verdant
+    (S26) confirm the cluster. All US-market, so scored as one weak (non-adjacent) analog.'
+  date: '2026-08-13'
+  signal: yc-permitportal
+- type: complaint
+  url: https://www.ycombinator.com/companies/permitportal
+  note: Signal documents the July 2024 DSŘ digitalization fiasco (portál stavebníka) and archiweb
+    reporting that digitalization 'stabilized after a year, but still faces complications';
+    CZ among slowest building-permit processes in OECD.
+  date: '2026-08-13'
+- type: gap-check
+  url: https://www.ycombinator.com/companies/permitportal
+  note: 'Absence check 2026-08-13: searches return only news about the broken state system
+    and US tools (CivCheck); no CZ startup automating permit preparation or navigation.'
+  date: '2026-08-13'
+- type: arbitrage
+  url: https://www.ycombinator.com/companies/autositu
+  note: 'yc-autositu: Autositu (YC W26) — AI-native workspace for development plan reviews;
+    a fourth YC company on the permitting/plan-review problem within two years. Still US-only,
+    so arbitrage stays 1.'
+  date: '2026-08-13'
+  signal: yc-autositu
+created: '2026-08-13'
+updated: '2026-08-13'
 ---
 
 Czech stavebníci — from housing developers to firms building industrial capacity — face one of the slowest building-permit processes in the OECD. The July 2024 launch of the digitalized permitting system (DSŘ / portál stavebníka) made things acutely worse: a year on, trade press (archiweb, cited in the yc-permitportal signal) describes the system as stabilized "but still facing complications." Both applicants and úřady lost throughput during the transition to the new stavební zákon procedures.

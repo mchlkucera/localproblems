@@ -1,28 +1,36 @@
 ---
 id: p-0021
-title: "Czech device manufacturers must ship 'access by design' data APIs from Sep 2026 and every SaaS must abolish switching charges by Jan 2027 under the EU Data Act — two waves most affected firms haven't started"
+region: cz
+title: Czech device manufacturers must ship 'access by design' data APIs from Sep 2026 and
+  every SaaS must abolish switching charges by Jan 2027 under the EU Data Act — two waves
+  most affected firms haven't started
 category: b2b
 geo: CZ-national
 score: 3
-signals:
-  arbitrage: 0
+scores:
+  proof: 0
   money: 0
-  deadline: 2
+  urgency: 3
   demand: 0
   gap: 0
-  freshness: 1
 status: candidate
-receipts:
-  - type: regulation
-    url: https://digital-strategy.ec.europa.eu/en/policies/data-act
-    note: "reg-data-act-waves: EU Data Act (2023/2854), applicable since 12 Sep 2025; 12 Sep 2026 — access-by-design for connected products newly placed on the EU market; 12 Jan 2027 — cloud/SaaS switching charges fully abolished. Both waves <18 months (the first, one month from record creation)."
-    date: 2026-09-12
-  - type: news
-    url: https://www.lw.com/en/insights/eu-data-act-what-businesses-need-to-know
-    note: "Law-firm compliance guidance confirming scope: IoT/device manufacturers must expose product data to users and third parties via APIs; cloud providers must remove switching charges and support exit."
-    date: 2026-08-13
-created: 2026-08-13
-updated: 2026-08-13
+sources:
+- type: regulation
+  url: https://digital-strategy.ec.europa.eu/en/policies/data-act
+  note: 'reg-data-act-waves: EU Data Act (2023/2854), applicable since 12 Sep 2025; 12 Sep
+    2026 — access-by-design for connected products newly placed on the EU market; 12 Jan 2027
+    — cloud/SaaS switching charges fully abolished. Both waves <18 months (the first, one
+    month from record creation).'
+  date: '2026-09-12'
+  signal: reg-data-act-waves
+- type: news
+  url: https://www.lw.com/en/insights/eu-data-act-what-businesses-need-to-know
+  note: 'Law-firm compliance guidance confirming scope: IoT/device manufacturers must expose
+    product data to users and third parties via APIs; cloud providers must remove switching
+    charges and support exit.'
+  date: '2026-08-13'
+created: '2026-08-13'
+updated: '2026-08-13'
 ---
 
 The EU Data Act has been applicable since September 2025, but its two hardest engineering obligations land inside the next five months: from 12 September 2026, connected products newly placed on the EU market must be designed so users can access the data they generate — directly or via APIs — and from 12 January 2027, cloud and SaaS providers must abolish switching charges entirely and support customer exit. Czechia's industrial base makes the first wave heavy: machinery, appliance and vehicle-component manufacturers whose products generate data have never built user-facing data access.

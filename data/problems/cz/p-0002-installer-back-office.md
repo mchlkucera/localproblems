@@ -1,33 +1,45 @@
 ---
 id: p-0002
-title: "Hundreds of small Czech heat-pump and solar installation firms drown in quoting, heat-load calculation and NZÚ subsidy paperwork with no vertical software"
+region: cz
+title: Hundreds of small Czech heat-pump and solar installation firms drown in quoting, heat-load
+  calculation and NZÚ subsidy paperwork with no vertical software
 category: energy
 geo: CZ-national
 score: 7
-signals:
-  arbitrage: 2
+scores:
+  proof: 2
   money: 1
-  deadline: 0
+  urgency: 1
   demand: 1
   gap: 2
-  freshness: 1
 status: candidate
-receipts:
-  - type: arbitrage
-    dims: [proof, demand]
-    url: https://www.ycombinator.com/companies/autarc
-    note: "yc-autarc: autarc (YC S24, Berlin, ~30 people) — agentic OS for heat-pump/solar installers: heat-load calc, quoting, subsidy paperwork, project management. Germany-proven where installer workflows and subsidy bureaucracy mirror CZ. No CZ player found (absence check 2026-08-13). Demand point: hundreds of small montážní firmy drowning in NZÚ paperwork per the signal — evidence carried here, hence the dims tag."
-    date: 2026-08-13
-  - type: subsidy
-    url: https://www.ycombinator.com/companies/autarc
-    note: "Signal note references Nová zelená úsporám driving tens of thousands of heat-pump/FVE installs per year — the subsidy program whose application handling is part of the workflow burden."
-    date: 2026-08-13
-  - type: gap-check
-    url: https://www.ycombinator.com/companies/autarc
-    note: "Absence check 2026-08-13: CZ searches surface only manufacturer configurators (Master Therm) and installation companies themselves; no installer-ops SaaS. Woltair is a vertically integrated installer, not a software vendor to the long tail."
-    date: 2026-08-13
-created: 2026-08-13
-updated: 2026-08-13
+sources:
+- type: arbitrage
+  url: https://www.ycombinator.com/companies/autarc
+  note: 'yc-autarc: autarc (YC S24, Berlin, ~30 people) — agentic OS for heat-pump/solar installers:
+    heat-load calc, quoting, subsidy paperwork, project management. Germany-proven where installer
+    workflows and subsidy bureaucracy mirror CZ. No CZ player found (absence check 2026-08-13).
+    Demand point: hundreds of small montážní firmy drowning in NZÚ paperwork per the signal
+    — evidence carried here, hence the dims tag.'
+  date: '2026-08-13'
+  signal: yc-autarc
+  dims:
+  - proof
+  - demand
+- type: subsidy
+  url: https://www.ycombinator.com/companies/autarc
+  note: Signal note references Nová zelená úsporám driving tens of thousands of heat-pump/FVE
+    installs per year — the subsidy program whose application handling is part of the workflow
+    burden.
+  date: '2026-08-13'
+- type: gap-check
+  url: https://www.ycombinator.com/companies/autarc
+  note: 'Absence check 2026-08-13: CZ searches surface only manufacturer configurators (Master
+    Therm) and installation companies themselves; no installer-ops SaaS. Woltair is a vertically
+    integrated installer, not a software vendor to the long tail.'
+  date: '2026-08-13'
+created: '2026-08-13'
+updated: '2026-08-13'
 ---
 
 Hundreds of small Czech montážní firmy execute the tens of thousands of heat-pump and photovoltaic installations driven each year by Nová zelená úsporám. Per the yc-autarc signal they are drowning in the surrounding paperwork: digital site survey, heat-load calculation, quote generation, subsidy application handling and install project tracking are done with spreadsheets, manufacturer configurators and manual NZÚ form-filling.

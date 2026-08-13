@@ -1,28 +1,36 @@
 ---
 id: p-0014
-title: "Czech machinery manufacturers, importers and retrofitters face a hard cutover to the new Machinery Regulation on 20 Jan 2027 with no transition period"
+region: cz
+title: Czech machinery manufacturers, importers and retrofitters face a hard cutover to the
+  new Machinery Regulation on 20 Jan 2027 with no transition period
 category: b2b
 geo: CZ-national
 score: 3
-signals:
-  arbitrage: 0
+scores:
+  proof: 0
   money: 0
-  deadline: 2
+  urgency: 2
   demand: 1
   gap: 0
-  freshness: 0
 status: candidate
-receipts:
-  - type: regulation
-    url: https://eur-lex.europa.eu/eli/reg/2023/1230/oj
-    note: "reg-machinery-2023-1230: Machinery Regulation (Reg. 2023/1230) replaces Directive 2006/42/EC on 20 Jan 2027 with no transition period — machines placed on market from that date must conform to the Regulation, incl. cybersecurity, AI-enabled safety functions and digital instructions. Deadline <18 months."
-    date: 2027-01-20
-  - type: news
-    url: https://www.tuv.com/world/en/new-machinery-regulation-eu-2023-1230.html
-    note: "TÜV and Pilz confirmations of the hard-cutover date; demand point: the no-transition cutover plus the 'substantial modification' rule (turning integrators and retrofitters into manufacturers with full conformity duties) is the documented pressure — machinery/engineering is a core CZ export sector."
-    date: 2025-12-31
-created: 2026-08-13
-updated: 2026-08-13
+sources:
+- type: regulation
+  url: https://eur-lex.europa.eu/eli/reg/2023/1230/oj
+  note: 'reg-machinery-2023-1230: Machinery Regulation (Reg. 2023/1230) replaces Directive
+    2006/42/EC on 20 Jan 2027 with no transition period — machines placed on market from that
+    date must conform to the Regulation, incl. cybersecurity, AI-enabled safety functions
+    and digital instructions. Deadline <18 months.'
+  date: '2027-01-20'
+  signal: reg-machinery-2023-1230
+- type: news
+  url: https://www.tuv.com/world/en/new-machinery-regulation-eu-2023-1230.html
+  note: 'TÜV and Pilz confirmations of the hard-cutover date; demand point: the no-transition
+    cutover plus the ''substantial modification'' rule (turning integrators and retrofitters
+    into manufacturers with full conformity duties) is the documented pressure — machinery/engineering
+    is a core CZ export sector.'
+  date: '2025-12-31'
+created: '2026-08-13'
+updated: '2026-08-13'
 ---
 
 Machinery and engineering is a core Czech export sector, and on 20 January 2027 the Machinery Regulation (2023/1230) replaces the Machinery Directive with a hard cutover: no transition period, so any machine placed on the market from that date must conform to the new regime — including requirements on cybersecurity of safety-related control systems, AI-enabled safety functions and digital instructions. The "substantial modification" rule additionally converts integrators and retrofitters into manufacturers carrying full conformity duties, pulling a layer of Czech firms into CE obligations they have never held.
