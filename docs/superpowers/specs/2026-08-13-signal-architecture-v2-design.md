@@ -36,7 +36,7 @@ visual/CSS change to the site.
 data/signals/
   funded/2026-08-13.jsonl       # was normalized/{yc,round,de,dk,pl}
   regulation/2026-08-13.jsonl   # was normalized/reg
-  tenders/2026-08-13.jsonl      # was normalized/ted
+  tenders/2026-08-13.jsonl      # was normalized/{ted,hlidac}
 ```
 
 One JSONL file per evidence type per run date, append-only, committed to
@@ -180,7 +180,9 @@ left as a redirect stub).
   TED must yield hundreds of kept records (vs 11 in v1); spot-check 10
   records for score correctness against the rubric.
 - `jq` parse check over all JSONL; uniqueness check of ids vs `seen.txt`.
-- Site build renders 26 rundown pages; frontmatter of every problem parses;
+- Site build renders a rundown page per problem (26 at time of writing)
+  plus the 3 evidence-type pages, and `source-*.html` files are gone;
+  frontmatter of every problem parses;
   every score point in a spot-checked problem maps to a `sources[]` entry.
 - Git diff of a second normalize run shows append-only behavior (no
   rewrites of prior runs' files).
