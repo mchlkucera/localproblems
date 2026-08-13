@@ -65,6 +65,7 @@ geo_origin  where the signal comes FROM (ISO2 or EU)
 money_eur   number|null + money_note (how derived)
 summary     ≤2 sentences, EN
 scores      {scale 0-3, money 0-3, urgency 0-3, recurrence 0-3}   ← objective, see below
+notes       optional free text: absence checks, transfer logic, quotes (kept from v1 bodies)
 ```
 
 ### Objective scores + the only filter
