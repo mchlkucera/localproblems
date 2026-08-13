@@ -47,8 +47,8 @@ type and created only when a fetchable source exists.
 
 | field       | type         | notes                                          |
 |-------------|--------------|------------------------------------------------|
-| id          | string       | canonical: `<source>-<nativeid>` (unchanged v1 rule) |
-| source      | string       | fetch provenance: ted, yc, round, reg-scan, arb-scan, feed |
+| id          | string       | canonical: `<prefix>-<nativeid>` — see id rule below |
+| source      | string       | fetch provenance: ted, hlidac, yc, round, reg-scan, arb-scan, feed |
 | url         | string       | primary source URL                             |
 | date        | ISO date     | native date of the signal                      |
 | title       | string       | native title, translated to EN if needed       |
@@ -58,6 +58,13 @@ type and created only when a fetchable source exists.
 | money_note  | string       | how money_eur was derived                      |
 | summary     | string       | max 2 sentences, EN                            |
 | scores      | object       | see 3.3                                        |
+
+**Id rule.** V1 ids are grandfathered unchanged (`de-conmeet`, `reg-cbam-…`,
+`ted-372049-2026`, `hlidac-38551596`, …) so `seen.txt` and `signal:`
+back-links stay stable. New records use these prefixes per source:
+ted→`ted-`, hlidac→`hlidac-`, yc→`yc-`, round→`round-`, reg-scan→`reg-`,
+arb-scan→ISO2 of origin country (`de-`, `dk-`, `pl-`, …), feed→`feed-`
+(sha1-8 of URL as native id, v1 rule).
 
 ### 3.3 Objective scores (set at normalize time, region-blind)
 
@@ -74,7 +81,9 @@ Each 0–3, integers, mechanical definitions — no opportunity judgment:
 ### 3.4 Materiality filter (the ONLY normalize-time filter)
 
 Drop a deduped item only if `money <= 1 AND scale <= 1 AND urgency == 0`.
-Everything else is kept. Expected volume: hundreds to low-thousands per run.
+`recurrence` is deliberately excluded from the filter — a recurring but
+small/unfunded need is still dropped; recurrence only informs region-agent
+ranking. Everything else is kept. Expected volume: hundreds to low-thousands per run.
 Region agents do all further selection.
 
 ### 3.5 Dedup
@@ -120,8 +129,8 @@ a source entry.
 
 ## 5. Pipeline (TASK.md v2 step order)
 
-1. FETCH — unchanged (TED, feeds, yc-oss, research scans; Hlídač pending
-   token; re-probe Vestbee).
+1. FETCH — unchanged (TED, Hlídač státu, feeds, yc-oss, research scans;
+   re-probe Vestbee).
 2. NORMALIZE — objective: dedup → materiality filter → score → append JSONL.
    No region judgment.
 3. MATCH — one pass per region (CZ only for now), as §4.3.
@@ -140,7 +149,11 @@ renders:
 - one rundown page per problem: `site/problem-<region>-<id>.html`,
   using the existing `problem-p-0001.html` as the template to extract
   (structure, classes, scorecard band markup);
-- the register index with links to every rundown.
+- the register index with links to every rundown;
+- one evidence page per type (`signals-funded.html`, `signals-regulation.html`,
+  `signals-tenders.html`) summarizing recent records, replacing the v1
+  per-fetch-source pages (`source-de.html`, `source-ted.html`, …), which are
+  deleted.
 
 Constraints: follows the design-language skill; reuses `shared.css` /
 existing markup patterns; `style.css` and the visual system are untouched;
@@ -150,10 +163,11 @@ left as a redirect stub).
 
 ## 7. Migration plan
 
-1. Convert 61 `data/normalized/**/*.md` files → backfill JSONL records under
-   their evidence type (funded ← yc/round/de/dk/pl; regulation ← reg;
-   tenders ← ted), deriving scores from existing frontmatter
-   (tier/money_eur/summary). Delete `data/normalized/` afterward.
+1. Convert ALL `data/normalized/**/*.md` files (71 at time of writing; the
+   repo has concurrent editors, so re-glob at execution time) → backfill
+   JSONL records under their evidence type (funded ← yc/round/de/dk/pl;
+   regulation ← reg; tenders ← ted + hlidac), deriving scores from existing
+   frontmatter (tier/money_eur/summary). Delete `data/normalized/` afterward.
 2. Move problems to `data/problems/cz/`, apply frontmatter migration (§4.2).
 3. Rewrite CONVENTIONS.md (evidence types, record schema, score rubric,
    reserved `bootstrapped`), TASK.md (§5), and the sources page copy.
@@ -176,4 +190,3 @@ left as a redirect stub).
 - `bootstrapped` sources (indie-hacker lists, revenue-milestone scrapes) —
   revisit when a fetchable source is identified.
 - Second region (PL likely) — after one clean CZ cycle on v2.
-- Hlídač státu token still missing (README checklist #3).
