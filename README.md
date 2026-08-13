@@ -18,14 +18,14 @@ register and a weekly newsletter draft.
 
 ## Status (2026-08-13)
 
-v2 spec approved (SPEC.md). The v1 pipeline is operational — 26 scored CZ problem
-records from ~70 normalized signals, two runs on 2026-08-13. Migration to the v2
-layout (evidence-layer JSONL, `data/problems/cz/`, the `web/` Next.js pure-SSG app
-on Vercel) is SPEC.md §8.
+**v2 is live locally.** The evidence layer (71 signals in `data/signals/`), the region
+layer (26 scored problems in `data/problems/cz/`), and the generated register
+(`web/`, Next.js pure SSG — 32 static pages, zod-validated build) all landed per
+SPEC.md §8. `TASK.md` is the pipeline's only entry point.
 
 ## Do next
 
-1. Run the v2 migration (SPEC.md §8) — after it, `TASK.md` is the only entry point.
-2. Register domains (verified free 2026-08-13): `localproblems.org`, defensive `problems.cz` / `problems.city`.
-3. Add a GitHub remote (public repo) + a Vercel project rooted at `web/`; push to `main` = deploy.
+1. Register domains (verified free 2026-08-13): `localproblems.org`, defensive `problems.cz` / `problems.city`.
+2. Add a GitHub remote (public repo) + a Vercel project rooted at `web/`; push to `main` = deploy.
+3. Point the weekly scheduled Claude task at `TASK.md` (Mon 06:00) — first v2 run re-normalizes the 2026-08-13 raw snapshot objectively (hundreds of TED records expected, not 11).
 4. Newsletter issue #0 by hand via Buttondown — go/no-go: ≥300 subs in 14 days from one LinkedIn post, or reposition.
