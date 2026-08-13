@@ -3,14 +3,14 @@ id: p-0008
 title: "6,000+ Czech firms and municipalities must implement NIS2 security measures on rolling deadlines through late 2026-2027 and most lack the capacity — many don't know they're in scope"
 category: legal-compliance
 geo: CZ-national
-score: 4
+score: 7
 signals:
   arbitrage: 0
-  money: 0
+  money: 2
   deadline: 2
   demand: 2
   gap: 0
-  freshness: 0
+  freshness: 1
 status: candidate
 receipts:
   - type: regulation
@@ -21,6 +21,18 @@ receipts:
     url: https://www.sme-union.cz/zakon-o-kyberneticke-bezpecnosti-plati-lhuty-bezi/
     note: "SME UNION: 6,000+ firms affected across energy, manufacturing, food, logistics, digital services; many SMEs still unaware they are in scope — documented association-level alarm about capacity and awareness."
     date: 2026-12-31
+  - type: tender
+    url: https://ted.europa.eu/en/notice/-/detail/373331-2026
+    note: "ted-373331-2026: FN Motol + Homolka awarded ~€6.1M for cyber threat detection & response tooling (TED, Jun 2026); smaller hospital awards in the same window (Hustopeče ~€1.4M, Třebíč ~€1.2M, Národní knihovna ~€1.4M) show the buying pattern."
+    date: 2026-06-01
+  - type: tender
+    url: https://ted.europa.eu/en/notice/-/detail/472636-2026
+    note: "ted-472636-2026: Hl. m. Praha awarded ~€5.3M for a SIEM across MHMP, city police and districts (Jul 2026), plus ~€1.9M central cyber platform for městské části (ted-542109-2026, Aug 2026) — two security awards from one buyer in six weeks. Recurring public spend ≥5M CZK per award: money scored 2."
+    date: 2026-07-09
+  - type: regulation
+    url: https://rowan.legal/aktualne/cr-novy-zakon-o-kriticke-infrastrukture-je-ucinny/
+    note: "reg-cer-zakon-266: zákon č. 266/2025 Sb. (CER transposition) — critical-entity designations by 17 Jul 2026, resilience plans and incident reporting through 2026–2027; the same under-capacity entities now owe a parallel physical-resilience stack, compliance cost estimated in tens of millions CZK per firm (PORTOS)."
+    date: 2026-07-17
 created: 2026-08-13
 updated: 2026-08-13
 ---
@@ -33,4 +45,6 @@ Who pays: the regulated entities themselves — SMEs and municipal IT budgets bu
 
 Existing non-solutions: the supply side exists (security consultancies, MSPs) but is a fragmented services market with no evidence of productized, SME-priced NIS2 compliance at the scale of 6,000 obligated entities; no arbitrage/gap search was run this cycle, so those dimensions score 0 rather than being asserted.
 
-The score understates strategic weight: the two scored points (deadline, documented pressure) are the two hardest to fake. A follow-up gap check on productized CZ NIS2 offerings and any NPO/subsidy funding for municipal cybersecurity would likely raise the score.
+Money is now receipted from the first successful TED run (2026-08-13): hospitals and municipalities placed at least five cyber-security awards between June and August 2026, from Motol's ~€6.1M detection-and-response buy to Prague's ~€5.3M SIEM — recurring spend, multiple buyers, values above the 5M CZK bar. The demand side also widened: zákon č. 266/2025 Sb. (CER transposition) puts a parallel physical-resilience compliance stack on an overlapping entity set, with designations landing July 2026 and plan obligations running through 2027.
+
+A follow-up gap check on productized CZ NIS2 offerings is still the missing dimension; with money, deadline and demand all receipted, gap evidence is what separates this from newsletter-lead territory.

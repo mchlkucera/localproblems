@@ -35,7 +35,8 @@ One git repo, three curl scripts, one weekly scheduled Claude task. No servers, 
 
 - `TASK.md` — the weekly scheduled-task prompt, paste into a recurring Claude task (Mon 06:00)
 - `SCORING.md` — the rubric the task applies
-- `data/` — the live pipeline output: 33 normalized signals (sorted per source: `normalized/{reg,yc,round,de}/`) → **17 scored problem records** (first real run, 2026-08-13)
+- `data/` — the live pipeline output: 66 normalized signals (sorted per source: `normalized/{reg,yc,round,de,dk,pl,ted}/`) → **26 scored problem records** (runs of 2026-08-13; second run added TED procurement + arbitrage/regulatory scans)
+- `scripts/` — fetch connectors: `fetch_ted.sh` (TED API v3, paginated CPV groups), `fetch_hlidac.sh` (needs HLIDAC_TOKEN), `fetch_feeds.sh`, `filter_ted.py` (shortlist ranking)
 - `site/` — design v2 (current): index, record page P-0001, map view
 - `site-v1/` — v1 retro-gazette pages, kept for reference
 - `skills/design-language/` — the binding design skill. `site/` follows it as of 2026-08-13; `site/shared.css` is a verbatim copy of the skill's `assets/style.css` (content runs never edit either).
@@ -46,19 +47,19 @@ Graduation tripwires (when to un-simplify): >~400 problems or recurring dupes �
 
 Modern register, not SaaS, not retro-gazette. Fonts: **Schibsted Grotesk** (voice) + **Spline Sans Mono** (evidence) — both Google Fonts, latin-ext. The governing rule survives from v1: *if a human wrote it, it's grotesk; if a clerk recorded it, it's mono.* Seven-ish tokens (warm paper #FAF9F6, ink #16140E, evidence red #C42B1C used sparingly, status green #177A3D). Score = 12-segment meter. Receipts = numbered source cards with dates. No icons except the status dot, no gradients, no dark mode. Brand is the domain: **localproblems**.org wordmark.
 
-## 5. Current data (run of 2026-08-13, extract no. 33/2026)
+## 5. Current data (runs of 2026-08-13, extract no. 33/2026)
 
-17 problem records, Czechia, ranked — top five:
+26 problem records, Czechia, ranked — top five after the second (local) run:
 
 | ID | Problem | Score |
 |---|---|---|
-| P-0001 | Energy communities lose up to ~50% of shared-electricity value; no settlement software (133 communities per ERÚ, 49,388 connection points per EDC, Austria 23× ahead; AT services charge €5.83–8.98/member/mo) | 8/12 |
+| P-0001 | Energy communities lose up to ~50% of shared-electricity value; no settlement software — now with a municipal tender receipt (Petrovice u Karviné D&B) | 9/12 |
+| P-0008 | NIS2 capacity gap, 6,000+ obligated entities — money now receipted (Motol ~€6.1M, Praha SIEM ~€5.3M + district platform) and CER (zák. 266/2025) piles on | 7/12 |
 | P-0002 | Heat-pump/solar installers (23,338 pumps sold 2025) drown in NZÚ paperwork; no vertical SaaS | 7/12 |
-| P-0003 | Building approval 6–12 months (ČKAIT survey); builders have no tooling | 6/12 |
-| P-0004 | Families of 374k care-allowance recipients navigate the benefit blind | 6/12 |
-| P-0005 | SMB distributors re-type orders from e-mail/PDF into ERPs by hand | 6/12 |
+| P-0006 | Investment intermediary compliance (ČNB/MiFID + AMLR 2027) | 6/12 |
+| P-0010 | Trucking back-office — eFTI regulation (9 Jul 2027) gives the paper CMR an expiry date | 6/12 |
 
-Known gaps: **money scores are mostly 0** because the TED procurement feed couldn't run in the cloud sandbox (egress policy — works from a local machine); MONEY re-scores will lift regulatory records especially. Two fact-check corrections are appended inside p-0003 and p-0004.
+The second run closed the known money gap: the TED connector ran locally (3,048 CZ notices, 5 CPV groups since June), re-scoring p-0017 (EUDIW client tender, ~€78M open, 2→5), p-0008 (4→7) and p-0010 (4→6), and adding 9 new problems (p-0018–p-0026: pay transparency, battery passport, e-shop accessibility enforcement, Data Act, hospital eHealth interop, AI-first accounting, EPBD retrofit analytics, insulation execution, water-utility smart metering). Hlídač státu still needs a token (checklist #3). Two fact-check corrections remain appended inside p-0003 and p-0004.
 
 ## 6. Business path (honest math)
 

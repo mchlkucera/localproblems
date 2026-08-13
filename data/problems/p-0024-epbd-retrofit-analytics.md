@@ -1,0 +1,40 @@
+---
+id: p-0024
+title: "Czech building owners face the EPBD retrofit wave with no portfolio analytics — the implementing law is overdue, infringement pressure is on, and Berlin already has a funded product"
+category: housing
+geo: CZ-national
+score: 5
+signals:
+  arbitrage: 2
+  money: 0
+  deadline: 1
+  demand: 0
+  gap: 1
+  freshness: 1
+status: candidate
+receipts:
+  - type: arbitrage
+    url: https://techfundingnews.com/fuchs-eule-raises-10m-commercial-landlords-esg/
+    note: "de-fuchs-eule: Fuchs & Eule (Berlin) raised €10M (GET Fund, 8 Jul 2026) for AI building-retrofit analytics — screens landlord/asset-manager portfolios for ESG and energy-retrofit needs; 10,000 building analyses done. Funded DE analog, CEE-adjacent: arbitrage 2."
+    date: 2026-07-08
+  - type: gap-check
+    url: https://techfundingnews.com/fuchs-eule-raises-10m-commercial-landlords-esg/
+    note: "Quick check 2026-08-13: CZ side shows certificate consultancies (PKV Build does energy certificates at scale) but no self-serve portfolio retrofit-analytics software. Gap 1 (quick search only)."
+    date: 2026-08-13
+  - type: regulation
+    url: https://energy.ec.europa.eu/news/commission-calls-eu-countries-transpose-reinforced-rules-energy-performance-buildings-2026-07-15_en
+    note: "reg-epbd-recast: EPBD recast (2024/1275) transposition was due 29 May 2026; on 15 Jul 2026 the Commission opened infringement procedures against all 27 Member States incl. CZ. Obligations (BACS for large non-residential, zero-emission new builds, renovation passports, solar-readiness) phase in from a compressed CZ implementing law. Deadline 1 (dates not yet fixed in CZ law)."
+    date: 2026-07-15
+created: 2026-08-13
+updated: 2026-08-13
+---
+
+The recast Energy Performance of Buildings Directive obliges member states to drive building automation retrofits, renovation passports, zero-emission new construction and solar-readiness — and Czechia, like all 27 member states, missed the May 2026 transposition deadline and received a Commission infringement procedure in July. The implementing law now arrives compressed and retroactively urgent, and with it a rolling obligation wave for building owners: which buildings need BACS, which need envelope work, in what order, at what capex.
+
+Why now: portfolio owners cannot answer those questions today — Czech commercial landlords, family offices, municipalities and facility managers have no analytics layer, only per-building energy-certificate consultancies. In Berlin, Fuchs & Eule just raised €10M for exactly this product and has run 10,000 building analyses; the regulatory driver (EPBD + ESG reporting) is identical in Czechia, offset by roughly the transposition lag.
+
+Who pays: commercial and institutional building owners triaging retrofit capex; banks pricing green mortgages and sustainability-linked loans are a second buyer for the same building-level data. Municipal building stock — obligated early under EPBD's public-building provisions — is a procurement channel.
+
+Existing non-solutions: energy specialists issuing PENB certificates one building at a time (PKV Build the scale player), ESG consultancies producing PDFs, and spreadsheets. The quick check found no Czech portfolio-level retrofit analytics product.
+
+Deadline scored 1 rather than 2 because the Czech implementing dates are not yet fixed — the infringement procedure makes acceleration likely, and the moment the law publishes with dates, this record's deadline dimension and rank should jump.

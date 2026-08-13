@@ -21,6 +21,10 @@ receipts:
     url: https://www.ycombinator.com/companies/mercura
     note: "Absence check 2026-08-13: searches return US/global tools (WizCommerce, turian) and CZ generic AI agencies (Appmine); no CZ vertical product. Classification: no CZ player found."
     date: 2026-08-13
+  - type: arbitrage
+    url: https://www.ycombinator.com/companies/ventura
+    note: "yc-ventura: Ventura (YC W26) — 'AI workforce for distributors and manufacturers'; a third company on the wedge within two years, confirming the category keeps getting funded."
+    date: 2026-08-13
 created: 2026-08-13
 updated: 2026-08-13
 ---

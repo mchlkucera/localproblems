@@ -25,6 +25,10 @@ receipts:
     url: https://www.ycombinator.com/companies/oma-care
     note: "Absence check 2026-08-13: searches return only advice articles and government pages (pece.cz, mpsv.gov.cz); no player that files, tracks or optimizes claims for families. Demand point: signal documents that application, hodnocení stupně závislosti and appeals are bureaucratic and opaque."
     date: 2026-08-13
+  - type: tender
+    url: https://ted.europa.eu/en/notice/-/detail/402149-2026
+    note: "ted-402149-2026 (context): MPSV 'IT delivery III' framework ~€74.7M plus a dozen related awards (EKIS III ~€19.8M open, OKaplikace ~€65M) in Jun–Aug 2026 — the state demonstrably budgets tens of millions EUR/yr for benefits back-office IT while the citizen-facing navigation layer stays unbuilt. Adjacent spend: kept at money=1, not 2."
+    date: 2026-06-11
 created: 2026-08-13
 updated: 2026-08-13
 ---

@@ -25,6 +25,10 @@ receipts:
     url: https://www.ycombinator.com/companies/permitportal
     note: "Absence check 2026-08-13: searches return only news about the broken state system and US tools (CivCheck); no CZ startup automating permit preparation or navigation."
     date: 2026-08-13
+  - type: arbitrage
+    url: https://www.ycombinator.com/companies/autositu
+    note: "yc-autositu: Autositu (YC W26) — AI-native workspace for development plan reviews; a fourth YC company on the permitting/plan-review problem within two years. Still US-only, so arbitrage stays 1."
+    date: 2026-08-13
 created: 2026-08-13
 updated: 2026-08-13
 ---

@@ -25,6 +25,10 @@ receipts:
     url: https://www.ycombinator.com/companies/cocrafter
     note: "Absence checks 2026-08-13: Tracxn CZ construction-tech lists and searches show no B2B subcontractor marketplace (only consumer marketplaces Wilio, Nejřemeslníci) and no vertical payroll. Demand point: signals document chronic labor shortage and informal Ukrainian/Balkan crew sourcing via Facebook groups and brokers with zero vetting."
     date: 2026-08-13
+  - type: arbitrage
+    url: https://tech.eu/2026/08/05/conmeet-raises-eur6m-to-power-construction-businesses-with-ai/
+    note: "de-conmeet: conmeet (Munich) raised €6M seed (5 Aug 2026) for an AI-native ops OS for 10–500-employee trades/construction firms — procurement to invoicing. Reinforces DE validation of construction-firm back-office software; CZ partial incumbent remains Stavario (site diary/attendance only)."
+    date: 2026-08-05
 created: 2026-08-13
 updated: 2026-08-13
 ---

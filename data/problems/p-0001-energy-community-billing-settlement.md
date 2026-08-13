@@ -3,10 +3,10 @@ id: p-0001
 title: "Czech energy communities lose up to half the value of shared electricity to bad allocation and settlement, and have no software to run member billing"
 category: energy
 geo: CZ-national
-score: 8
+score: 9
 signals:
   arbitrage: 3
-  money: 0
+  money: 1
   deadline: 0
   demand: 2
   gap: 2
@@ -29,6 +29,10 @@ receipts:
     url: https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026
     note: "round-pstryk: Pstryk (PL, dynamic electricity pricing for households/SMEs) raised EUR 7M Series A led by Future Energy Ventures, Jul 2026 — CEE investor appetite for consumer/SME energy tooling."
     date: 2026-08-04
+  - type: tender
+    url: https://ted.europa.eu/en/notice/-/detail/385664-2026
+    note: "ted-385664-2026: obec Petrovice u Karviné awarded ~€278k design-and-build for 'Komunitní energetika' (TED, closed award, Jun 2026) — municipal budgets are flowing into community-energy delivery; each completed build becomes a settlement/billing customer. Money scored 1 (relevant tender exists)."
+    date: 2026-06-05
 created: 2026-08-13
 updated: 2026-08-13
 ---

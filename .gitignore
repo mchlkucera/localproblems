@@ -1,3 +1,7 @@
 .DS_Store
 .envrc
-.env.local
+.env*
+!.env.enc
+!.env.example
+# raw fetches are reproducible via scripts/ and pruned after 28 days — keep only curated .md/.xml
+data/sources/*/*.json

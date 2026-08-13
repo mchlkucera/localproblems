@@ -21,6 +21,10 @@ receipts:
     url: https://www.ycombinator.com/companies/gale
     note: "Absence check 2026-08-13: searches surface ministry pages, law firms (ARROWS) and permit.cz (static form-filling guides); no automation platform. Demand point: signal documents the zaměstnanecká karta process as notoriously slow and paper-based, with relocation agencies working manually at high fees; CZ employers depend on government kvóty programs for workers from Ukraine, Philippines, India."
     date: 2026-08-13
+  - type: arbitrage
+    url: https://www.ycombinator.com/companies/legalos
+    note: "yc-legalos: LegalOS (YC W26) — 'The AI-Native Immigration Law Firm', an AI-first service firm rather than software vendor; the service-firm form factor is the most transferable to the CZ paper-based karta process."
+    date: 2026-08-13
 created: 2026-08-13
 updated: 2026-08-13
 ---

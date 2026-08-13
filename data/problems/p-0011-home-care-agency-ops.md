@@ -21,6 +21,10 @@ receipts:
     url: https://www.ycombinator.com/companies/sagecare
     note: "Absence check 2026-08-13: CZ searches return only care providers themselves and IRESOFT Cygnus DP (documentation/billing records, no AI ops automation). Demand point: signal documents hundreds of agentury domácí péče running on phone + paper + Cygnus DP under a chronic nurse shortage."
     date: 2026-08-13
+  - type: arbitrage
+    url: https://www.ycombinator.com/companies/takecareos
+    note: "yc-takecareos: TakeCareOS (YC Spring 2026) — AI-native operating system for long-term care providers; third US company on care-ops within two years. Still US-only: arbitrage stays 1."
+    date: 2026-08-13
 created: 2026-08-13
 updated: 2026-08-13
 ---

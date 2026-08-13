@@ -3,14 +3,14 @@ id: p-0017
 title: "Czech banks, telcos and KYC-bound businesses must accept the EU Digital Identity Wallet for strong authentication from 2027 and have no integration path"
 category: govtech
 geo: CZ-national
-score: 2
+score: 5
 signals:
   arbitrage: 0
-  money: 0
+  money: 2
   deadline: 2
   demand: 0
   gap: 0
-  freshness: 0
+  freshness: 1
 status: candidate
 receipts:
   - type: regulation
@@ -21,6 +21,10 @@ receipts:
     url: https://ec.europa.eu/digital-building-blocks/sites/display/EUDIGITALIDENTITYWALLET/EU+Digital+Identity+Wallet+Home
     note: "Commission EUDI page confirms each Member State will offer at least one wallet by 2026, launch at the end of 2026; CZ builds on eDoklady."
     date: 2025-12-31
+  - type: tender
+    url: https://ted.europa.eu/en/notice/-/detail/453265-2026
+    note: "ted-453265-2026: DIA tendered the client part of the Czech EUDI Wallet ('KLIENTSKÁ ČÁST EVROPSKÉ PENĚŽENKY DIGITÁLNÍ IDENTITY') — open competition, estimated ~€78.2M (~1.9bn CZK), published 2 Jul 2026. Largest open IT tender in the CZ TED window; money scored 2 (open tender far above 5M CZK)."
+    date: 2026-07-02
 created: 2026-08-13
 updated: 2026-08-13
 ---
@@ -33,4 +37,4 @@ Who pays: relying parties — banks and payment institutions first (strong-authe
 
 Existing non-solutions: current bank-ID schemes (Bankovní identita) solve Czech-domestic identity but do not discharge the EUDI acceptance obligation; eDoklady is the state wallet precursor, not an integration product for relying parties. No gap check was run this cycle (gap 0), and Bankovní identita is a meaningful quasi-incumbent that could absorb this market — the main risk to this problem.
 
-The low score reflects that only the deadline is receipted; a gap check on CZ EUDI relying-party tooling and monitoring of the national wallet's technical readiness are the follow-ups that would move it.
+Money receipted 2026-08-13: DIA put the national wallet's client part out as an open ~€78M competition in July 2026 — the state is spending seriously and on schedule, which both funds an SI/dev-shop opportunity today and confirms the 2027 relying-party clock. A gap check on CZ EUDI relying-party tooling is the remaining follow-up that would move the score.
