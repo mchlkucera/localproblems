@@ -1,5 +1,6 @@
 ---
 id: yc-legalos
+title: "LegalOS — AI-native immigration law firm"
 source: yc
 url: https://www.ycombinator.com/companies/legalos
 date: 2026-08-13

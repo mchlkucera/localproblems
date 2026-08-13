@@ -1,5 +1,6 @@
 ---
 id: reg-nis2-cz-zkb
+title: "Cybersecurity Act 264/2025 — NIS2 transposition"
 source: reg
 url: https://www.zakonyprolidi.cz/cs/2025-264
 date: 2026-12-31

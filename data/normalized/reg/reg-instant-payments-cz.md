@@ -1,5 +1,6 @@
 ---
 id: reg-instant-payments-cz
+title: "Instant Payments Regulation — receive instant EUR"
 source: reg
 url: https://eur-lex.europa.eu/eli/reg/2024/886/oj
 date: 2027-01-09

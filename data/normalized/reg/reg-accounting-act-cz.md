@@ -1,5 +1,6 @@
 ---
 id: reg-accounting-act-cz
+title: "New Accounting Act — IFRS-aligned rewrite"
 source: reg
 url: https://www.ey.com/cs_cz/technical/tax/tax-alerts/2025/12/novy-zakon-o-ucetnictvi-a-zmenovy-zakon-miri-do-poslanecke-snemovny
 date: 2025-12-12

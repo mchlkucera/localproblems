@@ -1,5 +1,6 @@
 ---
 id: reg-cbam-definitive
+title: "CBAM definitive regime — first annual declaration"
 source: reg
 url: https://eur-lex.europa.eu/eli/reg/2023/956/oj
 date: 2027-09-30

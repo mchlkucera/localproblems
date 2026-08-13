@@ -1,5 +1,6 @@
 ---
 id: yc-takecareos
+title: "TakeCareOS — OS for long-term care providers"
 source: yc
 url: https://www.ycombinator.com/companies/takecareos
 date: 2026-08-13

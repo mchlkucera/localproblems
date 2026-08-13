@@ -1,5 +1,6 @@
 ---
 id: yc-autarc
+title: "autarc — OS for heat-pump & solar installers"
 source: yc
 url: https://www.ycombinator.com/companies/autarc
 date: 2026-08-13

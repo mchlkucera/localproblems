@@ -1,5 +1,6 @@
 ---
 id: reg-ppwr-packaging
+title: "PPWR — packaging requirements apply"
 source: reg
 url: https://eur-lex.europa.eu/eli/reg/2025/40/oj
 date: 2026-08-12

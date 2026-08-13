@@ -1,5 +1,6 @@
 ---
 id: reg-data-act-waves
+title: "EU Data Act — access by design, cloud switching"
 source: reg
 url: https://digital-strategy.ec.europa.eu/en/policies/data-act
 date: 2026-08-13

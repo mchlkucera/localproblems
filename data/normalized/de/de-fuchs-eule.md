@@ -1,5 +1,6 @@
 ---
 id: de-fuchs-eule
+title: "Fuchs & Eule — AI building-retrofit analytics"
 source: de
 url: https://techfundingnews.com/fuchs-eule-raises-10m-commercial-landlords-esg/
 date: 2026-07-08

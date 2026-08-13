@@ -1,5 +1,6 @@
 ---
 id: de-exnaton
+title: "Exnaton — white-label energy-community billing"
 source: de
 url: https://exnaton.com/
 date: 2026-08-13

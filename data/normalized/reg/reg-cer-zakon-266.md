@@ -1,5 +1,6 @@
 ---
 id: reg-cer-zakon-266
+title: "CER Act 266/2025 — critical-entity resilience"
 source: reg
 url: https://rowan.legal/aktualne/cr-novy-zakon-o-kriticke-infrastrukture-je-ucinny/
 date: 2026-08-13

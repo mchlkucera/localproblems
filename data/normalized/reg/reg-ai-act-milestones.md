@@ -1,5 +1,6 @@
 ---
 id: reg-ai-act-milestones
+title: "EU AI Act — Art 50 transparency obligations"
 source: reg
 url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 date: 2026-08-02

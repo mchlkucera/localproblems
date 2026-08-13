@@ -1,5 +1,6 @@
 ---
 id: reg-battery-passport
+title: "Battery Regulation — digital battery passport"
 source: reg
 url: https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/batteries_en
 date: 2026-08-13

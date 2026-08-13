@@ -1,5 +1,6 @@
 ---
 id: de-skalar
+title: "Skalar — AI-native tax & accounting firm"
 source: de
 url: https://techfundingnews.com/skalar-raises-12m-headline-ai-accounting-firm/
 date: 2026-07-14

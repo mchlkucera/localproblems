@@ -1,5 +1,6 @@
 ---
 id: reg-pay-transparency-cz
+title: "Pay Transparency — pay-gap reporting"
 source: reg
 url: https://iuslaboris.com/insights/czechia-charts-its-own-course-on-pay-transparency-directive-transposition/
 date: 2026-03-26

@@ -1,5 +1,6 @@
 ---
 id: reg-green-claims-ecgt
+title: "Green claims (ECGT) — substantiate or strip"
 source: reg
 url: https://eur-lex.europa.eu/eli/dir/2024/825/oj/eng
 date: 2026-08-13

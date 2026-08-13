@@ -1,5 +1,6 @@
 ---
 id: yc-ventura
+title: "Ventura — AI workforce for distributors"
 source: yc
 url: https://www.ycombinator.com/companies/ventura
 date: 2026-08-13

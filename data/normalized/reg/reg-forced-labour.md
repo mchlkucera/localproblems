@@ -1,5 +1,6 @@
 ---
 id: reg-forced-labour
+title: "Forced Labour Regulation — product ban"
 source: reg
 url: https://www.agg.com/news-insights/publications/eu-forced-labour-regulation-compliance-guide-what-companies-must-do-before-the-2027-trade-ban/
 date: 2026-08-13

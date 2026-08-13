@@ -1,5 +1,6 @@
 ---
 id: de-varm
+title: "VARM — tech-enabled insulation installer"
 source: de
 url: https://tech.eu/2026/06/23/berlins-varm-bags-eur175m-to-scale-insulation-across-europe/
 date: 2026-06-23

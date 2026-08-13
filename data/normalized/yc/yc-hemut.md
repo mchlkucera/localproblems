@@ -1,5 +1,6 @@
 ---
 id: yc-hemut
+title: "Hemut — AI back office for trucking"
 source: yc
 url: https://www.ycombinator.com/companies/hemut
 date: 2026-08-13

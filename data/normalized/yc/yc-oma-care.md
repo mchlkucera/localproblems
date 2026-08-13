@@ -1,5 +1,6 @@
 ---
 id: yc-oma-care
+title: "Oma Care — family caregivers, trained and paid"
 source: yc
 url: https://www.ycombinator.com/companies/oma-care
 date: 2026-08-13

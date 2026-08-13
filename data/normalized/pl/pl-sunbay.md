@@ -1,5 +1,6 @@
 ---
 id: pl-sunbay
+title: "sunbay.io — AI receivables & dunning automation"
 source: pl
 url: https://tech.eu/2026/06/11/sunbayio-raises-eur550k-to-automate-invoice-collection-for-finance-teams/
 date: 2026-06-11

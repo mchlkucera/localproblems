@@ -1,5 +1,6 @@
 ---
 id: yc-mercura
+title: "Mercura — AI quote & order processing for distributors"
 source: yc
 url: https://www.ycombinator.com/companies/mercura
 date: 2026-08-13

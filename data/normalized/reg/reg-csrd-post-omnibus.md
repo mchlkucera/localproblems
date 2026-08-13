@@ -1,5 +1,6 @@
 ---
 id: reg-csrd-post-omnibus
+title: "CSRD post-Omnibus — FY2027 reporting cycle"
 source: reg
 url: https://eur-lex.europa.eu/eli/dir/2022/2464/oj
 date: 2028-01-01

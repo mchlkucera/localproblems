@@ -1,5 +1,6 @@
 ---
 id: reg-eudr-deforestation
+title: "EUDR — due-diligence statements due"
 source: reg
 url: https://eur-lex.europa.eu/eli/reg/2023/1115/oj
 date: 2026-12-30

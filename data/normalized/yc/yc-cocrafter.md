@@ -1,5 +1,6 @@
 ---
 id: yc-cocrafter
+title: "CoCrafter — contractor-to-subcontractor marketplace"
 source: yc
 url: https://www.ycombinator.com/companies/cocrafter
 date: 2026-08-13

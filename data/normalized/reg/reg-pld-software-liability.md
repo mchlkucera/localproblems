@@ -1,5 +1,6 @@
 ---
 id: reg-pld-software-liability
+title: "Product Liability Directive — software strict liability"
 source: reg
 url: https://www.clearygottlieb.com/news-and-insights/publication-listing/the-new-eu-product-liability-reform-addressing-the-digital-age
 date: 2026-08-13

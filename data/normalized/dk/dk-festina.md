@@ -1,5 +1,6 @@
 ---
 id: dk-festina
+title: "Festina Finance — pension & life-insurance platform"
 source: dk
 url: https://www.eu-startups.com/2026/06/copenhagen-based-festina-finance-secures-over-e25-million-to-modernise-pensions-and-life-insurance-platforms/
 date: 2026-06-19

@@ -1,5 +1,6 @@
 ---
 id: reg-efti-freight
+title: "eFTI Regulation — electronic freight information"
 source: reg
 url: https://transport.ec.europa.eu/news-events/news/towards-paperless-freight-transport-eu-takes-step-forward-efti-regulation-implementation-2025-01-09_en
 date: 2026-08-13

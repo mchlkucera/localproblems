@@ -1,5 +1,6 @@
 ---
 id: reg-epbd-recast
+title: "EPBD recast — building performance obligations"
 source: reg
 url: https://energy.ec.europa.eu/news/commission-calls-eu-countries-transpose-reinforced-rules-energy-performance-buildings-2026-07-15_en
 date: 2026-07-15

@@ -1,5 +1,6 @@
 ---
 id: reg-amlr-single-rulebook
+title: "EU AML Regulation — single rulebook applies"
 source: reg
 url: https://eur-lex.europa.eu/eli/reg/2024/1624/oj
 date: 2027-07-10

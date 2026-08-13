@@ -1,5 +1,6 @@
 ---
 id: de-conmeet
+title: "conmeet — AI-native OS for construction SMBs"
 source: de
 url: https://tech.eu/2026/08/05/conmeet-raises-eur6m-to-power-construction-businesses-with-ai/
 date: 2026-08-05

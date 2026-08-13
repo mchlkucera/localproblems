@@ -15,9 +15,9 @@ sources/<today>/manifest.md and continue with what you have.
    no., Hlídač ID, sha1-8 of URL for feeds). Signals live in one directory per
    source key: normalized/<source>/<id>.md. If normalized/*/<id>.md exists
    (check all subdirectories), SKIP. Otherwise create it under its source
-   directory (mkdir if new source) with frontmatter (id, source, url, date,
-   category from the fixed list in CONVENTIONS.md, tier 1/2/3, geo) and a
-   2-sentence summary.
+   directory (mkdir if new source) with frontmatter (id, title — short English
+   display name, source, url, date, category from the fixed list in
+   CONVENTIONS.md, tier 1/2/3, geo) and a 2-sentence summary.
    Discard items with no plausible CZ problem/opportunity angle - be strict;
    fewer, better signals. Expect to keep well under half.
 
@@ -41,13 +41,11 @@ sources/<today>/manifest.md and continue with what you have.
 5. INDEX + SITE: Regenerate problems/INDEX.md (sorted by score desc). The site
    is rendered by GitHub Pages from the problem files directly - verify
    frontmatter is valid YAML on every file you touched; that is the entire
-   "site build". Also regenerate the signal registers in site/sources.html
-   from normalized/: sections ordered by signal value (market operators /
-   top-down governments / bottom-up users / capital investors), each table
-   a table.index clone — one tr per signal with the signal id as the tr id,
-   name cell linking to the source URL with the note in its title attribute,
-   Value / Record / Date columns, caption stating the sort. English-only
-   objective copy; follow the design-language skill exactly.
+   "site build". Then run `python3 scripts/build_sources.py` — it regenerates
+   site/sources.html (hub) and site/source-<key>.html (one page per source
+   directory) from normalized/ deterministically. Never hand-edit those
+   generated files; new sources only need a display-name entry in the
+   script's SOURCES map (country-code scans are handled automatically).
 
 6. NEWSLETTER: Write newsletter/<today>.md: top 3 problems by score this week
    (2 short paragraphs + receipts links each), 3-5 one-line "movers" (new or

@@ -1,5 +1,6 @@
 ---
 id: reg-eidas2-eudi-wallet
+title: "eIDAS 2.0 — EU Digital Identity Wallet due"
 source: reg
 url: https://eur-lex.europa.eu/eli/reg/2024/1183/oj
 date: 2026-12-31

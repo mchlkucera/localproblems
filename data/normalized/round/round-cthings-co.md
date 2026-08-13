@@ -1,5 +1,6 @@
 ---
 id: round-cthings-co
+title: "CTHINGS.CO — IoT device management"
 source: round
 url: https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026
 date: 2026-08-04

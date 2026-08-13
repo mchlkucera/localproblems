@@ -1,5 +1,6 @@
 ---
 id: reg-cra-reporting
+title: "Cyber Resilience Act — 24-hour vulnerability reporting"
 source: reg
 url: https://eur-lex.europa.eu/eli/reg/2024/2847/oj
 date: 2026-09-11

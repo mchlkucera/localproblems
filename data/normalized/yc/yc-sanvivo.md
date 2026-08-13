@@ -1,5 +1,6 @@
 ---
 id: yc-sanvivo
+title: "Sanvivo — e-commerce layer for independent pharmacies"
 source: yc
 url: https://www.ycombinator.com/companies/sanvivo
 date: 2026-08-13

@@ -1,5 +1,6 @@
 ---
 id: reg-accessibility-act-cz
+title: "Accessibility Act — first full enforcement year"
 source: reg
 url: https://coi.gov.cz/pro-podnikatele/pristupnost-vyrobku-a-sluzeb-pro-podnikatele/
 date: 2026-08-13

@@ -1,5 +1,6 @@
 ---
 id: de-jupus
+title: "JUPUS — AI secretarial layer for law firms"
 source: de
 url: https://tech.eu/2026/06/23/jupus-raises-eur13m-to-power-the-next-generation-of-ai-driven-law-firms/
 date: 2026-06-23

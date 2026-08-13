@@ -1,5 +1,6 @@
 ---
 id: yc-autositu
+title: "Autositu — AI workspace for plan reviews"
 source: yc
 url: https://www.ycombinator.com/companies/autositu
 date: 2026-08-13

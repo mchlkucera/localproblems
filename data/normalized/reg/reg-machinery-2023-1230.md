@@ -1,5 +1,6 @@
 ---
 id: reg-machinery-2023-1230
+title: "Machinery Regulation — hard cutover, no transition"
 source: reg
 url: https://eur-lex.europa.eu/eli/reg/2023/1230/oj
 date: 2027-01-20

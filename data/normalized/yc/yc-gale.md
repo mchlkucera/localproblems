@@ -1,5 +1,6 @@
 ---
 id: yc-gale
+title: "Gale — corporate work-visa automation"
 source: yc
 url: https://www.ycombinator.com/companies/gale
 date: 2026-08-13

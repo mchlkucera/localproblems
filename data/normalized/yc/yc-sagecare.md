@@ -1,5 +1,6 @@
 ---
 id: yc-sagecare
+title: "Sage Care — AI ops for home-care agencies"
 source: yc
 url: https://www.ycombinator.com/companies/sagecare
 date: 2026-08-13

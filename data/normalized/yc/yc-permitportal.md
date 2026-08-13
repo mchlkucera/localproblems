@@ -1,5 +1,6 @@
 ---
 id: yc-permitportal
+title: "PermitPortal — AI pre-construction & permits"
 source: yc
 url: https://www.ycombinator.com/companies/permitportal
 date: 2026-08-13

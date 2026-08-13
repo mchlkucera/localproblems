@@ -1,5 +1,6 @@
 ---
 id: reg-right-to-repair
+title: "Right to Repair — repair obligations live"
 source: reg
 url: https://repair.eu/news/the-right-to-repair-directive/
 date: 2026-08-13
