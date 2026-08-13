@@ -33,6 +33,10 @@ receipts:
     url: https://rowan.legal/aktualne/cr-novy-zakon-o-kriticke-infrastrukture-je-ucinny/
     note: "reg-cer-zakon-266: zákon č. 266/2025 Sb. (CER transposition) — critical-entity designations by 17 Jul 2026, resilience plans and incident reporting through 2026–2027; the same under-capacity entities now owe a parallel physical-resilience stack, compliance cost estimated in tens of millions CZK per firm (PORTOS)."
     date: 2026-07-17
+  - type: contract
+    url: https://smlouvy.gov.cz/smlouva/39084314
+    note: "hlidac-39084314: město Český Brod (~7k inhabitants) signed 'Kybernetická bezpečnost města' for ~9.0M CZK (registr smluv, 11 Aug 2026); 341 cyber contracts in registr smluv since June, incl. NPO výzva č. 41 subsidy-funded audits (ZZS Středočeského kraje, Jaroměř) — the small-municipality tier is buying and a subsidy stream funds it, answering this record's open follow-up on NPO funding."
+    date: 2026-08-11
 created: 2026-08-13
 updated: 2026-08-13
 ---

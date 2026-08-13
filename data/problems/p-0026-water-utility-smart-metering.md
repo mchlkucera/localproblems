@@ -19,8 +19,12 @@ receipts:
     date: 2026-06-24
   - type: tender
     url: https://ted.europa.eu/en/notice/-/detail/372049-2026
-    note: "ted-372049-2026: VaK Kroměříž awarded ~€1.3M to build water-network smart metering (Jun 2026); VaK Bruntál tendered a water data dispatch (~€0.5M, Jul 2026) — three small-utility metering/telemetry buys in ten weeks."
+    note: "ted-372049-2026: VaK Kroměříž awarded ~€1.3M to build water-network smart metering (Jun 2026); VaK Bruntál tendered a water data dispatch (~€0.5M, Jul 2026) — three small-utility metering/telemetry buys in ten weeks. Signed Kroměříž contract in registr smluv: ~21.4M CZK (smlouvy.gov.cz/smlouva/38292247)."
     date: 2026-06-01
+  - type: contract
+    url: https://smlouvy.gov.cz/smlouva/39041762
+    note: "hlidac-39041762: VaK Židlochovicko signed two contracts on 30 Jul 2026 — meter/reader supply (~4.8M CZK) plus system operation & support (~3.6M CZK) — a FOURTH distinct small-utility buyer, procuring exactly the supply+managed-operation split the record predicts; Pražská vodohospodářská společnost signed ~12M CZK in June."
+    date: 2026-07-30
 created: 2026-08-13
 updated: 2026-08-13
 ---

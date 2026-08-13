@@ -25,6 +25,10 @@ receipts:
     url: https://ted.europa.eu/en/notice/-/detail/443904-2026
     note: "ted-443904-2026: Krajská nemocnice T. Bati (Zlín) awarded ~€2.8M for a hospital information system incl. integrations (Jun 2026); FN Olomouc bought eHealth interoperability (~€0.7M) in the same window — ≥4 distinct regional buyers in ten weeks."
     date: 2026-06-29
+  - type: contract
+    url: https://smlouvy.gov.cz/smlouva/38551596
+    note: "hlidac-38551596: Karlovarská krajská nemocnice signed ~70.9M CZK for NIS delivery + service support (registr smluv, 27 Jun 2026); same weeks show a psychiatric-hospital NIS wave — PN Horní Beřkovice (~9.7M + 8.1M support), DPN Opařany (~9.3M), PN Marianny Oranžské (~6.0M). With TED that's 8+ distinct public buyers re-solving the same integration problem in one summer."
+    date: 2026-06-27
 created: 2026-08-13
 updated: 2026-08-13
 ---

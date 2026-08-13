@@ -33,6 +33,10 @@ receipts:
     url: https://ted.europa.eu/en/notice/-/detail/385664-2026
     note: "ted-385664-2026: obec Petrovice u Karviné awarded ~€278k design-and-build for 'Komunitní energetika' (TED, closed award, Jun 2026) — municipal budgets are flowing into community-energy delivery; each completed build becomes a settlement/billing customer. Money scored 1 (relevant tender exists)."
     date: 2026-06-05
+  - type: contract
+    url: https://smlouvy.gov.cz/smlouva/38899662
+    note: "hlidac-38899662: Dům seniorů Františkov (Liberec) signed 'Smlouva o zajištění sdílení elektřiny č. 58' (~1.0M CZK, registr smluv) — public institutions are paying for sharing services and the provider's numbering implies a contract series; 37 komunitní-energetika contracts in registr smluv since Jun 2026."
+    date: 2026-07-01
 created: 2026-08-13
 updated: 2026-08-13
 ---

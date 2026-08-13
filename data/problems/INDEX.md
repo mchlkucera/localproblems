@@ -1,11 +1,11 @@
 # Problems index
 
-Run of 2026-08-13 (second pass — local TED run + arbitrage/regulatory scans). Sorted by score descending; ties by (deadline, money).
+Run of 2026-08-13 (second pass — local TED + Hlídač státu runs + arbitrage/regulatory scans). Sorted by score descending; ties by (deadline, money).
 
 | id | title | category | geo | score | status | receipts |
 |----|-------|----------|-----|-------|--------|----------|
-| p-0001 | Czech energy communities lose up to half the value of shared electricity to bad allocation and settlement, and have no software to run member billing | energy | CZ-national | 9 | candidate | 5 |
-| p-0008 | 6,000+ Czech firms and municipalities must implement NIS2 security measures on rolling deadlines through late 2026-2027 and most lack the capacity — many don't know they're in scope | legal-compliance | CZ-national | 7 | candidate | 5 |
+| p-0001 | Czech energy communities lose up to half the value of shared electricity to bad allocation and settlement, and have no software to run member billing | energy | CZ-national | 9 | candidate | 6 |
+| p-0008 | 6,000+ Czech firms and municipalities must implement NIS2 security measures on rolling deadlines through late 2026-2027 and most lack the capacity — many don't know they're in scope | legal-compliance | CZ-national | 7 | candidate | 6 |
 | p-0002 | Hundreds of small Czech heat-pump and solar installation firms drown in quoting, heat-load calculation and NZÚ subsidy paperwork with no vertical software | energy | CZ-national | 7 | candidate | 3 |
 | p-0006 | Thousands of Czech investment intermediaries and advisors face growing ČNB/MiFID paperwork today and a directly applicable EU AML rulebook from July 2027, armed only with Word templates and consultants | fintech | CZ-national | 6 | candidate | 3 |
 | p-0010 | Tens of thousands of small Czech road hauliers run dispatch, documents and invoicing on phones, e-mail and legacy TMS while margins thin and drivers stay scarce | mobility | CZ-national | 6 | candidate | 3 |
@@ -28,5 +28,5 @@ Run of 2026-08-13 (second pass — local TED run + arbitrage/regulatory scans). 
 | p-0016 | Czech hardware, IoT and software vendors must report actively exploited vulnerabilities within 24 hours from 11 Sep 2026, and small ISVs have no product-security function to do it | legal-compliance | CZ-national | 3 | candidate | 3 |
 | p-0019 | Czech automotive and industrial-battery firms must ship digital battery passports with every battery from 18 Feb 2027 — the EU's first mandatory digital product passport, with no transition period | b2b | CZ-national | 3 | candidate | 2 |
 | p-0021 | Czech device manufacturers must ship 'access by design' data APIs from Sep 2026 and every SaaS must abolish switching charges by Jan 2027 under the EU Data Act — two waves most affected firms haven't started | b2b | CZ-national | 3 | candidate | 2 |
-| p-0022 | Czech regional hospitals are each buying bespoke multi-million-euro eHealth interoperability platforms — the same integration problem solved separately, with no product layer | health | CZ-national | 3 | candidate | 3 |
-| p-0026 | Hundreds of small Czech water utilities are buying smart metering one tender at a time — each re-solving telemetry, data and dispatch with no shared platform | environment | CZ-national | 3 | candidate | 2 |
+| p-0022 | Czech regional hospitals are each buying bespoke multi-million-euro eHealth interoperability platforms — the same integration problem solved separately, with no product layer | health | CZ-national | 3 | candidate | 4 |
+| p-0026 | Hundreds of small Czech water utilities are buying smart metering one tender at a time — each re-solving telemetry, data and dispatch with no shared platform | environment | CZ-national | 3 | candidate | 3 |
