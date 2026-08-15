@@ -59,8 +59,19 @@ sources:
   signal: round-nexcade
   dims:
   - proof
+- type: gap-check
+  url: https://ringil.com/en
+  note: 'Incumbent re-check 2026-08-14 (cz-ringil flag): Ringil (CZ, founded 2020; 800+ companies
+    on platform, clients incl. Notino and Plzeňský Prazdroj) verified as a shipper-side logistics
+    platform — transport procurement (poptávky broadcast to carriers), timeslot/yard management,
+    inbound tracking for manufacturers and retailers. Hauliers use it free as bidding counterparties;
+    it sells no haulier back-office (own-fleet dispatch, POD/CMR document automation, invoicing).
+    Adjacent player on the buyer side of the same freight market — gap 1 stands for haulier
+    ops tooling.'
+  date: '2026-08-14'
+  signal: cz-ringil
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-14'
 ---
 
 Road freight is one of the largest Czech sectors: roughly 40,000 dopravci, mostly firms with fewer than ten trucks. Their back office — dispatcher phone calls, POD and document data entry, invoicing and factoring paperwork — runs on phones, e-mail and legacy TMS/dispečink software. With thin margins and a chronic driver shortage, admin overhead per truck is a first-order cost these firms cannot hire their way out of.
@@ -69,7 +80,7 @@ Why now: AI phone agents and document ingestion have matured to the point where 
 
 Who pays: the hauliers themselves, priced per truck or per dispatcher seat; savings show up as dispatcher capacity and faster invoicing/cash collection. Factoring providers serving small hauliers are a plausible distribution channel since cleaner documents speed their own operations.
 
-Existing non-solutions: legacy Czech dispatch/TMS products (records, not automation) and load boards (Timocom, Trans.eu) that cover freight sourcing but not operations. The 2026-08-13 absence check found no AI-native CZ ops player.
+Existing non-solutions: legacy Czech dispatch/TMS products (records, not automation), load boards (Timocom, Trans.eu) that cover freight sourcing but not operations, and Ringil — the largest Czech logistics platform, verified 2026-08-14 as shipper-side transport procurement (Notino, Plzeňský Prazdroj digitize their inbound logistics on it); hauliers appear on it free as bidding counterparties, their own back office untouched. The 2026-08-13 absence check found no AI-native CZ ops player selling to hauliers, and the Ringil re-check did not change that.
 
 Solved elsewhere: the US YC trucking-ops cluster above, now joined by two independent freight-ops rounds closed a month apart in Europe — Cargofy (Kyiv, ~€9.5M, Polish lead investor) and Nexcade (London, ~€5.2M), both building AI agents for freight operations. Proof upgraded to 2: the model is funded in multiple markets including a CEE-origin player, though the European pair targets freight forwarders — an adjacent buyer to the small hauliers here, which keeps proof below 3. Czech and Central European language handling for AI phone agents remains both the barrier for foreign entrants and the moat for a local one, and the forwarder wedge (spedice) and the haulier wedge land in the same document/dispatch workflows.
 

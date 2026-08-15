@@ -12,7 +12,7 @@ scores:
   urgency: 3
   demand: 0
   gap: 0
-status: candidate
+status: watching
 sources:
 - type: regulation
   url: https://eur-lex.europa.eu/eli/reg/2024/1183/oj
@@ -35,8 +35,19 @@ sources:
     2 (open tender far above 5M CZK).'
   date: '2026-07-02'
   signal: ted-453265-2026
+- type: gap-check
+  url: https://www.wultra.com/products/digital-identity-wallet-gateway
+  note: 'Gap check 2026-08-14 (round-wultra flag): OCCUPIED. Wultra (Prague, EUR 6.8M Series
+    A Jun 2026 — Seventure, J&T Ventures, Elevator Ventures) sells the Digital ID Wallet Gateway:
+    banks and regulated firms accept and verify EUDI wallet credentials (OIDC4VCI, SD-JWT per
+    the ARF) through one gateway instead of integrating dozens of national wallets, alongside
+    identity-verification and qualified e-signature products, positioned on the end-2027 acceptance
+    obligation. This is exactly the relying-party integration path the record claimed missing.
+    De-rank rule applied: gap 0 with incumbent named, status watching.'
+  date: '2026-08-14'
+  signal: round-wultra
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-14'
 ---
 
 Czechia must offer an EU Digital Identity Wallet to citizens and businesses by the end of 2026, and within 36 months of the December 2024 implementing acts — i.e. during 2027 — banks, telcos, large platforms and other regulated businesses must accept it wherever strong user authentication is required. The state's deadline creates the private sector's problem: every Czech relying party needs wallet-acceptance flows, and the reg-eidas2 signal notes that banks, utilities, e-shops with KYC obligations and municipalities currently have no integration path beyond following eDoklady's evolution.
@@ -45,6 +56,8 @@ Why now: the wallet launch is months away and the acceptance obligation lands wi
 
 Who pays: relying parties — banks and payment institutions first (strong-authentication obligations under PSD2 make them the clearest obligated acceptors), then telcos, utilities and e-commerce with age/identity checks. Product surfaces named in the signal: relying-party registration and integration SDKs, KYC-flow rebuilds, QES and attribute-attestation services.
 
-Existing non-solutions: current bank-ID schemes (Bankovní identita) solve Czech-domestic identity but do not discharge the EUDI acceptance obligation; eDoklady is the state wallet precursor, not an integration product for relying parties. No gap check was run this cycle (gap 0), and Bankovní identita is a meaningful quasi-incumbent that could absorb this market — the main risk to this problem.
+Existing non-solutions and the incumbent: current bank-ID schemes (Bankovní identita) solve Czech-domestic identity but do not discharge the EUDI acceptance obligation, and eDoklady is the state wallet precursor, not an integration product. The relying-party integration niche itself, however, is occupied: Wultra (Prague) sells the Digital ID Wallet Gateway — accept and verify EUDI wallet credentials (OIDC4VCI, SD-JWT per the ARF) through one gateway instead of integrating dozens of national wallet implementations — plus identity verification and qualified e-signatures, and raised a €6.8M Series A in June 2026 explicitly on the eIDAS2/EUDI acceptance wave. Bankovní identita remains the quasi-incumbent that could absorb the broader market from the scheme side.
 
-Money receipted 2026-08-13: DIA put the national wallet's client part out as an open ~€78M competition in July 2026 — the state is spending seriously and on schedule, which both funds an SI/dev-shop opportunity today and confirms the 2027 relying-party clock. A gap check on CZ EUDI relying-party tooling is the remaining follow-up that would move the score.
+Money receipted 2026-08-13: DIA put the national wallet's client part out as an open ~€78M competition in July 2026 — the state is spending seriously and on schedule, which both funds an SI/dev-shop opportunity today and confirms the 2027 relying-party clock.
+
+Updated 2026-08-14: the gap check this record was waiting on ran against the funded-CZ sweep and found the niche taken. Wultra's wallet gateway is precisely the relying-party acceptance product for banks and KYC-bound businesses that the title claims does not exist, sold from Prague with fresh Series A capital. De-rank rule applied: gap stays 0 — now as a checked score with a named incumbent rather than an unchecked one — and the record moves to watching. The acceptance obligation still lands on thousands of relying parties in 2027, so residual room exists downstream of Wultra (sector-specific integrations, non-bank verticals, SI delivery), but the register cannot claim the integration path is missing.

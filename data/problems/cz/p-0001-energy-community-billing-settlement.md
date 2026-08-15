@@ -74,8 +74,19 @@ sources:
     (not SaaS) side of the gap.'
   date: '2026-06-29'
   signal: hlidac-38760740
+- type: gap-check
+  url: https://www.deltagreen.cz/
+  note: 'Incumbent re-check 2026-08-14 (round-delta-green flag): Delta Green (Prague, EUR 2M
+    Oct 2025 after EUR 2.2M May 2024) is a spot-price electricity supplier and household flexibility
+    aggregator — DELTA SPOT/FLEX tariffs, Proteus smart control, grid-balancing VPP. Site and
+    press show no sdílení elektřiny product: no community administration, member billing, allocation
+    keys or EDC settlement. Adjacent niche, gap 2 stands. Named because Lex OZE III links sharing
+    with flexibility aggregation at EDC from Aug 2026 — Delta Green is the most plausible CZ
+    entrant into this niche and the adjacency should be re-checked each cycle.'
+  date: '2026-08-14'
+  signal: round-delta-green
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-14'
 ---
 
 Czech energy communities (energetická společenství) and groups sharing electricity under Lex OZE II have been legally able to share power via EDC since August 2024, but they run member administration, allocation keys and settlement by hand. Per the HN reporting cited in the de-exnaton signal, communities lose up to roughly half of the value of shared electricity to bad allocation and settlement. Municipalities founding společenství — a core intended user of the regime — have no software at all for the task.
@@ -89,3 +100,5 @@ Existing non-solutions: EDC (data exchange only), ministry guidance, and ASITIS-
 Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across DACH and the Nordics; Austrian community-energy players eFriends and OurPower prove tooling demand under EU RED II in a market bordering Czechia. The July 2026 Pstryk round in Poland shows CEE investors funding adjacent consumer/SME energy software.
 
 Updated 2026-08-13: the registr smluv now shows the spend is structural, not anecdotal. The Liberec community alone signed ~14 near-identical sharing contracts with city schools and kindergartens in June–July 2026 (series numbering to č. 58), Pardubice-region institutions follow the same pattern, and Sonnentor became the first private company in the evidence bucket, administered by a public energy agency. Recurring, multi-organisation service spend on sharing administration is receipted — money moves 1→2 and the record enters PRIME territory: every operating community is a billing/settlement customer paying for a manual service today.
+
+Updated 2026-08-14: incumbent re-check against the funded-CZ sweep. Delta Green (Prague, ~€4.2M raised across 2024–25) was flagged as a possible occupier — verified adjacent, not occupying: it sells spot-price supply and household flexibility aggregation (Proteus, grid balancing), with no community-sharing administration, member billing, allocation-key or EDC-settlement product on its site or in press. The gap claim survives. It is named here because Lex OZE III ties sharing to flexibility aggregation at EDC from August 2026, which makes Delta Green the most credible potential entrant — the strongest current threat to this gap, worth re-checking every cycle.
