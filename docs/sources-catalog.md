@@ -160,3 +160,20 @@ suggested set, same convention: `fa-`, `mpo-`, `coi-`, `sukl-`, `smo-`, `eru-`.
 
 Honorable mention: a one-page-per-year manual read of the MPO consumer-policy
 report and the FA annual report — 30 minutes each, several records guaranteed.
+
+---
+
+## Wave-2 additions (expansion run 2026-08-14) — proven fetch routes
+
+Discovered and used by the 13-collector expansion; each is script-ready:
+
+- **NEN below-threshold tenders** — the "otevřená data" page 404s, but the portal is fully SSR:
+  `nen.nipez.cz/en/verejne-zakazky/p:vz:typVZ=Maly_rozsah,Zjednoduseny,Podlimitni,Podlimitni_mimo_ZVZ&datumPrvniUver=<from>,<to>&page=N`
+  (50 rows/page, matrix-param filters; `/vysledek` subpages carry actual price + supplier). ~5,000 notices/10 weeks, 697 buyers.
+- **TED API v3 cross-country** — `scope` MUST be `"ALL"`; the default `LATEST` silently returns only today's OJ S edition.
+- **EC Have Your Say backend** — `ec.europa.eu/info/law/better-regulation/brpapi/searchInitiatives?size=50&language=EN&feedbackStatus=OPEN` (the working filter; `receivingFeedbackStatus` is ignored) + `groupInitiatives/{id}` for feedback counts and problem statements. ec.europa.eu needs the sandbox network allowlist.
+- **NKÚ audit conclusions** — press listing 403s, but `nku.cz/scripts/rka/vestnik.asp?rok=YYYY` lists every conclusion with PDF links (lowercase filenames; uppercase 301s to http). ~2/month.
+- **SÚKL drug availability** — `opendata.sukl.cz` dataset `MR/mr.zip`, weekly-refreshed CSV with ATC codes; trivially diffable for outage trends.
+- **Ombudsman quarterlies** — predictable URLs: `ochrance.cz/dokument/zpravy_pro_poslaneckou_snemovnu_YYYY/YYYY-N-q.pdf`.
+- **EIC Accelerator winners** — EC publishes per-cutoff PDF lists (WebFetch can't decode them; download + local pdftotext works).
+- **Government legislative plan** — the annual *Plán legislativních prací vlády* PDF is the single best CZ pipeline index (91 pp, text-extractable), paired with psp.cz tisky for stage tracking.

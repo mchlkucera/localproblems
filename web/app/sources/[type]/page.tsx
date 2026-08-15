@@ -21,7 +21,7 @@ const TITLES: Record<EvidenceType, string> = {
 };
 
 const SOURCE_LABELS: Record<string, string> = {
-  ted: "TED", hlidac: "Contract registry", yc: "Y Combinator", round: "Rounds",
+  ted: "TED", hlidac: "CZ procurement", yc: "Y Combinator", round: "Rounds",
   "reg-scan": "Regulations", "arb-scan": "Market scan", feed: "Feed",
   "demand-scan": "Demand scan",
 };
