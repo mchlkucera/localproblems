@@ -28,6 +28,7 @@ comps:
   traction: '$10M Series A, Oct 2025 (The SaaS News); 50+ utility customers incl. TotalEnergies,
     eprimo, Bayernwerk (tech.eu, 2025)'
   signal: de-exnaton
+  markets: [DE, AT, DK, SE, NO, FI]
 - name: eFriends Energy
   url: https://www.efriends.at/
   geo: AT

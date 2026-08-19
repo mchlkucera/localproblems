@@ -47,6 +47,7 @@ comps:
   since: 2014
   traction: '€11.6M Series A (TechCrunch, 2022); clients incl. N26, TravelPerk, Personio;
     live in 8 countries'
+  markets: [DE, ES, GB, PT, FR, NL]
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/gale

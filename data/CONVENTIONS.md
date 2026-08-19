@@ -66,7 +66,7 @@ id, region, title, category (sector list above), geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status: candidate | active | watching | stale | claimed | solved | rejected,
 build {capital, first_revenue, builder, note},
-comps [{name, url, geo, since, traction, signal?: <evidence id>}],
+comps [{name, url, geo, since, traction, signal?: <evidence id>, markets?: [ISO2..]}],
 sources [{type, url, note, date, signal?: <evidence id>, dims?: [dimension..]}],
 created, updated
 ```
@@ -92,6 +92,9 @@ no comparable exists (build-enforced: proof >= 1 requires >= 1 comp):
   Never fabricated; a comp without verifiable numbers records what IS verifiable.
 - `signal` — optional ref to an evidence-layer id (reuse `data/signals/funded/`
   first); must resolve (build-enforced)
+- `markets?: [ISO2…]` — countries the comparable verifiably operates/sells in
+  beyond its HQ; recorded only when sourced (never repeats `geo`; vague claims
+  like "15+ countries" get no list)
 Body: 3–6 paragraphs — problem · why-now · who-pays · existing non-solutions ·
 foreign comparables. Corrections are appended after a `---` line, opening with
 `**CORRECTION (<date>...):**`.

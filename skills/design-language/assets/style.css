@@ -1,5 +1,5 @@
 /* ============================================================
-   localproblems.org · design system v1.4.1 · 2026-08-19
+   localproblems.org · design system v1.5 · 2026-08-19
    Two faces: Source Serif 4 (prose) + IBM Plex Mono (evidence).
    Seven colors. Three rule weights. Zero JavaScript assumed.
    v1.1: adds the 4px spacing scale (--sp-1…--sp-8); all margins,
@@ -15,11 +15,23 @@
    render relative via the tiny progressive script (ISO kept in
    the datetime attribute — page works identically without JS).
    v1.4: record-page rebuild — docket dek + quiet .meta line;
-   .rundown .bands legend; .deadline window figure; two-line
-   comps entries (.entry/.line/.name/.ref/.note); ol.prose
-   numbered steps; .correction left-rule; .absent; .buildnote.
+   .rundown .bands legend; the h2-size window figure (retired
+   v1.5); two-line comps entries (.entry/.line/.name/.ref/.note);
+   ol.prose numbered steps; .correction left-rule; .absent;
+   .buildnote.
    v1.4.1: the where-it-works map (.geomap — build-time inline
    SVG of comp geography; locality shapes, ISO2 mono labels).
+   v1.4.2: the register caption goes visually hidden — kept in
+   the DOM for assistive tech (owner, 2026-08-19).
+   v1.5: five-lane round — the docket goes two-column on wide
+   viewports with the .facts--rail right rail; the .works grid
+   sets the comps ledger beside the geomap; inline source-
+   reference markers (.ref[href^="#s"]); the h2-size window
+   figure retired — window receipts keep a plain mono `by <ISO>`
+   (.urgent inside T−14, via the .comps time.urgent shim); the
+   geomap's North-America inset panel (.inset); aria-sort /
+   aria-current 2px ink underlines (sortable register, masthead
+   About); footer time inherits the meta size.
    Content runs NEVER modify this file.
    ============================================================ */
 
@@ -81,7 +93,7 @@ time, code, .mono { font-family: var(--mono); font-size: var(--fs-data); }
   text-transform: uppercase; letter-spacing: 0.08em;
   color: var(--ink-muted);
 }
-.urgent { color: var(--stamp); }             /* deadlines T−13 and closer */
+.urgent { color: var(--stamp); }             /* window dates T−13 and closer */
 
 /* ---- masthead: gazette head, every page --------------------- */
 .masthead {
@@ -90,6 +102,9 @@ time, code, .mono { font-family: var(--mono); font-size: var(--fs-data); }
 }
 .masthead .brand { font: 700 1.25rem var(--serif); text-decoration: none; }
 .masthead .issue { font: 500 var(--fs-meta) var(--mono); }
+/* the masthead About link marks the current page with the house
+   aria-current grammar — same 2px ink underline as .filters (v1.5) */
+.masthead .issue[aria-current] { text-decoration: underline 2px var(--ink); }
 .index-head { padding: var(--sp-5) 0 var(--sp-4); }               /* landing only */
 .index-head .brand { font-size: var(--fs-masthead); line-height: 1.05; }
 .crumb { font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); margin: var(--sp-2) 0 var(--sp-5); }
@@ -136,6 +151,12 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   background: var(--paper-2); padding: var(--sp-2) var(--sp-3);
   border-bottom: 3px double var(--ink);      /* cadastral boundary */
 }
+/* sortable register (sanctioned exception 3, v1.5): the active sort
+   header — server HTML ships aria-sort="descending" on Score, so the
+   sorted column reads marked with JS off and on the photocopy.
+   cursor:pointer comes from the script, never from here — a th is
+   only clickable when the script is running. */
+.index thead th[aria-sort] { text-decoration: underline 2px var(--ink); }
 .index td { padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--rule); vertical-align: baseline; }
 .index tbody tr:hover { background: var(--paper-2); }   /* instant, no transition */
 .index .t-id { font-weight: 600; white-space: nowrap; }
@@ -169,6 +190,37 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 .facts dt { font: 500 var(--fs-label)/1 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: var(--sp-1); }
 .facts dd { margin: 0; font: 500 var(--fs-data)/1.4 var(--mono); }
 .facts .range { color: var(--ink-muted); font-weight: 400; }   /* capital-ladder range beside the value (v1.4) */
+
+/* ---- docket two-column grid (v1.5) -----------------------------
+   Wide viewports: left minmax(0,1fr) — idline → h1 → dek; right an
+   18rem facts rail (.facts--rail markup modifier on the docket dl),
+   top-aligned, label-over-value rows separated by hairlines.
+   grid-template-rows auto auto 1fr parks any excess height in the
+   dek row so idline/h1/dek never drift apart when the rail is
+   taller. Narrow (< 56rem): all of this is inert — single column,
+   source order idline → h1 → dek → facts (facts keep the base
+   3-across .facts grid). 56rem matches the scorecard's breakpoint;
+   the single-point overlap at exactly 56rem is harmless.
+   .docket keeps its base rules (double-rule top, ink bottom,
+   padding, position: relative) — this block only adds placement. */
+@media (min-width: 56rem) {
+  .docket {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 18rem;
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--sp-7);
+  }
+  .docket .idline { grid-column: 1; grid-row: 1; }
+  .docket h1      { grid-column: 1; grid-row: 2; }
+  .docket .dek    { grid-column: 1; grid-row: 3; margin-bottom: 0; }
+  .docket .facts--rail {
+    display: block;
+    grid-column: 2; grid-row: 1 / span 3;
+    align-self: start;
+  }
+  .docket .facts--rail > div { padding: var(--sp-3) 0; border-bottom: 1px solid var(--rule); }
+  .docket .facts--rail > div:first-child { padding-top: 0; }
+}
 
 /* ---- scorecard: the top-line dimensions band (v1.2) -----------
    Five dimensions + total, straight under the docket. Mono figures,
@@ -290,6 +342,11 @@ ol.receipts { list-style: none; margin: 0; padding: 0; counter-reset: exhibit; }
 .comps li { display: flex; align-items: baseline; gap: 0.75ch; padding: var(--sp-2) 0; border-bottom: 1px solid var(--rule); }
 .comps .leader { flex: 1; }
 .comps time { color: var(--ink-muted); }
+/* urgent window date shim (v1.5): the window ledger's future receipt
+   is a plain mono <time class="urgent">by 2026-12-31</time> inside
+   its normal line. .comps time (0,1,1) would re-mute it past .urgent
+   (0,1,0), so the stamp red needs one notch more specificity. */
+.comps time.urgent { color: var(--stamp); }
 /* two-line comparable entries (v1.4): serif name line + traction note.
    The name is serif because someone runs this — it is not clerk data. */
 .comps li.entry { display: block; }
@@ -299,24 +356,45 @@ ol.receipts { list-style: none; margin: 0; padding: 0; counter-reset: exhibit; }
 .comps .note { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); font-style: italic; color: var(--ink-muted); max-width: var(--w-prose); }
 
 /* ---- record-page devices (v1.4) --------------------------------
-   .deadline: the regulatory date is the point — the window ledger's
-   figure at h2 size; .urgent turns it stamp-red inside T−14.
    .absent: stated absence (no sized figure / no comparable on file).
    .buildnote: one muted serif sentence under the build facts.
    .correction: the 4px page-begins rule turned sideways — a
    correction interrupts the record.                              */
-.deadline { font: 600 var(--fs-h2)/1.2 var(--mono); white-space: nowrap; }
 p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
 .buildnote { margin: var(--sp-4) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); max-width: var(--w-prose); }
 .correction { border-left: 4px solid var(--ink); padding-left: var(--sp-4); margin: 0 0 var(--sp-4); max-width: var(--w-prose); }
 .correction p:last-child { margin-bottom: 0; }
 
-/* ---- where-it-works map (v1.4.1) -------------------------------
+/* ---- inline source references (v1.5) ---------------------------
+   Body prose links whose url is on the sources ledger carry a small
+   superscript S-number marker jumping to the ledger row:
+     <a class="ref" href="#s3" aria-label="Source S3">S3</a>
+   Scoped by the in-page href so the comps ledger's .ref (a
+   cross-page evidence ref, href="/sources/…") keeps its existing
+   ledger form untouched — no override of .comps .ref needed.
+   2px left margin is optical, marker-internal (same license as the
+   stamp/chip micro-padding). */
+.ref[href^="#s"] {
+  font: 500 var(--fs-label)/1 var(--mono);
+  vertical-align: super;
+  color: var(--ink-muted);
+  text-decoration: none;
+  margin-left: 2px;            /* optical, marker-internal */
+}
+.ref[href^="#s"]:hover { color: var(--ink); }
+
+/* ---- where-it-works map (v1.4.1; .inset v1.5) ------------------
    Locality shapes as a data device: build-time inline SVG encoding
    comp geography. Base countries paper-2 with paper hairlines (no
    sea fill — the paper is the sea); comp countries ink-muted with
    paper ISO2 labels; the home market paper-filled with a 1.25 ink
-   outline and an ink label. The ledger below is the legend.      */
+   outline and an ink label. The ledger beside it is the legend.
+   .inset (v1.5): the North-America atlas-plate corner panel —
+   hairline-boxed on paper ground, sitting in the main frame's empty
+   NW Atlantic — rendered only when a record's comparable geography
+   includes US/CA. Countries and labels inside the box reuse the
+   existing grammar (base path / .comp / .lbl); this rule styles
+   only the box itself.                                           */
 .geomap { display: block; width: 100%; max-width: 28rem; height: auto; margin: var(--sp-5) 0; }
 .geomap path { fill: var(--paper-2); stroke: var(--paper); stroke-width: 0.5; }
 .geomap .comp { fill: var(--ink-muted); }
@@ -327,6 +405,28 @@ p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
   fill: var(--paper); stroke: none;
 }
 .geomap .lbl-home { fill: var(--ink); }
+.geomap .inset { fill: var(--paper); stroke: var(--rule); stroke-width: 1; }
+
+/* ---- the works grid (v1.5) -------------------------------------
+   "Where it works": prose stays full-width above; inside .works the
+   comps ledger sits left (minmax(0,1fr)) and the geomap right
+   (22rem, top-aligned) on wide viewports. DOM order is map → ledger
+   so the narrow single-column stack reads prose → map → ledger.
+   margin-top sp-5 collapses against the prose/h2 margins to the
+   same 24px air the free-standing geomap used to carry. */
+.works {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-6);
+  align-items: start;
+  margin-top: var(--sp-5);
+}
+.works .geomap { margin: 0; }
+@media (min-width: 56rem) {
+  .works { grid-template-columns: minmax(0, 1fr) 22rem; }
+  .works .comps  { grid-column: 1; grid-row: 1; }
+  .works .geomap { grid-column: 2; grid-row: 1; }
+}
 
 /* ---- razítko --------------------------------------------------- */
 .stamp {
@@ -374,6 +474,9 @@ p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
 
 /* ---- footer ----------------------------------------------------- */
 footer { margin-top: var(--sp-8); border-top: 3px double var(--ink); padding-top: var(--sp-4); font: 400 var(--fs-meta)/1.7 var(--mono); color: var(--ink-muted); }
+/* footer dates seat in the line (v1.5): the global time rule's
+   --fs-data would bulge one step out of the uniform meta line */
+footer time { font-size: inherit; }
 
 /* ---- print: the brand test is the photocopier ------------------- */
 @media print {

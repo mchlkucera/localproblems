@@ -28,6 +28,7 @@ comps:
   since: 2016
   traction: '10bn+ payments verified; 200+ banks, 750+ business customers (IRIS.vc,
     2025); €12.2M round 2021; Carlyle invested 2025'
+  markets: [GB]
 - name: Numeral
   url: https://www.numeral.io/
   geo: FR

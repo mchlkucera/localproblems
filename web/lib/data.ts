@@ -77,6 +77,8 @@ const CompSchema = z.object({
   since: z.number().int().min(1980).max(2100),
   traction: z.string().min(1),
   signal: z.string().optional(),
+  // Operating countries beyond the HQ — recorded only when sourced (CONVENTIONS.md).
+  markets: z.array(z.string().regex(/^[A-Z]{2}$/)).optional(),
 });
 export type Comp = z.infer<typeof CompSchema>;
 

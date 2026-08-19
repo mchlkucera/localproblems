@@ -42,6 +42,7 @@ comps:
   traction: '$3M incl. $2.5M pre-seed led by EQT Ventures (Tech.eu, Feb 2025); 30
     leading Nordic accounting firms on the platform (getbluebook.com)'
   signal: yc-bluebook
+  markets: [DK, NO, FI]
 - name: Combinely
   url: https://www.combinely.ai/
   geo: GB

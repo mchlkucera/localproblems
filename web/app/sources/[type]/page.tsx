@@ -20,6 +20,18 @@ const TITLES: Record<EvidenceType, string> = {
   demand: "Demand — documented complaints and unmet needs",
 };
 
+// One serif paragraph per ledger: what this evidence is, and why it counts.
+const DESCRIPTIONS: Record<EvidenceType, string> = {
+  funded:
+    "Companies founded and financed elsewhere. A funded business that works is the strongest evidence a problem is real and someone pays to solve it. Where no local equivalent exists, that absence is the arbitrage this register hunts.",
+  regulation:
+    "Obligations written into law, each with a date. Regulation is the only signal that says when a market opens: demand arrives on schedule, and enforcement makes it non-optional.",
+  tenders:
+    "Public money in motion — tenders, signed contracts, open subsidy calls. Each row proves somebody pays: for what, at what scale, with the buyer's name on record.",
+  demand:
+    "Documented complaints and unmet needs — audit findings, ombudsman inventories, petitions with counts, live shortage data. They prove the pain is real before any market exists. Bottom-up evidence is noisy, so the ledger admits pain language only, never engagement metrics.",
+};
+
 const SOURCE_LABELS: Record<string, string> = {
   ted: "TED", hlidac: "CZ procurement", yc: "Y Combinator", round: "Rounds",
   "reg-scan": "Regulations", "arb-scan": "Market scan", feed: "Feed",
@@ -45,6 +57,8 @@ export default async function SourcesPage({ params }: Params) {
         {TITLES[type]} · {String(rows.length).padStart(2, "0")} signals on file
         {latest && <> · latest <time>{latest}</time></>}
       </p>
+
+      <p>{DESCRIPTIONS[type]}</p>
 
       {rows.length === 0 ? (
         <p className="crumb">No signals on record in this ledger. As of <time>{extractDate()}</time>. Feed pending.</p>

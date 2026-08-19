@@ -27,6 +27,7 @@ comps:
   since: 1994
   traction: 'Safexpert CE software: thousands of customers incl. Siemens, HOMAG (company
     site, 2026); MR 2023/1230 module since Apr 2024'
+  markets: [DE, CH]
 sources:
 - type: regulation
   url: https://eur-lex.europa.eu/eli/reg/2023/1230/oj

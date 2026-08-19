@@ -34,6 +34,7 @@ comps:
   since: 2021
   traction: '€13M Series A led by Northzone, €16M total (TechCrunch, 2024); installer sales/planning/ops
     software live in DACH, FR, IT'
+  markets: [AT, CH, FR, IT]
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/autarc

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { CATEGORIES, categoryRows, extractDate } from "../../../lib/data";
 import { categoryLabel, localityLabel, pad2 } from "../../../lib/format";
 import { CategoryNav } from "../../../lib/category-nav";
-import { CORRECTIONS_MAILTO, FooterHouseLine, Masthead, SiteNav, Tally } from "../../../lib/chrome";
+import { CORRECTIONS_MAILTO, FooterHouseLine, Masthead, SiteNav, SortScript, Tally } from "../../../lib/chrome";
 
 export const dynamicParams = false;
 
@@ -46,7 +46,8 @@ export default async function CategoryPage({ params }: Params) {
           <thead>
             <tr>
               <th>ID</th><th>Problem</th><th>Category</th><th>Locality</th>
-              <th className="t-num">Score</th><th className="t-num">Updated</th>
+              {/* the build order is score desc — stated for AT even with JS off */}
+              <th className="t-num" aria-sort="descending">Score</th><th className="t-num">Updated</th>
             </tr>
           </thead>
           <tbody>
@@ -78,6 +79,8 @@ export default async function CategoryPage({ params }: Params) {
         <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
         <a href="/sources/funded">source ledgers</a>
       </footer>
+      {/* an empty category renders no table — ship no script for it */}
+      {rows.length > 0 && <SortScript />}
     </>
   );
 }

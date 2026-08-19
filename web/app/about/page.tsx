@@ -12,8 +12,9 @@ export default function About() {
   const s = stats();
   return (
     <>
-      <Masthead />
-      <SiteNav current="/about" />
+      {/* the masthead About link marks itself; the site nav has no About entry */}
+      <Masthead current="/about" />
+      <SiteNav />
 
       <h2>What this is</h2>
       <p>

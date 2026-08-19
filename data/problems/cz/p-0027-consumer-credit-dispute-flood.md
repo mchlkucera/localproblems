@@ -26,6 +26,7 @@ comps:
   since: 2024
   traction: '$13.3M seed led by Atomico (Forbes, 2025); 20+ insurer clients across US/UK/EU; tech-enabled claims TPA'
   signal: yc-claimsorted
+  markets: [US]
 - name: Casap
   url: https://www.casaphq.com/
   geo: US

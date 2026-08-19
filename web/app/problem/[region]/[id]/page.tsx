@@ -5,9 +5,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { extractDate, getProblems, getSignal, type Problem, type ProblemSource } from "../../../../lib/data";
-import { renderBody } from "../../../../lib/md";
+import { annotateSourceRefs, renderBody } from "../../../../lib/md";
 import { splitBody } from "../../../../lib/sections";
-import { categoryLabel, euro, localityLong, pad2 } from "../../../../lib/format";
+import { categoryLabel, countryName, euro, localityLong, pad2 } from "../../../../lib/format";
 import { BANDS, DIMS, MAX, VERDICTS, bandWord, criterion, dimRefs, type Dim } from "../../../../lib/scorecard";
 import {
   CORRECTIONS_MAILTO, FooterHouseLine, Masthead, RelDatesScript, SiteNav, Tally,
@@ -95,6 +95,11 @@ export default async function Record({ params }: Params) {
   const band = bandWord(p.score);
   const comps = p.comps ?? [];
 
+  // Body prose renders through the ref post-pass: a link citing a source on
+  // file gets its superscript S-number marker (owner, 2026-08-19).
+  const sourceUrls = p.sources.map((s) => s.url);
+  const body = (md: string) => annotateSourceRefs(renderBody(md), sourceUrls);
+
   // Nearest future deadline among the urgency receipts feeds the docket Window fact.
   const windowFact = refs.urgency
     .map((n) => futureDate(p.sources[n - 1], extract))
@@ -121,7 +126,7 @@ export default async function Record({ params }: Params) {
           </p>
           <h1>{p.title}</h1>
           {sections.dek && <p className="dek">{sections.dek}</p>}
-          <dl className="facts">
+          <dl className="facts facts--rail">
             <div><dt>Category</dt><dd><a href={`/category/${p.category}`}>{categoryLabel(p.category)}</a></dd></div>
             <div><dt>Locality</dt><dd>{localityLong(p.geo)}</dd></div>
             {windowFact && <div><dt>Window</dt><dd>by <time dateTime={windowFact}>{windowFact}</time></dd></div>}
@@ -190,10 +195,10 @@ export default async function Record({ params }: Params) {
         </div>
 
         <h2>The problem</h2>
-        <div dangerouslySetInnerHTML={{ __html: renderBody(sections.problem) }} />
+        <div dangerouslySetInnerHTML={{ __html: body(sections.problem) }} />
 
         <h2>The window</h2>
-        {sections.window && <div dangerouslySetInnerHTML={{ __html: renderBody(sections.window) }} />}
+        {sections.window && <div dangerouslySetInnerHTML={{ __html: body(sections.window) }} />}
         {p.scores.urgency > 0 && refs.urgency.length > 0 && (
           <ul className="comps">
             {refs.urgency.map((n) => {
@@ -206,7 +211,9 @@ export default async function Record({ params }: Params) {
                   {url ? <a href={url}>{label}</a> : <span>{label}</span>}
                   <span className="leader"></span>
                   {deadline ? (
-                    <span className={t < 14 ? "deadline urgent" : "deadline"}>by {deadline} · T−{pad2(t)}</span>
+                    /* plain mono date — the .deadline figure and T−n countdown
+                       are retired (owner, 2026-08-19); .urgent inside T−14 */
+                    <time dateTime={deadline} className={t < 14 ? "urgent" : undefined}>by {deadline}</time>
                   ) : (
                     <time>{s.date}</time>
                   )}
@@ -217,7 +224,7 @@ export default async function Record({ params }: Params) {
         )}
 
         <h2>How big</h2>
-        {sections.howbig && <div dangerouslySetInnerHTML={{ __html: renderBody(sections.howbig) }} />}
+        {sections.howbig && <div dangerouslySetInnerHTML={{ __html: body(sections.howbig) }} />}
         {refs.money.length > 0 ? (
           <ul className="comps">
             {refs.money.map((n) => {
@@ -253,25 +260,29 @@ export default async function Record({ params }: Params) {
         )}
 
         <h2>Where it works</h2>
-        {sections.solved && <div dangerouslySetInnerHTML={{ __html: renderBody(sections.solved) }} />}
-        {comps.length > 0 && <EuropeMap comps={comps.map((c) => c.geo)} home={p.region} />}
+        {sections.solved && <div dangerouslySetInnerHTML={{ __html: body(sections.solved) }} />}
         {comps.length > 0 ? (
-          <ul className="comps">
-            {comps.map((c) => {
-              const sig = c.signal ? getSignal(c.signal) : undefined;
-              return (
-                <li key={c.name} className="entry">
-                  <span className="line">
-                    <a className="name" href={c.url}>{c.name}</a>
-                    <span>· {c.geo} · since {c.since}</span>
-                    <span className="leader"></span>
-                    {c.signal && <a className="ref" href={`/sources/${sig?.type ?? "funded"}#${c.signal}`}>{c.signal}</a>}
-                  </span>
-                  <p className="note">{c.traction}</p>
-                </li>
-              );
-            })}
-          </ul>
+          /* .works: ledger left, map right on wide viewports; narrow stacks
+             map → ledger under the full-width prose (owner, 2026-08-19) */
+          <div className="works">
+            <EuropeMap comps={comps.map((c) => ({ geo: c.geo, markets: c.markets }))} home={p.region} />
+            <ul className="comps">
+              {comps.map((c) => {
+                const sig = c.signal ? getSignal(c.signal) : undefined;
+                return (
+                  <li key={c.name} className="entry">
+                    <span className="line">
+                      <a className="name" href={c.url}>{c.name}</a>
+                      <span>· {countryName(c.geo)} · since {c.since}</span>
+                      <span className="leader"></span>
+                      {c.signal && <a className="ref" href={`/sources/${sig?.type ?? "funded"}#${c.signal}`}>{c.signal}</a>}
+                    </span>
+                    <p className="note">{c.traction}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         ) : (
           <p className="absent">No verified foreign comparable on file. As of <time dateTime={p.updated}>{p.updated}</time>.</p>
         )}
@@ -279,7 +290,7 @@ export default async function Record({ params }: Params) {
         {sections.firstmoves && (
           <>
             <h2>First moves</h2>
-            <div dangerouslySetInnerHTML={{ __html: renderBody(sections.firstmoves) }} />
+            <div dangerouslySetInnerHTML={{ __html: body(sections.firstmoves) }} />
           </>
         )}
 
@@ -288,9 +299,9 @@ export default async function Record({ params }: Params) {
             <h2>Record updates</h2>
             {sections.updates.map((u, i) =>
               u.startsWith("**CORRECTION") ? (
-                <div key={i} className="correction" dangerouslySetInnerHTML={{ __html: renderBody(u) }} />
+                <div key={i} className="correction" dangerouslySetInnerHTML={{ __html: body(u) }} />
               ) : (
-                <div key={i} dangerouslySetInnerHTML={{ __html: renderBody(u) }} />
+                <div key={i} dangerouslySetInnerHTML={{ __html: body(u) }} />
               ),
             )}
           </>

@@ -34,6 +34,29 @@ export function categoryLabel(category: string): string {
   return CATEGORY_LABELS[category] ?? category.charAt(0).toUpperCase() + category.slice(1);
 }
 
+/** Full country names for ledger prose positions — the comps ledger renders
+    "Switzerland · since 2020", never bare ISO2 (owner, 2026-08-19). Covers
+    every code present in the data (comps geo + signal geo_origin); fallback =
+    the raw code as recorded. The geomap's small ISO2 labels stay ISO2. */
+const COUNTRY_NAMES: Record<string, string> = {
+  AE: "United Arab Emirates", AM: "Armenia", AR: "Argentina", AT: "Austria",
+  AU: "Australia", BE: "Belgium", BG: "Bulgaria", BR: "Brazil", CA: "Canada",
+  CH: "Switzerland", CO: "Colombia", CR: "Costa Rica", CZ: "Czechia",
+  DE: "Germany", DK: "Denmark", EE: "Estonia", ES: "Spain", FI: "Finland",
+  FR: "France", GB: "United Kingdom", GR: "Greece", HK: "Hong Kong",
+  HR: "Croatia", HU: "Hungary", IE: "Ireland", IL: "Israel", IN: "India",
+  IS: "Iceland", IT: "Italy", KE: "Kenya", KR: "South Korea",
+  KY: "Cayman Islands", LT: "Lithuania", LU: "Luxembourg", LV: "Latvia",
+  MD: "Moldova", MK: "North Macedonia", MX: "Mexico", NG: "Nigeria",
+  NL: "Netherlands", NO: "Norway", PL: "Poland", PT: "Portugal",
+  RO: "Romania", RS: "Serbia", SE: "Sweden", SG: "Singapore",
+  SI: "Slovenia", SK: "Slovakia", TR: "Turkey", UA: "Ukraine",
+  US: "United States",
+};
+export function countryName(iso: string): string {
+  return COUNTRY_NAMES[iso] ?? iso;
+}
+
 /** Register locality display. Unknown codes render as recorded (mono truth). */
 export function localityLabel(geo: string): string {
   if (geo === "CZ-national") return "Czechia";

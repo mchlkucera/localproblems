@@ -36,6 +36,7 @@ comps:
   geo: FR
   since: 2014
   traction: '€150M Series C (One Peak/Highland, 2022); 500+ clients, 50,000 users, €4T AUM monitored in 80 countries (PR Newswire, 2025)'
+  markets: [GB, DE, ES, IT, NL, DK, CH, US, SG, AU]
 sources:
 - type: arbitrage
   url: https://techfundingnews.com/fuchs-eule-raises-10m-commercial-landlords-esg/

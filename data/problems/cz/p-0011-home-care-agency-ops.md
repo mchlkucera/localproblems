@@ -46,6 +46,7 @@ comps:
   since: 2014
   traction: 'CAD $225M Series D (Businesswire, 2021); ~$274M total raised; 500+ care
     organizations'
+  markets: [US, AU]
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/sagecare

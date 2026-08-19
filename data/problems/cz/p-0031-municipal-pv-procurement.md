@@ -25,6 +25,7 @@ comps:
   geo: NL
   since: 2008
   traction: '2.5M+ households served via group-buying auctions (company site, 2026); 200+ UK councils have run Solar Together (Sunsave, 2026)'
+  markets: [GB, BE, DE, FR, AT, PL, US, CA, JP]
 sources:
 - type: tender
   url: https://ted.europa.eu/en/notice/-/detail/450591-2026

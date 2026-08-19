@@ -102,7 +102,9 @@ scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status (candidate|active|watching|stale|claimed|solved|rejected),
 build {capital: kiosk|garage|funded|industrial, first_revenue: weeks|months|year-plus,
        builder: solo|small-team|funded-team, note},
-comps[] {name, url, geo (ISO2), since, traction, signal?: <evidence-layer id>},
+comps[] {name, url, geo (ISO2), since, traction, signal?: <evidence-layer id>,
+         markets?: [ISO2…] — countries the comparable verifiably operates/sells in
+         beyond its HQ; recorded only when sourced},
 sources[] {type, url, note, date, signal?: <evidence-layer id>, dims?},
 created, updated
 ```

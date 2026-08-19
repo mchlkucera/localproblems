@@ -28,6 +28,7 @@ comps:
   since: 1999
   traction: 'Trustmark + buyer protection on 17,000+ European shops incl. Zalando
     and Obi (Wikipedia); certification + legal-protection subscriptions'
+  markets: [AT, CH, NL, ES, IT, FR, BE, PT, PL, GB]
 - name: IT-Recht Kanzlei
   url: https://www.it-recht-kanzlei.de/
   geo: DE

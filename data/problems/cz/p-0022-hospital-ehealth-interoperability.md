@@ -33,6 +33,7 @@ comps:
   since: 1989
   traction: '30M+ patients, 500+ hospitals in 15 countries on its openEHR platform (openEHR.org);
     NHS trusts, Karolinska, Basel'
+  markets: [GB, SE, CH]
 sources:
 - type: tender
   url: https://ted.europa.eu/en/notice/-/detail/549134-2026

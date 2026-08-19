@@ -28,12 +28,14 @@ comps:
   since: 2017
   traction: '$25M Series B 2024, ~$45M total (Tracxn); built the world''s first battery passport
     with Volvo on the EX90 (Jun 2024)'
+  markets: [SE]
 - name: Circularise
   url: https://www.circularise.com/
   geo: NL
   since: 2016
   traction: '€11M Series A — Brightlands, Asahi Kasei, Neste (company PR, 2022); DPP partners
     incl. Porsche, Philips, Marubeni'
+  markets: [DE, JP]
 sources:
 - type: regulation
   url: https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/batteries_en

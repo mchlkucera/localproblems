@@ -59,3 +59,25 @@ export function renderBody(body: string): string {
   flushList();
   return out.join("\n");
 }
+
+/** Inline source references (owner, 2026-08-19): where record prose links a
+    url that is also on the sources ledger, honesty gets a marker — a small
+    superscript S-number appended right after the linked text, jumping to the
+    ledger row (`id="sN"`). The external link itself stays untouched. Matching
+    ignores a trailing slash; duplicated source urls resolve to the first
+    S-number (first match wins). Post-pass over renderBody() output — anchors
+    there are exactly `<a href="…">…</a>`, so the rewrite is total. */
+export function annotateSourceRefs(html: string, sourceUrls: string[]): string {
+  // renderBody escapes & to &amp; before linking; source urls are raw.
+  const norm = (u: string) => u.replace(/&amp;/g, "&").replace(/\/+$/, "");
+  const refs = new Map<string, number>();
+  sourceUrls.forEach((u, i) => {
+    const k = norm(u);
+    if (u.startsWith("http") && !refs.has(k)) refs.set(k, i + 1);
+  });
+  if (refs.size === 0) return html;
+  return html.replace(/<a href="([^"]+)">.*?<\/a>/g, (a, href: string) => {
+    const n = refs.get(norm(href));
+    return n ? `${a}<a class="ref" href="#s${n}" aria-label="Source S${n}">S${n}</a>` : a;
+  });
+}

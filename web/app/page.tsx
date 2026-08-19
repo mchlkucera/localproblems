@@ -2,7 +2,7 @@
 import { extractDate, registerRows, stats, EVIDENCE_TYPES } from "../lib/data";
 import { categoryLabel, localityLabel, pad2 } from "../lib/format";
 import { CategoryNav } from "../lib/category-nav";
-import { FooterHouseLine, Masthead, SiteNav, Tally, CORRECTIONS_MAILTO } from "../lib/chrome";
+import { FooterHouseLine, Masthead, SiteNav, SortScript, Tally, CORRECTIONS_MAILTO } from "../lib/chrome";
 
 export default function Register() {
   const rows = registerRows();
@@ -30,23 +30,6 @@ export default function Register() {
         regulations, funding rounds, documented complaints. Every claim links to its source.
       </p>
 
-      <p className="crumb">
-        {s.open} problems on record · Czechia, pilot country · distilled from{" "}
-        {s.signalCount} source signals:{" "}
-        {EVIDENCE_TYPES.map((t, i) => (
-          <span key={t}>
-            {i > 0 && " · "}
-            <a href={`/sources/${t}`}>{s.byType[t]} {t}</a>
-          </span>
-        ))}
-        {s.nextDeadline && (
-          <>
-            {" "}· next regulatory deadline{" "}
-            <a href={`/sources/regulation#${s.nextDeadline.id}`}><time>{s.nextDeadline.date}</time></a>
-          </>
-        )}
-      </p>
-
       <CategoryNav />
 
       <table className="index">
@@ -56,7 +39,8 @@ export default function Register() {
         <thead>
           <tr>
             <th>ID</th><th>Problem</th><th>Category</th><th>Locality</th>
-            <th className="t-num">Score</th><th className="t-num">Updated</th>
+            {/* the build order is score desc — stated for AT even with JS off */}
+            <th className="t-num" aria-sort="descending">Score</th><th className="t-num">Updated</th>
           </tr>
         </thead>
         <tbody>
@@ -82,11 +66,28 @@ export default function Register() {
       </table>
 
       <footer>
+        {/* the register's vitals — footer matter, not headline matter (owner, 2026-08-19) */}
+        {s.open} problems on record · Czechia, pilot country · distilled from{" "}
+        {s.signalCount} source signals:{" "}
+        {EVIDENCE_TYPES.map((t, i) => (
+          <span key={t}>
+            {i > 0 && " · "}
+            <a href={`/sources/${t}`}>{s.byType[t]} {t}</a>
+          </span>
+        ))}
+        {s.nextDeadline && (
+          <>
+            {" "}· next regulatory deadline{" "}
+            <a href={`/sources/regulation#${s.nextDeadline.id}`}><time>{s.nextDeadline.date}</time></a>
+          </>
+        )}
+        <br />
         <FooterHouseLine />
         <br />
         <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
         <a href="/sources/funded">source ledgers</a>
       </footer>
+      <SortScript />
     </>
   );
 }
