@@ -38,6 +38,8 @@ export function SiteNav({ current }: { current?: string }) {
           <a href={href} aria-current={current === href ? "page" : undefined}>{label}</a>
         </span>
       ))}
+      {"  ·  "}
+      <a href="/about" aria-current={current === "/about" ? "page" : undefined}>About</a>
     </nav>
   );
 }

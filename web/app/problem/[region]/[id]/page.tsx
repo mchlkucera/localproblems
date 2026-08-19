@@ -12,6 +12,7 @@ import { BANDS, DIMS, MAX, VERDICTS, bandWord, criterion, dimRefs, type Dim } fr
 import {
   CORRECTIONS_MAILTO, FooterHouseLine, Masthead, RelDatesScript, SiteNav, Tally,
 } from "../../../../lib/chrome";
+import { EuropeMap } from "../../../../lib/geomap";
 
 export const dynamicParams = false;
 
@@ -110,7 +111,14 @@ export default async function Record({ params }: Params) {
 
       <article>
         <header className="docket">
-          <span className="id">{idUp}</span>
+          <p className="idline">
+            <span className="id">{idUp}</span>
+            <span className="meta">
+              {p.sources.length > 1 ? `S01–S${pad2(p.sources.length)}` : "S01"} on file
+              {" · updated "}<time className="rel" dateTime={p.updated}>{p.updated}</time>
+              {" · created "}<time className="rel" dateTime={p.created}>{p.created}</time>
+            </span>
+          </p>
           <h1>{p.title}</h1>
           {sections.dek && <p className="dek">{sections.dek}</p>}
           <dl className="facts">
@@ -118,11 +126,6 @@ export default async function Record({ params }: Params) {
             <div><dt>Locality</dt><dd>{localityLong(p.geo)}</dd></div>
             {windowFact && <div><dt>Window</dt><dd>by <time dateTime={windowFact}>{windowFact}</time></dd></div>}
           </dl>
-          <p className="meta">
-            {p.sources.length > 1 ? `S01–S${pad2(p.sources.length)}` : "S01"} on file
-            {" · updated "}<time className="rel" dateTime={p.updated}>{p.updated}</time>
-            {" · created "}<time className="rel" dateTime={p.created}>{p.created}</time>
-          </p>
         </header>
 
         <section className="scorecard" aria-label="Scorecard — top-line dimensions, each opening its evidence">
@@ -251,6 +254,7 @@ export default async function Record({ params }: Params) {
 
         <h2>Where it works</h2>
         {sections.solved && <div dangerouslySetInnerHTML={{ __html: renderBody(sections.solved) }} />}
+        {comps.length > 0 && <EuropeMap comps={comps.map((c) => c.geo)} home={p.region} />}
         {comps.length > 0 ? (
           <ul className="comps">
             {comps.map((c) => {

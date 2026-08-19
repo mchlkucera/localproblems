@@ -14,6 +14,17 @@ export default function Register() {
       <Masthead index />
       <SiteNav current="/" />
 
+      <nav className="filters" aria-label="Regions">
+        {"Region: "}
+        <a href="/" aria-current="page">Czechia</a>
+        {[" Poland", " Slovakia", " Austria", " Germany"].map((r) => (
+          <span key={r}>
+            {" · "}
+            <span className="soon" title="Coming soon">{r.trim()}</span>
+          </span>
+        ))}
+      </nav>
+
       <p>
         Real local problems, stated properly. Distilled weekly from public sources — tenders,
         regulations, funding rounds, documented complaints. Every claim links to its source.
