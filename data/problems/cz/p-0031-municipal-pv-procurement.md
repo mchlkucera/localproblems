@@ -14,6 +14,17 @@ scores:
   demand: 0
   gap: 0
 status: candidate
+build:
+  capital: garage
+  first_revenue: year-plus
+  builder: small-team
+  note: 'An aggregation operator needs campaign ops, procurement-law expertise and a light platform rather than heavy capital, but municipal joint-purchasing decisions and ZZVZ frameworks run on public-sector clocks — the record''s own lots fail repeatedly.'
+comps:
+- name: iChoosr
+  url: https://ichoosr.com/
+  geo: NL
+  since: 2008
+  traction: '2.5M+ households served via group-buying auctions (company site, 2026); 200+ UK councils have run Solar Together (Sunsave, 2026)'
 sources:
 - type: tender
   url: https://ted.europa.eu/en/notice/-/detail/450591-2026
@@ -49,7 +60,7 @@ sources:
     of municipalities does not use them.'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Between June and August 2026, 53 distinct Czech public buyers went to market for rooftop photovoltaics — towns, regional governments, school and hospital organisations, a zoo, wastewater plants — generating ~80 TED records worth roughly €60M. Almost every lot is a bespoke design-build tender for a standard product: panels on a public roof, sized €120k to €1M, with its own documentation, its own evaluation, its own contract administration.

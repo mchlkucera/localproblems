@@ -13,6 +13,39 @@ scores:
   demand: 2
   gap: 2
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'EDC and DSO data integration plus member billing is real engineering, but the buyers
+    — communities already paying ~1M CZK for manual sharing administration — are reachable
+    without certification or enterprise procurement.'
+comps:
+- name: Exnaton
+  url: https://exnaton.com/
+  geo: CH
+  since: 2020
+  traction: '$10M Series A, Oct 2025 (The SaaS News); 50+ utility customers incl. TotalEnergies,
+    eprimo, Bayernwerk (tech.eu, 2025)'
+  signal: de-exnaton
+- name: eFriends Energy
+  url: https://www.efriends.at/
+  geo: AT
+  since: 2015
+  traction: '500+ household P2P sharing community, Austria''s largest (Trending Topics, 2020);
+    investors Wienerberger, VERBUND X Ventures, RWA, Rockstart (2024 round undisclosed)'
+- name: OurPower
+  url: https://www.ourpower.coop/
+  geo: AT
+  since: 2018
+  traction: '850 co-op members, 400+ electricity producers selling on its marketplace (ourpower.coop,
+    2026)'
+- name: Pionierkraft
+  url: https://pionierkraft.de/
+  geo: DE
+  since: 2019
+  traction: 'High-seven-figure EUR Series A, Oct 2024 (First Imagine!, company release); HW+SW
+    energy sharing for small multi-family buildings'
 sources:
 - type: arbitrage
   url: https://exnaton.com/
@@ -86,7 +119,7 @@ sources:
   date: '2026-08-14'
   signal: round-delta-green
 created: '2026-08-13'
-updated: '2026-08-14'
+updated: '2026-08-19'
 ---
 
 Czech energy communities (energetická společenství) and groups sharing electricity under Lex OZE II have been legally able to share power via EDC since August 2024, but they run member administration, allocation keys and settlement by hand. Per the HN reporting cited in the de-exnaton signal, communities lose up to roughly half of the value of shared electricity to bad allocation and settlement. Municipalities founding společenství — a core intended user of the regime — have no software at all for the task.
@@ -102,3 +135,12 @@ Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across 
 Updated 2026-08-13: the registr smluv now shows the spend is structural, not anecdotal. The Liberec community alone signed ~14 near-identical sharing contracts with city schools and kindergartens in June–July 2026 (series numbering to č. 58), Pardubice-region institutions follow the same pattern, and Sonnentor became the first private company in the evidence bucket, administered by a public energy agency. Recurring, multi-organisation service spend on sharing administration is receipted — money moves 1→2 and the record enters PRIME territory: every operating community is a billing/settlement customer paying for a manual service today.
 
 Updated 2026-08-14: incumbent re-check against the funded-CZ sweep. Delta Green (Prague, ~€4.2M raised across 2024–25) was flagged as a possible occupier — verified adjacent, not occupying: it sells spot-price supply and household flexibility aggregation (Proteus, grid balancing), with no community-sharing administration, member billing, allocation-key or EDC-settlement product on its site or in press. The gap claim survives. It is named here because Lex OZE III ties sharing to flexibility aggregation at EDC from August 2026, which makes Delta Green the most credible potential entrant — the strongest current threat to this gap, worth re-checking every cycle.
+
+## First moves
+
+1. Call the operator of **Energetické společenství Liberec** first — the community that signed ~14 near-identical sharing contracts with Liberec schools and kindergartens in Jun–Jul 2026 (series numbering observed up to č. 58): ask to walk through how allocation keys and member settlement are run today, and turn that manual process into the product spec.
+2. Second call: **Jihomoravská energetická agentura**, which manually administers sharing for the sdílEjme community including Sonnentor — administration providers like JMEA are exactly the white-label customer the Exnaton model sells to ($10M Series A, 50+ utility customers).
+3. Build the settlement-reconciliation wedge first: ingest one community's real EDC sharing data, recompute allocation and member billing, and put a CZK figure on the recovered value — the record's demand receipt claims up to ~50% of shared-electricity value is lost to bad allocation and settlement. The same exercise verifies the risky assumption that EDC data exchange gives an outside operator enough data to automate settlement.
+4. Price under the receipts: Dům seniorů Františkov paid ~1.0M CZK for a sharing-service contract — SaaS priced below that manual-service level has documented willingness-to-pay on file.
+5. Funding channel: [Modernizační fond KOMUNERG 1/2025](/sources/tenders#dotace-mf-komunerg-1-energeticka-spolecenstvi) — 1bn CZK (~€40.8M) for energy communities and municipalities building shared renewable generation, applications open until **2027-12-31**; every funded community build becomes a settlement/billing customer.
+6. Competition on file: **Delta Green** (adjacent, not occupying — spot-price supply and flexibility aggregation, no sharing-administration product; the most credible entrant once Lex OZE III links sharing with flexibility at EDC from Aug 2026), **ASITIS** (consulting/services, not product), **EDC** itself (data exchange only, explicitly no member billing), and **JMEA** (manual regional service — a prospective customer more than a rival).

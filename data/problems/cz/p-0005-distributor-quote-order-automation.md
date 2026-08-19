@@ -13,6 +13,36 @@ scores:
   demand: 0
   gap: 2
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'AI document extraction is commodity, but Pohoda/Helios/ABRA integrations and distributor
+    pilots take real build-and-sales effort — Mercura''s ~20-person seed-funded path shows
+    the garage shape.'
+comps:
+- name: Mercura
+  url: https://www.mercura.ai/
+  geo: DE
+  since: 2024
+  traction: '$2.1M oversubscribed seed — TQ Ventures, SignalFire (Startbase, 2025); $1M ARR in under a year (Extruct, 2026); ~20 people'
+  signal: yc-mercura
+- name: turian
+  url: https://www.turian.ai/
+  geo: DE
+  since: 2022
+  traction: '$3.8M seed — Cherry Ventures et al. (PitchBook, 2026); 17 employees; 12+ ERP integrations incl. SAP and Dynamics'
+- name: Workist
+  url: https://www.workist.com/
+  geo: DE
+  since: 2019
+  traction: '€12M total incl. €9M Series A led by Earlybird (Tech.eu, 2022); AI order entry (WorKL) for B2B document flows'
+- name: Ventura
+  url: https://www.ventura.ai/
+  geo: US
+  since: 2025
+  traction: 'YC W26, 2-person team (YC, 2026); ERP-integrated quote and order entry automation; funding beyond YC undisclosed'
+  signal: yc-ventura
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/mercura
@@ -35,7 +65,7 @@ sources:
   date: '2026-08-13'
   signal: yc-ventura
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czechia is dense with SMB velkoobchody and manufacturing suppliers running Pohoda, Helios and ABRA ERPs. Inbound demand arrives as unstructured e-mails, PDFs and Excel sheets, and staff re-type it into quotes and orders by hand — slow, error-prone work that caps how many RFQs a sales desk can turn around.

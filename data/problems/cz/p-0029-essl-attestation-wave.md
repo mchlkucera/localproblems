@@ -14,6 +14,17 @@ scores:
   demand: 0
   gap: 0
 status: candidate
+build:
+  capital: funded
+  first_revenue: year-plus
+  builder: funded-team
+  note: 'The state atest is a per-product, per-version certification gate and every buyer procures publicly — payroll runs through attestation and tender cycles before first revenue.'
+comps:
+- name: Documaster
+  url: https://www.documaster.com/
+  geo: NO
+  since: 2014
+  traction: 'First records kernel certified by Norway''s National Archives (Noark); NOK 100M from Summa Equity; revenue >15x since 2017 (Summa)'
 sources:
 - type: regulation
   url: https://www.epravo.cz/top/clanky/dodani-elektronickeho-systemu-spisove-sluzby-po-172025-119824.html
@@ -42,7 +53,7 @@ sources:
   date: '2026-08-12'
   signal: ted-559572-2026
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Every Czech public body runs a spisová služba — the legally mandated records-management layer beneath all official correspondence — and the state has now put a hard gate on the software that runs it: eSSL systems must pass state attestation, suppliers have been banned from offering non-attested products since 1 July 2025, and the transitional period for state organizational units, contributory organisations and state enterprises to operate attested systems ends 31 December 2026.

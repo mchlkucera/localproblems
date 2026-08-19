@@ -13,6 +13,27 @@ scores:
   demand: 1
   gap: 2
 status: candidate
+build:
+  capital: garage
+  first_revenue: weeks
+  builder: small-team
+  note: 'Per-seat SMB SaaS with no procurement gate — an NZÚ-paperwork wedge can sell consulting-led
+    within weeks, though heat-load calculation and workflow depth take a small team (autarc
+    started with 3 founders).'
+comps:
+- name: autarc
+  url: https://www.autarc.energy/
+  geo: DE
+  since: 2023
+  traction: '~$9.3M raised over 3 rounds (Tracxn, 2026); 380 German installer customers and
+    7-digit ARR at YC S24 launch (Y Combinator, 2024)'
+  signal: yc-autarc
+- name: Reonic
+  url: https://reonic.com/
+  geo: DE
+  since: 2021
+  traction: '€13M Series A led by Northzone, €16M total (TechCrunch, 2024); installer sales/planning/ops
+    software live in DACH, FR, IT'
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/autarc
@@ -39,7 +60,7 @@ sources:
     integrated installer, not a software vendor to the long tail.'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Hundreds of small Czech montážní firmy execute the tens of thousands of heat-pump and photovoltaic installations driven each year by Nová zelená úsporám. Per the yc-autarc signal they are drowning in the surrounding paperwork: digital site survey, heat-load calculation, quote generation, subsidy application handling and install project tracking are done with spreadsheets, manufacturer configurators and manual NZÚ form-filling.
@@ -51,3 +72,12 @@ Who pays: the installation firms themselves (per-seat or per-project SaaS), for 
 Existing non-solutions: manufacturer sizing configurators (e.g. Master Therm), generic project tools, and Woltair — which is a vertically integrated installer competing with the long tail, not selling software to it. The 2026-08-13 absence check found no Czech installer-ops SaaS.
 
 Solved elsewhere: autarc in Germany is the funded, directly adjacent analog; no Czech player was found, which under the scoring rubric is a clean DE-analog-plus-no-CZ-player arbitrage. Money point reflects the NZÚ subsidy program referenced in the signal note as the workflow's economic engine.
+
+## First moves
+
+1. Interview ten small heat-pump/FVE montážní firmy — the long tail executing the tens of thousands of NZÚ-driven installs per year — and time two numbers per firm: hours per quote and hours per NZÚ subsidy application, both done today with spreadsheets, manufacturer configurators and manual form-filling per the record.
+2. Build the NZÚ-paperwork wedge first: generate the complete subsidy-application package from the data already captured in a quote — correctly filed applications convert directly to installer revenue, and the subsidy-shaped workflow is exactly the localization moat that keeps foreign tools out.
+3. Verify the volume assumption before scaling: the redesigned [NZÚ 2026+](/sources/tenders#dotace-nzu-2026-zranitelne-domacnosti) (opened 25.6.2026, applications until **2029-10-31**) narrows direct grants to vulnerable households (advance grants up to 400k CZK) and shifts other owners to zero-interest loans plus a newly mandatory renovation pass — confirm with the interviewed firms that application volume and paperwork burden survive the pivot.
+4. Then displace the manufacturer configurators: add heat-load calculation and digital site survey so a firm quotes from one tool instead of Master Therm-style sizing tools plus spreadsheets — the depth that carried autarc (~$9.3M raised, 380 DE customers) and Reonic (€13M Series A) to installer scale in Germany.
+5. Funding reality: the open calls on file fund the buyer's order book, not the software — NZÚ 2026+ keeps the long tail at capacity, and the [NPO 2/2026 Renovační pas call](/sources/tenders#dotace-npo-2-2026-renovacni-pas) (grants up to 50k/100k CZK per building, deadline **2026-11-30**) makes renovation passports the gate to NZÚ retrofit money — new mandatory paperwork the product can automate. The software itself is commercial revenue only.
+6. Competition on file: **Master Therm**-style manufacturer configurators (sizing only) and **Woltair** (vertically integrated installer competing with the long tail, not selling software to it); the 2026-08-13 absence check found no CZ installer-ops SaaS.

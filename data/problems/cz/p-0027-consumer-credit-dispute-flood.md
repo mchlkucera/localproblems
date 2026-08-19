@@ -14,6 +14,29 @@ scores:
   demand: 2
   gap: 1
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'Respondent-side dispute-workflow software needs no licence — a dev plus a consumer-credit lawyer can pilot with one non-bank lender facing the ~20,000-filing wave and 167-day proceedings.'
+comps:
+- name: ClaimSorted
+  url: https://www.claimsorted.com/
+  geo: GB
+  since: 2024
+  traction: '$13.3M seed led by Atomico (Forbes, 2025); 20+ insurer clients across US/UK/EU; tech-enabled claims TPA'
+  signal: yc-claimsorted
+- name: Casap
+  url: https://www.casaphq.com/
+  geo: US
+  since: 2023
+  traction: '$25M Series A led by Emergence at $105M valuation (BusinessWire, 2025); automates bank and credit-union payment-dispute lifecycle'
+- name: Audun
+  url: https://www.getaudun.com/
+  geo: NO
+  since: 2026
+  traction: 'YC S26, 4-person Oslo team (YC directory, 2026); AI-native debt collection; no public funding or customer figures yet'
+  signal: yc-audun
 sources:
 - type: complaint
   url: https://finarbitr.gov.cz/cs/informace-pro-verejnost/aktuality/vyrocni-zprava-financniho-arbitra-za-rok-2025-425.html
@@ -50,7 +73,7 @@ sources:
     workflow was found. Gap 1 (quick search, no CZ player found).'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 The Kancelář finančního arbitra — the mandatory out-of-court forum for consumer disputes with banks and non-bank lenders — is absorbing a caseload explosion: 2,660 new proceedings in 2023, 5,683 in 2024, 12,050 in 2025, and 8,200 already filed by the time the 2025 annual report was published in May 2026, projecting toward ~20,000 for the year. Roughly 92% of all running proceedings are consumer-credit disputes, dominated by claims that lenders failed to properly assess creditworthiness (úvěruschopnost) — a doctrine under which a failed assessment can void the credit contract's interest.

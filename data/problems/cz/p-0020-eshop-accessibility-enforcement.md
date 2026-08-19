@@ -13,6 +13,26 @@ scores:
   demand: 1
   gap: 0
 status: candidate
+build:
+  capital: garage
+  first_revenue: weeks
+  builder: small-team
+  note: 'ČOI is already test-purchasing checkout flows, so audits and remediation sell to obligated
+    e-shops immediately; a dev plus accessibility auditor shipping zákon č. 424/2023 mapping
+    and a Shoptet-channel app needs integration effort, not capital.'
+comps:
+- name: AudioEye
+  url: https://www.audioeye.com/
+  geo: US
+  since: 2005
+  traction: 'NASDAQ: AEYE; $38.7M ARR, ~123k customers (Q3 2025 results); EU push timed to
+    EAA enforcement (PRNewswire, Jul 2025)'
+- name: accessiBe
+  url: https://accessibe.com/
+  geo: IL
+  since: 2018
+  traction: '$58M raised (Crunchbase); ~110k customers, widget on 200k+ sites (2024); overlay
+    model auditors contest'
 sources:
 - type: regulation
   url: https://coi.gov.cz/pro-podnikatele/pristupnost-vyrobku-a-sluzeb-pro-podnikatele/
@@ -28,7 +48,7 @@ sources:
     about scope and obligations — scattered but real industry pressure; demand scored 1.
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 The European Accessibility Act became Czech law (zákon č. 424/2023 Sb.) in June 2025, and 2026 is its first full enforcement year: ČOI conducts mystery-shopping test purchases that walk entire e-shop checkout flows, with power to order corrective measures and levy fines. In scope: e-shops, banks, transport ticketing, e-book sellers and consumer-device makers — with an exemption only for micro-enterprises providing services. The Czech e-commerce sector, one of Europe's densest per capita, is largely non-compliant with WCAG-level accessibility.

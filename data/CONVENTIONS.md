@@ -65,9 +65,33 @@ One markdown file per problem: `p-NNNN-<slug>.md`. A problem is uniquely
 id, region, title, category (sector list above), geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status: candidate | active | watching | stale | claimed | solved | rejected,
+build {capital, first_revenue, builder, note},
+comps [{name, url, geo, since, traction, signal?: <evidence id>}],
 sources [{type, url, note, date, signal?: <evidence id>, dims?: [dimension..]}],
 created, updated
 ```
+
+`build` — the buildability scorecard (REQUIRED on every record): who can build
+this, with what, how fast. Judged honestly from the record's own evidence, never
+aspirationally:
+- `capital` — the stánek→továrna ladder: `kiosk` <€10k · `garage` €10–100k ·
+  `funded` €100k–1M · `industrial` >€1M
+- `first_revenue` — time to first paying customer: `weeks` · `months` · `year-plus`
+- `builder` — who it takes: `solo` · `small-team` (2–5) · `funded-team`
+- `note` — one sentence justifying the three calls
+
+`comps` — foreign comparables (REQUIRED; the "where it works" ledger): companies
+running the model elsewhere, with public verifiable traction. 2–4 entries per
+record with foreign proof; `comps: []` is legitimate ONLY where `proof` is 0 and
+no comparable exists (build-enforced: proof >= 1 requires >= 1 comp):
+- `name`, `url` — the company and its site
+- `geo` — HQ country, ISO2 (UK -> GB)
+- `since` — founding year, unquoted integer
+- `traction` — funding stage/amount, customers, pricing, revenue — whatever is
+  PUBLIC and verifiable, with the source named compactly (e.g. "(Sifted, 2026)").
+  Never fabricated; a comp without verifiable numbers records what IS verifiable.
+- `signal` — optional ref to an evidence-layer id (reuse `data/signals/funded/`
+  first); must resolve (build-enforced)
 Body: 3–6 paragraphs — problem · why-now · who-pays · existing non-solutions ·
 foreign comparables. Corrections are appended after a `---` line, opening with
 `**CORRECTION (<date>...):**`.

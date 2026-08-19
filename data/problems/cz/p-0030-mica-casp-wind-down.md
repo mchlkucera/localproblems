@@ -14,6 +14,12 @@ scores:
   demand: 0
   gap: 1
 status: candidate
+build:
+  capital: kiosk
+  first_revenue: weeks
+  builder: small-team
+  note: 'Consulting-led wind-down execution sells immediately to hundreds of exposed firms under live ČNB enforcement — the cost is regulatory expertise and playbooks, not capital; a recurring compliance-ops product is a later, bigger build.'
+comps: []
 sources:
 - type: regulation
   url: https://www.cnb.cz/cs/cnb-news/aktuality/Upozorneni-Ceske-narodni-banky-Konec-prechodneho-obdobi-podle-narizeni-MiCA-k1.7.2026/
@@ -40,7 +46,7 @@ sources:
     found. Gap 1 (quick search, services-only incumbents named).'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czechia entered the MiCA era with one of Europe's loosest crypto regimes — providing crypto services took a trade licence (živnost), and hundreds of firms did, from exchanges and brokers to ATM operators. That regime ended on 1 July 2026: ČNB's warning is explicit that only CASP-licensed firms may serve clients, and it has licensed eleven. Everyone else must cease activity and transfer customer crypto-assets and funds to licensed providers or the customers' own custody — an orderly-wind-down obligation most small providers have no playbook for.

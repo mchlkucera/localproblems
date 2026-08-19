@@ -14,6 +14,27 @@ scores:
   demand: 1
   gap: 0
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'Declarant registration support, supplier emissions collection and ERP plug-ins
+    are consulting-led software a customs or tax expert plus a dev can ship, and
+    CFO buyers move on the fixed Feb 2027 certificate date but still need a mid-market
+    sales cycle.'
+comps:
+- name: CBAMBOO
+  url: https://www.cbamboo.com/
+  geo: GB
+  since: 2023
+  traction: '£1M pre-seed led by Pale Blue Dot (Crunchbase, 2023); CBAM-only compliance
+    platform for EU importers and suppliers'
+- name: CarbonChain
+  url: https://www.carbonchain.com/
+  geo: GB
+  since: 2019
+  traction: '$10M Series A co-led by Union Square Ventures (Tech.eu, 2023); carbon
+    accounting for metals and commodity importers'
 sources:
 - type: regulation
   url: https://eur-lex.europa.eu/eli/reg/2023/956/oj
@@ -31,7 +52,7 @@ sources:
     payment is deferred to 2027.'
   date: '2025-12-31'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czech importers of iron and steel, aluminium, cement, fertilisers, hydrogen and electricity above 50 tonnes per year are in CBAM's definitive regime as of 1 January 2026: financial liability for embedded emissions is accruing on this year's imports even though certificates only go on sale in February 2027 and the first declaration (covering 2026) is due 30 September 2027. For Czech metal fabrication, machinery and construction firms importing steel and aluminium inputs, this is an unpriced, unhedged cost building up on the balance sheet — the signal frames it as a CFO-level cash-planning problem.

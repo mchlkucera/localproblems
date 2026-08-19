@@ -14,6 +14,32 @@ scores:
   demand: 0
   gap: 0
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'Pay-gap analytics over payroll exports for the 150+-employee reporting tier is mid-market
+    SaaS with no certification gate — Figures started on a €1.7M seed, and the 2027/2028 CZ
+    deadlines set a pilot-led sales cycle.'
+comps:
+- name: Figures
+  url: https://figures.hr/
+  geo: FR
+  since: 2020
+  traction: '€6.67M led by Point Nine (EU-Startups, 2022); benchmarks from 1,200+ EU companies;
+    compliance tier from €2,500/yr'
+- name: PayAnalytics
+  url: https://www.payanalytics.com/
+  geo: IS
+  since: 2016
+  traction: 'acquired by beqom (PRNewswire, Dec 2023); used in 75+ countries; pay decisions
+    covering 1.5M+ employees'
+- name: Syndio
+  url: https://synd.io/
+  geo: US
+  since: 2017
+  traction: '$83M raised incl. $50M Series C (PRNewswire, 2021); 200+ enterprise customers
+    incl. 10% of the Fortune 200'
 sources:
 - type: regulation
   url: https://iuslaboris.com/insights/czechia-charts-its-own-course-on-pay-transparency-directive-transposition/
@@ -30,7 +56,7 @@ sources:
     Named analogs only — no CZ gap check run this cycle, so arbitrage scored 1 and gap 0.
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 The EU Pay Transparency Directive lands in Czechia on a compressed and unusually prescriptive schedule: the transposition deadline passed in June 2026 with the Czech law still in draft, which converts parliamentary delay into infringement pressure and leaves employers with a shorter runway to a 1 January 2027 effective date. From then, pay ranges must appear in hiring, salary-history questions are banned, and pay-setting criteria must be transparent; from 2028, employers with 150+ employees owe pay-gap reports, with the first due 30 April 2028.

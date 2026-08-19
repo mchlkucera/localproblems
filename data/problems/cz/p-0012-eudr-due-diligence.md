@@ -13,6 +13,27 @@ scores:
   demand: 1
   gap: 0
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'DDS filing automation and supplier geolocation collection can lean on the
+    EU information system and public forest data rather than a proprietary satellite
+    stack, but mid-sized importers need onboarding pilots before the 30 Dec 2026
+    deadline converts to revenue.'
+comps:
+- name: osapiens
+  url: https://osapiens.com/
+  geo: DE
+  since: 2018
+  traction: '$120M Series B led by Goldman Sachs Growth (Businesswire, 2024); 1,300+
+    customers incl. Bosch, Lidl; EUDR hub module'
+- name: LiveEO
+  url: https://www.live-eo.com/
+  geo: DE
+  since: 2018
+  traction: '€25M Series B, €51.6M total (EU-Startups, 2024); TradeAware satellite
+    EUDR product with legality checks in 80+ countries'
 sources:
 - type: regulation
   url: https://eur-lex.europa.eu/eli/reg/2023/1115/oj
@@ -28,7 +49,7 @@ sources:
     only first placer files DDS, one-off simplified declaration for micro/small primary operators.'
   date: '2025-12-11'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czech companies trading in cattle, cocoa, coffee, palm oil, rubber, soy and wood products — furniture and wood processing, coffee roasters, food producers, tyre and rubber importers — must run geolocation-based due diligence on their supply chains and file due diligence statements from 30 December 2026 (micro/small firms from 30 June 2027). Per the reg-eudr signal, the documentation burden falls heavily on mid-sized importers that have no traceability stack of any kind. Penalties reach 4% of EU turnover.

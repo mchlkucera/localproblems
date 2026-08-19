@@ -13,6 +13,40 @@ scores:
   demand: 1
   gap: 1
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'Software plus attorney coordination on the Gale model needs a dev and an
+    immigration-domain partner rather than any certification, and employers already
+    paying per-case agency fees can convert within an SMB pilot cycle.'
+comps:
+- name: Gale
+  url: https://galevisa.com/
+  geo: US
+  since: 2024
+  traction: '$2.7M seed, Apr 2025 (Business Insider, 2025); automates H-1B pipeline,
+    coordinates independent attorneys'
+  signal: yc-gale
+- name: LegalOS
+  url: https://www.ycombinator.com/companies/legalos
+  geo: US
+  since: 2024
+  traction: 'YC W26; claims 100% approval across dozens of filings, 48h turnaround
+    (YC profile, 2026)'
+  signal: yc-legalos
+- name: Localyze
+  url: https://www.localyze.com/
+  geo: DE
+  since: 2018
+  traction: '$35M Series B led by General Catalyst (TechCrunch, 2022); revenue up
+    6x YoY; 10 European markets'
+- name: Jobbatical
+  url: https://www.jobbatical.com/
+  geo: EE
+  since: 2014
+  traction: '€11.6M Series A (TechCrunch, 2022); clients incl. N26, TravelPerk, Personio;
+    live in 8 countries'
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/gale
@@ -37,7 +71,7 @@ sources:
   date: '2026-08-13'
   signal: yc-legalos
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czech employers structurally depend on foreign workers — Ukraine, Philippines, India — channeled through government kvóty programs. The zaměstnanecká karta pipeline is, per the yc-gale signal, notoriously slow and paper-based; employers outsource it to relocation agencies and law firms that work manually at high fees, with no software layer for application preparation, status tracking or ongoing compliance (permit renewals, reporting duties).

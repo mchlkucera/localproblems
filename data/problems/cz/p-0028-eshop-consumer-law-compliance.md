@@ -14,6 +14,32 @@ scores:
   demand: 2
   gap: 1
 status: candidate
+build:
+  capital: kiosk
+  first_revenue: weeks
+  builder: solo
+  note: 'The wedge is a checkout scanner plus subscription legal texts sold self-serve
+    at DE-proven price points (€9.90–24.90/mo); a solo builder with a partnered e-shop
+    lawyer ships it from a laptop and rides Shoptet for distribution.'
+comps:
+- name: Trusted Shops
+  url: https://www.trustedshops.com/
+  geo: DE
+  since: 1999
+  traction: 'Trustmark + buyer protection on 17,000+ European shops incl. Zalando
+    and Obi (Wikipedia); certification + legal-protection subscriptions'
+- name: IT-Recht Kanzlei
+  url: https://www.it-recht-kanzlei.de/
+  geo: DE
+  since: 2004
+  traction: 'Subscription legal texts from €9.90/mo, Premium €24.90/mo for 5 presences
+    (it-recht-kanzlei.de); Shopware/JTL/PrestaShop plugins'
+- name: Händlerbund
+  url: https://www.haendlerbund.de/
+  geo: DE
+  since: 2008
+  traction: '30,000 members, ~92,000 digital presences (own data Mar 2026, via Wikipedia);
+    legal texts, Abmahnung defense, Käufersiegel seal'
 sources:
 - type: complaint
   url: https://www.sos-msk.cz/z-751-kontrol-e-shopu-porusilo-zakon-85-z-nich-padly-pokuty-za-temer-13-milionu-korun/
@@ -65,7 +91,7 @@ sources:
     incumbents named).'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 When the Czech trade inspection walked the checkout flows of 751 e-shops in 2025, 85% were breaking the law — 2,399 individual violations, from missing complaint-handling and pre-contractual information to non-compliant order buttons and unfair commercial practices. This is not a tail of rogue merchants: it is the compliance baseline of one of Europe's densest e-commerce markets, confirmed again in 2026 when risk-targeted inspections found a 91% violation rate.
@@ -77,3 +103,12 @@ Who pays: the merchants — roughly the whole Czech e-commerce long tail plus th
 Existing non-solutions: per-audit legal services (Právo e-shopů, eLegal, AZ LEGAL), generic terms templates of uncertain provenance, and — for the green-claims wave specifically — nothing yet. The 2026-08-13 gap check found no Czech compliance-monitoring product mapped to ČOI's enforcement priorities.
 
 Solved elsewhere: Germany productized exactly this under harsher enforcement pressure — Trusted Shops (certification plus legal-protection subscription) and IT-Recht Kanzlei (subscription legal texts kept current for tens of thousands of shops) are durable businesses built on merchants' fear of Abmahnung. Czechia now gets the enforcement pressure (regulator sweeps and fines rather than competitor warnings) without the productized answer; proof is scored 1 because the analogs, while proven, carry no fresh funding receipt.
+
+## First moves
+
+1. Crawl the Czech e-shop long tail for green-claims language — "eko", "šetrné k přírodě", climate-neutral badges — and build the list of exposed merchants: directive 2024/825 blacklists unsubstantiated versions of exactly these claims from 2026-09-27.
+2. Cold-pitch the flagged merchants before 2026-09-27 with a claim-by-claim fix report, priced at the German subscription points the comps prove (€9.90–24.90/mo at IT-Recht Kanzlei) — conversion doubles as the test of the riskiest assumption, that merchants pay before they are fined (ignoring the risk is the majority position at 85–91% violation rates).
+3. Extend the scanner to ČOI's four documented failure buckets — missing pre-contractual information (488 breaches in 2025), missing complaint-handling information (363), unfair commercial practices (318), non-compliant order buttons (107) — the checklistable core of the 2,399 recorded violations.
+4. Pitch Shoptet an app-store compliance integration: the record's gap check calls its ~30k-merchant ecosystem a distribution channel with no compliance product on it, and one integration reaches tens of thousands of obligated shops.
+5. Soften the price objection for the rural long tail: merchants based in MAS territories — outside Prague and cities over 25,000 inhabitants — can co-fund software purchases at 50% (grants up to 1.49M CZK) from [OP TAK Technologie pro MAS II](/sources/tenders#dotace-optak-technologie-mas-2), €22M allocated, applications 2026-09-01 to 2027-09-01.
+6. Competition, per the record's gap check: **Právo e-shopů, eLegal and AZ LEGAL** sell one-off právní audity at law-firm prices that go stale by the next legislative wave; no Czech compliance-monitoring SaaS mapped to ČOI's enforcement priorities was found — continuous monitoring against the one-off audit price is the wedge.

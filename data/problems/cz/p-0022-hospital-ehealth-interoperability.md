@@ -13,6 +13,26 @@ scores:
   demand: 1
   gap: 0
 status: watching
+build:
+  capital: industrial
+  first_revenue: year-plus
+  builder: funded-team
+  note: 'Hospital-grade interoperability sold through €3-8M public tenders against entrenched
+    NIS ecosystems (Stapro, ICZ) — comparables took $95M (Redox) or decades of SI base (Better)
+    to reach product scale.'
+comps:
+- name: Redox
+  url: https://www.redoxengine.com/
+  geo: US
+  since: 2014
+  traction: '$95M raised (Tracxn); 450+ provider organizations plus hundreds of apps exchange
+    data via its API platform (PRNewswire, 2022)'
+- name: Better
+  url: https://www.better.care/
+  geo: SI
+  since: 1989
+  traction: '30M+ patients, 500+ hospitals in 15 countries on its openEHR platform (openEHR.org);
+    NHS trusts, Karolinska, Basel'
 sources:
 - type: tender
   url: https://ted.europa.eu/en/notice/-/detail/549134-2026
@@ -84,7 +104,7 @@ sources:
     despite these products — vendor-neutrality and coverage, not absence.'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Between June and August 2026, at least four Czech regional hospital groups went to market separately for what is structurally the same thing: an interoperability layer that lets hospital systems talk to each other and to outside providers. Uherské Hradiště awarded ~€7.7M for an eHealth communication platform; the Plzeňský kraj hospital group has an open ~€5.8M tender for NIS delivery with ESB and integrations; Zlín's KNTB awarded ~€2.8M for a NIS with integration scope; FN Olomouc bought interoperability work. Each is a bespoke SI project; none produces a reusable product.

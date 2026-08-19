@@ -13,6 +13,39 @@ scores:
   demand: 1
   gap: 1
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'Czech-language intake and scheduling automation that coexists with Cygnus
+    DP is real integration work for a dev plus care-domain pair, and small agencies
+    buy on demonstrated capacity gains after a pilot, not self-serve.'
+comps:
+- name: Sage Care
+  url: https://www.sagecare.ai/
+  geo: US
+  since: 2024
+  traction: 'YC S24; AI intake/CRM for home-care agencies; claims 100+ min saved
+    per intake (company site, 2026)'
+  signal: yc-sagecare
+- name: TakeCareOS
+  url: https://www.ycombinator.com/companies/takecareos
+  geo: US
+  since: 2026
+  traction: 'YC Spring 2026; 6 agencies with 200+ employees running ops on it (YC
+    launch post, 2026)'
+  signal: yc-takecareos
+- name: Birdie
+  url: https://www.birdie.care/
+  geo: GB
+  since: 2017
+  traction: '$30M Series B led by Sofina (Sifted, 2022); $52M total; 700+ care providers'
+- name: AlayaCare
+  url: https://alayacare.com/
+  geo: CA
+  since: 2014
+  traction: 'CAD $225M Series D (Businesswire, 2021); ~$274M total raised; 500+ care
+    organizations'
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/sagecare
@@ -36,7 +69,7 @@ sources:
   date: '2026-08-13'
   signal: yc-takecareos
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Hundreds of Czech agentury domácí péče and pečovatelské služby — from Včelka to charity providers — coordinate care visits by phone and paper, with Cygnus DP (IRESOFT) serving as documentation and billing record-keeping rather than operations automation. Under a chronic nurse shortage, every hour of intake calls, client onboarding and schedule juggling is an hour of clinical capacity lost; admin time savings convert directly into more clients served.

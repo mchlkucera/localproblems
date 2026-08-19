@@ -14,6 +14,37 @@ scores:
   demand: 1
   gap: 1
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'A vetted-crew matching wedge with compliance-document handling is a CoCrafter-shaped
+    small-team build, though two-sided liquidity and any payroll expansion press the top
+    of the garage band.'
+comps:
+- name: CoCrafter
+  url: https://www.cocrafter.com/
+  geo: DE
+  since: 2023
+  traction: '€1.7M pre-seed — YC, 10x Founders (Crunchbase); 3,000+ German SMB construction companies on the marketplace'
+  signal: yc-cocrafter
+- name: Hammr
+  url: https://www.hammr.com/
+  geo: US
+  since: 2023
+  traction: 'YC W23, 10-person team (YC, 2026); company reports ~$5M raised from YC and Soma Capital (Work at a Startup)'
+  signal: yc-hammr
+- name: conmeet
+  url: https://conmeet.io/
+  geo: DE
+  since: 2023
+  traction: '€6M seed — Reimann Investors, Smedvig (Tech.eu, Aug 2026) after €1.3M pre-seed (EU-Startups, Feb 2026)'
+  signal: de-conmeet
+- name: Lumber
+  url: https://www.lumberfi.com/
+  geo: US
+  since: 2023
+  traction: '$21M total — $15.5M Series A led by Foundation Capital (PRNewswire, 2025); construction payroll, time and insurance'
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/cocrafter
@@ -45,7 +76,7 @@ sources:
   date: '2026-08-05'
   signal: de-conmeet
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czech construction (~400k employed) is subcontractor-driven and chronically short of labor. General contractors source Ukrainian and Balkan crews informally — Facebook groups and brokers — with no vetting, document checking or compliance tooling; the same firms then run payroll for multi-site crews, agenturní zaměstnávání and A1/posted-worker compliance on generic legacy software (Vema, Pamica) or through external accountants. Two ends of one problem: finding compliant crews and paying them correctly.

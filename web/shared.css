@@ -1,5 +1,5 @@
 /* ============================================================
-   localproblems.org · design system v1.3 · 2026-08-13
+   localproblems.org · design system v1.4 · 2026-08-19
    Two faces: Source Serif 4 (prose) + IBM Plex Mono (evidence).
    Seven colors. Three rule weights. Zero JavaScript assumed.
    v1.1: adds the 4px spacing scale (--sp-1…--sp-8); all margins,
@@ -14,6 +14,10 @@
    values may carry one text-presentation glyph; date fields may
    render relative via the tiny progressive script (ISO kept in
    the datetime attribute — page works identically without JS).
+   v1.4: record-page rebuild — docket dek + quiet .meta line;
+   .rundown .bands legend; .deadline window figure; two-line
+   comps entries (.entry/.line/.name/.ref/.note); ol.prose
+   numbered steps; .correction left-rule; .absent; .buildnote.
    Content runs NEVER modify this file.
    ============================================================ */
 
@@ -58,7 +62,11 @@ body {
   color: var(--ink);
   border-top: 4px solid var(--ink);          /* the page begins */
 }
-p, ul.prose { max-width: var(--w-prose); margin-block: 0 var(--sp-4); }
+p, ul.prose, ol.prose { max-width: var(--w-prose); margin-block: 0 var(--sp-4); }
+/* numbered steps (first moves): markers are figures, and figures are mono */
+ol.prose { padding-left: var(--sp-6); }
+ol.prose li { margin-bottom: var(--sp-2); }
+ol.prose li::marker { font: 600 var(--fs-data)/1 var(--mono); }
 /* sections breathe from above: ~3× the exhale below the heading */
 h2 { font: 600 var(--fs-h2)/1.3 var(--serif); margin: var(--sp-7) 0 var(--sp-4); }
 a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px; }
@@ -140,9 +148,15 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 .docket .id { font: 600 var(--fs-meta)/1 var(--mono); letter-spacing: 0.08em; }
 .docket .statline { float: right; font-family: var(--mono); font-size: var(--fs-data); }
 .docket h1 { font: 700 var(--fs-title)/1.2 var(--serif); margin: var(--sp-2) 0 var(--sp-5); max-width: 30ch; clear: none; }
+/* the dek: one serif standfirst sentence directly under the title (v1.4) */
+.docket .dek { font: 400 var(--fs-h2)/1.4 var(--serif); color: var(--ink-muted); max-width: 40ch; margin: 0 0 var(--sp-5); }
+/* the quiet meta line at the docket's bottom edge — housekeeping whispers (v1.4) */
+.docket .meta { margin: var(--sp-5) 0 0; font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
+.docket .meta time { font-size: inherit; }
 .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4) var(--sp-6); margin: 0; }
 .facts dt { font: 500 var(--fs-label)/1 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: var(--sp-1); }
 .facts dd { margin: 0; font: 500 var(--fs-data)/1.4 var(--mono); }
+.facts .range { color: var(--ink-muted); font-weight: 400; }   /* capital-ladder range beside the value (v1.4) */
 
 /* ---- scorecard: the top-line dimensions band (v1.2) -----------
    Five dimensions + total, straight under the docket. Mono figures,
@@ -216,6 +230,10 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 .rundown header .num { font-weight: 600; }
 .rundown header .verdict { margin-left: auto; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
 .rundown .crit { margin: 0; }
+/* verdict-bands legend in the total rundown: borderless, current band marked → (v1.4) */
+.rundown .bands { margin: var(--sp-3) 0 0; border-collapse: collapse; font-size: var(--fs-meta); color: var(--ink-muted); }
+.rundown .bands td { padding: var(--sp-1) var(--sp-4) 0 0; }
+.rundown .bands .is-band td { font-weight: 600; color: var(--ink); }
 .rundown .sig { border-top: 1px solid var(--rule); margin-top: var(--sp-4); padding-top: var(--sp-3); }
 .rundown .sig .meta { display: block; font-size: var(--fs-meta); color: var(--ink-muted); margin-bottom: var(--sp-1); }
 .rundown .sig .name { font: 600 0.9375rem/1.3 var(--serif); }
@@ -259,6 +277,27 @@ ol.receipts { list-style: none; margin: 0; padding: 0; counter-reset: exhibit; }
 .comps { list-style: none; margin: 0; padding: 0; font: 400 var(--fs-data)/1.5 var(--mono); }
 .comps li { display: flex; align-items: baseline; gap: 0.75ch; padding: var(--sp-2) 0; border-bottom: 1px solid var(--rule); }
 .comps .leader { flex: 1; }
+.comps time { color: var(--ink-muted); }
+/* two-line comparable entries (v1.4): serif name line + traction note.
+   The name is serif because someone runs this — it is not clerk data. */
+.comps li.entry { display: block; }
+.comps .line { display: flex; align-items: baseline; gap: 0.75ch; }
+.comps .name { font: 600 0.9375rem/1.3 var(--serif); }
+.comps .ref { font-size: var(--fs-meta); color: var(--ink-muted); }
+.comps .note { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); font-style: italic; color: var(--ink-muted); max-width: var(--w-prose); }
+
+/* ---- record-page devices (v1.4) --------------------------------
+   .deadline: the regulatory date is the point — the window ledger's
+   figure at h2 size; .urgent turns it stamp-red inside T−14.
+   .absent: stated absence (no sized figure / no comparable on file).
+   .buildnote: one muted serif sentence under the build facts.
+   .correction: the 4px page-begins rule turned sideways — a
+   correction interrupts the record.                              */
+.deadline { font: 600 var(--fs-h2)/1.2 var(--mono); white-space: nowrap; }
+p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
+.buildnote { margin: var(--sp-4) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); max-width: var(--w-prose); }
+.correction { border-left: 4px solid var(--ink); padding-left: var(--sp-4); margin: 0 0 var(--sp-4); max-width: var(--w-prose); }
+.correction p:last-child { margin-bottom: 0; }
 
 /* ---- razítko --------------------------------------------------- */
 .stamp {

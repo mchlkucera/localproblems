@@ -14,6 +14,14 @@ scores:
   demand: 0
   gap: 0
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'No certification gate and no productized comp found — legal-technical gap analyses
+    and data-access API work for mid-market OEMs is consulting-led engineering a dev-plus-lawyer
+    team can sell against the 12 Sep 2026 access-by-design wave.'
+comps: []
 sources:
 - type: regulation
   url: https://digital-strategy.ec.europa.eu/en/policies/data-act
@@ -30,7 +38,7 @@ sources:
     charges and support exit.'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 The EU Data Act has been applicable since September 2025, but its two hardest engineering obligations land inside the next five months: from 12 September 2026, connected products newly placed on the EU market must be designed so users can access the data they generate — directly or via APIs — and from 12 January 2027, cloud and SaaS providers must abolish switching charges entirely and support customer exit. Czechia's industrial base makes the first wave heavy: machinery, appliance and vehicle-component manufacturers whose products generate data have never built user-facing data access.

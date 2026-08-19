@@ -13,6 +13,12 @@ scores:
   demand: 0
   gap: 0
 status: watching
+build:
+  capital: funded
+  first_revenue: year-plus
+  builder: funded-team
+  note: 'Utility-grade metering, telemetry and data infrastructure sold to small public utilities through tenders against named incumbents — procurement cycles and integration depth put payroll well before revenue.'
+comps: []
 sources:
 - type: tender
   url: https://ted.europa.eu/en/notice/-/detail/430180-2026
@@ -62,7 +68,7 @@ sources:
     players named: gap stays 0 and status moves to watching per the de-rank rule.'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czech water supply is run by hundreds of VaK companies and municipal svazky, most of them small, and they are digitizing metering the only way they know: one infrastructure tender at a time. In a single ten-week TED window, Kroměříž awarded ~€1.3M for network smart metering, the Ivančice association opened a ~€1.2M competition for the same, and Bruntál tendered a water data dispatch — three buyers independently procuring hardware, telemetry, data platform and integration as bespoke projects.

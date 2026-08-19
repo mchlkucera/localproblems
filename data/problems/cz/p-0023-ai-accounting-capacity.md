@@ -13,6 +13,42 @@ scores:
   demand: 0
   gap: 1
 status: candidate
+build:
+  capital: funded
+  first_revenue: months
+  builder: funded-team
+  note: 'Every analog raised before scaling (Skalar €12M, Finto $3.4M, Bluebook $3M)
+    because the model puts licensed accountants on payroll next to an agent stack
+    — here one tuned to Pohoda/ABRA data and JMHZ filings — before fees compound.'
+comps:
+- name: Skalar
+  url: https://skalar.de/
+  geo: DE
+  since: 2025
+  traction: '€12M pre-seed+seed led by Headline (Munich Startup, Jul 2026); one professional
+    serves 100+ clients vs ~20; targets €0.5–20M-revenue firms'
+  signal: de-skalar
+- name: Finto
+  url: https://www.gofinto.com/
+  geo: DE
+  since: 2025
+  traction: '$3.4M seed from Lightspeed, YC, Gradient (Tech.eu, Jul 2026); customers
+    incl. Arminia Bielefeld, Eat Happy Group; SAP/DATEV integrations'
+  signal: round-finto
+- name: Bluebook
+  url: https://getbluebook.com/
+  geo: SE
+  since: 2024
+  traction: '$3M incl. $2.5M pre-seed led by EQT Ventures (Tech.eu, Feb 2025); 30
+    leading Nordic accounting firms on the platform (getbluebook.com)'
+  signal: yc-bluebook
+- name: Combinely
+  url: https://www.combinely.ai/
+  geo: GB
+  since: 2024
+  traction: 'YC Spring 2025; profitable (london.edu); trusted by 15+ UK accounting
+    firms incl. Blick Rothenberg (Startup Intros)'
+  signal: yc-combinely
 sources:
 - type: arbitrage
   url: https://techfundingnews.com/skalar-raises-12m-headline-ai-accounting-firm/
@@ -63,7 +99,7 @@ sources:
   date: '2026-04-01'
   signal: reg-cz-jmhz
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czechia has a structural accountant shortage, and the profession's operating environment is about to be rewritten: the new Accounting Act — submitted to parliament in December 2025 with planned effectiveness 1 January 2028 — introduces IFRS-aligned concepts and functional-currency accounting that force software rewrites across the dominant Pohoda/Money/ABRA/Helios ecosystem and retraining for every accounting unit in the country.
@@ -75,3 +111,12 @@ Who pays: SMBs (the long tail that struggles to find an accountant at all), then
 Existing non-solutions: Digitoo automates invoice capture, ÚOL sells online accounting service delivery, incumbent software vendors will ship compliance updates — but nobody operates the full-stack AI-first model, and the incumbents' 2028 rewrite burden is a distraction, not an advantage.
 
 Honest limits: the 2028 Accounting Act date is planned, not enacted (its deadline alone would score 1 — the urgency point now rests on JMHZ, which is in force); demand is still asserted from the DE parallel, not receipted (0). A ČR-specific shortage receipt (Komora daňových poradců or ekonomické komory statements) and a JMHZ-pain receipt from the payroll-bureau side are the next evidence to pull.
+
+## First moves
+
+1. Call five payroll bureaus and accounting firms about the Jednotné měsíční hlášení — every employer files it monthly since 2026-04-01 — and write down what the filing actually costs them: this is the JMHZ-pain receipt the record itself lists as its missing demand evidence.
+2. Build the JMHZ agent as the wedge: automate the monthly ČSSZ report end-to-end for one payroll bureau before touching bookkeeping — it is the record's only live, recurring compliance clock, and it replaced up to 25 separate forms.
+3. Recruit one licensed Czech accountant as the founding professional: the Skalar model the record imports runs one professional per 100+ clients instead of ~20, so the first hire is leverage, not headcount.
+4. Verify the switch assumption the record flags as unreceipted: pre-sell AI-first bookkeeping to ten long-tail SMBs that cannot find an accountant, and pull the Komora daňových poradců or chamber shortage statement the record names as next evidence.
+5. Co-fund the Czech agent stack with [OP TAK Inovační vouchery IV](/sources/tenders#dotace-optak-inovacni-vouchery-4) — rolling until 2027-04-30, small vouchers paying SMEs for research-organization services (allocation not published on the ledger listing); the deeper build-out, [OP TAK Partnerství znalostního transferu IV](/sources/tenders#dotace-optak-pzt-4), closes 2026-09-21.
+6. Competition, per the record's gap check: **Digitoo** (invoice-capture automation — partial), **ÚOL** (online accounting service — partial) and the Pohoda/Money/ABRA/Helios vendors shipping compliance updates — nobody operates the full-stack AI-first model; track the new Accounting Act (planned effect 2028-01-01, not yet enacted — the date can slip).

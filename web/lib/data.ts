@@ -55,6 +55,31 @@ const SourceSchema = z.looseObject({
 });
 export type ProblemSource = z.infer<typeof SourceSchema>;
 
+// Buildability scorecard — who can build this, with what, how fast (CONVENTIONS.md).
+// The stánek→továrna capital ladder: <€10k | €10–100k | €100k–1M | >€1M.
+export const CAPITAL_LADDER = ["kiosk", "garage", "funded", "industrial"] as const;
+export const FIRST_REVENUE = ["weeks", "months", "year-plus"] as const;
+export const BUILDER_PROFILES = ["solo", "small-team", "funded-team"] as const;
+
+const BuildSchema = z.object({
+  capital: z.enum(CAPITAL_LADDER),
+  first_revenue: z.enum(FIRST_REVENUE),
+  builder: z.enum(BUILDER_PROFILES),
+  note: z.string().min(1),
+});
+export type Build = z.infer<typeof BuildSchema>;
+
+// Foreign comparables — who runs this model elsewhere, with public traction on file.
+const CompSchema = z.object({
+  name: z.string().min(1),
+  url: z.string().url(),
+  geo: z.string().regex(/^[A-Z]{2}$/, "ISO2 country code"),
+  since: z.number().int().min(1980).max(2100),
+  traction: z.string().min(1),
+  signal: z.string().optional(),
+});
+export type Comp = z.infer<typeof CompSchema>;
+
 const ProblemSchema = z.looseObject({
   id: z.string().regex(/^p-\d{4}$/),
   region: z.string().regex(/^[a-z]{2}$/),
@@ -70,6 +95,10 @@ const ProblemSchema = z.looseObject({
     gap: z.number().int().min(0).max(2),
   }),
   status: z.enum(STATUSES),
+  // Required since the 2026-08 product upgrade — no record may skip the
+  // buildability scorecard or the comparables ledger (SPEC.md §4).
+  build: BuildSchema,
+  comps: z.array(CompSchema),
   sources: z.array(SourceSchema).min(1),
   created: isoDate,
   updated: isoDate,
@@ -78,6 +107,10 @@ const ProblemSchema = z.looseObject({
   const sum = p.scores.proof + p.scores.money + p.scores.urgency + p.scores.demand + p.scores.gap;
   if (sum !== p.score) {
     ctx.issues.push({ code: "custom", message: `score ${p.score} != sum(scores) ${sum}`, input: p });
+  }
+  // proof >= 1 asserts a foreign analog exists — the comps ledger must name at least one.
+  if (p.comps && p.scores.proof >= 1 && p.comps.length === 0) {
+    ctx.issues.push({ code: "custom", message: `proof ${p.scores.proof} >= 1 but comps is empty — name the analog or justify proof 0`, input: p });
   }
 });
 export type Problem = z.infer<typeof ProblemSchema> & { body: string; slug: string };
@@ -120,6 +153,14 @@ export function getProblems(): Problem[] {
     ids.add(key);
   }
   _problems = problems;
+  // comp signal refs must resolve into the evidence layer — a broken provenance link is a build failure.
+  for (const p of problems) {
+    for (const c of p.comps ?? []) {
+      if (c.signal && !getSignal(c.signal)) {
+        throw new Error(`${p.region}/${p.id}: comp '${c.name}' refs unknown signal '${c.signal}'`);
+      }
+    }
+  }
   return problems;
 }
 
@@ -186,6 +227,18 @@ export function registerRows(): Problem[] {
     b.scores.money - a.scores.money ||
     a.id.localeCompare(b.id)
   );
+}
+
+/** Category page rows: the register order, filtered. Slug == category id (CONVENTIONS.md). */
+export function categoryRows(category: string): Problem[] {
+  return registerRows().filter((p) => p.category === category);
+}
+
+/** Register counts per category (rejected excluded, stale counted — mirrors registerRows). */
+export function categoryCounts(): Record<string, number> {
+  const counts = Object.fromEntries(CATEGORIES.map((c) => [c, 0])) as Record<string, number>;
+  for (const p of registerRows()) counts[p.category] += 1;
+  return counts;
 }
 
 export function signalsByType(type: EvidenceType): Signal[] {

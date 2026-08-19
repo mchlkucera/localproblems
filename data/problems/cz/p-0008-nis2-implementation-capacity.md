@@ -14,6 +14,28 @@ scores:
   demand: 2
   gap: 0
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'Productised packages already sell off the shelf at ~91k CZK (Lexnova receipts), but
+    the compelled-yet-unaware buyer base and IROP procurement channels make an outbound pilot-to-invoice
+    cycle of months the honest default.'
+comps:
+- name: Secfix
+  url: https://www.secfix.com/
+  geo: DE
+  since: 2021
+  traction: '€10.2M Series A, Feb 2026 (Vestbee); hundreds of SMB customers across 15+ European
+    countries (Tech Funding News, 2026)'
+  signal: round-secfix
+- name: Copla
+  url: https://cyberupgrade.net/
+  geo: LT
+  since: 2023
+  traction: '€6M Series A, Feb 2026, after €2.5M seed, Nov 2024 (Vestbee); NIS2/DORA/ISO 27001
+    compliance automation, rebranded from CyberUpgrade (EU-Startups, 2026)'
+  signal: round-copla
 sources:
 - type: regulation
   url: https://www.zakonyprolidi.cz/cs/2025-264
@@ -81,7 +103,7 @@ sources:
   date: '2026-06-19'
   signal: hlidac-38438158
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czech Act No. 264/2025 Coll. transposes NIS2 and pulls 6,000+ firms and municipalities into a regulated cybersecurity regime — energy, manufacturing, food, logistics and digital services among them. Registration with NÚKIB was due by roughly the end of 2025; security measures must be implemented within one year of registration, so the compliance wall lands on rolling deadlines from Q4 2026 through H1 2027. SME UNION documents that many affected SMEs are still unaware they are in scope at all.
@@ -97,3 +119,12 @@ Money is now receipted from the first successful TED run (2026-08-13): hospitals
 Updated 2026-08-13: the buying wave now runs the full size spectrum. TED shows ~77 cyber records from ~45 public buyers (~€33M) between June and August 2026; below the threshold, care homes and small towns order productised "NIS 2 packages" from Lexnova Energy repeatedly, Týn nad Vltavou paid to find out which parts of it are even regulated, and an IROP call-120 subsidy channel funds municipal projects — with towns hiring consultants just to write the applications. Note for the gap dimension: Lexnova's repeat package sales and Institut kybernetické bezpečnosti's scope-analysis product are evidence that productised CZ offerings for the small-entity tier are emerging — the supply side is no longer only fragmented consulting.
 
 A structured gap check on productized CZ NIS2 offerings at the 6,000-entity scale is still the missing dimension; with money, deadline and demand all receipted and first productised sellers named, gap evidence is what separates this from newsletter-lead territory.
+
+## First moves
+
+1. Sell where buying is receipted: call social-care institutions and towns in the ~7k-inhabitant tier first — Domov pro seniory Napajedla bought a ~91k CZK "NIS 2 package" off the shelf (with a repeat Lexnova order in the Zlín region weeks later), Týn nad Vltavou paid just to learn its scope, Český Brod signed ~9.0M CZK for municipal cyber security, and 341 cyber contracts sit in registr smluv since June.
+2. Build the productised implementation-gap package first: fixed-price mapping of one entity's state against Act 264/2025 and Vyhláška 409/2025 obligations, keyed to the one-year post-registration clock (deadlines rolling Q4 2026 – H1 2027, fines up to 2% of global turnover / CZK 250m) — the packaged, off-the-shelf form is what the smallest obligated tier demonstrably buys.
+3. Ride the subsidy channel: [IROP 120 Kybernetická bezpečnost II](/sources/tenders#dotace-irop-120-kyberbezpecnost) — 2.44bn CZK (~€99.6M) for municipalities, regions and hospitals regulated under 264/2025, applications open **30.4.2026–17.12.2026**; towns already pay consultants just to write these applications (Boskovice paid enovation ~121k CZK), so application-writing plus implementation is a subsidy-funded entry offer. Builder-side, [HORIZON-CL3-2026-02-CS-ECCC](/sources/tenders#dotace-horizon-eccc-cyber-2026) (€56.2M, consortia, deadline **2026-09-15**) funds security tooling development itself.
+4. Close the record's own missing dimension before committing: run the structured gap check on productised CZ NIS2 offerings at the 6,000-entity scale — Lexnova Energy's repeat packages and Institut kybernetické bezpečnosti's scope-analysis product already show the supply side is no longer only fragmented consulting, so verify whether the small-entity tier is genuinely underserved or merely early.
+5. Same buyer, second product: zákon č. 266/2025 Sb. (CER) puts a parallel physical-resilience stack on an overlapping entity set — designations by 17 Jul 2026, resilience plans and incident reporting through 2026–2027, compliance cost estimated in tens of millions CZK per firm (PORTOS) — package it as the natural upsell to every NIS2 customer.
+6. Competition on file: **Lexnova Energy** (repeat productised NIS 2 packages), **Institut kybernetické bezpečnosti** (scope-analysis product), **enovation** (subsidy-application consulting) and the fragmented security-consultancy/MSP field; foreign comps Secfix (€10.2M Series A) and Copla (€6M Series A, NIS2/DORA) prove the compliance-automation model abroad, while the structured CZ gap check remains open.

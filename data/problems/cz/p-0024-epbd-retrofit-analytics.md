@@ -14,6 +14,28 @@ scores:
   demand: 0
   gap: 1
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'Analytics SaaS over energy-certificate and portfolio data with no certification gate — a dev plus an energy-domain expert can pilot with a mid-size landlord; the real cost is B2B integration and sales effort.'
+comps:
+- name: 'Fuchs & Eule'
+  url: https://fuchs-eule.de/
+  geo: DE
+  since: 2021
+  traction: '€10M round led by GET Fund (TechFundingNews, 2026); 10,000 building analyses; serves commercial landlords and asset managers'
+  signal: de-fuchs-eule
+- name: Predium
+  url: https://en.predium.de/
+  geo: DE
+  since: 2021
+  traction: '€13M Series A led by Norrsken VC (Tech.eu, 2024); ~$21M total raised; customers incl. Colliers, Baloise, Deutsche Investment'
+- name: Deepki
+  url: https://www.deepki.com/
+  geo: FR
+  since: 2014
+  traction: '€150M Series C (One Peak/Highland, 2022); 500+ clients, 50,000 users, €4T AUM monitored in 80 countries (PR Newswire, 2025)'
 sources:
 - type: arbitrage
   url: https://techfundingnews.com/fuchs-eule-raises-10m-commercial-landlords-esg/
@@ -49,7 +71,7 @@ sources:
   date: '2026-06-04'
   signal: ted-384935-2026
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 The recast Energy Performance of Buildings Directive obliges member states to drive building automation retrofits, renovation passports, zero-emission new construction and solar-readiness — and Czechia, like all 27 member states, missed the May 2026 transposition deadline and received a Commission infringement procedure in July. The implementing law now arrives compressed and retroactively urgent, and with it a rolling obligation wave for building owners: which buildings need BACS, which need envelope work, in what order, at what capex.

@@ -100,12 +100,24 @@ legibly. Future regions get their own directory and p-NNNN namespace (a problem 
 id, region, title, category, geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status (candidate|active|watching|stale|claimed|solved|rejected),
+build {capital: kiosk|garage|funded|industrial, first_revenue: weeks|months|year-plus,
+       builder: solo|small-team|funded-team, note},
+comps[] {name, url, geo (ISO2), since, traction, signal?: <evidence-layer id>},
 sources[] {type, url, note, date, signal?: <evidence-layer id>, dims?},
 created, updated
 ```
 
+`build` (required) is the buildability scorecard — capital ladder, time to first
+revenue, builder profile — judged from the record's own evidence. `comps`
+(required) is the "where it works" ledger of foreign comparables with public
+verifiable traction; empty only where `proof` is 0 and no comparable exists.
+Full field semantics in `data/CONVENTIONS.md`.
+
 Body: 3–6 paragraphs — problem · why-now · who-pays · existing non-solutions ·
 foreign comparables. Appended CORRECTION blocks are rendered prominently.
+Records scoring >= 7 additionally carry a `## First moves` body section: 4–6
+numbered concrete steps, named competition, and the open subsidy call that funds
+the work, cross-linked to the tenders ledger (`/sources/tenders#dotace-...`).
 
 ### MATCH (the region agent)
 
@@ -145,8 +157,9 @@ Discipline keeps it exactly as simple as a static generator:
 
 | Route | Content |
 |---|---|
-| `/` | register table ranked by score: id · title · category · locality · score meter · updated. `rejected` excluded, `stale` greyed at the bottom. |
-| `/problem/[region]/[id]` | one rundown page for **every** problem: docket · scorecard band · prose statement · sources ledger (S1…Sn, each linking its evidence record) · provenance footer. Score rundown dialogs embed the referenced source records (external links only, close cross). |
+| `/` | register table ranked by score: id · title · category · locality · score meter · updated. `rejected` excluded, `stale` greyed at the bottom. Category filter nav above the table: `All (31) · B2B (07) · …` — build-time counts, links to the category pages. |
+| `/problem/[region]/[id]` | one rundown page for **every** problem: docket (id · title · dek · facts · quiet meta line) · scorecard band · The problem (prose) · The window (why now, deadline receipts) · How big (money receipts) · Who builds this (build block) · Where it works (comps ledger) · First moves (score >= 7) · Record updates · sources ledger (S1…Sn, each linking its evidence record) · provenance footer. Score rundown dialogs embed the referenced source records (external links only, close cross). The crumb's category links to its category page. |
+| `/category/[slug]` | one page per category (all 12, SSG; slug = category id): the register table filtered to the category, same filter nav with the current category marked; empty categories render the house empty-category string. |
 | `/sources/[type]` | the source ledgers (funded · regulation · tenders · demand): recent records per type, anchor per id — the provenance target (replace the v1 per-fetch-source pages) |
 | 404 | house string: "Record not found. Either it never existed, or it was solved so thoroughly it disappeared." |
 
@@ -181,8 +194,10 @@ filler. **Draft only — a human reviews and sends. Nothing is ever auto-sent.**
 - **Client-side JavaScript** beyond the sanctioned relative-dates snippet — no client
   components, no hydration-dependent UI.
 - **SQLite / Postgres / servers / embeddings** — tripwires only (§10).
-- Map page (GeoJSON asset stays; page cut), per-category pages, search, alerts, API,
+- Map page (GeoJSON asset stays; page cut), search, alerts, API,
   B2B radar, automated sending, dark mode, i18n of chrome, OG images.
+  (Per-category pages were cut here originally; reinstated by owner mandate
+  2026-08-19 — see the route table in §5.)
 - VC/capital signals as a discovery source (hierarchy law: confirmation stamp only).
 - `bootstrapped` evidence type — reserved until a fetchable source exists.
 - A second region — after one clean CZ cycle on v2 (PL likely first).

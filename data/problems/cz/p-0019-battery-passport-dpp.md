@@ -14,6 +14,26 @@ scores:
   demand: 0
   gap: 0
 status: candidate
+build:
+  capital: funded
+  first_revenue: months
+  builder: small-team
+  note: 'Cross-company supply-chain data collection and DPP standards work sit above garage
+    scale, but the hard 18 Feb 2027 cutover pushes importers and tier-2/3 suppliers into deadline-driven
+    purchases a dev-plus-domain-expert team can serve with CZ onboarding.'
+comps:
+- name: Circulor
+  url: https://www.circulor.com/
+  geo: GB
+  since: 2017
+  traction: '$25M Series B 2024, ~$45M total (Tracxn); built the world''s first battery passport
+    with Volvo on the EX90 (Jun 2024)'
+- name: Circularise
+  url: https://www.circularise.com/
+  geo: NL
+  since: 2016
+  traction: '€11M Series A — Brightlands, Asahi Kasei, Neste (company PR, 2022); DPP partners
+    incl. Porsche, Philips, Marubeni'
 sources:
 - type: regulation
   url: https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/batteries_en
@@ -30,7 +50,7 @@ sources:
     wave that follows.
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 From 18 February 2027, every EV battery, light-means-of-transport battery and industrial battery over 2 kWh placed on the EU market must carry a digital battery passport accessible by QR code — carbon footprint, materials provenance, state-of-health data and more, maintained over the battery's life. The obligation falls on whoever places the battery on the market, which in Czechia means the automotive supply chain: Škoda Auto's EV programme, battery and module plants, industrial-battery importers, e-bike and scooter brands.

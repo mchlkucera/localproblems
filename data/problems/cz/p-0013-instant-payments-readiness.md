@@ -14,6 +14,26 @@ scores:
   demand: 1
   gap: 0
 status: candidate
+build:
+  capital: funded
+  first_revenue: year-plus
+  builder: funded-team
+  note: 'Selling 24/7 SEPA Instant rails, sanctions-screening rework and EPC-scheme
+    VoP to regulated banks and PSPs means certification, security reviews and bank
+    procurement cycles, so payroll runs long before first revenue.'
+comps:
+- name: SurePay
+  url: https://www.surepay.eu/
+  geo: NL
+  since: 2016
+  traction: '10bn+ payments verified; 200+ banks, 750+ business customers (IRIS.vc,
+    2025); €12.2M round 2021; Carlyle invested 2025'
+- name: Numeral
+  url: https://www.numeral.io/
+  geo: FR
+  since: 2021
+  traction: '€13M seed led by Balderton (Tech.eu, 2021); acquired by Mambu Dec 2024
+    to power SEPA Instant and VoP'
 sources:
 - type: regulation
   url: https://eur-lex.europa.eu/eli/reg/2024/886/oj
@@ -30,7 +50,7 @@ sources:
     Instant rails. Demand point: signal documents that smaller PSPs/EMIs lack in-house capability.'
   date: '2025-12-31'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czech banks, payment institutions and e-money institutions — CZK-centric by history — must be able to receive instant euro credit transfers by 9 January 2027 and to send them, plus run Verification of Payee (name-IBAN matching), by 9 July 2027 under the Instant Payments Regulation. The reg-instant-payments-cz signal documents that smaller PSPs and EMIs lack the in-house capability to build SEPA Instant rails, 24/7 sanctions screening and VoP matching.

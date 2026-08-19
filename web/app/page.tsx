@@ -1,6 +1,7 @@
 // The problem register — distilled from the source ledgers.
 import { extractDate, registerRows, stats, EVIDENCE_TYPES } from "../lib/data";
 import { categoryLabel, localityLabel, pad2 } from "../lib/format";
+import { CategoryNav } from "../lib/category-nav";
 import { FooterHouseLine, Masthead, SiteNav, Tally, CORRECTIONS_MAILTO } from "../lib/chrome";
 
 export default function Register() {
@@ -34,6 +35,8 @@ export default function Register() {
           </>
         )}
       </p>
+
+      <CategoryNav />
 
       <table className="index">
         <caption>

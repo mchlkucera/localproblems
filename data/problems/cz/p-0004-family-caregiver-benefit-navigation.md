@@ -13,6 +13,30 @@ scores:
   demand: 1
   gap: 2
 status: candidate
+build:
+  capital: kiosk
+  first_revenue: weeks
+  builder: small-team
+  note: 'A guided claim-and-appeal tool over public MPSV rules is solo-dev cheap and families
+    pay flat or success fees immediately, but credible hodnocení stupně závislosti guidance
+    needs a social-benefits practitioner alongside the dev.'
+comps:
+- name: Oma Care
+  url: https://www.omacare.com/
+  geo: US
+  since: 2024
+  traction: 'YC W24, 2-person team (YC, 2026); automates enrolment in US Medicaid programs paying family caregivers up to $28/hr'
+  signal: yc-oma-care
+- name: Givers
+  url: https://www.givers.com/
+  geo: US
+  since: 2021
+  traction: '$3.5M seed led by CRV (Forbes, 2023); app used by 15,000 caregivers/month (Forbes, 2026)'
+- name: KareHero
+  url: https://www.karehero.com/
+  geo: GB
+  since: 2022
+  traction: 'company raise undisclosed (Tracxn, 2025); £9M+ care funding unlocked for families, avg £27k each (company, 2026); employer channel'
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/oma-care
@@ -42,7 +66,7 @@ sources:
     layer stays unbuilt. Adjacent spend: kept at money=1, not 2.'
   date: '2026-06-11'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Roughly 380,000 dependent persons in Czechia receive příspěvek na péči, and the care it funds is largely delivered informally by family members. To get the benefit — and the correct level of it — families must navigate the application, the hodnocení stupně závislosti assessment, and frequently appeals, in a process the yc-oma-care signal characterizes as bureaucratic and opaque. Families that misnavigate it leave state money on the table while providing the care anyway.

@@ -13,6 +13,20 @@ scores:
   demand: 1
   gap: 0
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'Conformity gap audits and digital-instructions tooling for SMB integrators
+    need a machine-safety engineer plus a dev but no notified-body status, and engagements
+    close within a normal B2B cycle as the 20 Jan 2027 hard cutover approaches.'
+comps:
+- name: IBF Solutions
+  url: https://www.ibf-solutions.com/en
+  geo: AT
+  since: 1994
+  traction: 'Safexpert CE software: thousands of customers incl. Siemens, HOMAG (company
+    site, 2026); MR 2023/1230 module since Apr 2024'
 sources:
 - type: regulation
   url: https://eur-lex.europa.eu/eli/reg/2023/1230/oj
@@ -30,7 +44,7 @@ sources:
     is a core CZ export sector.'
   date: '2025-12-31'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Machinery and engineering is a core Czech export sector, and on 20 January 2027 the Machinery Regulation (2023/1230) replaces the Machinery Directive with a hard cutover: no transition period, so any machine placed on the market from that date must conform to the new regime — including requirements on cybersecurity of safety-related control systems, AI-enabled safety functions and digital instructions. The "substantial modification" rule additionally converts integrators and retrofitters into manufacturers carrying full conformity duties, pulling a layer of Czech firms into CE obligations they have never held.

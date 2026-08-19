@@ -13,6 +13,26 @@ scores:
   demand: 0
   gap: 0
 status: watching
+build:
+  capital: funded
+  first_revenue: year-plus
+  builder: funded-team
+  note: 'Bank-grade eIDAS2 trust infrastructure with ARF/OIDC4VCI conformance and bank-length
+    sales cycles — Wultra needed a €6.8M Series A and Lissi a €3.5M seed to sell this wave.'
+comps:
+- name: Lissi
+  url: https://www.lissi.id/
+  geo: DE
+  since: 2019
+  traction: '€3.5M seed led by Ventech (tech.eu, Jul 2026); EUDI-wallet connectivity for banks;
+    German EUDI Wallet Challenge winner 2025'
+  signal: round-lissi
+- name: Gataca
+  url: https://www.gataca.io/
+  geo: ES
+  since: 2018
+  traction: '750k+ wallet transactions in 2025; undisclosed round for EUDI expansion (Biometric
+    Update, Jul 2026); advised the EC'
 sources:
 - type: regulation
   url: https://eur-lex.europa.eu/eli/reg/2024/1183/oj
@@ -47,7 +67,7 @@ sources:
   date: '2026-08-14'
   signal: round-wultra
 created: '2026-08-13'
-updated: '2026-08-14'
+updated: '2026-08-19'
 ---
 
 Czechia must offer an EU Digital Identity Wallet to citizens and businesses by the end of 2026, and within 36 months of the December 2024 implementing acts — i.e. during 2027 — banks, telcos, large platforms and other regulated businesses must accept it wherever strong user authentication is required. The state's deadline creates the private sector's problem: every Czech relying party needs wallet-acceptance flows, and the reg-eidas2 signal notes that banks, utilities, e-shops with KYC obligations and municipalities currently have no integration path beyond following eDoklady's evolution.

@@ -13,6 +13,36 @@ scores:
   demand: 2
   gap: 2
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'Software over public permitting rules has no license gate, but CZ-specific stavební
+    zákon workflow content plus developer pilots need a dev-and-permitting-expert team and
+    a months-long sales cycle.'
+comps:
+- name: PermitPortal
+  url: https://permitportalapp.com/
+  geo: US
+  since: 2024
+  traction: 'YC F24; AI pre-construction OS for US developers; funding beyond YC undisclosed (YC, 2024)'
+  signal: yc-permitportal
+- name: PermitFlow
+  url: https://www.permitflow.com/
+  geo: US
+  since: 2021
+  traction: '$54M Series B led by Accel (company, 2025) after $31M Series A (TechCrunch, 2024); 80-person team (YC, 2026)'
+- name: GreenLite
+  url: https://greenlite.com/
+  geo: US
+  since: 2022
+  traction: '$49.5M Series B led by Insight Partners (PRNewswire, 2025); ~100 Fortune 500 customers; permits in 21-45 vs 90-120 days'
+- name: Autositu
+  url: https://autositu.com/
+  geo: US
+  since: 2025
+  traction: 'YC W26, 2-person team (YC, 2026); AI plan-review workspace claiming 50-70% fewer city comments; funding undisclosed'
+  signal: yc-autositu
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/permitportal
@@ -40,7 +70,7 @@ sources:
   date: '2026-08-13'
   signal: yc-autositu
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Czech stavebníci — from housing developers to firms building industrial capacity — face one of the slowest building-permit processes in the OECD. The July 2024 launch of the digitalized permitting system (DSŘ / portál stavebníka) made things acutely worse: a year on, trade press (archiweb, cited in the yc-permitportal signal) describes the system as stabilized "but still facing complications." Both applicants and úřady lost throughput during the transition to the new stavební zákon procedures.

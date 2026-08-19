@@ -13,6 +13,29 @@ scores:
   demand: 0
   gap: 1
 status: candidate
+build:
+  capital: funded
+  first_revenue: months
+  builder: funded-team
+  note: 'Physical-ops model — installer training, crews and blowing equipment are payroll and capex before revenue, though each ~€5k fixed-price job pays out within the NZÚ-subsidized homeowner cycle once a crew is live.'
+comps:
+- name: VARM
+  url: https://www.varm.earth/
+  geo: DE
+  since: 2023
+  traction: '€17.5M Series A led by ABN AMRO fund (Tech.eu, 2026); one-day ~€5k fixed-price insulation; 7 DE sites, thousands of projects (TFN)'
+  signal: de-varm
+- name: dsb Deutsche Sanierungsberatung
+  url: https://deutsche-sanierungsberatung.de/
+  geo: DE
+  since: 2024
+  traction: '€10M+ Series A after €3.6M seed (EU-Startups, 2026); ~300 partner trade firms; founded by three ex-Enpal employees'
+  signal: round-dsb-sanierung
+- name: Enter
+  url: https://www.enter.de/
+  geo: DE
+  since: 2020
+  traction: '€20M Series B, €40M total raised (Tech.eu, 2025); digital energy audits, subsidy handling and renovation delivery for homeowners'
 sources:
 - type: arbitrage
   url: https://tech.eu/2026/06/23/berlins-varm-bags-eur175m-to-scale-insulation-across-europe/
@@ -53,7 +76,7 @@ sources:
   date: '2026-07-15'
   signal: reg-epbd-recast
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Insulating a Czech family home means finding one of thousands of small zateplení firms, waiting for a quote, and hoping the NZÚ subsidy paperwork gets handled. The trade is fragmented, quality is unverifiable, and capacity is capped by the same labor shortage as every other building trade. Meanwhile the subsidy program that co-pays the work — Nová zelená úsporám — runs continuously, pre-validating household demand the supply side cannot serve.

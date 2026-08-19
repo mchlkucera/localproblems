@@ -14,6 +14,30 @@ scores:
   demand: 1
   gap: 1
 status: candidate
+build:
+  capital: garage
+  first_revenue: months
+  builder: small-team
+  note: 'The vendor itself is unregulated — a dev plus a compliance lawyer can ship AMLR-ready
+    policy and KYC workflow SaaS, but intermediary-network sales cycles put first revenue
+    months out.'
+comps:
+- name: Saturn
+  url: https://www.saturnos.com/
+  geo: GB
+  since: 2023
+  traction: '€12.9M Series A led by Singular (EU-Startups, 2025); 600+ UK advisory firms and 6,500+ advisers on platform'
+  signal: yc-saturn
+- name: Muinmos
+  url: https://muinmos.com/
+  geo: DK
+  since: 2012
+  traction: 'raise undisclosed; 19 employees (Tracxn, 2026); regulatory onboarding/KYC engine for banks and investment firms globally'
+- name: Apiax
+  url: https://www.apiax.com/
+  geo: CH
+  since: 2017
+  traction: '$6.6M Series A (Crowdfund Insider, 2019) after $1.5M seed; machine-readable compliance rules for banks and wealth managers'
 sources:
 - type: arbitrage
   url: https://www.ycombinator.com/companies/saturn
@@ -37,7 +61,7 @@ sources:
     and Word templates under growing ČNB/MiFID II paperwork plus DORA load from 2025.'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-13'
+updated: '2026-08-19'
 ---
 
 Thousands of Czech vázaní zástupci, investiční zprostředkovatelé and advisory networks (Broker Consulting and Partners ecosystems plus independents) operate under ČNB supervision with steadily growing MiFID II paperwork — suitability, KYC, regulatory reporting — and, since 2025, DORA obligations. Per the yc-saturn signal, this compliance is run on Word templates and external consultants, not software.
