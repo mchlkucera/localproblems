@@ -51,7 +51,8 @@ data/signals/
 ```
 
 One JSONL file per **evidence type** per run date, append-only, committed to git.
-`demand` records bottom-up documented complaints and unmet needs — NKÚ audit findings,
+`demand` records bottom-up documented complaints and unmet needs — live consumer search
+pain (Google Suggest) and community complaints (Reddit) via fetch scripts, plus NKÚ audit findings,
 ombudsman reports, civic complaint data, chamber/NGO surveys, consultations — fed by
 research harvests (source `demand-scan`). `bootstrapped/` stays reserved
 (indie-hacker/revenue signals) — created only when a fetchable source exists.
@@ -60,7 +61,7 @@ research harvests (source `demand-scan`). `bootstrapped/` stays reserved
 
 ```
 id          canonical <prefix>-<nativeid>; v1 ids grandfathered unchanged
-source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan | demand-scan | feed
+source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan | demand-scan | suggest | reddit | feed
 url, date   primary source URL, native ISO date
 title       native title, EN
 sector      the fixed category list in CONVENTIONS.md

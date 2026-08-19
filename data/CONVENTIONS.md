@@ -16,7 +16,11 @@ Evidence types and their feeds:
 - `tenders` — tenders, grants, public contracts: ted, hlidac
 - `demand` — bottom-up documented complaints and unmet needs (NKÚ audit
   findings, ombudsman reports, civic complaint data, chamber/NGO surveys,
-  consultations): demand-scan research harvests
+  consultations): demand-scan research harvests; plus fetched feeds: suggest
+  (Google Suggest pain completions, scripts/fetch_suggest.sh) and reddit
+  (CZ-subreddit pain search, scripts/fetch_reddit.sh). Suggest/reddit items
+  need PAIN LANGUAGE (complaints, failures, workarounds) — engagement metrics
+  never justify a record, and no single feed may dominate the ledger.
 - `bootstrapped` — RESERVED (indie-hacker/revenue signals); create only when a
   fetchable source exists
 
@@ -26,9 +30,10 @@ id          canonical <prefix>-<nativeid>; v1 ids grandfathered unchanged.
             Prefixes: ted- · hlidac- · yc- · round- · reg- · feed- (sha1-8 of
             URL) · arb-scan uses the ISO2 of the origin country (de-, dk-, pl-)
             · demand-scan uses the reporting body (nku-, ombud-, civic-,
-            chamber-, uni-, ngo-, consult-)
+            chamber-, uni-, ngo-, consult-) · suggest- (sha1-8 of the query)
+            · reddit- (post id)
 source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan |
-            demand-scan | feed
+            demand-scan | suggest | reddit | feed
 url         primary source URL
 date        native ISO date of the signal
 title       short English display name, "Thing — what it is"

@@ -177,3 +177,26 @@ Discovered and used by the 13-collector expansion; each is script-ready:
 - **Ombudsman quarterlies** — predictable URLs: `ochrance.cz/dokument/zpravy_pro_poslaneckou_snemovnu_YYYY/YYYY-N-q.pdf`.
 - **EIC Accelerator winners** — EC publishes per-cutoff PDF lists (WebFetch can't decode them; download + local pdftotext works).
 - **Government legislative plan** — the annual *Plán legislativních prací vlády* PDF is the single best CZ pipeline index (91 pp, text-extractable), paired with psp.cz tisky for stage tracking.
+
+## Wave-3 additions (2026-08-15) — consumer search & community demand
+
+Ported from the owner's prior `demand-signals` project (~/Documents/CODE/demand-signals,
+Mar 2026) — the one demand channel institutional sources can't see: live consumer pain.
+
+- **Google Suggest pain-miner** — `scripts/fetch_suggest.sh`. CZ pain-phrased prefixes
+  ("proč je X tak", "X nefunguje", "alternativa k X", …) against
+  `suggestqueries.google.com/complete/search?client=firefox&hl=cs`. Free, no auth,
+  ~1 req/1.5s. Source key `suggest`, id `suggest-<sha1-8 of query>`.
+- **Reddit search via RSS** — `scripts/fetch_reddit.sh`. r/czech, r/Brno, r/Prague,
+  r/czechia: `/search.rss?q=…&restrict_sr=1` for pain terms + `/new.rss` firehose.
+  Verified 2026-08-15: the public `.json` endpoints now 403 for ANY non-browser client —
+  `.rss` serves with a descriptive User-Agent, rate limit ~1 req then 429 (curl
+  `--retry --retry-delay 35` honors it). Source key `reddit`, id `reddit-<post id>`
+  (post id from the entry link).
+- **Lessons carried from demand-signals' real runs** (encoded in TASK.md step 2):
+  *engagement ≠ pain* — a Show HN launch once scored pain 100 and a news cycle
+  clustered as a fake opportunity; record pain language only, never upvotes.
+  *Source imbalance kills analysis* — one loud feed (HN 332 vs Reddit 3) made every
+  "cross-source" cluster single-source; cap any one feed's share of the demand ledger.
+  A `demand_score` with a source-diversity multiplier lives in that project's
+  `src/analyze.py` — candidate for a future SCORING.md revision.

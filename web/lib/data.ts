@@ -22,7 +22,7 @@ const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "ISO date required");
 
 const SignalSchema = z.object({
   id: z.string().regex(/^[a-z]{2,10}-[\w.-]+$/),
-  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan"]),
+  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit"]),
   url: z.string().url(),
   date: isoDate,
   title: z.string().min(1),

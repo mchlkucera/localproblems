@@ -5,8 +5,8 @@ data/sources/<today>/manifest.md and continue with what you have.
 Read SPEC.md, SCORING.md and data/CONVENTIONS.md before step 1.
 
 1. FETCH: mkdir data/sources/<today>. Run scripts/fetch_ted.sh, fetch_hlidac.sh,
-   fetch_feeds.sh (secrets come from .env.enc via direnv — run via
-   `direnv exec .`). Write manifest.md (per source: item count or FAILED +
+   fetch_feeds.sh, fetch_suggest.sh, fetch_reddit.sh (secrets come from
+   .env.enc via direnv — run via `direnv exec .`). Write manifest.md (per source: item count or FAILED +
    error). First run of each month only: also web-fetch the EC Have Your Say
    open consultations page, the Dealroom Czech Republic page, and skim any new
    OECD/IMF CZ country notes; harvest the top demand sources per
@@ -21,7 +21,10 @@ Read SPEC.md, SCORING.md and data/CONVENTIONS.md before step 1.
    (scale / money / urgency / recurrence, definitions in CONVENTIONS.md).
    Drop ONLY if money <= 1 AND scale <= 1 AND urgency == 0 (the materiality
    filter — everything else is kept, hundreds of records is correct, not a
-   failure). Append survivors as one JSON line each to
+   failure). For suggest/reddit items an extra bar applies: record only PAIN
+   LANGUAGE (complaints, failures, workarounds) — engagement metrics never
+   justify a record, and neither feed may dominate the demand ledger.
+   Append survivors as one JSON line each to
    data/signals/<type>/<today>.jsonl (funded | regulation | tenders | demand —
    mapping in CONVENTIONS.md) and add their ids to seen.txt (keep it sorted).
 
