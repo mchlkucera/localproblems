@@ -26,6 +26,6 @@ SPEC.md §8. `TASK.md` is the pipeline's only entry point.
 ## Do next
 
 1. Register domains (verified free 2026-08-13): `localproblems.org`, defensive `problems.cz` / `problems.city`.
-2. Add a GitHub remote (public repo) + a Vercel project rooted at `web/`; push to `main` = deploy.
-3. Point the weekly scheduled Claude task at `TASK.md` (Mon 06:00) — first v2 run re-normalizes the 2026-08-13 raw snapshot objectively (hundreds of TED records expected, not 11).
+2. ~~GitHub remote + Vercel project~~ — done: [github.com/mchlkucera/localproblems](https://github.com/mchlkucera/localproblems) + [localproblems.vercel.app](https://localproblems.vercel.app) (deploy = local prebuilt, see SPEC §5; optionally connect the repo in Vercel with root `web/` for push-to-deploy).
+3. Point the weekly scheduled Claude task at `TASK.md` (Mon 06:00).
 4. Newsletter issue #0 by hand via Buttondown — go/no-go: ≥300 subs in 14 days from one LinkedIn post, or reposition.
