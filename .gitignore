@@ -9,6 +9,12 @@
 # cannot leak payloads, and ALL extensions are covered (the old .json-only rule
 # was committing .rss/.xml/.jsonl payloads — ~19MB/day once ingest runs hourly).
 # The per-run manifest stays: it is the human-readable record of what each fetch did.
+# Level 1 catches stray files written straight into the tree (runner logs);
+# the !*/ rules keep the dated directories traversable so the manifest survives.
+data/sources/*
+data/raw/*
+!data/sources/*/
+!data/raw/*/
 data/sources/*/*
 data/raw/*/*
 !data/sources/*/manifest.md
