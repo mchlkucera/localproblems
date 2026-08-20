@@ -271,13 +271,36 @@ filler. **Draft only — a human reviews and sends. Nothing is ever auto-sent.**
 - **Client-side JavaScript** beyond the sanctioned relative-dates snippet — no client
   components, no hydration-dependent UI.
 - **Postgres, database servers, queues, client-side apps** — banned, permanently.
-  **SQLite + embeddings are sanctioned** (owner, 2026-08-20) as a **gitignored,
-  rebuildable working store** only: `data/register.db`, driven by `scripts/db.py`.
-  Never a publication dependency — `trash data/register.db && npm --prefix web run build`
-  must stay green, and the web build never opens it. **This was an owner decision, not a
-  threshold being crossed:** §10's tripwire is >~400 problems per region and the register
-  holds 31, so nothing fired. Recorded plainly so no one later reads a justification into
-  the data that is not there. Design in `docs/architecture-v3.md` §2.
+  **SQLite + embeddings are sanctioned** (owner, 2026-08-20): `data/register.db`, driven
+  by `scripts/db.py`. **This was an owner decision, not a threshold being crossed:** §10's
+  tripwire is >~400 problems per region and the register holds 31, so nothing fired.
+  Recorded plainly so no one later reads a justification into the data that is not there.
+  Design in `docs/architecture-v3.md` §2.
+
+  **SUPERSEDED, same day, by a second owner decision** — *"let's make sure this db is shown
+  in production"*, *"the biggest moat is that we aggregate data from the right sources so
+  that we can build up a single database from which we make meaningful synthesis"*. This
+  clause previously read "never a publication dependency … the web build never opens it".
+  **That is now false and the reverse is enforced.** The correction is stated rather than
+  quietly edited, because a spec that silently rewrites its own history is worth no more
+  than an unreceipted claim in the register.
+
+  What holds now:
+  - `data/signals/**.jsonl` remains the **append-only ingest journal**, committed to git.
+    It is the audit trail: a score audit on 2026-08-20 worked only because prior state was
+    recoverable with `git show <commit>:<file>`. Never retro-edit a ledger line.
+  - `data/register.db` is **what production reads** (`LP_SOURCE` defaults to `db`). It stays
+    gitignored and deterministically rebuildable from the journal, so nothing canonical
+    lives only in a binary.
+  - `web/scripts/db-gate.mjs` runs in `prebuild`: it rebuilds the store from the committed
+    journal, then verifies it **against the tree** — ledger line counts, and a sha256 of
+    every problem file. A missing or stale store **fails the build** and there is **no
+    fallback to the journal**. A silent fallback would mean nobody ever noticed the flip
+    regressed, which is this repo's recurring failure shape (a 200 carrying a login page; a
+    fetch that "works" while zero records land).
+  - `npm --prefix web run parity` builds the site from both loaders and asserts
+    **byte-identical HTML**. It is the regression test for every future schema change, and
+    it is proven able to fail.
 - Map page (GeoJSON asset stays; page cut), search, alerts, API,
   B2B radar, automated sending, dark mode, i18n of chrome, OG images.
   (Per-category pages were cut here originally; reinstated by owner mandate
