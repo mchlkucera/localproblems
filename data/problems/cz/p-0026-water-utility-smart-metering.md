@@ -2,7 +2,7 @@
 id: p-0026
 region: cz
 title: Hundreds of small Czech water utilities are buying smart metering one tender at a time
-  — each re-solving telemetry, data and dispatch with no shared platform
+  — each re-solving telemetry, data and dispatch
 category: environment
 geo: CZ-national
 score: 3
@@ -86,3 +86,6 @@ Updated 2026-08-13 — de-rank applied: the gap check found the managed-service 
 
 ---
 **CORRECTION (2026-08-20, evidence audit):** The "Existing non-solutions" sentence has been removed in full — proprietary head-end systems, one-off SCADA/dispatch integrations, and the large VaKs' in-house solutions attributed to **Veolia**-operated utilities. Veolia returns no hits anywhere in the signal corpus, in either case, and appears in no source note here; the head-end and SCADA characterisations have no receipt either. The paragraph now states what this record's own gap check found and already says elsewhere: the managed-service position is occupied by named local players [S6]. The lead paragraph's "hundreds of VaK companies and municipal svazky" is **not** an invention — it is carried by the signal behind [S2], and is now cited there rather than left bare.
+
+---
+**CORRECTION (2026-08-20, title sweep):** The **title** still asserted "with no shared platform" while the body already recorded that this exact framing "does not survive the check" — Softlink, VODÁRENSKÁ, Popron Systems, SUEZ and Techem occupy the managed-service position [S6]. The clause is now gone.

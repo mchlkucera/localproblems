@@ -2,7 +2,7 @@
 id: p-0004
 region: cz
 title: Families caring for ~380,000 dependent Czechs must obtain and defend příspěvek na péči
-  through an opaque, bureaucratic process with no help beyond static info portals
+  through an opaque, bureaucratic process
 category: health
 geo: CZ-national
 score: 6
@@ -118,3 +118,6 @@ Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) form a validated US c
 **CORRECTION (2026-08-13, post-run fact check):** The recipient figure should read **374,000 (Dec 2024, ČSÚ/MPSV)** — 41.3 bn CZK paid in 2024 [S5]. The ~380k figure in this record is slightly above the latest confirmed official number. Sources: https://csu.gov.cz/produkty/prispevek-na-peci-loni-vyuzivalo-vice-nez-370-tisic-lidi
 
 *Verified by the 2026-08-20 evidence audit: the ČSÚ release of 2025-11-14 states "V prosinci 2024 pobíralo příspěvek na péči již 374 tisíc osob" and 41,3 mld. Kč paid out through the benefit in 2024. Both figures in this correction check out against the primary source, which is now on the ledger as [S5].*
+
+---
+**CORRECTION (2026-08-20, title sweep):** The **title** claimed families have "no help beyond static info portals". The 2026-08-20 gap re-check found otherwise and the body says so: pece.cz carries an entitlement calculator and a poradna, and registered odborné sociální poradenství services draft appeals [S6]. What is absent is a *product* that files, tracks or optimizes a claim — which is what `gap: 2` records — not all help. The overstated clause is gone; the gap score is untouched.

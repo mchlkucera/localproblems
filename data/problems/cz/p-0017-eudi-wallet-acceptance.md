@@ -2,7 +2,7 @@
 id: p-0017
 region: cz
 title: Czech banks, telcos and KYC-bound businesses must accept the EU Digital Identity Wallet
-  for strong authentication from 2027 and have no integration path
+  for strong authentication from 2027
 category: govtech
 geo: CZ-national
 score: 5
@@ -84,3 +84,6 @@ Updated 2026-08-14: the gap check this record was waiting on ran against the fun
 
 ---
 **CORRECTION (2026-08-20, evidence audit):** Removed the absence claim attributed to the reg-eidas2 signal — that banks, utilities, e-shops with KYC obligations and municipalities "currently have no integration path beyond following eDoklady's evolution". The signal says those parties **need wallet-acceptance flows**; it never says a path is missing, and the record's own gap check [S4] shows Wultra selling exactly that path. The who-list itself is supported and stays, now cited to [S1]. Also removed both mentions of **Bankovní identita** — the name returns no hits anywhere in the signal corpus and appears in no source note on this record, so neither the "solves domestic identity" clause nor the quasi-incumbent claim had anything behind it.
+
+---
+**CORRECTION (2026-08-20, title sweep):** The **title** still asserted that relying parties "have no integration path" — the very claim this record's earlier correction removed from the body, because Wultra sells exactly that path and this record's own gap check [S4] found it. The clause is now gone. A retraction that leaves the claim standing in the most-read line on the page is not a retraction.

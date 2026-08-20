@@ -2,8 +2,8 @@
 id: p-0007
 region: cz
 title: Czech contractors source subcontractor crews through Facebook groups and brokers and
-  run their payroll on generic legacy software, with no vetting, compliance or construction-specific
-  tooling
+  run their payroll on generic legacy software, with no vetting or compliance layer for the
+  crews they hire
 category: housing
 geo: CZ-national
 score: 5
@@ -121,3 +121,6 @@ Solved elsewhere: CoCrafter (DE) for sourcing [S1] and Hammr (US, YC W23) for co
 
 ---
 **CORRECTION (2026-08-20, evidence audit):** Removed the "Why now" trend sentence — the claims that the labor shortage keeps worsening, that foreign-crew usage keeps rising, and that posted-worker compliance exposure grows with them. No signal in the corpus carries a trajectory for any of the three: `yc-cocrafter` and `yc-hammr` document a **chronic** shortage and informal Ukrainian/Balkan sourcing at a single point in time, with no second data point behind any of the three verbs. The lead-in now carries the German productization receipt, which is sourced.
+
+---
+**CORRECTION (2026-08-20, title sweep):** The **title** claimed "no vetting, compliance or construction-specific tooling". The first two stand — the 2026-08-20 gap check searched five surfaces and found no crew-vetting or construction payroll product [S5]. The third did not: Bildix is Czech construction-specific tooling, named on this record, and it simply does not do crew sourcing. Narrowed to what the check actually supports.

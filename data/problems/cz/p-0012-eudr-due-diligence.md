@@ -2,7 +2,7 @@
 id: p-0012
 region: cz
 title: Czech importers and processors of wood, coffee, rubber and soy must file geolocation-based
-  due diligence statements by 30 Dec 2026 and mid-sized firms have no traceability stack
+  due diligence statements by 30 Dec 2026
 category: environment
 geo: CZ-national
 score: 3
@@ -64,3 +64,6 @@ Recommended follow-up: a gap check on CZ-language EUDR tooling and whether celn�
 
 ---
 **CORRECTION (2026-08-20, evidence audit):** Removed two unbacked assertions. The scale claim "— a large sector in Czechia —" had no count, turnover or firm population behind it anywhere in the corpus; `reg-eudr-deforestation` names the CZ sectors but makes no scale claim. The named vendors "(e.g. Grit, Aimtec ecosystem)" in the follow-up proposal return no hits anywhere in the signal corpus — two Czech companies asserted as customs-software vendors with nothing behind them. The follow-up still proposes the check, without pre-naming who will be found.
+
+---
+**CORRECTION (2026-08-20, title sweep):** The **title** asserted that mid-sized firms "have no traceability stack" while `scores.gap` is 0, which by definition means no CZ incumbent check has been run. An absence claim in the title with an unchecked gap score beneath it is the contradiction this sweep exists to remove. The clause is gone; no score changed.
