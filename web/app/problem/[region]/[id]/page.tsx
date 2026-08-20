@@ -119,8 +119,7 @@ export default async function Record({ params }: Params) {
           <p className="idline">
             <span className="id">{idUp}</span>
             <span className="meta">
-              {p.sources.length > 1 ? `S01–S${pad2(p.sources.length)}` : "S01"} on file
-              {" · updated "}<time className="rel" dateTime={p.updated}>{p.updated}</time>
+              {"updated "}<time className="rel" dateTime={p.updated}>{p.updated}</time>
               {" · created "}<time className="rel" dateTime={p.created}>{p.created}</time>
             </span>
           </p>
@@ -247,14 +246,23 @@ export default async function Record({ params }: Params) {
         {p.build && (
           <>
             <h2>Who builds this</h2>
-            <dl className="facts">
-              <div>
-                <dt>Capital</dt>
-                <dd>{p.build.capital.toUpperCase()} <span className="range">{CAPITAL_RANGE[p.build.capital]}</span></dd>
-              </div>
-              <div><dt>First revenue</dt><dd>{p.build.first_revenue.toUpperCase()}</dd></div>
-              <div><dt>Builder</dt><dd>{p.build.builder.replace("-", " ").toUpperCase()}</dd></div>
-            </dl>
+            <ul className="buildfacts">
+              <li>
+                <span className="label">Capital</span>
+                <span className="leader"></span>
+                <span className="val">{p.build.capital.toUpperCase()} <span className="range">{CAPITAL_RANGE[p.build.capital]}</span></span>
+              </li>
+              <li>
+                <span className="label">First revenue</span>
+                <span className="leader"></span>
+                <span className="val">{p.build.first_revenue.toUpperCase()}</span>
+              </li>
+              <li>
+                <span className="label">Builder</span>
+                <span className="leader"></span>
+                <span className="val">{p.build.builder.replace("-", " ").toUpperCase()}</span>
+              </li>
+            </ul>
             <p className="buildnote">{p.build.note}</p>
           </>
         )}

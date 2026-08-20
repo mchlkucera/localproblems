@@ -62,10 +62,13 @@ export function RelDatesScript() {
     var now = new Date();
     var days = Math.round((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - d) / 864e5);
     t.title = t.dateTime;
+    // Notion-style full ladder (owner, 2026-08-20); ISO always kept in datetime + title.
     if (days <= 0) t.textContent = 'today';
     else if (days === 1) t.textContent = 'yesterday';
     else if (days < 7) t.textContent = days + ' days ago';
-    // 7+ days: keep the ISO date — a register cites, it doesn't reminisce.
+    else if (days < 30) { var w = Math.round(days / 7); t.textContent = w + (w === 1 ? ' week ago' : ' weeks ago'); }
+    else if (days < 365) { var mo = Math.round(days / 30); t.textContent = mo + (mo === 1 ? ' month ago' : ' months ago'); }
+    else { var y = Math.round(days / 365); t.textContent = y + (y === 1 ? ' year ago' : ' years ago'); }
   });`;
   return <script dangerouslySetInnerHTML={{ __html: js }} />;
 }

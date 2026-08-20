@@ -1,5 +1,9 @@
 /* ============================================================
-   localproblems.org · design system v1.5 · 2026-08-19
+   localproblems.org · design system v1.5.1 · 2026-08-20
+   v1.5.1: one shared --w-rail vertical (docket + works); sort-direction
+   text arrows on th[aria-sort]; who-builds as .buildfacts ruled ledger;
+   docket meta right-aligned; relative dates extended to the full
+   Notion-style ladder (weeks/months/years ago).
    Two faces: Source Serif 4 (prose) + IBM Plex Mono (evidence).
    Seven colors. Three rule weights. Zero JavaScript assumed.
    v1.1: adds the 4px spacing scale (--sp-1…--sp-8); all margins,
@@ -63,6 +67,8 @@
   --fs-label: 0.6875rem;
 
   --w-page: 76rem;  --w-prose: 62ch;
+  --w-rail: 20rem;  /* THE right-rail width — docket facts and the works map
+                       share it so the page keeps ONE vertical (owner, 2026-08-20) */
   color-scheme: light only;
 }
 
@@ -157,6 +163,9 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
    cursor:pointer comes from the script, never from here — a th is
    only clickable when the script is running. */
 .index thead th[aria-sort] { text-decoration: underline 2px var(--ink); }
+/* the active sort column states its direction — text arrows, not icons */
+.index thead th[aria-sort="descending"]::after { content: " ↓"; }
+.index thead th[aria-sort="ascending"]::after  { content: " ↑"; }
 .index td { padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--rule); vertical-align: baseline; }
 .index tbody tr:hover { background: var(--paper-2); }   /* instant, no transition */
 .index .t-id { font-weight: 600; white-space: nowrap; }
@@ -178,7 +187,7 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--sp-4); flex-wrap: wrap; margin: 0;
 }
-.docket .idline .meta { margin: 0; }
+.docket .idline .meta { margin: 0 0 0 auto; text-align: right; }
 .docket .statline { float: right; font-family: var(--mono); font-size: var(--fs-data); }
 .docket h1 { font: 700 var(--fs-title)/1.2 var(--serif); margin: var(--sp-2) 0 var(--sp-5); max-width: 30ch; clear: none; }
 /* the dek: one serif standfirst sentence directly under the title (v1.4) */
@@ -206,7 +215,7 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 @media (min-width: 56rem) {
   .docket {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 18rem;
+    grid-template-columns: minmax(0, 1fr) var(--w-rail);
     grid-template-rows: auto auto 1fr;
     column-gap: var(--sp-7);
   }
@@ -361,6 +370,14 @@ ol.receipts { list-style: none; margin: 0; padding: 0; counter-reset: exhibit; }
    .correction: the 4px page-begins rule turned sideways — a
    correction interrupts the record.                              */
 p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
+/* who-builds-this as a ruled ledger — one fact per line, readable
+   (owner, 2026-08-20; replaces the facts-grid rendering here) */
+ul.buildfacts { list-style: none; margin: 0 0 var(--sp-4); padding: 0; max-width: var(--w-prose); font: 500 var(--fs-data)/1.5 var(--mono); }
+.buildfacts li { display: flex; align-items: baseline; gap: 0.75ch; padding: var(--sp-2) 0; border-bottom: 1px solid var(--rule); }
+.buildfacts .leader { flex: 1; }
+.buildfacts .val { font-weight: 600; }
+.buildfacts .val .range { color: var(--ink-muted); font-weight: 400; }
+
 .buildnote { margin: var(--sp-4) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); max-width: var(--w-prose); }
 .correction { border-left: 4px solid var(--ink); padding-left: var(--sp-4); margin: 0 0 var(--sp-4); max-width: var(--w-prose); }
 .correction p:last-child { margin-bottom: 0; }
@@ -423,7 +440,7 @@ p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
 }
 .works .geomap { margin: 0; }
 @media (min-width: 56rem) {
-  .works { grid-template-columns: minmax(0, 1fr) 22rem; }
+  .works { grid-template-columns: minmax(0, 1fr) var(--w-rail); column-gap: var(--sp-7); }
   .works .comps  { grid-column: 1; grid-row: 1; }
   .works .geomap { grid-column: 2; grid-row: 1; }
 }
