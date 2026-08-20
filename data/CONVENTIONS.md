@@ -271,6 +271,65 @@ grep -h -A6 'type: gap-check' data/problems/cz/*.md | grep -o 'note: .*' \
   | awk '{print $1, $2}' | sort | uniq -c | sort -rn
 ```
 
+## Proving a negative
+
+A gap score is the register's only claim of the form "nobody local does this,"
+and it is the claim most likely to be wrong in the way that embarrasses us: a
+reader who knows the market names the incumbent in one reply. On 2026-08-20 a
+re-check of all sixteen absence claims found **half of them false**, including
+four of the five records carrying `gap: 2`. These rules come out of that run.
+
+**THE CORPUS CANNOT SEE THE COMPETITION.** This is first because it invalidates
+the intuitive method. The nine vendors found occupying p-0001 and p-0002 —
+Enerio, Softlink CEM, EnerCA, ENERGOMETR, CANCOM, Wue, RAYNET, AutoERP, Infina —
+return **zero hits across all 6,181 signals**, and so do Průvodka, Apertia and
+Bildix. They are bootstrapped SMB software vendors: they never raised, so no
+funding feed carries them; they sell to private buyers, so no tender names them.
+Our discovery pipeline is aimed at funded startups and public procurement and is
+therefore blind to exactly the companies a gap claim is about. **A gap check run
+against `data/signals/` alone is not a gap check** — `own-funded-ledger` can
+never on its own justify a gap. Only live Czech-language search finds these.
+
+Corollary from the same run: the register held the disproof of its own claim —
+**Softlink was named as an incumbent on p-0026 while p-0001 asserted that niche
+was empty.** Before asserting an absence, grep the other problem records.
+
+**Search in Czech.** For p-0002 the English query returned no Czech vendor and
+the Czech queries returned four. Czech SMB vendors do not describe themselves in
+English, and a register that searches in English will keep finding empty markets
+that are not empty.
+
+**A negative result is only evidence when the method is known to produce
+positives.** Before writing an absence, run the same method at a company known to
+exist. The register supplies its own controls — checks that DID find incumbents:
+Wultra (p-0017), Softlink (p-0026), Ringil (p-0010). If the method cannot surface
+one of those, it has not found an absence; it has found a broken method. Say so
+and write nothing. A recorded control MISS is worth more than a clean negative.
+
+**Never receipt a Czech absence with a foreign URL.** Both records de-ranked from
+`gap: 2` had cited a foreign company's funding page — `exnaton.com`,
+`ycombinator.com/companies/autarc` — as proof no Czech vendor existed. A foreign
+company's existence is evidence about that company and nothing else.
+
+**Gap authority is asymmetric.**
+
+| direction | who decides | why |
+|---|---|---|
+| down (incumbent found → `gap: 0`) | any check, immediately | SPEC §4 de-rank rule: name the incumbent, `status: watching` |
+| up (found nothing → raise) | **nobody** | not-finding-it and not-existing are indistinguishable from where the searcher sits |
+
+Not a matter of confidence. A searcher who looked hard and found nothing holds
+exactly the evidence of one who searched badly; only the positive control
+separates them, and even a passed control proves the method works for the
+*control's* market, not this one. Record the coverage, leave the number, hand it
+to MATCH. p-0001 and p-0002 are the standing proof: both looked like clean
+absences until the queries were run in the right language.
+
+**The title is a claim too.** Ten titles survived a body rewrite still asserting
+absences their own records had retracted. A retraction that leaves the claim
+standing in the most-read line on the page is not a retraction. When a de-rank
+lands, re-read the title before closing the record.
+
 ## Adding a new evidence type
 
 Eight steps. **Three are enforced by the build rather than by memory** — which is
