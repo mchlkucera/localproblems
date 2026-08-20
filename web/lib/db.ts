@@ -1,19 +1,24 @@
 // The DB read path: `data/register.db`, opened READ-ONLY at build time.
+// **THIS IS WHAT PRODUCTION READS** — `lib/data.ts` `source()` defaults to
+// "db", and `scripts/db-gate.mjs` regenerates and verifies the store inside
+// `npm run build` before `next build` runs.
 //
 // WHY THIS EXISTS AT ALL. The journal (`data/signals/**.jsonl` +
 // `data/problems/**/*.md`) stays canonical and append-only; this file is the
 // other half of a migration whose whole proof is `npm run parity` — the
-// DB-backed build must emit BYTE-IDENTICAL HTML to the JSONL-backed build
-// before production is switched over. Nothing here may "improve" what it reads.
+// DB-backed build must emit BYTE-IDENTICAL HTML to the JSONL-backed build.
+// That gate is green and stays the regression test for every schema change;
+// it is also the reason the journal keeps its own loader rather than being
+// retired. Nothing here may "improve" what it reads.
 // In particular the loader reads `signals.raw` and the projected problem
 // columns and NOTHING ELSE: `data/errata.jsonl` is canonical and committed and
 // the web build has never read it, so picking it up here would silently gain
 // the site a correction ledger — a real improvement AND an instant parity
 // failure. Applying errata is a deliberate content change with its own diff.
 //
-// LP_SOURCE stays defaulted to 'jsonl' (see lib/data.ts); this module is dead
-// weight until the coordinator flips it, and that is what keeps the migration
-// reversible.
+// THE MIGRATION STAYS REVERSIBLE: `LP_SOURCE=jsonl` still selects the journal
+// loader, unchanged, and `npm run parity` still builds both ways and compares.
+// What changed on 2026-08-20 is only which of the two you get by default.
 import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 

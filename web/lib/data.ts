@@ -11,17 +11,25 @@ const DATA = join(ROOT, "data");
 
 // ---- the two read paths --------------------------------------------------
 
-/** Which store the loaders read: the canonical journal, or the working store.
+/** Which store the loaders read: the working store, or the canonical journal.
  *
+ *  `db` — `data/register.db`. **THE DEFAULT, AND WHAT PRODUCTION READS**
+ *  (flipped 2026-08-20, after `npm run parity` proved byte-identical HTML).
+ *  Gitignored and never committed; `web/scripts/db-gate.mjs` regenerates it
+ *  from the journal inside `npm run build`, before `next build` runs, and then
+ *  verifies it against the tree — so the store production reads is always a
+ *  projection of the commit being deployed.
  *  `jsonl` — `data/signals/**.jsonl` + `data/problems/ ** /*.md`. The
- *  append-only ledger, committed to git. THE DEFAULT IN EVERY COMMIT.
- *  `db` — `data/register.db`, gitignored, deterministically rebuilt from the
- *  same files by `python3 scripts/db.py rebuild`.
+ *  append-only ledger, committed to git, and still the canonical corpus:
+ *  the database is derived from it and never the other way round. Selecting it
+ *  is now an explicit opt-out, used by `scripts/parity.mjs` as the reference
+ *  implementation the db path is measured against.
  *
- *  The migration's entire proof is that these two produce BYTE-IDENTICAL HTML
- *  (`npm run parity`). Flipping the default is a one-line change the
- *  coordinator makes only after that gate is green — which is what keeps the
- *  switch reversible.
+ *  THE DEFAULT IS `db` PRECISELY SO IT CANNOT BE FORGOTTEN. Carrying the flip
+ *  in a build script or a deploy env var instead would mean any build that
+ *  missed the setting silently served the journal — a green build that quietly
+ *  un-did the migration, which nobody would notice. Here, the only way to read
+ *  the journal is to ask for it by name.
  *
  *  AN UNKNOWN VALUE IS A LOUD FAILURE, NOT A FALLBACK. `LP_SOURCE=DB` quietly
  *  taking the jsonl branch would make the parity harness compare jsonl against
@@ -29,7 +37,7 @@ const DATA = join(ROOT, "data");
  *  exercise exists to avoid. Read inside the function, never captured at module
  *  scope, so no bundler can fold it to a constant. */
 export function source(): "jsonl" | "db" {
-  const v = process.env.LP_SOURCE ?? "jsonl";
+  const v = process.env.LP_SOURCE ?? "db";
   if (v !== "jsonl" && v !== "db")
     throw new Error(`LP_SOURCE must be 'jsonl' or 'db', got '${v}'`);
   return v;

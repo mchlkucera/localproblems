@@ -1,7 +1,15 @@
 // THE MIGRATION'S PROOF: the DB-backed build must emit BYTE-IDENTICAL HTML to
-// the JSONL-backed build. Nothing switches until this is green.
+// the JSONL-backed build.
 //
 //   npm --prefix web run parity
+//
+// PRODUCTION NOW READS THE DATABASE (lib/data.ts `source()` defaults to "db",
+// flipped 2026-08-20 on the strength of this gate). That does not retire this
+// harness — it promotes it. The journal keeps its own loader for exactly one
+// reason: to stay the reference implementation the shipped read path is
+// measured against. Run this after every schema change to `scripts/db.py` or
+// either loader; a red here means the site would render something the
+// committed ledgers do not say.
 //
 // ONE TREE, TWO LOADERS — and that is the whole design. Both builds run from
 // the same working tree, the same CSS, the same fonts, the same node_modules,
@@ -229,6 +237,52 @@ function buildAndHash(src) {
   if (map.size === 0) throw new Error(`parity: the ${src} build emitted no HTML`);
   return map;
 }
+
+// ---- stage 0: a working store that describes THIS tree --------------------
+
+/** Regenerate `data/register.db` from the journal before anything is compared.
+ *
+ *  WHAT THIS HARNESS MEASURES IS THE READ PATH — "one tree, two loaders", so a
+ *  byte difference can only have come from the loader. A store left over from
+ *  an older commit breaks that framing: an ingest run appending to
+ *  `data/signals/**` would turn this gate red for a reason that has nothing to
+ *  do with the code under test, and that red would be indistinguishable from a
+ *  real loader defect. It also makes the harness work on a fresh checkout,
+ *  where the gitignored database does not exist at all.
+ *
+ *  IT DOES NOT MAKE THE COMPARISON TAUTOLOGICAL, and the distinction matters.
+ *  The rebuild WRITES a projection; the gate then asks whether READING that
+ *  projection reproduces the journal. Those are different programs — db.py and
+ *  lib/db.ts + lib/data.ts — and every defect this harness has caught (a
+ *  blanked `extra_json`, a collapsed `dims: []`, a deleted `signals` row) was
+ *  planted in a freshly rebuilt database. Freshness is a precondition of the
+ *  question, never an answer to it. Staleness is a different gate's job:
+ *  `scripts/db-gate.mjs`, which runs inside `npm run build`.
+ *
+ *  LP_SKIP_DB_REBUILD=1 skips it — for comparing against a store you built by
+ *  hand, which is how the "planted defect" tests above are run. */
+function freshStore() {
+  if (process.env.LP_SKIP_DB_REBUILD === "1") {
+    process.stderr.write("\n── stage 0: LP_SKIP_DB_REBUILD=1 — using data/register.db as it stands ──\n");
+    return;
+  }
+  process.stderr.write("\n── stage 0: rebuilding data/register.db from the journal ──\n");
+  const r = spawnSync("python3", ["scripts/db.py", "rebuild"], {
+    cwd: resolve(WEB, ".."),
+    encoding: "utf8",
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  if (r.error || r.status !== 0) {
+    process.stderr.write(`${r.stdout ?? ""}${r.stderr ?? ""}`);
+    throw new Error(
+      `parity: \`python3 scripts/db.py rebuild\` ${r.error ? `failed (${r.error.message})` : `exited ${r.status}`}` +
+      " — cannot compare against a store that does not describe this tree"
+    );
+  }
+  for (const line of `${r.stdout ?? ""}`.split("\n")) if (line.trim()) process.stderr.write(`  ${line}\n`);
+}
+
+freshStore();
 
 // Cheap stage first: a value mismatch is a superset of most HTML mismatches and
 // costs seconds, so there is no reason to spend two builds discovering it.
