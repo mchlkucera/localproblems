@@ -26,15 +26,24 @@ export default function About() {
 
       <h2>Where the signals come from</h2>
       <p>
-        Four streams of public evidence feed the register, collected weekly and kept
-        region-blind: <a href="/sources/funded">funded</a> — companies founded and financed
-        elsewhere, the proof a model works; <a href="/sources/regulation">regulation</a> —
+        Five streams of public evidence feed the register, collected weekly and kept
+        region-blind: <a href="/signals/funded">funded</a> — companies founded and financed
+        elsewhere, the proof a model works; <a href="/signals/regulation">regulation</a> —
         obligations with dates, the reason a market appears on schedule;{" "}
-        <a href="/sources/tenders">tenders</a> — public money actually moving, from EU notices
-        to below-threshold contracts and open subsidy calls; and{" "}
-        <a href="/sources/demand">demand</a> — documented complaints and unmet needs, from
-        audit findings and ombudsman inventories to petitions and live shortage data.
-        Currently {s.signalCount.toLocaleString("en-US").replace(/,/g, " ")} signals on file.
+        <a href="/signals/tenders">tenders</a> — public money actually moving, from EU notices
+        to below-threshold contracts and open subsidy calls;{" "}
+        <a href="/signals/demand">demand</a> — documented complaints and unmet needs, from
+        audit findings and ombudsman inventories to petitions and live shortage data; and{" "}
+        <a href="/signals/hiring">hiring</a> — vacancies aggregated into the salary bill a
+        market already pays to have the work done by hand. Currently{" "}
+        {s.signalCount.toLocaleString("en-US").replace(/,/g, " ")} signals on file
+        {s.byType.hiring === 0 && ", none of them yet from hiring"}.
+      </p>
+      <p>
+        The feeds themselves are listed on the <a href="/sources">sources page</a>, each with
+        the terms it is collected under and its current health — including the ones that are
+        registered and producing nothing. A register that audits other people&rsquo;s evidence
+        owes the same discipline to its own.
       </p>
       <p>
         A region pass then does the judgment work the collection deliberately avoids: it clusters

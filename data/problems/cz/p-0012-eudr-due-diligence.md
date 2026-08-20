@@ -49,14 +49,14 @@ sources:
     only first placer files DDS, one-off simplified declaration for micro/small primary operators.'
   date: '2025-12-11'
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Czech companies trading in cattle, cocoa, coffee, palm oil, rubber, soy and wood products — furniture and wood processing, coffee roasters, food producers, tyre and rubber importers — must run geolocation-based due diligence on their supply chains and file due diligence statements from 30 December 2026 (micro/small firms from 30 June 2027). Per the reg-eudr signal, the documentation burden falls heavily on mid-sized importers that have no traceability stack of any kind. Penalties reach 4% of EU turnover.
+Czech companies trading in cattle, cocoa, coffee, palm oil, rubber, soy and wood products — furniture and wood processing, coffee roasters, food producers, tyre and rubber importers — must run geolocation-based due diligence on their supply chains and file due diligence statements from 30 December 2026 (micro/small firms from 30 June 2027) [S1]. Per the reg-eudr signal, the documentation burden falls heavily on mid-sized importers that have no traceability stack of any kind [S1]. Penalties reach 4% of EU turnover [S1].
 
-Why now: the December 2025 amendment was the second postponement, and the simplifications that came with it (only the first placer on the EU market files the DDS; simplified one-off declarations for micro/small primary operators) settle the final shape of the obligation — the compliance date is now firm and under 17 months away at record creation. The history of postponements under industry pushback is itself evidence that obligated firms find the requirements hard to meet.
+Why now: the December 2025 amendment was the second postponement, and the simplifications that came with it (only the first placer on the EU market files the DDS; simplified one-off declarations for micro/small primary operators) settle the final shape of the obligation [S2] — the compliance date is now firm and under 17 months away at record creation. The history of postponements under industry pushback is itself evidence that obligated firms find the requirements hard to meet [S2].
 
-Who pays: importing and processing firms in the wood/furniture, coffee, food and rubber value chains — a large sector in Czechia — buying due-diligence-as-a-service, geolocation plot verification, supplier questionnaire automation and customs-integrated filing.
+Who pays: importing and processing firms in the wood/furniture, coffee, food and rubber value chains [S1] — a large sector in Czechia — buying due-diligence-as-a-service, geolocation plot verification, supplier questionnaire automation and customs-integrated filing [S1].
 
 Existing non-solutions: nothing CZ-specific was searched this cycle (gap scored 0 accordingly); EU-wide EUDR SaaS exists but mid-sized Czech importers are unlikely targets of those vendors' direct sales, leaving a localization and service gap plausible but unverified.
 

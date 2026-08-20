@@ -4,7 +4,7 @@
   "description": "localproblems.org — the generated register. Pure SSG; a pure function of ../data. See ../SPEC.md §5.",
   "scripts": {
     "predev": "node scripts/check-css.mjs",
-    "prebuild": "node scripts/check-css.mjs",
+    "prebuild": "node scripts/check-css.mjs && node scripts/lint-citations.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

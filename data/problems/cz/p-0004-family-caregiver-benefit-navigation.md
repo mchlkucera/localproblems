@@ -66,18 +66,18 @@ sources:
     layer stays unbuilt. Adjacent spend: kept at money=1, not 2.'
   date: '2026-06-11'
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Roughly 380,000 dependent persons in Czechia receive příspěvek na péči, and the care it funds is largely delivered informally by family members. To get the benefit — and the correct level of it — families must navigate the application, the hodnocení stupně závislosti assessment, and frequently appeals, in a process the yc-oma-care signal characterizes as bureaucratic and opaque. Families that misnavigate it leave state money on the table while providing the care anyway.
+Roughly 380,000 dependent persons in Czechia receive příspěvek na péči [S2], and the care it funds is largely delivered informally by family members [S1]. To get the benefit — and the correct level of it — families must navigate the application, the hodnocení stupně závislosti assessment, and frequently appeals, in a process the yc-oma-care signal characterizes as bureaucratic and opaque [S3]. Families that misnavigate it leave state money on the table while providing the care anyway.
 
-Why now: benefit levels were raised again in 2024-25, increasing the money at stake per claim, while the navigation layer remains nonexistent. Demographic aging steadily grows the claimant pool.
+Why now: benefit levels were raised again in 2024-25 [S2], increasing the money at stake per claim, while the navigation layer remains nonexistent [S3]. Demographic aging steadily grows the claimant pool.
 
-Who pays: families themselves (success-fee or flat-fee claim assistance, subscription support and caregiver training), analogous to how Oma Care monetizes caregiver enablement in the US. Downstream, home-care providers and insurers are plausible channel partners since properly funded clients can afford services.
+Who pays: families themselves (success-fee or flat-fee claim assistance, subscription support and caregiver training), analogous to how Oma Care monetizes caregiver enablement in the US [S1]. Downstream, home-care providers and insurers are plausible channel partners since properly funded clients can afford services.
 
-Existing non-solutions: static information portals (pece.cz, mpsv.gov.cz guides) and word-of-mouth from social workers. The 2026-08-13 absence check found no Czech company that files, tracks or optimizes claims for families.
+Existing non-solutions: static information portals (pece.cz, mpsv.gov.cz guides) [S3] and word-of-mouth from social workers. The 2026-08-13 absence check found no Czech company that files, tracks or optimizes claims for families [S3].
 
-Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) form a validated US cluster around getting family caregivers trained and paid from state programs. Arbitrage scored 1 because validation is US-only; the money point reflects the příspěvek na péči program explicitly referenced in the signal note.
+Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) form a validated US cluster around getting family caregivers trained and paid from state programs [S1]. Arbitrage scored 1 because validation is US-only; the money point reflects the příspěvek na péči program explicitly referenced in the signal note [S2].
 
 ---
 **CORRECTION (2026-08-13, post-run fact check):** The recipient figure should read **374,000 (Dec 2024, ČSÚ/MPSV)** — 41.3 bn CZK paid in 2024. The ~380k figure in this record is slightly above the latest confirmed official number. Sources: https://csu.gov.cz/produkty/prispevek-na-peci-loni-vyuzivalo-vice-nez-370-tisic-lidi

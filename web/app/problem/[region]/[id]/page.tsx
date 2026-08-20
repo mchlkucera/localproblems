@@ -5,7 +5,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { extractDate, getProblems, getSignal, type Problem, type ProblemSource } from "../../../../lib/data";
-import { annotateSourceRefs, renderBody } from "../../../../lib/md";
+import { annotateSourceRefs, renderBody, renderInline, type SourceRef } from "../../../../lib/md";
 import { splitBody } from "../../../../lib/sections";
 import { categoryLabel, countryName, euro, localityLong, pad2 } from "../../../../lib/format";
 import { BANDS, DIMS, MAX, VERDICTS, bandWord, criterion, dimRefs, type Dim } from "../../../../lib/scorecard";
@@ -95,10 +95,24 @@ export default async function Record({ params }: Params) {
   const band = bandWord(p.score);
   const comps = p.comps ?? [];
 
-  // Body prose renders through the ref post-pass: a link citing a source on
-  // file gets its superscript S-number marker (owner, 2026-08-19).
-  const sourceUrls = p.sources.map((s) => s.url);
-  const body = (md: string) => annotateSourceRefs(renderBody(md), sourceUrls);
+  // Body prose renders through the ref post-pass: an explicit `[Sn]` marker —
+  // or a link to a url already on the ledger — becomes the superscript
+  // S-number, carrying the source's name and date for the hover reveal
+  // (owner, 2026-08-19; explicit markers 2026-08-20).
+  const sourceRefs: SourceRef[] = p.sources.map((s) => {
+    const sig = s.signal ? getSignal(s.signal) : undefined;
+    return {
+      url: s.url,
+      label: sourceName(s).label,
+      date: s.date,
+      note: s.note,
+      // Seam: the ingest program is adding a verbatim `quote` to the signal
+      // record. The day it lands in SignalSchema, the reveal quotes the source
+      // — no change needed here or in md.ts.
+      quote: (sig as { quote?: string } | undefined)?.quote,
+    };
+  });
+  const body = (md: string) => annotateSourceRefs(renderBody(md), sourceRefs);
 
   // Nearest future deadline among the urgency receipts feeds the docket Window fact.
   const windowFact = refs.urgency
@@ -124,7 +138,12 @@ export default async function Record({ params }: Params) {
             </span>
           </p>
           <h1>{p.title}</h1>
-          {sections.dek && <p className="dek">{sections.dek}</p>}
+          {/* The dek is the who-pays paragraph's opening sentence, lifted — so it
+              renders through the same ref pass: a citation written once in the
+              body still shows where the sentence is reused. */}
+          {sections.dek && (
+            <p className="dek" dangerouslySetInnerHTML={{ __html: annotateSourceRefs(renderInline(sections.dek), sourceRefs) }} />
+          )}
           <dl className="facts facts--rail">
             <div><dt>Category</dt><dd><a href={`/category/${p.category}`}>{categoryLabel(p.category)}</a></dd></div>
             <div><dt>Locality</dt><dd>{localityLong(p.geo)}</dd></div>
@@ -283,7 +302,7 @@ export default async function Record({ params }: Params) {
                       <a className="name" href={c.url}>{c.name}</a>
                       <span>· {countryName(c.geo)} · since {c.since}</span>
                       <span className="leader"></span>
-                      {c.signal && <a className="ref" href={`/sources/${sig?.type ?? "funded"}#${c.signal}`}>{c.signal}</a>}
+                      {c.signal && <a className="ref" href={`/signals/${sig?.type ?? "funded"}#${c.signal}`}>{c.signal}</a>}
                     </span>
                     <p className="note">{c.traction}</p>
                   </li>
@@ -337,7 +356,7 @@ export default async function Record({ params }: Params) {
             {" "}· source signals:{" "}
             {provenance.map((sid, i) => {
               const sig = getSignal(sid)!;
-              return <span key={sid}>{i > 0 && ", "}<a href={`/sources/${sig.type}#${sid}`}>{sid}</a></span>;
+              return <span key={sid}>{i > 0 && ", "}<a href={`/signals/${sig.type}#${sid}`}>{sid}</a></span>;
             })}
           </>
         )}{" "}

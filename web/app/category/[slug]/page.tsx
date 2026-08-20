@@ -77,7 +77,7 @@ export default async function CategoryPage({ params }: Params) {
         <FooterHouseLine />
         <br />
         <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
-        <a href="/sources/funded">source ledgers</a>
+        <a href="/signals/funded">signal ledgers</a> · <a href="/sources">feeds and health</a>
       </footer>
       {/* an empty category renders no table — ship no script for it */}
       {rows.length > 0 && <SortScript />}

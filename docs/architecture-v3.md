@@ -16,16 +16,54 @@ those words: **UNTESTED**, **UNMEASURED**, **UNDECIDABLE**, **UNPROVEN**.*
 > - a receipt count still reading "two" after the list had grown to four (§7.1);
 > - a `note:` prefix relayed down the chain as *the* canonical shape when it covers 7 of 22
 >   entries — **and then a "correction" to it that was itself wrong** (§8.4);
-> - a five-record retrofit scope in which one record had **nothing to retrofit** (§8.4).
+> - a five-record retrofit scope in which one record had **nothing to retrofit** (§8.4);
+> - an entity-key design that assumed `entity_domain` worked uniformly, when **92% of
+>   `funded` URLs are six aggregator domains** because harvests cite the investor's page,
+>   not the company's (§2.3);
+> - a `MAX(date)` freshness aggregate, obvious and wrong: 145 records are legitimately
+>   future-dated and the corpus max is **2030-08-01** (§7.4).
 >
 > Every one was settled by a single command. Every one arrived from **further up the chain
 > than the person who checked it.** (The list is deliberately not numbered: the receipt-count
 > failure above was caused by exactly such a hardcoded total, and a count of failures is no
 > more immune to rotting than any other figure in this document.)
 >
-> **Authority is not a receipt.** The more confident the source, the less likely anyone
-> re-measures — which is exactly why a wrong fact from a lead travels further than a wrong
-> fact from a peer. So: before you preserve, match, normalize to, or iterate over a stated
+> **AND THE ERRORS HAVE A DIRECTION: WE OVER-CLAIM BLOCKERS.** The blockers register has now
+> been wrong in **four rows, every one of them in the same direction** — Hlídač (live, called
+> blocked), row 0 (the vault called empty when only the hook was broken), row 12 (two invented
+> 403/301 reasons), §7.3 (a 404 path on a host that never 404s). **That is a systematic bias,
+> not four coincidences: we check positive claims harder than negative ones.** Nobody demands
+> a positive control for "it's broken".
+>
+> **A false blocker costs as much as a false capability — it parks work that could have
+> shipped.** This one parked our best CZ contract feed for a day and generated an
+> owner-action instruction for a problem that did not exist. So: **an unmeasured negative is
+> not a finding.** Either measure it, or label it `UNVERIFIED` in the register where a reader
+> can see the difference (§10 rows 0a and 2 are labelled that way for exactly this reason).
+>
+> **AND A PASSING CHECK THAT HAS NEVER BEEN SHOWN ABLE TO FAIL IS NOT EVIDENCE.** W1 set the
+> standard worth copying: before trusting AC-GDPR1's zero-match result across 6,181 records,
+> it **planted an email address and watched the checker match it** — proving the check was
+> capable of failing before reading its silence as success. **Contrast AC-F1, which passed for
+> weeks while 116 records sat unowned**: it was never shown able to fail, so its green meant
+> nothing. A green check and a broken check look identical from the outside; the only thing
+> that distinguishes them is having seen the check go red on purpose.
+>
+> **So every acceptance check in §12 must state how it is proven capable of failing**, not
+> merely what it asserts. If you cannot describe the input that makes it red, you do not have
+> a check — you have a comment.
+>
+> **Corollary: text search over code is not proof about code.** W1's grep for a fabricated
+> `http_status` matched **its own docstring**, reporting a problem that did not exist. Where
+> the question is "does this code do X", inspect the **AST**, not the characters.
+>
+> **Authority is not a receipt. AN ASSERTION'S AUTHORITY IS UNRELATED TO ITS AUTHOR'S
+> POSITION IN THE CHAIN.** The failures above were authored by an architect, a coordinator, a
+> program lead, and a worker's own blocklist design — **every one of them by someone entitled
+> to be right about that thing.** Seniority does not correlate with correctness on a
+> question of fact; it correlates only with how few people re-check. The more confident the
+> source, the less likely anyone re-measures — which is exactly why a wrong fact from a lead
+> travels further than a wrong fact from a peer. So: before you preserve, match, normalize to, or iterate over a stated
 > shape, **run the grep that proves it exists**, and check that the set you were handed is
 > the set that is actually there.
 >
@@ -142,10 +180,10 @@ unbuildable — is that INGEST has two invocation modes:
 
 | | **ATTENDED** | **UNATTENDED** |
 |---|---|---|
-| How | a Claude agent executes `pipeline/INGEST.md` as a prompt | `claude -p "$(cat pipeline/INGEST.md)"` in `scripts/ingest.sh` under `direnv exec .` |
+| How | a Claude agent executes `pipeline/INGEST.md` as a prompt | `claude -p "$(cat pipeline/INGEST.md)"` in `scripts/ingest.sh`, secrets via **`with-secrets`** (never `direnv exec` — §10 row 0) |
 | Driver | a human or the coordinator starting a session | launchd / GitHub Actions (§5) |
-| Needs `ANTHROPIC_API_KEY` | **no** | **yes — and the secrets path exports nothing at all today** (§10 rows 0 & 2) |
-| Status | **WORKS TODAY** | **ships wired but INERT** |
+| Needs `ANTHROPIC_API_KEY` | **no** | **yes — present and verified (§10 row 2); must be passed explicitly, as ambient CLI auth fails** |
+| Status | **WORKS TODAY** | **UNBLOCKED — the key is present and authenticating** (§10 rows 0a, 2). What remains is **plumbing, not permission**: handing the value to the nested `claude -p` without an interpreter touching it. Previously recorded as INERT; that rested on the discredited direnv probe |
 | Can normalize the 70.7% of the corpus needing generated EN prose | **yes** | not until the key lands |
 
 **The Phase 3 proof run will be performed in ATTENDED mode.** This matters: it means the
@@ -174,7 +212,29 @@ the model cells are handed to whichever mode is running.
 | `quote` extraction | **script** | per-feed literal rules (§7.8) |
 | liveness `http_status`/`fetched_at` | **script** | |
 | LLM-fallback extraction on contract violation | **model** | §7.3 — sets `extraction: llm-fallback` |
-| JSONL append + seen.txt + DB upsert | **script** | |
+| **STAGE** to `data/raw/<date>/staged.jsonl` | **script** | the script-only path stops here — see below |
+| JSONL append + seen.txt + DB upsert | **script**, but **only for records that already carry model scores** | |
+
+> ### ⚠ THE SCRIPT-ONLY PATH CANNOT LAND A RECORD. IT STAGES.
+>
+> Every signal needs `scale` and `recurrence`, both **model** cells above, and §6.2 forbids
+> writing default scores for a record the model did not score. Therefore
+> **`--mechanical-only` produces STAGED, UNSCORED records — never ledger lines.**
+>
+> | Path | Produces |
+> |---|---|
+> | `normalize.py --mechanical-only` (unattended, no key) | `data/raw/<date>/staged.jsonl` — ids minted, `seen.txt` checked, `money`/dated-`urgency` computed, `quote` extracted, liveness recorded. **Nothing appended to `data/signals/`. Nothing in `seen.txt` yet.** |
+> | ATTENDED mode, or unattended **with** `ANTHROPIC_API_KEY` | complete records: the staged set plus `scale`, `recurrence`, EN `title`/`summary` → appended to `data/signals/<type>/<date>.jsonl` + `seen.txt` + DB |
+>
+> **Say this plainly wherever the pure-script path is described**, because the tempting
+> misreading — "the script path keeps the ledgers fresh on its own" — is false. What the
+> script path actually buys is that **the fetch, the receipts and the raw payload are
+> captured while they still exist** (raw is pruned at 28 days, §7.8), so a later attended
+> pass can complete records that would otherwise have been unrecoverable. That is a real and
+> substantial win. It is not ingestion.
+>
+> `seen.txt` is written **only on append**, never at staging — otherwise a staged-then-failed
+> record would be permanently deduped out of existence.
 | MATCH / SCORE / problem prose | **model** | PROCESSING, unchanged |
 | build + deploy | **script** | unchanged |
 
@@ -264,7 +324,9 @@ CREATE TABLE signals (
   date             TEXT NOT NULL,
   entity_name_norm TEXT,               -- DERIVED-ONLY (NFKD, diacritics stripped, suffixes cut)
   entity_ico       TEXT,               -- DERIVED-ONLY (8-digit + mod-11 checksum, MANDATORY)
-  entity_domain    TEXT,               -- DERIVED-ONLY (eTLD+1 minus the platform blocklist)
+  entity_domain    TEXT,               -- DERIVED-ONLY (eTLD+1 minus the platform blocklist).
+                                       -- NULL for most `funded` records BY DESIGN — see the
+                                       -- measured note under §2.3.
   dup_of           TEXT,               -- DERIVED-ONLY
   jsonl_file       TEXT NOT NULL,      -- data/signals/<type>/<date>.jsonl
   jsonl_line       INTEGER NOT NULL,
@@ -313,6 +375,50 @@ CREATE TABLE match_log (
 CREATE INDEX match_log_signal  ON match_log(signal_id);
 CREATE INDEX match_log_problem ON match_log(region, problem_id);
 ```
+
+### ⚠ MEASURED: `entity_domain` IS NOT AN ENTITY KEY FOR `funded` RECORDS
+
+The matching design rests on three entity keys. One of them does not work uniformly, and the
+doc must not imply it does.
+
+**Measured over all 2,403 `funded` records: just 49 distinct URL domains.**
+
+| Domain | Records | Share |
+|---|---|---|
+| `ycombinator.com` | 1,814 | **75.5%** |
+| `vestbee.com` | 246 | **10.2%** |
+| `eic.ec.europa.eu` | 53 | 2.2% |
+| `tech.eu` | 52 | 2.2% |
+| `techstars.com` | 20 | 0.8% |
+| `inovo.vc` | 20 | 0.8% |
+| **top six combined** | | **91.8%** |
+
+**The cause is structural, not a data-quality accident:** funded harvests cite the
+**investor's or aggregator's page** as `url` — the YC directory entry, the Vestbee round
+write-up — **not the company's own site.** The URL identifies *who reported the round*, never
+*which company raised it*.
+
+**Consequences, worked through rather than noted:**
+
+1. **After the platform blocklist (digest §F) does its job, `entity_domain` is NULL for
+   ~92%+ of `funded` records.** That is the blocklist working correctly, not failing —
+   without it, `entity_domain` would collapse into a **feed key wearing an entity key's
+   name**, silently clustering 1,814 unrelated companies under "same domain".
+2. **`entity_domain` is a `tenders`/`regulation` key.** There it is meaningful: a buyer's or
+   regulator's domain genuinely identifies the entity.
+3. **Funded matching therefore leans on `entity_name_norm` + `entity_ico`** — which is why
+   `entity_name_norm`'s NFKD/diacritic/legal-suffix normalization (digest §G) is load-bearing
+   for the funded stream specifically, and why the near-dup rule requires **corroboration**
+   rather than trusting any single key.
+4. **This raises the value of the hiring feed's 99.90% IČO coverage (§13.0):** it supplies a
+   primary-key join for a stream where the domain key is structurally unavailable.
+
+**ARGUED ALTERNATIVE (not adopted, recorded so it is not re-proposed blind):** derive
+`entity_domain` for `funded` from a different field — a company homepage in the harvest
+payload. Rejected for now because the committed records do not carry one; adding it means
+re-harvesting, and the corroboration rule already covers the gap. If a future funded feed
+does carry a company URL, populate it from that field and this note becomes obsolete for that
+feed only.
 
 **sqlite-vec — status corrected from "syntax unverified" to ABSENT.** Measured this
 session: `importlib.util.find_spec('sqlite_vec')` → `False`; `CREATE VIRTUAL TABLE t USING
@@ -485,9 +591,21 @@ we are allowed to ingest from*, and *what a healthy fetch looks like*. It feeds 
       "role": "feed",                      // feed | enrichment. `enrichment` sources (ARES) have
                                            // their health tracked but produce NO signals, are
                                            // exempt from AC-F1, and never inflate the feed count (§13.5)
-      "signal_source": "ted",              // the `source` value its records carry (CONVENTIONS.md:35-36)
+      "id_prefixes": ["ted"],              // AUTHORITATIVE provenance key (§4.5). AC-F1 asserts
+                                           // every prefix in the ledgers maps to exactly one row.
+                                           // Many-to-one is normal: arb-scan owns cz-/pl-/de-/dk-.
+      "signal_source": "ted",              // LEGACY DISPLAY FIELD (§4.5) — unreliable for nen/dotace
+                                           // on pre-2026-08-20 records. Never key attribution on it.
       "evidence_type": "tenders",          // funded | regulation | tenders | demand | hiring (§13)
-      "cadence": "daily",                  // RECOMMENDED, not measured — see 4.2
+      "cadence": "daily",                  // 6h | daily | weekly | monthly | quarterly | annual
+                                           //   | manual | null  (null ONLY for status:dead)
+                                           // No 1h/3h value exists: the local runner cannot
+                                           // deliver sub-6h (§4.2). Add a value only when a
+                                           // runner can actually meet it.
+                                           // RECOMMENDED, not measured — see §4.2.
+                                           // This vocabulary must admit EVERY row §4.4 seeds;
+                                           // a schema its own seed data violates is the same
+                                           // defect class as a stale count.
       "runner": "local",                   // cloud | local | attended | none
       "url": "https://api.ted.europa.eu/v3/notices/search",
       "script": "scripts/fetch_ted.sh",    // null when no fetcher exists yet
@@ -538,25 +656,37 @@ nobody opens is how a "3h" promise quietly becomes a 12-hour gap. The prepared l
 plist (§5.4) fires at **07:17, 13:17, 19:17** — three times a day, with gaps of **6h, 6h
 and 12h overnight**. Against the seeded targets that means:
 
-| Feed | Cadence (target) | Actually achievable on the local runner | Gap |
+| Feed | Cadence (target, from §4.4) | Actually achievable on the local runner | Gap |
 |---|---|---|---|
-| `reddit-new` | 3h | 6h daytime, 12h overnight | **target NOT met** |
+| `reddit-new` | **6h** | 6h daytime, 12h overnight | met by day, missed overnight |
 | `cc-cz` | 6h | 6h daytime, 12h overnight | met by day, missed overnight |
 | `ted`, `hlidac`, `suggest`, everything daily | daily | 3×/day | comfortably met |
 
-Only one feed is actually affected, and the honest options are to add fire times (a 3h
-target needs 8/day, which pushes the Reddit rate limit at `fetch_reddit.sh:19`) or to
-relax `reddit-new` to `6h` and record the reason. **Recommendation: relax the target to
-`6h`** — the constraint is Reddit's rate limit, not our scheduler, and a target we cannot
-hit is the same species of lie as an unmeasured cadence. The cloud runner, if the §5.2
-probe comes back green, has no such gap and could carry `reddit-new` at 3h on its own.
+**`reddit-new` is 6h — RULED, and §4.4 is the single place that number lives.** This section
+previously carried a competing "recommendation" of its own, which meant one feed's cadence
+was stated twice in one document and a worker had to guess which won. That is the same class
+of defect as the receipt-count rot: **one number, one home.** Read cadences from §4.4 only;
+this table exists to compare them against the runner, never to set them.
+
+The ruling's reason, recorded once: the binding constraint is Reddit's rate limit
+(`fetch_reddit.sh:19`), not our scheduler — a 3h target needs 8 fires/day and would push it.
+If the §5.2 probe comes back green, the cloud runner has no overnight gap and could carry
+`reddit-new` faster; that would be a change to §4.4, not to this table.
 
 ### 4.3 Two build-time assertions
 
-- **AC-F1 — totality.** Every distinct `source` value present in `data/signals/**` must be
-  claimed by at least one registry entry's `signal_source`. Otherwise `/sources` silently
-  under-explains the corpus. Enforced in `web/lib/data.ts` beside the existing `seen.txt`
-  membership check (`:191`).
+- **AC-F1 — totality, KEYED ON THE ID PREFIX.** Every distinct **id prefix** present in
+  `data/signals/**` must map to exactly one registry entry via its `id_prefixes[]`. **Not
+  the `source` field** — see the ruling in §4.5. **The rebuild and the health export FAIL and
+  NAME THE ORPHANS** when a prefix is unclaimed. Enforced in `scripts/db.py` and in
+  `web/lib/data.ts` beside the existing `seen.txt` membership check (`:191`).
+  **Scale warning, measured: the corpus contains 49 distinct id prefixes** mapping to ~16
+  registry rows (many-to-one is normal — `arb-scan` owns the ISO2 prefixes `cz-`/`pl-`/`de-`/
+  `dk-`, `demand-scan` owns the reporting-body prefixes `nku-`/`ombud-`/`civic-`/`consult-`/
+  `chamber-`/`uni-`/`ngo-`, per `data/CONVENTIONS.md:29-34`). **Turning this assertion on will
+  surface a large orphan cohort in one go. That is the point** — it converts a class of
+  silent omission into one loud, enumerable failure instead of a discovery-by-accident every
+  few weeks.
 - **AC-F2 — no orphan links.** Every non-null `script` path must exist on disk.
 
 `/sources` reads **committed data only**: `feeds.json` + `feed_health.json`. It does not
@@ -569,20 +699,81 @@ read the DB — that would break "the site is a pure function of `data/`" (`SPEC
 | `ted` | EU tender notices, CZ place of performance | `ted` | tenders | daily | local | active | allowed | `scripts/fetch_ted.sh`. Cloud viability UNDECIDABLE (§10). `scope` must be `"ALL"` |
 | `hlidac` | registr smluv contracts below the TED threshold | `hlidac` | tenders | daily | local | **blocked** | allowed (free key) | token absent — §10 row 1 |
 | `cc-cz` | CzechCrunch RSS: CZ funding rounds and launches | `feed` | funded | 6h | cloud | active | allowed | `fetch_feeds.sh:18`. **ZERO records to date** |
-| `vestbee` | CEE VC rounds | `feed` | funded | — | none | **dead** | n/a | 301 → `/insights/rss.xml` → 404 (digest §A). Remove `fetch_feeds.sh:19` |
+| `vestbee` | CEE VC rounds | `feed` | funded | `null` (dead) | none | **dead** | n/a | 301 → `/insights/rss.xml` → 404 (digest §A). Remove `fetch_feeds.sh:19` |
 | `yc-oss` | YC company directory (`companies/all.json`) | `yc` | funded | daily | cloud | active | allowed | **the only script-only feed (§1.3)**; 29.3% of the corpus |
 | `suggest` | Google Suggest CZ pain completions | `suggest` | demand | daily (**≤1×/day, hard cap**) | local | active | conditional | 144 queries/run = 24 seeds × 6 patterns (`fetch_suggest.sh:17,21`). **ZERO records** |
-| `reddit-new` | 4 CZ subs `new.rss` firehose | `reddit` | demand | 3h | local | active | conditional | `fetch_reddit.sh:29`. **ZERO records** |
+| `reddit-new` | 4 CZ subs `new.rss` firehose | `reddit` | demand | **6h** | local | active | conditional | `fetch_reddit.sh:29`. **ZERO records.** 6h is RULED, not aspirational: the binding constraint is Reddit's rate limit (`fetch_reddit.sh:19`), and the launchd runner fires 07:17/13:17/19:17 — 6h/6h/12h — regardless |
 | `reddit-search` | same subs, `search.rss` pain terms | `reddit` | demand | daily | local | active | conditional | `fetch_reddit.sh:32-33`. **ZERO records** |
 | `nku` | NKÚ audit conclusions (`vestnik.asp?rok=YYYY`) | `demand-scan` | demand | daily | local | **planned** | allowed | **the LLM-fallback proof feed (§7.3)**. Non-www host only |
 | `sukl` | drug availability open data (`MR/mr.zip`) | `demand-scan` | demand | daily | cloud | **planned** | allowed | **cadence measured** (§4.2). Conditional GET on ETag |
 | `ec-hys` | EC Have Your Say consultations + feedback counts | `reg-scan` | regulation | daily | cloud | **planned** | allowed | `ec.europa.eu` needs a sandbox override locally (§10) |
+| **`reg-scan`** | **agent regulatory-deadline harvests — the owner of the 126 `reg-` records already in the ledgers** | `reg-scan` | regulation | monthly | **attended** | active | varies | **id_prefixes: `["reg"]`. Added because 116 of those records were ORPHANED** — measured: 126 `reg-` records, of which only **10** touch an EC consultation URL. The only row claiming them was `ec-hys` (`planned`, no fetcher), so **116 had no feed key, no contract and no health check.** Contract states: agent-produced, **no automated yield check**. The ~10 EC records migrate to `ec-hys` when that fetcher exists |
 | `nen` | NEN below-threshold tenders, SSR listing | `hlidac` | tenders | daily | local | **planned** | unknown | 50 rows/page; ISO dates in `datumPrvniUver` |
 | `demand-scan` | monthly agent research harvests | `demand-scan` | demand | monthly | attended | active | varies | not a script — `pipeline/PROCESS.md:10-14` |
 | **`mpsv`** | **MPSV/ÚP `volna-mista` open data — CZ vacancies with IČO, CZ-ISCO, salary floor, NUTS-3** | `mpsv` | **`hiring`** | daily | local | **planned** | **allowed** (licence disclaims copyright **and** sui-generis DB right) | **99.90% IČO coverage — the entity-graph join (§13.0).** `allow_missing: true` (calendar-keyed, §13.7); `typZmenyOpenData` in `required_fields` (the changelog trap). Fetcher is a parallel worker that may slip to Phase 3 (§13.5) |
 
 Plus two registry rows required for AC-F1 totality, both agent harvests: `arb-scan`
 (175 records) and `round` (414 records) — funded, monthly, `runner: attended`.
+
+> **Why the orphan mattered, and what it teaches about AC-F1.** `reg-scan` has **126
+> committed records** (measured, §0) and, before this row, the only registry entry claiming
+> that `signal_source` was `ec-hys` — status `planned`, no fetcher, zero records ever
+> produced. AC-F1's totality check **passed** the whole time, because it asks only whether
+> *some* row claims each `source`. It does not ask whether that row is **capable of producing
+> anything.**
+>
+> The consequence is exactly the failure `/sources` exists to prevent: **the health view
+> would have implied coverage that does not exist.** A reader would see `regulation` backed
+> by a registered feed and conclude the stream is maintained; in reality nothing was
+> accountable for refreshing 116 of those 126 records. An honest `attended`/monthly row makes
+> the real refresh mechanism visible — and if it stops running, the health view now says so.
+>
+> **This failed BY OMISSION, and omission is invisible on the page.** A broken feed shows up
+> as BROKEN; an unowned cohort shows up as nothing at all — no row, no red, no gap a reader
+> could notice. That asymmetry is why §7.10's assertion has to run at build time rather than
+> relying on anyone eyeballing `/sources`.
+>
+> **AC-F1 should be read as necessary, not sufficient.** A registry row claiming a `source`
+> proves the corpus is explained; it does not prove the stream is alive. That is the health
+> view's job (§7.5), which is why `status` (intent) and `state` (observed) are kept separate.
+
+### 4.5 RULED: attribution keys off the ID PREFIX, never the `source` field
+
+**Measured — `source` is not a provenance key.** `source: "hlidac"` holds **463 records from
+three unrelated provenances**:
+
+| id prefix | records | share of `source: hlidac` |
+|---|---|---|
+| `nen-` | **296** | 63.9% |
+| `hlidac-` | **114** | 24.6% |
+| `dotace-` | **53** | 11.4% |
+
+**Every published yield count for `hlidac` over-credits it by 4.06×** — 463 claimed against
+114 real — including numbers already rendered on `/sources`. And because `nen` also declares
+`signal_source: hlidac`, the moment NEN goes active `days_since_last_signal` becomes
+ambiguous for **both** feeds, silently.
+
+**The ruling: attribution — yield counts, freshness, health state, `/sources` rows — keys off
+the id prefix. Three reasons, recorded so this is not relitigated:**
+
+1. **The prefix is already canonical.** `data/CONVENTIONS.md:29-34` defines ids as
+   `<prefix>-<nativeid>` with a prefix per feed. We are not inventing a key; we are using the
+   one the conventions already specify and the `source` field only approximates.
+2. **It requires NO rewrite of committed JSONL.** The ledgers are append-only. Retro-editing
+   349 historical lines to "fix" a field would violate that law **and destroy the evidence
+   the error ever happened.** A documented discrepancy beats a silent history rewrite.
+3. **It fixes all three provenances at once** rather than patching `nen` and waiting to
+   rediscover `dotace`.
+
+> **Recorded honestly: `source` is now a LEGACY DISPLAY FIELD.** It is **unreliable for
+> `nen` and `dotace` on every record written before 2026-08-20**, and the id prefix is
+> authoritative. Going forward new records carry a correct `source`, which requires **`nen`
+> and `dotace` added to `SignalSchema`'s `source` enum** (`web/lib/data.ts:25`, §11) — and
+> that enum **fails loudly on unknown values**, so the addition self-enforces the moment a
+> record tries to use one.
+
+Each registry row therefore carries `id_prefixes: ["hlidac"]`, `["nen"]`, `["dotace"]` and so
+on — the field AC-F1 asserts against.
 
 And one **enrichment** row, which is deliberately NOT a feed: **`ares`** —
 `role: "enrichment"`, IČO → company name / NACE / founding date / region. Its health is
@@ -735,13 +926,13 @@ Installed by the owner, never by an agent.
 <dict>
   <key>Label</key><string>org.localproblems.ingest</string>
 
-  <!-- ABSOLUTE paths only: launchd's PATH resolves bash to 3.2.57, and direnv is not on
-       it at all. The bash-3.2 discipline (no associative arrays) stays load-bearing. -->
+  <!-- ABSOLUTE paths only: launchd's PATH resolves bash to 3.2.57. The bash-3.2 discipline
+       (no associative arrays) stays load-bearing.
+       NO `direnv exec` WRAPPER: it fires the sops hook, exits clean, and exports NOTHING
+       (§10 row 0). Secrets are fetched inside the script via `with-secrets`, per
+       scripts/ingest.sh:7-20. Do not reintroduce direnv here — it would look like it works. -->
   <key>ProgramArguments</key>
   <array>
-    <string>/opt/homebrew/bin/direnv</string>
-    <string>exec</string>
-    <string>/Users/michalkucera/Documents/CODE/localproblems</string>
     <string>/bin/bash</string>
     <string>/Users/michalkucera/Documents/CODE/localproblems/scripts/ingest.sh</string>
   </array>
@@ -810,7 +1001,9 @@ markdown (digest §K5.2). Both runners exec one thin wrapper, and the wrapper is
 ```bash
 #!/usr/bin/env bash
 # scripts/ingest.sh — the single entry point both runners exec.
-# Invoked as: direnv exec /abs/repo /bin/bash /abs/repo/scripts/ingest.sh [feed-key ...]
+# Invoked as: /bin/bash /abs/repo/scripts/ingest.sh [feed-key ...]
+# NOT under `direnv exec`: it exports nothing (§10 row 0). Secrets come from `with-secrets`,
+# which is invoked per-command inside this script. See scripts/ingest.sh:7-20 in the repo.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 TODAY="$(date +%Y-%m-%d)"; RAW="data/raw/$TODAY"; export TODAY RAW
@@ -822,11 +1015,17 @@ python3 scripts/normalize.py --raw "$RAW" --mechanical-only   # ALWAYS runs: ids
 python3 scripts/db.py fetchlog "$RAW"     # -> fetch_log
 python3 scripts/db.py health              # -> data/feed_health.json  (§7.5)
 
-if [ -n "${ANTHROPIC_API_KEY:-}" ]; then  # UNATTENDED model path — INERT until the key lands
+# UNATTENDED model path. The key IS present and authenticating (§10 rows 0a, 2) — but it is
+# NOT in this shell's environment, because the direnv hook exports nothing (§10 row 0).
+# `with-secrets` refuses interpreters by design, so an unattended wrapper decrypts for itself:
+#   ANTHROPIC_API_KEY="$(sops -d --input-type dotenv --output-type dotenv .env.enc | ...)"
+# Never echo it, never pass it on a command line other processes can see.
+if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
   claude -p "$(cat pipeline/INGEST.md)" --output-format json > "$RAW/ingest.json"
   python3 scripts/envelope.py "$RAW/ingest.json" || exit 1   # branches on is_error, NOT exit code (§6)
 else
-  echo "SKIP model passes: ANTHROPIC_API_KEY unset. Mechanical records staged; run ATTENDED" >&2
+  echo "SKIP model passes: ANTHROPIC_API_KEY unset. Records STAGED to $RAW/staged.jsonl —" >&2
+  echo "NOT appended to data/signals/ and NOT in seen.txt. Run ATTENDED mode to complete." >&2
   echo "mode to complete them — see docs/architecture-v3.md §1.2." >&2
 fi
 # Deliberately no git: INGEST never commits or pushes (§1, §12).
@@ -921,7 +1120,8 @@ UNMEASURED. Embeddings, when Phase 3 enables them: ≈$0.011 backfill, ≈$0.002
 
 ### 6.4 Two hard-won operational facts
 
-1. **The UNATTENDED scorer needs an explicit `ANTHROPIC_API_KEY` via `direnv exec`. Ambient
+1. **The UNATTENDED scorer needs an explicit `ANTHROPIC_API_KEY` via `with-secrets` — NOT
+   `direnv exec`, which exports nothing (§10 row 0). Ambient
    CLI auth FAILS.** Verified twice in Phase 1: nested `claude -p` returned "Not logged in"
    when sandboxed (keychain read denied), then hit expired OAuth unsandboxed (digest §H).
    ATTENDED mode has no such requirement (§1.2).
@@ -1015,9 +1215,19 @@ Per feed, in `data/feeds.json` (§4.1): `parse` method, `required_fields`, and a
    `/sources` and escalate at 3 consecutive runs (§7.6).
 
 **Step 0 — EXPECTED ABSENCE, which runs before all of the above.** A calendar-keyed source
-has days that simply do not exist. The MPSV probe measured **180 of 658 calendar days
-missing** from the daily files, so a naive "fetch yesterday" fetcher would 404 **roughly
-once a week, forever.** Feeds with `contract.allow_missing: true` therefore treat a 404 on a
+has days that simply do not exist. **The honest example is MPSV: 180 of 658 calendar days are
+missing** from the daily files, so a naive "fetch yesterday" fetcher would 404 **roughly once
+a week, forever.** W2 implemented `ALLOW_MISSING` against a real 404 on that feed.
+
+> **NKÚ was previously cited here as the expected-absence example. That was wrong.** W2
+> measured `?rok=2027`, `?rok=2099` and `?rok=1990` all returning **200 with an 18,095-byte
+> empty shell** — **NKÚ never 404s**, so it cannot exercise the expected-absence path at all.
+>
+> **NKÚ is instead a textbook §7.1 Mode-A case:** a 200 carrying no content. A year-keyed
+> fetcher trusting HTTP status would happily record 1990 and 2099 as successful fetches
+> forever. Its contract must therefore lean on `expected_yield` and `required_fields`, not on
+> the status code — which is precisely why it remains the right feed to prove the
+> LLM-fallback path (§7.3). Feeds with `contract.allow_missing: true` therefore treat a 404 on a
 calendar-keyed URL as **`skipped`**, not as a failure: it logs a `fetch_log` row with
 `ok = 1` and `parse_method = 'none'`, it does **not** increment `consecutive_failures`, and
 it does **not** move the feed toward BROKEN.
@@ -1073,6 +1283,22 @@ run. Per run per feed it records `started_at`, `http_status`, `bytes`, `items_fe
 
 `last_success` · `consecutive_failures` · `consecutive_zero_yield` · `days_since_last_signal`
 · 7-day yield.
+
+> ### ⚠ `days_since_last_signal` DERIVES FROM THE LEDGER FILENAME — **NEVER** FROM `MAX(date)`
+>
+> **`MAX(signals.date)` is measurably wrong for freshness.** Measured: **145 records are
+> legitimately dated in the future**, and `MAX(date)` across the corpus is **2030-08-01** —
+> because a `regulation` record carries its **EFFECTIVE date**, not its capture date. A
+> compliance deadline in 2030 is correct data, and computing freshness from it yields
+> `days_since_last_signal` of roughly **−1,400**: a feed that has produced nothing for a week
+> would report as fresher than one that ran this morning.
+>
+> **Use the ledger filename** — `data/signals/<type>/<YYYY-MM-DD>.jsonl` — which **is the run
+> date by construction** and cannot be contaminated by record semantics.
+>
+> **This note exists because `MAX(date)` is the obvious choice and someone will "fix" it
+> back.** It looks like the right aggregate, it passes review, and it silently inverts the
+> health view for the one evidence type whose whole purpose is future deadlines.
 
 ### 7.5 THE ADMIN SPACE — `data/feed_health.json`, rendered on `/sources`
 
@@ -1150,10 +1376,11 @@ ever arrives it belongs in SPEC §10's tripwire table, not smuggled in here.
 
 ### 7.7 The unattended-mode consequence, stated honestly
 
-**LLM-fallback needs a model.** Under the UNATTENDED runner without `ANTHROPIC_API_KEY`
-(§10 rows 0 & 2 — the secrets path currently exports **no variables at all**), a contract
-violation **cannot be rescued** — the feed degrades to a LOUD ERROR and goes BROKEN, and
-recovery waits for an ATTENDED run (§1.2).
+**LLM-fallback needs a model.** The key is **present and authenticating** (§10 rows 0a, 2),
+so this is no longer gated on an owner action — only on the wrapper plumbing. Until that
+plumbing lands, a contract violation under the UNATTENDED runner **cannot be rescued**: the
+feed degrades to a LOUD ERROR and goes BROKEN, and recovery waits for an ATTENDED run
+(§1.2).
 
 **That is correct behaviour, not a gap.** The alternative — writing a degraded record and
 calling it success — is precisely the vestbee failure with better branding. But it must be
@@ -1176,9 +1403,9 @@ the time anyone wants to verify a claim.
 
 | Feed | Quote is |
 |---|---|
-| `ted` | `notice-title` + the value line (fields already fetched, `scripts/fetch_ted.sh:13`) |
-| `hlidac` | contract subject (`predmet`) + `cenaSDph`, joined by ` — ` |
-| `nen` | the row's `Název` cell + the `Předpokládaná hodnota` cell text, verbatim |
+| `ted` | `notice-title` — the single most informative span. **Not** joined with the value line |
+| `hlidac` | the contract subject (`predmet`) alone. **Not** joined with `cenaSDph` |
+| `nen` | the row's `Název` cell alone. **Not** joined with `Předpokládaná hodnota` |
 | `suggest` | **the completion string IS the quote** — one line, verbatim, no framing |
 | `reddit-*` | RSS `<entry><title>` + first 200 chars of the excerpt, whitespace-collapsed |
 | `cc-cz` | RSS `<description>`, first sentence |
@@ -1188,11 +1415,33 @@ the time anyone wants to verify a claim.
 | `ec-hys` | the initiative's problem-statement sentence from `groupInitiatives/{id}` |
 | agent harvests | the sentence containing the number the record claims |
 
-Format law: ≤300 chars, **verbatim**, native language preserved, whitespace collapsed, no
-ellipsis inside a number. **Enforceable because** ingest refuses to append a record whose
-`quote` is not a literal substring of the fetched payload after whitespace collapse — a
-`str.find` against a file still on disk. For agent harvests the payload is prose the agent
-read, so it degrades to a manifest warning; that asymmetry is stated, not hidden.
+### RULED: a quote is ONE CONTIGUOUS SPAN, and the check runs on DECODED TEXT
+
+Revision 9 was self-contradictory: it mandated a literal-substring check **and** specified
+joined two-field quotes for `ted`/`hlidac`/`nen`. **A joined string is never a substring of
+the payload**, so every one of those feeds would have failed its own check on every record.
+Two rulings resolve it:
+
+1. **`quote` is a single contiguous verbatim span from the payload.** That is what
+   "verbatim" means, and it is what the citations program's reveal will display — a joined
+   string shown as a quotation would be a fabricated quotation. **Never join fields.** Where
+   one field looks thin, pick the **single most informative span** rather than assembling
+   one. The value, the date and the buyer are already structured fields on the record; the
+   quote does not need to restate them.
+2. **The substring check runs on DECODED text, never raw bytes.** Testing against raw bytes
+   produced **20 false negatives across 4,397** records, purely from JSON escaping. Decode
+   the payload first (JSON unescaping, HTML entities, then whitespace collapse), then
+   compare. A check that fails on correct data teaches people to disable it — the same
+   argument that makes the lints warning-only (§7.8).
+
+Format law: ≤300 chars, **one contiguous verbatim span**, native language preserved,
+whitespace collapsed, no ellipsis inside a number. **Enforceable because** ingest refuses to
+append a record whose `quote` is not a substring of the **decoded** payload — a `str.find`
+against a file still on disk. For agent harvests the payload is prose the agent read, so it
+degrades to a manifest warning; that asymmetry is stated, not hidden.
+
+This leaves the external contract in §7.8 untouched: still a flat string, still retrievable
+by signal id, still attributed by the record's own `url`.
 
 > **`quote` HAS AN EXTERNAL CONSUMER — its shape is a contract, not an internal choice.**
 > The inline-source-citations program is building the seam that reveals a signal's verbatim
@@ -1239,18 +1488,64 @@ correct record and a lint hit — and by prose rounding. Output: `data/raw/<date
 deploys gets disabled within two weeks, and a disabled check is worth nothing. A warning
 printing a shrinking number every run is a metric someone actually drives to zero.
 
-**Both lints landed on the same posture independently**, which is worth noting because it
-means the convention is now established rather than argued: theirs "always exits 0 — a
-citation defect is a finding to fix in the data, never a build failure" (`SPEC.md`, the
-`lint-citations.mjs` block), and ours warns for the reasons above. **Neither lint may be
-promoted to blocking unilaterally** — a build gate that two programs can independently turn
-red is a gate neither owns. Promotion is a coordinator decision, against the criteria in §12
-(claim lint: measured FP rate <5%).
+### RULED (coordinator): both lints stay WARNING-ONLY
+
+**Both lints reached that posture independently** — theirs "always exits 0: a citation defect
+is a finding to fix in the data, never a build failure" (`SPEC.md`, the `lint-citations.mjs`
+block), ours for the reasons above. **That makes warning-only a convention, not either
+program's preference.** The deciding argument: **a gate two independent programs can each
+turn red is a gate neither owns.**
+
+> **Promotion to blocking is a COORDINATOR decision, gated on all three of:**
+>
+> **(a)** the citations content pass has landed and a **baseline coverage number exists** —
+> how many claims cite, register-wide;
+> **(b)** the false-positive rate is **MEASURED against that baseline, not assumed** — the
+> 20–40% figure above is an estimate and is labelled as one throughout this document;
+> **(c)** both programs' leads agree the remaining findings are **anomalies rather than
+> routine noise**.
+>
+> **Neither program may promote unilaterally, and neither may weaken the other's lint.**
+
+**The operative reason, in one line: until all three hold, a red lint trains people to work
+around it — which is worse than no lint at all.** A check that is routinely overridden has
+negative value: it costs attention, and it converts every genuine finding into noise a
+reviewer has already learned to dismiss.
 
 **Provenance completeness.** Reuses `dimRefs()` (`web/lib/scorecard.ts:80-102`) — no new
 machinery. Every dimension scoring >0 must have ≥1 resolvable ref.
 `data/CONVENTIONS.md:109-111` already says an unresolvable ref "degrades the rendered
 scorecard"; this makes that **visible and countable**.
+
+### 7.10 THE ORPHAN ASSERTION — the enforceable mechanism for silent omission
+
+Mode A is caught by the contract (§7.2). Mode B is caught by the health view (§7.5). **A
+third failure has now been found by accident twice, and neither mechanism catches it: records
+that no feed owns at all.**
+
+> **THE ASSERTION: every signal id prefix in `data/signals/**` MUST map to exactly one
+> registry entry's `id_prefixes[]`. On any unclaimed prefix, `scripts/db.py rebuild` and
+> `db.py health` FAIL and NAME THE ORPHANS — prefix, record count, and the ledger files they
+> live in.**
+
+```
+$ python3 scripts/db.py rebuild
+FAIL: 2 id prefixes have no registry owner (AC-F1)
+  reg-      126 records   data/signals/regulation/2026-08-13.jsonl, 2026-08-14.jsonl
+  dotace-    53 records   data/signals/tenders/2026-08-13.jsonl
+Add id_prefixes to data/feeds.json, or add a registry row. See docs/architecture-v3.md §4.5.
+```
+
+**Why this is the generalizable fix and not another checklist item:** both orphan cohorts —
+116 `reg-` records and the `dotace-`/`nen-` misattribution — were found by a human happening
+to look. Nothing was watching, because **omission has no symptom**: no error, no red row, no
+missing page. The assertion converts an invisible class of failure into a loud, enumerable,
+build-time one. It is the difference between "we should audit attribution periodically" and
+"attribution cannot silently drift."
+
+It also **cannot rot**: it derives its expectation from the ledgers themselves rather than a
+number someone typed, so a new feed that starts emitting a new prefix fails the build on its
+first record instead of quietly accumulating an unowned cohort.
 
 ### 7.9 archive.org — CUT from Phase 2
 
@@ -1579,12 +1874,13 @@ to ourselves.**
 
 | # | Feed / capability | What blocks it TODAY | Workaround in place | Owner action — exact command |
 |---|---|---|---|---|
-| **0** | **THE SECRETS PIPELINE ITSELF** — the parent of rows 1 and 2 | **`.env.enc` contributes ZERO environment variables.** Coordinator-measured, names only, values never printed: `env \| cut -d= -f1 \| sort -u` vs `direnv exec . env \| cut -d= -f1 \| sort -u`, then `comm -13`. The **only** keys direnv adds are `DIRENV_DIFF`, `DIRENV_DIR`, `DIRENV_FILE`, `DIRENV_IN_ENVRC`, `DIRENV_WATCHES`. The `.envrc` hook **does** fire and prints "direnv: using sops .env.enc" **with no error** — so this fails silently. `.env.enc` mtime is 2026-08-20T10:17 and `git status` shows it MODIFIED (+3/−2 vs its only commit `1620676`): **edited today, still yielding nothing.** **Cause UNKNOWN** — empty vault, or sops decrypting without exporting. **This is not "two keys are missing"; it is "the secrets path is non-functional", which is a different fix.** | **None.** ATTENDED mode (§1.2) is unaffected — it needs no key, and it is how all 6,181 existing records were produced. | `sops edit --input-type dotenv --output-type dotenv .env.enc`, add `HLIDAC_TOKEN` (free key at `hlidacstatu.cz/api`) and `ANTHROPIC_API_KEY`, then **re-verify with the names-only diff above**. **Diagnostic branch:** if the file already appears to contain them, the failure is decryption/export rather than absence — check the age key is present and that `use sops .env.enc` in `.envrc` still matches the sops output type. *Owner-verifiable only: agents never read `.env*`.* |
-| 0a | Consequences of row 0 | Blocks **row 1** (Hlídač), **row 2** (unattended model passes), **LLM-fallback recovery** (§7.7), and — because `OPENAI_API_KEY` is absent too — **the embeddings backfill priced at ~$0.011** (§6.3, §12). It is also the **fourth receipt in §7.1 (Mode A — the wrong body)**: every secret-dependent fetch is running unauthenticated right now. | — | resolved by row 0 |
-| 1 | **Hlídač** (`hlidac`, tenders) — **STAYS OPEN** | `HLIDAC_TOKEN` **and** `HLIDAC_STATU_TOKEN` **genuinely ABSENT** — coordinator-verified names-only (row 0). `scripts/fetch_hlidac.sh:13-16` exits 1 correctly, which is why this feed fails loudly instead of storing an auth-error body. | **None.** The tenders ledger is TED-only; sub-threshold CZ contracts are not ingested. | Free key at `hlidacstatu.cz/api`, then:<br>`sops edit --input-type dotenv --output-type dotenv .env.enc`<br>add `HLIDAC_TOKEN=…` — **but fix row 0 first, or the key will be added to a vault that exports nothing.** |
-| 2 | **UNATTENDED model passes** — scoring, generation, **and LLM-fallback recovery (§7.7)** | `ANTHROPIC_API_KEY` **ABSENT** from `.env.enc`. Ambient CLI auth fails (sandboxed keychain denied; unsandboxed OAuth expired). | **Partial and real:** ATTENDED mode needs no key and works today (§1.2); the mechanical path runs unattended and prints `SKIP model passes`. | `sops edit --input-type dotenv --output-type dotenv .env.enc`<br>add `ANTHROPIC_API_KEY=sk-ant-…` |
-| 3 | **Vestbee** (`vestbee`, funded) | **DEAD.** 301 → `/insights/rss.xml` → 404 (digest §A). | None needed. Remove `scripts/fetch_feeds.sh:19`; `status: dead`. | **None.** |
-| 4 | **All RSS/JSON feeds** (`cc-cz`, `yc-oss`) | `scripts/fetch_feeds.sh:11` uses `curl -sL` **without `-f`** — saves the 404 body, prints `OK`. **Silent data loss dressed as success: the moat leaking.** | None — it has been failing invisibly. This is the first Mode-A receipt in §7.1. | **None** (Phase 2 fix): `curl -fsSL -m 60 --retry 2 "$2" -o "$OUTDIR/$1"` + a minimum-size assertion + `http_status` into `fetch_log`. |
+| **0** | **THE direnv → sops HOOK** — narrowed, and it STILL STANDS | **The hook exports nothing.** Coordinator-measured, names only: `env \| cut -d= -f1 \| sort -u` vs `direnv exec . env \| cut -d= -f1 \| sort -u`, then `comm -13` — the **only** keys added are `DIRENV_DIFF`, `DIRENV_DIR`, `DIRENV_FILE`, `DIRENV_IN_ENVRC`, `DIRENV_WATCHES`. The `.envrc` hook fires and prints "direnv: using sops .env.enc" **with no error**, so it fails **silently**. **CORRECTED SCOPE: the VAULT IS FINE — `with-secrets` reads it and Hlídač is live (row 1). What is broken is the HOOK, not the secrets.** The earlier "empty vault" reading was the discredited negative (row 1a). | **YES, and it is already in the code:** every script routes secrets through **`with-secrets`**, never the shell — see `scripts/ingest.sh:7-20`, which documents the abandonment of `direnv exec`. | Fixing the hook is optional, not blocking. **Do NOT read this row as vindicating direnv:** `direnv exec .` remains a broken path and must not be reintroduced into any runner, wrapper or plist. |
+| 0a | **RESOLVED — the two unverified claims are now measured** | Row 0a previously flagged `ANTHROPIC_API_KEY` and `OPENAI_API_KEY` as UNVERIFIED, because both were declared ABSENT by the same direnv probe that reported `HLIDAC_STATU_TOKEN` missing when it was present (row 1a) — a probe with no positive control. Both have now been tested through the **working** path. **`ANTHROPIC_API_KEY`: PRESENT and authenticating** (row 2). **`OPENAI_API_KEY`: genuinely ABSENT** — confirmed without decrypting anything, since sops keeps key names in plaintext and the full key list for this project is exactly `HLIDAC_STATU_TOKEN` and `ANTHROPIC_API_KEY`: `grep -oE '^[A-Za-z_][A-Za-z0-9_]*=' .env.enc \| grep -v '^sops_'`. **So one false absence and one true absence — the probe was wrong about Anthropic and right about OpenAI, which is exactly why it needed a control.** | The embeddings backfill (§6.3, §12) remains genuinely blocked on OpenAI. | **Add `OPENAI_API_KEY` via `sops-edit .env.enc`** if the backfill is wanted. Nothing to do for Anthropic. |
+| 1 | **Hlídač** (`hlidac`, tenders) | **RESOLVED — THE FEED IS LIVE.** W2 ran it end to end: **7/7 queries HTTP 200, 1,061 contracts, zero login pages**; coordinator independently confirmed with `with-secrets curl --variable '%HLIDAC_STATU_TOKEN' --expand-header …` → HTTP 200. **The token exists under `HLIDAC_STATU_TOKEN`, not `HLIDAC_TOKEN`** — recorded here so nobody re-derives it. | n/a — **the earlier "tenders ledger is TED-only" consequence was FALSE and is struck.** | **None.** |
+| 1a | **How row 1 was wrong — the shape recurs, so it is recorded** | `HLIDAC_TOKEN` was tested through the **working** path (`with-secrets`) and genuinely failed to expand. `HLIDAC_STATU_TOKEN` was tested only through the **broken** path (direnv, which exports nothing), and its emptiness was read as absence. **Two half-tests, each valid alone, combined into a false conclusion.** | — | **THE RULE: a negative result is only evidence when the method is known to produce positives.** The direnv probe had **no positive control**, so its "MISSING" meant nothing — it would have reported every name in the vault as missing, including the ones that are there. |
+| 2 | **UNATTENDED model passes** — scoring, generation, **and LLM-fallback recovery (§7.7)** | **RESOLVED — THE KEY IS PRESENT AND AUTHENTICATES.** Re-tested via `with-secrets` exactly as row 0a demanded: `curl --variable '%ANTHROPIC_API_KEY' --expand-header 'x-api-key: {{…}}'` → `GET /v1/models` **HTTP 200**, and a live `POST /v1/messages` (claude-haiku-4-5, max_tokens 4) → **HTTP 200** with a real completion. The ABSENT reading was the discredited direnv probe, precisely as row 1a predicted. What still stands: ambient CLI auth fails (sandboxed keychain denied; unsandboxed OAuth expired, digest §H), so the key must be passed **explicitly**. | ATTENDED mode needs no key and works today (§1.2); the mechanical path stages records and prints `SKIP model passes` (§1.3). | **Do NOT add a second key — the vault already has one.** What remains is plumbing only: hand the value to the nested `claude -p` without an interpreter touching it. Note `with-secrets` refuses bash/node/python by design, so an unattended wrapper should call `sops -d --input-type dotenv --output-type dotenv .env.enc` itself — that allow-list constrains Claude, not your automation. |
+| 3 | **Vestbee** (`vestbee`, funded) | **DEAD** — measured: 301 → `/insights/rss.xml` → 404 (digest §A). **Claim verified, not relayed.** | **REMEDIATED IN CODE:** removed from `scripts/fetch_feeds.sh:133-134` with the reason recorded inline; `status: dead` in the registry. | **None.** |
+| 4 | **All RSS/JSON feeds** (`cc-cz`, `yc-oss`) | **FIXED.** The bug was real and measured — `curl -sL` without `-f` saved the 404 body and printed `OK`. **Silent data loss dressed as success: the moat leaking.** Still the first Mode-A receipt in §7.1. | **REMEDIATED IN CODE:** `scripts/fetch_feeds.sh:110` now uses `curl -fsSL --retry 2 --remove-on-error`, with `:97-105` recording *why* `-f` is load-bearing and the exact reproduction. `--remove-on-error` additionally guarantees no partial file survives. | **None.** |
 | 5 | **EC Have Your Say** (`ec-hys`) | `ec.europa.eu` fails locally with **curl exit 60 — TLS interception by the sandbox proxy**, NOT a remote refusal (digest §A). Only host needing an override. | Run that fetch with the sandbox disabled, or from the cloud runner (EC is cloud-OK). | **None** required. To keep it sandboxed, allowlist `ec.europa.eu` via `/sandbox`. |
 | 6 | **TED · Reddit · Suggest · NKÚ · NEN** — cloud viability | **UNDECIDABLE.** All 200 from this Mac; the known TED 403 came from Claude-cloud egress, a different network from GitHub's Azure ranges. **Not answerable from this machine.** | All five default to `runner: local`, `blocker` = "cloud viability unmeasured". | `gh workflow run ingest.yml -f mode=probe && gh run watch` (§5.2) |
 | 7 | **sqlite-vec / KNN shortlisting** | **Extension NOT INSTALLED**: `find_spec('sqlite_vec')` → False; `USING vec0` → `no such module: vec0`; no dylib. (`enable_load_extension` works, so the host is capable.) | IČO / domain / name joins need no extension and cover Phase 2 matching. | Phase 3 prerequisite: install into a project venv (e.g. `uv pip install sqlite-vec`) and re-run `python3 scripts/db.py embed`. |
@@ -1592,7 +1888,7 @@ to ourselves.**
 | 9 | **`suggest`, `reddit`, `cc-cz`** — end-to-end proof | **ZERO records since inception** (§0). Nothing is technically blocked; the path has simply never completed, and **nothing was watching for the silence**. | None today. §7.5 makes it visible as `PENDING` on a public page. | **None.** Phase 3's sharpest target. |
 | 10 | **GitHub Actions** | No `.github/` directory yet. Remote exists: `github.com/mchlkucera/localproblems`. | None. | **None** — coordinator commits the workflow at CP2. |
 | 11 | **launchd local runner** | macOS **TCC** may deny a launchd-spawned process access to `~/Documents`, silently, with EPERM. | Plist ships committed and **not loaded**. | Install per §5.4, approve the prompt on first `kickstart`, verify with `log show --predicate 'process == "direnv"' --last 10m` |
-| 12 | **NKÚ** (`nku`) | `www.nku.cz` 403s generic fetchers. | **In place:** non-www `nku.cz/scripts/rka/vestnik.asp?rok=YYYY` works. Lowercase filenames; uppercase 301s to http. | **None.** |
+| 12 | **NKÚ** (`nku`) | **NOT BLOCKED. Both stated reasons were FALSE and are struck.** W2 measured `www.nku.cz` returning **200** with curl's default UA — **byte-identical 28,795 B** to non-www, **no 403** — and uppercase `VESTNIK.asp` returning **200 with no redirect**. "www 403s generic fetchers" and "uppercase 301s to http" were relayed from the feeds research and are wrong. **Deleted rather than left as folklore a future worker would trust** (`scripts/fetch_nku.sh:105` already records the measurement). | **Keep non-www** — it works and is mandated (`scripts/fetch_nku.sh:113`); it simply is not a workaround for a 403 that does not exist. | **None.** |
 | 13 | **Reddit** (`reddit-*`) | All public `.json` endpoints 403 for non-browser clients. | **In place:** `.rss` + descriptive UA + `--retry --retry-delay 35` (`fetch_reddit.sh:19`). | **None.** |
 | 14 | **HIRING stream** (§13) | **RESOLVED — not a blocker.** The probe answered the decisive test: **99.90% IČO coverage** on MPSV/ÚP `volna-mista`, ARES join verified live, licence disclaims copyright and the sui-generis DB right (§13.0). What remains is build scope, not an unknown. | The Phase 2 cheap half ships regardless; the fetcher is a parallel worker that may slip to Phase 3 without blocking CP2 (§13.5). | **None.** |
 | 15 | **Job boards** — StartupJobs · jobs.cz · prace.cz · LinkedIn | **RESOLVED as NOT AVAILABLE**, with clauses on file: StartupJobs VOP *"je výslovně zakázáno databázi vytěžovat"*; jobs.cz/prace.cz Alma Career terms §4.11; LinkedIn `robots.txt: Disallow: /`. **This is a clean negative, which is worth more than a vague maybe** — recorded as `access.verdict: forbidden` in the registry so it is not re-litigated (§13.8). | **We never build against a source whose terms forbid it.** MPSV supersedes all of them anyway, with better data. | **None. Closed.** |
@@ -1666,7 +1962,7 @@ Applied to `SPEC.md` by a Phase-2 agent.
 | `data/CONVENTIONS.md:27-46` | record schema | Add optional `quote`, `http_status`, `fetched_at`, `extraction` |
 | `data/CONVENTIONS.md:105-111` | source type → dimension | Add the `checked` vocabulary (§8), the gap-check expiry law, and `hiring` → demand/money, **never proof** (§13.9) |
 | `web/lib/data.ts:16` | `EVIDENCE_TYPES = ["funded","regulation","tenders","demand"]` | Gains `"hiring"` — **in the same checkpoint as the first hiring record, not before** (§13.5). Lights up `/signals/hiring` via `generateStaticParams`, and forces `TITLES`/`DESCRIPTIONS` entries by TypeScript exhaustiveness |
-| `web/lib/data.ts:25` | `source: z.enum([…])` | Gains `"mpsv"`. **Self-enforcing: `z.enum` fails loudly**, unlike the `z.object` strip (§3) |
+| `web/lib/data.ts:25` | `source: z.enum([…])` | Gains **`"nen"`, `"dotace"`** (§4.5 — so new records can carry a correct `source` instead of the legacy `hlidac`) and **`"mpsv"`** (§13). **Self-enforcing: `z.enum` fails loudly**, unlike the `z.object` strip (§3). **Do NOT retro-edit the 349 committed records** whose `source` is legacy-wrong — append-only is law, and the discrepancy is documented in §4.5 |
 | `SPEC.md:170` + `skills/design-language/SKILL.md:86` | nav lists **four** ledgers | The nav gains a **fifth**: `Signals: Funded · Regulation · Tenders · Demand · Hiring`. Both files state the four explicitly and must move together; the skill is binding, so `SKILL.md` is not optional |
 | `web/lib/data.ts:23-41` | `SignalSchema = z.object` | → **`z.strictObject`** + the four optional receipt fields. **Also make the nested `scores: z.object` at `:34-39` strict** — `strictObject` is top-level only, so the trap otherwise just moves one level down (§3, AC-Z2). |
 | `web/lib/data.ts:48` | `SourceSchema = z.looseObject` | Add typed optionals `queries`, `checked`, `expires` — keep it loose |
@@ -1693,6 +1989,27 @@ records**. A Phase 2 worker must not discover this boundary by colliding with it
 | | the **`SignalSchema` portion** of `web/lib/data.ts` |
 | | uncontested, needed for the rename: `web/next.config.ts` · `web/lib/chrome.tsx` · `web/app/page.tsx` · `web/app/about/page.tsx` · `web/app/category/[slug]/page.tsx` |
 
+> ### ⚠ THREE FILES ARE OWNED **IN PART BY BOTH PROGRAMS, CONCURRENTLY**
+>
+> **`SPEC.md`, `data/CONVENTIONS.md` and `skills/design-language/SKILL.md`** are being edited
+> by **both** programs at the same time: we own the non-citation sections, they own the
+> citation sections — **inside the same files.**
+>
+> **"We own part of a file" is a sharper hazard than "we own a file", and a worker will not
+> infer it from the table above** — a table that lists a file under one owner reads as
+> whole-file ownership. Hence the required working method:
+>
+> - **Small, surgical edits against unique text anchors.** Never a whole-file write, never a
+>   bulk reformat, never a "while I'm in here" tidy.
+> - **Re-read the file immediately before each edit.** Not at the start of the task — before
+>   *each* edit. `SPEC.md` moved 277 → 287 lines mid-task (§11); anything you read ten
+>   minutes ago may already be wrong.
+> - **If an anchor no longer matches, STOP and re-locate it** with `grep -n` on the quoted
+>   text. A failed match means the file moved under you, not that the anchor was wrong.
+>
+> This is the same discipline §11's drift warning demands, applied to writes instead of
+> citations.
+
 **`.gitignore` is owned by NOBODY and is off-limits to EVERY program.** See §9.1.
 
 **Two cross-program handoffs are open:**
@@ -1718,6 +2035,21 @@ records**. A Phase 2 worker must not discover this boundary by colliding with it
    migration, health view and `INGEST.md` touch **none** of `data/problems/` — so the entire
    NOW list except this one item proceeds in parallel with the wait.
 
+   > **VINDICATED BY A NEAR-MISS WITH A TIMESTAMP — this is not a hypothetical.** While this
+   > section was being written (2026-08-20), `p-0001`, `p-0023`, `p-0028` and `p-0024` all
+   > changed on disk. **Three of those four are retrofit targets.** The citations program was
+   > inside those exact files at that moment. Had we shipped the rejected route — a specified
+   > diff applied by the other team — **two programs would have been writing the same three
+   > files simultaneously, that day.** A rule with a receipt behind it survives contact with a
+   > future worker who thinks the rule is bureaucratic; this is that receipt.
+   >
+   > **AND THE LOCK RULE THAT FOLLOWS FROM IT: an absence of collisions in our own tree is
+   > NOT evidence the lock is free.** The only valid signal to open the window is **the
+   > coordinator confirming the citations checkpoint is committed.** Not a quiet
+   > `git status`. Not four hours without a change. Not "it looks idle." Quiet means nothing
+   > — the near-miss above happened during a window that looked exactly like quiet from our
+   > side.
+
 **Two lints, one question, deliberately split** (§7.8): theirs resolves marker→source on the
 register side; ours checks claim→quote on the ingest side. Neither may grow into the other's
 half.
@@ -1725,6 +2057,27 @@ half.
 **`quote` is a shared contract, not an internal field** (§7.8): the citations program is
 building a reveal on top of it and will not block on us, so its shape — verbatim snippet +
 source, retrievable by signal id — is fixed.
+
+### 12.2 Every acceptance check must be PROVEN CAPABLE OF FAILING
+
+Per the receipts rule: a green check that has never been shown red is not evidence. Each
+check below names **the input that makes it fail** — run that first, watch it go red, then
+trust the green.
+
+| Check | Proven capable of failing by |
+|---|---|
+| **AC-DB1** (fresh clone builds with no DB) | point `data.ts` at a non-existent `data/` path; the build must fail. Then restore and confirm green |
+| **AC-Z1/Z2** (strict schema) | add a scratch key to one JSONL line; `z.strictObject` must fail the build. **Also test the NESTED case** — a key inside `scores` — since that is the half that silently passed before |
+| **AC-Z3** (`quote` reaches the page) | blank one record's `quote`; the rendered page must visibly lose it. A field that renders identically when empty is not being rendered |
+| **AC-F1** (prefix totality) | invent a `zzz-` id in a scratch ledger line; rebuild must FAIL and name `zzz-`. **This check passed for weeks while 116 records sat unowned — it is the reason this table exists** |
+| **AC-F2** (no orphan scripts) | point one registry `script` at a deleted path |
+| **AC-GAP1** (retrofit moves no points) | hand-edit one record's `scores.gap` by +1 in a scratch copy; the numeric diff must catch it. Prose review must NOT be the detector |
+| **AC-GDPR1** (no personal data) | **the standard-setter — plant an email address and watch the checker match it**, exactly as W1 did, before trusting a zero-match run |
+| **AC-SCORE1** (scorer accuracy) | feed it a record with a known-wrong score and confirm the comparison flags it; a harness that cannot detect a planted error cannot validate the model |
+| **contract checks** (§7.2) | point one feed at a URL returning a 200 with an empty body — the `dotace`/vestbee shape. It must go BROKEN, not LIVE |
+
+**Where a check cannot be shown to fail, say so and treat its green as unverified** rather
+than as a pass.
 
 ### NOW — Phase 2 (CP2: `npm --prefix web run build` green)
 
@@ -1740,9 +2093,12 @@ source, retrievable by signal id — is fixed.
    `seen.txt`, contract results for `fetch_log`, and a pending-list in the manifest. **Owns
    every cell marked `script` in §1.3**: id minting, `seen.txt` dedup, structured field
    extraction, TED CPV→sector, `scores.money`, dated `scores.urgency`, the materiality
-   filter, `quote` extraction, liveness. `--mechanical-only` runs the whole script path with
-   no model at all — which is what makes the degraded unattended mode (§5.6) and the
-   AC-SCORE1 fallback (§6.5) actually buildable.
+   filter, `quote` extraction, liveness. **`--mechanical-only` STAGES to
+   `data/raw/<date>/staged.jsonl`; it does NOT append to `data/signals/` and does NOT touch
+   `seen.txt`** (§1.3) — every record still needs model-scored `scale` + `recurrence`, and
+   §6.2 forbids defaults. A second invocation completes staged records once a model is
+   available, which is what makes the degraded unattended mode (§5.6) and the AC-SCORE1
+   fallback (§6.5) buildable.
 5. **`scripts/db.py`** — DDL, `rebuild` (with the `jsonl_lines == signals_count` assertion),
    `upsert`, `fetchlog`, `health`, `match`, entity keys, WAL. No vec tables. (§2)
 6. **`pipeline/INGEST.md`** (the ATTENDED path, works today) + `scripts/ingest.sh` +
@@ -1788,7 +2144,8 @@ source, retrievable by signal id — is fixed.
 | DB `problem_sources` table | No Phase 2 consumer | Phase 3, with the KNN shortlist |
 | archive.org + `fragile` | **Protects zero live records today** (§7.9) | first record landed by `nku` / `nen` / `sukl` / `reddit-*` |
 | Near-duplicate **auto**-linking | Report-only first; a human reads one report before anything auto-links | one reviewed report |
-| Claim lint / provenance as **build failures** | 20–40% FP today; a blocking check with that rate gets disabled | FP rate <5%; provenance 100% for two runs |
+| **Claim lint as a build failure** — and the citations lint with it | **RULED: both lints stay warning-only** (§7.8). A gate two independent programs can each turn red is a gate neither owns; until the conditions hold, **a red lint trains people to work around it, which is worse than no lint at all** | **A COORDINATOR decision, gated on all three** of §7.8's conditions: (a) citations content pass landed with a baseline coverage number, (b) FP rate **measured** against that baseline — the 20–40% here is an estimate, (c) both leads agree the findings are anomalies, not routine noise. **Neither program may promote unilaterally, nor weaken the other's lint** |
+| **Provenance completeness** as a build failure | Ours alone — no cross-program constraint, so this one is not covered by the lint ruling | 100% for two consecutive runs |
 | INGEST committing / pushing | A bot writing to the publication spine is a bigger promise than freshness buys | ten clean cycles |
 | Anthropic **Batch API** | Halves an already-small cost in exchange for a polling state machine | >5,000 new signals/week |
 | Escalation beyond the run summary (email/push) | §7.6 is deliberately boring; alerting is infra | belongs in SPEC §10's tripwire table first |

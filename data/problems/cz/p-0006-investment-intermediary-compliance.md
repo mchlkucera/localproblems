@@ -61,15 +61,15 @@ sources:
     and Word templates under growing ČNB/MiFID II paperwork plus DORA load from 2025.'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Thousands of Czech vázaní zástupci, investiční zprostředkovatelé and advisory networks (Broker Consulting and Partners ecosystems plus independents) operate under ČNB supervision with steadily growing MiFID II paperwork — suitability, KYC, regulatory reporting — and, since 2025, DORA obligations. Per the yc-saturn signal, this compliance is run on Word templates and external consultants, not software.
+Thousands of Czech vázaní zástupci, investiční zprostředkovatelé and advisory networks (Broker Consulting and Partners ecosystems plus independents) operate under ČNB supervision with steadily growing MiFID II paperwork — suitability, KYC, regulatory reporting — and, since 2025, DORA obligations [S1,S3]. Per the yc-saturn signal, this compliance is run on Word templates and external consultants, not software [S1].
 
-Why now: the EU AML Regulation (2024/1624) applies directly from 10 July 2027, replacing much of the regime built on zákon 253/2008 with a harmonised single rulebook under the new AMLA supervisor — CDD, beneficial-ownership verification and internal policies all need rework, and new obliged entities (crowdfunding, most crypto services, luxury goods traders) enter scope. Every firm in the segment faces a gap analysis and policy rewrite inside 11 months of this record's creation date.
+Why now: the EU AML Regulation (2024/1624) applies directly from 10 July 2027, replacing much of the regime built on zákon 253/2008 with a harmonised single rulebook under the new AMLA supervisor — CDD, beneficial-ownership verification and internal policies all need rework, and new obliged entities (crowdfunding, most crypto services, luxury goods traders) enter scope [S2]. Every firm in the segment faces a gap analysis and policy rewrite inside 11 months of this record's creation date [S2].
 
-Who pays: the intermediary networks and mid-sized firms first — they have revenue at stake in license compliance and can amortize a SaaS subscription across hundreds of agents; smaller independents follow via the networks. UBO-verification APIs and AMLR-ready reporting are concrete product surfaces named in the reg signal.
+Who pays: the intermediary networks and mid-sized firms first — they have revenue at stake in license compliance and can amortize a SaaS subscription across hundreds of agents; smaller independents follow via the networks. UBO-verification APIs and AMLR-ready reporting are concrete product surfaces named in the reg signal [S2].
 
-Existing non-solutions: compliance consultancies (Comply, aCompliance) and law firms selling one-off gap analyses; Word-template internal policies. The 2026-08-13 absence check found no Czech regtech SaaS for this segment — weak incumbents, services only.
+Existing non-solutions: compliance consultancies (Comply, aCompliance) and law firms selling one-off gap analyses; Word-template internal policies [S3]. The 2026-08-13 absence check found no Czech regtech SaaS for this segment — weak incumbents, services only [S3].
 
-Solved elsewhere: Saturn (YC S24, London) sells a compliance operating system to wealth managers, showing the productized model works for this buyer. Arbitrage is scored 1 because the analog sits outside the CEE-adjacent band; the deadline and documented paperwork pressure do the heavy lifting here.
+Solved elsewhere: Saturn (YC S24, London) sells a compliance operating system to wealth managers, showing the productized model works for this buyer [S1]. Arbitrage is scored 1 because the analog sits outside the CEE-adjacent band; the deadline and documented paperwork pressure do the heavy lifting here.

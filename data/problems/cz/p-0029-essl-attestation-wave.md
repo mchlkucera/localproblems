@@ -52,16 +52,43 @@ sources:
     end of the same wave, purchasing development on the incumbent ICZ e-spis stack.'
   date: '2026-08-12'
   signal: ted-559572-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/535679-2026
+  note: 'ted-535679-2026: Ministry of the Interior awarded ~€642k for records-management systems
+    support 2025–2028 (Aug 2026) — a ministry-level buyer inside the same Jun–Aug window,
+    and support (not just licence) spend, which is the recurring half of the bill.'
+  date: '2026-08-03'
+  signal: ted-535679-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/442243-2026
+  note: 'ted-442243-2026: Ostravská univerzita awarded ~€408k for a records management system
+    incl. service support (Jun 2026) — the university buyer type in the same wave.'
+  date: '2026-06-29'
+  signal: ted-442243-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/529246-2026
+  note: 'ted-529246-2026: Czech State Forests (Lesy ČR) awarded ~€1.1M for an electronic records
+    management system (Jul 2026) — the state-enterprise buyer type, and one of the larger
+    single awards in the wave.'
+  date: '2026-07-30'
+  signal: ted-529246-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/533101-2026
+  note: 'ted-533101-2026: City of Prague awarded ~€275k for GINIS ENTERPRISE+ development incl.
+    records management (framework, Jul 2026) — direct receipt that GORDIC''s GINIS stack is
+    one of the incumbents the wave is being bought from, alongside ICZ e-spis.'
+  date: '2026-07-31'
+  signal: ted-533101-2026
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Every Czech public body runs a spisová služba — the legally mandated records-management layer beneath all official correspondence — and the state has now put a hard gate on the software that runs it: eSSL systems must pass state attestation, suppliers have been banned from offering non-attested products since 1 July 2025, and the transitional period for state organizational units, contributory organisations and state enterprises to operate attested systems ends 31 December 2026.
+Every Czech public body runs a spisová služba — the legally mandated records-management layer beneath all official correspondence — and the state has now put a hard gate on the software that runs it: eSSL systems must pass state attestation, suppliers have been banned from offering non-attested products since 1 July 2025, and the transitional period for state organizational units, contributory organisations and state enterprises to operate attested systems ends 31 December 2026 [S1].
 
-Why now: the procurement wave the deadline predicts is visible in the data. In a single June–August 2026 window, ~19 distinct public buyers generated ~28 TED records for records-management systems (~€17M) — SÚKL, ministries, hospitals, universities, insurance funds, state enterprises. The friction is visible too: SÚRAO published its certified-eSSL tender four times and the Pardubice hospital group three times, the classic signature of procedures that fail to attract compliant bids and must be re-run against a fixed statutory clock.
+Why now: the procurement wave the deadline predicts is visible in the data. In a single June–August 2026 window, ~19 distinct public buyers generated ~28 TED records for records-management systems (~€17M) — SÚKL, ministries, hospitals, universities, insurance funds, state enterprises [S2,S4,S5,S6]. The friction is visible too: SÚRAO published its certified-eSSL tender four times and the Pardubice hospital group three times, the classic signature of procedures that fail to attract compliant bids and must be re-run against a fixed statutory clock [S2].
 
-Who pays: twice over. Public bodies pay for migration, integration and support of attested systems — recurring public IT spend receipted above threshold, with the long tail of smaller organisations buying below TED's line of sight. Vendors pay for attestation itself: the atest is a per-product, per-version regulatory asset, which raises the cost of staying in the market and concentrates supply in the incumbents who can afford the cycle.
+Who pays: twice over. Public bodies pay for migration, integration and support of attested systems — recurring public IT spend receipted above threshold [S2,S3,S4], with the long tail of smaller organisations buying below TED's line of sight. Vendors pay for attestation itself [S1]: the atest is a per-product, per-version regulatory asset, which raises the cost of staying in the market and concentrates supply in the incumbents who can afford the cycle.
 
-Existing non-solutions — and why gap scores 0: this is not an empty field. GORDIC (GINIS), ICZ (e-spis) and the other attested-product vendors dominate, and the wave is being bought from them; the register does not pretend a greenfield product gap where strong incumbents are winning. The honest problem is narrower: a statutory deadline colliding with concentrated attested supply and repeat-failing tenders — a migration-capacity and procurement problem, with the attestation barrier itself defining who can compete.
+Existing non-solutions — and why gap scores 0: this is not an empty field. GORDIC (GINIS), ICZ (e-spis) and the other attested-product vendors dominate, and the wave is being bought from them [S3,S7]; the register does not pretend a greenfield product gap where strong incumbents are winning. The honest problem is narrower: a statutory deadline colliding with concentrated attested supply and repeat-failing tenders — a migration-capacity and procurement problem, with the attestation barrier itself defining who can compete.
 
 No foreign analog is receipted (attestation of records software this strict is a Czech construction; proof 0) and no buyer-side complaint is yet on file (demand 0). What would move this record: a documented count of bodies still running non-attested systems as the deadline approaches, or vendor-queue evidence that attestation and migration capacity cannot clear the 31 Dec 2026 wall.

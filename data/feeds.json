@@ -1,0 +1,594 @@
+{
+  "version": 1,
+  "feeds": [
+    {
+      "key": "ted",
+      "name": "TED — EU tender notices",
+      "yields": "EU-threshold public tenders with CZ place of performance; CPV-grouped notices carrying buyer, value and tender deadline.",
+      "role": "feed",
+      "signal_source": "ted",
+      "id_prefixes": ["ted"],
+      "evidence_type": "tenders",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://api.ted.europa.eu/v3/notices/search",
+      "script": "scripts/fetch_ted.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "Public API, no auth, no rate terms published; EU open-data licence.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "json",
+        "required_fields": ["publication-number", "notice-title", "publication-date"],
+        "expected_yield": {
+          "min": 40,
+          "max": 900,
+          "basis": "AUTHOR ESTIMATE, no rolling median — only two run-dates exist (2,827 on the 60-day backfill, 225 on the follow-up), which is a backfill and a follow-up, not a rate. Counts items_fetched. Replace with a rolling median once six fetch_log runs exist."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "hlidac",
+      "name": "Hlídač státu — registr smluv",
+      "yields": "CZ public contracts below the TED threshold, from the state contracts register; subject, VAT-inclusive value and signature date.",
+      "role": "feed",
+      "signal_source": "hlidac",
+      "id_prefixes": ["hlidac"],
+      "evidence_type": "tenders",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://api.hlidacstatu.cz/api/v2/smlouvy/hledat",
+      "script": "scripts/fetch_hlidac.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": "2026-08-20",
+      "access": {
+        "verdict": "allowed",
+        "basis": "Free API key issued on request at hlidacstatu.cz/api; open-data terms. The token is present and the env var is named HLIDAC_STATU_TOKEN — NOT HLIDAC_TOKEN, which is the name an earlier blocker note assumed and which does not exist. Recorded here so nobody re-derives it. Verified live 2026-08-20: 7/7 queries HTTP 200, 1,061 contracts, zero login-page bodies.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "json",
+        "required_fields": ["predmet", "cenaSDph", "datumUzavreni"],
+        "expected_yield": {
+          "min": 5,
+          "max": 600,
+          "basis": "AUTHOR ESTIMATE from the two committed run-dates (114 then 349 records kept). Counts items_fetched. This is the feed whose 302 login page was stored as a .json payload — required_fields exists precisely to catch that body."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "cc-cz",
+      "name": "CzechCrunch RSS",
+      "yields": "CZ startup funding rounds, launches and acquisitions as they are reported.",
+      "role": "feed",
+      "signal_source": "feed",
+      "id_prefixes": ["feed"],
+      "evidence_type": "funded",
+      "cadence": "6h",
+      "runner": "cloud",
+      "url": "https://www.czechcrunch.cz/feed/",
+      "script": "scripts/fetch_feeds.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "Public RSS feed published for syndication; no auth, no published rate terms.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "rss",
+        "required_fields": ["title", "link", "pubDate", "description"],
+        "expected_yield": {
+          "min": 1,
+          "max": 100,
+          "basis": "AUTHOR ESTIMATE for a news RSS window. Counts items_fetched. ZERO records have ever reached the ledger from this feed — the yield floor of 1 is what makes that silence visible."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "vestbee",
+      "name": "Vestbee — CEE VC rounds",
+      "yields": "Central and Eastern European venture rounds. Produces nothing: the feed URL is gone.",
+      "role": "feed",
+      "signal_source": "feed",
+      "id_prefixes": ["feed"],
+      "evidence_type": "funded",
+      "cadence": null,
+      "runner": "none",
+      "url": "https://www.vestbee.com/blog/rss.xml",
+      "script": null,
+      "status": "dead",
+      "blocker": "301 redirects to /insights/rss.xml, which 404s. scripts/fetch_feeds.sh used curl -sL without -f, so the 404 body was saved and the script printed OK — the first Mode-A receipt in architecture-v3 §7.1.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "unknown",
+        "basis": "Never assessed: the feed 404s, so there is no resource whose terms could apply. Recorded as unknown rather than allowed so a future revival re-checks.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "rss",
+        "required_fields": ["title", "link"],
+        "expected_yield": {
+          "min": 1,
+          "max": 100,
+          "basis": "Vestigial — the feed is dead and has no runner. Retained so the registry explains the corpus rather than deleting the evidence of a failure."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "yc-oss",
+      "name": "YC company directory (yc-oss)",
+      "yields": "Y Combinator's full company directory as structured JSON, with an English one-liner per company.",
+      "role": "feed",
+      "signal_source": "yc",
+      "id_prefixes": ["yc"],
+      "evidence_type": "funded",
+      "cadence": "daily",
+      "runner": "cloud",
+      "url": "https://yc-oss.github.io/api/companies/all.json",
+      "script": "scripts/fetch_feeds.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "Open-source mirror of the public YC directory, published as an API for reuse.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "json",
+        "required_fields": ["name", "one_liner"],
+        "expected_yield": {
+          "min": 500,
+          "max": 20000,
+          "basis": "AUTHOR ESTIMATE. The payload is the WHOLE directory every run, so items_fetched is large and near-constant while items_kept is near zero between batches — the range is deliberately wide and is not a freshness measure. 1,814 records were kept on the first load, 0 on the second."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "suggest",
+      "name": "Google Suggest — CZ pain completions",
+      "yields": "Czech-language autocomplete completions for pain-shaped query patterns; the completion string is the evidence.",
+      "role": "feed",
+      "signal_source": "suggest",
+      "id_prefixes": ["suggest"],
+      "evidence_type": "demand",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://suggestqueries.google.com/complete/search",
+      "script": "scripts/fetch_suggest.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "conditional",
+        "basis": "Undocumented public autocomplete endpoint, no published terms. Ban risk is the constraint, not freshness: the cadence is capped at 1 run/day and the cap IS the mitigation. 144 queries/run = 24 seeds x 6 patterns, counted from the SEEDS and PATTERNS lists in scripts/fetch_suggest.sh. The endpoint also requires ie=utf-8&oe=utf-8 or the body comes back non-UTF-8.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "jsonl",
+        "required_fields": ["query", "completions"],
+        "expected_yield": {
+          "min": 20,
+          "max": 144,
+          "basis": "MEASURED CEILING: the script issues exactly 144 queries per run (24 seeds x 6 patterns, counted from the SEEDS and PATTERNS lists in scripts/fetch_suggest.sh) and writes one line per query that returned completions, so 144 is a hard maximum, not an estimate. The floor is an author estimate. ZERO records have ever reached the ledger."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "reddit-new",
+      "name": "Reddit CZ subs — new.rss firehose",
+      "yields": "Every new post across four Czech subreddits, as an Atom firehose.",
+      "role": "feed",
+      "signal_source": "reddit",
+      "id_prefixes": ["reddit"],
+      "evidence_type": "demand",
+      "cadence": "6h",
+      "runner": "local",
+      "url": "https://www.reddit.com/r/czech/new.rss",
+      "script": "scripts/fetch_reddit.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "conditional",
+        "basis": "All public .json endpoints 403 for non-browser clients. Conditional on the mitigation already in place in scripts/fetch_reddit.sh: .rss endpoints only, a descriptive User-Agent naming the project and a contact address (the UA string containing 'localproblems-register'), and curl --retry with --retry-delay 35.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "rss",
+        "required_fields": ["title", "link"],
+        "expected_yield": {
+          "min": 20,
+          "max": 200,
+          "basis": "AUTHOR ESTIMATE: 4 subreddits (counted from the SUBS list in scripts/fetch_reddit.sh) x roughly 25 entries per new.rss page. Counts items_fetched. ZERO records have ever reached the ledger."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "reddit-search",
+      "name": "Reddit CZ subs — search.rss pain terms",
+      "yields": "Posts in the same four Czech subreddits matching pain-language search terms.",
+      "role": "feed",
+      "signal_source": "reddit",
+      "id_prefixes": ["reddit"],
+      "evidence_type": "demand",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://www.reddit.com/r/czech/search.rss",
+      "script": "scripts/fetch_reddit.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "conditional",
+        "basis": "Same mitigation as reddit-new, from the same script: .rss endpoints only, descriptive User-Agent, curl --retry with a 35s delay.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "rss",
+        "required_fields": ["title", "link"],
+        "expected_yield": {
+          "min": 5,
+          "max": 200,
+          "basis": "AUTHOR ESTIMATE: 4 subreddits x 4 pain queries (counted from the SUBS and QUERIES lists in scripts/fetch_reddit.sh), most returning few hits. Counts items_fetched. ZERO records have ever reached the ledger."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "nku",
+      "name": "NKÚ — audit conclusions bulletin",
+      "yields": "Supreme Audit Office audit conclusions: named state failures with quantified waste and the body responsible.",
+      "role": "feed",
+      "signal_source": "demand-scan",
+      "id_prefixes": ["nku"],
+      "evidence_type": "demand",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://nku.cz/scripts/rka/vestnik.asp?rok=2026",
+      "script": "scripts/fetch_nku.sh",
+      "status": "planned",
+      "blocker": "Fetcher now exists (scripts/fetch_nku.sh); stays `planned` until it lands a record, because status is INTENT and PENDING/LIVE in feed_health.json is the observed half. www.nku.cz 403s generic clients; the non-www host works with lowercase filenames.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "Public bulletin of a state audit body; statutory publication, no auth.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "html-table",
+        "required_fields": [],
+        "expected_yield": {
+          "min": 1,
+          "max": 200,
+          "basis": "UNMEASURED — no fetcher exists, so no payload has been parsed and no field names are confirmed. required_fields is deliberately EMPTY rather than guessed. This is the LLM-fallback proof feed: its HTML is expected to resist structured parsing, so a parse violation here is the designed path to extraction: llm-fallback, not a defect. Roughly 2-6 conclusions per month accumulate on a per-year page."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "sukl",
+      "name": "SÚKL — drug availability open data",
+      "yields": "Reported shortages and availability status for medicines on the Czech market.",
+      "role": "feed",
+      "signal_source": "demand-scan",
+      "id_prefixes": ["sukl"],
+      "evidence_type": "demand",
+      "cadence": "daily",
+      "runner": "cloud",
+      "url": "https://opendata.sukl.cz/soubory/MR/mr.zip",
+      "script": null,
+      "status": "planned",
+      "blocker": "No fetcher exists yet — Phase 3 (architecture-v3 §12 LATER). Needs a conditional GET on ETag plus zip extraction.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "Published open data of a state medicines agency; no auth.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "csv",
+        "required_fields": [],
+        "expected_yield": {
+          "min": 100,
+          "max": 100000,
+          "basis": "UNMEASURED — no fetcher exists and no CSV column names are confirmed, so required_fields is EMPTY rather than guessed. The ONE thing measured here is cadence, not yield: a HEAD returned 200 with ETag and Last-Modified showing content had changed less than 9 hours before the probe, which proves refresh is at least daily and that the catalog's 'weekly' understates it."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "ec-hys",
+      "name": "EC Have Your Say — consultations",
+      "yields": "European Commission initiatives open for feedback, with problem statements and feedback counts.",
+      "role": "feed",
+      "signal_source": "reg-scan",
+      "id_prefixes": [],
+      "evidence_type": "regulation",
+      "cadence": "daily",
+      "runner": "cloud",
+      "url": "https://ec.europa.eu/info/law/better-regulation/api/groupInitiatives",
+      "script": null,
+      "status": "planned",
+      "blocker": "No fetcher exists yet — Phase 3. Also the only host that fails locally: ec.europa.eu returns curl exit 60 (TLS interception by the sandbox proxy), which is a local sandbox fact and NOT a remote refusal — hence runner: cloud.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "EU institutional open data; public consultation portal, no auth.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "json",
+        "required_fields": [],
+        "expected_yield": {
+          "min": 1,
+          "max": 500,
+          "basis": "UNMEASURED — no fetcher exists and the response shape has never been parsed here, so required_fields is EMPTY rather than guessed."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "nen",
+      "name": "NEN — below-threshold tenders",
+      "yields": "Czech National Electronic Tool listings for contracts under the TED threshold.",
+      "role": "feed",
+      "signal_source": "nen",
+      "id_prefixes": ["nen"],
+      "evidence_type": "tenders",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://nen.nipez.cz/en/verejne-zakazky",
+      "script": null,
+      "status": "planned",
+      "blocker": "No fetcher exists yet. NEN is a wave-2 catalog addition with no assigned priority, below NKÚ, ochrance, Have Your Say, SÚKL and ČOI.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "unknown",
+        "basis": "Terms not yet read. A state procurement portal is very likely permissible, but unknown is recorded rather than assumed — an unchecked verdict must never read as a clean allowed.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "html-table",
+        "required_fields": ["datumPrvniUver"],
+        "expected_yield": {
+          "min": 1,
+          "max": 500,
+          "basis": "UNMEASURED — no fetcher exists. The listing is server-rendered at 50 rows/page and carries ISO dates in datumPrvniUver, which is the only field name on record for this source."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "demand-scan",
+      "name": "Demand research harvest (agent)",
+      "yields": "Monthly agent research pass over NKÚ findings, ombudsman reports, civic complaint data, chamber and NGO surveys and consultations.",
+      "role": "feed",
+      "signal_source": "demand-scan",
+      "id_prefixes": ["chamber", "civic", "cnb", "coi", "consult", "ctu", "eru", "fa", "mpo", "ngo", "nku", "ombud", "smo", "spcr", "sukl", "uni"],
+      "evidence_type": "demand",
+      "cadence": "monthly",
+      "runner": "attended",
+      "url": null,
+      "script": null,
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "conditional",
+        "basis": "Not a fetched feed: an agent reads public pages and cites them. The verdict varies per harvested source and is judged per record at harvest time, so the registry-level verdict is conditional rather than a blanket allowed.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "manual",
+        "required_fields": [],
+        "expected_yield": {
+          "min": 1,
+          "max": 500,
+          "basis": "AUTHOR ESTIMATE from the two committed harvests (27 then 110 records). Counts records produced, since there is no fetched payload to count items in."
+        },
+        "allow_missing": true
+      }
+    },
+    {
+      "key": "arb-scan",
+      "name": "Arbitrage scan (agent)",
+      "yields": "Foreign-market scans: companies running a proven model abroad with no Czech equivalent.",
+      "role": "feed",
+      "signal_source": "arb-scan",
+      "id_prefixes": ["am", "at", "bg", "cz", "de", "dk", "ee", "es", "fi", "fr", "gb", "hr", "hu", "is", "it", "lt", "lv", "md", "mk", "nl", "pl", "ro", "rs", "si", "sk", "ua", "uk"],
+      "evidence_type": "funded",
+      "cadence": "monthly",
+      "runner": "attended",
+      "url": null,
+      "script": null,
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "conditional",
+        "basis": "Not a fetched feed: an agent reads public pages and cites them. Verdict varies per harvested source and is judged per record at harvest time.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "manual",
+        "required_fields": [],
+        "expected_yield": {
+          "min": 1,
+          "max": 500,
+          "basis": "AUTHOR ESTIMATE from the two committed harvests (8 then 167 records). Counts records produced, since there is no fetched payload to count items in."
+        },
+        "allow_missing": true
+      }
+    },
+    {
+      "key": "round",
+      "name": "Funding round harvest (agent)",
+      "yields": "Czech and CEE funding rounds gathered by an agent pass over trade press and investor portfolios.",
+      "role": "feed",
+      "signal_source": "round",
+      "id_prefixes": ["round"],
+      "evidence_type": "funded",
+      "cadence": "monthly",
+      "runner": "attended",
+      "url": null,
+      "script": null,
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "conditional",
+        "basis": "Not a fetched feed: an agent reads public pages and cites them. Verdict varies per harvested source and is judged per record at harvest time.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "manual",
+        "required_fields": [],
+        "expected_yield": {
+          "min": 1,
+          "max": 500,
+          "basis": "AUTHOR ESTIMATE from the two committed harvests (74 then 340 records). Counts records produced, since there is no fetched payload to count items in."
+        },
+        "allow_missing": true
+      }
+    },
+    {
+      "key": "reg-scan",
+      "name": "Regulatory-deadline harvest (agent)",
+      "yields": "Dated CZ and EU regulatory obligations — transposition deadlines, in-force dates and compliance waves — read by an agent from EUR-Lex, e-Sbirka, vlada.gov.cz and sector regulators.",
+      "role": "feed",
+      "signal_source": "reg-scan",
+      "id_prefixes": ["reg"],
+      "evidence_type": "regulation",
+      "cadence": "monthly",
+      "runner": "attended",
+      "url": null,
+      "script": null,
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "conditional",
+        "basis": "Not a fetched feed: an agent reads public pages and cites them. Verdict varies per harvested source and is judged per record at harvest time.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "manual",
+        "required_fields": [],
+        "expected_yield": {
+          "min": 1,
+          "max": 500,
+          "basis": "AGENT-PRODUCED, NO AUTOMATED YIELD CHECK. There is no fetched payload, so no parser can verify this row and no contract violation can be detected mechanically. The bound counts records produced, from the two committed harvests (2026-08-13 and 2026-08-14, 126 records total). A zero-yield month is invisible to automation here and is caught only by a human reading /sources."
+        },
+        "allow_missing": true
+      }
+    },
+    {
+      "key": "dotace-scan",
+      "name": "Grant and subsidy call harvest (agent)",
+      "yields": "Open CZ and EU grant/subsidy calls with a deadline and an allocation — operational programmes (IROP, OPZP, OPJAK), SFZP, TACR, national recovery plan and EU CINEA/HaDEA calls.",
+      "role": "feed",
+      "signal_source": "dotace",
+      "id_prefixes": ["dotace"],
+      "evidence_type": "tenders",
+      "cadence": "monthly",
+      "runner": "attended",
+      "url": null,
+      "script": null,
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "conditional",
+        "basis": "Not a fetched feed: an agent reads public grant-call pages and cites them. Verdict varies per harvested source and is judged per record at harvest time.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "manual",
+        "required_fields": [],
+        "expected_yield": {
+          "min": 1,
+          "max": 500,
+          "basis": "AGENT-PRODUCED, NO AUTOMATED YIELD CHECK. Bound counts records produced, from the single committed harvest (2026-08-14, 53 records across 13 grant-portal domains). No parser can verify this row."
+        },
+        "allow_missing": true
+      }
+    },
+    {
+      "key": "mpsv",
+      "name": "MPSV/ÚP — volná místa (vacancies)",
+      "yields": "Czech job vacancies from the Labour Office register, carrying employer IČO, CZ-ISCO occupation, salary floor and NUTS-3 region — the entity-graph join.",
+      "role": "feed",
+      "signal_source": "mpsv",
+      "id_prefixes": ["mpsv"],
+      "evidence_type": "hiring",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://data.mpsv.cz/od/soubory/volna-mista",
+      "script": null,
+      "status": "planned",
+      "blocker": "Fetcher is a separate parallel worker that may slip to Phase 3 without blocking CP2. The GDPR contact-field allowlist and its checker must land BEFORE any record can be written — the rule has to exist before the first record, not alongside it.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "The dataset licence explicitly disclaims both copyright and the sui-generis database right. Note the separate GDPR obligation: the DCAT record declares obsahuje-osobni-udaje (contact names, emails, phones), so an ALLOWLIST of safe fields is mandatory at ingest — licence permission is not privacy permission.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "json",
+        "required_fields": ["typZmenyOpenData"],
+        "expected_yield": {
+          "min": 100,
+          "max": 8000,
+          "basis": "Grounded in the probe's single measured day: 2026-08-19 carried 287 novy + 817 zmeneny + 986 zruseny = 2,090 items. THE CHANGELOG TRAP: the increment file is a changelog, not a list of new items — a parser ignoring typZmenyOpenData would record 2,090 new postings when 287 are new, a ~7x flood into an append-only permanent log. That is why typZmenyOpenData is a required field and why branching on change type is itself a contract check."
+        },
+        "allow_missing": true
+      }
+    },
+    {
+      "key": "ares",
+      "name": "ARES — company register lookup",
+      "yields": "Enrichment only: IČO to company name, NACE, founding date and region. Produces ZERO signals.",
+      "role": "enrichment",
+      "signal_source": null,
+      "id_prefixes": [],
+      "evidence_type": null,
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty",
+      "script": null,
+      "status": "planned",
+      "blocker": "No enrichment client exists yet. Lands with the MPSV fetcher, whose IČO column it resolves.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "Public state company register with a documented REST API, no auth.",
+        "checked": "2026-08-20"
+      },
+      "contract": {
+        "parse": "json",
+        "required_fields": [],
+        "expected_yield": {
+          "min": 0,
+          "max": 5000,
+          "basis": "UNMEASURED — no client exists. Counts LOOKUPS PERFORMED, not signals: this is an enrichment source, it is exempt from AC-F1 totality, it produces no records, and it must never be counted in the feed total."
+        },
+        "allow_missing": false
+      }
+    }
+  ]
+}

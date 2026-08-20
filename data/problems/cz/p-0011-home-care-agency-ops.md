@@ -70,15 +70,15 @@ sources:
   date: '2026-08-13'
   signal: yc-takecareos
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Hundreds of Czech agentury domácí péče and pečovatelské služby — from Včelka to charity providers — coordinate care visits by phone and paper, with Cygnus DP (IRESOFT) serving as documentation and billing record-keeping rather than operations automation. Under a chronic nurse shortage, every hour of intake calls, client onboarding and schedule juggling is an hour of clinical capacity lost; admin time savings convert directly into more clients served.
+Hundreds of Czech agentury domácí péče and pečovatelské služby — from Včelka to charity providers — coordinate care visits by phone and paper, with Cygnus DP (IRESOFT) serving as documentation and billing record-keeping rather than operations automation [S1,S2]. Under a chronic nurse shortage, every hour of intake calls, client onboarding and schedule juggling is an hour of clinical capacity lost; admin time savings convert directly into more clients served [S1].
 
-Why now: the nurse shortage makes capacity the binding constraint, aging demographics grow demand, and AI-native operations layers for exactly this agency profile are being funded repeatedly in the US — Sage Care (YC S24) and Cova (YC S26) within two years of each other.
+Why now: the nurse shortage makes capacity the binding constraint, aging demographics grow demand, and AI-native operations layers for exactly this agency profile are being funded repeatedly in the US — Sage Care (YC S24) and Cova (YC S26) within two years of each other [S1,S3].
 
 Who pays: the agencies. The pitch is capacity, not cost: an agency that automates intake and coordination can take on more reimbursed care with the same staff. Larger charity networks (Charita ČR) offer multi-branch deals.
 
-Existing non-solutions: phone, paper, and Cygnus DP as the system of record; no Czech AI ops automation was found in the 2026-08-13 absence check — only the providers themselves and IRESOFT.
+Existing non-solutions: phone, paper, and Cygnus DP as the system of record; no Czech AI ops automation was found in the 2026-08-13 absence check — only the providers themselves and IRESOFT [S2].
 
-Solved elsewhere: the US home-care AI-ops cluster above. Arbitrage scored 1 (US-only); Czech-language voice/intake automation and Cygnus DP integration are the localization work a domestic entrant would own.
+Solved elsewhere: the US home-care AI-ops cluster above [S1,S3]. Arbitrage scored 1 (US-only) [S3]; Czech-language voice/intake automation and Cygnus DP integration are the localization work a domestic entrant would own.

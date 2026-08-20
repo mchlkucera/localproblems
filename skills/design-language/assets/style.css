@@ -1,5 +1,24 @@
 /* ============================================================
-   localproblems.org · design system v1.5.2 · 2026-08-20
+   localproblems.org · design system v1.6 · 2026-08-20
+   v1.6: two devices modernised on the owner's mandate.
+   (a) Inline source markers (.ref[href^="#s"]) stop opting out of
+   the house link grammar: they inherit their context's ink, carry
+   the rule-hairline underline every link on the site carries, and
+   seat their cap on the prose cap line instead of floating on
+   vertical-align:super. Hover thickens the underline to the 2px
+   ink "this is the one" mark; :focus-visible adds the 2px ink
+   outline — replacing Chrome's orange default ring, which was an
+   eighth colour leaking onto the page.
+   (b) The score rundown (.rundown[popover]) is rebuilt as an
+   opened page of the report rather than a UI panel: 4px ink head
+   rule (the page begins), 32/48/64 head-side-foot page margins,
+   a two-line document header closed by the 3px double rule (major
+   boundary), the rubric criterion raised to --fs-body as the
+   stated finding, and the source records set as indented exhibits
+   whose hairline is the row rule. Inside an exhibit the source's
+   own summary is roman ink (what the source says) and the
+   register's note italic muted (what the register says about it).
+   Scrim raised to 55% ink so the record beneath reads as ground.
    v1.5.2: dead ol.receipts device pruned (its pages were retired).
    v1.5.1: one shared --w-rail vertical (docket + works); sort-direction
    text arrows on th[aria-sort]; who-builds as .buildfacts ruled ledger;
@@ -274,43 +293,120 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   .scorecard .dim, .scorecard .dim + .dim { border-left: 0; padding: 0; }
   .scorecard .dim--total { margin-left: 0; }
 }
-/* score rundown dialogs (v2): native popovers — a scorecard dim is a
-   button (popovertarget) opening an official notice that carries the
-   criterion AND the full evidence records. Declarative close cross
-   (popovertargetaction=hide), light-dismiss, still no scripting.  */
+/* ---- score rundown: a page of the report, opened (v2; rebuilt v1.6)
+   A scorecard dimension is a button (popovertarget); the popover it
+   opens is not a panel but a sheet — the report page that justifies
+   that one dimension. Declarative close cross (popovertargetaction=
+   hide), light-dismiss, still no scripting.
+
+   The sheet reproduces the document grammar of the site itself, and
+   spends all three rule weights on their one meaning each:
+     4px solid  — the page begins        (the sheet's head rule)
+     3px double — a major boundary       (the header block ends)
+     1px solid  — a row hairline         (one exhibit from the next)
+   It carries no side or foot border at all: a page laid on a shaded
+   desk is defined by its own light, so the scrim is the edge. That
+   is why the scrim went from 24% to 55% ink — at 24% the record
+   underneath still competed for the eye; at 55% its ink text sits
+   near 3:1 against the shaded ground, which reads as present-but-
+   demoted rather than as a page that has been switched off.
+
+   Margins are a printed page's, not a UI panel's: 32 head / 48 side
+   / 64 foot — head < side < foot, the classic ratio, every value a
+   step on the 4px scale (--sp-6 / --sp-7 / --sp-8, and --sp-8 means
+   "page bottom" already).
+
+   Reading order is the report's: subject → determination → finding →
+   exhibits. Nothing here is a card; the hierarchy is typographic. */
 .rundown[popover] {
-  border: 2px solid var(--ink);               /* button/stamp weight — it is an official notice */
+  border: 0;
+  border-top: 4px solid var(--ink);           /* the page begins */
   background: var(--paper); color: var(--ink);
-  padding: var(--sp-5) var(--sp-6);
-  width: min(32rem, calc(100vw - 2 * var(--sp-5)));
+  padding: var(--sp-6) var(--sp-7) var(--sp-8);
+  width: min(38rem, calc(100vw - 2 * var(--sp-5)));
   max-height: 80vh; overflow-y: auto;
   margin: auto;
-  font: 500 var(--fs-data)/1.6 var(--mono);
+  font: 400 var(--fs-data)/1.6 var(--mono);
 }
-.rundown::backdrop { background: color-mix(in srgb, var(--ink) 24%, transparent); }
+.rundown::backdrop { background: color-mix(in srgb, var(--ink) 55%, transparent); }
+/* the close mark sits quietly in the sheet's head margin, clear of the
+   header block — a small stamped mark, not an app-modal control */
 .rundown .x {
-  position: absolute; top: var(--sp-2); right: var(--sp-2);
+  position: absolute; top: var(--sp-3); right: var(--sp-4);
   border: 0; background: none; cursor: pointer; padding: var(--sp-1) var(--sp-2);
-  font: 500 1rem/1 var(--mono); color: var(--ink-muted);
+  font: 400 var(--fs-data)/1 var(--mono); color: var(--ink-muted);
 }
 .rundown .x:hover { color: var(--ink); }
+.rundown .x:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; color: var(--ink); }
+/* the document header block: subject line (the same muted label the
+   scorecard column carries — the dialog IS that column, opened), then
+   the determination line, figure left and verdict at the right margin,
+   closed by the double rule. */
 .rundown header {
-  display: flex; align-items: baseline; gap: var(--sp-3);
-  padding-bottom: var(--sp-3); margin-bottom: var(--sp-3);
-  border-bottom: 1px solid var(--rule);
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: var(--sp-3); row-gap: var(--sp-2);
+  padding-bottom: var(--sp-4); margin-bottom: var(--sp-5);
+  border-bottom: 3px double var(--ink);       /* major boundary */
 }
-.rundown header .label { font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); }
-.rundown header .num { font-weight: 600; }
+.rundown header .label {
+  flex: 0 0 100%;                             /* the subject gets its own line */
+  font-size: var(--fs-label); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted);
+}
+.rundown header .num { font-size: var(--fs-h2); font-weight: 600; }
+/* the shared wide tally is sized for the scorecard's --fs-body figure;
+   beside the sheet's --fs-h2 figure the same ticks need the extra
+   height to read as survey marks rather than as stray dashes */
+.rundown header .tally { height: 0.875rem; }
 .rundown header .verdict { margin-left: auto; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
-.rundown .crit { margin: 0; }
-/* verdict-bands legend in the total rundown: borderless, current band marked → (v1.4) */
-.rundown .bands { margin: var(--sp-3) 0 0; border-collapse: collapse; font-size: var(--fs-meta); color: var(--ink-muted); }
+/* the finding: the rubric criterion for the level actually reached.
+   Mono, because it is a recorded determination carrying its own
+   sub-scores — but at --fs-body it is the largest running text on the
+   sheet, which is what makes it the finding rather than a caption. */
+.rundown .crit { margin: 0 0 var(--sp-5); font-size: var(--fs-body); font-weight: 500; line-height: 1.5; }
+/* verdict-bands legend in the total rundown: borderless, current band
+   marked → (v1.4); indented and ruled like an exhibit (v1.6) so the
+   total sheet keeps the same finding-then-exhibits structure */
+.rundown .bands {
+  width: 100%; margin: 0; border-top: 1px solid var(--rule); border-collapse: collapse;
+  font-size: var(--fs-meta); color: var(--ink-muted);
+}
 .rundown .bands td { padding: var(--sp-1) var(--sp-4) 0 0; }
+.rundown .bands tr:first-child td { padding-top: var(--sp-4); }
+.rundown .bands td:first-child { padding-left: var(--sp-5); width: var(--sp-6); }
+.rundown .bands td:last-child { width: 100%; }
 .rundown .bands .is-band td { font-weight: 600; color: var(--ink); }
-.rundown .sig { border-top: 1px solid var(--rule); margin-top: var(--sp-4); padding-top: var(--sp-3); }
-.rundown .sig .meta { display: block; font-size: var(--fs-meta); color: var(--ink-muted); margin-bottom: var(--sp-1); }
-.rundown .sig .name { font: 600 0.9375rem/1.3 var(--serif); }
-.rundown .sig .note { margin: var(--sp-2) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); font-style: italic; max-width: none; }
+/* the exhibits: the source records the finding rests on. The hairline
+   runs the full page measure (it is the row rule), the content hangs
+   indented — exhibits are subordinate to the finding, and the indent
+   is what says so. */
+.rundown .sig {
+  border-top: 1px solid var(--rule);
+  margin-top: var(--sp-5);
+  padding: var(--sp-4) 0 0 var(--sp-5);
+}
+.rundown .sig .meta { display: block; font-size: var(--fs-meta); color: var(--ink-muted); margin-bottom: var(--sp-2); }
+.rundown .sig .name { font: 600 0.9375rem/1.35 var(--serif); }
+/* one exhibit, two voices: the register's note on why the source is on
+   file is an editorial gloss, so it is italic and muted — the default
+   here, because it is the note that is always present. */
+.rundown .sig .note {
+  margin: var(--sp-2) 0 0; max-width: none;
+  font: 400 var(--fs-data)/1.55 var(--serif); font-style: italic; color: var(--ink-muted);
+}
+/* …and where a signal is attached its own summary precedes that gloss.
+   Roman ink: it is what the source says, and testimony is not set in
+   the same voice as the clerk's remark about it. :has(+ .note) is the
+   only way to tell "the source's summary" from "the register's note"
+   without a class — one note means the register's, two mean both. */
+.rundown .sig .note:has(+ .note) { font-style: normal; color: var(--ink); }
+/* narrow sheets: below 30rem a 48px page margin starves the measure,
+   so head/side collapse to one step and the exhibit indent halves */
+@media (max-width: 30rem) {
+  .rundown[popover] { padding: var(--sp-5) var(--sp-5) var(--sp-6); }
+  .rundown .sig { padding-left: var(--sp-4); }
+  .rundown .bands td:first-child { padding-left: var(--sp-4); }
+}
 
 /* ---- signals breakdown ---------------------------------------- */
 table.signals { border-collapse: collapse; font: 400 var(--fs-data)/1.5 var(--mono); min-width: 60%; }
@@ -367,23 +463,54 @@ ul.buildfacts { list-style: none; margin: 0 0 var(--sp-4); padding: 0; max-width
 .correction { border-left: 4px solid var(--ink); padding-left: var(--sp-4); margin: 0 0 var(--sp-4); max-width: var(--w-prose); }
 .correction p:last-child { margin-bottom: 0; }
 
-/* ---- inline source references (v1.5) ---------------------------
-   Body prose links whose url is on the sources ledger carry a small
-   superscript S-number marker jumping to the ledger row:
-     <a class="ref" href="#s3" aria-label="Source S3">S3</a>
+/* ---- inline source references (v1.5; modernised v1.6) ----------
+   Body prose carries a small mono S-number marker jumping to the
+   ledger row it cites:
+     <a class="ref" href="#s3" aria-label="…" title="…">S3</a>
    Scoped by the in-page href so the comps ledger's .ref (a
-   cross-page evidence ref, href="/sources/…") keeps its existing
+   cross-page evidence ref, href="/signals/…") keeps its existing
    ledger form untouched — no override of .comps .ref needed.
+
+   The marker is a clerk's cross-reference stamped into a human's
+   sentence, so it is mono, at the --fs-label size every registry
+   label on the site uses, with that label's 0.08em tracking. It is
+   NOT a chip: --paper-2 means "row hover / thead / panel" — a
+   surface, not a mark — and at the density the corpus actually
+   reaches (30 markers a page, 5 in one paragraph) a field of filled
+   grounds reads as a badge rash, which is the one thing a citation
+   must never be.
+
+   Three things changed in v1.6, all of them subtractions:
+   · no colour of its own — it inherits its context, so a marker in
+     the muted dek is muted and a marker in body prose is ink;
+   · no text-decoration:none — the marker stops opting out of the
+     site's own link grammar (ink glyph, --rule hairline underline)
+     and therefore finally looks like the link it is;
+   · no vertical-align:super — a fixed 0.26em raise seats the 11px
+     marker's cap on the 16px prose cap line (cap 10.72px − marker
+     cap 7.81px ≈ 2.9px) instead of floating it at the ascender.
+   The marker size stays fixed at --fs-label at every prose size: a
+   registry number is stamped at one size whatever it is stamped on.
    2px left margin is optical, marker-internal (same license as the
-   stamp/chip micro-padding). */
+   stamp micro-padding). It is not smaller because CSS cannot tell a
+   marker that follows a word from one that follows another marker,
+   and the corpus writes `[S1,S2]` — a negative hug would collide
+   them. Separating a run is a markup concern, not a CSS one. */
 .ref[href^="#s"] {
-  font: 500 var(--fs-label)/1 var(--mono);
-  vertical-align: super;
-  color: var(--ink-muted);
-  text-decoration: none;
+  font: 600 var(--fs-label)/1 var(--mono);
+  letter-spacing: 0.08em;      /* the house registry-label tracking */
+  vertical-align: 0.26em;      /* cap-height seat, not a floating super */
   margin-left: 2px;            /* optical, marker-internal */
 }
-.ref[href^="#s"]:hover { color: var(--ink); }
+/* resting = --rule hairline (from the a rule); hover = the 2px ink
+   underline the site already spends on "this is the one" */
+.ref[href^="#s"]:hover { text-decoration: underline 2px var(--ink); }
+/* focus was the UA's orange auto ring — an eighth colour. 2px ink is
+   the button/stamp weight; the offset matches .dot--solved. */
+.ref[href^="#s"]:focus-visible {
+  outline: 2px solid var(--ink); outline-offset: 2px;
+  text-decoration: underline 2px var(--ink);
+}
 
 /* ---- where-it-works map (v1.4.1; .inset v1.5) ------------------
    Locality shapes as a data device: build-time inline SVG encoding

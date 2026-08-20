@@ -65,15 +65,15 @@ sources:
   date: '2026-08-13'
   signal: yc-ventura
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Czechia is dense with SMB velkoobchody and manufacturing suppliers running Pohoda, Helios and ABRA ERPs. Inbound demand arrives as unstructured e-mails, PDFs and Excel sheets, and staff re-type it into quotes and orders by hand — slow, error-prone work that caps how many RFQs a sales desk can turn around.
+Czechia is dense with SMB velkoobchody and manufacturing suppliers running Pohoda, Helios and ABRA ERPs [S1]. Inbound demand arrives as unstructured e-mails, PDFs and Excel sheets, and staff re-type it into quotes and orders by hand [S1] — slow, error-prone work that caps how many RFQs a sales desk can turn around.
 
-Why now: AI document extraction has made this wedge reliably automatable, and the model is proven next door — Mercura (YC W25, Bavaria) sells exactly this to construction-supply distributors and manufacturers in a market structurally adjacent to Czechia, with Comena (YC S25) and Seals AI (YC S24) replicating the wedge in the US. German-owned distributors operating in CZ already know the category, easing sales.
+Why now: AI document extraction has made this wedge reliably automatable, and the model is proven next door — Mercura (YC W25, Bavaria) sells exactly this to construction-supply distributors and manufacturers in a market structurally adjacent to Czechia, with Comena (YC S25) and Seals AI (YC S24) replicating the wedge in the US [S1]. German-owned distributors operating in CZ already know the category, easing sales [S1].
 
-Who pays: the distributors and suppliers themselves; quote-turnaround speed converts directly to win rate, making ROI legible to owners. Integration into the dominant Czech ERPs (Pohoda/Helios/ABRA) is the localization moat.
+Who pays: the distributors and suppliers themselves; quote-turnaround speed converts directly to win rate, making ROI legible to owners. Integration into the dominant Czech ERPs (Pohoda/Helios/ABRA) is the localization moat [S1].
 
-Existing non-solutions: manual entry, generic automation agencies (Appmine) building one-off scripts, and US/global tools (WizCommerce, turian) without Czech ERP integrations or language handling. The 2026-08-13 absence check found no Czech vertical product.
+Existing non-solutions: manual entry, generic automation agencies (Appmine) building one-off scripts, and US/global tools (WizCommerce, turian) without Czech ERP integrations or language handling [S2]. The 2026-08-13 absence check found no Czech vertical product [S2].
 
-Solved elsewhere: funded analogs in two markets (DE and US) with the German one directly CEE-adjacent — the strongest arbitrage configuration in the rubric. Note the demand score is 0: no complaints are documented in the signal, only structural logic; first validation step is confirming distributors feel the pain enough to buy.
+Solved elsewhere: funded analogs in two markets (DE and US) with the German one directly CEE-adjacent — the strongest arbitrage configuration in the rubric [S1,S3]. Note the demand score is 0: no complaints are documented in the signal, only structural logic; first validation step is confirming distributors feel the pain enough to buy.

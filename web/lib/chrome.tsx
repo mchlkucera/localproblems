@@ -1,6 +1,6 @@
 // Gazette chrome — reproduces the v1.3 hand-built structures verbatim.
 // Class vocabulary comes from shared.css only; nothing invented here.
-import { extractDate } from "./data";
+import { EVIDENCE_TYPES, extractDate } from "./data";
 import { isoWeek, pad2 } from "./format";
 
 /** Gazette numbering. Lives in the footer house line only (owner, 2026-08-19):
@@ -21,21 +21,22 @@ export function Masthead({ index = false, current }: { index?: boolean; current?
   );
 }
 
-export const SOURCE_NAV = [
-  ["/sources/funded", "Funded"],
-  ["/sources/regulation", "Regulation"],
-  ["/sources/tenders", "Tenders"],
-  ["/sources/demand", "Demand"],
-] as const;
+/** SIGNALS = the records; SOURCES = the feeds we ingest from (architecture-v3 §9).
+    Derived from EVIDENCE_TYPES so registering a type lights up its nav entry in
+    the same line that lights up its route — an empty ledger is a registered
+    fact, not a hidden one. */
+export const SIGNAL_NAV = EVIDENCE_TYPES.map(
+  (t) => [`/signals/${t}`, t[0].toUpperCase() + t.slice(1)] as const
+);
 
 /** The two surfaces, kept visibly distinct: the problem register, and the
-    source ledgers it is distilled from. About lives in the masthead, not here. */
+    signal ledgers it is distilled from. About lives in the masthead, not here. */
 export function SiteNav({ current }: { current?: string }) {
   return (
     <nav className="filters">
       <a href="/" aria-current={current === "/" ? "page" : undefined}>Problems</a>
-      {"  ·  Sources: "}
-      {SOURCE_NAV.map(([href, label], i) => (
+      {"  ·  Signals: "}
+      {SIGNAL_NAV.map(([href, label], i) => (
         <span key={href}>
           {i > 0 && " · "}
           <a href={href} aria-current={current === href ? "page" : undefined}>{label}</a>

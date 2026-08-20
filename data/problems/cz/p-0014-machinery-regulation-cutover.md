@@ -45,14 +45,14 @@ sources:
     is a core CZ export sector.'
   date: '2025-12-31'
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Machinery and engineering is a core Czech export sector, and on 20 January 2027 the Machinery Regulation (2023/1230) replaces the Machinery Directive with a hard cutover: no transition period, so any machine placed on the market from that date must conform to the new regime — including requirements on cybersecurity of safety-related control systems, AI-enabled safety functions and digital instructions. The "substantial modification" rule additionally converts integrators and retrofitters into manufacturers carrying full conformity duties, pulling a layer of Czech firms into CE obligations they have never held.
+Machinery and engineering is a core Czech export sector [S2], and on 20 January 2027 the Machinery Regulation (2023/1230) replaces the Machinery Directive with a hard cutover: no transition period, so any machine placed on the market from that date must conform to the new regime — including requirements on cybersecurity of safety-related control systems, AI-enabled safety functions and digital instructions [S1]. The "substantial modification" rule additionally converts integrators and retrofitters into manufacturers carrying full conformity duties [S2], pulling a layer of Czech firms into CE obligations they have never held.
 
-Why now: the cutover is under 18 months away at record creation, existing technical documentation and risk assessments prepared under Directive 2006/42/EC do not carry over automatically, and notified-body capacity is a known bottleneck cited in the signal.
+Why now: the cutover is under 18 months away at record creation [S1], existing technical documentation and risk assessments prepared under Directive 2006/42/EC do not carry over automatically, and notified-body capacity is a known bottleneck cited in the signal [S1].
 
-Who pays: machinery manufacturers, importers, and — the underserved group — integrators and retrofit shops that need conformity gap audits, updated risk assessments (including the new cybersecurity annexes), and digital user-instruction tooling. These are recurring engineering-services and documentation-software purchases, not one-off legal advice.
+Who pays: machinery manufacturers, importers, and — the underserved group — integrators and retrofit shops that need conformity gap audits, updated risk assessments (including the new cybersecurity annexes), and digital user-instruction tooling [S1]. These are recurring engineering-services and documentation-software purchases, not one-off legal advice.
 
 Existing non-solutions: TÜV/Pilz-style international certification houses serve the large manufacturers; the Czech SMB integrator tier relies on ad-hoc consultants. No CZ-specific gap check was run this cycle, so gap scores 0.
 

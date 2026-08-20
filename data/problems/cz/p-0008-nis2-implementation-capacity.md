@@ -102,29 +102,61 @@ sources:
     market, and towns pay consultants just to enter the queue.'
   date: '2026-06-19'
   signal: hlidac-38438158
+- type: subsidy
+  url: https://irop.gov.cz/cs/vyzvy-2021-2027/vyzvy/120vyzvairop
+  note: 'dotace-irop-120-kyberbezpecnost: IROP 21-27 call No. 120 ''Kybernetická bezpečnost
+    II'' — 2.44bn CZK (1.798bn EU + 643M state, ~€99.6M) at a 50% EU support rate for
+    municipalities, regions, hospitals and other providers of regulated services under
+    Act 264/2025 Sb.; applications 30.4.2026–17.12.2026.'
+  date: '2026-12-17'
+  signal: dotace-irop-120-kyberbezpecnost
+- type: subsidy
+  url: https://cybersecurity-centre.europa.eu/funding-opportunities/calls-proposals/cybersecurity-horizon-cl3-2026-02-cs-eccc_en
+  note: 'dotace-horizon-eccc-cyber-2026: HORIZON-CL3-2026-02-CS-ECCC — €56.2M across
+    secure software/hardware development (€20M), AI model security (€21.2M) and advanced
+    cryptography (€15M); consortia of companies and research organisations, CZ eligible,
+    deadline 15.9.2026. Builder-side money — it funds the tooling vendors, not the
+    obligated buyers.'
+  date: '2026-09-15'
+  signal: dotace-horizon-eccc-cyber-2026
+- type: round
+  url: https://www.vestbee.com/insights/articles/top-european-funding-rounds-closed-in-february-2026
+  note: 'round-secfix: Berlin''s Secfix raised €10.2M Series A (Feb 2026) for AI-driven
+    end-to-end security-compliance automation aimed at SMEs — the comps-ledger traction
+    figure, now on the ledger.'
+  date: '2026-02-28'
+  signal: round-secfix
+- type: round
+  url: https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-february-2026
+  note: 'round-copla: Vilnius'' Copla raised €6M Series A (Feb 2026) for real-time compliance-monitoring
+    infrastructure for fintechs and banks. Backs the funding figure only; the NIS2/DORA/ISO-27001
+    product descriptor comes from the comps ledger''s EU-Startups attribution, not
+    from this round record.'
+  date: '2026-02-28'
+  signal: round-copla
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Czech Act No. 264/2025 Coll. transposes NIS2 and pulls 6,000+ firms and municipalities into a regulated cybersecurity regime — energy, manufacturing, food, logistics and digital services among them. Registration with NÚKIB was due by roughly the end of 2025; security measures must be implemented within one year of registration, so the compliance wall lands on rolling deadlines from Q4 2026 through H1 2027. SME UNION documents that many affected SMEs are still unaware they are in scope at all.
+Czech Act No. 264/2025 Coll. transposes NIS2 and pulls 6,000+ firms and municipalities into a regulated cybersecurity regime — energy, manufacturing, food, logistics and digital services among them [S1,S2]. Registration with NÚKIB was due by roughly the end of 2025; security measures must be implemented within one year of registration, so the compliance wall lands on rolling deadlines from Q4 2026 through H1 2027 [S1]. SME UNION documents that many affected SMEs are still unaware they are in scope at all [S2].
 
-Why now: the one-year implementation clocks are running, the implementing decrees (e.g. Vyhláška 409/2025 for the higher-obligations regime) are in force, and fines reach 2% of global turnover or CZK 250m. For a typical in-scope SME or small municipality there is no internal security function to absorb the work.
+Why now: the one-year implementation clocks are running, the implementing decrees (e.g. Vyhláška 409/2025 for the higher-obligations regime) are in force, and fines reach 2% of global turnover or CZK 250m [S1]. For a typical in-scope SME or small municipality there is no internal security function to absorb the work.
 
-Who pays: the regulated entities themselves — SMEs and municipal IT budgets buying gap analyses, ISMS implementation, incident-reporting workflows and ongoing managed security (vCISO). The buyer is compelled, not persuaded: this is one of the cases where the compliance burden itself is the problem.
+Who pays: the regulated entities themselves — SMEs and municipal IT budgets buying gap analyses, ISMS implementation, incident-reporting workflows and ongoing managed security (vCISO) [S1]. The buyer is compelled, not persuaded: this is one of the cases where the compliance burden itself is the problem.
 
-Existing non-solutions: the supply side exists (security consultancies, MSPs) but is a fragmented services market with no evidence of productized, SME-priced NIS2 compliance at the scale of 6,000 obligated entities; no arbitrage/gap search was run this cycle, so those dimensions score 0 rather than being asserted.
+Existing non-solutions: the supply side exists (security consultancies, MSPs) but is a fragmented services market with no evidence of productized, SME-priced NIS2 compliance at the scale of 6,000 obligated entities [S2]; no arbitrage/gap search was run this cycle, so those dimensions score 0 rather than being asserted.
 
-Money is now receipted from the first successful TED run (2026-08-13): hospitals and municipalities placed at least five cyber-security awards between June and August 2026, from Motol's ~€6.1M detection-and-response buy to Prague's ~€5.3M SIEM — recurring spend, multiple buyers, values above the 5M CZK bar. The demand side also widened: zákon č. 266/2025 Sb. (CER transposition) puts a parallel physical-resilience compliance stack on an overlapping entity set, with designations landing July 2026 and plan obligations running through 2027.
+Money is now receipted from the first successful TED run (2026-08-13): hospitals and municipalities placed at least five cyber-security awards between June and August 2026, from Motol's ~€6.1M detection-and-response buy [S3] to Prague's ~€5.3M SIEM [S4] — recurring spend, multiple buyers, values above the 5M CZK bar. The demand side also widened: zákon č. 266/2025 Sb. (CER transposition) puts a parallel physical-resilience compliance stack on an overlapping entity set, with designations landing July 2026 and plan obligations running through 2027 [S5].
 
-Updated 2026-08-13: the buying wave now runs the full size spectrum. TED shows ~77 cyber records from ~45 public buyers (~€33M) between June and August 2026; below the threshold, care homes and small towns order productised "NIS 2 packages" from Lexnova Energy repeatedly, Týn nad Vltavou paid to find out which parts of it are even regulated, and an IROP call-120 subsidy channel funds municipal projects — with towns hiring consultants just to write the applications. Note for the gap dimension: Lexnova's repeat package sales and Institut kybernetické bezpečnosti's scope-analysis product are evidence that productised CZ offerings for the small-entity tier are emerging — the supply side is no longer only fragmented consulting.
+Updated 2026-08-13: the buying wave now runs the full size spectrum. TED shows ~77 cyber records from ~45 public buyers (~€33M) between June and August 2026 [S7]; below the threshold, care homes and small towns order productised "NIS 2 packages" from Lexnova Energy repeatedly, Týn nad Vltavou paid to find out which parts of it are even regulated [S7], and an IROP call-120 subsidy channel funds municipal projects — with towns hiring consultants just to write the applications [S8]. Note for the gap dimension: Lexnova's repeat package sales and Institut kybernetické bezpečnosti's scope-analysis product are evidence that productised CZ offerings for the small-entity tier are emerging [S7] — the supply side is no longer only fragmented consulting.
 
 A structured gap check on productized CZ NIS2 offerings at the 6,000-entity scale is still the missing dimension; with money, deadline and demand all receipted and first productised sellers named, gap evidence is what separates this from newsletter-lead territory.
 
 ## First moves
 
-1. Sell where buying is receipted: call social-care institutions and towns in the ~7k-inhabitant tier first — Domov pro seniory Napajedla bought a ~91k CZK "NIS 2 package" off the shelf (with a repeat Lexnova order in the Zlín region weeks later), Týn nad Vltavou paid just to learn its scope, Český Brod signed ~9.0M CZK for municipal cyber security, and 341 cyber contracts sit in registr smluv since June.
-2. Build the productised implementation-gap package first: fixed-price mapping of one entity's state against Act 264/2025 and Vyhláška 409/2025 obligations, keyed to the one-year post-registration clock (deadlines rolling Q4 2026 – H1 2027, fines up to 2% of global turnover / CZK 250m) — the packaged, off-the-shelf form is what the smallest obligated tier demonstrably buys.
-3. Ride the subsidy channel: [IROP 120 Kybernetická bezpečnost II](/sources/tenders#dotace-irop-120-kyberbezpecnost) — 2.44bn CZK (~€99.6M) for municipalities, regions and hospitals regulated under 264/2025, applications open **30.4.2026–17.12.2026**; towns already pay consultants just to write these applications (Boskovice paid enovation ~121k CZK), so application-writing plus implementation is a subsidy-funded entry offer. Builder-side, [HORIZON-CL3-2026-02-CS-ECCC](/sources/tenders#dotace-horizon-eccc-cyber-2026) (€56.2M, consortia, deadline **2026-09-15**) funds security tooling development itself.
-4. Close the record's own missing dimension before committing: run the structured gap check on productised CZ NIS2 offerings at the 6,000-entity scale — Lexnova Energy's repeat packages and Institut kybernetické bezpečnosti's scope-analysis product already show the supply side is no longer only fragmented consulting, so verify whether the small-entity tier is genuinely underserved or merely early.
-5. Same buyer, second product: zákon č. 266/2025 Sb. (CER) puts a parallel physical-resilience stack on an overlapping entity set — designations by 17 Jul 2026, resilience plans and incident reporting through 2026–2027, compliance cost estimated in tens of millions CZK per firm (PORTOS) — package it as the natural upsell to every NIS2 customer.
-6. Competition on file: **Lexnova Energy** (repeat productised NIS 2 packages), **Institut kybernetické bezpečnosti** (scope-analysis product), **enovation** (subsidy-application consulting) and the fragmented security-consultancy/MSP field; foreign comps Secfix (€10.2M Series A) and Copla (€6M Series A, NIS2/DORA) prove the compliance-automation model abroad, while the structured CZ gap check remains open.
+1. Sell where buying is receipted: call social-care institutions and towns in the ~7k-inhabitant tier first — Domov pro seniory Napajedla bought a ~91k CZK "NIS 2 package" off the shelf (with a repeat Lexnova order in the Zlín region weeks later), Týn nad Vltavou paid just to learn its scope [S7], Český Brod signed ~9.0M CZK for municipal cyber security, and 341 cyber contracts sit in registr smluv since June [S6].
+2. Build the productised implementation-gap package first: fixed-price mapping of one entity's state against Act 264/2025 and Vyhláška 409/2025 obligations, keyed to the one-year post-registration clock (deadlines rolling Q4 2026 – H1 2027, fines up to 2% of global turnover / CZK 250m) [S1] — the packaged, off-the-shelf form is what the smallest obligated tier demonstrably buys [S7].
+3. Ride the subsidy channel: [IROP 120 Kybernetická bezpečnost II](/sources/tenders#dotace-irop-120-kyberbezpecnost) — 2.44bn CZK (~€99.6M) for municipalities, regions and hospitals regulated under 264/2025, applications open **30.4.2026–17.12.2026** [S9]; towns already pay consultants just to write these applications (Boskovice paid enovation ~121k CZK) [S8], so application-writing plus implementation is a subsidy-funded entry offer. Builder-side, [HORIZON-CL3-2026-02-CS-ECCC](/sources/tenders#dotace-horizon-eccc-cyber-2026) (€56.2M, consortia, deadline **2026-09-15**) funds security tooling development itself [S10].
+4. Close the record's own missing dimension before committing: run the structured gap check on productised CZ NIS2 offerings at the 6,000-entity scale — Lexnova Energy's repeat packages and Institut kybernetické bezpečnosti's scope-analysis product already show the supply side is no longer only fragmented consulting [S7], so verify whether the small-entity tier is genuinely underserved or merely early.
+5. Same buyer, second product: zákon č. 266/2025 Sb. (CER) puts a parallel physical-resilience stack on an overlapping entity set — designations by 17 Jul 2026, resilience plans and incident reporting through 2026–2027, compliance cost estimated in tens of millions CZK per firm (PORTOS) [S5] — package it as the natural upsell to every NIS2 customer.
+6. Competition on file: **Lexnova Energy** (repeat productised NIS 2 packages), **Institut kybernetické bezpečnosti** (scope-analysis product), **enovation** (subsidy-application consulting) [S7,S8] and the fragmented security-consultancy/MSP field; foreign comps Secfix (€10.2M Series A) [S11] and Copla (€6M Series A, NIS2/DORA) [S12] prove the compliance-automation model abroad, while the structured CZ gap check remains open.

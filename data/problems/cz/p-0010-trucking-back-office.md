@@ -106,27 +106,37 @@ sources:
     ops tooling.'
   date: '2026-08-14'
   signal: cz-ringil
+- type: subsidy
+  url: https://apiagentura.gov.cz/cs/podporovane-aktivity-optak/technologie-pro-mas-optak/technologie-pro-mas-clld-vyzva-ii/
+  note: 'dotace-optak-technologie-mas-2: OP TAK Technologie pro MAS II — co-funds new machinery,
+    software and IT for SMEs in MAS territories (outside Prague and cities over 25,000 inhabitants)
+    at a 50% rate, grants up to 1.49M CZK on eligible costs of 250k–3M CZK; €22M (540M CZK)
+    allocated, applications 2026-09-01 to 2027-09-01. Buyer-side co-funding channel for the
+    per-truck software purchase the first moves propose, not a receipt for this record''s
+    money score.'
+  date: '2026-09-01'
+  signal: dotace-optak-technologie-mas-2
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Road freight is one of the largest Czech sectors: roughly 40,000 dopravci, mostly firms with fewer than ten trucks. Their back office — dispatcher phone calls, POD and document data entry, invoicing and factoring paperwork — runs on phones, e-mail and legacy TMS/dispečink software. With thin margins and a chronic driver shortage, admin overhead per truck is a first-order cost these firms cannot hire their way out of.
+Road freight is one of the largest Czech sectors: roughly 40,000 dopravci, mostly firms with fewer than ten trucks [S1,S2]. Their back office — dispatcher phone calls, POD and document data entry, invoicing and factoring paperwork — runs on phones, e-mail and legacy TMS/dispečink software [S2]. With thin margins and a chronic driver shortage [S2], admin overhead per truck is a first-order cost these firms cannot hire their way out of.
 
-Why now: AI phone agents and document ingestion have matured to the point where a US cluster is forming around exactly this buyer — Hemut (YC Spring 2025) as the AI back office for small/mid trucking firms, with Dayjob (S26, AI scheduling for short-haul) and Peer (S26, AI freight brokerage) replicating adjacent wedges within a year.
+Why now: AI phone agents and document ingestion have matured to the point where a US cluster is forming around exactly this buyer — Hemut (YC Spring 2025) as the AI back office for small/mid trucking firms, with Dayjob (S26, AI scheduling for short-haul) and Peer (S26, AI freight brokerage) replicating adjacent wedges within a year [S1].
 
 Who pays: the hauliers themselves, priced per truck or per dispatcher seat; savings show up as dispatcher capacity and faster invoicing/cash collection. Factoring providers serving small hauliers are a plausible distribution channel since cleaner documents speed their own operations.
 
-Existing non-solutions: legacy Czech dispatch/TMS products (records, not automation), load boards (Timocom, Trans.eu) that cover freight sourcing but not operations, and Ringil — the largest Czech logistics platform, verified 2026-08-14 as shipper-side transport procurement (Notino, Plzeňský Prazdroj digitize their inbound logistics on it); hauliers appear on it free as bidding counterparties, their own back office untouched. The 2026-08-13 absence check found no AI-native CZ ops player selling to hauliers, and the Ringil re-check did not change that.
+Existing non-solutions: legacy Czech dispatch/TMS products (records, not automation), load boards (Timocom, Trans.eu) that cover freight sourcing but not operations [S2], and Ringil — the largest Czech logistics platform, verified 2026-08-14 as shipper-side transport procurement (Notino, Plzeňský Prazdroj digitize their inbound logistics on it) [S6]; hauliers appear on it free as bidding counterparties, their own back office untouched [S6]. The 2026-08-13 absence check found no AI-native CZ ops player selling to hauliers [S2], and the Ringil re-check did not change that [S6].
 
-Solved elsewhere: the US YC trucking-ops cluster above, now joined by two independent freight-ops rounds closed a month apart in Europe — Cargofy (Kyiv, ~€9.5M, Polish lead investor) and Nexcade (London, ~€5.2M), both building AI agents for freight operations. Proof upgraded to 2: the model is funded in multiple markets including a CEE-origin player, though the European pair targets freight forwarders — an adjacent buyer to the small hauliers here, which keeps proof below 3. Czech and Central European language handling for AI phone agents remains both the barrier for foreign entrants and the moat for a local one, and the forwarder wedge (spedice) and the haulier wedge land in the same document/dispatch workflows.
+Solved elsewhere: the US YC trucking-ops cluster above [S1], now joined by two independent freight-ops rounds closed a month apart in Europe — Cargofy (Kyiv, ~€9.5M, Polish lead investor) [S4] and Nexcade (London, ~€5.2M) [S5], both building AI agents for freight operations. Proof upgraded to 2: the model is funded in multiple markets including a CEE-origin player, though the European pair targets freight forwarders — an adjacent buyer to the small hauliers here, which keeps proof below 3. Czech and Central European language handling for AI phone agents remains both the barrier for foreign entrants and the moat for a local one, and the forwarder wedge (spedice) and the haulier wedge land in the same document/dispatch workflows.
 
-Regulatory trigger added 2026-08-13: the eFTI Regulation makes electronic freight documents (eCMR and kin) the accepted standard EU-wide from 9 July 2027 — eleven months out. Every paper CMR workflow in those 40,000 dopravci acquires an expiry date, and the certified-platform ecosystem (eFTI platforms, trust services, TMS integrations) becomes the distribution rail an AI back-office product can ride into the segment.
+Regulatory trigger added 2026-08-13: the eFTI Regulation makes electronic freight documents (eCMR and kin) the accepted standard EU-wide from 9 July 2027 — eleven months out [S3]. Every paper CMR workflow in those 40,000 dopravci acquires an expiry date [S3], and the certified-platform ecosystem (eFTI platforms, trust services, TMS integrations) becomes the distribution rail an AI back-office product can ride into the segment.
 
 ## First moves
 
 1. Shadow five dispatchers at dopravci running fewer than ten trucks — recruited through the load boards they already use (Timocom, Trans.eu) — and log one week of phone calls, POD/CMR data entry and invoicing paperwork per truck to price the admin overhead the record documents.
-2. Build the document wedge first: Czech-language ingestion that turns a delivered load's POD/CMR into a ready-to-send invoice — dispatcher capacity and faster invoicing/cash collection are where the record says the savings surface — and make the pipeline eFTI-ready, because from 2027-07-09 authorities must accept electronic freight documents and every paper CMR workflow acquires an expiry date.
+2. Build the document wedge first: Czech-language ingestion that turns a delivered load's POD/CMR into a ready-to-send invoice — dispatcher capacity and faster invoicing/cash collection are where the record says the savings surface — and make the pipeline eFTI-ready, because from 2027-07-09 authorities must accept electronic freight documents and every paper CMR workflow acquires an expiry date [S3].
 3. Verify the moat assumption before betting on it: run an AI phone-agent prototype against recorded Czech dispatcher calls — the record names Czech and Central European language handling as both the barrier for foreign entrants and the moat for a local player.
 4. Pitch two factoring providers serving small hauliers as the distribution channel — the record notes cleaner documents speed their own operations, so a per-truck bundle gives them a reason to sell for you.
-5. Let public money halve the buyer's price: hauliers based in MAS territories — outside Prague and cities over 25,000 inhabitants — can co-fund software and IT purchases at 50% (grants up to 1.49M CZK) from [OP TAK Technologie pro MAS II](/sources/tenders#dotace-optak-technologie-mas-2), €22M allocated, applications open 2026-09-01 to 2027-09-01.
-6. Competition, per the record's own checks: **Hemut, Dayjob and Peer** (US cluster, same buyer, no CZ presence), **Cargofy and Nexcade** (funded, but selling to freight forwarders — an adjacent buyer), **Ringil** (CZ, shipper-side transport procurement — adjacent), and legacy TMS/dispečink plus the Timocom/Trans.eu load boards (records and load sourcing, not ops automation).
+5. Let public money halve the buyer's price: hauliers based in MAS territories — outside Prague and cities over 25,000 inhabitants — can co-fund software and IT purchases at 50% (grants up to 1.49M CZK) from [OP TAK Technologie pro MAS II](/sources/tenders#dotace-optak-technologie-mas-2), €22M allocated, applications open 2026-09-01 to 2027-09-01 [S7].
+6. Competition, per the record's own checks: **Hemut, Dayjob and Peer** (US cluster, same buyer, no CZ presence) [S1], **Cargofy and Nexcade** (funded, but selling to freight forwarders — an adjacent buyer) [S4,S5], **Ringil** (CZ, shipper-side transport procurement — adjacent) [S6], and legacy TMS/dispečink plus the Timocom/Trans.eu load boards (records and load sourcing, not ops automation) [S2].

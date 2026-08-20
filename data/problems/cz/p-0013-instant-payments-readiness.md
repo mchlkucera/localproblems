@@ -51,14 +51,14 @@ sources:
     Instant rails. Demand point: signal documents that smaller PSPs/EMIs lack in-house capability.'
   date: '2025-12-31'
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Czech banks, payment institutions and e-money institutions — CZK-centric by history — must be able to receive instant euro credit transfers by 9 January 2027 and to send them, plus run Verification of Payee (name-IBAN matching), by 9 July 2027 under the Instant Payments Regulation. The reg-instant-payments-cz signal documents that smaller PSPs and EMIs lack the in-house capability to build SEPA Instant rails, 24/7 sanctions screening and VoP matching.
+Czech banks, payment institutions and e-money institutions — CZK-centric by history — must be able to receive instant euro credit transfers by 9 January 2027 and to send them, plus run Verification of Payee (name-IBAN matching), by 9 July 2027 under the Instant Payments Regulation [S1]. The reg-instant-payments-cz signal documents that smaller PSPs and EMIs lack the in-house capability to build SEPA Instant rails, 24/7 sanctions screening and VoP matching [S1,S2].
 
-Why now: the receive deadline is under five months away at record creation; the send+VoP deadline is under eleven. Eurozone PSPs went live in 2025, so the technical patterns are proven, but each Czech institution still needs core-banking integration, screening rework for 24/7 operation, and liquidity management for continuous settlement — and the regulation caps instant-payment fees at standard transfer levels, so cost recovery must come from efficiency, not pricing.
+Why now: the receive deadline is under five months away at record creation; the send+VoP deadline is under eleven [S1]. Eurozone PSPs went live in 2025 [S2], so the technical patterns are proven, but each Czech institution still needs core-banking integration, screening rework for 24/7 operation, and liquidity management for continuous settlement — and the regulation caps instant-payment fees at standard transfer levels [S1], so cost recovery must come from efficiency, not pricing.
 
-Who pays: the obligated institutions — particularly the long tail of smaller banks, spořitelní družstva, payment institutions and EMIs that cannot staff this internally and will buy VoP APIs, instant-payment gateway integration and real-time screening as services.
+Who pays: the obligated institutions — particularly the long tail of smaller banks, spořitelní družstva, payment institutions and EMIs that cannot staff this internally and will buy VoP APIs, instant-payment gateway integration and real-time screening as services [S1,S2].
 
 Existing non-solutions: in-house projects at large banks; for the long tail, nothing verified — no CZ-specific gap check was run this cycle, and eurozone VoP/gateway vendors (the natural suppliers) may or may not be selling into CZ, so gap scores 0.
 

@@ -52,14 +52,14 @@ sources:
     wave that follows.
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-From 18 February 2027, every EV battery, light-means-of-transport battery and industrial battery over 2 kWh placed on the EU market must carry a digital battery passport accessible by QR code — carbon footprint, materials provenance, state-of-health data and more, maintained over the battery's life. The obligation falls on whoever places the battery on the market, which in Czechia means the automotive supply chain: Škoda Auto's EV programme, battery and module plants, industrial-battery importers, e-bike and scooter brands.
+From 18 February 2027, every EV battery, light-means-of-transport battery and industrial battery over 2 kWh placed on the EU market must carry a digital battery passport accessible by QR code [S1] — carbon footprint, materials provenance, state-of-health data and more, maintained over the battery's life. The obligation falls on whoever places the battery on the market, which in Czechia means the automotive supply chain: Škoda Auto's EV programme, battery and module plants, industrial-battery importers, e-bike and scooter brands [S1].
 
-Why now: the date is hard, there is no transition period, and the passport requires supply-chain data collection that mid-sized firms have not built — upstream suppliers must feed data they have never systematically produced. Eighteen months is short for a data pipeline that crosses company boundaries.
+Why now: the date is hard, there is no transition period [S1], and the passport requires supply-chain data collection that mid-sized firms have not built — upstream suppliers must feed data they have never systematically produced. Eighteen months is short for a data pipeline that crosses company boundaries.
 
-Who pays: battery-placing manufacturers and importers buying DPP SaaS, data-collection integration and identity/QR infrastructure. The strategic kicker: the battery passport is the EU's first mandatory digital product passport and the template for the ESPR passports that follow for other product groups — battery-passport plumbing is a beachhead, not a niche.
+Who pays: battery-placing manufacturers and importers buying DPP SaaS, data-collection integration and identity/QR infrastructure [S1]. The strategic kicker: the battery passport is the EU's first mandatory digital product passport and the template for the ESPR passports that follow for other product groups [S1,S2] — battery-passport plumbing is a beachhead, not a niche.
 
 Existing non-solutions: European DPP startups exist (Circulor, Minespider, Circularise operate in battery traceability) but sell enterprise-first; no CZ-localized offering or supply-chain onboarding service for the Czech tier-2/3 supplier base was verified this cycle (gap unchecked, scored 0).
 

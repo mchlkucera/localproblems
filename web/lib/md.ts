@@ -17,6 +17,12 @@ function inline(s: string): string {
   return html;
 }
 
+/** One inline fragment, unwrapped by any block element — for derived views of
+    body prose (the docket dek is the first sentence of the who-pays paragraph),
+    so a citation written in the source paragraph still renders where the
+    sentence is reused. */
+export const renderInline = (s: string): string => inline(s);
+
 const OL = /^\d+\.\s+/; // "N. " numbered step lines
 
 export function renderBody(body: string): string {
@@ -60,24 +66,99 @@ export function renderBody(body: string): string {
   return out.join("\n");
 }
 
-/** Inline source references (owner, 2026-08-19): where record prose links a
-    url that is also on the sources ledger, honesty gets a marker — a small
-    superscript S-number appended right after the linked text, jumping to the
-    ledger row (`id="sN"`). The external link itself stays untouched. Matching
-    ignores a trailing slash; duplicated source urls resolve to the first
-    S-number (first match wins). Post-pass over renderBody() output — anchors
-    there are exactly `<a href="…">…</a>`, so the rewrite is total. */
-export function annotateSourceRefs(html: string, sourceUrls: string[]): string {
-  // renderBody escapes & to &amp; before linking; source urls are raw.
+/** One record source as the body's citations resolve it. Composed by the
+    record page, which holds the signal lookup. */
+export type SourceRef = {
+  url: string;
+  /** Display name — the same string the sources ledger row links. */
+  label: string;
+  /** ISO date as recorded on the source entry. */
+  date: string;
+  /** The record's own note on why this source is on file. */
+  note?: string;
+  /** SEAM (reserved): a verbatim snippet from the source. A parallel ingest
+      program is adding `quote` to the signal schema; the day it lands, the
+      page passes it through here and every ref reveal starts quoting the
+      source instead of paraphrasing it. Nothing else has to change. */
+  quote?: string;
+};
+
+const clip = (s: string, n = 220) => (s.length <= n ? s : `${s.slice(0, n - 1).trimEnd()}…`);
+
+/** What a reader gets on hover / focus / long-press: which source this is.
+    Plain text for a native `title` — no JS, no new visual device. */
+function reveal(r: SourceRef, n: number): string {
+  const head = `S${n} · ${r.label} · ${r.date}`;
+  // A recorded verbatim quote outranks our own note — it is the source speaking.
+  const body = r.quote ? `“${r.quote}”` : (r.note ?? "");
+  return body ? `${head}\n${clip(body.replace(/\s+/g, " ").trim())}` : head;
+}
+
+function marker(r: SourceRef, n: number): string {
+  const a = escapeHtml(`Source S${n} — ${r.label}`);
+  return `<a class="ref" href="#s${n}" aria-label="${a}" title="${escapeHtml(reveal(r, n))}">S${n}</a>`;
+}
+
+/** Explicit citation markers written in the prose: `[S3]`, `[S3,S5]`,
+    `[S3, S5]`. Uppercase S; a `]` followed by `(` is a markdown link, never a
+    citation. An unresolvable number leaves the WHOLE marker as literal text —
+    the defect stays visible on the page and the build lint names it. */
+const MARKER = /\[S(\d+)((?:\s*,\s*S?\d+)*)\](?!\()/g;
+
+/** Run a rewrite over text only, never inside a tag. `split` with a capture
+    group keeps the delimiters, so the pass is total and order-preserving. */
+const mapText = (html: string, f: (t: string) => string) =>
+  html.split(/(<[^>]*>)/).map((seg) => (seg.startsWith("<") ? seg : f(seg))).join("");
+
+/** Inline source references (owner, 2026-08-19; explicit markers 2026-08-20).
+    Two triggers, one device — the small superscript S-number jumping to the
+    ledger row (`id="sN"`):
+
+    1. PRIMARY — an explicit `[Sn]` marker written in the body prose. It binds
+       a claim to a source by number, so it survives rewording, needs no url in
+       the sentence, and is checkable by `web/scripts/lint-citations.mjs`.
+    2. Secondary — prose that links a url which is itself on the sources ledger
+       gets its marker for free. Trailing slash ignored; a duplicated source url
+       resolves to its first S-number. The external link stays untouched: where
+       we source from outside, the record says so.
+
+    Both markers carry the source's name and date in `title` (and its name in
+    `aria-label`), so hovering, focusing or long-pressing one answers "which
+    source is this?" without leaving the sentence. Post-pass over renderBody()
+    output — body anchors there are exactly `<a href="…">…</a>`. */
+export function annotateSourceRefs(html: string, sources: SourceRef[]): string {
+  if (sources.length === 0) return html;
+
+  // --- trigger 2: url match (renderBody escapes & to &amp;; source urls are raw)
   const norm = (u: string) => u.replace(/&amp;/g, "&").replace(/\/+$/, "");
-  const refs = new Map<string, number>();
-  sourceUrls.forEach((u, i) => {
-    const k = norm(u);
-    if (u.startsWith("http") && !refs.has(k)) refs.set(k, i + 1);
+  const byUrl = new Map<string, number>();
+  sources.forEach((s, i) => {
+    const k = norm(s.url);
+    if (s.url.startsWith("http") && !byUrl.has(k)) byUrl.set(k, i + 1);
   });
-  if (refs.size === 0) return html;
-  return html.replace(/<a href="([^"]+)">.*?<\/a>/g, (a, href: string) => {
-    const n = refs.get(norm(href));
-    return n ? `${a}<a class="ref" href="#s${n}" aria-label="Source S${n}">S${n}</a>` : a;
-  });
+  let out = byUrl.size
+    ? html.replace(/<a href="([^"]+)">.*?<\/a>/g, (a, href: string) => {
+        const n = byUrl.get(norm(href));
+        return n ? `${a}${marker(sources[n - 1], n)}` : a;
+      })
+    : html;
+
+  // --- trigger 1: explicit [Sn] markers
+  out = mapText(out, (text) =>
+    text.replace(MARKER, (raw, first: string, more: string) => {
+      const nums = [first, ...more.split(",")]
+        .map((x) => x.trim().replace(/^S/, ""))
+        .filter(Boolean)
+        .map(Number);
+      if (nums.some((n) => !Number.isInteger(n) || n < 1 || n > sources.length)) return raw;
+      return nums.map((n) => marker(sources[n - 1], n)).join("");
+    }),
+  );
+
+  // A linked source that self-marks plus an explicit `[Sn]` for the same source
+  // would print the marker twice — collapse the repeat, keep the first.
+  return out.replace(
+    /(<a class="ref" href="#s(\d+)"[^>]*>S\2<\/a>)(?:\s*<a class="ref" href="#s\2"[^>]*>S\2<\/a>)+/g,
+    "$1",
+  );
 }

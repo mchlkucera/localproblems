@@ -68,15 +68,15 @@ sources:
     players named: gap stays 0 and status moves to watching per the de-rank rule.'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Czech water supply is run by hundreds of VaK companies and municipal svazky, most of them small, and they are digitizing metering the only way they know: one infrastructure tender at a time. In a single ten-week TED window, Kroměříž awarded ~€1.3M for network smart metering, the Ivančice association opened a ~€1.2M competition for the same, and Bruntál tendered a water data dispatch — three buyers independently procuring hardware, telemetry, data platform and integration as bespoke projects.
+Czech water supply is run by hundreds of VaK companies and municipal svazky, most of them small, and they are digitizing metering the only way they know: one infrastructure tender at a time. In a single ten-week TED window, Kroměříž awarded ~€1.3M for network smart metering [S2], the Ivančice association opened a ~€1.2M competition for the same [S1], and Bruntál tendered a water data dispatch [S2] — three buyers independently procuring hardware, telemetry, data platform and integration as bespoke projects [S2].
 
 Why now: water-loss pressure (droughts, price regulation via ERSO oversight) pushes utilities toward continuous metering, and EU funding streams (OPŽP) co-finance the projects — so the tenders keep coming. But a svazek with three employees cannot run a data platform; each project embeds years of operational dependence on whichever integrator won.
 
-Who pays: the utilities themselves via receipted public procurement — today an integrator/dev-shop market in which each small utility contracts supply, licences and operation separately (seven distinct buyers receipted by August 2026).
+Who pays: the utilities themselves via receipted public procurement — today an integrator/dev-shop market in which each small utility contracts supply, licences and operation separately (seven distinct buyers receipted by August 2026) [S3,S5].
 
 Existing non-solutions: hardware vendors' proprietary head-end systems, one-off SCADA/dispatch integrations, and the large VaKs' in-house solutions (Veolia-operated utilities) that don't serve the small-utility tail.
 
-Updated 2026-08-13 — de-rank applied: the gap check found the managed-service position occupied. Softlink sells its CEM Smart metering-data platform to Czech water utilities, VODÁRENSKÁ AKCIOVÁ SPOLEČNOST operates remote metering as a service for small utilities (it runs Židlochovicko's system), Popron Systems licenses SMG Water, and SUEZ and Techem hold framework and housing-tier positions. The original framing — "no shared platform, nobody operates a neutral managed service" — does not survive the check: the buying is fragmented, but the supply side is present and winning these contracts. Gap stays 0 with incumbents named; status moves to watching. What would re-rank this: evidence the incumbents fail the smallest svazky on price or capability, or a below-threshold tender count showing the long tail remains unserved.
+Updated 2026-08-13 — de-rank applied: the gap check found the managed-service position occupied. Softlink sells its CEM Smart metering-data platform to Czech water utilities, VODÁRENSKÁ AKCIOVÁ SPOLEČNOST operates remote metering as a service for small utilities (it runs Židlochovicko's system), Popron Systems licenses SMG Water, and SUEZ and Techem hold framework and housing-tier positions [S6]. The original framing — "no shared platform, nobody operates a neutral managed service" — does not survive the check: the buying is fragmented, but the supply side is present and winning these contracts [S4,S5,S6]. Gap stays 0 with incumbents named; status moves to watching. What would re-rank this: evidence the incumbents fail the smallest svazky on price or capability, or a below-threshold tender count showing the long tail remains unserved.

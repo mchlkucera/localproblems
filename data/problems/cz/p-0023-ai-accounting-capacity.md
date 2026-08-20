@@ -99,25 +99,41 @@ sources:
     — deadline sub-score 2, urgency 2→3.'
   date: '2026-04-01'
   signal: reg-cz-jmhz
+- type: subsidy
+  url: https://apiagentura.gov.cz/cs/radce/vsechny-vyzvy/
+  note: 'dotace-optak-inovacni-vouchery-4: OP TAK Inovační vouchery IV — rolling voucher
+    scheme paying SMEs for knowledge services bought from research organizations, open until
+    30 Apr 2027; allocation not shown on the API agentura call listing (a parallel IP-protection
+    voucher call III runs to 31 Dec 2026). Co-funding channel for the agent stack named in
+    First moves.'
+  date: '2027-04-30'
+  signal: dotace-optak-inovacni-vouchery-4
+- type: subsidy
+  url: https://apiagentura.gov.cz/cs/radce/vsechny-vyzvy/
+  note: 'dotace-optak-pzt-4: OP TAK Partnerství znalostního transferu IV — funds joint knowledge-transfer
+    projects placing research expertise into SMEs; deadline 21 Sep 2026, allocation not shown
+    on the listing. The deeper co-funding route named in First moves.'
+  date: '2026-09-21'
+  signal: dotace-optak-pzt-4
 created: '2026-08-13'
-updated: '2026-08-19'
+updated: '2026-08-20'
 ---
 
-Czechia has a structural accountant shortage, and the profession's operating environment is about to be rewritten: the new Accounting Act — submitted to parliament in December 2025 with planned effectiveness 1 January 2028 — introduces IFRS-aligned concepts and functional-currency accounting that force software rewrites across the dominant Pohoda/Money/ABRA/Helios ecosystem and retraining for every accounting unit in the country.
+Czechia has a structural accountant shortage, and the profession's operating environment is about to be rewritten. The new Accounting Act — submitted to parliament in December 2025 with planned effectiveness 1 January 2028 — introduces IFRS-aligned concepts and functional-currency accounting that force software rewrites across the dominant Pohoda/Money/ABRA/Helios ecosystem and retraining for every accounting unit in the country [S3].
 
-Why now: Germany just showed what the shortage-plus-transition moment produces — twice in one month. Skalar (€12M, Headline) is an AI-native accounting firm where AI agents do the bookkeeping, payroll and tax grunt work so one professional serves 100+ clients; Finto (Lightspeed + YC seed, July 2026) builds the agent layer for enterprise accounting from the same city. Add Billow AI Labs (YC S26, "replace the Big-4"), Bluebook (Stockholm) and Combinely (London), and the model is funded across the US, Nordics and UK with double validation in CEE-adjacent Munich — proof now scores 3. The constraint the model attacks (scarce licensed professionals) is the same in Czechia, and the 2028 re-platforming moment loosens client and accountant loyalty to incumbent workflows simultaneously. Meanwhile the forcing function is no longer hypothetical: since 1 April 2026 every Czech employer files the Jednotné měsíční hlášení monthly, a live recurring compliance clock that landed on exactly the payroll capacity that is already short.
+Why now: Germany just showed what the shortage-plus-transition moment produces — twice in one month. Skalar (€12M, Headline) is an AI-native accounting firm where AI agents do the bookkeeping, payroll and tax grunt work so one professional serves 100+ clients [S1]; Finto (Lightspeed + YC seed, July 2026) builds the agent layer for enterprise accounting from the same city [S4]. Add Billow AI Labs (YC S26, "replace the Big-4"), Bluebook (Stockholm) and Combinely (London), and the model is funded across the US, Nordics and UK with double validation in CEE-adjacent Munich — proof now scores 3 [S5]. The constraint the model attacks (scarce licensed professionals) is the same in Czechia, and the 2028 re-platforming moment loosens client and accountant loyalty to incumbent workflows simultaneously. Meanwhile the forcing function is no longer hypothetical: since 1 April 2026 every Czech employer files the Jednotné měsíční hlášení monthly [S6], a live recurring compliance clock that landed on exactly the payroll capacity that is already short.
 
-Who pays: SMBs (the long tail that struggles to find an accountant at all), then larger entities facing the act's transition. The AI-first firm captures service fees; a second wedge sells transition tooling to the existing 10,000+ accounting firms.
+Who pays: SMBs (the long tail that struggles to find an accountant at all), then larger entities facing the act's transition [S3]. The AI-first firm captures service fees; a second wedge sells transition tooling to the existing 10,000+ accounting firms.
 
-Existing non-solutions: Digitoo automates invoice capture, ÚOL sells online accounting service delivery, incumbent software vendors will ship compliance updates — but nobody operates the full-stack AI-first model, and the incumbents' 2028 rewrite burden is a distraction, not an advantage.
+Existing non-solutions: Digitoo automates invoice capture, ÚOL sells online accounting service delivery, incumbent software vendors will ship compliance updates [S2,S3] — but nobody operates the full-stack AI-first model [S2], and the incumbents' 2028 rewrite burden is a distraction, not an advantage.
 
-Honest limits: the 2028 Accounting Act date is planned, not enacted (its deadline alone would score 1 — the urgency point now rests on JMHZ, which is in force); demand is still asserted from the DE parallel, not receipted (0). A ČR-specific shortage receipt (Komora daňových poradců or ekonomické komory statements) and a JMHZ-pain receipt from the payroll-bureau side are the next evidence to pull.
+Honest limits: the 2028 Accounting Act date is planned, not enacted [S3] (its deadline alone would score 1 — the urgency point now rests on JMHZ, which is in force [S6]); demand is still asserted from the DE parallel, not receipted (0). A ČR-specific shortage receipt (Komora daňových poradců or ekonomické komory statements) and a JMHZ-pain receipt from the payroll-bureau side are the next evidence to pull.
 
 ## First moves
 
-1. Call five payroll bureaus and accounting firms about the Jednotné měsíční hlášení — every employer files it monthly since 2026-04-01 — and write down what the filing actually costs them: this is the JMHZ-pain receipt the record itself lists as its missing demand evidence.
-2. Build the JMHZ agent as the wedge: automate the monthly ČSSZ report end-to-end for one payroll bureau before touching bookkeeping — it is the record's only live, recurring compliance clock, and it replaced up to 25 separate forms.
-3. Recruit one licensed Czech accountant as the founding professional: the Skalar model the record imports runs one professional per 100+ clients instead of ~20, so the first hire is leverage, not headcount.
+1. Call five payroll bureaus and accounting firms about the Jednotné měsíční hlášení — every employer files it monthly since 2026-04-01 [S6] — and write down what the filing actually costs them: this is the JMHZ-pain receipt the record itself lists as its missing demand evidence.
+2. Build the JMHZ agent as the wedge: automate the monthly ČSSZ report end-to-end for one payroll bureau before touching bookkeeping — it is the record's only live, recurring compliance clock, and it replaced up to 25 separate forms [S6].
+3. Recruit one licensed Czech accountant as the founding professional: the Skalar model the record imports runs one professional per 100+ clients instead of ~20 [S1], so the first hire is leverage, not headcount.
 4. Verify the switch assumption the record flags as unreceipted: pre-sell AI-first bookkeeping to ten long-tail SMBs that cannot find an accountant, and pull the Komora daňových poradců or chamber shortage statement the record names as next evidence.
-5. Co-fund the Czech agent stack with [OP TAK Inovační vouchery IV](/sources/tenders#dotace-optak-inovacni-vouchery-4) — rolling until 2027-04-30, small vouchers paying SMEs for research-organization services (allocation not published on the ledger listing); the deeper build-out, [OP TAK Partnerství znalostního transferu IV](/sources/tenders#dotace-optak-pzt-4), closes 2026-09-21.
-6. Competition, per the record's gap check: **Digitoo** (invoice-capture automation — partial), **ÚOL** (online accounting service — partial) and the Pohoda/Money/ABRA/Helios vendors shipping compliance updates — nobody operates the full-stack AI-first model; track the new Accounting Act (planned effect 2028-01-01, not yet enacted — the date can slip).
+5. Co-fund the Czech agent stack with [OP TAK Inovační vouchery IV](/sources/tenders#dotace-optak-inovacni-vouchery-4) — rolling until 2027-04-30, small vouchers paying SMEs for research-organization services (allocation not published on the ledger listing) [S7]; the deeper build-out, [OP TAK Partnerství znalostního transferu IV](/sources/tenders#dotace-optak-pzt-4), closes 2026-09-21 [S8].
+6. Competition, per the record's gap check: **Digitoo** (invoice-capture automation — partial), **ÚOL** (online accounting service — partial) and the Pohoda/Money/ABRA/Helios vendors shipping compliance updates — nobody operates the full-stack AI-first model [S2]; track the new Accounting Act (planned effect 2028-01-01, not yet enacted — the date can slip) [S3].

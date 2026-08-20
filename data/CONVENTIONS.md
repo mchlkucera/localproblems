@@ -21,6 +21,18 @@ Evidence types and their feeds:
   (CZ-subreddit pain search, scripts/fetch_reddit.sh). Suggest/reddit items
   need PAIN LANGUAGE (complaints, failures, workarounds) — engagement metrics
   never justify a record, and no single feed may dominate the ledger.
+- `hiring` — employers committing their own budget to a dated, specific need:
+  mpsv (MPSV/ÚP `volna-mista` open data). REGISTERED, no records yet.
+  Recorded as AGGREGATES (by theme, or by theme × IČO), never one row per
+  vacancy: a single posting scores `money` 1 and is filtered out of
+  existence by materiality, so a per-posting feed would fetch thousands of
+  items a week and write approximately none of them while looking like it
+  ran correctly. AGGREGATE BEFORE THE MATERIALITY FILTER. An individual
+  posting is recorded only when the posting itself is the evidence — a
+  named employer staffing a specific compliance wave.
+  `hiring` is a separate type rather than part of `demand` for the same
+  reason stated above: it is high-volume, and folding it in would let one
+  feed dominate that ledger.
 - `bootstrapped` — RESERVED (indie-hacker/revenue signals); create only when a
   fetchable source exists
 
@@ -31,9 +43,13 @@ id          canonical <prefix>-<nativeid>; v1 ids grandfathered unchanged.
             URL) · arb-scan uses the ISO2 of the origin country (de-, dk-, pl-)
             · demand-scan uses the reporting body (nku-, ombud-, civic-,
             chamber-, uni-, ngo-, consult-) · suggest- (sha1-8 of the query)
-            · reddit- (post id)
+            · reddit- (post id) · mpsv- (the aggregate key, NOT a url or
+            content hash: mpsv-<YYYY-MM>-<theme> or
+            mpsv-<YYYY-MM>-<ico>-<theme>. Reposting is the whole problem —
+            the same vacancy reappears for months, so any id derived from
+            the posting itself defeats the dedup index)
 source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan |
-            demand-scan | suggest | reddit | feed
+            demand-scan | suggest | reddit | feed | mpsv
 url         primary source URL
 date        native ISO date of the signal
 title       short English display name, "Thing — what it is"
@@ -43,7 +59,44 @@ money_eur   number | null (best-effort EUR value) + money_note (how derived)
 summary     max 2 sentences, EN
 scores      objective, mechanical — see rubric below
 notes       optional free text: absence checks, transfer logic, quotes
+quote       optional — a VERBATIM snippet of the fetched payload (see below)
+http_status optional — integer; liveness of `url` at its last check
+fetched_at  optional — ISO timestamp of the payload this record came from
+extraction  optional — structured | llm-fallback | manual
 ```
+
+The last four are **receipts**: they let a record be checked mechanically instead of
+trusted. **Any optional field written here must be added to `SignalSchema`
+(`web/lib/data.ts`) in the same change** — the schema is a `z.strictObject` (top level and
+the nested `scores`), so an unknown key is a **build failure**, loudly, rather than a key
+silently dropped on its way to the site. Omit a receipt key entirely when you have no
+value for it: an empty `quote` is not a quote, it is the shape that looks present and says
+nothing, and the schema rejects it.
+
+`quote` — **a flat string, and its shape is a contract, not an internal choice.** The
+inline-source-citations program consumes it (see the reveal seam under Citations below)
+and will not block on us, so it has to be right the first time. The required shape is a
+verbatim snippet plus the source it came from, retrievable by signal id — and a flat
+string on the signal record satisfies all three with no added structure: the record's own
+`id` supplies retrievability, its `url` supplies attribution, and the snippet travels with
+both on one JSONL line. **No nested object, no quote array, no separate quote store.**
+Anything richer is structure the consumer did not ask for and cannot rely on; anything
+flatter loses the attribution. Multiple quotes per signal would be a schema change
+negotiated with them, never a unilateral one.
+
+Format law: ≤300 chars, **verbatim**, native language preserved, whitespace collapsed, no
+ellipsis inside a number. Capturable **only at ingest**, because `data/raw/` is gitignored
+and pruned at 28 days — by the time anyone wants to verify a claim, the source text is
+gone. For scripted feeds, ingest REFUSES to append a record whose `quote` is not a literal
+substring of the fetched payload after whitespace collapse; for agent harvests the payload
+is prose an agent read, so it degrades to a manifest warning. That asymmetry is stated
+rather than hidden.
+
+`extraction` — how the record was produced. `structured` = a parser (jq / regex / CSV /
+RSS) read declared fields. `llm-fallback` = the structured parse violated its contract and
+a model recovered records from the raw payload; these are counted in the run summary and
+marked on the ledger, because a recovered record is weaker evidence than a parsed one.
+`manual` = an agent harvest.
 
 Objective scores (0–3 integers, set at normalize time, region-blind):
 - `scale` — entities the underlying need touches: 0 one org · 1 niche segment ·
@@ -99,6 +152,43 @@ Body: 3–6 paragraphs — problem · why-now · who-pays · existing non-soluti
 foreign comparables. Corrections are appended after a `---` line, opening with
 `**CORRECTION (<date>...):**`.
 
+## Citations in the body (binding)
+
+Every factual claim in a record body names the source it came from. The
+marker is `[Sn]`, where `n` is the 1-based position of the entry in that
+record's `sources:` list — the same number the rendered Sources ledger prints
+as row `Sn`. Two sources behind one claim: `[S3,S5]`.
+
+```
+…communities lose up to half the value of shared electricity [S2].
+The portal launched in July 2024 [S3], and a year on trade press still
+reports complications [S4].
+```
+
+- The marker sits at the END of the sentence or clause it supports, BEFORE
+  the period. Uppercase `S`. `[S3](…)` is a markdown link, never a citation.
+- A marker asserts "this source backs this claim". NEVER write one the source
+  does not actually support — an invented citation is worse than none.
+- A claim with no source on file gets a real `sources[]` entry or stays
+  uncited. **APPEND new entries at the end of the list**: S-numbers are
+  positional, so inserting in the middle silently renumbers every marker
+  after it.
+- Prose that links a url already on the ledger gets its marker automatically
+  from the url match — no `[Sn]` needed after such a link.
+- An `[Sn]` that resolves to nothing renders as literal `[Sn]` text on the
+  page and `web/scripts/lint-citations.mjs` prints a `citations: WARN` line
+  naming record and marker at build time. **Warning only** — a citation
+  defect never blocks a deploy; bad data does.
+- Markers are annotation, not re-judgment: adding one never changes `score`,
+  `scores` or `status`. It does bump `updated`.
+
+The reveal: hovering, focusing or long-pressing a marker shows the source's
+display name, its date, and the record's note on it — a native `title`, no
+JavaScript, no new visual device. **Seam (reserved):** when the evidence layer
+records a verbatim `quote` on a signal, the reveal prints that quote in place
+of the note. Purely additive — the syntax, the ledger and the record files do
+not change; only the ingest schema and the composer in `web/lib/md.ts` do.
+
 Scoring: per SCORING.md — every point justified by a sources[] entry; a
 tier-3-grade signal alone never creates a problem.
 
@@ -109,3 +199,113 @@ marker "Demand point" also backs demand. When evidence justifies a different
 dimension, set an explicit `dims: [..]` list — a scored dimension without a
 resolvable source ref degrades the rendered scorecard. The freshness component
 of urgency always refs the newest source dated <90 days before the extract.
+
+`hiring`→demand, money — **NEVER proof.** A posting at a VC-funded startup is
+downstream of that company's round, so counting both would double-count one
+capital event. Hiring evidence is a named local employer committing their own
+budget to a dated need — the same evidential class as a tender, which is why it
+is not barred by the hierarchy law that keeps capital signals to confirmation
+only. Compliance detection from hiring is CORROBORATING evidence, never a
+discovery engine: a handful of postings can confirm a problem already evidenced
+by a tender and a regulation, and can never find one.
+
+## Gap-check sources
+
+A `type: gap-check` source may carry three optional sibling keys:
+
+```yaml
+sources:
+  - type: gap-check
+    url: https://www.ares.gov.cz/ekonomicke-subjekty?obor=35.14
+    note: "No CZ vendor offering settlement/billing for energy communities."
+    date: 2026-08-19
+    queries:
+      - "komunitní energetika zúčtování software"
+      - "energy community billing settlement CZ"
+    checked: [ares, google-cz, cz-saas-directories]
+    expires: 2026-11-17          # date + 90 days, computed once when written
+```
+
+`checked` vocabulary — the surfaces actually searched, so an absence claim
+states its own coverage instead of asserting a bare negative:
+
+| token | means |
+|---|---|
+| `ares` | ARES business register searched by NACE/obor |
+| `app-stores` | Apple/Google store search for a consumer app |
+| `cz-saas-directories` | CZ SaaS/vendor directories |
+| `google-cz` | Czech-language web search, `hl=cs` |
+| `startupjobs` | StartupJobs.cz / hiring signals for a CZ player |
+| `own-funded-ledger` | our own `data/signals/funded/` searched for a CZ entrant |
+
+**THE LAW — expiry is display-only.** An expired gap-check flags staleness on
+the rendered page and never changes `scores.gap`, never changes `score`, and
+never changes `status`. The de-rank rule in SPEC §4 remains the ONLY mechanism
+that moves `gap`, and **`SCORING.md` is untouched by any of this.** Decay
+compares against the register's own newest `updated`, never the wall clock — a
+commit must build identically on any day it is built.
+
+**A retrofit is not a de-rank.** Adding these keys to an existing gap-check is a
+metadata addition. If you find yourself researching incumbents while doing it,
+you have stopped retrofitting and started de-ranking: stop, leave the record
+alone, and hand it to the MATCH agent. The trap is that the intuitive fix IS the
+violation — a record scoring `gap: 0` ("CZ incumbent check not done") correctly
+has no gap-check source to extend, and "helpfully" creating one requires the
+research that moves `gap` upward. Freshly added `queries` would then *look* like
+justification for the higher score, so prose review cannot catch it. **Verify a
+retrofit by diffing `score` and `scores.gap` numerically, never by reading.**
+
+**DO NOT TOUCH `note:`. AT ALL.** Not to normalize it, not to reformat it, not
+to fix a typo or a plural. The three keys above are added as siblings and
+nothing else changes. There is no canonical `note:` prefix — a full census of
+all 22 gap-check entries across 20 records finds four families and five distinct
+literal strings (`Absence check` 9, `Absence checks` 1, `Gap check` 7, `Quick
+check` 3, `Incumbent re-check` 2), none authoritative, several containing
+escaped quotes. This is written as a **prohibition rather than a list of shapes
+to preserve**, deliberately: a prohibition still holds for the variant nobody
+has sampled yet, whereas "preserve prefix X" invites normalizing everything that
+is not X. Re-derive the census rather than trusting this paragraph:
+
+```
+grep -h -A6 'type: gap-check' data/problems/cz/*.md | grep -o 'note: .*' \
+  | awk '{print $1, $2}' | sort | uniq -c | sort -rn
+```
+
+## Adding a new evidence type
+
+Eight steps. **Three are enforced by the build rather than by memory** — which is
+the point: the checklist polices itself where it can.
+
+1. `data/CONVENTIONS.md` — add the type to the evidence-type list above, name
+   its feeds, and add its id-prefix rule to the record schema.
+2. `data/feeds.json` — add the feed(s) with `evidence_type: <new>`, an `access`
+   (ToS) verdict and a `contract`. **BUILD-ENFORCED:** every `source` value
+   present in `data/signals/**` must be claimed by a registry entry, or the
+   build fails and `/sources` would otherwise under-explain the corpus.
+3. `data/signals/<type>/` — nothing to do; created on first append.
+4. `web/lib/data.ts` — add the type to `EVIDENCE_TYPES`. This one line lights up
+   the route via `generateStaticParams`.
+5. `web/app/signals/[type]/page.tsx` — add the `TITLES` and `DESCRIPTIONS`
+   entries. **BUILD-ENFORCED:** both are `Record<EvidenceType, string>`, so
+   step 4 without step 5 is a TypeScript error.
+6. `web/lib/data.ts` — add the new `source` key(s) to `SignalSchema`'s `source`
+   enum. **BUILD-ENFORCED and loudly:** it is a `z.enum`, so an unknown value
+   fails validation immediately. Contrast the optional receipt fields above,
+   where forgetting the schema edit produces silence instead — same file, two
+   opposite failure modes.
+7. `SPEC.md` §3 layout, §5 route table, §5 nav line; and the design skill, which
+   is binding and states the ledger list explicitly.
+8. `data/feed_health.json` — nothing to do; the feed appears as `PENDING` on its
+   first health export, so a registered-but-silent type is visible from day one
+   rather than forgotten.
+
+**Steps 1–8 may all land before a single record exists, and `hiring` did exactly
+that.** A registered-but-empty type renders its ledger, appears in the nav and
+shows as `PENDING` on `/sources` — which is the honest state, not a defect: a
+feed that has never produced is then visible from day one instead of forgotten.
+
+**What must NOT run ahead of the rules is the fetcher.** For any source that
+carries personal data, the field allowlist and its checker ship BEFORE the first
+record can be written, never alongside it. A late fetcher costs nothing; a
+rushed one writing personal data into an append-only public log costs
+everything, because those ledgers are public and there is no quiet cleanup.

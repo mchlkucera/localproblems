@@ -13,16 +13,32 @@ export const CATEGORIES = [
   "retail-services", "b2b", "legal-compliance", "education", "environment", "other",
 ] as const;
 
-export const EVIDENCE_TYPES = ["funded", "regulation", "tenders", "demand"] as const;
+export const EVIDENCE_TYPES = ["funded", "regulation", "tenders", "demand", "hiring"] as const;
 export type EvidenceType = (typeof EVIDENCE_TYPES)[number];
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "ISO date required");
+/** A TIMESTAMP, not a date — a date cannot gate a 3h or 6h cadence (architecture-v3 §4.1). */
+const isoTimestamp = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}:\d{2})$/, "ISO timestamp required");
+
+/** How a signal was extracted from its payload (architecture-v3 §7.3). The value
+    IS the review flag — `llm-fallback` rows are marked on the ledger, never
+    silently trusted. An enum fails LOUDLY on an unknown value, by design. */
+export const EXTRACTION_METHODS = ["structured", "llm-fallback", "manual"] as const;
 
 // ---- evidence layer ------------------------------------------------------
 
-const SignalSchema = z.object({
+// z.strictObject, NOT z.object (architecture-v3 §3, AC-Z2). `z.object` SILENTLY
+// STRIPS unknown keys: a new JSONL field would land in the canonical ledgers, be
+// dropped at build time, never reach the site — and the "validation failure =
+// build failure = deploy blocked" law would never fire. Strict makes an unknown
+// key the loud failure that law already promises.
+// Measured before the flip: all 6,181 lines in data/signals/** carry only the
+// keys below (12 top-level, 4 under `scores`), so this is safe today.
+const SignalSchema = z.strictObject({
   id: z.string().regex(/^[a-z]{2,10}-[\w.-]+$/),
-  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit"]),
+  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv"]),
   url: z.string().url(),
   date: isoDate,
   title: z.string().min(1),
@@ -31,13 +47,25 @@ const SignalSchema = z.object({
   money_eur: z.number().nullable(),
   money_note: z.string(),
   summary: z.string().min(1),
-  scores: z.object({
+  // strictObject applies to the TOP LEVEL ONLY — the nested object must be made
+  // strict in the same edit or the trap simply moves one level down and a stray
+  // `scores.confidence` from a future scorer vanishes silently (§3, AC-Z2).
+  scores: z.strictObject({
     scale: z.number().int().min(0).max(3),
     money: z.number().int().min(0).max(3),
     urgency: z.number().int().min(0).max(3),
     recurrence: z.number().int().min(0).max(3),
   }),
   notes: z.string().optional(),
+  // ---- receipt fields (§7.2, §7.3). Optional; written by INGEST. -----------
+  // `quote` is a CONTRACT WITH AN EXTERNAL CONSUMER: a flat string on the
+  // signal, retrievable by signal id. Do not restructure it into an object,
+  // an array, or a nested receipt. min(1) because an empty quote is not a
+  // quote — it is the shape that looks present and says nothing; omit the key.
+  quote: z.string().min(1).optional(),
+  http_status: z.number().int().min(100).max(599).optional(),
+  fetched_at: isoTimestamp.optional(),
+  extraction: z.enum(EXTRACTION_METHODS).optional(),
 });
 export type Signal = z.infer<typeof SignalSchema> & { type: EvidenceType };
 
@@ -45,6 +73,18 @@ export type Signal = z.infer<typeof SignalSchema> & { type: EvidenceType };
 
 const STATUSES = ["candidate", "active", "watching", "stale", "claimed", "solved", "rejected"] as const;
 
+/** Where a gap-check actually looked (architecture-v3 §8.1). Vocabulary is
+    closed on purpose: an enum fails loudly on a typo, which is the whole reason
+    these keys get typed rather than left to looseObject. */
+export const GAP_CHECKED = [
+  "ares", "app-stores", "cz-saas-directories", "google-cz", "startupjobs", "own-funded-ledger",
+] as const;
+
+// NOTE the deliberate contrast with SignalSchema seven lines above: this one is
+// z.looseObject, so extra keys on problem `sources[]` already pass untouched.
+// That is why the gap-check fields below "already work" — but "already passes"
+// means "unvalidated": a typo'd `expiers` would sit in the frontmatter forever,
+// rendering nothing. Typed as optionals so the typo is a build failure (§8.1).
 const SourceSchema = z.looseObject({
   type: z.string().min(1),
   url: z.string().min(1),
@@ -52,6 +92,12 @@ const SourceSchema = z.looseObject({
   date: isoDate,
   signal: z.string().optional(),
   dims: z.array(z.enum(["proof", "money", "urgency", "demand", "gap"])).optional(),
+  queries: z.array(z.string().min(1)).optional(),
+  checked: z.array(z.enum(GAP_CHECKED)).optional(),
+  // date + 90 days, computed once when the gap-check source is written. Decay
+  // compares against extractDate(), NEVER the wall clock (§8.2) — display-only,
+  // it never moves `scores.gap` and never changes a total.
+  expires: isoDate.optional(),
 });
 export type ProblemSource = z.infer<typeof SourceSchema>;
 

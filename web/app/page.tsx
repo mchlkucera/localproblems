@@ -72,20 +72,20 @@ export default function Register() {
         {EVIDENCE_TYPES.map((t, i) => (
           <span key={t}>
             {i > 0 && " · "}
-            <a href={`/sources/${t}`}>{s.byType[t]} {t}</a>
+            <a href={`/signals/${t}`}>{s.byType[t]} {t}</a>
           </span>
         ))}
         {s.nextDeadline && (
           <>
             {" "}· next regulatory deadline{" "}
-            <a href={`/sources/regulation#${s.nextDeadline.id}`}><time>{s.nextDeadline.date}</time></a>
+            <a href={`/signals/regulation#${s.nextDeadline.id}`}><time>{s.nextDeadline.date}</time></a>
           </>
         )}
         <br />
         <FooterHouseLine />
         <br />
         <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
-        <a href="/sources/funded">source ledgers</a>
+        <a href="/signals/funded">signal ledgers</a> · <a href="/sources">feeds and health</a>
       </footer>
       <SortScript />
     </>
