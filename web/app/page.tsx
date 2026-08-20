@@ -1,5 +1,5 @@
 // The problem register — distilled from the source ledgers.
-import { extractDate, registerRows, stats, EVIDENCE_TYPES } from "../lib/data";
+import { extractDate, registerRows, signalHref, stats, EVIDENCE_TYPES } from "../lib/data";
 import { categoryLabel, localityLabel, pad2 } from "../lib/format";
 import { CategoryNav } from "../lib/category-nav";
 import { FooterHouseLine, Masthead, SiteNav, SortScript, Tally, CORRECTIONS_MAILTO } from "../lib/chrome";
@@ -78,7 +78,9 @@ export default function Register() {
         {s.nextDeadline && (
           <>
             {" "}· next regulatory deadline{" "}
-            <a href={`/signals/regulation#${s.nextDeadline.id}`}><time>{s.nextDeadline.date}</time></a>
+            {/* through signalHref: the regulation ledger is paged, and a
+                fragment only scrolls on the page that holds the row */}
+            <a href={signalHref(s.nextDeadline.id, "regulation")}><time>{s.nextDeadline.date}</time></a>
           </>
         )}
         <br />

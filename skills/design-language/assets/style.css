@@ -1,5 +1,22 @@
 /* ============================================================
-   localproblems.org · design system v1.7 · 2026-08-20
+   localproblems.org · design system v1.8 · 2026-08-20
+   v1.8: the narrow table. Below 56rem an .index row stops being
+   a squeezed table row and becomes the ruled ledger entry the
+   record pages already use — the serif name on its own line,
+   the clerk cells running on beneath it joined by the house
+   middot, the 1px hairline moved from the cell to the row. It
+   fixes a measured failure, not a preference: at 375px the
+   register truncated every problem title to four characters and
+   the seven-column signal ledger overlapped its own headers and
+   ellipsised every value to one or two glyphs. CSS only — the
+   markup is byte-identical at every width — and it introduces no
+   colour, size, weight, spacing value, breakpoint or glyph the
+   stylesheet did not already spend: 56rem is the width the scorecard,
+   the docket rail and the works grid already narrow at, and it is
+   independently where a Date cell stops fitting an ISO date. Scoped
+   `screen and` so the photocopy keeps the table. The landing
+   masthead joins the existing 30rem block, where its own name stops
+   fitting beside the About link.
    v1.7: gap-check coverage — the receipts behind an absence
    claim finally render. A gap-check source may record the
    surfaces it searched and the queries it ran; the rundown
@@ -634,6 +651,102 @@ ul.buildfacts { list-style: none; margin: 0 0 var(--sp-4); padding: 0; max-width
 .index col.c-val  { width: 8%; }
 .index col.c-rec  { width: 20%; }
 .index col.c-date { width: 12%; }
+
+/* ---- narrow tables: the row becomes a ledger entry (v1.8) --------
+   MEASURED FAILURE FIRST. At 375px the six-column register truncated
+   every problem title to four characters — twenty rows all reading
+   "Czec…" — and the seven-column signal ledger collapsed further
+   still: the header labels overlapped into "SOURCESECTORORIGVALUE"
+   and every data cell ellipsised to one or two glyphs (`R…`, `El`,
+   `reg-…`, and the dates rendered as `2…`). Both tables also pushed
+   the page into horizontal scroll. The table conveyed nothing at all;
+   this is not a polish item.
+
+   A horizontal scrollbar was the obvious fix and it is the wrong one
+   here. These are LEDGERS: the reader scans down a column of entries
+   looking for one, and a device that hides five of seven columns
+   off-screen makes the scan impossible while pretending the data is
+   present. The site already has the right answer in its own grammar —
+   .sources, .comps and .buildfacts are all ruled entries whose serif
+   name takes a line and whose clerk data runs on beneath it, joined
+   by the house middot. Below 56rem every .index row becomes exactly
+   that entry, so the narrow site speaks the language the record pages
+   already speak.
+
+   NOTHING NEW IS INTRODUCED: no colour, no size, no weight, no
+   spacing value off the scale, no glyph the site does not already
+   spend. The separator is the `·` of every run-on line here, emitted
+   as generated content the way th[aria-sort] emits its arrow. The row
+   hairline is the same 1px --rule the cells carried; it simply moves
+   from the cell to the row, because at this width the row IS the row.
+   It is CSS ONLY — the markup is byte-identical at every width, so no
+   page pays for the narrow layout and no second rendering exists to
+   drift.
+
+   THE BREAKPOINT IS MEASURED AND IT IS THE ONE THE SITE ALREADY HAS.
+   The threshold is the width at which a column can no longer print its
+   own content: the ledger's Date cell holds ten mono glyphs at
+   --fs-data (78px) plus the 24px cell gutter in a 12% column, so it
+   starts ellipsising ISO dates below ~898px; the register's five
+   non-title columns need ~452px beside a 46% title, i.e. ~885px.
+   Both land on 56rem — the breakpoint the scorecard, the docket rail
+   and the works grid already switch on. Verified at 720px, where the
+   table survives but the ledger reads `2029-1…`, `€3…`, `EDUCA…` and
+   wraps "CZ PROCUR…" onto two lines: still a table, no longer a
+   record. One narrow mode for the whole site, not two.
+
+   `screen and` is deliberate: A4 at 96dpi is ~794px, comfortably under
+   56rem, so an unscoped query would silently change what the site
+   prints. The photocopy keeps the table. */
+@media screen and (max-width: 56rem) {
+  .index, .index tbody, .index td { display: block; }
+  /* the header row goes with the columns it labelled — and with it the
+     sortable-column affordance, which is correct: sanctioned exception
+     3 is an enhancement over the build order, and the build order is
+     what the (DOM-resident) caption states either way */
+  .index thead, .index colgroup { display: none; }
+  .index tr {
+    display: flex; flex-wrap: wrap; align-items: baseline;
+    column-gap: 0.75ch;                       /* the house ledger gap */
+    padding: var(--sp-2) 0;
+    border-bottom: 1px solid var(--rule);     /* the row hairline, on the row */
+    overflow-wrap: anywhere;                  /* a 45-char signal id must fold, not overflow */
+  }
+  .index td { padding: 0; border: 0; }
+  /* the one serif cell takes the whole first line, and stops truncating:
+     a phone has no column to protect, so the name is stated in full */
+  .index .t-title {
+    order: -1; flex-basis: 100%;
+    max-width: none; width: auto;
+    white-space: normal; overflow: visible; text-overflow: clip;
+    margin-bottom: var(--sp-1);
+  }
+  .index:has(col.c-name) td { overflow: visible; text-overflow: clip; }
+  .index .t-id { white-space: normal; }
+  /* the clerk line: the cells run on, joined by the house middot. The
+     separator hangs off the END of the cell it follows, not the start
+     of the next one, so a line that wraps leaves "08/12 ·" closing the
+     line rather than an orphan "·" opening the next — the same reason
+     a printed list breaks after its separator. The serif name is
+     exempt: it owns a line and must not trail a dangling mark. */
+  .index td:not(:last-child, .t-title)::after { content: " ·"; }
+}
+
+/* ---- the landing masthead on a phone (v1.8) --------------------
+   Adjacent, and found by the same measurement. "localproblems.org"
+   at --fs-masthead sets 325px wide; with the About link's 36px it
+   needs a 361px line, so the pair stops fitting below a ~409px
+   viewport and the site's own name pushed About off the edge. It was
+   survivable only while the oversized table gave the page somewhere
+   to scroll sideways; now that the page fits, the masthead has to fit
+   too. One step down the existing type scale seats both on one line,
+   and flex-wrap is the safety valve below that — no new token, no new
+   size, no new breakpoint (30rem is the site's narrow-sheet width). */
+@media (max-width: 30rem) {
+  .index-head .brand { font-size: var(--fs-title); }
+  .masthead { flex-wrap: wrap; }
+  .masthead .issue { margin-left: auto; }
+}
 
 /* ---- footer ----------------------------------------------------- */
 footer { margin-top: var(--sp-8); border-top: 3px double var(--ink); padding-top: var(--sp-4); font: 400 var(--fs-meta)/1.7 var(--mono); color: var(--ink-muted); }

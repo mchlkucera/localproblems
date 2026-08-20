@@ -46,6 +46,42 @@ export function SiteNav({ current }: { current?: string }) {
   );
 }
 
+/** The ledger pager — a volume index, not a widget.
+ *
+ *  THE PAGES ARE REAL DOCUMENTS. The site is pure SSG (SPEC.md §5), so every
+ *  page number below is a pre-rendered file and this nav is plain links:
+ *  nothing to hydrate, nothing to slice client-side, identical with JS off and
+ *  on the photocopy. Client-side paging over a 7.6 MB payload would have moved
+ *  the problem rather than fixed it.
+ *
+ *  NO NEW DEVICE, AND NO ELISION. It is the house `.filters` line the category
+ *  and region navs already are — mono, `·` separated, zero-padded, the current
+ *  entry marked with `aria-current="page"` for its 2px ink underline — so it
+ *  costs the stylesheet nothing. Every page is listed rather than windowed
+ *  behind `…`: a 37-page ledger IS 37 pages, the strip states that, and any
+ *  page is one click from any other. A window would add a heuristic, two arrow
+ *  glyphs and a lie of omission to save four lines of mono text.
+ *
+ *  One pager, at the foot of the table — where a reader is when the page runs
+ *  out. The head of the ledger states the position in the crumb instead of
+ *  repeating the strip. */
+export function Pager({ base, page, pages }: { base: string; page: number; pages: number }) {
+  if (pages < 2) return null;   // a one-page ledger has nothing to page
+  return (
+    <nav className="filters" aria-label="Ledger pages">
+      {"Pages: "}
+      {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
+        <span key={n}>
+          {n > 1 && " · "}
+          <a href={n === 1 ? base : `${base}/${n}`} aria-current={n === page ? "page" : undefined}>
+            {pad2(n)}
+          </a>
+        </span>
+      ))}
+    </nav>
+  );
+}
+
 export function FooterHouseLine() {
   const { vol, no } = issueLine();
   return <>Data as recorded, no warranty. Sources with links. Extract no. {no}/{vol}, generated automatically.</>;

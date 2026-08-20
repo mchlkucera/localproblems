@@ -586,6 +586,72 @@ export function signalsByType(type: EvidenceType): Signal[] {
     .sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id));
 }
 
+// ---- ledger paging -------------------------------------------------------
+
+/** Rows per ledger page.
+ *
+ *  MEASURED, not guessed. At 9,273 signals the one-document ledgers emitted
+ *  7,755,218 bytes for /signals/funded and 5,653,351 for /signals/tenders —
+ *  1.4–2.0 kB per row, of which 65% is the RSC flight payload Next inlines
+ *  beside the markup. 100 rows puts every ledger document between 120 kB and
+ *  215 kB, which is the band the site's own record pages already occupy
+ *  (108–171 kB) and therefore the site's own evidence that the weight reads.
+ *
+ *  It is also the printed-ledger page: a broadsheet ledger column holds ~50
+ *  entries, two columns ~100. And it keeps every page id two digits today
+ *  (01…54), so the zero-padding house tic holds without widening.
+ *
+ *  THE PAGE SIZE IS NOT A DISPLAY DETAIL — it decides which document holds a
+ *  given row, and `signalHref` resolves in-body deep links against the SAME
+ *  index that lays the pages out (below). One constant, one index: a link and
+ *  the page it points at cannot disagree. */
+export const LEDGER_PAGE_SIZE = 100;
+
+/** id -> `/signals/<type>[/<page>]#<id>`, built once from the sorted ledgers.
+ *  Page 1 keeps the bare `/signals/<type>` URL — it is the canonical entry,
+ *  the target the retired `/sources/:type` 308 lands on, and giving it a
+ *  second `/1` spelling would publish the same document at two addresses. */
+let _rowHref: Map<string, string> | null = null;
+function rowHrefIndex(): Map<string, string> {
+  if (_rowHref) return _rowHref;
+  const m = new Map<string, string>();
+  for (const t of EVIDENCE_TYPES) {
+    signalsByType(t).forEach((s, i) => {
+      const page = Math.floor(i / LEDGER_PAGE_SIZE) + 1;
+      m.set(s.id, `/signals/${t}${page > 1 ? `/${page}` : ""}#${s.id}`);
+    });
+  }
+  _rowHref = m;
+  return m;
+}
+
+/** How many pages a ledger is. An empty ledger is one (empty) page — a pending
+    feed is a registered fact, so it keeps a document to be registered on. */
+export function ledgerPages(type: EvidenceType): number {
+  return Math.max(1, Math.ceil(signalsByType(type).length / LEDGER_PAGE_SIZE));
+}
+
+/** The rows of one ledger page, 1-based. */
+export function ledgerRows(type: EvidenceType, page: number): Signal[] {
+  return signalsByType(type).slice((page - 1) * LEDGER_PAGE_SIZE, page * LEDGER_PAGE_SIZE);
+}
+
+/** Where a signal's row actually lives, fragment included.
+ *
+ *  EVERY LINK INTO A LEDGER MUST GO THROUGH HERE. A fragment only scrolls if
+ *  the row is in the document the URL names, so once the ledgers are paged an
+ *  un-resolved `/signals/tenders#dotace-…` silently lands on page 1 and stops
+ *  pointing at anything. Record bodies, the comps ledger's evidence refs, the
+ *  record footer's provenance list and the register's next-deadline link all
+ *  resolve through this index.
+ *
+ *  An unknown id keeps the unpaged href rather than inventing a page: the
+ *  reader still reaches the right ledger, which is exactly what happened
+ *  before paging. */
+export function signalHref(id: string, fallbackType: EvidenceType | string): string {
+  return rowHrefIndex().get(id) ?? `/signals/${fallbackType}#${id}`;
+}
+
 export function stats() {
   const problems = getProblems().filter((p) => p.status !== "rejected");
   const signals = getSignals();

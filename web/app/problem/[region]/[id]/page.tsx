@@ -4,8 +4,8 @@
 // Every section anchors down into receipts; absence is stated, never hidden.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { extractDate, getProblems, getSignal, sourceExpired, type Problem, type ProblemSource } from "../../../../lib/data";
-import { annotateSourceRefs, renderBody, renderInline, type SourceRef } from "../../../../lib/md";
+import { extractDate, getProblems, getSignal, signalHref, sourceExpired, type Problem, type ProblemSource } from "../../../../lib/data";
+import { annotateSourceRefs, renderBody, renderInline, repageLedgerLinks, type SourceRef } from "../../../../lib/md";
 import { splitBody } from "../../../../lib/sections";
 import { categoryLabel, countryName, euro, gapSurface, localityLong, pad2 } from "../../../../lib/format";
 import { BANDS, DIMS, MAX, VERDICTS, bandWord, criterion, dimRefs, type Dim } from "../../../../lib/scorecard";
@@ -176,7 +176,14 @@ export default async function Record({ params }: Params) {
       quote: (sig as { quote?: string } | undefined)?.quote,
     };
   });
-  const body = (md: string) => annotateSourceRefs(renderBody(md), sourceRefs);
+  // repageLedgerLinks LAST: the body's hand-written ledger deep links
+  // (`/sources/tenders#dotace-…`, and the `/signals/…` spelling) name a row,
+  // and the paged ledgers moved most rows off page 1. Resolved at render time
+  // against the same index that lays the pages out, so the corpus keeps its
+  // stable human-written URL and no page number is ever baked into a markdown
+  // file to rot the next time the ledger grows.
+  const body = (md: string) =>
+    repageLedgerLinks(annotateSourceRefs(renderBody(md), sourceRefs), signalHref);
 
   // Nearest future deadline among the urgency receipts feeds the docket Window fact.
   const windowFact = refs.urgency
@@ -206,7 +213,7 @@ export default async function Record({ params }: Params) {
               renders through the same ref pass: a citation written once in the
               body still shows where the sentence is reused. */}
           {sections.dek && (
-            <p className="dek" dangerouslySetInnerHTML={{ __html: annotateSourceRefs(renderInline(sections.dek), sourceRefs) }} />
+            <p className="dek" dangerouslySetInnerHTML={{ __html: repageLedgerLinks(annotateSourceRefs(renderInline(sections.dek), sourceRefs), signalHref) }} />
           )}
           <dl className="facts facts--rail">
             <div><dt>Category</dt><dd><a href={`/category/${p.category}`}>{categoryLabel(p.category)}</a></dd></div>
@@ -366,7 +373,7 @@ export default async function Record({ params }: Params) {
                       <a className="name" href={c.url}>{c.name}</a>
                       <span>· {countryName(c.geo)} · since {c.since}</span>
                       <span className="leader"></span>
-                      {c.signal && <a className="ref" href={`/signals/${sig?.type ?? "funded"}#${c.signal}`}>{c.signal}</a>}
+                      {c.signal && <a className="ref" href={signalHref(c.signal, sig?.type ?? "funded")}>{c.signal}</a>}
                     </span>
                     <p className="note">{c.traction}</p>
                   </li>
@@ -426,7 +433,7 @@ export default async function Record({ params }: Params) {
             {" "}· source signals:{" "}
             {provenance.map((sid, i) => {
               const sig = getSignal(sid)!;
-              return <span key={sid}>{i > 0 && ", "}<a href={`/signals/${sig.type}#${sid}`}>{sid}</a></span>;
+              return <span key={sid}>{i > 0 && ", "}<a href={signalHref(sid, sig.type)}>{sid}</a></span>;
             })}
           </>
         )}{" "}

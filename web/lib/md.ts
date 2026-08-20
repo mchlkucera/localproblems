@@ -66,6 +66,38 @@ export function renderBody(body: string): string {
   return out.join("\n");
 }
 
+/** Record bodies deep-link into the evidence ledgers by row:
+ *  `[the OP TAK call](/sources/tenders#dotace-optak-technologie-mas-2)`.
+ *  Nine such links are live in the corpus, all written in the retired
+ *  `/sources/:type` spelling that next.config.ts 308s onto `/signals/:type`.
+ *
+ *  A FRAGMENT ONLY SCROLLS ON THE DOCUMENT THAT HOLDS THE ROW, so paging the
+ *  ledgers would have quietly demoted every one of these to "lands on page 1,
+ *  points at nothing" — a break no build gate can see, because the link still
+ *  returns 200. This pass rewrites each href to the page the row actually sits
+ *  on, resolved through `signalHref`, i.e. the same index that decided the
+ *  page boundaries.
+ *
+ *  DELIBERATELY A RENDER-TIME RESOLUTION, NOT A DATA EDIT. Baking `/3` into a
+ *  markdown file would be correct for exactly one build: the ledgers are
+ *  date-descending and grow at the top, so a row's page number moves every
+ *  time the pipeline appends. The corpus keeps the stable human-written URL;
+ *  the build resolves it.
+ *
+ *  `resolve` is passed in rather than imported so this module stays a pure
+ *  string transform, exactly as `annotateSourceRefs` takes its sources. The
+ *  record page hands it `signalHref`, whose miss case returns the unpaged
+ *  `/signals/<type>#<id>` — the old behaviour, never an invented page. */
+export function repageLedgerLinks(
+  html: string,
+  resolve: (id: string, fallbackType: string) => string,
+): string {
+  return html.replace(
+    /href="\/(?:signals|sources)\/([a-z]+)#([^"]+)"/g,
+    (_raw, type: string, id: string) => `href="${resolve(id, type)}"`,
+  );
+}
+
 /** One record source as the body's citations resolve it. Composed by the
     record page, which holds the signal lookup. */
 export type SourceRef = {
