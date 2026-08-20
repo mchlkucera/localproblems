@@ -193,7 +193,7 @@ Mar 2026) — the one demand channel institutional sources can't see: live consu
   `.rss` serves with a descriptive User-Agent, rate limit ~1 req then 429 (curl
   `--retry --retry-delay 35` honors it). Source key `reddit`, id `reddit-<post id>`
   (post id from the entry link).
-- **Lessons carried from demand-signals' real runs** (encoded in TASK.md step 2):
+- **Lessons carried from demand-signals' real runs** (encoded in pipeline/PROCESS.md step 2):
   *engagement ≠ pain* — a Show HN launch once scored pain 100 and a news cycle
   clustered as a fake opportunity; record pain language only, never upvotes.
   *Source imbalance kills analysis* — one loud feed (HN 332 vs Reddit 3) made every

@@ -28,7 +28,7 @@ Adding Brno-only, PL, CEE, or EU later means running another match agent, zero m
 ## 2. The loop
 
 One weekly scheduled Claude agent run (Mon 06:00). The whole system must be launchable
-by Claude end to end from TASK.md alone:
+by Claude end to end from pipeline/PROCESS.md alone:
 
 ```
 fetch → normalize (objective, region-blind) → match (per region) → score → build site → newsletter draft → commit
@@ -217,7 +217,7 @@ filler. **Draft only — a human reviews and sends. Nothing is ever auto-sent.**
 3. **Scaffold `web/`** — data layer + the routes in §5, structural fidelity checked
    against the current hand-built `site/` pages; then delete `site/` and
    `scripts/build_sources.py`. Create the Vercel project rooted at `web/`.
-4. **Rewrite `TASK.md`** to the v2 step order (§2); update the scheduled task.
+4. **Rewrite `pipeline/PROCESS.md`** to the v2 step order (§2); update the scheduled task.
 5. **Rewrite `CONVENTIONS.md`** (evidence types, record schema, objective rubric,
    reserved type) and `README.md` (short: vision → loop → layout → pointer here).
 6. **Lean the repo:** docs/01–05 + the superpowers spec → `docs/archive/`; delete
@@ -229,7 +229,7 @@ Ops notes that survive: TED API works locally only (cloud egress 403s); Hlídač
 
 ## 9. Definition of done (v2 acceptance)
 
-1. **Launchable by Claude, end to end.** A fresh Claude session given only TASK.md runs
+1. **Launchable by Claude, end to end.** A fresh Claude session given only pipeline/PROCESS.md runs
    fetch → normalize → match → score → build → newsletter → commit with no questions and
    no interactive input; failures land in the run manifest, never fatal.
 2. **Normalize is objective:** re-run against the existing `data/sources/2026-08-13/`
@@ -272,6 +272,6 @@ Ops notes that survive: TED API works locally only (cloud egress 403s); Hlídač
 | `SPEC.md` | **the how — authoritative (this file)** |
 | `SCORING.md` | the problem-scoring rubric — binding |
 | `data/CONVENTIONS.md` | vocab: categories, id rules, schemas — binding |
-| `TASK.md` | the weekly agent prompt (operational form of §2) |
+| `pipeline/PROCESS.md` | the weekly agent prompt (operational form of §2) |
 | `skills/design-language/` | the design system — binding |
 | `docs/archive/` | superseded research & drafts — read-only history |
