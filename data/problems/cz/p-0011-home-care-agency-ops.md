@@ -77,8 +77,11 @@ Hundreds of Czech agentury domácí péče and pečovatelské služby — from V
 
 Why now: the nurse shortage makes capacity the binding constraint, aging demographics grow demand, and AI-native operations layers for exactly this agency profile are being funded repeatedly in the US — Sage Care (YC S24) and Cova (YC S26) within two years of each other [S1,S3].
 
-Who pays: the agencies. The pitch is capacity, not cost: an agency that automates intake and coordination can take on more reimbursed care with the same staff. Larger charity networks (Charita ČR) offer multi-branch deals.
+Who pays: the agencies. The pitch is capacity, not cost: an agency that automates intake and coordination can take on more reimbursed care with the same staff.
 
 Existing non-solutions: phone, paper, and Cygnus DP as the system of record; no Czech AI ops automation was found in the 2026-08-13 absence check — only the providers themselves and IRESOFT [S2].
 
 Solved elsewhere: the US home-care AI-ops cluster above [S1,S3]. Arbitrage scored 1 (US-only) [S3]; Czech-language voice/intake automation and Cygnus DP integration are the localization work a domestic entrant would own.
+
+---
+**CORRECTION (2026-08-20, evidence audit):** Removed the sentence "Larger charity networks (Charita ČR) offer multi-branch deals." `Charita` returns no hits anywhere in the signal corpus; `yc-sagecare` supports only the generic phrase "charity providers", which the lead paragraph already carries. The named organisation and the multi-branch channel claim were both unbacked.

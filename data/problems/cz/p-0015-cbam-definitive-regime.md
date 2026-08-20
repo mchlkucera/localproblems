@@ -57,10 +57,13 @@ updated: '2026-08-20'
 
 Czech importers of iron and steel, aluminium, cement, fertilisers, hydrogen and electricity above 50 tonnes per year are in CBAM's definitive regime as of 1 January 2026: financial liability for embedded emissions is accruing on this year's imports even though certificates only go on sale in February 2027 and the first declaration (covering 2026) is due 30 September 2027 [S1]. For Czech metal fabrication, machinery and construction firms importing steel and aluminium inputs, this is an unpriced, unhedged cost building up on the balance sheet — the signal frames it as a CFO-level cash-planning problem [S1,S2].
 
-Why now: the de minimis in the 2025 Omnibus removed ~90% of importers but kept ~99% of emissions in scope [S2], concentrating a real financial obligation on the mid-sized-and-up importers who remain. They need authorised declarant status before February 2027 to buy certificates at all [S1], embedded-emissions data from non-EU suppliers who are often unable or unwilling to provide it, and a view of the liability accruing at EU ETS prices [S2].
+Why now: the de minimis in the 2025 Omnibus removed ~90% of importers but kept ~99% of emissions in scope [S2], concentrating a real financial obligation on the mid-sized-and-up importers who remain. They need authorised declarant status before February 2027 to buy certificates at all [S1], embedded-emissions data from non-EU suppliers, and a view of the liability accruing at EU ETS prices [S2].
 
 Who pays: the importing firms — declarant registration support, supplier emissions data collection, ERP plug-ins for embedded-emissions accounting, and hedging advisory for the certificate cost [S1]. The buyer is the CFO, and the trigger dates are fixed.
 
-Existing non-solutions: Big Four and customs consultancies serve the largest importers; the transitional-period reporting many firms did in 2024-25 does not prepare them for the financial mechanics of the definitive regime. No CZ-specific gap check was run this cycle (gap 0).
+Existing non-solutions: no CZ-specific gap check was run this cycle (gap 0).
 
 Recommended follow-up: quantify the Czech population of above-threshold importers (customs data) and check whether CZ customs-software vendors are building CBAM modules.
+
+---
+**CORRECTION (2026-08-20, evidence audit):** Removed three unbacked assertions. From "Why now", the supplier-behaviour clause "who are often unable or unwilling to provide it" — `unable or unwilling` returns zero hits corpus-wide; `reg-cbam-definitive` lists supplier emissions data collection as a market and says nothing about supplier conduct. From "Existing non-solutions", the whole sentence claiming that Big Four and customs consultancies serve the largest importers and that the transitional-period reporting firms did does not prepare them for the financial mechanics of the definitive regime — no corpus receipt names a Big Four or customs consultancy serving CZ importers, and nothing documents what Czech firms did during the transitional period. The paragraph now states only what the record can back: no CZ gap check was run, so gap scores 0.

@@ -56,8 +56,11 @@ Czech companies trading in cattle, cocoa, coffee, palm oil, rubber, soy and wood
 
 Why now: the December 2025 amendment was the second postponement, and the simplifications that came with it (only the first placer on the EU market files the DDS; simplified one-off declarations for micro/small primary operators) settle the final shape of the obligation [S2] — the compliance date is now firm and under 17 months away at record creation. The history of postponements under industry pushback is itself evidence that obligated firms find the requirements hard to meet [S2].
 
-Who pays: importing and processing firms in the wood/furniture, coffee, food and rubber value chains [S1] — a large sector in Czechia — buying due-diligence-as-a-service, geolocation plot verification, supplier questionnaire automation and customs-integrated filing [S1].
+Who pays: importing and processing firms in the wood/furniture, coffee, food and rubber value chains [S1], buying due-diligence-as-a-service, geolocation plot verification, supplier questionnaire automation and customs-integrated filing [S1].
 
 Existing non-solutions: nothing CZ-specific was searched this cycle (gap scored 0 accordingly); EU-wide EUDR SaaS exists but mid-sized Czech importers are unlikely targets of those vendors' direct sales, leaving a localization and service gap plausible but unverified.
 
-Recommended follow-up: a gap check on CZ-language EUDR tooling and whether celní deklaranti / customs software vendors (e.g. Grit, Aimtec ecosystem) are bundling DDS filing.
+Recommended follow-up: a gap check on CZ-language EUDR tooling and whether celní deklaranti / customs software vendors are bundling DDS filing.
+
+---
+**CORRECTION (2026-08-20, evidence audit):** Removed two unbacked assertions. The scale claim "— a large sector in Czechia —" had no count, turnover or firm population behind it anywhere in the corpus; `reg-eudr-deforestation` names the CZ sectors but makes no scale claim. The named vendors "(e.g. Grit, Aimtec ecosystem)" in the follow-up proposal return no hits anywhere in the signal corpus — two Czech companies asserted as customs-software vendors with nothing behind them. The follow-up still proposes the check, without pre-naming who will be found.

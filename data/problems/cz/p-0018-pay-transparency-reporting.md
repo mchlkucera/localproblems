@@ -2,8 +2,7 @@
 id: p-0018
 region: cz
 title: Every Czech employer must rebuild hiring and pay practice for the Pay Transparency
-  Directive from Jan 2027, and employers with 150+ staff owe pay-gap reports from 2028 — with
-  no local tooling
+  Directive from Jan 2027, and employers with 150+ staff owe pay-gap reports from 2028
 category: legal-compliance
 geo: CZ-national
 score: 4
@@ -55,6 +54,24 @@ sources:
     across Europe; PayAnalytics (IS) and Syndio (US) prove the pay-equity analytics category.
     Named analogs only — no CZ gap check run this cycle, so arbitrage scored 1 and gap 0.
   date: '2026-08-13'
+- type: news
+  url: https://www.ycombinator.com/companies/hammr
+  note: 'yc-hammr: the CZ absence check inside this signal names the installed Czech payroll
+    base — "generic legacy payroll (Vema, Pamica)". Appended by the 2026-08-20 evidence audit
+    as the receipt that Vema exists as a Czech payroll system; it says nothing about what Vema
+    analyzes. Existence receipt only, backs no score dimension.'
+  date: '2026-08-13'
+  signal: yc-hammr
+  dims: []
+- type: news
+  url: https://ted.europa.eu/en/notice/-/detail/474940-2026
+  note: 'ted-474940-2026: Ministry of Foreign Affairs award for "OKbase HR system support"
+    (Jul 2026). Appended by the 2026-08-20 evidence audit as the receipt that OKbase exists
+    as a Czech HR system in production use; it says nothing about pay-equity analysis. Existence
+    receipt only, backs no score dimension.'
+  date: '2026-07-09'
+  signal: ted-474940-2026
+  dims: []
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -65,6 +82,9 @@ Why now: the iuslaboris analysis notes the Czech draft goes beyond the directive
 
 Who pays: initially the 150+-employee reporting tier (thousands of Czech employers, HR departments with no pay-equity analytics), then effectively every employer adjusting hiring practice [S1]. Buyers split between HRIS/payroll vendors needing modules, and standalone audit/analytics tools plus consulting.
 
-Existing non-solutions: Czech payroll systems (Vema, OKbase and kin) record pay but do not analyze equal-value job categories or gaps; big-four consultancies will serve enterprise; the mid-market has nothing local. Foreign analogs — Figures (FR), PayAnalytics (IS), Syndio (US) — sell exactly this elsewhere in Europe [S2].
+Existing non-solutions: Vema and OKbase are on file as Czech payroll and HR systems in production use [S3,S4]; what they do or do not analyze was never checked, and no CZ gap check was run this cycle, so gap scores 0 [S2]. Foreign analogs — Figures (FR), PayAnalytics (IS), Syndio (US) — sell exactly this elsewhere in Europe [S2].
 
 Scored strictly: deadline and freshness are receipted, arbitrage conservatively at 1 (analogs named, no CZ absence check yet) [S2]. A gap check on Czech pay-equity tooling and a demand receipt (HR-association surveys, komora statements) are the obvious next moves and would likely lift this into the top tier.
+
+---
+**CORRECTION (2026-08-20, evidence audit):** Three unbacked claims removed from "Existing non-solutions", plus one from the title. The capability claim that Czech payroll systems "record pay but do not analyze equal-value job categories or gaps" has nothing behind it — no signal or note characterises what Vema or OKbase do. Their **existence** is receipted, so it stays, now cited to two sources appended for the purpose [S3,S4]. "Big-four consultancies will serve enterprise" and "the mid-market has nothing local" are both gone: no big-four claim exists anywhere in the corpus, and the absence claim contradicted this record's own note that no CZ gap check was run. The **title** carried the same absence — "— with no local tooling" — and has been rewritten to the regulatory facts, which are receipted [S1].

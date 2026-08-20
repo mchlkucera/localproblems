@@ -61,6 +61,9 @@ Why now: the date is hard, there is no transition period [S1], and the passport 
 
 Who pays: battery-placing manufacturers and importers buying DPP SaaS, data-collection integration and identity/QR infrastructure [S1]. The strategic kicker: the battery passport is the EU's first mandatory digital product passport and the template for the ESPR passports that follow for other product groups [S1,S2] — battery-passport plumbing is a beachhead, not a niche.
 
-Existing non-solutions: European DPP startups exist (Circulor, Minespider, Circularise operate in battery traceability) but sell enterprise-first; no CZ-localized offering or supply-chain onboarding service for the Czech tier-2/3 supplier base was verified this cycle (gap unchecked, scored 0).
+Existing non-solutions: European DPP startups exist; no CZ-localized offering or supply-chain onboarding service for the Czech tier-2/3 supplier base was verified this cycle (gap unchecked, scored 0).
 
 Scored strictly at deadline + freshness. Next moves: a gap check on CZ DPP tooling, a demand receipt from AutoSAP (the Czech automotive association), and identifying whether Škoda's own supplier mandates create a de-facto standard a product could implement against.
+
+---
+**CORRECTION (2026-08-20, evidence audit):** Removed **Minespider**, which appears nowhere — not in the signal corpus, not in the comps ledger, not in any source note on this record — and the go-to-market claim that European DPP startups "sell enterprise-first", which has no support either. Circulor and Circularise also left the body: they are real comparables, but a `comps:` entry cannot back a body claim, and the "Where it works" ledger already names both with their traction.

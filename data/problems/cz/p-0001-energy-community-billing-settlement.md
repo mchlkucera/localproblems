@@ -112,10 +112,10 @@ sources:
   url: https://www.deltagreen.cz/
   note: 'Incumbent re-check 2026-08-14 (round-delta-green flag): Delta Green (Prague, EUR 2M
     Oct 2025 after EUR 2.2M May 2024) is a spot-price electricity supplier and household flexibility
-    aggregator — DELTA SPOT/FLEX tariffs, Proteus smart control, grid-balancing VPP. Site and
+    aggregator — grid-balancing VPP. Site and
     press show no sdílení elektřiny product: no community administration, member billing, allocation
-    keys or EDC settlement. Adjacent niche, gap 2 stands. Named because Lex OZE III links sharing
-    with flexibility aggregation at EDC from Aug 2026 — Delta Green is the most plausible CZ
+    keys or EDC settlement. Adjacent niche, gap 2 stands. Named because vyhláška 132/2026 Sb. adds
+    EDC rules for evaluating technical flexibility and storage from Aug 2026 — Delta Green is the most plausible CZ
     entrant into this niche and the adjacency should be re-checked each cycle.'
   date: '2026-08-14'
   signal: round-delta-green
@@ -135,6 +135,17 @@ sources:
     PV, grid connection and administration after the energy-community legislation.'
   date: '2027-12-31'
   signal: dotace-mf-komunerg-1-energeticka-spolecenstvi
+- type: regulation
+  url: https://e-sbirka.gov.cz/sb/2026/132
+  note: 'reg-eru-sdileni-132-2026: ERÚ vyhláška 132/2026 Sb. amends the electricity market
+    rules — the 3-ORP territorial restriction on energy communities is removed, the five-round
+    sharing allocation extends to groups of up to 100 EANs, and EDC gains rules for evaluating
+    technical flexibility and storage; configurable in EDC from 2026-08-01, applied in practice
+    from 2026-09-01. Appended by the 2026-08-20 evidence audit as the real instrument behind
+    the flexibility/EDC claim this record previously attributed to an invented ''Lex OZE III''.
+    The signal also names settlement SaaS as a created market.'
+  date: '2026-09-01'
+  signal: reg-eru-sdileni-132-2026
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -151,13 +162,16 @@ Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across 
 
 Updated 2026-08-13: the registr smluv now shows the spend is structural, not anecdotal [S6,S7]. The Liberec community alone signed ~14 near-identical sharing contracts with city schools and kindergartens in June–July 2026 (series numbering to č. 58) [S7], Pardubice-region institutions follow the same pattern [S10], and Sonnentor became the first private company in the evidence bucket, administered by a public energy agency [S8]. Recurring, multi-organisation service spend on sharing administration is receipted — money moves 1→2 and the record enters PRIME territory: every operating community is a billing/settlement customer paying for a manual service today.
 
-Updated 2026-08-14: incumbent re-check against the funded-CZ sweep. Delta Green (Prague, ~€4.2M raised across 2024–25) was flagged as a possible occupier — verified adjacent, not occupying: it sells spot-price supply and household flexibility aggregation (Proteus, grid balancing), with no community-sharing administration, member billing, allocation-key or EDC-settlement product on its site or in press [S9]. The gap claim survives. It is named here because Lex OZE III ties sharing to flexibility aggregation at EDC from August 2026 [S9], which makes Delta Green the most credible potential entrant — the strongest current threat to this gap, worth re-checking every cycle.
+Updated 2026-08-14: incumbent re-check against the funded-CZ sweep. Delta Green (Prague, ~€4.2M raised across 2024–25) was flagged as a possible occupier — verified adjacent, not occupying: it sells spot-price supply and household flexibility aggregation, with no community-sharing administration, member billing, allocation-key or EDC-settlement product on its site or in press [S9]. The gap claim survives. It is named here because vyhláška 132/2026 Sb. adds EDC rules for evaluating technical flexibility and storage, configurable from August 2026 [S12], which makes Delta Green the most credible potential entrant — the strongest current threat to this gap, worth re-checking every cycle.
 
 ## First moves
 
 1. Call the operator of **Energetické společenství Liberec** first — the community that signed ~14 near-identical sharing contracts with Liberec schools and kindergartens in Jun–Jul 2026 (series numbering observed up to č. 58) [S7]: ask to walk through how allocation keys and member settlement are run today, and turn that manual process into the product spec.
-2. Second call: **Jihomoravská energetická agentura**, which manually administers sharing for the sdílEjme community including Sonnentor [S8] — administration providers like JMEA are exactly the white-label customer the Exnaton model sells to [S1] ($10M Series A, 50+ utility customers).
+2. Second call: **Jihomoravská energetická agentura**, which manually administers sharing for the sdílEjme community including Sonnentor [S8] — administration providers like JMEA are exactly the white-label customer the Exnaton model sells to [S1].
 3. Build the settlement-reconciliation wedge first: ingest one community's real EDC sharing data, recompute allocation and member billing, and put a CZK figure on the recovered value — the record's demand receipt claims up to ~50% of shared-electricity value is lost to bad allocation and settlement [S2]. The same exercise verifies the risky assumption that EDC data exchange gives an outside operator enough data to automate settlement.
 4. Price under the receipts: Dům seniorů Františkov paid ~1.0M CZK for a sharing-service contract [S6] — SaaS priced below that manual-service level has documented willingness-to-pay on file.
 5. Funding channel: [Modernizační fond KOMUNERG 1/2025](/sources/tenders#dotace-mf-komunerg-1-energeticka-spolecenstvi) — 1bn CZK (~€40.8M) for energy communities and municipalities building shared renewable generation, applications open until **2027-12-31** [S11]; every funded community build becomes a settlement/billing customer.
-6. Competition on file: **Delta Green** (adjacent, not occupying — spot-price supply and flexibility aggregation, no sharing-administration product; the most credible entrant once Lex OZE III links sharing with flexibility at EDC from Aug 2026) [S9], **ASITIS** (consulting/services, not product) [S3], **EDC** itself (data exchange only, explicitly no member billing) [S1,S3], and **JMEA** (manual regional service — a prospective customer more than a rival) [S8].
+6. Competition on file: **Delta Green** (adjacent, not occupying — spot-price supply and flexibility aggregation, no sharing-administration product [S9]; the most credible entrant once vyhláška 132/2026 Sb. adds EDC flexibility-evaluation rules from Aug 2026 [S12]), **ASITIS** (consulting/services, not product) [S3], **EDC** itself (data exchange only, explicitly no member billing) [S1,S3], and **JMEA** (manual regional service — a prospective customer more than a rival) [S8].
+
+---
+**CORRECTION (2026-08-20, evidence audit):** Removed the invented Delta Green product names "Proteus" and "DELTA SPOT/FLEX" (zero hits across all 6,181 signals; `round-delta-green` carries no product breakdown) from the body and from the S9 gap-check note, and cut the Exnaton traction parenthetical "$10M Series A, 50+ utility customers" from First moves #2 — it is comps-ledger evidence, which cannot back a body claim, and the "Where it works" ledger already states it. The legislative instrument previously named "Lex OZE III" does not exist anywhere in the corpus; the substance it carried is real and is now cited to vyhláška 132/2026 Sb., appended as [S12].

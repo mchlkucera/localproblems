@@ -50,10 +50,13 @@ updated: '2026-08-20'
 
 Machinery and engineering is a core Czech export sector [S2], and on 20 January 2027 the Machinery Regulation (2023/1230) replaces the Machinery Directive with a hard cutover: no transition period, so any machine placed on the market from that date must conform to the new regime — including requirements on cybersecurity of safety-related control systems, AI-enabled safety functions and digital instructions [S1]. The "substantial modification" rule additionally converts integrators and retrofitters into manufacturers carrying full conformity duties [S2], pulling a layer of Czech firms into CE obligations they have never held.
 
-Why now: the cutover is under 18 months away at record creation [S1], existing technical documentation and risk assessments prepared under Directive 2006/42/EC do not carry over automatically, and notified-body capacity is a known bottleneck cited in the signal [S1].
+Why now: the cutover is under 18 months away at record creation [S1], and notified-body capacity is a known bottleneck cited in the signal [S1].
 
 Who pays: machinery manufacturers, importers, and — the underserved group — integrators and retrofit shops that need conformity gap audits, updated risk assessments (including the new cybersecurity annexes), and digital user-instruction tooling [S1]. These are recurring engineering-services and documentation-software purchases, not one-off legal advice.
 
-Existing non-solutions: TÜV/Pilz-style international certification houses serve the large manufacturers; the Czech SMB integrator tier relies on ad-hoc consultants. No CZ-specific gap check was run this cycle, so gap scores 0.
+Existing non-solutions: no CZ-specific gap check was run this cycle, so gap scores 0.
 
 Recommended follow-up: check Czech notified-body queue times and whether any CZ vendor offers digital-instructions/technical-file software localized to the new regulation — both would strengthen (or kill) the productizable angle.
+
+---
+**CORRECTION (2026-08-20, evidence audit):** Removed the entire competitive-landscape sentence — "TÜV/Pilz-style international certification houses serve the large manufacturers; the Czech SMB integrator tier relies on ad-hoc consultants." TÜV and Pilz appear in the corpus only as URL receipts for the cutover date inside the Machinery Regulation signal; `notified body` and `notifikovan` return no hits at all, and nothing anywhere characterises the Czech SMB integrator tier. The record was describing a market it states in the same paragraph that it never examined; what remains is that plain statement. Also removed, from "Why now", the claim that technical documentation and risk assessments prepared under the old Machinery Directive do not carry over automatically — the signal establishes only that machines placed on the market from the cutover date must conform to the Regulation, so the carry-over claim was an inference stated as fact.

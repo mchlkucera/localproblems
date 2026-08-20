@@ -81,10 +81,13 @@ updated: '2026-08-20'
 
 Czech construction (~400k employed) is subcontractor-driven and chronically short of labor [S1,S2]. General contractors source Ukrainian and Balkan crews informally — Facebook groups and brokers — with no vetting, document checking or compliance tooling [S3]; the same firms then run payroll for multi-site crews, agenturní zaměstnávání and A1/posted-worker compliance on generic legacy software (Vema, Pamica) or through external accountants [S2]. Two ends of one problem: finding compliant crews and paying them correctly.
 
-Why now: the labor shortage keeps worsening, foreign-crew usage keeps rising, and posted-worker/A1 compliance exposure grows with it. In Germany — a structurally similar subcontractor market — CoCrafter (YC W24) has 3,000+ SMB companies on its vetted GC-subcontractor marketplace, showing the informal sourcing layer can be productized [S1].
+Why now: in Germany — a structurally similar subcontractor market — CoCrafter (YC W24) has 3,000+ SMB companies on its vetted GC-subcontractor marketplace, showing the informal sourcing layer can be productized [S1].
 
 Who pays: general contractors and mid-sized stavební firmy — the marketplace side monetizes matching and compliance document management; the payroll side is per-employee SaaS replacing accountant hours and compliance risk. Entry through either wedge lands in the same buyer.
 
 Existing non-solutions: consumer home-services marketplaces (Wilio, Nejřemeslníci) that do not serve B2B crews [S3], site-diary and attendance tools (Stavario, PlanRadar) that stop short of pay and compliance, and generic payroll software [S2,S4]. Absence checks on 2026-08-13 found no Czech B2B subcontractor marketplace and no construction-vertical payroll product [S3].
 
 Solved elsewhere: CoCrafter (DE) for sourcing [S1] and Hammr (US, YC W23) for construction payroll/HR [S2]. Arbitrage scored 2 rather than 3 because each facet of the merged problem is validated in only one market.
+
+---
+**CORRECTION (2026-08-20, evidence audit):** Removed the "Why now" trend sentence — the claims that the labor shortage keeps worsening, that foreign-crew usage keeps rising, and that posted-worker compliance exposure grows with them. No signal in the corpus carries a trajectory for any of the three: `yc-cocrafter` and `yc-hammr` document a **chronic** shortage and informal Ukrainian/Balkan sourcing at a single point in time, with no second data point behind any of the three verbs. The lead-in now carries the German productization receipt, which is sourced.
