@@ -511,11 +511,29 @@ const dayMs = 86_400_000;
 const daysBetween = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / dayMs);
 
 /** Display-only split of urgency into deadline (0-2) + freshness (0-1), per SCORING.md.
-    Freshness is mechanical: newest source < 90 days before the extract date. */
+    Freshness is mechanical: newest OBSERVED source < 90 days before the extract date.
+ *
+ *  "OBSERVED" IS LOAD-BEARING, and this is the second time this repo has been bitten
+ *  by the same shape. A source `date` is the signal's own native date, and for a
+ *  regulation or a subsidy call that date is a FUTURE compliance deadline — the AML
+ *  Regulation sits at 2027-07-10, an NZÚ call at 2029-10-31. The previous version took
+ *  the newest date of any kind, so `daysBetween(newest, extractDate())` went NEGATIVE,
+ *  and negative is trivially `< 90`. Freshness was therefore incapable of returning 0
+ *  for any record holding a forward-dated source: 18 of 31 records scored a free
+ *  freshness point, p-0015 on a source 406 days in the future.
+ *
+ *  A check that cannot fail measures nothing. Freshness is supposed to answer "have we
+ *  looked at this recently", so only sources we could actually have read — dated at or
+ *  before the extract — count as observations. A record whose sources are ALL forward
+ *  dated has made no recent observation at all and correctly scores 0.
+ *
+ *  This is display-only: it splits `scores.urgency` for the scorecard and never changes
+ *  it. Where the split now reads deadline-heavy with no freshness, the underlying
+ *  urgency score may deserve MATCH's attention — but that is a judgment, not a render. */
 export function urgencySplit(p: Problem): { deadline: number; freshness: number } {
   if (p.scores.urgency === 0) return { deadline: 0, freshness: 0 };
-  const newest = p.sources.map((s) => s.date).sort().at(-1)!;
-  const fresh = daysBetween(newest, extractDate()) < 90 ? 1 : 0;
+  const observed = p.sources.map((s) => s.date).filter((d) => d <= extractDate()).sort().at(-1);
+  const fresh = observed !== undefined && daysBetween(observed, extractDate()) < 90 ? 1 : 0;
   const freshness = Math.min(fresh, p.scores.urgency);
   return { deadline: Math.min(p.scores.urgency - freshness, 2), freshness };
 }
