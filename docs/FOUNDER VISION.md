@@ -9,3 +9,9 @@ This should be done by getting data from various sources, like what startups are
 The technical vision is that, from various sources, we normalise the data and put it into some JSONL file. Or to some database, and then we look at how it's relevant for various geographical locations.
 
 The product just looks for various sources and sees what ideas actually have some potential so that someone can solve them. If someone is already solving them on the market or a company moves into a new region, then we should de-rank the idea.
+
+# Moats against ChatGPT "What are the opportunities in Czechia"?
+
+- Instead of plausible-sounding, verified
+- Accumulation based on aggregated data
+- Negative data - no one is doing it here

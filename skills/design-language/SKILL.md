@@ -75,7 +75,7 @@ Sits immediately under the docket on every problem page — the first thing a so
 
 ## Spacing and rhythm (v1.1)
 
-- **One 4px scale**: `--sp-1…--sp-8` = 4 / 8 / 16 / 24 / 32 / 48 / 64px (with 12px as `--sp-3`). Every margin, padding, and gap is a step on this scale — no ad-hoc values. Sole exceptions: optical micro-padding inside the stamp and exhibit chip, and the 7.5rem receipts indent column.
+- **One 4px scale**: `--sp-1…--sp-8` = 4 / 8 / 16 / 24 / 32 / 48 / 64px (with 12px as `--sp-3`). Every margin, padding, and gap is a step on this scale — no ad-hoc values. Sole exception: optical micro-padding inside the stamp.
 - **Sections breathe from above**: `h2` carries 48px above, 16px below — roughly 3:1. Air binds a heading to what follows, not to what precedes.
 - **The docket is the title block**: it gets the most air on the site — 24px above the ID, 24px around the title, 48px clearance before the prose begins.
 - **Ledger density**: register and signals rows sit at 8px vertical padding; 12px cell gutters; 24px page gutter; 32px facts-grid column gap. Dense is fine, squeezed is not.
