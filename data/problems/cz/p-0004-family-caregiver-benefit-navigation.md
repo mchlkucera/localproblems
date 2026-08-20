@@ -75,6 +75,31 @@ sources:
     receipt and backs no score dimension.'
   date: '2025-11-14'
   dims: []
+- type: gap-check
+  url: https://pece.cz/prispevek-peci/
+  note: 'Gap re-check 2026-08-20: looked for the specific product this record claims missing —
+    a Czech company that files, tracks, optimizes or appeals příspěvek na péči claims on behalf
+    of families. Five Czech-language searches plus an ARES sweep surfaced information and free
+    counselling only: pece.cz (run by NN Životní pojišťovna) offers a free entitlement calculator
+    and a poradna but directs applicants to the Úřad práce; MPSV/ÚP publish the forms; registered
+    odborné sociální poradenství services (NRZP poradna, Rodinný průvodce, Moravskoslezský kruh)
+    do help draft appeals, for free and as a social service rather than a product; Chytrá péče is
+    a family care-planning app with SOS-watch alerts that does not touch the benefit at all. ARES
+    on "pečující" returns two nonprofits (ALARP Oplenka z.s., Pro pečující z.ú.) and no commercial
+    claims navigator. POSITIVE CONTROL passed before this negative was trusted: the same method put
+    Softlink CEM Smart and Ringil — both register-confirmed CZ incumbents — at the top of their own
+    queries, and ARES resolved IRESOFT s.r.o., SOFTLINK s.r.o. and Ringil s.r.o. by name. Verdict:
+    NOT FOUND. No incumbent, so no de-rank; a negative never raises a score, so gap stays 2 and the
+    total is unchanged.'
+  date: '2026-08-20'
+  queries:
+    - "pomoc s žádostí o příspěvek na péči odvolání poradenství pro rodiny služba"
+    - "vyřídíme za vás příspěvek na péči zvýšení stupně závislosti služba poradce"
+    - "\"příspěvek na péči\" online aplikace pomůže s žádostí startup pečující rodiny"
+    - "Chytrá péče aplikace pro pečující rodiny česká sociální dávky"
+    - "placená služba sociální poradce vyřízení dávek pro seniory příspěvek na péči firma"
+  checked: [ares, google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -85,7 +110,7 @@ Why now: benefit levels were raised again in 2024-25 [S2], increasing the money 
 
 Who pays: families themselves (success-fee or flat-fee claim assistance, subscription support and caregiver training), analogous to how Oma Care monetizes caregiver enablement in the US [S1]. Downstream, home-care providers and insurers are plausible channel partners since properly funded clients can afford services.
 
-Existing non-solutions: static information portals (pece.cz, mpsv.gov.cz guides) [S3] and word-of-mouth from social workers. The 2026-08-13 absence check found no Czech company that files, tracks or optimizes claims for families [S3].
+Existing non-solutions: static information portals (pece.cz, mpsv.gov.cz guides) [S3] and word-of-mouth from social workers. The 2026-08-13 absence check found no Czech company that files, tracks or optimizes claims for families [S3]. A re-check on 2026-08-20 held that finding and sharpened the picture: pece.cz is run by NN Životní pojišťovna and carries a free entitlement calculator and a poradna, and registered odborné sociální poradenství services do draft appeals for families — help exists, but as free social counselling rather than a product that files, tracks or optimizes a claim [S6].
 
 Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) form a validated US cluster around getting family caregivers trained and paid from state programs [S1]. Arbitrage scored 1 because validation is US-only; the money point reflects the příspěvek na péči program explicitly referenced in the signal note [S2].
 

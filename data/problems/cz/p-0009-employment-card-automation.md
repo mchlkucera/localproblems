@@ -71,6 +71,35 @@ sources:
     to the CZ paper-based karta process.'
   date: '2026-08-13'
   signal: yc-legalos
+- type: gap-check
+  url: https://www.zamestnaneckekarty.cz/zamestnanecke-karty
+  note: 'Gap re-check 2026-08-20: looked for the specific thing this record claims missing — a
+    Czech software layer doing zaměstnanecká karta application preparation, status tracking or
+    ongoing compliance (renewals, reporting duties) for employers. Six searches plus an ARES sweep
+    found a dense market of MANUAL providers and no platform. zamestnaneckekarty.cz, the top
+    Czech-language result for the process itself, is operated by Spring Walk, an advokátní kancelář
+    in Brno and Prague (50+ staff, 11 years) and describes hands-on case handling with no portal,
+    dashboard, tracking or reminder system anywhere on the page. Foreigners / zamestnavamecizince.cz
+    is a five-office relocation agency and knowledge portal, not a dashboard; ReloCzech, Expat
+    Support, Principio and DMPF Expat Assistant all sell serviced immigration agendas (Principio
+    monitors document expiries as a service). ARES lists nine "Relocation" companies and fifteen
+    "Expat" entities, all service, tax or consulting firms — no software vendor among them. The only
+    self-service tracking found for the Czech process is inside Deel, a foreign EOR platform, which
+    is not a local entrant and does not de-rank. A StartupJobs-targeted query returned nothing
+    on-topic and that surface is therefore not claimed here. POSITIVE CONTROL passed first: the same
+    method surfaced Softlink CEM Smart and Ringil at the top of their queries, and ARES resolved
+    IRESOFT s.r.o., SOFTLINK s.r.o. and Ringil s.r.o. by name. Verdict: NOT FOUND — no de-rank, and
+    a negative never raises a score, so gap stays 1 and the total is unchanged.'
+  date: '2026-08-20'
+  queries:
+    - "zaměstnanecká karta software pro zaměstnavatele automatizace vyřízení"
+    - "platforma pro zaměstnávání cizinců relokace software sledování víz Česko"
+    - "systém pro správu pobytových oprávnění cizinců zaměstnanců HR software hlídání platnosti víz"
+    - "DMPF Expat Assistant software zaměstnávání cizinců systém sledování žádostí"
+    - "startupjobs.cz relokace cizinců imigrace startup platforma zaměstnanecké karty"
+    - "immigration software platform Czech Republic employee card employer visa tracking SaaS"
+  checked: [ares, google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -81,6 +110,6 @@ Why now: labor shortage keeps hiring volumes up, and the US shows the model bein
 
 Who pays: employers with recurring foreign-hiring volume (manufacturing, logistics, healthcare, IT) who currently pay per-case agency fees; agencies themselves are a secondary buyer for tooling that raises their case throughput.
 
-Existing non-solutions: ministry information pages, permit.cz (static form-filling guides), classic law firms (e.g. ARROWS) and manual relocation agencies [S2]. The 2026-08-13 absence check found no automation platform [S2].
+Existing non-solutions: ministry information pages, permit.cz (static form-filling guides), classic law firms (e.g. ARROWS) and manual relocation agencies [S2]. The 2026-08-13 absence check found no automation platform [S2], and a 2026-08-20 re-check held that finding against a market that is dense but entirely manual: zamestnaneckekarty.cz turns out to be the law firm Spring Walk with no portal or tracking of any kind, Foreigners, ReloCzech, Expat Support, Principio and DMPF sell serviced immigration agendas, and ARES lists nine "Relocation" and fifteen "Expat" companies without a software vendor among them [S4].
 
 Solved elsewhere: the US YC cluster above [S1,S3]. Arbitrage scored 1 since validation is US-only and immigration processes are jurisdiction-specific; the counterweight is that the Czech process's paper-heaviness is exactly what makes an automation layer valuable.

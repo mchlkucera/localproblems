@@ -116,6 +116,43 @@ sources:
     money score.'
   date: '2026-09-01'
   signal: dotace-optak-technologie-mas-2
+- type: gap-check
+  url: https://ringil.com/funkce-pro-dopravce
+  note: 'Gap re-check 2026-08-20 — the re-judgment the 2026-08-20 audit correction demanded.
+    Question put to the evidence: does Ringil, or any other Czech player, sell the small
+    haulier''s own back office — dispatcher calls, POD/CMR capture, invoicing, factoring
+    paperwork — priced per truck or per dispatcher seat? RINGIL: NO, and the de-rank-candidate
+    flag on `cz-ringil` is NOT UPHELD on the product surface. Ringil s.r.o. (Na hřebenech II
+    1718/8, Praha 4, IČ 09194673) headlines itself "Systém pro kompletní řízení logistiky ve
+    výrobních a prodejních firmách" and sells four modules — TMS, Avizace, Timesloty, Yard
+    management — to manufacturers and retailers, i.e. to the SHIPPER. Its carrier page is
+    explicit about the other side: "Zveme do Ringilu všechny dopravce našich zákazníků. Máte
+    přístup zdarma" — carriers of Ringil''s own customers, free of charge, getting an RFQ inbox,
+    one-click bidding, a record of the transports agreed with that shipper, and a driver app.
+    That is a counterparty portal, not a haulier back office: no dispatch automation across the
+    haulier''s own book, no POD/CMR ingestion into its invoicing, no invoicing or factoring, no
+    phone agents. Structurally Ringil sits with the load boards this record already excludes.
+    WIDER SWEEP: Czech search does return haulier-side software, all of it legacy dispatch/TMS
+    of the kind the body already calls records-not-automation — TruckManager/TruckAgenda,
+    Transfer Manager, AutoCRM, LORI (OLTIS Group, e-CMR) — plus EDITEL FreightLogs on eCMR and
+    Dachser''s in-house platform. No Czech AI-native ops player selling to hauliers was found;
+    the English-language search returns only US vendors (Transflo, Datatruck, BeyondTrucks), and
+    the one AI logistics-document vendor marketing in Czech, Virtual Workforce, is Rotterdam-based
+    with no named CZ customer. Positive control before trusting any of that: the same method,
+    run at a company we know exists, surfaced Ringil''s own site and press on the first Czech
+    query — the method finds CZ vendors when they are there. NOTHING MOVED: `scores.gap` stays 1
+    and `score` stays 7. A thorough search that finds nothing is still only a search.'
+  date: '2026-08-20'
+  queries:
+    - "česká platforma digitalizace přepravy poptávky dopravci odesílatelé"
+    - "software pro dopravce dispečink fakturace CMR automatizace"
+    - "Ringil platforma logistika přeprava Notino Škoda"
+    - "platforma výběrová řízení na přepravu spotové poptávky dopravci česká firma"
+    - "AI agent pro dopravní firmy dispečink hlasový asistent zpracování CMR POD faktur dopravce"
+    - "umělá inteligence dispečink dopravní firmy česká aplikace pro dopravce automatizace administrativy 2026"
+    - "Czech startup AI back office trucking carriers dispatch invoicing Czechia hauliers software"
+  checked: [google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -126,7 +163,7 @@ Why now: AI phone agents and document ingestion have matured to the point where 
 
 Who pays: the hauliers themselves, priced per truck or per dispatcher seat; savings show up as dispatcher capacity and faster invoicing/cash collection. Factoring providers serving small hauliers are a plausible distribution channel since cleaner documents speed their own operations.
 
-Existing non-solutions: legacy Czech dispatch/TMS products (records, not automation), load boards (Timocom, Trans.eu) that cover freight sourcing but not operations [S2], and Ringil — a Czech platform digitizing transport procurement and logistics workflows between shippers and carriers, with Notino and Škoda among its named clients [S6]. The 2026-08-13 absence check found no AI-native CZ ops player selling to hauliers [S2]; the 2026-08-14 Ringil signal flags that finding as contradicted and marks Ringil a de-rank candidate for this record [S6] — see the correction below.
+Existing non-solutions: legacy Czech dispatch/TMS products (records, not automation) — TruckManager/TruckAgenda, Transfer Manager, AutoCRM and OLTIS Group's LORI are the ones a Czech search actually returns [S8] — load boards (Timocom, Trans.eu) that cover freight sourcing but not operations [S2], and Ringil, a Czech platform digitizing transport procurement and logistics workflows between shippers and carriers, with Notino and Škoda among its named clients [S6]. The 2026-08-13 absence check found no AI-native CZ ops player selling to hauliers [S2]; the 2026-08-14 Ringil signal flags that finding as contradicted and marks Ringil a de-rank candidate for this record [S6]. The 2026-08-20 re-check went to Ringil's own product pages and did not uphold the flag: Ringil sells its four modules to výrobní a prodejní firmy — the shipper — and gives the carriers of those customers free access to an RFQ inbox and a driver app, which is a counterparty portal rather than a haulier back office [S8]. See both corrections below.
 
 Solved elsewhere: the US YC trucking-ops cluster above [S1], now joined by two independent freight-ops rounds closed a month apart in Europe — Cargofy (Kyiv, ~€9.5M, Polish lead investor) [S4] and Nexcade (London, ~€5.2M) [S5], both building AI agents for freight operations. Proof upgraded to 2: the model is funded in multiple markets including a CEE-origin player, though the European pair targets freight forwarders — an adjacent buyer to the small hauliers here, which keeps proof below 3. Czech and Central European language handling for AI phone agents remains both the barrier for foreign entrants and the moat for a local one, and the forwarder wedge (spedice) and the haulier wedge land in the same document/dispatch workflows.
 
@@ -139,7 +176,10 @@ Regulatory trigger added 2026-08-13: the eFTI Regulation makes electronic freigh
 3. Verify the moat assumption before betting on it: run an AI phone-agent prototype against recorded Czech dispatcher calls — the record names Czech and Central European language handling as both the barrier for foreign entrants and the moat for a local player.
 4. Pitch two factoring providers serving small hauliers as the distribution channel — the record notes cleaner documents speed their own operations, so a per-truck bundle gives them a reason to sell for you.
 5. Let public money halve the buyer's price: hauliers based in MAS territories — outside Prague and cities over 25,000 inhabitants — can co-fund software and IT purchases at 50% (grants up to 1.49M CZK) from [OP TAK Technologie pro MAS II](/sources/tenders#dotace-optak-technologie-mas-2), €22M allocated, applications open 2026-09-01 to 2027-09-01 [S7].
-6. Competition, per the record's own checks: **Hemut, Dayjob and Peer** (US cluster, same buyer, no CZ presence) [S1], **Cargofy and Nexcade** (funded, but selling to freight forwarders — an adjacent buyer) [S4,S5], **Ringil** (CZ, transport procurement between shippers and carriers — flagged by its own signal as a de-rank candidate for this record) [S6], and legacy TMS/dispečink plus the Timocom/Trans.eu load boards (records and load sourcing, not ops automation) [S2].
+6. Competition, per the record's own checks: **Hemut, Dayjob and Peer** (US cluster, same buyer, no CZ presence) [S1], **Cargofy and Nexcade** (funded, but selling to freight forwarders — an adjacent buyer) [S4,S5], **Ringil** (CZ, transport procurement between shippers and carriers — flagged by its own signal as a de-rank candidate [S6], flag not upheld on 2026-08-20 because Ringil bills the shipper and gives carriers free counterparty access [S8]), and legacy TMS/dispečink — TruckManager/TruckAgenda, Transfer Manager, AutoCRM, LORI [S8] — plus the Timocom/Trans.eu load boards (records and load sourcing, not ops automation) [S2].
 
 ---
 **CORRECTION (2026-08-20, evidence audit):** The S6 note asserted facts that appear nowhere in the signal it cites (`cz-ringil`, `data/signals/funded/2026-08-14.jsonl`): a founding year of 2020, "800+ companies on platform", Plzeňský Prazdroj as a client (the signal names Škoda; `Prazdroj` returns zero hits across all 6,181 signals), and a product-surface verification that Ringil "sells no haulier back-office" — the signal carries no product breakdown at all [S6]. The note then concluded "gap 1 stands", which **reverses the signal's own finding**: `cz-ringil` flags Ringil as OCCUPYING A REGISTER NICHE ("p-0010 claims no CZ player — Ringil is evidence to the contrary") and marks it a DE-RANK CANDIDATE for this record. The note, the existing-non-solutions sentence and the First moves competition line have been rewritten to what the signal actually supports. `scores.gap` is deliberately left at 1 and `score` at 7: moving them is a MATCH judgment under SPEC §4, not an audit one. **The gap score now rests on a withdrawn note and REQUIRES RE-JUDGMENT at the next MATCH run.**
+
+---
+**CORRECTION (2026-08-20, gap re-check):** The re-judgment the block above demanded has been made, against Ringil's own site rather than against a signal summary. **The de-rank candidacy is not upheld.** Ringil s.r.o. (IČ 09194673) sells four modules — TMS, Avizace, Timesloty, Yard management — under the headline "Systém pro kompletní řízení logistiky ve výrobních a prodejních firmách", i.e. to the shipper; its carrier page opens "Zveme do Ringilu všechny dopravce našich zákazníků. Máte přístup zdarma" and offers those carriers an RFQ inbox, one-click bidding, a record of that shipper's transports and a driver app [S8]. Nothing there is the small haulier's own back office — no dispatch automation across its own book, no POD/CMR ingestion into invoicing, no invoicing or factoring — and nothing there is sold to the haulier at all. Ringil belongs with the load boards this record already excludes, on the other side of the same trade. The wider sweep found Czech haulier-side software, all of it the legacy dispatch/TMS the body already discounts, and no AI-native Czech ops player [S8]. **`scores.gap` stays 1 and `score` stays 7.** The check that was missing has now been run and recorded with its queries; it did not find an absence, it failed to find a player, and this pass has no authority to convert the second into the first by raising a score.

@@ -5,14 +5,14 @@ title: Czech energy communities lose up to half the value of shared electricity 
   and settlement, and have no software to run member billing
 category: energy
 geo: CZ-national
-score: 10
+score: 8
 scores:
   proof: 3
   money: 2
   urgency: 1
   demand: 2
-  gap: 2
-status: candidate
+  gap: 0
+status: watching
 build:
   capital: garage
   first_revenue: months
@@ -146,6 +146,29 @@ sources:
     The signal also names settlement SaaS as a created market.'
   date: '2026-09-01'
   signal: reg-eru-sdileni-132-2026
+- type: gap-check
+  url: https://enerio.cz/
+  note: 'Gap re-check 2026-08-20: looked for Czech software that runs energy-community member
+    administration, allocation keys and member billing over EDC data. The position is NOT empty
+    — five CZ products sell exactly that. Enerio: "Automatizovaný onboarding členů", "Automatizace
+    fakturace", "Plná integrace s EDC a soulad s českou legislativou". Softlink CEM: "Automatické
+    rozdělení vyrobené elektřiny mezi členy na základě smluvených podílů... nastavení alokačních
+    klíčů" and "Generování faktur za sdílenou elektřinu". EnerCA (EnerCo Solutions): "Optimalizace
+    alokačních klíčů", "plně automatizovaný přenos dat z EDC", "kompletní fakturační řešení".
+    ENERGOMETR (DEKSOFT): a "specializovaný modul pro komunitní energetiku" whose "nástroj pro
+    fakturaci" issues invoices "za odběr nebo dodávku sdílené energie", reading production and
+    consumption from EDC. CANCOM Czech Republic: end-to-end community management covering
+    onboarding, contracts, sharing data, settlement and billing. Softlink is already named as
+    a CZ incumbent elsewhere in this register (p-0026), so the 2026-08-13 absence check missed
+    a player the register itself had on file. Local players named: gap 2 -> 0 and status moves
+    to watching per the de-rank rule.'
+  date: '2026-08-20'
+  queries:
+    - "software pro energetická společenství sdílení elektřiny rozúčtování členů"
+    - "komunitní energetika software správa členů alokační klíč EDC vyúčtování"
+    - "Czech energy community electricity sharing billing settlement software vendor EDC"
+  checked: [google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -156,13 +179,15 @@ Why now: the regulatory window opened in 2024 (Lex OZE II, EDC data exchange liv
 
 Who pays: community founders (municipalities, housing cooperatives, groups of firms) and — following the Exnaton go-to-market — utilities and DSO-adjacent service firms that want a white-label product to offer communities [S1]. The value proposition is direct: recovered settlement value, which the demand receipt quantifies at up to ~50% of shared electricity [S2].
 
-Existing non-solutions: EDC (data exchange only), ministry guidance, and ASITIS-style consultancies selling services rather than product [S3]; Jihomoravská energetická agentura now administers sharing for the sdílEjme community as a manual regional service [S8]. The absence check of 2026-08-13 found no dedicated Czech community-energy billing/settlement SaaS [S1,S3] — the emerging administration providers are exactly the white-label customer base the Exnaton model sells into.
+Existing non-solutions: EDC (data exchange only), ministry guidance, and ASITIS-style consultancies selling services rather than product [S3]; Jihomoravská energetická agentura now administers sharing for the sdílEjme community as a manual regional service [S8]. The position is occupied on the software side too: the 2026-08-20 gap re-check found five Czech products already selling community administration, allocation keys and member billing over EDC data — Enerio, Softlink CEM, EnerCA, ENERGOMETR and CANCOM [S13]. The 2026-08-13 absence check that reported no such vendor [S1,S3] was searching the wrong surfaces, and is superseded.
 
 Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across DACH and the Nordics; Austrian community-energy players eFriends and OurPower prove tooling demand under EU RED II in a market bordering Czechia [S1]. The July 2026 Pstryk round in Poland shows CEE investors funding adjacent consumer/SME energy software [S4].
 
 Updated 2026-08-13: the registr smluv now shows the spend is structural, not anecdotal [S6,S7]. The Liberec community alone signed ~14 near-identical sharing contracts with city schools and kindergartens in June–July 2026 (series numbering to č. 58) [S7], Pardubice-region institutions follow the same pattern [S10], and Sonnentor became the first private company in the evidence bucket, administered by a public energy agency [S8]. Recurring, multi-organisation service spend on sharing administration is receipted — money moves 1→2 and the record enters PRIME territory: every operating community is a billing/settlement customer paying for a manual service today.
 
-Updated 2026-08-14: incumbent re-check against the funded-CZ sweep. Delta Green (Prague, ~€4.2M raised across 2024–25) was flagged as a possible occupier — verified adjacent, not occupying: it sells spot-price supply and household flexibility aggregation, with no community-sharing administration, member billing, allocation-key or EDC-settlement product on its site or in press [S9]. The gap claim survives. It is named here because vyhláška 132/2026 Sb. adds EDC rules for evaluating technical flexibility and storage, configurable from August 2026 [S12], which makes Delta Green the most credible potential entrant — the strongest current threat to this gap, worth re-checking every cycle.
+Updated 2026-08-14: incumbent re-check against the funded-CZ sweep. Delta Green (Prague, ~€4.2M raised across 2024–25) was flagged as a possible occupier — verified adjacent, not occupying: it sells spot-price supply and household flexibility aggregation, with no community-sharing administration, member billing, allocation-key or EDC-settlement product on its site or in press [S9]. It is named here because vyhláška 132/2026 Sb. adds EDC rules for evaluating technical flexibility and storage, configurable from August 2026 [S12], which made Delta Green look like the most credible potential entrant. That framing was wrong about where the competition was: the 2026-08-20 re-check found the niche already served by five Czech vendors that the funded-company sweep could not see, none of which appear anywhere in this register's signal corpus [S13].
+
+Updated 2026-08-20: de-ranked. Enerio, Softlink CEM, EnerCA, ENERGOMETR and CANCOM all sell Czech energy-community administration with member billing and EDC integration [S13], so gap moves 2 → 0 and status to watching. What remains true is the demand side — communities losing value to manual allocation and settlement [S2], and receipted spend on sharing administration across Liberec, Pardubice and JMEA [S6,S7,S8,S10]. The open question is no longer whether a product exists but whether these vendors reach the long tail of small komunity, which is a competitive question, not an absence.
 
 ## First moves
 
@@ -171,7 +196,9 @@ Updated 2026-08-14: incumbent re-check against the funded-CZ sweep. Delta Green 
 3. Build the settlement-reconciliation wedge first: ingest one community's real EDC sharing data, recompute allocation and member billing, and put a CZK figure on the recovered value — the record's demand receipt claims up to ~50% of shared-electricity value is lost to bad allocation and settlement [S2]. The same exercise verifies the risky assumption that EDC data exchange gives an outside operator enough data to automate settlement.
 4. Price under the receipts: Dům seniorů Františkov paid ~1.0M CZK for a sharing-service contract [S6] — SaaS priced below that manual-service level has documented willingness-to-pay on file.
 5. Funding channel: [Modernizační fond KOMUNERG 1/2025](/sources/tenders#dotace-mf-komunerg-1-energeticka-spolecenstvi) — 1bn CZK (~€40.8M) for energy communities and municipalities building shared renewable generation, applications open until **2027-12-31** [S11]; every funded community build becomes a settlement/billing customer.
-6. Competition on file: **Delta Green** (adjacent, not occupying — spot-price supply and flexibility aggregation, no sharing-administration product [S9]; the most credible entrant once vyhláška 132/2026 Sb. adds EDC flexibility-evaluation rules from Aug 2026 [S12]), **ASITIS** (consulting/services, not product) [S3], **EDC** itself (data exchange only, explicitly no member billing) [S1,S3], and **JMEA** (manual regional service — a prospective customer more than a rival) [S8].
+6. Competition on file — the niche is occupied, so treat the first moves above as competitive research, not a greenfield plan: **Enerio**, **Softlink CEM**, **EnerCA**, **ENERGOMETR** (DEKSOFT) and **CANCOM** all ship Czech community administration with allocation keys, member invoicing and EDC integration [S13]. Also on file: **Delta Green** (adjacent — spot-price supply and flexibility aggregation, no sharing-administration product [S9]), **ASITIS** (consulting/services, not product) [S3], **EDC** itself (data exchange only, explicitly no member billing) [S1,S3], and **JMEA** (manual regional service) [S8].
 
 ---
 **CORRECTION (2026-08-20, evidence audit):** Removed the invented Delta Green product names "Proteus" and "DELTA SPOT/FLEX" (zero hits across all 6,181 signals; `round-delta-green` carries no product breakdown) from the body and from the S9 gap-check note, and cut the Exnaton traction parenthetical "$10M Series A, 50+ utility customers" from First moves #2 — it is comps-ledger evidence, which cannot back a body claim, and the "Where it works" ledger already states it. The legislative instrument previously named "Lex OZE III" does not exist anywhere in the corpus; the substance it carried is real and is now cited to vyhláška 132/2026 Sb., appended as [S12].
+
+**CORRECTION (2026-08-20, gap re-check):** The central absence claim was false. Czech-language search found five CZ vendors selling community-energy administration with allocation keys, member billing and EDC integration — Enerio, Softlink CEM, EnerCA, ENERGOMETR (DEKSOFT) and CANCOM [S13] — so `scores.gap` moves 2 → 0, `score` 10 → 8, status candidate → watching per the SPEC §4 de-rank rule. Three failure modes are worth recording, because they are general. First, the 2026-08-13 check and the 2026-08-14 Delta Green re-check both cited a *foreign* company's page (exnaton.com) or a funded-company sweep as the receipt for a *Czech* absence, which is no evidence at all. Second, the incumbent search was aimed at funded startups: none of the five vendors appears anywhere in this register's 6,181-signal corpus, because they are bootstrapped SMB software companies that no funding feed will ever surface. Third, Softlink was already named as a Czech incumbent on p-0026 — the register held the disproof of its own claim. The demand and money receipts [S2,S6,S7,S8,S10] are untouched by this and still stand.

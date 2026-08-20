@@ -1,18 +1,18 @@
 ---
 id: p-0023
 region: cz
-title: Czech accountants are scarce and the accounting law is being rewritten for 2028 — while
-  Germany's answer, the AI-native accounting firm, has no Czech equivalent
+title: Czech accountants are scarce and the accounting law is being rewritten for 2028 — and
+  Czech AI-first accounting firms are already selling into that window
 category: b2b
 geo: CZ-national
-score: 7
+score: 6
 scores:
   proof: 3
   money: 0
   urgency: 3
   demand: 0
-  gap: 1
-status: candidate
+  gap: 0
+status: watching
 build:
   capital: funded
   first_revenue: months
@@ -115,6 +115,36 @@ sources:
     on the listing. The deeper co-funding route named in First moves.'
   date: '2026-09-21'
   signal: dotace-optak-pzt-4
+- type: gap-check
+  url: https://www.uctarna.ai/
+  note: 'Gap re-check 2026-08-20: OCCUPIED. The record claimed no Czech equivalent of the full-stack
+    AI-first accounting firm; the 2026-08-13 check was self-described as a quick search, and a proper
+    Czech-language one finds the model already trading. Účtárna.ai sells "digitální účetnictví s
+    využitím umělé inteligence" as a service, not software: bookkeeping and VAT from 5,000 CZK a
+    month, payroll at 300 CZK per employee per month, tax optimization, a client document portal,
+    AI-processed documents reviewed by licensed accountants on staff, and professional liability
+    cover the firm states at 5 million CZK; it claims 300+ client firms on its own site, and its
+    named CEO Ing. Rebecca Kotrmanová resolves in ARES (IČO 88865835, Brno, registered 2012-06-20).
+    E-Consulting''s AI Accounting (Prague-Karlín, with Bratislava and Wrocław offices) runs the same
+    hybrid — it states technology now posts up to 85% of transactions automatically while the firm
+    carries responsibility for accuracy. Trivi a.s. (ARES IČO 28378440, Praha, 2008) has been running
+    the tech-enabled version for years with its own accountants and tax advisors, smart apps and bank
+    integration, and says over a thousand entrepreneurs use it; MyÚčto.cz posts most movements
+    automatically by rule and ships a client portal with an AI assistant. That is alongside Digitoo
+    (ARES IČO 08494584) at the invoice-capture layer, which this record already named. POSITIVE
+    CONTROL passed twice before the verdict: a generic Czech query for accounting automation returned
+    the obvious domestic incumbents (Pohoda/Stormware, Seyfor, ABRA FlexiBee, iDoklad, iÚčto, BMD)
+    on the first page, and the register''s own known incumbents resolved by name in ARES —
+    IRESOFT s.r.o., SOFTLINK s.r.o., Ringil s.r.o. De-rank rule applied: gap 1 to 0 with incumbents
+    named, score 7 to 6, status watching. No count of the Czech accounting profession is asserted
+    here; none was found.'
+  date: '2026-08-20'
+  queries:
+    - "AI účetní kancelář umělá inteligence účetnictví česká firma"
+    - "online účetní firma s AI vede účetnictví pro firmy Česko chytré účetnictví"
+    - "účetní software pro firmy automatizace účetnictví Česko"
+  checked: [ares, google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -125,7 +155,7 @@ Why now: Germany just showed what the shortage-plus-transition moment produces �
 
 Who pays: SMBs (the long tail that struggles to find an accountant at all), then larger entities facing the act's transition [S3]. The AI-first firm captures service fees; a second wedge sells transition tooling to existing accounting firms.
 
-Existing non-solutions: Digitoo automates invoice capture, ÚOL sells online accounting service delivery, incumbent software vendors will ship compliance updates [S2,S3] — but nobody operates the full-stack AI-first model [S2], and the incumbents' 2028 rewrite burden is a distraction, not an advantage.
+Existing non-solutions — superseded on the central claim. Digitoo automates invoice capture and ÚOL sells online accounting service delivery [S2], and the incumbent software vendors will ship compliance updates [S3]. But the full-stack AI-first firm is no longer absent from Czechia: Účtárna.ai runs bookkeeping, VAT, payroll and tax optimization as a service with AI-processed documents reviewed by licensed accountants on staff, at published prices; E-Consulting's AI Accounting states technology now posts up to 85% of transactions automatically while the firm carries responsibility for accuracy; Trivi and MyÚčto.cz sell the tech-enabled variant of the same service model [S9]. The model this record imported from Munich has a domestic operator already.
 
 Honest limits: the 2028 Accounting Act date is planned, not enacted [S3] (its deadline alone would score 1 — the urgency point now rests on JMHZ, which is in force [S6]); demand is still asserted from the DE parallel, not receipted (0). A ČR-specific shortage receipt (Komora daňových poradců or ekonomické komory statements) and a JMHZ-pain receipt from the payroll-bureau side are the next evidence to pull.
 
@@ -136,7 +166,10 @@ Honest limits: the 2028 Accounting Act date is planned, not enacted [S3] (its de
 3. Recruit one licensed Czech accountant as the founding professional: the Skalar model the record imports runs one professional per 100+ clients [S1], so the first hire is leverage, not headcount.
 4. Verify the switch assumption the record flags as unreceipted: pre-sell AI-first bookkeeping to ten long-tail SMBs that cannot find an accountant, and pull the Komora daňových poradců or chamber shortage statement the record names as next evidence.
 5. Co-fund the Czech agent stack with [OP TAK Inovační vouchery IV](/sources/tenders#dotace-optak-inovacni-vouchery-4) — rolling until 2027-04-30, small vouchers paying SMEs for research-organization services (allocation not published on the ledger listing) [S7]; the deeper build-out, [OP TAK Partnerství znalostního transferu IV](/sources/tenders#dotace-optak-pzt-4), closes 2026-09-21 [S8].
-6. Competition, per the record's gap check: **Digitoo** (invoice-capture automation — partial), **ÚOL** (online accounting service — partial) and the Pohoda/Money/ABRA/Helios vendors shipping compliance updates — nobody operates the full-stack AI-first model [S2]; track the new Accounting Act (planned effect 2028-01-01, not yet enacted — the date can slip) [S3].
+6. Competition, per the 2026-08-20 re-check: the seat is taken. **Účtárna.ai** already runs the full-stack AI-first firm — bookkeeping, VAT, payroll, tax, licensed accountants over an AI document pipeline, published pricing; **E-Consulting AI Accounting** states it posts up to 85% of transactions automatically; **Trivi** and **MyÚčto.cz** sell the tech-enabled service; **Digitoo** holds invoice capture and **ÚOL** online service delivery [S2,S9]. An entrant here is displacing named domestic operators, not filling a void — price, niche or the 2028 transition itself is the wedge, and the new Accounting Act is still only planned for 2028-01-01 and can slip [S3].
 
 ---
 **CORRECTION (2026-08-20, evidence audit):** Removed the count of Czech accounting firms from "Who pays" — no count of the profession exists anywhere in the signal corpus or in any source note here, and the wedge stands without it. Also cut the client-load baseline from the third first move: that baseline lives only in the Skalar `comps:` traction line, and a comparable's traction cannot back a body claim. The client figure the Skalar source note does carry is unchanged and still cited [S1].
+
+---
+**CORRECTION (2026-08-20, gap re-check):** **De-ranked — the AI-native accounting firm has a Czech operator.** The prior gap check labelled itself "quick search only" and concluded no full-stack AI-first accounting or tax firm existed here. It does. **Účtárna.ai** sells exactly that model as a service — bookkeeping, VAT, payroll, tax optimization, a client portal, AI-processed documents reviewed by licensed accountants, published pricing, and a stated 300+ client firms; its named CEO resolves in ARES (IČO 88865835). **E-Consulting AI Accounting** states technology posts up to 85% of transactions automatically while the firm remains responsible for accuracy, and **Trivi a.s.** (IČO 28378440) and **MyÚčto.cz** run tech-enabled versions of the same service [S9]. Per the SPEC §4 de-rank rule: `gap` 1 → 0, `score` 7 → 6, `status` candidate → watching. The title's claim that the model "has no Czech equivalent" was removed for the same reason, and the non-solutions paragraph and first move 6 were rewritten so the body stops asserting an absence its own score denies. The scarcity and the 2028 re-platforming window are untouched — they are backed by [S3] and [S6] and remain the record's live content. Consistent with the audit above, no headcount for the Czech accounting profession has been reintroduced: the re-check looked and found none.

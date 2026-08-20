@@ -75,6 +75,39 @@ sources:
     demand. Deadline sub-score 1 (>18mo, CZ dates pending): urgency 1→2.'
   date: '2026-07-15'
   signal: reg-epbd-recast
+- type: gap-check
+  url: https://dotacenarenovace.cz/
+  note: 'Gap re-check 2026-08-20: looked for a Czech tech-enabled insulation consolidator —
+    either the VARM shape (trained crews, standardised fixed-price one-day job, software-run
+    ops) or the dsb/Enter shape (homeowner acquisition plus subsidy handling plus packaged
+    delivery). No scaled tech-enabled player found. Every surface returned the long tail this
+    record already describes: regional directories listing zateplení firms kraj by kraj
+    (izolace-info.cz), individual applicators (FOUKNUTO, Bezvaizolace, Magmarelax), and CIUR
+    a.s., a material manufacturer running its own application centre plus a partner-firm network
+    for Climatizer Plus — the manufacturer-channel model, not a consolidator. Closest to the
+    dsb wedge is dotacenarenovace.cz: turnkey renovation covering assessment, NZÚ application
+    (10k CZK deposit plus 40k on approval, claimed 99% success) and the building work including
+    facade insulation — but it is a 25-year construction firm paired with a subsidy agency,
+    500+ renovations lifetime, which is a general contractor with a subsidy desk and is already
+    accounted for in this record''s existing-non-solutions paragraph. Corroborating the other
+    half of the claim: Schlieger, a CZ installer with 23,000+ installations and in-house NZÚ
+    handling, sells fotovoltaika, tepelná čerpadla and solární ohřev only — no zateplení, the
+    same skip the record attributes to Woltair. Woltair itself is NOT VERIFIED either way: a
+    direct fetch of woltair.cz was refused (ECONNREFUSED), search summaries conflict, and every
+    purchasable service URL found is heat pumps, photovoltaics, boilers or servis against a
+    self-description of "Experti na tepelná čerpadla a fotovoltaiku". NOT FOUND IS NOT ABSENT:
+    gap stays 1 and score stays 6 — a search returning nothing never raises a score. The record''s
+    own next-evidence question, whether Woltair expands into insulation, stays open and should
+    be settled by asking Woltair, not by searching.'
+  date: '2026-08-20'
+  queries:
+    - "zateplení rodinného domu na klíč fixní cena foukaná izolace vyřídíme dotaci celá ČR"
+    - "zateplení izolace na klíč franšíza síť montážních týmů standardizovaná fixní cena za den Česko"
+    - "komplexní energetická renovace domu na klíč vyřízení dotace NZÚ projekt realizace jedna firma"
+    - "český startup renovace domů zateplení na klíč platforma investice miliony korun"
+    - "Woltair zateplení izolace domu služba nabídka rozšíření"
+  checked: [google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---

@@ -5,14 +5,14 @@ title: Czech developers and builders navigate one of the OECD's slowest building
   through a still-dysfunctional state portal, with no tooling of their own
 category: housing
 geo: CZ-national
-score: 6
+score: 4
 scores:
   proof: 1
   money: 0
   urgency: 1
   demand: 2
-  gap: 2
-status: candidate
+  gap: 0
+status: watching
 build:
   capital: garage
   first_revenue: months
@@ -89,6 +89,32 @@ sources:
     zero hits corpus-wide); correction receipt only, backs no score dimension.'
   date: '2021-09-16'
   dims: []
+- type: gap-check
+  url: https://pruvodka.cz/o-nas
+  note: 'Gap re-check 2026-08-20: looked for a Czech product automating permit preparation
+    or navigation for stavebníci, developers or projektanti — the absence this record has
+    claimed since 2026-08-13. FOUND, and the claim does not survive it. Průvodka (pruvodka.cz,
+    live and priced) sells exactly that: the buyer uploads the dokumentace, AI checks it and
+    recommends which dotčené orgány and správci sítí (ČEZ, GasNet, vodárny, CETIN) to approach,
+    the requests go out through datová schránka, and the service tracks each authority''s
+    30/60/90-day lhůta and generates the doklad o fikci souhlasu when one lapses; 12,900 CZK
+    per project one-off or 29,900 CZK/month (Studio, up to 5 new projects), Stripe checkout,
+    14-day money-back. Its own about page states it serves "projektantům i stavebníkům" and is
+    "postaveno pro české stavební řízení". A second CZ player, Efektivia (efektivia.eu), sells
+    AI document triage into municipal offices — the authority side of the same counter, live at
+    MČ Brno-střed and MěÚ Neratovice. De-ranked under SPEC §4: gap 2 -> 0, score 6 -> 4, status
+    -> watching. Method note: our own funded ledger holds no CZ permitting entrant, and would
+    not have — both incumbents are unfunded, so a capital-shaped ledger cannot see them.'
+  date: '2026-08-20'
+  queries:
+    - "software automatizace stavebního povolení příprava dokumentace stavební řízení"
+    - "startup AI povolování staveb portál stavebníka pomoc developerům software"
+    - "\"stavební povolení\" AI asistent aplikace vyřízení online startup česká firma"
+    - "Efektivia AI stavební úřad žádosti o stavební povolení kontrola úplnosti podkladů"
+    - "Průvodka.cz vyjádření dotčených orgánů online služba stavebníci firma"
+    - "Czech startup permitting software construction permits automation Czechia proptech"
+  checked: [google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -99,11 +125,14 @@ Why now: the new building act changed procedures, the state portal remains unrel
 
 Who pays: developers and larger stavebníci, for whom shaving months off entitlement and permit preparation is worth meaningful fees; architecture/engineering offices preparing dokumentace; potentially municipalities buying triage tooling, though the private side is the realistic first buyer.
 
-Existing non-solutions: the state's own portál stavebníka (the source of much of the pain), law firms and inženýring service providers who navigate permits manually per project. The 2026-08-13 absence check found no Czech software automating permit preparation or navigation [S3].
+Existing non-solutions: the state's own portál stavebníka (the source of much of the pain), law firms and inženýring service providers who navigate permits manually per project. The 2026-08-13 absence check found no Czech software automating permit preparation or navigation [S3] — a finding the 2026-08-20 gap re-check overturns. **Průvodka** sells that product to projektanti and stavebníci: upload the dokumentace, AI checks it and recommends which dotčené orgány and správci sítí (ČEZ, GasNet, vodárny, CETIN) to approach, the žádosti go out by datová schránka, and the service tracks each 30/60/90-day lhůta and issues the doklad o fikci souhlasu when one lapses — 12,900 CZK per project or 29,900 CZK a month on the Studio plan [S7]. On the authority side of the same counter, **Efektivia** sells AI document triage into Czech municipal offices, live at MČ Brno-střed and MěÚ Neratovice [S7].
 
-Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26) show a funded US cluster around AI permit/zoning navigation [S1]. Arbitrage is scored conservatively at 1 because all analogs are US-based [S1,S4] and permitting is jurisdiction-specific; demand and gap carry this problem.
+Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26) show a funded US cluster around AI permit/zoning navigation [S1]. Arbitrage is scored conservatively at 1 because all analogs are US-based [S1,S4] and permitting is jurisdiction-specific; with gap de-ranked to 0 [S7], documented demand is now the only dimension carrying this record.
 
 ---
 **CORRECTION (2026-08-13, post-run fact check):** The "OECD's slowest / 246 days / 157th in the world" framing traces to World Bank Doing Business 2020 — an index discontinued in 2021 after a data-manipulation scandal [S6], and it measured the full administrative cycle, not permitting alone. Replace with: ČKAIT survey (Jan 2024, n≈1,100): typical proceedings **6–12 months** [S5]. Source: https://zpravy.ckait.cz/vydani/2024-01/delka-povolovani-staveb-v-cr-nikoliv-roky-ale-mesice-ukazal-pruzkum-inzenyrske-komory/
 
 *Checked by the 2026-08-20 evidence audit. **Verified:** the ČKAIT survey (Z+i 2024/01, published 20 Feb 2024) reports that for nearly 1,100 authorized persons "délka trvání většiny povolovacích řízení staveb v ČR, a to včetně související inženýrské činnosti, je obvykle šest měsíců až jeden rok" [S5]; and the World Bank Group discontinued Doing Business on 16 Sep 2021 following its investigation into data irregularities in the 2018 and 2020 editions [S6]. **Still open:** the specific "246 days / 157th" figures attributed to Doing Business 2020 — the archived country profile publishes them only inside downloadable figures, and `Doing Business` returns zero hits across all 6,181 signals. (figure not yet traced to a primary source on file — flagged by the 2026-08-20 evidence audit)*
+
+---
+**CORRECTION (2026-08-20, gap re-check):** De-ranked. The absence this record was built on — "no CZ startup automating permit preparation or navigation" [S3] — was never checked against Czech-language surfaces; it was recorded against a YC company page. Checked properly on 2026-08-20, it does not hold: **Průvodka** (pruvodka.cz) is a live, priced Czech AI product that assembles the vyjadřovačky and stanoviska a stavebník needs before applying, and **Efektivia** (efektivia.eu) sells the mirror-image triage tool to stavební úřady [S7]. `scores.gap` 2 -> 0 and `score` 6 -> 4 under the SPEC §4 de-rank rule, `status` -> watching; the existing-non-solutions and comparables paragraphs are rewritten so the prose no longer contradicts the score. Neither incumbent appears in `data/signals/funded/`, and neither would: both are unfunded, so a capital-shaped ledger is structurally blind to them and only a live Czech-language search could surface them.

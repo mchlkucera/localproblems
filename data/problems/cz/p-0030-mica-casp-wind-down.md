@@ -45,6 +45,34 @@ sources:
     execution, or ongoing CASP compliance operations (safeguarding, DORA, AML reporting) was
     found. Gap 1 (quick search, services-only incumbents named).'
   date: '2026-08-13'
+- type: gap-check
+  url: https://www.kryptoregulace.cz/
+  note: 'Gap re-check 2026-08-20: NOT FOUND, score unchanged. Looked for a Czech product for
+    wind-down execution, customer-asset migration, or ongoing CASP compliance operations
+    (safeguarding, DORA, MiCA-grade AML and reporting). Every Czech offering found is advisory:
+    kryptoregulace.cz is run by Blockchain Legal, advokátní kancelář s.r.o. with AML Systems,
+    Binary Confidence and CITADELO and states outright that the site is informational, with
+    no platform behind it; Schejbal & Partners, ARROWS, AMS Europe, Key2Law and PROFI
+    Poradenství sell licence applications and policies on the same law-firm economics as the
+    incumbents already named on this record. Product-shaped answers exist but none is Czech:
+    MarketGuard sells CASP onboarding, AML and blockchain transaction monitoring and
+    regulatory reporting with no Czech entity, address or ČNB reference disclosed, and
+    AMLBot, KYC-Chain, Sigma360, Trusty and CertiK cover the same ground EU-wide. Our own
+    funded ledger holds Czech crypto operators (Confirmo, Tatum) and Slovak Blockmate, none
+    of them a compliance-operations vendor. The ČNB press release was read directly for the
+    licensed population: 251 applications assessed, 204 filed inside the transitional period,
+    11 permissions granted, Binance among those that failed. IMPORTANT: this is a not-found,
+    not a proven absence, and a negative never raises a gap score. Gap stays 1 with its
+    coverage now recorded. Method control passed first at Wultra (p-0017) and Softlink (p-0026).'
+  date: '2026-08-20'
+  queries:
+    - "MiCA compliance software Česko poskytovatel kryptoslužeb ukončení činnosti převod klientských aktiv"
+    - "český nástroj compliance kryptoburza CASP reporting AML transakční monitoring krypto software"
+    - "česká platforma compliance pro kryptofirmy safeguarding klientských aktiv DORA MiCA produkt"
+    - "Česko kryptofirmy bez licence ukončení činnosti pomoc migrace klientů nástroj řešení 2026"
+    - "Czech company software CASP wind-down client asset migration MiCA compliance operations product"
+  checked: [google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---

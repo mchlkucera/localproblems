@@ -5,14 +5,14 @@ title: Hundreds of small Czech heat-pump and solar installation firms drown in q
   calculation and NZÚ subsidy paperwork with no vertical software
 category: energy
 geo: CZ-national
-score: 7
+score: 5
 scores:
   proof: 2
   money: 1
   urgency: 1
   demand: 1
-  gap: 2
-status: candidate
+  gap: 0
+status: watching
 build:
   capital: garage
   first_revenue: weeks
@@ -78,6 +78,31 @@ sources:
     support.'
   date: '2026-11-30'
   signal: dotace-npo-2-2026-renovacni-pas
+- type: gap-check
+  url: https://wue.cz/
+  note: 'Gap re-check 2026-08-20: looked for CZ vertical software selling quoting, design and
+    NZÚ subsidy paperwork to heat-pump/FVE montážní firmy. Found, and the NZÚ-paperwork wedge
+    this record proposes building first is already occupied. Wue (wue.cz) "urychluje a automatizuje
+    tvorbu cenových nabídek pro fotovoltaické elektrárny", generates contracts, handover protocols
+    and NZÚ subsidy documentation, bundles a PV roof configurator via Fohet and a heat-pump
+    extension, and is priced per seat at 650 Kč/user/month plus 200 Kč for the TČ module —
+    per-seat vertical SaaS sold to installers, not a manufacturer configurator. RAYNET, a CZ
+    CRM vendor, ships a photovoltaics vertical that auto-generates "dotační formuláře a dokumenty
+    distributorů přímo z CRM" for NZÚ, ČEZ, PRE and EG.D, plus a field mobile app for montážní
+    týmy and a dispatcher calendar; Bubble Development reports implementing it at ~20 PV companies.
+    AutoERP (Apertia Tech) sells three CRM/ERP variants for FVE installation firms and Infina
+    sells a CRM with a payback calculator for HP/FVE dealers. Note the method finding: the
+    English-language query returned no CZ vendor at all while the Czech queries returned four,
+    which is how the 2026-08-13 check missed them. Local players named: gap 2 -> 0 and status
+    moves to watching per the de-rank rule.'
+  date: '2026-08-20'
+  queries:
+    - "software pro montážní firmy tepelná čerpadla fotovoltaika nabídky zakázky dotace"
+    - "software pro fotovoltaické firmy návrh cenová nabídka řízení zakázek CRM montáže"
+    - "program výpočet tepelné ztráty návrh tepelného čerpadla nabídka pro montážní firmy software"
+    - "Czech software for heat pump and solar installers quoting subsidy paperwork field service"
+  checked: [google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -88,18 +113,20 @@ Why now: NZÚ volumes keep the long tail of installers at capacity [S2], and the
 
 Who pays: the installation firms themselves (per-seat or per-project SaaS), for whom faster quoting and correctly filed subsidy applications convert directly to revenue; secondarily manufacturers and distributors who want their long-tail installer channel to be more productive.
 
-Existing non-solutions: manufacturer sizing configurators (e.g. Master Therm), generic project tools, and Woltair — which is a vertically integrated installer competing with the long tail, not selling software to it [S3]. The 2026-08-13 absence check found no Czech installer-ops SaaS [S3].
+Existing non-solutions: manufacturer sizing configurators (e.g. Master Therm), generic project tools, and Woltair — which is a vertically integrated installer competing with the long tail, not selling software to it [S3]. But the software position itself is not empty: the 2026-08-20 re-check found Wue selling per-seat quoting-plus-NZÚ-documentation software to FVE and heat-pump firms at 650 Kč/user/month, RAYNET shipping a photovoltaics CRM vertical that auto-generates NZÚ and distributor forms with a field app for installation crews, and AutoERP and Infina selling CRM/ERP into the same buyers [S6]. The 2026-08-13 absence check that found no Czech installer-ops SaaS [S3] is superseded.
 
-Solved elsewhere: autarc in Germany is the funded, directly adjacent analog; no Czech player was found [S1], which under the scoring rubric is a clean DE-analog-plus-no-CZ-player arbitrage. Money point reflects the NZÚ subsidy program referenced in the signal note as the workflow's economic engine [S2].
+Solved elsewhere: autarc in Germany is the funded, directly adjacent analog [S1]. The arbitrage no longer reads as DE-analog-plus-no-CZ-player, because CZ players exist [S6]; what the German comparison now describes is depth — heat-load calculation and digital site survey — rather than absence. Money point reflects the NZÚ subsidy program referenced in the signal note as the workflow's economic engine [S2].
 
 ## First moves
 
 1. Interview ten small heat-pump/FVE montážní firmy — the long tail executing the tens of thousands of NZÚ-driven installs per year [S2] — and time two numbers per firm: hours per quote and hours per NZÚ subsidy application, both done today with spreadsheets, manufacturer configurators and manual form-filling per the record.
-2. Build the NZÚ-paperwork wedge first: generate the complete subsidy-application package from the data already captured in a quote — correctly filed applications convert directly to installer revenue, and the subsidy-shaped workflow is exactly the localization moat that keeps foreign tools out.
+2. Do NOT build the NZÚ-paperwork wedge first — it is taken. Wue generates NZÚ subsidy documentation from quote data today, and RAYNET auto-generates NZÚ and distributor forms straight out of its PV CRM [S6]. Buy both, run a real quote through each, and find what they do badly before assuming there is room.
 3. Verify the volume assumption before scaling: the redesigned [NZÚ 2026+](/sources/tenders#dotace-nzu-2026-zranitelne-domacnosti) (opened 25.6.2026, applications until **2029-10-31**) narrows direct grants to vulnerable households (advance grants up to 400k CZK) and shifts other owners to zero-interest loans plus a newly mandatory renovation pass [S4] — confirm with the interviewed firms that application volume and paperwork burden survive the pivot.
 4. Then displace the manufacturer configurators: add heat-load calculation and digital site survey so a firm quotes from one tool instead of Master Therm-style sizing tools plus spreadsheets [S3] — the depth that carried autarc and Reonic to installer scale in Germany.
 5. Funding reality: the open calls on file fund the buyer's order book, not the software — NZÚ 2026+ keeps the long tail at capacity, and the [NPO 2/2026 Renovační pas call](/sources/tenders#dotace-npo-2-2026-renovacni-pas) (grants up to 50k/100k CZK per building, deadline **2026-11-30**) makes renovation passports the gate to NZÚ retrofit money [S5] — new mandatory paperwork the product can automate. The software itself is commercial revenue only.
-6. Competition on file: **Master Therm**-style manufacturer configurators (sizing only) and **Woltair** (vertically integrated installer competing with the long tail, not selling software to it); the 2026-08-13 absence check found no CZ installer-ops SaaS [S3].
+6. Competition on file — the category is occupied, so the moves above are competitive research rather than a greenfield plan: **Wue** (per-seat quoting plus NZÚ documentation for FVE/TČ firms, 650 Kč/user/month), **RAYNET** (photovoltaics CRM vertical with NZÚ and distributor form generation and a crew mobile app), **AutoERP** (Apertia Tech) and **Infina** [S6]; plus **Master Therm**-style manufacturer configurators (sizing only) and **Woltair** (vertically integrated installer competing with the long tail, not selling software to it) [S3].
 
 ---
 **CORRECTION (2026-08-20, evidence audit):** Cut the autarc funding-and-customer parenthetical and the Reonic Series A parenthetical from the fourth first move. Both figures live only in the `comps:` ledger — Reonic returns no hits anywhere in the signal corpus, and `yc-autarc` carries neither the raise nor the customer count — and a comparable's traction line cannot back a body claim. The "Where it works" ledger still prints both.
+
+**CORRECTION (2026-08-20, gap re-check):** The absence claim was false. Czech-language search found four CZ vendors selling installer-facing software to heat-pump and FVE firms — Wue, RAYNET's photovoltaics vertical, AutoERP and Infina [S6] — so `scores.gap` moves 2 → 0, `score` 7 → 5, status candidate → watching per the SPEC §4 de-rank rule. The record's proposed first product move, the NZÚ-paperwork wedge, is the part most clearly already shipped. Two things made the original check miss this. It cited a *foreign* page (ycombinator.com/companies/autarc) as the receipt for a *Czech* absence, which proves nothing about Czechia; and the search appears to have run in English, where the same re-check returned no Czech vendor at all while the Czech-language queries returned four. None of the four appears anywhere in this register's signal corpus — they are bootstrapped SMB software companies that no funding feed surfaces. What survives is the demand claim [S1] and the observation that the CZ tools are quoting/CRM-shaped rather than autarc-depth: heat-load calculation and digital site survey remain genuinely thin here, but that is a product-differentiation argument, not an absence.

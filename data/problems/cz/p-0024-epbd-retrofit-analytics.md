@@ -71,6 +71,32 @@ sources:
     not the portfolio-analytics layer this record is about.'
   date: '2026-06-04'
   signal: ted-384935-2026
+- type: gap-check
+  url: https://www.pkv.cz/en/energeticky-management
+  note: 'Gap re-check 2026-08-20: looked for a Czech product that screens a PORTFOLIO of buildings
+    for retrofit need and sequence — which building, which measure, in what order, at what capex
+    — the Fuchs & Eule / Predium shape, as distinct from per-building certificates. Not found.
+    What exists is adjacent, and was checked rather than assumed. Enmon (PKV) is a portfolio
+    energy-management and sustainability platform, implemented at CTP, but its own pages describe
+    automatic 15-minute consumption collection, carbon-footprint calculation and ESG/non-financial
+    reporting, with no renovation roadmap, no measure prioritisation and no capex modelling.
+    ENERGOMETR (DEKSOFT) likewise consolidates consumption across buildings and provides tables,
+    graphs and reports. renovacnipas.cz (EnergySim), the SFŽP renovation-pass application and
+    the ufae.cz calculation tool are all single-building and aimed at homeowners or energy
+    specialists, and the renovation pass is an NZÚ application artifact rather than a portfolio
+    product. Portfolio tools sold into CZ (IBM Envizi, Deepki) reach owners through CBRE-type
+    advisory, not as a Czech product. NOT FOUND IS NOT ABSENT: gap stays 1 and score stays 6
+    — a search that returns nothing is not evidence that nothing exists, and the surfaces listed
+    below are the whole of the coverage claimed here. Flag for the next pass: PKV, named in this
+    record as the per-building certificate scale player, also ships portfolio software, so the
+    distinction this record rests on is monitoring-versus-retrofit-planning and is narrower than
+    the body currently implies.'
+  date: '2026-08-20'
+  queries:
+    - "software energetický management portfolia budov analýza renovace dekarbonizace ESG nemovitosti Česko"
+    - "software renovační pas dekarbonizační plán budov portfolio CRREM analýza opatření úspor Česko"
+  checked: [google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---

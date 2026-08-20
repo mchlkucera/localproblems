@@ -73,6 +73,30 @@ sources:
     manually; no CZ product for lender-side dispute response, FA-docket management or settlement
     workflow was found. Gap 1 (quick search, no CZ player found).'
   date: '2026-08-13'
+- type: gap-check
+  url: https://www.acompliance.cz/klienti/nebankovni-poskytovatele-uveru/
+  note: 'Gap re-check 2026-08-20: NOT FOUND, score unchanged. Looked for a Czech product on
+    the respondent side — dispute-response workflow for lenders, docket management against
+    the financial arbiter, settlement decisioning. Nearest CZ supply is adjacent and points
+    the other way: receivables and collections platforms (eDebit, ePohledávky.cz by SoftGate
+    Systems, Evolio, Barrister by ASW) automate the creditor pursuing the debtor, not the
+    creditor defending a consumer claim; law-practice case management (SingleCase, LegiSpace,
+    Aptien) is generic firm tooling with no arbiter docket in it. The one offering aimed
+    squarely at this need is a service, not a product — aCompliance markets handling of client
+    complaints and out-of-court disputes at the financial arbiter to non-bank lenders. Our
+    own funded ledger holds no CZ entrant either: the dispute cluster in it is the demand
+    evidence plus foreign analogs. IMPORTANT: this is a not-found, not a proven absence, and
+    per the register rule a negative never raises a gap score. Gap stays 1 with its coverage
+    now recorded. Method control passed first at Wultra (p-0017) and Softlink (p-0026).'
+  date: '2026-08-20'
+  queries:
+    - "software pro správu sporů finanční arbitr nebankovní poskytovatel úvěru reklamace klientů systém"
+    - "český software správa právních sporů case management pro právní oddělení bank a věřitelů"
+    - "software pro vymáhání a správu pohledávek spotřebitelské úvěry Česko platforma věřitelé"
+    - "software evidence stížností a reklamací klientů banka pojišťovna poskytovatel úvěru Česko systém"
+    - "Czech software lender-side complaint and dispute management financial arbiter consumer credit case workflow"
+  checked: [google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---

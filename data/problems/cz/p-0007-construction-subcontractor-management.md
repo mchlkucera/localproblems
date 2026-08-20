@@ -75,6 +75,36 @@ sources:
     (site diary/attendance only).'
   date: '2026-08-05'
   signal: de-conmeet
+- type: gap-check
+  url: https://bildix.app/
+  note: 'Gap re-check 2026-08-20: looked for (a) a Czech B2B marketplace matching general
+    contractors with vetted subcontractor crews and (b) a construction-vertical payroll or
+    posted-worker-compliance product. NEITHER FOUND, and the near-misses are all off-target.
+    The B2B construction platforms Czech search returns are lead-generation for investor or
+    homeowner demand — NejStav.cz, ePoptávka, Poptávka-EU, B2Bpoptavka — the same class as the
+    Wilio/Nejřemeslníci consumer marketplaces this record already names, not GC-to-crew
+    matching with document vetting. Subcontractor tendering does exist inside project software,
+    but as a feature of PlanRadar, an Austrian vendor that entered the CZ market in spring 2025,
+    and only toward subcontractors already on a live project. The closest Czech player is
+    Bildix (CVF Group, s.r.o., Prague) — "Jedna platforma pro celou realizační firmu": leads,
+    quotes, projects, service, purchasing, grant admin and cashflow with iDoklad and Pohoda
+    integration. That makes Bildix a stronger CZ analog of conmeet than Stavario is, and it is
+    named here for that reason, but it is an internal ops platform: no crew sourcing, no
+    vetting, no payroll, no A1/posted-worker handling. On payroll, Czech search returns only
+    horizontal vendors (Vema, Alfa-soft, M3P3) plus construction software that is budgeting or
+    scheduling (RTS Stavitel+) or site diary and attendance (Stavario, STAVEE, Stavar.io,
+    Buildary) — none of them pay a crew. NOTHING MOVED: `scores.gap` stays 1 and `score` stays
+    5. Searching and not finding is not the same as absence, and this pass has no authority to
+    raise a gap score on a negative.'
+  date: '2026-08-20'
+  queries:
+    - "marketplace subdodavatelé stavební firmy ověřené party poptávka B2B platforma Česko"
+    - "platforma pro shánění part na stavbu generální dodavatel subdodavatelé ověření dokladů startup"
+    - "software mzdy docházka pro stavební firmy party na stavbě vysílání pracovníků A1"
+    - "mzdový software specializovaný pro stavebnictví výplaty dělníků stavební firmy vertikální"
+    - "český startup stavebnictví nedostatek dělníků zprostředkování ukrajinských part software 2026"
+  checked: [google-cz, own-funded-ledger]
+  expires: '2026-11-18'
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
