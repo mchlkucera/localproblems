@@ -150,43 +150,72 @@ python3 scripts/db.py health || AUDIT_RC=2
 #    match_log, which are history that exists nowhere else.
 python3 scripts/db.py rebuild || AUDIT_RC=2
 
-# 5. MODEL PASSES — WIRED, WORKING, AND OFF BY DEFAULT. All three matter.
-#    This used to print "no measured proof that a nested `claude -p`
-#    authenticates from this pipeline", and that reason is now WRONG: measured
-#    2026-08-20, `with-secrets curl --variable '%ANTHROPIC_API_KEY'
-#    --expand-header 'x-api-key: {{…}}' … /v1/messages` returns HTTP 200 from
-#    claude-opus-5, and scripts/model_pass.{py,sh} run the two passes on that
-#    seam. 3,092 records landed through it the same day.
+# 5. MODEL PASSES — WIRED, WORKING, AND NOW FREE BY DEFAULT.
 #
-#    IT STILL DOES NOT RUN HERE UNLESS ASKED. This script is what a scheduler
-#    calls, and a scheduled run that silently spends money on every fetch is a
-#    different program from the one anyone reviewed — the passes cost real
-#    credit per record and the balance is finite (a run on 2026-08-20 ended on
-#    HTTP 400 "credit balance is too low" mid-pass). So the capability is
-#    opt-in, by an env flag an operator sets deliberately, and the default path
-#    still stages and hands off. That is a budget decision, NOT a doubt about
-#    whether it works.
-if [ "${INGEST_MODEL_PASSES:-0}" = "1" ]; then
-  echo "ingest: model passes ENABLED (INGEST_MODEL_PASSES=1) — this SPENDS API credit." >&2
-  python3 scripts/model_pass.py plan  --raw "$RAW" --pass A --batch 50 || AUDIT_RC=2
-  /bin/bash scripts/model_pass.sh "$RAW" A                              || FEED_RC=1
-  python3 scripts/model_pass.py apply --raw "$RAW" --pass A || AUDIT_RC=2
-  python3 scripts/model_pass.py plan  --raw "$RAW" --pass B --batch 25 || AUDIT_RC=2
-  /bin/bash scripts/model_pass.sh "$RAW" B                              || FEED_RC=1
-  python3 scripts/model_pass.py apply --raw "$RAW" --pass B || AUDIT_RC=2
-  echo "ingest: model passes done. Records are FILLED but not appended:" >&2
-  echo "ingest:   python3 scripts/normalize.py --raw $RAW --complete" >&2
-else
-  echo "ingest: model passes NOT run (INGEST_MODEL_PASSES is not 1). This is a" >&2
-  echo "ingest: budget default, not a broken seam: the auth path is measured and" >&2
-  echo "ingest: scripts/model_pass.{py,sh} work. Mechanical records are STAGED in" >&2
-  echo "ingest: $RAW/staged.jsonl. Complete them with either:" >&2
-  echo "ingest:   a. INGEST_MODEL_PASSES=1 /bin/bash scripts/ingest.sh   (spends credit)" >&2
-  echo "ingest:   b. an ATTENDED session filling each record's \`_needs\` fields" >&2
-  echo "ingest: then:" >&2
-  echo "ingest:   python3 scripts/normalize.py --raw $RAW --complete" >&2
-  echo "ingest:   python3 scripts/db.py upsert data/signals/<type>/$TODAY.jsonl" >&2
-fi
+#    WHAT CHANGED 2026-08-20. This block used to run one driver: `with-secrets
+#    curl … /v1/messages`, gated OFF behind INGEST_MODEL_PASSES=1 because it
+#    spends the Anthropic CREDIT BALANCE per record and a scheduled run that
+#    silently spends money on every fetch is a different program from the one
+#    anyone reviewed. That balance then ran out mid-run — HTTP 400, "Your credit
+#    balance is too low" — stranding 51 material survivors. The owner's ruling:
+#    "instead of running Claude thru api credits, can you run the logic thru
+#    subagents?" So there are now TWO drivers and the free one is the default:
+#
+#      INGEST_MODEL_PASSES unset|agent  SUBAGENT (default). Costs NO credit. Plans
+#        the batches and writes one self-contained prompt per batch, then STOPS
+#        and hands off, because completing it needs an agent and this script
+#        cannot spawn one — measured twice on 2026-08-20, a nested `claude -p`
+#        prints "Not logged in · Please run /login" sandboxed and "401 OAuth
+#        access token has expired" unsandboxed. Planning is pure file I/O: no
+#        network, no secret, nothing appended. A scheduled run therefore leaves a
+#        READY WORKLIST instead of a shrug, which is the whole gain here.
+#      INGEST_MODEL_PASSES=1|api        API. SPENDS the credit balance. Kept
+#        because it is proven and costs nothing to keep. `1` still means what it
+#        meant, so an existing cron entry keeps its behaviour.
+#      INGEST_MODEL_PASSES=0|off        Skip the model seam entirely.
+#
+#    THE TWO ARE NEVER SUBSTITUTED FOR EACH OTHER. A silent fallback from the
+#    free driver to the paid one (or back) would be indistinguishable from either
+#    working, so normalize.py names the driver it used on every run and rc=3 means
+#    "agents still owe me answers", never "spend money instead".
+MODEL_DRIVER="${INGEST_MODEL_PASSES:-agent}"
+case "$MODEL_DRIVER" in
+  0|off|none)
+    echo "ingest: model passes SKIPPED (INGEST_MODEL_PASSES=$MODEL_DRIVER). Mechanical" >&2
+    echo "ingest: records are STAGED in $RAW/staged.jsonl and owe their model fields." >&2
+    ;;
+  1|api)
+    echo "ingest: model passes via the API driver — this SPENDS API credit." >&2
+    python3 scripts/normalize.py --raw "$RAW" --model-only --model-driver api \
+      --model-batch 50 || AUDIT_RC=2
+    echo "ingest: model passes done. Records are FILLED but not appended:" >&2
+    echo "ingest:   python3 scripts/normalize.py --raw $RAW --complete" >&2
+    ;;
+  *)
+    echo "ingest: model passes via the SUBAGENT driver — no API credit is spent." >&2
+    python3 scripts/normalize.py --raw "$RAW" --model-only --model-driver agent \
+      --model-batch 50
+    MODEL_RC=$?
+    # rc=3 is the HANDOFF, not a failure: batches are planned and prompted and
+    # await a session's subagents. Folding it into AUDIT_RC would mark every
+    # scheduled run red for doing exactly what it is supposed to do.
+    if [ "$MODEL_RC" -eq 3 ]; then
+      echo "ingest: subagent batches are PLANNED and awaiting agents. In a Claude" >&2
+      echo "ingest: Code session, give each prompt in" >&2
+      echo "ingest:   $RAW/.model/agent/worklist-<PASS>.json" >&2
+      echo "ingest: to its own subagent, then re-run:" >&2
+      # --model-batch REPEATED ON PURPOSE: the batch name encodes position as well
+      # as membership, so resuming at a different size renames every batch and
+      # orphans the answers already on disk.
+      echo "ingest:   python3 scripts/normalize.py --raw $RAW --model-only --model-batch 50" >&2
+    elif [ "$MODEL_RC" -ne 0 ]; then
+      AUDIT_RC=2
+    fi
+    echo "ingest: when every _needs is filled:" >&2
+    echo "ingest:   python3 scripts/normalize.py --raw $RAW --complete" >&2
+    echo "ingest:   python3 scripts/db.py upsert data/signals/<type>/$TODAY.jsonl" >&2
+    ;;
+esac
 
 # Deliberately no git: INGEST never commits or pushes. It leaves a clean working
 # tree and PROCESSING picks the new lines up on its next run.

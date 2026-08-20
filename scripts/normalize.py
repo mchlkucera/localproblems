@@ -26,11 +26,13 @@ THREE MODES, and the split between them is the whole design:
 
   (default)           The UNATTENDED path: mechanical, then model passes A and B.
                       LIVE since 2026-08-20 — see the model_passes() docstring.
-                      It cannot make the authenticated call itself (with-secrets
-                      refuses interpreters, and this is one), so it drives
-                      scripts/model_pass.{py,sh}, where only the individual curl
-                      is wrapped. It still appends NOTHING: it fills
-                      staged.jsonl and hands over to --complete.
+                      It never makes the model call itself. It drives ONE of two
+                      drivers and says which: SUBAGENT (default, no API credit —
+                      scripts/model_pass_agent.py, filled by a session's
+                      subagents) or API (--model-driver api — scripts/
+                      model_pass.sh, which SPENDS the credit balance). It still
+                      appends NOTHING: it fills staged.jsonl and hands over to
+                      --complete.
 
 WHY MECHANICAL-ONLY APPENDS NOTHING. Every record needs `scale` and
 `recurrence`, and both are model judgments. The law is that unscored records are
@@ -1383,6 +1385,14 @@ def run_complete(args):
 
 MODEL_PASS_PY = os.path.join(ROOT, "scripts", "model_pass.py")
 MODEL_PASS_SH = os.path.join(ROOT, "scripts", "model_pass.sh")
+MODEL_PASS_AGENT = os.path.join(ROOT, "scripts", "model_pass_agent.py")
+
+# `model_passes` returns this when the SUBAGENT driver has planned work that only
+# a session's subagents can do. It is a HANDOFF, not a failure, and it is its own
+# code precisely so a caller cannot confuse the two: 0 would claim the records are
+# filled when they are not, and 2 would claim the seam is broken when it is
+# waiting. ingest.sh maps it to a message, not to a non-zero exit.
+RC_AGENT_PENDING = 3
 
 
 def _run(cmd):
@@ -1392,47 +1402,91 @@ def _run(cmd):
     return subprocess.call(cmd, cwd=ROOT)
 
 
+def _short(path):
+    """Repo-relative when the path is inside the repo, absolute otherwise. A blind
+    os.path.relpath turns a scratch dir into ../../../../../private/tmp/... , which
+    is a copy-pasteable command only by accident."""
+    rel = os.path.relpath(path, ROOT)
+    return path if rel.startswith("..") else rel
+
+
+def _agent_pending(raw, pass_):
+    """How many batches of this pass still await a subagent, per the worklist the
+    agent driver just wrote. -1 if the worklist is unreadable."""
+    path = os.path.join(raw, ".model", "agent", f"worklist-{pass_}.json")
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            return len(json.load(fh).get("pending") or [])
+    except Exception:                                  # noqa: BLE001
+        return -1
+
+
 def model_passes(args):
     """
     Pass A (scoring: scale, recurrence, grade-3 urgency, sector, geo_origin and
     the suggest/reddit pain bar), then the MATERIALITY FILTER, then pass B
     (EN title + summary over survivors only).
 
-    THIS FUNCTION DRIVES THE PASSES; IT DOES NOT MAKE THE CALL. That split is
-    forced and it is the honest shape:
+    THIS FUNCTION DRIVES THE PASSES; IT DOES NOT MAKE THE CALL. It never could:
+    `with-secrets` REFUSES bash, node, python, jq, awk and sed by allowlist,
+    because an interpreter can encode a secret past its output scrubber, and
+    normalize.py IS a python interpreter. What changed on 2026-08-20 is WHICH
+    driver sits in the middle, and there are now two:
 
-      * MEASURED 2026-08-20: `with-secrets curl --variable '%ANTHROPIC_API_KEY'
-        --expand-header 'x-api-key: {{ANTHROPIC_API_KEY}}' … /v1/messages`
-        returns HTTP 200 from claude-opus-5. The key is present and reachable.
-        The old "wired but inert" refusal was correct until that measurement and
-        is wrong after it.
-      * `with-secrets` still REFUSES bash, node, python, jq, awk and sed by
-        allowlist, because an interpreter can encode a secret past its output
-        scrubber. normalize.py IS a python interpreter. It can therefore never
-        be the process that holds the key, no matter how the call is written.
+      SUBAGENT (the default, --model-driver agent). Costs NO API credit. The
+        owner's ruling after the balance ran out mid-run — HTTP 400, "Your credit
+        balance is too low", 51 material survivors stranded — was: "instead of
+        running Claude thru api credits, can you run the logic thru subagents?"
+        So: plan -> scripts/model_pass_agent.py worklist -> a session's subagents
+        fill one answer file per batch -> collect -> apply.
 
-    So the authenticated call lives in scripts/model_pass.sh, which wraps ONLY
-    the individual curl — the same rule scripts/fetch_hlidac.sh follows for the
-    Hlídač token — and this function alternates:
+        THIS PATH CANNOT COMPLETE ITSELF FROM A SCRIPT, and that is measured, not
+        assumed. `claude -p` was tried twice on 2026-08-20: sandboxed it printed
+        "Not logged in · Please run /login" (the Keychain read is denied), and
+        unsandboxed "401 OAuth access token has expired". No shell script on this
+        box can spawn an agent. So when batches are still pending this returns
+        RC_AGENT_PENDING and prints the handoff — it does NOT quietly fall back
+        to the API path, because a silent fallback between a free driver and a
+        paid one is indistinguishable from either working. Re-running after the
+        agents have written their answers resumes exactly where it stopped.
 
-        model_pass.py plan  ->  model_pass.sh (curl)  ->  model_pass.py apply
+      API (--model-driver api). SPENDS the credit balance. Kept because it costs
+        nothing to keep and it is proven: `with-secrets curl --variable
+        '%ANTHROPIC_API_KEY' --expand-header 'x-api-key: {{…}}' … /v1/messages`
+        returns HTTP 200 from claude-opus-5, and 3,092 records landed through it.
+        The authenticated call lives in scripts/model_pass.sh, which wraps ONLY
+        the individual curl — the same rule fetch_hlidac.sh follows for the
+        Hlídač token.
 
-    staged.jsonl is written by `apply` alone, temp + os.replace, so a crash
-    anywhere in the loop leaves a whole file and the next run resumes from it.
+    Either way `apply` is the QA gate and staged.jsonl is written by `apply`
+    alone, temp + os.replace, so a crash anywhere leaves a whole file and the
+    next run resumes from it.
 
     STILL NOTHING WRITES DEFAULTS. Every field is validated against the closed
     vocabularies before it is written; a record whose fields did not validate
-    keeps its `_needs` and stays staged. If the driver cannot authenticate this
-    returns non-zero and appends nothing — losing freshness is recoverable,
-    writing vibes into an append-only canonical ledger is not.
+    keeps its `_needs` and stays staged. Losing freshness is recoverable, writing
+    vibes into an append-only canonical ledger is not.
     """
-    if not (os.path.isfile(MODEL_PASS_PY) and os.path.isfile(MODEL_PASS_SH)):
-        log("normalize: scripts/model_pass.{py,sh} are missing — the model seam is not")
-        log("  installed. Refusing to improvise a replacement (INGEST.md step 0).")
+    driver = getattr(args, "model_driver", "agent")
+    needed = [MODEL_PASS_PY] + ([MODEL_PASS_AGENT] if driver == "agent" else [MODEL_PASS_SH])
+    missing = [p for p in needed if not os.path.isfile(p)]
+    if missing:
+        log("normalize: missing " + ", ".join(os.path.relpath(p, ROOT) for p in missing))
+        log("  — the model seam is not installed. Refusing to improvise a")
+        log("  replacement (INGEST.md step 0).")
         return 2
 
     raw = os.path.abspath(args.raw)
     shards = max(1, int(getattr(args, "model_shards", 1)))
+    # SAY WHICH DRIVER RAN, EVERY TIME AND BEFORE IT RUNS. One of these spends
+    # money and one does not; an output that does not distinguish them would read
+    # identically whichever ran.
+    if driver == "agent":
+        log("normalize: model driver = SUBAGENT — no API credit is spent.")
+    else:
+        log("normalize: model driver = API (--model-driver api) — this SPENDS the")
+        log("  Anthropic credit balance, one request per batch.")
+
     for pass_ in ("A", "B"):
         rc = _run([sys.executable, MODEL_PASS_PY, "plan", "--raw", raw,
                    "--pass", pass_, "--batch", str(args.model_batch),
@@ -1440,25 +1494,63 @@ def model_passes(args):
         if rc != 0:
             log(f"normalize: model pass {pass_} could not be planned (rc={rc}).")
             return 2
-        # THE SHARDS ARE SEQUENTIAL HERE ON PURPOSE. Running them concurrently
-        # is supported by the driver (each shard writes only its own response
-        # files) but a scheduler-driven run has nobody watching a rate limit, so
-        # the unattended path takes the slow, safe lane. An attended operator
-        # runs the same script N times in parallel by hand.
-        for shard in range(shards):
-            rc = _run(["/bin/bash", MODEL_PASS_SH, raw, pass_, str(shard), str(shards)])
-            if rc == 2:
-                log(f"normalize: the model driver could not run (rc=2). NOTHING was")
-                log("  written. Do not work around this and do not export the key by hand.")
+
+        if driver == "agent":
+            # collect FIRST: a previous round's subagents may already have left
+            # answers on disk, and those become response files before we decide
+            # what is still outstanding. This is what makes the whole loop
+            # resumable by simply running the command again.
+            if _run([sys.executable, MODEL_PASS_AGENT, "collect",
+                     "--raw", raw, "--pass", pass_]) != 0:
+                log(f"normalize: could not collect pass {pass_} agent answers.")
                 return 2
+            if _run([sys.executable, MODEL_PASS_AGENT, "worklist",
+                     "--raw", raw, "--pass", pass_]) != 0:
+                log(f"normalize: could not build the pass {pass_} worklist.")
+                return 2
+            n = _agent_pending(raw, pass_)
+            if n != 0:
+                rel = _short(raw)
+                log("")
+                log(f"normalize: PASS {pass_} AWAITS {n} SUBAGENT(S). Nothing is wrong and")
+                log("  nothing was written. Each pending batch has a self-contained prompt")
+                log(f"  listed in {rel}/.model/agent/worklist-{pass_}.json; give each one to")
+                log("  its own subagent, which writes the matching .answer.json. Then:")
+                # --model-only, NOT the bare default path: this raw dir is already
+                # staged, and re-running the mechanical pass over it is not what
+                # "resume" means. Same --model-batch too — the batch name encodes
+                # the batch's POSITION as well as its members, so re-planning at a
+                # different size renames every batch and orphans the responses
+                # already on disk.
+                log(f"    python3 scripts/normalize.py --raw {rel} --model-only "
+                    f"--model-batch {args.model_batch}")
+                log("  A batch is done when its response file exists, so an abandoned")
+                log("  agent costs only its own batch. To spend credit instead, add")
+                log("  --model-driver api.")
+                return RC_AGENT_PENDING
+        else:
+            # THE SHARDS ARE SEQUENTIAL HERE ON PURPOSE. Running them concurrently
+            # is supported by the driver (each shard writes only its own response
+            # files) but a scheduler-driven run has nobody watching a rate limit,
+            # so the unattended path takes the slow, safe lane. An attended
+            # operator runs the same script N times in parallel by hand.
+            for shard in range(shards):
+                rc = _run(["/bin/bash", MODEL_PASS_SH, raw, pass_, str(shard), str(shards)])
+                if rc == 2:
+                    log("normalize: the model driver could not run (rc=2). NOTHING was")
+                    log("  written. Do not work around this and do not export the key by hand.")
+                    return 2
+
         rc = _run([sys.executable, MODEL_PASS_PY, "apply", "--raw", raw, "--pass", pass_])
         if rc != 0:
             log(f"normalize: model pass {pass_} could not be applied (rc={rc}).")
             return 2
 
-    log("normalize: model passes A and B complete. staged.jsonl now carries the model")
-    log("  fields. Nothing has been appended to a ledger yet — that is --complete:")
-    log(f"    python3 scripts/normalize.py --raw {os.path.relpath(raw, ROOT)} --complete")
+    log(f"normalize: model passes A and B complete via the "
+        f"{'SUBAGENT' if driver == 'agent' else 'API'} driver. staged.jsonl now")
+    log("  carries the model fields. Nothing has been appended to a ledger yet —")
+    log("  that is --complete:")
+    log(f"    python3 scripts/normalize.py --raw {_short(raw)} --complete")
     return 0
 
 
@@ -1468,6 +1560,10 @@ def main():
     p.add_argument("--raw", required=True, help="data/raw/<date>/")
     p.add_argument("--mechanical-only", action="store_true",
                    help="the arithmetic path: no model, no secrets, no network")
+    p.add_argument("--model-only", action="store_true",
+                   help="the model passes ALONE, over an already-staged raw dir "
+                        "(ingest.sh has already run --mechanical-only; re-running "
+                        "it there would re-stage an already-staged run)")
     p.add_argument("--complete", action="store_true",
                    help="append a model-completed staged.jsonl to the ledgers")
     p.add_argument("--out-dir", default=DEFAULT_SIGNALS_DIR,
@@ -1478,8 +1574,15 @@ def main():
     p.add_argument("--dry-run", action="store_true", help="--complete: write nothing")
     p.add_argument("--allow-incomplete", action="store_true",
                    help="--complete: append the complete records and skip the rest")
+    p.add_argument("--model-driver", default="agent", choices=["agent", "api"],
+                   help="default path: 'agent' (DEFAULT, subagents, no API credit) "
+                        "or 'api' (curl to /v1/messages, SPENDS credit)")
     p.add_argument("--model-batch", type=int, default=50,
-                   help="default path: records per model request")
+                   help="default path: records per model request/prompt. 50 is the "
+                        "measured subagent knee — see AGENT_BATCH in "
+                        "scripts/model_pass_agent.py for the experiment. Changing it "
+                        "between runs RENAMES every batch and orphans responses "
+                        "already on disk, so keep it fixed across a resume.")
     p.add_argument("--model-effort", default="medium",
                    choices=["low", "medium", "high", "xhigh", "max"],
                    help="default path: output_config.effort for the model passes")
@@ -1487,13 +1590,15 @@ def main():
                    help="default path: driver shards, run one after another")
     args = p.parse_args()
 
-    if args.mechanical_only and args.complete:
-        log("normalize: --mechanical-only and --complete are separate passes")
+    if sum(bool(x) for x in (args.mechanical_only, args.model_only, args.complete)) > 1:
+        log("normalize: --mechanical-only, --model-only and --complete are separate passes")
         sys.exit(2)
     if args.complete:
         sys.exit(run_complete(args))
     if args.mechanical_only:
         sys.exit(run_mechanical(args))
+    if args.model_only:
+        sys.exit(model_passes(args))
     rc = run_mechanical(args)
     if rc != 0:
         sys.exit(rc)
