@@ -6,15 +6,48 @@ SPEC itself. Rule of this file: every factual claim carries a receipt — a `fil
 a Phase-1 probe, or a named command. Where something is unverified it says so in
 those words: **UNTESTED**, **UNMEASURED**, **UNDECIDABLE**, **UNPROVEN**.*
 
-> **THE RECEIPTS RULE — cite mechanisms, not figures that rot.**
-> Prefer the thing that stays true: the *assertion* (`check-css.mjs:12-19` proves two
-> files are identical) over the hash it computes; the *quoted text* over the line number
-> carrying it; the *command* over the number it printed. A stale receipt is worse than no
-> receipt, because it still reads as authoritative — revision 1 quoted a "sha256" that was
-> really bare `shasum`'s SHA-1, and the false label borrowed credibility from every
-> citation near it. Where a figure is genuinely load-bearing (§0), the command that
-> regenerates it is printed beside it so a reader can re-derive rather than trust. Where a
-> line number is cited (§11), re-anchor on the quoted text if it has moved.
+> **THE RECEIPTS RULE — cite mechanisms, not figures that rot. And verify the shape you are
+> told to preserve, BEFORE you preserve it.**
+>
+> **This binds every Phase 2 worker, not just this document.** Repeatedly in this program, an
+> assertion has travelled further than anyone's check of it:
+>
+> - a "sha256" that was really bare `shasum`'s SHA-1 — a real number under a false label;
+> - a receipt count still reading "two" after the list had grown to four (§7.1);
+> - a `note:` prefix relayed down the chain as *the* canonical shape when it covers 7 of 22
+>   entries — **and then a "correction" to it that was itself wrong** (§8.4);
+> - a five-record retrofit scope in which one record had **nothing to retrofit** (§8.4).
+>
+> Every one was settled by a single command. Every one arrived from **further up the chain
+> than the person who checked it.** (The list is deliberately not numbered: the receipt-count
+> failure above was caused by exactly such a hardcoded total, and a count of failures is no
+> more immune to rotting than any other figure in this document.)
+>
+> **Authority is not a receipt.** The more confident the source, the less likely anyone
+> re-measures — which is exactly why a wrong fact from a lead travels further than a wrong
+> fact from a peer. So: before you preserve, match, normalize to, or iterate over a stated
+> shape, **run the grep that proves it exists**, and check that the set you were handed is
+> the set that is actually there.
+>
+> **AND A CORRECTION IS AN ASSERTION TOO — it inherits no authority from having corrected
+> something.** The `Gap check` prefix above was "corrected" in this document to a two-value
+> vocabulary derived from a `head -4` over 22 entries: a sample of four, generalized, and
+> presented with the credibility of a measurement. The real census is **four prefixes**
+> (§8.4), and the correction would have mis-aimed the identical rewrite risk at a different
+> 10 entries. **Incomplete sampling looks exactly like complete sampling** — the output of
+> `head -4` is indistinguishable from the output of a census until you count. So: state the
+> denominator, make the command reproduce the *whole* set, and prefer a **prohibition**
+> ("do not touch this field") over an enumeration ("these are the shapes"), because a
+> prohibition survives the variant you did not sample.
+>
+> **And when you cite, prefer the thing that stays true:** the *assertion*
+> (`check-css.mjs:12-19` proves two files are identical) over the hash it computes; the
+> *quoted text* over the line number carrying it; the *command* over the number it printed.
+> **A stale receipt is worse than no receipt, because it still reads as authoritative.** So
+> where a figure is genuinely load-bearing (§0), the command that regenerates it is printed
+> beside it — re-derive rather than trust. And where a line number is cited (**§11 in
+> particular, whose targets are being edited by a parallel program**), **re-anchor on the
+> quoted text**; assume the number has moved.
 
 *Revision 2 (2026-08-20, post-critic): corrects a false "TED is script-only" claim (§1),
 a mislabelled hash (§9), and a scorer that was priced for one pass but needs two (§6);
@@ -1188,7 +1221,7 @@ One line each:
 
 | Lint | Owner | Side | The question it answers |
 |---|---|---|---|
-| **marker→source resolution** (`[S3]` markers → the existing `.ref` device → the record's sources ledger, with URL-matching as a secondary trigger) | **inline-source-citations program** | REGISTER, at render/build | *Does this claim in a problem body point at a source on this record?* |
+| **marker→source resolution** (`[S3]` markers → the existing `.ref` device → the record's sources ledger, with URL-matching as a secondary trigger) — **now shipped** as `web/scripts/lint-citations.mjs`, a second prebuild pass, specified in SPEC under "A second prebuild pass" (`SPEC.md:164-167` at time of writing) | **inline-source-citations program** | REGISTER, at render/build | *Does this claim in a problem body point at a source on this record?* |
 | **claim→quote** (this document) | **this program** | **INGEST**, before append | *Does this number in a signal record actually appear in the payload we fetched?* |
 
 **Ours is the ingest half and nothing more.** Every number in a signal's `title`, `summary`
@@ -1205,6 +1238,14 @@ correct record and a lint hit — and by prose rounding. Output: `data/raw/<date
 **Warning-only is a design choice, not timidity:** a check with a 30% FP rate that blocks
 deploys gets disabled within two weeks, and a disabled check is worth nothing. A warning
 printing a shrinking number every run is a metric someone actually drives to zero.
+
+**Both lints landed on the same posture independently**, which is worth noting because it
+means the convention is now established rather than argued: theirs "always exits 0 — a
+citation defect is a finding to fix in the data, never a build failure" (`SPEC.md`, the
+`lint-citations.mjs` block), and ours warns for the reasons above. **Neither lint may be
+promoted to blocking unilaterally** — a build gate that two programs can independently turn
+red is a gate neither owns. Promotion is a coordinator decision, against the criteria in §12
+(claim lint: measured FP rate <5%).
 
 **Provenance completeness.** Reuses `dimRefs()` (`web/lib/scorecard.ts:80-102`) — no new
 machinery. Every dimension scoring >0 must have ≥1 resolvable ref.
@@ -1285,7 +1326,42 @@ styling. The build additionally prints the count of expired gap-checks in the ru
 ### 8.4 AC-GAP1 — the retrofit must not move a single point
 
 The retrofit adds `queries`/`checked`/`expires` to existing gap-check sources. It is a
-**metadata addition, not a re-judgement**, and there is a named check to prove it:
+**metadata addition, not a re-judgement**, and there is a named check to prove it.
+
+**Scope — the top band, five records** (`p-0001` score 10; `p-0008`, `p-0010`, `p-0023`,
+`p-0028` score 7). Scope and check are stated in **separate sentences on purpose**: if the
+target set later grows, a check phrased around "the five" silently under-covers, while
+AC-GAP1's "every touched record" cannot.
+
+> **MEASURED BEFORE STARTING — the scope list contains a trap.** Per-record counts of
+> `type: gap-check` entries:
+>
+> | Record | score | `gap` | gap-check entries |
+> |---|---|---|---|
+> | `p-0001` | 10 | 2 | 2 |
+> | **`p-0008`** | 7 | **0** | **0 — NOTHING TO RETROFIT** |
+> | `p-0010` | 7 | 1 | 2 |
+> | `p-0023` | 7 | 1 | 1 |
+> | `p-0028` | 7 | 1 | 1 |
+>
+> **The retrofit's real target is 4 records / 6 entries, not 5 records.** `p-0008` is
+> in-scope and **vacuous**: it scores `gap: 0` — "CZ incumbent check not done"
+> (`SCORING.md:34-35`) — so it correctly has no gap-check source to extend.
+>
+> **`p-0008` MUST NOT HAVE A GAP-CHECK ENTRY ADDED BY THE RETROFIT.** The intuitive
+> "fix" — noticing the record has none and creating one — requires doing the incumbent
+> research, which moves `gap` from 0 upward, **which is precisely the `SCORING.md` violation
+> AC-GAP1 exists to catch.** If `p-0008` genuinely needs a gap check, that is a MATCH-agent
+> research task under the de-rank rule (§8.2), performed deliberately and scored — never a
+> side effect of a metadata pass. A vacuous record is the correct outcome here; leave it
+> untouched and let AC-GAP1 confirm its `score` and `gap` are byte-identical.
+>
+> **THE INTUITIVE FIX IS THE VIOLATION — and here is the boundary test.** If you find
+> yourself **researching incumbents** during a retrofit, you have left the retrofit and
+> started a **de-rank**. De-ranks belong to the MATCH agent under `SPEC.md` §4, never to a
+> schema migration. Stop, leave the record alone, and hand it back.
+
+The check itself:
 
 > **AC-GAP1** — after the retrofit, every touched record's `score` and `scores.gap` are
 > **byte-identical** to their pre-retrofit values. Only `queries`, `checked`, `expires` and
@@ -1303,15 +1379,34 @@ gap-check and nod. Only the number catches it.
 This is §8.2's law with a checker attached: **expiry flags staleness for display; only the
 de-rank rule moves `gap`.** A retrofit is not a de-rank.
 
-**The retrofit EXTENDS the existing `note:` shape — it never replaces it.** All **22**
-existing gap-check entries across 20 records (measured: `grep -c 'type: gap-check'
-data/problems/cz/*.md`) must stay valid unchanged, with their prose notes untouched.
+### The `note:` field — a prohibition, not a shape to preserve
 
-> **Measured correction to the brief:** the existing prefix is **not** "Gap check `<date>`:".
-> The two shapes actually in use are **`Absence check <date>: …`** and **`Incumbent re-check
-> <date> (<flag>): …`**. A worker told to preserve "Gap check `<date>`:" would find no
-> matches and might normalize 22 working notes to a shape that never existed. Preserve the
-> two real prefixes verbatim; the new keys are additive siblings, not a rewrite.
+**THERE IS NO CANONICAL `note:` PREFIX. Four are in use and none is authoritative.** Full
+census of all 22 entries across 20 records:
+
+```
+grep -h -A3 "type: gap-check" data/problems/cz/*.md | grep "note:" \
+  | sed -E "s/^[[:space:]]*note: '?//" | awk '{print $1,$2,$3}' | sort | uniq -c | sort -rn
+```
+
+| Prefix | Entries |
+|---|---|
+| `Absence check <date>:` | **10** (including one `Absence checks` plural) |
+| `Gap check <date>:` | **7** |
+| `Quick check <date>:` | **3** |
+| `Incumbent re-check <date> (<flag>):` | **2** |
+
+> **THE OPERATIVE INSTRUCTION IS A PROHIBITION: the retrofit adds `queries`/`checked`/
+> `expires` as sibling keys and MUST NOT TOUCH `note:` AT ALL.** Not to normalize it, not to
+> reformat it, not to "fix" the single `Absence checks` plural.
+>
+> **Why a prohibition rather than a shape to preserve:** a prohibition cannot be misapplied
+> by a worker who encounters a fifth variant nobody has found yet. A shape-to-preserve can —
+> and twice already would have. Any instruction of the form "preserve prefix X" invites
+> normalizing everything that is not X.
+
+**`p-0028` is a retrofit target and uses `Gap check`** — so a worker acting on any
+two-prefix rule would hit it inside the write window.
 
 ### 8.5 A measured absence, recorded for the MATCH agent — not acted on here
 
@@ -1508,8 +1603,38 @@ to ourselves.**
 
 ## 11. SPEC amendments
 
-Applied to `SPEC.md` by a Phase-2 agent. Line numbers are as of 2026-08-20; re-anchor on the
-quoted text, not the number.
+Applied to `SPEC.md` by a Phase-2 agent.
+
+> ### ⚠ THE LINE NUMBERS BELOW HAVE ALREADY DRIFTED. USE THE QUOTED TEXT.
+>
+> `SPEC.md` grew **277 → 287 lines** while this document was being written — the
+> inline-source-citations program landed its `[Sn]` spec (now `SPEC.md:120-122`) and a
+> `lint-citations.mjs` prebuild block (now `:164-167`). **Every anchor below shifted, and NOT
+> by a uniform amount:** two insertion points produced a +5 zone and a +10 zone, so "just add
+> 10" is wrong.
+>
+> **Do not trust any number in this table. Locate each target with:**
+> ```
+> grep -n "<the quoted text from the row>" SPEC.md
+> ```
+>
+> Measured mapping at time of writing (doc value → actual), kept so a reader can confirm the
+> drift is real — not as something to rely on:
+>
+> | doc says | actual | doc says | actual |
+> |---|---|---|---|
+> | `28-38` | **30** | `180-185` | **189** |
+> | `44-51` | **45** | `199` | **209** |
+> | `62-73` | **63** | `232-234` | **242** |
+> | `108` | **108** (unmoved) | `235` | **245** |
+> | `122` | **127** | `242` | **252** |
+> | `156-157` | **161** | `253` | **263** |
+> | `166` | **176** | `254` | **264** |
+> | `170` / `172` | **180** / **182** | `267-277` | **281** |
+>
+> This is THE RECEIPTS RULE firing on this document's own citations, inside a day, from one
+> parallel checkpoint. It is the concrete case for *cite the quoted text, not the line
+> number* — and it will happen again before Phase 2 lands.
 
 | Target | Current | Amendment |
 |---|---|---|
