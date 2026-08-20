@@ -36,6 +36,12 @@ Commands
     dupes --report      Report-only sweep over entity keys. Writes nothing:
                         a human reads one report before anything auto-links.
     stats               Inspection summary.
+    money               Money per class and geography. Refuses to run without
+                        data/errata.jsonl, and never prints a cross-class total —
+                        `money_eur` carries four incompatible kinds of money and
+                        summing them answers no question. See MONEY_CLASSES.
+    errata              The disputed-value ledger with its evidence. An
+                        append-only corpus is corrected ON READ, never in place.
 
 Phase 3, gated on the sqlite-vec install — NOT built, and they say so when called:
     embed               id-set difference -> embed the missing set
@@ -50,6 +56,7 @@ import re
 import sqlite3
 import subprocess
 import sys
+import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
@@ -58,6 +65,7 @@ SCHEMA_VERSION = "3"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(ROOT, "data", "register.db")
 SIGNALS_DIR = os.path.join(ROOT, "data", "signals")
+ERRATA_PATH = os.path.join(ROOT, "data", "errata.jsonl")
 FEEDS_JSON = os.path.join(ROOT, "data", "feeds.json")
 HEALTH_JSON = os.path.join(ROOT, "data", "feed_health.json")
 
@@ -1086,6 +1094,161 @@ def cmd_stats(args):
     return 0
 
 
+def load_errata():
+    """The disputed-value ledger, data/errata.jsonl.
+
+    An append-only corpus cannot be retro-edited, so a value we dispute is
+    corrected ON READ instead: the ledger line stays exactly as ingested and the
+    dispute is recorded beside it. Two distinct classes live here and they are
+    NOT the same thing:
+
+      our-attribution      the published value is right and OUR handling is
+                           wrong (e.g. a 13-country envelope attributed whole to
+                           whichever country matched the query).
+      disputed-source-value  the publisher's own figure looks wrong to us and we
+                           have NOT refuted it at source. Recorded as disputed,
+                           never as a known error, because we hold no correction.
+
+    Raises rather than returning a partial list: an aggregate computed from a
+    half-loaded errata file is indistinguishable from a correct one.
+    """
+    out = {}
+    if not os.path.exists(ERRATA_PATH):
+        raise FileNotFoundError(
+            f"{os.path.relpath(ERRATA_PATH, ROOT)} is missing. Money aggregates are "
+            f"refused without it — an uncorrected total reads exactly like a corrected one.")
+    with open(ERRATA_PATH, encoding="utf-8") as fh:
+        for n, line in enumerate(fh, 1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError as e:
+                raise ValueError(f"{os.path.relpath(ERRATA_PATH, ROOT)}:{n}: {e}") from None
+            if "id" not in rec or "action" not in rec:
+                raise ValueError(f"{os.path.relpath(ERRATA_PATH, ROOT)}:{n}: needs `id` and `action`")
+            out[rec["id"]] = rec
+    return out
+
+
+# `money_eur` is one column carrying FOUR incompatible kinds of money. Summing
+# across them produces a number that means nothing — the first draft of this
+# command printed a confident EUR 510bn "money mass" built from committed Czech
+# contracts, a US debt programme, and a railway whose own note says it has no
+# financing source. The classes, keyed by signal type:
+MONEY_CLASSES = {
+    "tenders": ("committed procurement",
+                "a named public buyer contracting for a stated value"),
+    "funded": ("private capital raised",
+               "money raised BY a company, not money available to spend against it"),
+    "demand": ("stated need or macro statistic",
+               "NOT money that exists — includes multi-decade investment needs and "
+               "whole-sector spend totals, some explicitly unfinanced"),
+    "regulation": ("incidental figures", "amounts mentioned in regulatory text"),
+}
+
+
+def cmd_money(args):
+    """Money per class and geography, errata ALWAYS applied.
+
+    Two deliberate refusals:
+
+    NO CROSS-CLASS TOTAL. See MONEY_CLASSES above — the classes answer different
+    questions and a single sum answers none of them. `nku-vrt` alone contributes
+    EUR 30bn of high-speed rail that its own note records as having no financing
+    source; adding that to awarded contracts would inflate the register's headline
+    by an amount no reader could detect.
+
+    NO --raw FLAG. The uncorrected figure is not a view we support: two records
+    carried 46.7% of the CZ procurement mass between them, so a raw number would
+    be wrong by nearly half while looking exactly as authoritative as a right one.
+    What was excluded prints every time, so a number always arrives with its own
+    subtraction shown.
+    """
+    try:
+        errata = load_errata()
+    except (FileNotFoundError, ValueError) as e:
+        log(f"db: {e}")
+        return 2
+    con = connect()
+    try:
+        # money_eur and geo_origin are NOT columns — the table keeps four entity
+        # columns plus the verbatim `raw` payload (architecture-v3 §2.3), so both
+        # are read out of the JSON rather than selected.
+        rows = con.execute("SELECT id, type, raw FROM signals").fetchall()
+    except sqlite3.OperationalError:
+        log("db: no signals table — run `rebuild` first.")
+        return 2
+    finally:
+        con.close()
+
+    mass, cnt, dropped = {}, {}, []
+    for sid, stype, raw in rows:
+        try:
+            rec = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        money = rec.get("money_eur")
+        if not isinstance(money, (int, float)):
+            continue
+        geo = rec.get("geo_origin")
+        e = errata.get(sid)
+        if e and e.get("action", "").startswith("exclude"):
+            dropped.append((sid, geo, money, e))
+            continue
+        key = (stype, geo or "MISSING")
+        mass[key] = mass.get(key, 0) + money
+        cnt[key] = cnt.get(key, 0) + 1
+
+    for stype in sorted({k[0] for k in mass}, key=lambda t: -sum(
+            v for k, v in mass.items() if k[0] == t)):
+        label, caveat = MONEY_CLASSES.get(stype, (stype, ""))
+        sub = {k[1]: v for k, v in mass.items() if k[0] == stype}
+        subn = {k[1]: v for k, v in cnt.items() if k[0] == stype}
+        print(f"\n{stype} — {label}")
+        print(f"  {caveat}")
+        for geo in sorted(sub, key=lambda g: -sub[g])[:8]:
+            print(f"    {geo:<8}{subn[geo]:>7} rec {sub[geo]:>20,.0f} EUR")
+        if len(sub) > 8:
+            rest = sum(v for g, v in sub.items() if g not in sorted(sub, key=lambda g: -sub[g])[:8])
+            print(f"    {'(rest)':<8}{'':>7}     {rest:>20,.0f} EUR")
+
+    print("\nNo cross-class total is printed, deliberately — see MONEY_CLASSES in this file.")
+
+    if dropped:
+        print(f"\nexcluded by data/errata.jsonl ({len(dropped)}):")
+        for sid, geo, money, e in sorted(dropped, key=lambda r: -r[2]):
+            print(f"  {sid:<24} {geo or '?':<4} EUR {money:>16,.0f}  [{e.get('class', '?')}]")
+            for chunk in textwrap.wrap(str(e.get("note", "")).strip(), 84)[:3]:
+                print(f"    {chunk}")
+    return 0
+
+
+def cmd_errata(args):
+    """List the disputed-value ledger with its evidence."""
+    try:
+        errata = load_errata()
+    except (FileNotFoundError, ValueError) as e:
+        log(f"db: {e}")
+        return 2
+    if not errata:
+        print("errata: none recorded.")
+        return 0
+    for sid, e in errata.items():
+        print(f"\n{sid}  [{e.get('class', '?')}]  recorded {e.get('recorded', '?')}")
+        print(f"  action:   {e.get('action')}")
+        print(f"  source:   {e.get('source_value')} {e.get('source_currency', '')}"
+              f"   value_is_correct={e.get('value_is_correct')}")
+        print(f"  verified: {e.get('verified_against', '(unverified)')}")
+        for label in ("evidence", "impact", "note"):
+            if e.get(label):
+                print(f"  {label}:")
+                for chunk in textwrap.wrap(str(e[label]), 88):
+                    print(f"    {chunk}")
+    return 0
+
+
 def cmd_deferred(args):
     log(f"db: `{args.command}` is Phase 3 and is NOT built. It is gated on the sqlite-vec\n"
         f"    install (`no such module: vec0` on this host). Phase 2 matching uses the\n"
@@ -1138,6 +1301,12 @@ def main():
 
     s = sub.add_parser("stats", help="inspection summary")
     s.set_defaults(fn=cmd_stats)
+
+    mo = sub.add_parser("money", help="money mass per geo, errata ALWAYS applied")
+    mo.set_defaults(fn=cmd_money)
+
+    er = sub.add_parser("errata", help="list the disputed-value ledger with its evidence")
+    er.set_defaults(fn=cmd_errata)
 
     for name in ("embed", "shortlist"):
         x = sub.add_parser(name, help="Phase 3 — gated on the sqlite-vec install")
