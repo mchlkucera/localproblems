@@ -1,4 +1,5 @@
 // House data formatting (design-language: data always looks like evidence).
+import type { GapChecked } from "./data";
 
 /** Compact euro figure: €41k / €1.3M / €78M. Null → em dash. */
 export function euro(v: number | null): string {
@@ -55,6 +56,25 @@ const COUNTRY_NAMES: Record<string, string> = {
 };
 export function countryName(iso: string): string {
   return COUNTRY_NAMES[iso] ?? iso;
+}
+
+/** The surfaces a gap-check actually searched, in English. THE ONE MAPPING:
+    `checked` is a closed enum of slugs (data.ts GAP_CHECKED, vocabulary in
+    data/CONVENTIONS.md) and slugs are storage, not display — a reader is owed
+    "ARES business register", never `ares`. Record<GapChecked, string> makes a
+    new token a TypeScript error here rather than a raw slug on the page.
+    `gapSurface` still falls back to the code as recorded, the same way
+    `countryName` does: mono truth beats a blank. */
+export const GAP_SURFACES: Record<GapChecked, string> = {
+  "ares": "ARES business register",
+  "app-stores": "App stores",
+  "cz-saas-directories": "CZ SaaS directories",
+  "google-cz": "Czech-language web search",
+  "startupjobs": "StartupJobs.cz",
+  "own-funded-ledger": "Our funded-company ledger",
+};
+export function gapSurface(token: string): string {
+  return GAP_SURFACES[token as GapChecked] ?? token;
 }
 
 /** Register locality display. Unknown codes render as recorded (mono truth). */

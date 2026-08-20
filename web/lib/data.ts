@@ -79,6 +79,7 @@ const STATUSES = ["candidate", "active", "watching", "stale", "claimed", "solved
 export const GAP_CHECKED = [
   "ares", "app-stores", "cz-saas-directories", "google-cz", "startupjobs", "own-funded-ledger",
 ] as const;
+export type GapChecked = (typeof GAP_CHECKED)[number];
 
 // NOTE the deliberate contrast with SignalSchema seven lines above: this one is
 // z.looseObject, so extra keys on problem `sources[]` already pass untouched.
@@ -262,6 +263,23 @@ export function urgencySplit(p: Problem): { deadline: number; freshness: number 
   const fresh = daysBetween(newest, extractDate()) < 90 ? 1 : 0;
   const freshness = Math.min(fresh, p.scores.urgency);
   return { deadline: Math.min(p.scores.urgency - freshness, 2), freshness };
+}
+
+/** Has a source's recorded `expires` horizon been reached? DISPLAY ONLY.
+ *
+ *  THE LAW (data/CONVENTIONS.md, SPEC.md §4): an expired gap-check flags
+ *  staleness on the rendered page and NOTHING else. It never changes
+ *  `scores.gap`, never changes `score`, never changes `status` — the SPEC §4
+ *  de-rank rule stays the only mechanism that moves `gap`. Nothing in this
+ *  module may feed this boolean into a number; grep its call sites before
+ *  changing that.
+ *
+ *  It decays against `extractDate()` — the register's own newest `updated` —
+ *  and NEVER against `new Date()`. A wall-clock read here would make the same
+ *  commit render differently on two different days, which is a build-
+ *  reproducibility bug, not a styling preference. */
+export function sourceExpired(s: ProblemSource): boolean {
+  return s.expires !== undefined && s.expires <= extractDate();
 }
 
 /** Register order: score desc, then deadline desc, then money desc, then id (SPEC §4).

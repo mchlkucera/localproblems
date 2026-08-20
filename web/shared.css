@@ -1,5 +1,17 @@
 /* ============================================================
-   localproblems.org · design system v1.6 · 2026-08-20
+   localproblems.org · design system v1.7 · 2026-08-20
+   v1.7: gap-check coverage — the receipts behind an absence
+   claim finally render. A gap-check source may record the
+   surfaces it searched and the queries it ran; the rundown
+   exhibit closes with them (p.coverage, the clerk's muted mono
+   coverage line; ul.queries, the verbatim strings in ink and in
+   quotes). Its `expires` horizon joins the dates on the exhibit's
+   reference line and on its sources-ledger row, stamp red via the
+   existing .urgent once crossed — a DISPLAY FLAG ONLY, decayed
+   against the register's own newest `updated` and never the wall
+   clock. No new colour, size, weight or rule weight; the one
+   added shim (.sources li time.urgent) exists solely to beat the
+   ledger's muted-date specificity, mirroring .comps time.urgent.
    v1.6: two devices modernised on the owner's mandate.
    (a) Inline source markers (.ref[href^="#s"]) stop opting out of
    the house link grammar: they inherit their context's ink, carry
@@ -408,6 +420,37 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
    only way to tell "the source's summary" from "the register's note"
    without a class — one note means the register's, two mean both. */
 .rundown .sig .note:has(+ .note) { font-style: normal; color: var(--ink); }
+/* ---- gap-check coverage: an absence claim states its own reach (v1.7)
+   A gap-check source is the receipt behind "nobody local does this",
+   and a bare negative is worth exactly what its coverage is worth.
+   Where the record files them, the exhibit closes with the surfaces
+   that were searched and the queries that were run.
+
+   Two voices again, inside the exhibit this time. The coverage line is
+   the clerk's — muted mono at --fs-meta, the same voice as the exhibit's
+   reference line above it, because "where we looked" is register
+   metadata. The queries are not: they are the literal strings a person
+   typed, the nearest thing this device has to testimony, so they are
+   ink at --fs-data and wear their quotation marks like the quoted
+   material they are. They hang one --sp-4 step inside the exhibit
+   indent — subordinate to the coverage claim exactly as the exhibit is
+   subordinate to the finding.
+
+   The horizon (`expires`) needs no rule at all: it joins the dates
+   already on the reference line, and once crossed the existing .urgent
+   spends stamp red on the phrase. That flag is DISPLAY ONLY — it never
+   moves scores.gap, score or status (data/CONVENTIONS.md, "THE LAW"),
+   and it decays against the register's own newest `updated`, never the
+   wall clock. Nothing new here: no colour, no size, no weight, no
+   fourth rule — the whole device is existing tokens rearranged. */
+p.coverage {
+  margin: var(--sp-3) 0 0; max-width: none;
+  font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted);
+}
+ul.queries {
+  list-style: none; margin: var(--sp-2) 0 0; padding-left: var(--sp-4);
+  font: 400 var(--fs-data)/1.6 var(--mono);
+}
 /* narrow sheets: below 30rem a 48px page margin starves the measure,
    so head/side collapse to one step and the exhibit indent halves */
 @media (max-width: 30rem) {
@@ -433,6 +476,11 @@ ol.sources { list-style: none; margin: 0; padding: 0; counter-reset: src; font: 
 .sources li::before { content: "S" counter(src); font-weight: 600; min-width: 3ch; }
 .sources li .leader { flex: 1; }
 .sources li time { color: var(--ink-muted); }
+/* a gap-check row may state a second date — the check's own horizon
+   (v1.7). Once crossed it is stamp red, and .sources li time (0,2,1)
+   would re-mute it past .urgent (0,1,0): the same one-notch shim the
+   comps window date needs below, for exactly the same reason. */
+.sources li time.urgent { color: var(--stamp); }
 
 
 /* comps: solved elsewhere — same one-line ledger grammar */

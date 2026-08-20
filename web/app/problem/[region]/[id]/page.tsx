@@ -4,10 +4,10 @@
 // Every section anchors down into receipts; absence is stated, never hidden.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { extractDate, getProblems, getSignal, type Problem, type ProblemSource } from "../../../../lib/data";
+import { extractDate, getProblems, getSignal, sourceExpired, type Problem, type ProblemSource } from "../../../../lib/data";
 import { annotateSourceRefs, renderBody, renderInline, type SourceRef } from "../../../../lib/md";
 import { splitBody } from "../../../../lib/sections";
-import { categoryLabel, countryName, euro, localityLong, pad2 } from "../../../../lib/format";
+import { categoryLabel, countryName, euro, gapSurface, localityLong, pad2 } from "../../../../lib/format";
 import { BANDS, DIMS, MAX, VERDICTS, bandWord, criterion, dimRefs, type Dim } from "../../../../lib/scorecard";
 import {
   CORRECTIONS_MAILTO, FooterHouseLine, Masthead, RelDatesScript, SiteNav, Tally,
@@ -59,6 +59,65 @@ const CAPITAL_RANGE: Record<string, string> = {
   kiosk: "<€10k", garage: "€10–100k", funded: "€100k–1M", industrial: ">€1M",
 };
 
+// ---- gap-check coverage ---------------------------------------------------
+// A gap-check is the receipt behind "no Czech company does this", and an
+// absence claim is only worth what its coverage is worth. Three optional keys
+// record that coverage — `checked` (the surfaces searched), `queries` (the
+// strings actually typed) and `expires` (the check's own 90-day horizon) — and
+// each renders only when it is on file: most gap-checks carry none of them,
+// and a `gap: 0` record legitimately has no gap-check source at all. No key,
+// no label, no dangling punctuation, nothing.
+
+/** The staleness of a source's `expires`, as words. Display-only: `expired`
+    paints the phrase stamp red via the existing `.urgent`, and that is the
+    entire consequence — never a score, never a status (CONVENTIONS "THE LAW").
+    Expiry is judged against extractDate(), never the wall clock. */
+function Horizon({ s, ledger = false }: { s: ProblemSource; ledger?: boolean }) {
+  if (!s.expires) return null;
+  const gone = sourceExpired(s);
+  const cls = gone ? "urgent" : undefined;
+  const text = `${gone ? "expired" : "expires"} ${s.expires}`;
+  // Ledger rows want a <time> (the row's own muted date voice); the rundown's
+  // reference line wants a <span>, because `time` there would bulge one type
+  // step out of the --fs-meta line.
+  return ledger
+    ? <time className={cls} dateTime={s.expires}>{text}</time>
+    : <span className={cls}>{text}</span>;
+}
+
+/** What a gap-check searched and what it asked, under the exhibit's note.
+    The surfaces are clerk metadata; the queries are the evidence itself, so
+    they are set as the quoted strings a person typed and nothing more. */
+function Coverage({ s }: { s: ProblemSource }) {
+  const checked = s.checked ?? [];
+  const queries = s.queries ?? [];
+  if (checked.length === 0 && queries.length === 0) return null;
+  return (
+    <>
+      {checked.length > 0 && (
+        <p className="coverage">Searched {checked.map(gapSurface).join(" · ")}</p>
+      )}
+      {queries.length > 0 && (
+        <ul className="queries">
+          {queries.map((q) => <li key={q}><q>{q}</q></li>)}
+        </ul>
+      )}
+    </>
+  );
+}
+
+/** The gap-check coverage as one native-`title` reveal — the house device for
+    "answer it without leaving the line" (design-language: the reveal is the
+    native title, never a tooltip component). Lets the one-line sources ledger
+    carry the coverage without growing the second line it is forbidden. */
+function coverageTitle(s: ProblemSource): string | undefined {
+  const parts = [
+    ...(s.checked?.length ? [`Searched ${s.checked.map(gapSurface).join(" · ")}`] : []),
+    ...(s.queries ?? []).map((q) => `“${q}”`),
+  ];
+  return parts.length ? parts.join("\n") : undefined;
+}
+
 /** One embedded evidence record inside a rundown dialog. External links only. */
 function DialogSource({ p, n }: { p: Problem; n: number }) {
   const s = p.sources[n - 1];
@@ -73,10 +132,15 @@ function DialogSource({ p, n }: { p: Problem; n: number }) {
   ].join(" · ");
   return (
     <div className="sig">
-      <span className="meta">{meta}</span>
+      {/* the reference line carries the exhibit's dates, so the check's own
+          horizon is stated there — one date joins another, no new device */}
+      <span className="meta">{meta}{s.expires && <> · <Horizon s={s} /></>}</span>
       {url ? <a className="name" href={url}>{label}</a> : <span className="name">{label}</span>}
+      {/* `.note:has(+ .note)` distinguishes the source's voice from the
+          register's by adjacency — coverage goes AFTER both, never between */}
       {sig && <p className="note">{sig.summary}</p>}
       <p className="note">{s.note}</p>
+      <Coverage s={s} />
     </div>
   );
 }
@@ -338,11 +402,17 @@ export default async function Record({ params }: Params) {
         <ol className="sources">
           {p.sources.map((s, i) => {
             const { label, url } = sourceName(s);
+            // The ledger stays ONE line per source (design-language: no note or
+            // url lines). A gap-check's coverage therefore rides the native
+            // title reveal, and only its horizon — a date, which this row
+            // already deals in — is spent on visible width.
+            const title = coverageTitle(s);
             return (
               <li key={i} id={`s${i + 1}`}>
-                {url ? <a href={url}>{label}</a> : <span>{label}</span>}
+                {url ? <a href={url} title={title}>{label}</a> : <span title={title}>{label}</span>}
                 <span className="leader"></span>
-                <time>{s.date}</time>
+                <time dateTime={s.date}>{s.date}</time>
+                {s.expires && <>·<Horizon s={s} ledger /></>}
               </li>
             );
           })}
