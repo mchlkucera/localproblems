@@ -25,8 +25,12 @@ THREE MODES, and the split between them is the whole design:
                       canonical and the DB is rebuildable from them.
 
   (default)           The UNATTENDED path: mechanical, then model passes A and B.
-                      WIRED BUT INERT — see the model_passes() docstring. It
-                      refuses to run rather than pretending.
+                      LIVE since 2026-08-20 — see the model_passes() docstring.
+                      It cannot make the authenticated call itself (with-secrets
+                      refuses interpreters, and this is one), so it drives
+                      scripts/model_pass.{py,sh}, where only the individual curl
+                      is wrapped. It still appends NOTHING: it fills
+                      staged.jsonl and hands over to --complete.
 
 WHY MECHANICAL-ONLY APPENDS NOTHING. Every record needs `scale` and
 `recurrence`, and both are model judgments. The law is that unscored records are
@@ -1374,41 +1378,88 @@ def run_complete(args):
 
 
 # --------------------------------------------------------------------------
-# the model path — WIRED, INERT, and it says so
+# the model path — WIRED AND LIVE, through a seam this file cannot cross alone
 # --------------------------------------------------------------------------
+
+MODEL_PASS_PY = os.path.join(ROOT, "scripts", "model_pass.py")
+MODEL_PASS_SH = os.path.join(ROOT, "scripts", "model_pass.sh")
+
+
+def _run(cmd):
+    """Run one child, streaming its output. Returns its exit code."""
+    import subprocess
+    log("  $ " + " ".join(cmd[-6:] if len(cmd) > 6 else cmd))
+    return subprocess.call(cmd, cwd=ROOT)
+
 
 def model_passes(args):
     """
-    Pass A (scoring: scale, recurrence, grade-3 urgency, the pain bar) and
-    Pass B (EN title + summary over materiality survivors only).
+    Pass A (scoring: scale, recurrence, grade-3 urgency, sector, geo_origin and
+    the suggest/reddit pain bar), then the MATERIALITY FILTER, then pass B
+    (EN title + summary over survivors only).
 
-    INERT ON PURPOSE. Two things are true at once and both matter:
+    THIS FUNCTION DRIVES THE PASSES; IT DOES NOT MAKE THE CALL. That split is
+    forced and it is the honest shape:
 
-      * ANTHROPIC_API_KEY EXISTS in the vault. The blocker is no longer a
-        missing key.
-      * NOBODY HAS MEASURED a nested `claude -p` authenticating from this
-        pipeline. The `direnv exec .` path that earlier designs assumed exports
-        nothing but DIRENV_* variables, and the working alternative
-        (`with-secrets`) deliberately REFUSES bash, node and python, because an
-        interpreter can encode a secret past the output scrubber. So this
-        script — a python interpreter — cannot be wrapped wholesale, and the
-        authenticated call site has to be designed on its own.
+      * MEASURED 2026-08-20: `with-secrets curl --variable '%ANTHROPIC_API_KEY'
+        --expand-header 'x-api-key: {{ANTHROPIC_API_KEY}}' … /v1/messages`
+        returns HTTP 200 from claude-opus-5. The key is present and reachable.
+        The old "wired but inert" refusal was correct until that measurement and
+        is wrong after it.
+      * `with-secrets` still REFUSES bash, node, python, jq, awk and sed by
+        allowlist, because an interpreter can encode a secret past its output
+        scrubber. normalize.py IS a python interpreter. It can therefore never
+        be the process that holds the key, no matter how the call is written.
 
-    Until someone runs that probe and reports the result either way, this
-    function refuses rather than pretending. An honest negative is worth more
-    than a plausible design: a scorer that looks wired and silently writes
-    nothing is the vestbee failure with better branding.
+    So the authenticated call lives in scripts/model_pass.sh, which wraps ONLY
+    the individual curl — the same rule scripts/fetch_hlidac.sh follows for the
+    Hlídač token — and this function alternates:
+
+        model_pass.py plan  ->  model_pass.sh (curl)  ->  model_pass.py apply
+
+    staged.jsonl is written by `apply` alone, temp + os.replace, so a crash
+    anywhere in the loop leaves a whole file and the next run resumes from it.
+
+    STILL NOTHING WRITES DEFAULTS. Every field is validated against the closed
+    vocabularies before it is written; a record whose fields did not validate
+    keeps its `_needs` and stays staged. If the driver cannot authenticate this
+    returns non-zero and appends nothing — losing freshness is recoverable,
+    writing vibes into an append-only canonical ledger is not.
     """
-    log("normalize: the model passes are WIRED BUT INERT and were not run.")
-    log("  Reason: no measured proof that a nested `claude -p` authenticates from this")
-    log("  pipeline. ANTHROPIC_API_KEY exists, but `direnv exec .` exports nothing and")
-    log("  `with-secrets` refuses interpreters (bash/node/python) by design.")
-    log("  Use ATTENDED mode instead — it needs no key and it is how all 6,181 existing")
-    log("  records were produced:")
-    log("    1. python3 scripts/normalize.py --raw <dir> --mechanical-only")
-    log("    2. an agent fills scale/recurrence/title/summary into <dir>/staged.jsonl")
-    log("    3. python3 scripts/normalize.py --raw <dir> --complete")
-    return 2
+    if not (os.path.isfile(MODEL_PASS_PY) and os.path.isfile(MODEL_PASS_SH)):
+        log("normalize: scripts/model_pass.{py,sh} are missing — the model seam is not")
+        log("  installed. Refusing to improvise a replacement (INGEST.md step 0).")
+        return 2
+
+    raw = os.path.abspath(args.raw)
+    shards = max(1, int(getattr(args, "model_shards", 1)))
+    for pass_ in ("A", "B"):
+        rc = _run([sys.executable, MODEL_PASS_PY, "plan", "--raw", raw,
+                   "--pass", pass_, "--batch", str(args.model_batch),
+                   "--effort", args.model_effort])
+        if rc != 0:
+            log(f"normalize: model pass {pass_} could not be planned (rc={rc}).")
+            return 2
+        # THE SHARDS ARE SEQUENTIAL HERE ON PURPOSE. Running them concurrently
+        # is supported by the driver (each shard writes only its own response
+        # files) but a scheduler-driven run has nobody watching a rate limit, so
+        # the unattended path takes the slow, safe lane. An attended operator
+        # runs the same script N times in parallel by hand.
+        for shard in range(shards):
+            rc = _run(["/bin/bash", MODEL_PASS_SH, raw, pass_, str(shard), str(shards)])
+            if rc == 2:
+                log(f"normalize: the model driver could not run (rc=2). NOTHING was")
+                log("  written. Do not work around this and do not export the key by hand.")
+                return 2
+        rc = _run([sys.executable, MODEL_PASS_PY, "apply", "--raw", raw, "--pass", pass_])
+        if rc != 0:
+            log(f"normalize: model pass {pass_} could not be applied (rc={rc}).")
+            return 2
+
+    log("normalize: model passes A and B complete. staged.jsonl now carries the model")
+    log("  fields. Nothing has been appended to a ledger yet — that is --complete:")
+    log(f"    python3 scripts/normalize.py --raw {os.path.relpath(raw, ROOT)} --complete")
+    return 0
 
 
 def main():
@@ -1427,6 +1478,13 @@ def main():
     p.add_argument("--dry-run", action="store_true", help="--complete: write nothing")
     p.add_argument("--allow-incomplete", action="store_true",
                    help="--complete: append the complete records and skip the rest")
+    p.add_argument("--model-batch", type=int, default=50,
+                   help="default path: records per model request")
+    p.add_argument("--model-effort", default="medium",
+                   choices=["low", "medium", "high", "xhigh", "max"],
+                   help="default path: output_config.effort for the model passes")
+    p.add_argument("--model-shards", type=int, default=1,
+                   help="default path: driver shards, run one after another")
     args = p.parse_args()
 
     if args.mechanical_only and args.complete:

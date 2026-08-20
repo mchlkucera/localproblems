@@ -150,18 +150,43 @@ python3 scripts/db.py health || AUDIT_RC=2
 #    match_log, which are history that exists nowhere else.
 python3 scripts/db.py rebuild || AUDIT_RC=2
 
-# 5. MODEL PASSES — WIRED BUT INERT.
-#    ANTHROPIC_API_KEY exists in the vault, so this is no longer a missing-key
-#    problem. It is a plumbing problem: nobody has measured a nested `claude -p`
-#    authenticating from this pipeline, and the mechanism that would carry the
-#    secret refuses interpreters. Until that probe is run and reported, this
-#    branch stays off rather than pretending.
-echo "ingest: SKIP model passes — no measured proof that a nested 'claude -p'" >&2
-echo "ingest: authenticates from this pipeline. Mechanical records are STAGED in" >&2
-echo "ingest: $RAW/staged.jsonl. Complete them in ATTENDED mode:" >&2
-echo "ingest:   1. read $RAW/staged.jsonl and fill each record's \`_needs\` fields" >&2
-echo "ingest:   2. python3 scripts/normalize.py --raw $RAW --complete" >&2
-echo "ingest:   3. python3 scripts/db.py upsert data/signals/<type>/$TODAY.jsonl" >&2
+# 5. MODEL PASSES — WIRED, WORKING, AND OFF BY DEFAULT. All three matter.
+#    This used to print "no measured proof that a nested `claude -p`
+#    authenticates from this pipeline", and that reason is now WRONG: measured
+#    2026-08-20, `with-secrets curl --variable '%ANTHROPIC_API_KEY'
+#    --expand-header 'x-api-key: {{…}}' … /v1/messages` returns HTTP 200 from
+#    claude-opus-5, and scripts/model_pass.{py,sh} run the two passes on that
+#    seam. 3,092 records landed through it the same day.
+#
+#    IT STILL DOES NOT RUN HERE UNLESS ASKED. This script is what a scheduler
+#    calls, and a scheduled run that silently spends money on every fetch is a
+#    different program from the one anyone reviewed — the passes cost real
+#    credit per record and the balance is finite (a run on 2026-08-20 ended on
+#    HTTP 400 "credit balance is too low" mid-pass). So the capability is
+#    opt-in, by an env flag an operator sets deliberately, and the default path
+#    still stages and hands off. That is a budget decision, NOT a doubt about
+#    whether it works.
+if [ "${INGEST_MODEL_PASSES:-0}" = "1" ]; then
+  echo "ingest: model passes ENABLED (INGEST_MODEL_PASSES=1) — this SPENDS API credit." >&2
+  python3 scripts/model_pass.py plan  --raw "$RAW" --pass A --batch 50 || AUDIT_RC=2
+  /bin/bash scripts/model_pass.sh "$RAW" A                              || FEED_RC=1
+  python3 scripts/model_pass.py apply --raw "$RAW" --pass A || AUDIT_RC=2
+  python3 scripts/model_pass.py plan  --raw "$RAW" --pass B --batch 25 || AUDIT_RC=2
+  /bin/bash scripts/model_pass.sh "$RAW" B                              || FEED_RC=1
+  python3 scripts/model_pass.py apply --raw "$RAW" --pass B || AUDIT_RC=2
+  echo "ingest: model passes done. Records are FILLED but not appended:" >&2
+  echo "ingest:   python3 scripts/normalize.py --raw $RAW --complete" >&2
+else
+  echo "ingest: model passes NOT run (INGEST_MODEL_PASSES is not 1). This is a" >&2
+  echo "ingest: budget default, not a broken seam: the auth path is measured and" >&2
+  echo "ingest: scripts/model_pass.{py,sh} work. Mechanical records are STAGED in" >&2
+  echo "ingest: $RAW/staged.jsonl. Complete them with either:" >&2
+  echo "ingest:   a. INGEST_MODEL_PASSES=1 /bin/bash scripts/ingest.sh   (spends credit)" >&2
+  echo "ingest:   b. an ATTENDED session filling each record's \`_needs\` fields" >&2
+  echo "ingest: then:" >&2
+  echo "ingest:   python3 scripts/normalize.py --raw $RAW --complete" >&2
+  echo "ingest:   python3 scripts/db.py upsert data/signals/<type>/$TODAY.jsonl" >&2
+fi
 
 # Deliberately no git: INGEST never commits or pushes. It leaves a clean working
 # tree and PROCESSING picks the new lines up on its next run.

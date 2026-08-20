@@ -102,3 +102,61 @@ Run date: 2026-08-20  ·  mode: mechanical-only (no model, no secrets, no networ
 ## AC-GDPR1 — contact-field gate
 
 No personal data detected. 4807 staged record(s) passed the field allowlist and the email/phone content scan.
+
+## Model passes — RUN 2026-08-20, and the seam that made them possible
+
+The section above was written by the mechanical pass and is left as it stood:
+4,807 records staged, pending a model. This section is what happened next.
+
+**The blocker was plumbing, and it is now measured.** `normalize.py`'s
+`model_passes()` had refused to run since it was written, on the honest grounds
+that nobody had measured whether this pipeline can authenticate. Measured
+2026-08-20: `with-secrets curl --variable '%ANTHROPIC_API_KEY' --expand-header
+'x-api-key: {{ANTHROPIC_API_KEY}}' … /v1/messages` returns **HTTP 200** from
+`claude-opus-5`. `with-secrets` still refuses interpreters, so normalize.py — a
+python interpreter — still cannot hold the key. The passes therefore run through
+a three-part seam, `scripts/model_pass.py plan` → `scripts/model_pass.sh`
+(the only process that ever sees the secret, one wrapped curl per batch) →
+`scripts/model_pass.py apply`. Model: `claude-opus-5`, structured output
+(`output_config.format`, a strict JSON schema per batch), effort `medium`.
+
+| stage | records |
+|---|---|
+| staged by the mechanical pass | 4,807 |
+| **pass A** scored (scale, recurrence, sector, geo_origin, grade-3 urgency) | 4,783 |
+| refused by the **pain bar** (suggest: no complaint/failure/workaround) | 24 |
+| **materiality drops** (`money <= 1 AND scale <= 1 AND urgency == 0`) | 1,411 |
+| survivors | 3,143 |
+| **pass B** given an EN title + summary (survivors only) | 116 of 167 |
+| appended to `data/signals/<type>/2026-08-20.jsonl` | **3,092** |
+| left staged as PENDING | 304 |
+
+Pass B ran over 167 survivors, not over all 420 records that lacked a title:
+the materiality filter sits between the two passes, so 253 records that were
+about to be dropped never had a summary written for them.
+
+**Why 51 survivors are still pending.** Two pass-B batches returned
+`HTTP 400 invalid_request_error: "Your credit balance is too low to access the
+Anthropic API"` (bodies kept in `.model/log/B-*.err.json`), losing 50 records,
+and one record (`ted-565159-2026`) was refused by our own validator for
+returning a three-sentence summary where the law allows two. Nothing was
+guessed to cover the gap: those records keep their `_needs`, stay in
+`data/raw/`, and land on a later run. The remaining 253 pending records are
+non-survivors that materiality would have dropped anyway.
+
+**The pain bar refused 24 suggest records** — every one a neutral lookup rather
+than a complaint: 13 of the form `X zkušenosti` ("experiences with X") and 11 of
+the form `jak zrušit X` ("how to cancel X"). Engagement never justifies a
+record, and a how-to question is not a documented failure. Nothing was written
+to those records at all, because `pain` is an admission bar and is never
+persisted.
+
+**`extraction: llm-fallback`** is set on every record a model touched. Read it
+as the review flag it is on the site, NOT as a claim that a feed broke: no
+contract was violated this run (see the contract table above). `structured` was
+not available to us — a model, not a parser, produced these records' judgement
+fields — and CONVENTIONS' gloss for `llm-fallback` ("the structured parse
+violated its contract") does not describe this case either. This is the closest
+honest token in a closed vocabulary that has none for "parsed payload, model
+judgement", and it is the first time any record in this corpus carries the field
+at all. A distinct token would be a CONVENTIONS + `SignalSchema` change.

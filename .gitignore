@@ -24,3 +24,10 @@ data/raw/*/*
 data/register.db
 data/register.db-wal
 data/register.db-shm
+
+# Bytecode. scripts/model_pass.py imports normalize.py so the two halves of the
+# model seam cannot drift on SECTORS or is_material(), and that import is what
+# creates scripts/__pycache__/. It is a build artefact of running the pipeline,
+# never a record of it.
+__pycache__/
+*.pyc
