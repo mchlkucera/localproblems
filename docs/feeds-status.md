@@ -68,7 +68,7 @@ Sorted by Value descending, then by records to date descending.
 |---|---|---|---|---|---|---|---|---|
 | `ted` | tenders | Every EU-threshold notice with CZ place of performance, carrying buyer name, estimated value and tender deadline, grouped by CPV. | **5** `11111` | **3,052** | 200 · **WORKS** | `SCRIPTED` | — | Scores every axis: an LLM cannot know today's OJ S, the query is CZ-filtered, publication is daily, `estimated-value-*` and `deadline-receipt-tender-date-lot` are structured fields, and `buyer-name` joins to ARES. Half the corpus comes from here. |
 | `nen` | tenders | Below-TED-threshold Czech tenders — the contracts too small for TED but too big to be invisible; `/vysledek` subpages carry the awarded price and supplier. | **5** `11111` | **296** | 200 · **WORKS** | `ROUTE-KNOWN` | No fetch script; 296 records exist only because an agent harvested them by hand. | Same five axes as TED one threshold lower, and the route is proven (50 rows/page today). The highest-value feed in the registry with no script behind it. |
-| `hlidac` | tenders | CZ public contracts from the registr smluv below the TED threshold, with subject, VAT-inclusive value and signature date. | **5** `11111` | **114** | **200** · **WORKS** | `SCRIPTED` | — | Full marks on value. CORRECTED 2026-08-20 by the coordinator AFTER this table was probed: the feed is LIVE. The token exists as `HLIDAC_STATU_TOKEN` (not `HLIDAC_TOKEN`); verified `with-secrets curl --variable '%HLIDAC_STATU_TOKEN' --expand-header 'Authorization: Token {{HLIDAC_STATU_TOKEN}}'` -> HTTP 200, and a fetch worker pulled 1,061 contracts over 7/7 clean queries. The 302 below was an unauthenticated probe by instruction, and that instruction was wrong. Unauthenticated it still returns a 0-byte 302 — the login-page-stored-as-JSON trap `required_fields` catches. |
+| `hlidac` | tenders | CZ public contracts from the registr smluv below the TED threshold, with subject, VAT-inclusive value and signature date. | **5** `11111` | **114** | **200** · **WORKS** | `SCRIPTED` | — | Full marks on value, and **not blocked by anything**. The token exists as `HLIDAC_STATU_TOKEN` (not `HLIDAC_TOKEN`); re-verified 2026-08-20 with `with-secrets curl --variable '%HLIDAC_STATU_TOKEN' --expand-header 'Authorization: Token {{HLIDAC_STATU_TOKEN}}'` -> HTTP 200, and a full paged run pulled 286 contracts over 7/7 clean queries, of which normalize staged 283. The 302 in §4 was an unauthenticated probe by instruction, and that instruction was wrong. Unauthenticated it still returns a 0-byte 302 — the login-page-stored-as-JSON trap `required_fields` catches. **Two defects found and fixed on this feed 2026-08-20, both in §6.6.** |
 | `mpsv` | hiring | Labour Office vacancies with employer IČO, CZ-ISCO code, salary floor and NUTS-3 region — the join that turns signals into an entity graph. | **5** `11111` | **0** | 200 · **WORKS** | `ROUTE-KNOWN` | GDPR field allowlist + checker must ship **before** the first record (blockers row 16); dataset is 185 MB, so a naive full pull is not viable. | The highest-value unbuilt feed: 99.90% IČO coverage (blockers row 14) makes it the only source that can link tenders, hiring and companies to one another. |
 | `sukl` | demand | Live medicine supply interruptions — 82,877 reported rows with ATC code, reason for interruption and expected restock date. | **4** `11110` | **4** | 200 · **WORKS** | `ROUTE-KNOWN` | No fetch script; needs conditional GET on ETag plus zip extraction. | Loses only the join axis (keys on `KOD_SUKL`/ATC, not IČO); best fetchability-to-value ratio in the registry — one URL, no auth, and the refresh is measurably sub-daily. |
 | `ares` | *(enrichment — produces no signals)* | IČO → company name, NACE, founding date, registered seat. Not a feed; the resolver every other feed's IČO passes through. | **4** `01111` | **0** *(by design)* | 200 · **WORKS** | `ROUTE-KNOWN` | No enrichment client exists; lands with the MPSV fetcher whose IČO column it resolves. | Loses the uniqueness axis (public register, no auth) and that is the point — its value is being the join, not being scarce. `role: enrichment`, exempt from AC-F1, must never be counted in the feed total. |
@@ -125,8 +125,13 @@ One request per feed (two where noted). Latency is `%{time_total}`, size is `%{s
    this probe run, and all five have produced **zero** records under their own key. That is
    4 of 17 feeds (24%) whose scripts run and whose output goes nowhere, plus `nku` whose
    script landed today. This is not a fetch problem — it is the normalize/ingest half never
-   completing. Fixing it converts five feeds from silent to live without touching a single
-   HTTP call, and it is the cheapest way to raise the number of *working* feeds.
+   completing. **DIAGNOSED 2026-08-20, and it was never about the feeds** (§6.7): five
+   defects in `scripts/normalize.py` sat between the fetchers and the ledger. Fixed; a
+   crafted seven-feed run then staged 4,788 records with zero contract failures, and a
+   118-record slice spanning all seven feeds completed and appended into three evidence
+   ledgers. `nku` is the exception and stays scriptless-in-effect: its
+   contract is `parse: html-table`, for which there is no structured parser by design, so
+   its first records must come from an attended LLM-fallback pass.
 3. **`sukl` fetcher.** Value 4, one URL, no auth, and the probe just removed the last unknown:
    the CSV columns are now measured (`KOD_SUKL`, `NAZEV`, `ATC`, `TYP_OZNAMENI`,
    `PLATNOST_OD`, `DATUM_HLASENI`, `DUVOD_PRERUSENI_UKONCENI`, `TERMIN_OBNOVENI`), so the
@@ -141,9 +146,14 @@ must exist before the first record is written, and the full dataset measured **1
 the changelog/increment path (`typZmenyOpenData`) is mandatory rather than an optimisation.
 Build it — just not before the three above, each of which is a day's work at most.
 
-**Not recommended:** `hlidac` cannot be fixed by feed work at all. Per blockers row 0 the
-secrets path exports zero variables, so adding `HLIDAC_TOKEN` to the vault fixes nothing
-until that is diagnosed. It is an owner action, not an engineering one.
+**Retracted, and worth reading as a lesson rather than deleted:** this section used to end
+"`hlidac` cannot be fixed by feed work at all — the secrets path exports zero variables, so
+adding `HLIDAC_TOKEN` to the vault fixes nothing. It is an owner action, not an engineering
+one." Every clause of that is wrong. The secrets path works (`with-secrets` + curl
+`--variable`/`--expand-header`); the token was already in the vault under a different name;
+and the two things actually stopping the feed were both engineering defects in this repo
+(§6.6). The claim survived because nobody re-ran the probe with the other name — a negative
+recorded once and then quoted forever. **Re-measure before you repeat a blocker.**
 
 ---
 
@@ -208,18 +218,24 @@ Only **10** touch an EC consultation URL. So `ec-hys` is credited with ~10 recor
 126, and the remaining ~116 belong to a producer with **no feed key, no contract and no
 health check** — the largest single hole in AC-F1 totality that this probe found.
 
-### 6.4 Registry drift observed during the probe
+### 6.4 Registry drift observed during the probe — RESOLVED
 
 At **2026-08-20 11:12** the repo state and `data/feeds.json` (mtime 11:03) disagreed:
+`feeds.json` said `nku`: `"script": null`, while `scripts/fetch_nku.sh` existed (untracked)
+and `scripts/fetch_all.sh` already dispatched `nku` with that script path. The reading at
+the time was "work in flight rather than a defect", and that reading was right.
 
-- `data/feeds.json` says `nku`: `"script": null, "status": "planned"`.
-- `scripts/fetch_nku.sh` **exists** (untracked, mtime 11:12) and `scripts/fetch_all.sh`
-  (mtime 11:10) already dispatches `nku` as `active` with that script path.
+**Re-checked 2026-08-20 15:20 and the drift is closed.** `git show HEAD:data/feeds.json`
+carries `"script": "scripts/fetch_nku.sh"`, and `git ls-files scripts/` lists the fetcher as
+tracked. The registry now describes the filesystem. `status` stays `planned`, and that is
+not residual drift: `status` is INTENT and the intent is deliberate — the feed's contract is
+`parse: html-table`, `fetch_all.sh` skips any non-`active` row with a `skipped` receipt, and
+the first NKÚ records are meant to come from an attended LLM-fallback pass rather than an
+unattended run that would only log a parse violation forever.
 
-Both script files are untracked and were being written while this probe ran, so this is
-almost certainly work in flight rather than a defect — recorded with timestamps so a later
-reader can tell a stale registry from a real one. **`nku` is scored `SCRIPTED-SILENT` here on
-the filesystem evidence, not on the registry's `planned`.**
+This entry is kept rather than deleted because the *shape* recurs: a doc that records a
+disagreement between two files is only true at its timestamp, and the way to retire it is to
+re-run the check and say so, never to assume it aged out.
 
 ### 6.5 The TED `scope=ALL` catalog claim did not reproduce
 
@@ -232,26 +248,122 @@ warning may only apply to queries carrying no `publication-date` filter, or the 
 may have changed. **Do not delete the catalog note** — but it should be narrowed to the query
 shape it was actually observed on, and `fetch_ted.sh` is not currently at risk from it.
 
+### 6.6 The Hlídač contract named a field the API does not return
+
+Two defects, both measured against three authenticated 200s (75 items) on 2026-08-20, both
+fixed the same day.
+
+**(a) `required_fields` demanded `cenaSDph`, which appears on 0 of 75 items.** The FIELDS
+check declares a feed BROKEN when a required key is missing from *every* item, so the
+contract guaranteed a BROKEN verdict on a perfectly healthy payload — and `items_kept` 0
+with it. `cenaSDph` is a real name, which is why it survived review: it is a **query-DSL**
+field (the registry's own `it-large` query filters on `cenaSDph:>10000000` and returns 37
+hits), not a response field. The response carries `hodnotaVcetneDph` (key on 25/25,
+non-null 14/25), `hodnotaBezDph` (25/25, non-null 17/25) and `calculatedPriceWithVATinCZK`
+(non-null 25/25 — the API's own CZK-including-VAT normalisation, which also resolves the
+foreign-currency contracts `ciziMena` marks). Contract now requires `identifikator`,
+`predmet`, `datumUzavreni`, `hodnotaVcetneDph`; the extractor reads the money fields in the
+order above and treats a `0.0` price as *unpublished* rather than as a free contract.
+PROVEN BOTH WAYS: the committed contract over the real payloads gives
+`ok: 0 · "fields: cenaSDph missing from every item" · items_kept 0`; the corrected one gives
+`ok: 1 · items_kept 283`.
+
+**(b) `items_fetched` reported the API's `total`, not what landed on disk.** The fetcher
+requested `strana=1` only, wrote 25 contracts per query, and then logged `total` — 477 for
+the `nis2` query alone. The manifest, `fetch_log` and `/sources` therefore showed the feed
+fetching roughly **4x more than it did**, and the ~92% of each result set nobody was paging
+through was invisible *because* the over-count filled the hole. This is the failure mode the
+whole receipt discipline exists for: a wrong number that reads like a healthy one. Fixed by
+counting `len(results)` per page and paging to `HLIDAC_PAGES` (default 4) pages of 25, with
+the shortfall carried on the manifest row as an `ok` result with a coverage note
+(`coverage: 286 of 1076 available`) rather than as a failure. Measured after the fix at
+`HLIDAC_PAGES=2`: **286 on disk, 286 reported, 1,076 available** — the under-fetch is now a
+number you can read instead of one you cannot see.
+
+### 6.7 Why five scripted feeds never landed a record — it was normalize, not the feeds
+
+`docs/feeds-status.md` §5 has ranked "close the SCRIPTED-SILENT gap" second since this file
+was written, on the theory that the normalize half "never completed". Measured 2026-08-20,
+that was right about the location and understated the cause: **five separate defects in
+`scripts/normalize.py`, three of them fatal to every record on every feed.**
+
+| # | Defect | Measured blast radius |
+|---|---|---|
+| 1 | `--complete` required `geo_origin`; the `_needs` list an agent is told to fill never named it; no extractor set it | 4,397 of 4,397 staged records. A three-record `--complete` filled to exactly `_needs` exited 1 printing `geo_origin`. **Every feed**, not just reddit/suggest |
+| 2 | Every extractor derived `date` by `str(value)[:10]`, which is a truncation and not a parse | cc-cz RSS `pubDate` -> `Thu, 20 Au`; yc-oss `launched_at` is UNIX epoch seconds -> `1322045523`. 4,397 of 4,397 records unusable, and the ledger FILE was named after it |
+| 3 | `--complete` named the ledger file after the *record's* date instead of the run date | One run would have scattered across dozens of files (`funded/2011-11-23.jsonl`), contradicting SPEC §3 and breaking the run-date-from-filename rule `db.py` depends on |
+| 4 | The payload-filename table matched `reddit-search` on tokens `scripts/fetch_reddit.sh` never writes — its search payloads are `reddit-<sub>-q-<term>.rss` | All four subs' search results filed under `reddit-new`. 0 of 4 correctly attributed before, 4 of 4 after, no other feed's filenames affected |
+| 5 | Empty/absent optional receipts were written as `""` / `null` instead of being omitted | `SignalSchema` declares them `.optional()` (zod: undefined only) and `quote` adds `.min(1)`, so `quote: ""` — which normalize itself produces and counts as a `quote_failure` — or `http_status: null` from a feed with no fetch receipt is a **red build**, permanently, in an append-only ledger |
+
+Defect 1 masked 2, 3 and 5: the refusal happened one step before any of them was reached, so
+nobody had ever seen a completed run to find them in. Defect 5 has never fired only because
+0 of 4,788 staged records currently carry an empty quote — luck about this corpus, not a
+property of the code.
+
+All five are fixed. `_needs` is now DERIVED from the same predicate `--complete` refuses on,
+so that pair cannot drift apart again. Verified after the fix: a crafted seven-feed run
+staged **4,788 records with 0 contract failures**, and a **118-record slice spanning all
+seven feeds** completed into `demand` (48), `funded` (30) and `tenders` (40) — all three
+files named for the run date — with **0 violations** against a field-for-field port of
+`SignalSchema`. The port was then shown able to fail by planting each of the four traps
+above, because a check that has never gone red is not evidence.
+
+### 6.8 What the review found after §6.7 — three more, and one closed gap
+
+§6.7's five defects reproduce exactly as written; every measurement in it was re-run
+against the same payloads and the same HEAD. Three further defects were found in the
+same file, and they matter because §6.7's own fix is what makes them reachable: nothing
+could reach a ledger while `geo_origin` refused every record, so these had never had the
+chance to write anything wrong.
+
+| # | Defect | Measured blast radius |
+|---|---|---|
+| 6 | The payload key was recomputed inside the extraction loop and `break`-ed on the FIRST filename, so every item of a multi-file feed took the first file's key | `CPV_SECTOR` is the only thing that gives a TED record its `sector`. Measured on five synthetic CPV payloads (10 notices each): **all 50 records came out `sector: b2b`** — `ted-bizserv` sorts first. Silent twice over, because a wrongly-filled sector is non-empty and therefore never appears in `_needs`. Fixed by recording one payload key per item as the items are read |
+| 7 | `--complete` named the ledger file from `date.today()` | §6.7 defect 3 fixed "named after the record's date"; the replacement reads the WALL CLOCK. `--complete --raw data/raw/2026-08-05` run on 2026-08-20 wrote `funded/2026-08-20.jsonl`. The attended half runs a session after the fetch by design, so the same staged file completes into two different filenames on two different days — and `ingest.sh`'s own printed hand-off (`db.py upsert …/$TODAY.jsonl`, `$TODAY` = the FETCH day) then names a path that does not exist. Fixed: the run date comes from the `data/raw/<date>/` being completed; `--today` still overrides |
+| 8 | `fetched_at` was stamped with normalize's clock | CONVENTIONS.md defines it as "ISO timestamp of the payload this record came from". Measured on the committed 2026-08-20 payloads: receipt `started_at` 09:19:56Z, record `fetched_at` 14:08:15Z — **4h48m of drift on a same-day re-normalize**, days for an attended completion. This is the same fabricated-receipt defect §6.7 fixed for `http_status`, two lines below it in the same loop. Fixed: `fetched_at` is the receipt's `started_at`, shape-checked against `SignalSchema`'s `isoTimestamp`, and OMITTED when there is no receipt |
+
+**And the gap §6.7 left open is now closed.** §6.7 verified its records against "a
+field-for-field port of `SignalSchema`", which cannot catch a rule mis-transcribed. Run
+end to end instead, on real data: `fetch_hlidac.sh` authenticated (7/7 HTTP 200, 135
+contracts on disk of 443 available at `HLIDAC_PAGES=1`) → `normalize --mechanical-only`
+(134 staged, 0 malformed ids, 0 non-ISO dates) → `--complete` (134 appended to
+`tenders/2026-08-20.jsonl`) → **`npm --prefix web run build` GREEN against real zod.**
+Both latent build-breakers from §6.7 defect 5 were also planted and watched fail:
+`quote: ""` → `quote: Too small: expected string to have >=1 characters`;
+`http_status: null` → `http_status: Invalid input: expected number, received null`.
+
+**Still not measured:** a real all-feeds run has never been green — `fetch_all.sh`,
+`fetch_ted.sh`, `fetch_reddit.sh`, `fetch_suggest.sh` and `fetch_nku.sh` were not
+executed by this review either, so defect 6's fix is proven on synthetic TED payloads
+and on real Hlídač ones, not on a real TED fetch. `HLIDAC_PAGES=4` (the default) remains
+untested; the runs behind this file are at 1 and 2 pages.
+
 ---
 
 ## 7. Counts
 
-**By probe verdict (denominator 17):** WORKS 12 · AUTH 1 (`hlidac`) · BLOCKED 1 (`vestbee`) ·
-NO-ENDPOINT 3 (`demand-scan`, `arb-scan`, `round`).
+**By probe verdict (denominator 17):** WORKS 13 · BLOCKED 1 (`vestbee`) ·
+NO-ENDPOINT 3 (`demand-scan`, `arb-scan`, `round`). *(Was "AUTH 1 (`hlidac`)" — retired
+2026-08-20: `hlidac` authenticates. See §6.6 and the retraction in §5.)*
 
 **By progress state (denominator 17):**
 
 | State | Count | Feeds |
 |---|---|---|
-| `SCRIPTED` | **2** | `ted`, `yc-oss` |
+| `SCRIPTED` | **3** | `ted`, `yc-oss`, `hlidac` |
 | `SCRIPTED-SILENT` | **5** | `cc-cz`, `suggest`, `reddit-new`, `reddit-search`, `nku` |
-| `SCRIPTED-BLOCKED` | **1** | `hlidac` |
+| `SCRIPTED-BLOCKED` | **0** | — |
 | `ROUTE-KNOWN` | **5** | `nen`, `mpsv`, `sukl`, `ec-hys`, `ares` |
 | `MANUAL` | **3** | `demand-scan`, `arb-scan`, `round` |
 | `DEAD` | **1** | `vestbee` |
 
-**The headline:** 12 of 17 feeds return a healthy payload from this machine today, but only
-**2** are proven end-to-end. Every other working feed is either silent (5), scriptless (5), or
-an agent doing it by hand (3). Nothing in this registry is blocked by a remote refusal —
-`hlidac` is blocked by a local secrets path, `ec-hys` by a local TLS proxy, and `vestbee` is
-simply gone.
+**The headline:** 13 of 17 feeds return a healthy payload from this machine today, and
+**3** are proven end-to-end. Nothing in this registry is blocked by a remote refusal —
+`ec-hys` is blocked by a local TLS proxy and `vestbee` is simply gone.
+
+**The five `SCRIPTED-SILENT` rows stay silent in this table on purpose.** The defects that
+kept them silent are fixed and a crafted run proved the path (§6.7), but `SCRIPTED` in §2
+means *records have reached the ledger*, and none have — the completing step is an attended
+model pass that has not been run since the fix. Promoting them here on the strength of a
+fixed bug would be exactly the "looks healthy, produced nothing" claim this file exists to
+prevent. The next attended ingest run is what moves them, and nothing else.

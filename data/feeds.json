@@ -54,11 +54,11 @@
       },
       "contract": {
         "parse": "json",
-        "required_fields": ["predmet", "cenaSDph", "datumUzavreni"],
+        "required_fields": ["identifikator", "predmet", "datumUzavreni", "hodnotaVcetneDph"],
         "expected_yield": {
           "min": 5,
-          "max": 600,
-          "basis": "AUTHOR ESTIMATE from the two committed run-dates (114 then 349 records kept). Counts items_fetched. This is the feed whose 302 login page was stored as a .json payload — required_fields exists precisely to catch that body."
+          "max": 800,
+          "basis": "MEASURED CEILING plus an author floor. scripts/fetch_hlidac.sh issues 7 queries and pages each one to HLIDAC_PAGES (default 4) pages of 25, so 700 items is a hard maximum. required_fields CORRECTED 2026-08-20: the previous list demanded `cenaSDph`, which appears on 0 of 75 items across three authenticated 200s — it is a QUERY-DSL field (the it-large query filters on cenaSDph:>10000000 and returns 37 hits), not a response field, so the FIELDS check would have declared BROKEN on every healthy payload. The four named here were each present on 25/25 items in all three probes. This is still the feed whose 302 login page was stored as a .json payload; required_fields exists to catch that body, which is exactly why it has to name fields the real body actually carries."
         },
         "allow_missing": false
       }
@@ -190,7 +190,7 @@
     {
       "key": "reddit-new",
       "name": "Reddit CZ subs — new.rss firehose",
-      "yields": "Every new post across four Czech subreddits, as an Atom firehose.",
+      "yields": "Every new post across four Czech subreddits, as an Atom firehose. Owns the `reddit-` id space: the firehose covers exactly the corpus both reddit rows read, so the post-id namespace is attributed here.",
       "role": "feed",
       "signal_source": "reddit",
       "id_prefixes": ["reddit"],
@@ -213,7 +213,7 @@
         "expected_yield": {
           "min": 20,
           "max": 200,
-          "basis": "AUTHOR ESTIMATE: 4 subreddits (counted from the SUBS list in scripts/fetch_reddit.sh) x roughly 25 entries per new.rss page. Counts items_fetched. ZERO records have ever reached the ledger."
+          "basis": "AUTHOR ESTIMATE: 4 subreddits (counted from the SUBS list in scripts/fetch_reddit.sh) x roughly 25 entries per new.rss page. Counts items_fetched. ZERO records have ever reached the ledger. This row owns the `reddit-` prefix for the whole corpus, including posts first seen by reddit-search — see that row's basis for the ruling and its cost."
         },
         "allow_missing": false
       }
@@ -221,10 +221,10 @@
     {
       "key": "reddit-search",
       "name": "Reddit CZ subs — search.rss pain terms",
-      "yields": "Posts in the same four Czech subreddits matching pain-language search terms.",
+      "yields": "Posts in the same four Czech subreddits matching pain-language search terms. Writes into the `reddit-` id space owned by reddit-new (see id_prefixes) rather than minting a namespace of its own.",
       "role": "feed",
       "signal_source": "reddit",
-      "id_prefixes": ["reddit"],
+      "id_prefixes": [],
       "evidence_type": "demand",
       "cadence": "daily",
       "runner": "local",
@@ -244,7 +244,7 @@
         "expected_yield": {
           "min": 5,
           "max": 200,
-          "basis": "AUTHOR ESTIMATE: 4 subreddits x 4 pain queries (counted from the SUBS and QUERIES lists in scripts/fetch_reddit.sh), most returning few hits. Counts items_fetched. ZERO records have ever reached the ledger."
+          "basis": "AUTHOR ESTIMATE: 4 subreddits x 4 pain queries (counted from the SUBS and QUERIES lists in scripts/fetch_reddit.sh), most returning few hits. Counts items_fetched. ZERO records have ever reached the ledger. ID SPACE, ruled 2026-08-20: `id_prefixes` is deliberately EMPTY, not missing. Both reddit rows read the SAME four subreddits and mint `reddit-<postid>`, which is required rather than accidental — it is what makes seen.txt collapse a post seen on both surfaces into one record instead of two. Two capable rows claiming one prefix left every reddit record UNATTRIBUTED (db.py attribute_prefixes step 3), so the namespace is attributed to the firehose row that covers the whole corpus. CONSEQUENCE, STATED: this row's `signals_total` on /sources will read 0 by construction. That is not silence — its state, items_last_run and yield_7d all come from its own fetch_log rows under its own key, which is what makes a broken search surface visible."
         },
         "allow_missing": false
       }

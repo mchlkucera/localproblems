@@ -4,9 +4,55 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { load as yamlLoad } from "js-yaml";
 import { z } from "zod";
+import { rows, type SqliteRow } from "./db";
 
 const ROOT = resolve(process.cwd(), "..");
 const DATA = join(ROOT, "data");
+
+// ---- the two read paths --------------------------------------------------
+
+/** Which store the loaders read: the canonical journal, or the working store.
+ *
+ *  `jsonl` — `data/signals/**.jsonl` + `data/problems/ ** /*.md`. The
+ *  append-only ledger, committed to git. THE DEFAULT IN EVERY COMMIT.
+ *  `db` — `data/register.db`, gitignored, deterministically rebuilt from the
+ *  same files by `python3 scripts/db.py rebuild`.
+ *
+ *  The migration's entire proof is that these two produce BYTE-IDENTICAL HTML
+ *  (`npm run parity`). Flipping the default is a one-line change the
+ *  coordinator makes only after that gate is green — which is what keeps the
+ *  switch reversible.
+ *
+ *  AN UNKNOWN VALUE IS A LOUD FAILURE, NOT A FALLBACK. `LP_SOURCE=DB` quietly
+ *  taking the jsonl branch would make the parity harness compare jsonl against
+ *  jsonl and report a triumphant green — the exact false positive this whole
+ *  exercise exists to avoid. Read inside the function, never captured at module
+ *  scope, so no bundler can fold it to a constant. */
+export function source(): "jsonl" | "db" {
+  const v = process.env.LP_SOURCE ?? "jsonl";
+  if (v !== "jsonl" && v !== "db")
+    throw new Error(`LP_SOURCE must be 'jsonl' or 'db', got '${v}'`);
+  return v;
+}
+
+/** One line per build worker, on stderr. It is the only externally visible
+    evidence of WHICH branch ran, and `scripts/parity.mjs` asserts on it. */
+let _announced = false;
+function announce(): "jsonl" | "db" {
+  const src = source();
+  if (!_announced) {
+    _announced = true;
+    process.stderr.write(`[lp-data] LP_SOURCE=${src}\n`);
+  }
+  return src;
+}
+
+/** UTF-16 code-unit order — byte-for-byte what `Array.prototype.sort()` does to
+    strings, and therefore what `readdirSync().sort()` does to filenames. NOT
+    `localeCompare` (ICU collation) and NOT SQL `ORDER BY` (SQLite BINARY over
+    UTF-8): all three agree on today's ASCII filenames and slugs and diverge
+    silently on the first non-ASCII one. */
+const cmp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
 
 export const CATEGORIES = [
   "fintech", "health", "housing", "energy", "mobility", "govtech",
@@ -127,7 +173,6 @@ const CompSchema = z.object({
   // Operating countries beyond the HQ — recorded only when sourced (CONVENTIONS.md).
   markets: z.array(z.string().regex(/^[A-Z]{2}$/)).optional(),
 });
-export type Comp = z.infer<typeof CompSchema>;
 
 const ProblemSchema = z.looseObject({
   id: z.string().regex(/^p-\d{4}$/),
@@ -177,9 +222,7 @@ function fail(file: string, error: z.ZodError): never {
   throw new Error(`${file}: ${error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ")}`);
 }
 
-let _problems: Problem[] | null = null;
-export function getProblems(): Problem[] {
-  if (_problems) return _problems;
+function problemsFromJsonl(): Problem[] {
   const problems: Problem[] = [];
   const problemsDir = join(DATA, "problems");
   for (const region of readdirSync(problemsDir, { withFileTypes: true })) {
@@ -195,6 +238,139 @@ export function getProblems(): Problem[] {
       problems.push({ ...parsed.data, body, slug: f.replace(/\.md$/, "") });
     }
   }
+  return problems;
+}
+
+/** `null` in SQLite means "the key was absent from the frontmatter"; the schemas
+    want the key gone, not present-and-null. Assigns only when there is a value. */
+function put(o: Record<string, unknown>, key: string, v: unknown): void {
+  if (v !== null && v !== undefined) o[key] = v;
+}
+
+/** Same as `put`, but the stored value is a JSON document.
+ *
+ *  THE THREE STATES ARE ALL LOAD-BEARING and this is the only place they are
+ *  told apart: `NULL` = key absent (fall through to the type map in
+ *  scorecard.ts `dimRefs`), `'[]'` = key present and empty — the deliberate
+ *  "attach to nothing" opt-out carried by 4 live sources — and `'["money"]'` =
+ *  an explicit override. `dimRefs` early-returns on ANY present `dims` key, so
+ *  collapsing absent and empty into one state re-attaches those 4 sources to
+ *  Demand and changes /problem/cz/p-0018. A join table cannot represent this;
+ *  the JSON column can. */
+function putJson(o: Record<string, unknown>, key: string, v: unknown): void {
+  if (v !== null && v !== undefined) o[key] = JSON.parse(String(v));
+}
+
+function problemsFromDb(): Problem[] {
+  const srcRows = rows(
+    "SELECT region, problem_id, position, type, url, note, date, signal_id," +
+    " dims_json, queries_json, checked_json, expires, extra_json FROM problem_sources"
+  );
+  const compRows = rows(
+    "SELECT region, problem_id, position, name, url, geo, since, traction," +
+    " signal_id, markets_json FROM problem_comps"
+  );
+
+  // Group children by their parent, then order each group by `position` — which
+  // IS the S-number and is never reassigned (480 live [Sn] citation markers key
+  // off array position). Numeric sort: no collation is involved.
+  const byParent = (rs: SqliteRow[]) => {
+    const m = new Map<string, SqliteRow[]>();
+    for (const r of rs) {
+      const k = `${String(r.region)}/${String(r.problem_id)}`;
+      (m.get(k) ?? m.set(k, []).get(k)!).push(r);
+    }
+    for (const g of m.values()) g.sort((a, b) => Number(a.position) - Number(b.position));
+    return m;
+  };
+  const sourcesFor = byParent(srcRows);
+  const compsFor = byParent(compRows);
+
+  const problems: Problem[] = [];
+  for (const r of rows(
+    "SELECT region, id, slug, title, category, geo, status, score," +
+    " s_proof, s_money, s_urgency, s_demand, s_gap," +
+    " build_capital, build_first_revenue, build_builder, build_note," +
+    " created, updated, body, extra_json, md_file FROM problems"
+  )) {
+    const key = `${String(r.region)}/${String(r.id)}`;
+    const file = String(r.md_file);
+
+    const fm: Record<string, unknown> = {
+      id: String(r.id),
+      region: String(r.region),
+      title: String(r.title),
+      category: String(r.category),
+      geo: String(r.geo),
+      score: Number(r.score),
+      scores: {
+        proof: Number(r.s_proof), money: Number(r.s_money), urgency: Number(r.s_urgency),
+        demand: Number(r.s_demand), gap: Number(r.s_gap),
+      },
+      status: String(r.status),
+      build: {
+        capital: String(r.build_capital), first_revenue: String(r.build_first_revenue),
+        builder: String(r.build_builder), note: String(r.build_note),
+      },
+      comps: (compsFor.get(key) ?? []).map((c) => {
+        const comp: Record<string, unknown> = {
+          name: String(c.name), url: String(c.url), geo: String(c.geo),
+          // YAML wrote this unquoted, so it MUST come back a JS number, not the
+          // string SQLite would happily coerce. `since: "2020"` fails z.number().
+          since: Number(c.since),
+          traction: String(c.traction),
+        };
+        put(comp, "signal", c.signal_id === null ? null : String(c.signal_id));
+        putJson(comp, "markets", c.markets_json);
+        return comp;
+      }),
+      sources: (sourcesFor.get(key) ?? []).map((s) => {
+        const src: Record<string, unknown> = {
+          type: String(s.type), url: String(s.url), note: String(s.note), date: String(s.date),
+        };
+        put(src, "signal", s.signal_id === null ? null : String(s.signal_id));
+        putJson(src, "dims", s.dims_json);
+        putJson(src, "queries", s.queries_json);
+        putJson(src, "checked", s.checked_json);
+        put(src, "expires", s.expires === null ? null : String(s.expires));
+        // SourceSchema is looseObject: any key the frontmatter carried that the
+        // schema does not name survives the round trip verbatim. NULL today.
+        if (s.extra_json !== null) Object.assign(src, JSON.parse(String(s.extra_json)));
+        return src;
+      }),
+      created: String(r.created),
+      updated: String(r.updated),
+    };
+    if (r.extra_json !== null) Object.assign(fm, JSON.parse(String(r.extra_json)));
+
+    const parsed = ProblemSchema.safeParse(fm);
+    if (!parsed.success) fail(file, parsed.error);
+
+    // The JSONL path gets frontmatter-vs-path agreement for free from the
+    // directory walk. Re-derive it here from `md_file` rather than let the
+    // check go vacuous — the `region` column and `fm.region` are the same value
+    // by construction, so comparing them would prove nothing.
+    const m = /^data\/problems\/([^/]+)\/(.+)\.md$/.exec(file);
+    if (!m) throw new Error(`${file}: md_file is not data/problems/<region>/<slug>.md`);
+    if (m[1] !== parsed.data.region)
+      throw new Error(`${file}: region '${parsed.data.region}' != directory '${m[1]}'`);
+    if (m[2] !== String(r.slug))
+      throw new Error(`${file}: slug '${String(r.slug)}' != filename '${m[2]}'`);
+
+    problems.push({ ...parsed.data, body: String(r.body), slug: String(r.slug) });
+  }
+
+  // Mirrors the JSONL walk: regions outer, then `readdirSync().sort()` over the
+  // filenames — which is what `slug` is. (With one region today the region key
+  // is inert; the JSONL path leaves region order to the filesystem, so a SECOND
+  // region is a parity risk on that path, not this one. Noted, not fixed here.)
+  return problems.sort((a, b) => cmp(a.region, b.region) || cmp(a.slug, b.slug));
+}
+
+let _problems: Problem[] | null = null;
+export function getProblems(): Problem[] {
+  if (_problems) return _problems;
+  const problems = announce() === "db" ? problemsFromDb() : problemsFromJsonl();
   const ids = new Set<string>();
   for (const p of problems) {
     const key = `${p.region}/${p.id}`;
@@ -213,9 +389,7 @@ export function getProblems(): Problem[] {
   return problems;
 }
 
-let _signals: Signal[] | null = null;
-export function getSignals(): Signal[] {
-  if (_signals) return _signals;
+function signalsFromJsonl(): Signal[] {
   const signals: Signal[] = [];
   for (const type of EVIDENCE_TYPES) {
     const dir = join(DATA, "signals", type);
@@ -230,12 +404,85 @@ export function getSignals(): Signal[] {
       }
     }
   }
+  return signals;
+}
+
+function signalsFromDb(): Signal[] {
+  // `raw` is the VERBATIM ledger line and it is the only signal payload this
+  // loader reads. Not the derived entity keys, not `dup_of`, and above all not
+  // data/errata.jsonl — the corrections ledger is real, committed, and consumed
+  // by db.py's money aggregates, but the web build has never rendered it.
+  // Picking it up here would silently restate EUR 10000M on /signals/tenders as
+  // something else: a genuine improvement, an instant parity failure, and a
+  // content change nobody reviewed.
+  const rs = rows("SELECT id, type, jsonl_file, jsonl_line, raw FROM signals");
+
+  // Reproduces the JSONL walk exactly: EVIDENCE_TYPES order (the outer loop),
+  // then filename (`readdirSync().sort()`), then line number. In JS, never as
+  // ORDER BY — see the note on `cmp` and on `rows` in ./db.
+  const rank = (t: string) => {
+    const i = (EVIDENCE_TYPES as readonly string[]).indexOf(t);
+    // The JSONL path only ever walks the EVIDENCE_TYPES directories, so a row
+    // of some other type is invisible there and would be a silent divergence
+    // here. Refuse it instead.
+    if (i === -1) throw new Error(`register.db: signal type '${t}' is not in EVIDENCE_TYPES`);
+    return i;
+  };
+  rs.sort((a, b) =>
+    rank(String(a.type)) - rank(String(b.type)) ||
+    cmp(String(a.jsonl_file), String(b.jsonl_file)) ||
+    Number(a.jsonl_line) - Number(b.jsonl_line)
+  );
+
+  const signals: Signal[] = [];
+  for (const r of rs) {
+    const parsed = SignalSchema.safeParse(JSON.parse(String(r.raw)));
+    if (!parsed.success) fail(`${String(r.jsonl_file)}:${Number(r.jsonl_line)} (via register.db)`, parsed.error);
+    signals.push({ ...parsed.data, type: String(r.type) as EvidenceType });
+  }
+  return signals;
+}
+
+let _signals: Signal[] | null = null;
+export function getSignals(): Signal[] {
+  if (_signals) return _signals;
+  const src = announce();
+  const signals = src === "db" ? signalsFromDb() : signalsFromJsonl();
+  // READ FROM DISK IN BOTH PATHS, DELIBERATELY. Deriving seen.txt from the same
+  // database the signals came from would make this check assert a table against
+  // itself. It is one of the few checks in this file with a demonstrated
+  // ability to fail, and it only has that because the two sides are independent.
   const seen = new Set(readFileSync(join(DATA, "signals", "seen.txt"), "utf8").split("\n").filter(Boolean));
   const ids = new Set<string>();
   for (const s of signals) {
     if (ids.has(s.id)) throw new Error(`duplicate signal id ${s.id}`);
     ids.add(s.id);
     if (!seen.has(s.id)) throw new Error(`signal ${s.id} missing from data/signals/seen.txt`);
+  }
+  // ...AND THE CONVERSE, ON THE DB PATH ONLY. The loop above asserts
+  // loaded-implies-seen; it says NOTHING about a record that failed to arrive.
+  // On the JSONL path that gap is harmless — the ledger files ARE the corpus,
+  // so nothing can go missing without a visible ledger edit. On the DB path the
+  // corpus is a projection, and a projection can come up short: MEASURED, a
+  // single `DELETE FROM signals` built GREEN and shipped 6,180 of 6,181 records.
+  // `db.py rebuild` does assert jsonl_lines == signals_count, but that is the
+  // writer vouching for itself at write time and it is not re-checked at read
+  // time — the store was already once found 7+ commits stale while reporting
+  // success. seen.txt is the independent on-disk witness: architecture-v3 §
+  // "seen.txt is written only on append" makes it exactly the committed id set,
+  // measured today as 6,181 == 6,181 with an empty symmetric difference.
+  //
+  // DB PATH ONLY, deliberately: this must not be able to newly fail the
+  // reference implementation mid-migration. Its one failure mode — the working
+  // store holding fewer records than the committed dedup index — is, under the
+  // append-only law, always a real defect.
+  if (src === "db" && ids.size !== seen.size) {
+    const missing = [...seen].filter((id) => !ids.has(id));
+    throw new Error(
+      `register.db holds ${ids.size} signals but data/signals/seen.txt lists ${seen.size}` +
+      `${missing.length ? ` — missing: ${missing.slice(0, 5).join(", ")}${missing.length > 5 ? ` (+${missing.length - 5} more)` : ""}` : ""}.\n` +
+      "The working store is short of the committed ledgers — rebuild it:  python3 scripts/db.py rebuild"
+    );
   }
   _signals = signals;
   return signals;
@@ -320,12 +567,13 @@ export function stats() {
   const deadlines = signals
     .filter((s) => s.type === "regulation" && s.date > today)
     .sort((a, b) => a.date.localeCompare(b.date));
+  // Four fields, all of them rendered. `sourcesOnFile` and `deadlinesTracked`
+  // were computed here and read by nobody — a count with no reader is a claim
+  // no one can check, so they are gone rather than left to rot.
   return {
     open: problems.length,
-    sourcesOnFile: problems.reduce((n, p) => n + p.sources.length, 0),
     signalCount: signals.length,
     byType: Object.fromEntries(EVIDENCE_TYPES.map((t) => [t, signals.filter((s) => s.type === t).length])) as Record<EvidenceType, number>,
-    deadlinesTracked: signals.filter((s) => s.type === "regulation").length,
     nextDeadline: deadlines[0],
   };
 }

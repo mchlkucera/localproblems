@@ -14,6 +14,12 @@ consumes is produced by the other one.
    data/feed_health.json uncommitted in the working tree for you. Read
    that manifest before step 3 for the run's pending and BROKEN feeds.
    Step numbering below is unchanged on purpose: MATCH is still step 3.
+   INGEST's mechanical half is scripts/ingest.sh, and its exit code is
+   worth reading before you trust the manifest: 0 clean · 1 some feeds
+   failed but the run IS audited · 2 the run is UNAUDITED, meaning
+   normalize, fetchlog, health or rebuild did not complete and this
+   manifest may be describing a run that never finished. On a 2, re-run
+   ingest before matching rather than matching over a hole.
 
 3. MATCH (REGION agent — all judgment lives here): read every problem's
    frontmatter in data/problems/<REGION>/. For each new signal or cluster of
@@ -49,6 +55,14 @@ consumes is produced by the other one.
 5. BUILD (the gate): run `npm --prefix web run build`. A red build means the
    DATA is invalid — fix the data, never the app, and never loosen a schema.
    Green build = the register and signal ledgers are current on next deploy.
+   Then `python3 scripts/db.py rebuild`. You just edited problem markdown,
+   and `problems` is a PROJECTION of those files exactly as `signals` is a
+   projection of the ledgers — without this the working store keeps serving
+   the register as it stood before your edits, which is what "the DB is
+   7+ commits stale" meant in practice. ingest.sh rebuilds on its own runs;
+   this line is what covers a PROCESS run that lands new problems and never
+   touches ingest. It is a rebuild, not a migration: fetch_log and match_log
+   are history and are never dropped.
 
 6. NEWSLETTER: write newsletter/<today>.md — top 3 problems by score this week
    (2 short paragraphs + source links each), 3-5 one-line movers (new or

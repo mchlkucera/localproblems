@@ -42,6 +42,17 @@ PROCESSING  pipeline/PROCESS.md   on-demand (weekly Mon 06:00 stays the default)
 The handoff is the git working tree, not a queue: INGEST leaves new evidence uncommitted,
 PROCESSING commits it together with the problems it produced. Nothing polls, nothing waits.
 
+**INGEST is two halves, and only one of them is a script.** `scripts/ingest.sh` runs the
+mechanical half end to end — prune, fetch, contract check, arithmetic normalize, fetch_log,
+health export, `db.py rebuild` — and it deliberately appends NOTHING to the ledgers, because
+every record still owes `scale` and `recurrence` to a model and unscored records are never
+written with default scores. It leaves them in `data/raw/<date>/staged.jsonl`, each carrying
+a `_needs` list. The model half is an ATTENDED Claude session that fills those fields and
+runs `normalize.py --complete`. That is not a workaround for a missing scheduler; it is the
+operating procedure, and it is how all 6,181 committed records were produced. Full loop in
+`pipeline/INGEST.md`. `ingest.sh` exits 0 clean · 1 some feeds failed (audited, not fatal) ·
+2 the run is unaudited.
+
 No servers, no database server, no queue, no client-side app. A git repo, a few fetch
 scripts, one statically-generated site, one agent. A gitignored SQLite working store is not
 a database server: nothing serves it and nothing reads it at publish time (§7).
@@ -306,9 +317,13 @@ measurement and must not be restored in their old form:
   no-op that is the real reason the Hlídač feed failed quietly. Secrets reach a request by
   wrapping the individual `curl` call (`with-secrets curl --variable … --expand-header …`);
   a script can never be wrapped wholesale, because an interpreter can encode a secret past
-  the output scrubber. `HLIDAC_TOKEN` is genuinely absent and that feed stays broken until
-  the owner adds it; `ANTHROPIC_API_KEY` is present, so the unattended scorer's remaining
-  blocker is plumbing, not a missing key.
+  the output scrubber. **The Hlídač token is PRESENT, under the name `HLIDAC_STATU_TOKEN`.**
+  `HLIDAC_TOKEN` is the absent one, and an earlier version of this clause named it as though
+  it were the only candidate — which left a working feed documented as blocked on an owner
+  action. Measured 2026-08-20 with a negative control, presence only, no value printed:
+  `%HLIDAC_TOKEN` → curl exit 2 "variable expansion failure"; `%HLIDAC_STATU_TOKEN` → HTTP
+  200 with 25 contracts. `ANTHROPIC_API_KEY` is present too, so the unattended scorer's
+  remaining blocker is plumbing, not a missing key.
 
 ## 9. Definition of done (v2 acceptance)
 
@@ -329,13 +344,19 @@ measurement and must not be restored in their old form:
    a rundown page exists for every problem (26 at time of writing); every score point
    in a spot-checked problem maps to a `sources[]` entry.
 4. **A newsletter draft exists after every run**, ready for human send.
-5. **The repo is lean:** only SPEC / SCORING / CONVENTIONS + `pipeline/` (both entry
-   points and the prepared launchd plist) + `data/` `scripts/` `web/` `newsletter/`
-   `skills/` + `docs/` (FOUNDER VISION, the sources catalog, the architecture doc, and
+5. **The repo is lean:** only SPEC / SCORING / CONVENTIONS + `pipeline/` (the two agent
+   entry points) + `data/` `scripts/` `web/` `newsletter/` `skills/` + `docs/` (FOUNDER
+   VISION, the sources catalog, the feed-status scoreboard, the architecture doc, and
    `archive/`). No normalized/ tree, no site-v1, no hand-built `site/`, no INDEX.md, no
    duplicated information between documents. (`TASK.md` is gone — it became
    `pipeline/PROCESS.md`. `docs/` is named as a folder because `FOUNDER VISION.md`,
    `sources-catalog.md` and `architecture-v3.md` live beside `archive/`, not inside it.)
+   **There is no launchd plist.** Earlier versions of this clause and of §12 counted a
+   "prepared, not-loaded" plist at `pipeline/launchd/` toward the lean-repo target;
+   `pipeline/` has only ever held `INGEST.md` and `PROCESS.md`. The scheduler is a future
+   decision, not a shipped artefact — `scripts/ingest.sh` is the thing a scheduler would
+   call, and its exit codes (0 clean · 1 feeds failed · 2 run unaudited) are the contract
+   it would read.
 6. **The build is the gate:** `npm --prefix web run build` exits 0 on a clean checkout
    and fails loudly on any invalid record — zod validates every problem and signal.
 
@@ -368,7 +389,8 @@ this table, never something smuggled into the pipeline docs.
 | `SPEC.md` | **the how — authoritative (this file)** |
 | `SCORING.md` | the problem-scoring rubric — binding |
 | `data/CONVENTIONS.md` | vocab: categories, id rules, schemas — binding |
-| **`pipeline/`** | **the two agent entry points** — `INGEST.md` (fetch + normalize, hourly-ish) and `PROCESS.md` (match → deploy, on-demand). Operational form of §2. Also holds the prepared, not-loaded launchd plist. |
+| **`pipeline/`** | **the two agent entry points** — `INGEST.md` (fetch + normalize, hourly-ish) and `PROCESS.md` (match → deploy, on-demand). Operational form of §2. Those two files are all it holds; there is no launchd plist (§9.5). |
+| `docs/feeds-status.md` | per-feed measurement: does each feed work right now, and how far is it from being automated — advisory, regenerated from probes |
 | `data/feeds.json` | the feeds registry + per-feed contracts and ToS verdicts — binding |
 | `data/feed_health.json` | observed per-feed health — generated by ingest, never hand-edited |
 | `skills/design-language/` | the design system — binding |

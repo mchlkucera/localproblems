@@ -18,8 +18,8 @@ You are running in one of two modes. Know which:
                API key. WORKS TODAY, and is how every record in the
                corpus was produced. Do all steps, model passes included.
   UNATTENDED — scripts/ingest.sh runs `claude -p "$(cat pipeline/INGEST.md)"`
-               from launchd or GitHub Actions. UNPROVEN — ships wired,
-               never yet observed to work. ANTHROPIC_API_KEY EXISTS in the
+               from a scheduler. UNPROVEN — ships wired, never yet
+               observed to work. ANTHROPIC_API_KEY EXISTS in the
                vault, so this is NOT a missing-key problem; it is a
                plumbing problem — handing that value to a nested `claude -p`
                without an interpreter touching it (see the secrets rule in
@@ -29,10 +29,44 @@ You are running in one of two modes. Know which:
                the wrapper stages the mechanical half and prints
                SKIP model passes. Do not work around it; do not invent a
                key; do not append a record the model never scored.
+               There is NO scheduler installed and no launchd plist in this
+               repo; `scripts/ingest.sh` is what one would call.
+
+THE ATTENDED LOOP, WRITTEN DOWN AS THE PROCEDURE IT ACTUALLY IS. The split
+is not a degraded mode — the mechanical half is a script precisely because
+it carries no judgment, and the model half is a session precisely because
+it does:
+
+  1.  /bin/bash scripts/ingest.sh
+      Prune, fetch, contract check, arithmetic normalize, fetch_log, health
+      export, db.py rebuild. Appends NOTHING to the ledgers. Exit codes:
+        0 clean · 1 some feeds failed (audited, NOT fatal) · 2 UNAUDITED.
+  2.  Read data/raw/<today>/staged.jsonl. Every record carries `_needs` —
+      the exact list of fields a model still owes it, derived from the same
+      rule --complete refuses on, so filling `_needs` is sufficient by
+      construction. Fill them IN PLACE (steps 3b and 3d below are what
+      "filling" means). Never invent a value to clear the list.
+  3.  python3 scripts/normalize.py --raw data/raw/<today> --complete
+      Applies materiality, appends survivors to the ledgers + seen.txt.
+      It REFUSES the whole run if any record is still incomplete; add
+      --allow-incomplete only when you intend to append the complete ones
+      and leave the rest staged.
+  4.  python3 scripts/db.py upsert data/signals/<type>/<run-date>.jsonl
+      Once per file --complete named, and read those names off --complete's
+      own output rather than assuming today. <run-date> is the date in the
+      data/raw/<date>/ directory you completed, NOT the day you are sitting
+      here: step 2 routinely happens a session after step 1, and the ledger
+      is named for the run, so that a fetch and its records agree on when
+      they happened. --complete takes it from the --raw path; pass --today
+      only to override it deliberately.
+  5.  STOP. Do not commit (step 6).
+
+Steps 1, 3, 4 and 5 are mechanical. Step 2 is the entire judgment surface of
+this loop, and it is the only step that needs you.
 
 0. PREFLIGHT: confirm the artifacts this loop drives exist —
-   data/feeds.json, scripts/fetch_all.sh, scripts/normalize.py,
-   scripts/db.py. Any that is missing is a Phase 2 build gap, not
+   data/feeds.json, scripts/ingest.sh, scripts/fetch_all.sh,
+   scripts/normalize.py, scripts/db.py. Any that is missing is a build gap, not
    something to improvise around: record it in the manifest by name and
    run only the steps whose tooling is present. Never hand-roll a
    replacement for a missing script — a one-off parser writes
@@ -54,26 +88,46 @@ You are running in one of two modes. Know which:
    Verify a signature against the script before adding a new row here
    rather than copying the shape of its neighbour — that is the exact
    mistake this table exists to prevent.
+   THE PAYLOAD FILENAME IS ALSO A CROSS-FILE CONTRACT, and it broke once
+   already. normalize.py maps <raw>/<file> back to a registry feed key by
+   matching a distinctive token in the name, so a fetcher renaming its
+   output silently reassigns records to another feed's contract. The two
+   shapes that are decided by name rather than by directory:
+     fetch_reddit.sh   reddit-<sub>-new.rss     -> reddit-new
+                       reddit-<sub>-q-<term>.rss -> reddit-search
+     fetch_hlidac.sh   hlidac-<query>-p<N>.json  -> hlidac (all pages)
+   Change a fetcher's output names and fix FILE_FEED_TOKENS /
+   feed_for_file() in the same commit.
    SECRETS NEVER TRANSIT THE SHELL. Do NOT use `direnv exec .` for them:
    the direnv->sops hook prints "using sops .env.enc", exits clean, and
    exports nothing but DIRENV_* bookkeeping. That silent no-op — not a
    missing key — is why the Hlídač feed has been failing quietly. The
    authenticated request carries the secret itself:
-     with-secrets curl --variable '%HLIDAC_TOKEN' \
-       --expand-header 'Authorization: Token {{HLIDAC_TOKEN}}' "$API/..."
+     with-secrets curl --variable '%HLIDAC_STATU_TOKEN' \
+       --expand-header 'Authorization: Token {{HLIDAC_STATU_TOKEN}}' "$API/..."
    A SCRIPT CANNOT BE WRAPPED WHOLESALE. with-secrets refuses bash, node,
    python, jq, awk, sed and every other interpreter — by allowlist, not
    denylist, because an interpreter can encode a secret past the output
    scrubber and a previous denylist missed one. ONLY THE INDIVIDUAL curl
    CALL IS WRAPPED. This is non-obvious and a future author will try to
    simplify it back into a wrapped script; do not let them.
-   HLIDAC_TOKEN is genuinely absent from the vault, so `hlidac` stays
-   BROKEN until the owner adds it. Let it show as BROKEN — a feed that
-   cannot authenticate must not look healthy.
+   THE HLÍDAČ TOKEN IS PRESENT. The name is HLIDAC_STATU_TOKEN. The
+   ABSENT name is HLIDAC_TOKEN, and this file used to assert the opposite
+   — "genuinely absent from the vault, so hlidac stays BROKEN until the
+   owner adds it" — which parked a working feed behind an owner action
+   nobody needed to take. Re-measured 2026-08-20 with a negative control,
+   presence only, no value printed: %HLIDAC_TOKEN -> curl exit 2
+   "variable expansion failure"; %HLIDAC_STATU_TOKEN -> HTTP 200, 25
+   contracts. scripts/fetch_hlidac.sh probes both names in that order and
+   now reports an INCONCLUSIVE probe as unknown rather than as presence.
    Write data/raw/<today>/manifest.md: per feed, item count or FAILED +
    error, plus the health summary from step 5. The manifest is the one
    file under data/raw/ that is committed; everything else there is
-   gitignored and pruned. Delete data/raw/ folders older than 28 days.
+   gitignored and pruned. PRUNE: scripts/ingest.sh step 0 deletes every
+   payload under a data/raw/<date>/ dated more than 28 days back and KEEPS
+   that run's manifest.md — the payloads are the cache, the manifest is the
+   committed record, so pruning the folder wholesale would stage a deletion
+   of tracked files on every run.
    Google Suggest is capped at ONE run per day — the cap is the whole
    mitigation against a ban; never re-run it to "top up" a thin result.
 
@@ -123,6 +177,16 @@ You are running in one of two modes. Know which:
        enforced"), and for suggest/reddit the PAIN LANGUAGE bar — record
        only complaints, failures, workarounds; engagement metrics never
        justify a record, and neither feed may dominate the demand ledger.
+       READ `_needs` ON EACH STAGED RECORD RATHER THAN THIS PARAGRAPH.
+       It is derived from the same rule --complete refuses on, so a record
+       filled to exactly its `_needs` is accepted by construction. That was
+       NOT true until 2026-08-20: `geo_origin` was demanded by --complete,
+       named by no `_needs` list, and set by no extractor, so an agent that
+       did everything this file asked was still refused on every feed — the
+       single defect standing between six working fetchers and a growing
+       ledger. `geo_origin` is a model field on purpose: a Czech-language
+       feed carrying a story about a German company makes "where the signal
+       comes FROM" a judgment, and the mechanical pass carries none.
        Validate before anything is written: one entry per input, every
        score an integer 0-3. Retry a malformed batch ONCE, then skip it
        and record the error. UNSCORED RECORDS ARE NEVER APPENDED WITH
@@ -156,11 +220,22 @@ You are running in one of two modes. Know which:
    mistake here is permanent and public; there is no quiet cleanup.
 
 4. APPEND + UPSERT: append survivors as one JSON line each to
-   data/signals/<type>/<today>.jsonl (funded | regulation | tenders |
+   data/signals/<type>/<run-date>.jsonl (funded | regulation | tenders |
    demand | hiring — mapping in CONVENTIONS.md) and add their ids to
-   data/signals/seen.txt, keeping it sorted. Then:
-     python3 scripts/db.py upsert data/signals/<type>/<today>.jsonl
-     python3 scripts/db.py fetchlog data/raw/<today>
+   data/signals/seen.txt, keeping it sorted. THE FILENAME IS THE RUN DATE,
+   NEVER THE RECORD'S OWN `date`: db.py reads the filename as the run date
+   because 145 committed records are legitimately dated in the future (a
+   regulation signal carries its effective date), and yc-oss records carry
+   a launch date as far back as 2010. Naming files after record dates would
+   scatter one run across dozens of files and report every feed's freshness
+   off the wrong number.
+   THE RUN DATE IS ALSO NOT `date.today()`. It is the date naming the
+   data/raw/<date>/ directory being completed — the same string db.py reads
+   back — because this step is ATTENDED and routinely runs a session after
+   the fetch. --complete derives it from --raw for exactly that reason;
+   --today overrides it. Then:
+     python3 scripts/db.py upsert data/signals/<type>/<run-date>.jsonl
+     python3 scripts/db.py fetchlog data/raw/<run-date>
    The JSONL and seen.txt are canonical; data/register.db is a gitignored
    working store that is rebuildable from them and is never the arbiter.
    If you write a NEW field that SignalSchema does not already declare,

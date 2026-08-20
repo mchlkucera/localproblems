@@ -219,7 +219,6 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   gap: var(--sp-4); flex-wrap: wrap; margin: 0;
 }
 .docket .idline .meta { margin: 0 0 0 auto; text-align: right; }
-.docket .statline { float: right; font-family: var(--mono); font-size: var(--fs-data); }
 .docket h1 { font: 700 var(--fs-title)/1.2 var(--serif); margin: var(--sp-2) 0 var(--sp-5); max-width: 30ch; clear: none; }
 /* the dek: one serif standfirst sentence directly under the title (v1.4) */
 .docket .dek { font: 400 var(--fs-h2)/1.4 var(--serif); color: var(--ink-muted); max-width: 40ch; margin: 0 0 var(--sp-5); }
@@ -459,14 +458,6 @@ ul.queries {
   .rundown .bands td:first-child { padding-left: var(--sp-4); }
 }
 
-/* ---- signals breakdown ---------------------------------------- */
-table.signals { border-collapse: collapse; font: 400 var(--fs-data)/1.5 var(--mono); min-width: 60%; }
-.signals td { padding: var(--sp-2) var(--sp-5) var(--sp-2) 0; border-bottom: 1px solid var(--rule); }
-.signals .t-num { text-align: left; font-weight: 600; }  /* v2: every column left-aligns */
-.signals .note { font: 400 var(--fs-data)/1.4 var(--serif); color: var(--ink-muted); }
-.signals .t-src { white-space: nowrap; }     /* → S1, S3 refs into the sources list */
-.signals tr.total td { border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 600; }
-
 /* ---- sources: one-line ledger entries S1…Sn (v1.3) ------------
    One line per source: S-number, linked name, date right-aligned.
    The name IS the link; the row rule is the only line — leaders
@@ -630,19 +621,6 @@ ul.buildfacts { list-style: none; margin: 0 0 var(--sp-4); padding: 0; max-width
   pointer-events: none; white-space: nowrap;
 }
 
-/* ---- claim block ----------------------------------------------- */
-.claim { border: 1px solid var(--ink); border-left: 4px solid var(--signal); padding: var(--sp-5); margin: var(--sp-7) 0; }
-.claim p { margin: var(--sp-2) 0 var(--sp-4); font-size: var(--fs-data); font-family: var(--mono); }
-.btn {
-  display: inline-block;
-  font: 600 var(--fs-data)/1 var(--mono);
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--ink); background: var(--paper);
-  border: 2px solid var(--ink); padding: var(--sp-3) var(--sp-5);
-  text-decoration: none;
-}
-.btn:hover { background: var(--ink); color: var(--paper); }  /* inverts, instantly */
-
 /* ---- signal ledgers: the fixed column layout (sources v2) --------
    Every signal table shares one column layout, declared by a colgroup
    (c-name … c-date). :has() switches those tables to fixed layout so
@@ -667,6 +645,5 @@ footer time { font-size: inherit; }
 @media print {
   body { border-top-width: 2pt; max-width: none; }
   .index tbody tr:hover { background: none; }
-  .claim .btn { display: none; }
   a { text-decoration: none; }
 }

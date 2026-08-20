@@ -44,5 +44,8 @@ long after it stops being true, so prefer the command that regenerates it.
 2. ~~GitHub remote + Vercel project~~ — done: [github.com/mchlkucera/localproblems](https://github.com/mchlkucera/localproblems) + [localproblems.vercel.app](https://localproblems.vercel.app) (deploy = local prebuilt, see SPEC §5; optionally connect the repo in Vercel with root `web/` for push-to-deploy).
 3. Point the weekly scheduled Claude task at `pipeline/PROCESS.md` (Mon 06:00). The ingest
    loop (`pipeline/INGEST.md`) runs separately and more often; it is proven in an attended
-   Claude session today, and its unattended runner ships wired but unproven.
+   Claude session today. **There is no unattended runner** — no launchd plist and no
+   `.github/` directory exist (SPEC §9.5; `docs/architecture-v3.md` §5.4 carries the
+   design). Scheduling is still an open decision, and `scripts/ingest.sh` is what a
+   scheduler would call.
 4. Newsletter issue #0 by hand via Buttondown — go/no-go: ≥300 subs in 14 days from one LinkedIn post, or reposition.

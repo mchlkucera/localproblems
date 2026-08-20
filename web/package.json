@@ -7,7 +7,8 @@
     "prebuild": "node scripts/check-css.mjs && node scripts/lint-citations.mjs",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "parity": "node scripts/parity.mjs"
   },
   "dependencies": {
     "js-yaml": "^5.2.3",

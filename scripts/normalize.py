@@ -18,9 +18,11 @@ THREE MODES, and the split between them is the whole design:
   --complete          THE ATTENDED COMPLETION. Reads a staged.jsonl whose model
                       fields an agent has filled in, applies the materiality
                       filter, and appends survivors to
-                      data/signals/<type>/<date>.jsonl + seen.txt, then upserts
-                      into the DB. Needs no model of its own — the judgment
-                      already happened.
+                      data/signals/<type>/<date>.jsonl + seen.txt. Needs no
+                      model of its own — the judgment already happened. It does
+                      NOT touch data/register.db: it prints the `db.py upsert`
+                      lines for the caller to run, because the ledgers are
+                      canonical and the DB is rebuildable from them.
 
   (default)           The UNATTENDED path: mechanical, then model passes A and B.
                       WIRED BUT INERT — see the model_passes() docstring. It
@@ -42,6 +44,7 @@ import re
 import sys
 import unicodedata
 from datetime import date, datetime, timezone
+from email.utils import parsedate_to_datetime
 from xml.etree import ElementTree
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -85,15 +88,24 @@ FILE_FEED_TOKENS = [
     ("czechcrunch", "cc-cz"), ("cc-cz", "cc-cz"),
     ("vestbee", "vestbee"),
     ("suggest", "suggest"),
-    ("reddit-search", "reddit-search"), ("reddit_search", "reddit-search"),
-    ("redditsearch", "reddit-search"),
-    ("reddit", "reddit-new"),
     ("nku", "nku"), ("sukl", "sukl"), ("mpsv", "mpsv"), ("ares", "ares"),
     ("hys", "ec-hys"),
     ("nen", "nen"),
     ("ted", "ted"),
     ("yc", "yc-oss"),
 ]
+
+# Reddit is the one filename shape the flat table above cannot decide, and the
+# reason is measured, not theoretical. scripts/fetch_reddit.sh emits
+# `reddit-<sub>-new.rss` for the firehose and `reddit-<sub>-q-<term>.rss` for
+# the pain search — READ OFF THE SCRIPT, not assumed. Neither name contains the
+# string `reddit-search`, so the three `reddit*search*` tokens the table used to
+# carry matched NOTHING the fetcher writes, every search payload fell through to
+# the generic `reddit` token, and all four subs' search results were filed under
+# `reddit-new`. That misattribution is silent: both keys parse identically, so
+# the only symptoms are a yield anomaly charged to the wrong contract and a
+# `reddit-search` row that reads PENDING forever while its fetcher runs fine.
+REDDIT_SEARCH_MARKERS = ("-q-", "search")
 
 # ==========================================================================
 # AC-GDPR1 — the contact-field gate. A SAFETY GATE, NOT A FEATURE.
@@ -143,9 +155,33 @@ PHONE_RE = re.compile(
 )
 
 
+# OPTIONAL KEYS ARE OMITTED WHEN EMPTY, never written as "" or null.
+#
+# SignalSchema declares these `.optional()`, and in zod that accepts UNDEFINED —
+# not null, and not the empty string. `quote` additionally carries `.min(1)`.
+# CONVENTIONS.md states the rule in words ("an empty `quote` is not a quote, it
+# is the shape that looks present and says nothing, and the schema rejects it");
+# this line is what makes it true in code.
+#
+# NOT HYPOTHETICAL, and today's corpus is the only reason it has not fired:
+# `quote` is set to "" whenever no candidate snippet verifies against the
+# payload — normalize counts exactly those as `quote_failures`, so it expects
+# them — and `http_status` is None for any feed whose fetcher left no receipt,
+# which is the documented UNKNOWN case. Either value reaching a ledger is a red
+# build on the next deploy, and the ledgers are append-only: there is no quiet
+# cleanup. Measured: 0 of 4,788 staged records currently carry an empty quote,
+# which is luck about this corpus, not a property of the code.
+OPTIONAL_RECEIPTS = ("quote", "http_status", "fetched_at", "extraction", "notes")
+
+
 def apply_allowlist(rec):
     """Return (clean_record, dropped_field_names). Unknown fields never survive."""
-    clean = {k: v for k, v in rec.items() if k in LEDGER_ALLOWLIST}
+    clean = {k: v for k, v in rec.items()
+             if k in LEDGER_ALLOWLIST
+             and not (k in OPTIONAL_RECEIPTS and v in (None, "", []))}
+    # `dropped` reports UNKNOWN fields — the thing the allowlist exists to catch.
+    # An omitted-because-empty optional receipt is not a drop, it is the schema
+    # being honoured, and conflating the two would bury the signal.
     dropped = sorted(k for k in rec if k not in LEDGER_ALLOWLIST)
     return clean, dropped
 
@@ -186,6 +222,65 @@ def slugify(s):
     s = "".join(c for c in s if not unicodedata.combining(c)).lower()
     s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
     return s[:48] or "x"
+
+
+ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+# SignalSchema's `isoTimestamp` (web/lib/data.ts), transcribed. A receipt is
+# written by a fetcher we do not own, so its `started_at` is checked against the
+# shape the ledger will demand BEFORE it is copied onto a record — a receipt
+# that fails this is dropped to "unknown", never passed through to become a red
+# build in an append-only log.
+ISO_TS_RE = re.compile(
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}:\d{2})$")
+
+
+def iso_date(value):
+    """Any feed's published date -> 'YYYY-MM-DD', or None if it cannot be read.
+
+    NEVER A TRUNCATION, and that is the point. Every extractor used to do
+    `str(d)[:10]`, which is only correct if you already know the format — and
+    the four live feeds use four different ones. MEASURED on the committed
+    2026-08-20 payloads, before this existed:
+
+      cc-cz   RSS pubDate 'Thu, 20 Aug 2026 08:00:30 +0000'  -> 'Thu, 20 Au'
+      yc-oss  launched_at 1322045523 (UNIX epoch seconds)    -> '1322045523'
+
+    That was 4,397 of 4,397 staged records carrying an unusable date, and the
+    damage did not stop at the field: run_complete() named the ledger file after
+    it, so a completed run would have written
+    `data/signals/funded/Thu, 20 Au.jsonl` and then failed the next site build on
+    SignalSchema's ISO-date rule. Nobody had seen it because the geo_origin
+    defect above refused every record one step earlier.
+
+    Handled, in order: ISO date or datetime · compact YYYYMMDD (TED) ·
+    RFC-2822 (RSS) · UNIX epoch seconds or milliseconds (yc-oss). Anything else
+    returns None, which puts `date` into the record's model debt and names it in
+    the manifest — an unread date is reported, never guessed.
+    """
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return None
+    s = collapse(value)
+    if not s:
+        return None
+    if ISO_DATE_RE.match(s[:10]):
+        return s[:10]
+    if re.match(r"^(19|20)\d{6}$", s):            # TED-style 20260601
+        return f"{s[0:4]}-{s[4:6]}-{s[6:8]}"
+    if re.match(r"^\d{9,13}$", s):                # epoch seconds or millis
+        n = int(s)
+        if len(s) >= 12:
+            n //= 1000
+        try:
+            return datetime.fromtimestamp(n, timezone.utc).date().isoformat()
+        except (OverflowError, OSError, ValueError):
+            return None
+    try:
+        return parsedate_to_datetime(s).date().isoformat()
+    except (TypeError, ValueError, IndexError):
+        return None
 
 
 # --------------------------------------------------------------------------
@@ -246,10 +341,37 @@ def is_material(scores):
 
 def feed_for_file(fname):
     n = fname.lower()
+    if "reddit" in n:
+        return ("reddit-search"
+                if any(m in n for m in REDDIT_SEARCH_MARKERS) else "reddit-new")
     for token, key in FILE_FEED_TOKENS:
         if token in n:
             return key
     return None
+
+
+# The SUB-FEED key inside one feed's payload set. `ted-it.json` carries the CPV
+# group `it`, which is the only thing that gives a TED record its sector; the
+# optional `-p<N>` tail is fetch_hlidac.sh's page number and is not part of the
+# key. Returns None for any other filename, and extractors treat that exactly as
+# "unknown" (CPV_SECTOR falls through to `other`) rather than guessing.
+PAYLOAD_KEY_RE = re.compile(r"^(?:ted|hlidac)-(.+?)(?:-p\d+)?\.json$", re.I)
+
+
+def payload_key_of(fname):
+    m = PAYLOAD_KEY_RE.match(fname)
+    return m.group(1) if m else None
+
+
+def run_date_from_raw(raw):
+    """The run date a `data/raw/<date>/` directory names, or None.
+
+    The directory name IS the run date — ingest.sh creates it as
+    `data/raw/$(date +%Y-%m-%d)` and db.py reads the same string back off the
+    ledger filenames. Anything else (a scratch dir, a path with no date) returns
+    None so the caller can fall back rather than invent one."""
+    name = os.path.basename(os.path.normpath(str(raw or "")))
+    return name if ISO_DATE_RE.match(name) else None
 
 
 def parse_payload(path, parse_kind):
@@ -386,16 +508,49 @@ def extract_ted(item, payload_key, today):
         "source": "ted",
         "evidence_type": "tenders",
         "url": f"https://ted.europa.eu/en/notice/-/detail/{pub}",
-        "date": str(d)[:10],
+        "date": iso_date(d) or "",
         "title_native": title,
         "entity_native": buyer,
         "sector": CPV_SECTOR.get(payload_key, "other"),
         "money_eur": money,
         "money_note": note,
-        "urgency_date": str(deadline)[:10] if deadline else None,
+        "urgency_date": iso_date(deadline),
         "quote_parts": [p for p in (title, (f"{val} {cur}" if val is not None else "")) if p],
         "excerpt": collapse(f"{title} — {buyer}"),
     }
+
+
+# The money fields Hlídač actually returns, best first. MEASURED 2026-08-20
+# against three authenticated 200s (75 items): `calculatedPriceWithVATinCZK` is
+# non-null on 75/75 and is the API's own normalisation to CZK including VAT, so
+# it also resolves the foreign-currency contracts `ciziMena` marks;
+# `hodnotaVcetneDph` is non-null on 14/25 and `hodnotaBezDph` on 17/25.
+#
+# `cenaSDph` — the name this extractor used to read first — appears on 0 of 75
+# items. It is REAL, but it is a QUERY-LANGUAGE field (the `it-large` query
+# filters on `cenaSDph:>10000000` and returns 37 hits), not a response field.
+# Copying a search-DSL name into a response reader is how it got here, and the
+# same mistake put it in the feed contract's required_fields.
+HLIDAC_MONEY_FIELDS = ("calculatedPriceWithVATinCZK", "hodnotaVcetneDph",
+                       "hodnotaBezDph")
+
+
+def hlidac_money(item):
+    """(czk, field_name) for the first PUBLISHED figure, or (None, None).
+
+    Zero is treated as absent, not as a free contract: Hlídač returns 0.0 with a
+    `cenaNeuvedenaDuvod` reason when no price was disclosed, and passing that
+    through would score `money` 1 (<200k) on a contract whose value is unknown,
+    which the rubric grades 0.
+    """
+    for f in HLIDAC_MONEY_FIELDS:
+        v = item.get(f)
+        try:
+            if v is not None and float(v) != 0.0:
+                return float(v), f
+        except (TypeError, ValueError):
+            continue
+    return None, None
 
 
 def extract_hlidac(item, payload_key, today):
@@ -405,7 +560,7 @@ def extract_hlidac(item, payload_key, today):
     if not nid:
         return None
     predmet = collapse(get_first(item, "predmet", "popis") or "")
-    cena = get_first(item, "cenaSDph", "hodnotaSDph", "cenaBezDph")
+    cena, cena_field = hlidac_money(item)
     money = money_from_czk(cena) if cena is not None else None
     dt = get_first(item, "datumUzavreni", "datum") or ""
     return {
@@ -413,13 +568,13 @@ def extract_hlidac(item, payload_key, today):
         "source": "hlidac",
         "evidence_type": "tenders",
         "url": get_first(item, "odkaz", "url") or f"https://smlouvy.gov.cz/smlouva/{nid}",
-        "date": str(dt)[:10],
+        "date": iso_date(dt) or "",
         "title_native": predmet,
         "entity_native": collapse((item.get("platce") or {}).get("nazev", "")
                                   if isinstance(item.get("platce"), dict) else ""),
         "sector": None,
         "money_eur": money,
-        "money_note": (f"{float(cena):,.0f} CZK (cenaSDph) at a fixed {CZK_PER_EUR} CZK/EUR"
+        "money_note": (f"{cena:,.0f} CZK ({cena_field}) at a fixed {CZK_PER_EUR} CZK/EUR"
                        if money is not None else ""),
         "urgency_date": None,
         "quote_parts": [p for p in (predmet, str(cena) if cena is not None else "") if p],
@@ -438,7 +593,9 @@ def extract_yc(item, payload_key, today):
         "source": "yc",
         "evidence_type": "funded",
         "url": get_first(item, "url", "website") or f"https://www.ycombinator.com/companies/{slugify(slug)}",
-        "date": str(get_first(item, "launched_at", "batch_date") or today.isoformat())[:10],
+        # launched_at is UNIX EPOCH SECONDS in the yc-oss payload (1322045523),
+        # not a date string — see iso_date().
+        "date": iso_date(get_first(item, "launched_at", "batch_date")) or today.isoformat(),
         # yc-oss is the ONE feed whose title and summary need no model: the
         # one_liner is already English prose written by the company.
         "title": f"{name} — {one}" if one else name,
@@ -466,7 +623,7 @@ def extract_suggest(item, payload_key, today):
         "evidence_type": "demand",
         "url": ("https://www.google.com/search?q=" +
                 re.sub(r"\s+", "+", q)),
-        "date": str(item.get("date") or today.isoformat())[:10],
+        "date": iso_date(item.get("date")) or today.isoformat(),
         "title_native": q,
         "entity_native": "",
         "sector": None,
@@ -488,13 +645,13 @@ def extract_reddit(item, payload_key, today):
     body = collapse(get_first(item, "content", "summary", "description") or "")
     body = re.sub(r"<[^>]+>", " ", body)
     body = collapse(body)[:200]
-    dt = get_first(item, "updated", "published", "pubDate") or today.isoformat()
+    dt = iso_date(get_first(item, "updated", "published", "pubDate")) or today.isoformat()
     return {
         "id": f"reddit-{slugify(pid)}",
         "source": "reddit",
         "evidence_type": "demand",
         "url": get_first(item, "link") or "",
-        "date": str(dt)[:10],
+        "date": dt,
         "title_native": title,
         "entity_native": "",
         "sector": None,
@@ -513,13 +670,14 @@ def extract_feed(item, payload_key, today):
         return None
     desc = collapse(re.sub(r"<[^>]+>", " ", get_first(item, "description", "summary") or ""))
     first_sentence = re.split(r"(?<=[.!?])\s", desc)[0] if desc else ""
-    dt = get_first(item, "pubDate", "published", "updated") or today.isoformat()
+    # RSS `pubDate` is RFC-2822 ('Thu, 20 Aug 2026 08:00:30 +0000') — see iso_date().
+    dt = iso_date(get_first(item, "pubDate", "published", "updated")) or today.isoformat()
     return {
         "id": f"feed-{sha1_8(link)}",
         "source": "feed",
         "evidence_type": "funded",
         "url": link,
-        "date": str(dt)[:10],
+        "date": dt,
         "title_native": title,
         "entity_native": "",
         "sector": None,
@@ -538,16 +696,58 @@ EXTRACTORS = {
     "cc-cz": extract_feed, "vestbee": extract_feed,
 }
 
-# Which fields a model still owes for a given feed, once the arithmetic is done.
-# yc-oss is the only feed carrying English prose already, so it owes no title or
-# summary; every feed owes scale and recurrence, which is why NOTHING can be
-# appended by the mechanical pass alone.
+# --------------------------------------------------------------------------
+# WHAT A RECORD OWES BEFORE IT MAY REACH A LEDGER — ONE DEFINITION, TWO USERS.
+# --------------------------------------------------------------------------
+#
+# REQUIRED_OUT is the gate --complete refuses on. `_needs` is the list an agent
+# reads to know what to fill. THEY WERE TWO HAND-MAINTAINED LISTS AND THEY
+# DRIFTED: REQUIRED_OUT demanded `geo_origin`, the old model_debt() never named
+# it, and NO extractor sets it — so an agent that filled exactly what `_needs`
+# listed was still REFUSED, on every feed, with no hint in the staging output
+# that the field was ever wanted.
+#
+# MEASURED on the committed 2026-08-20 payloads before the fix: 4,397 staged
+# records, `geo_origin` present on 0 of them and named in `_needs` on 0 of them;
+# a three-record --complete over records filled exactly to `_needs` exited 1
+# printing "geo_origin" three times. That is the whole reason the six working
+# fetchers have never landed a record.
+#
+# The fix is structural rather than a second list entry: model_debt() is now
+# DERIVED from REQUIRED_OUT through the same predicate --complete uses, so the
+# question "what does this record still owe?" has exactly one answer in this
+# file and the pair cannot drift apart again.
+#
+# `geo_origin` is deliberately left to the model rather than guessed here. It
+# records where the signal comes FROM, and a Czech-language feed carrying a
+# story about a German company makes that a judgement, not arithmetic — and the
+# mechanical pass carries no judgement by law.
+REQUIRED_OUT = ("id", "source", "url", "date", "title", "sector", "geo_origin",
+                "money_eur", "money_note", "summary", "scores")
+
+# `scores` has its own per-key integer check; `money_eur`/`money_note` are pure
+# arithmetic and are legitimately null/empty when no figure was published.
+_NOT_MODEL_DEBT = ("scores", "money_eur", "money_note")
+
+
+def missing_required(rec):
+    """REQUIRED_OUT fields this record does not carry yet. The single predicate
+    behind both `_needs` (what to ask a model for) and --complete's refusal
+    (what to reject on)."""
+    return [f for f in REQUIRED_OUT
+            if f not in _NOT_MODEL_DEBT and rec.get(f) in (None, "")]
+
+
 def model_debt(feed_key, rec):
+    """What a model still owes for one mechanically-extracted record.
+
+    Every feed owes scale and recurrence — which is why NOTHING can be appended
+    by the mechanical pass alone. Everything else is derived: yc-oss ships an
+    English one_liner, so its records already carry `title` and `summary` and
+    neither appears here, with no feed name hard-coded to say so.
+    """
     debt = ["scores.scale", "scores.recurrence"]
-    if feed_key != "yc-oss":
-        debt += ["title", "summary"]
-    if not rec.get("sector"):
-        debt.append("sector")
+    debt += missing_required(rec)
     if rec.get("urgency_pending"):
         debt.append("scores.urgency")
     if feed_key in ("suggest", "reddit-new", "reddit-search"):
@@ -708,6 +908,17 @@ def run_mechanical(args):
             continue
         started = datetime.now(timezone.utc)
         items_all, nbytes, parse_ok, parse_err = [], 0, True, None
+        # ONE PAYLOAD KEY PER ITEM, recorded as the items are read. It used to
+        # be recomputed inside the extraction loop from `fnames` with a `break`
+        # on the first match, which means every item of a multi-file feed took
+        # the FIRST file's key. MEASURED 2026-08-20 on five synthetic CPV
+        # payloads (ted-it / ted-health / ted-energy / ted-bizserv /
+        # ted-construction, 10 notices each): all 50 records came out
+        # `sector: b2b` — ted-bizserv sorts first. The damage is silent twice
+        # over: CPV_SECTOR is the ONLY thing that gives a TED record its sector,
+        # and a wrongly-filled sector is non-empty, so it never appears in
+        # `_needs` and no model is ever asked to correct it.
+        pkeys_all = []
         for fn in fnames:
             p = os.path.join(raw_dir, fn)
             nbytes += os.path.getsize(p)
@@ -715,11 +926,14 @@ def run_mechanical(args):
             if not ok:
                 parse_ok, parse_err = False, f"{fn}: {err}"
             items_all.extend(its)
+            pkeys_all.extend([payload_key_of(fn)] * len(its))
 
         # THE TRANSPORT RECEIPT IS READ, NEVER INFERRED. A feed with no receipt
         # carries http_status None — unknown — and the manifest says so.
         receipt = receipts.get(feed_key)
         http_status = (receipt or {}).get("http_status")
+        fetched_at = str((receipt or {}).get("started_at") or "")
+        fetched_at = fetched_at if ISO_TS_RE.match(fetched_at) else None
         if receipt is None:
             no_receipt.append(feed_key)
         ok, error, anomaly, parse_method = evaluate_contract(
@@ -735,16 +949,12 @@ def run_mechanical(args):
                 except OSError:
                     pass
             extractor = EXTRACTORS.get(feed_key)
-            for it in items_all:
+            # zip, not enumerate-and-index: pkeys_all is built in lockstep with
+            # items_all above, so item i always carries the key of the file it
+            # was actually read from.
+            for it, pkey in zip(items_all, pkeys_all):
                 if not extractor:
                     break
-                # A payload key like ted-it.json carries the CPV group.
-                pkey = None
-                for fn in fnames:
-                    m = re.match(r"^(?:ted|hlidac)-(.+?)\.json$", fn, re.I)
-                    if m:
-                        pkey = m.group(1)
-                        break
                 try:
                     rec = extractor(it if isinstance(it, dict) else {}, pkey, today)
                 except Exception as e:  # noqa: BLE001
@@ -763,7 +973,24 @@ def run_mechanical(args):
                 rec["urgency_pending"] = (u is None)
                 rec["scores"] = {"money": score_money(rec.get("money_eur")),
                                  "urgency": 0 if u is None else u}
-                rec["fetched_at"] = started.strftime("%Y-%m-%dT%H:%M:%SZ")
+                # fetched_at IS THE FETCH'S CLOCK, NOT OURS — same rule as
+                # http_status one line down, and it was being broken in the same
+                # loop that fixed that one. CONVENTIONS.md defines the field as
+                # "ISO timestamp of the payload this record came from" and
+                # SPEC §3 as "when the payload this record came from was
+                # fetched". `started` is when NORMALIZE started, which is a
+                # different event: MEASURED 2026-08-20 on the committed payloads
+                # — receipt started_at 09:19:56Z, record fetched_at 14:08:15Z,
+                # 4h48m of drift on a same-day re-normalize. The attended loop
+                # completes a raw dir a session later, so the drift is days, and
+                # `fetched_at` is precisely the field someone reads to ask how
+                # old this evidence is.
+                #
+                # No receipt -> the key is OMITTED (apply_allowlist drops empty
+                # optional receipts), never back-filled from our clock. A
+                # synthesized timestamp is worse than a missing one, because it
+                # reads as evidence.
+                rec["fetched_at"] = fetched_at
                 rec["http_status"] = http_status
                 rec["extraction"] = "structured"
 
@@ -815,7 +1042,15 @@ def run_mechanical(args):
             "items_fetched": len(items_all), "items_kept": kept,
             "yield_anomaly": anomaly, "parse_method": parse_method,
             "runtime_ms": rc.get("runtime_ms"),
-            "ok": 1 if ok else 0, "error": error,
+            "ok": 1 if ok else 0,
+            # THE FETCHER'S NOTE SURVIVES A CLEAN CONTRACT VERDICT. A fetcher
+            # can succeed and still have something to say — "partial: 2 of 16
+            # failed", "coverage: 175 of 2,431 available". Those notes ride on
+            # an ok=1 receipt, and overwriting `error` with our own None
+            # silently deleted every one of them on the way to fetch_log and
+            # /sources. Our verdict wins when we have one; otherwise theirs
+            # stands.
+            "error": error or (rc.get("error") or None),
             "raw_path": rc.get("raw_path") or os.path.relpath(
                 os.path.join(raw_dir, fnames[0]), ROOT),
         })
@@ -980,8 +1215,8 @@ def write_manifest(raw_dir, run_id, today, results, staged, unmapped, dupes,
 # --complete: the attended append path
 # --------------------------------------------------------------------------
 
-REQUIRED_OUT = ("id", "source", "url", "date", "title", "sector", "geo_origin",
-                "money_eur", "money_note", "summary", "scores")
+# REQUIRED_OUT and its predicate live beside model_debt() above, because the two
+# are one rule with two readers. Do not restate the list here.
 SECTORS = {"fintech", "health", "housing", "energy", "mobility", "govtech",
            "retail-services", "b2b", "legal-compliance", "education",
            "environment", "other"}
@@ -1005,13 +1240,21 @@ def run_complete(args):
                 continue
             r = json.loads(line)
             sc = r.get("scores") or {}
-            missing = [f for f in REQUIRED_OUT if r.get(f) in (None, "")
-                       and f not in ("money_eur", "money_note")]
+            # Same predicate model_debt() asks, so a record filled to exactly
+            # what `_needs` listed cannot be refused here for a field nobody
+            # was told about.
+            missing = missing_required(r)
             for k in ("scale", "recurrence", "money", "urgency"):
                 if not isinstance(sc.get(k), int):
                     missing.append(f"scores.{k}")
             if r.get("sector") not in SECTORS:
                 missing.append("sector(valid)")
+            # The same rule SignalSchema applies in web/lib/data.ts, applied
+            # HERE so a bad date is refused before it enters an append-only
+            # ledger rather than turning up as a red build afterwards. An
+            # append-only log has no quiet cleanup.
+            if r.get("date") and not ISO_DATE_RE.match(str(r["date"])):
+                missing.append("date(ISO YYYY-MM-DD)")
             if missing:
                 incomplete.append((r.get("id", f"line {n}"), missing))
                 continue
@@ -1027,6 +1270,29 @@ def run_complete(args):
         log("losing freshness is recoverable; writing vibes into an append-only ledger is not.")
         return 1
 
+    # THE LEDGER FILE IS NAMED BY THE RUN DATE, NEVER BY THE RECORD'S OWN DATE.
+    # SPEC §3 and CONVENTIONS both say "one JSONL file per evidence type per RUN
+    # DATE", the committed corpus is exactly that (two files per type, dated
+    # 2026-08-13 and 2026-08-14, holding 98 distinct record dates between them),
+    # and db.py reads the FILENAME as the run date on purpose — 145 records are
+    # legitimately dated in the future because a regulation signal carries its
+    # effective date. Naming the file after `record.date` would have scattered
+    # one run across a file per record date, dated a yc-oss batch to 2011, and
+    # made every feed's freshness read off the wrong number.
+    #
+    # AND THE RUN DATE IS THE RUN'S, NOT THE CLOCK'S. `--complete` is the
+    # ATTENDED half: it is run by a session that reads staged.jsonl and fills
+    # `_needs`, which routinely happens after midnight relative to the fetch.
+    # Reading date.today() there names the ledger for the day the human sat
+    # down, so the SAME staged file completed on two days lands in two
+    # differently-named files, and ingest.sh's own printed hand-off
+    # (`db.py upsert data/signals/<type>/$TODAY.jsonl`, $TODAY = the FETCH day)
+    # points at a path that does not exist. `data/raw/<date>/` already carries
+    # the run date in its name — that is the same string db.py reads back — so
+    # take it from there. --today still wins for a deterministic re-run, and a
+    # raw dir not named for a date falls through to the clock as before.
+    run_date = args.today or run_date_from_raw(args.raw) or date.today().isoformat()
+
     by_file = {}
     for r in records:
         if not is_material(r["scores"]):
@@ -1035,8 +1301,7 @@ def run_complete(args):
         if r["id"] in seen:
             continue
         typ = r.get("evidence_type") or "demand"
-        d = r.get("date") or date.today().isoformat()
-        out = os.path.join(signals_dir, typ, f"{d[:10]}.jsonl")
+        out = os.path.join(signals_dir, typ, f"{run_date}.jsonl")
 
         # AC-GDPR1, THE HARD GATE — the last code between a record and a public,
         # append-only, permanent log.

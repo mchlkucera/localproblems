@@ -6,9 +6,16 @@ legal-compliance, education, environment, other
 
 ## Evidence layer — data/signals/
 
-One JSONL file per evidence type per run date: `data/signals/<type>/<date>.jsonl`,
+One JSONL file per evidence type per run date: `data/signals/<type>/<run-date>.jsonl`,
 append-only, committed to git. `data/signals/seen.txt` = one canonical id per
 line, sorted — the dedup index.
+
+**Which date is `<run-date>`:** the date naming the `data/raw/<run-date>/` directory the
+records were completed from — never the wall clock. An attended completion routinely
+happens a day or more after the fetch, and naming the ledger from the clock would file one
+staged batch under two different names on two different days. `SPEC.md` §3 is authoritative
+here and uses `<run-date>` throughout; `pipeline/INGEST.md` step 4 states the same rule
+operationally.
 
 Evidence types and their feeds:
 - `funded` — companies founded/financed: yc, round, arb-scan (foreign-market scans)

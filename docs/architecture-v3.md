@@ -1,10 +1,12 @@
 # localproblems — architecture v3 (ingest)
 
-*2026-08-20 · The proposed amendment set to `SPEC.md` v2 and the build order for
-Phase 2. SPEC stays authoritative: nothing here is in effect until §11 is applied to
-SPEC itself. Rule of this file: every factual claim carries a receipt — a `file:line`,
-a Phase-1 probe, or a named command. Where something is unverified it says so in
-those words: **UNTESTED**, **UNMEASURED**, **UNDECIDABLE**, **UNPROVEN**.*
+*2026-08-20 · The ingest architecture and the build order for Phase 2. The amendment set
+this document proposed has since been applied — `SPEC.md` carries it, and §11 is now only
+the record of that (plus the one row still open). **`SPEC.md` stays authoritative: where
+this file and the spec disagree, the spec wins and this file is the one to fix.** Rule of
+this file: every factual claim carries a receipt — a `file:line`, a Phase-1 probe, or a
+named command. Where something is unverified it says so in those words: **UNTESTED**,
+**UNMEASURED**, **UNDECIDABLE**, **UNPROVEN**.*
 
 > **THE RECEIPTS RULE — cite mechanisms, not figures that rot. And verify the shape you are
 > told to preserve, BEFORE you preserve it.**
@@ -652,9 +654,11 @@ it (digest §A). Every other cadence is a defensible guess pending `fetch_log` h
 7-day yield column next to it (§7.5) is the number that will eventually correct it.
 
 **Print the runner's ACTUAL fire times beside the targets.** A target buried in a plist
-nobody opens is how a "3h" promise quietly becomes a 12-hour gap. The prepared launchd
-plist (§5.4) fires at **07:17, 13:17, 19:17** — three times a day, with gaps of **6h, 6h
-and 12h overnight**. Against the seeded targets that means:
+nobody opens is how a "3h" promise quietly becomes a 12-hour gap. **Today the actual fire
+times are: never — nothing is scheduled** (§5.4: no plist exists, and no `.github/`
+directory exists either). The sketch in §5.4 *would* fire at **07:17, 13:17, 19:17** —
+three times a day, with gaps of **6h, 6h and 12h overnight**. Against the seeded targets
+that would mean:
 
 | Feed | Cadence (target, from §4.4) | Actually achievable on the local runner | Gap |
 |---|---|---|---|
@@ -914,9 +918,21 @@ bash 3.2 — no associative arrays; iterate the registry with
 
 ### 5.4 Local runner — launchd
 
-Prepared, committed, **not loaded**. Location: `pipeline/launchd/org.localproblems.ingest.plist`
-(repo-lean law respected by the §11 amendment to SPEC §9.5, landing in the same change).
-Installed by the owner, never by an agent.
+**THERE IS NO PLIST. This is a design sketch, not a shipped artefact.** Earlier revisions
+of this section said "Prepared, committed, **not loaded**" at
+`pipeline/launchd/org.localproblems.ingest.plist`, and §12's Phase-2 list, §10's blocker 11
+and §4.2's cadence note all repeated it. **Measured 2026-08-20: no `.plist` has ever been
+tracked in this repo** — `git log --all --diff-filter=A -- '*.plist'` is empty, and a
+filename sweep over every commit reachable from every ref returns nothing. `pipeline/` has
+only ever held `INGEST.md` and `PROCESS.md`. `SPEC.md` §9.5 is authoritative and says so;
+this section is the copy that was wrong, and the fabricated receipt is struck here rather
+than left for a future worker to trust. **The scheduler is an open decision** — what a
+scheduler would call is `scripts/ingest.sh`, and the contract it would read is that
+script's exit codes (0 clean · 1 feeds failed but audited · 2 the run is unaudited).
+
+What survives is the design, kept because the reasoning in its comments is measured and
+would otherwise have to be rediscovered. Installed by the owner, never by an agent, and
+only if and when the owner decides to schedule at all:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -961,11 +977,12 @@ Installed by the owner, never by an agent.
 </plist>
 ```
 
-Owner install (one time, never run by an agent):
+Owner install, **if the plist is ever written** (one time, never run by an agent). Step 1
+is not optional decoration: the file does not exist, so a `cp` from the repo would fail.
 
 ```
 mkdir -p ~/Library/Logs/localproblems
-cp pipeline/launchd/org.localproblems.ingest.plist ~/Library/LaunchAgents/
+# 1. write the XML above to ~/Library/LaunchAgents/org.localproblems.ingest.plist
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/org.localproblems.ingest.plist
 launchctl kickstart -p gui/$(id -u)/org.localproblems.ingest
 ```
@@ -1887,7 +1904,7 @@ to ourselves.**
 | 8 | **Google Suggest** (`suggest`) | Ban risk, not freshness: 144 queries/run (24 seeds × 6 patterns, `fetch_suggest.sh:17,21`). | Cadence capped **≤1×/day** — the cap IS the mitigation. Requires `ie=utf-8&oe=utf-8` or the body is non-UTF-8 (already at `fetch_suggest.sh:28`). | **None.** |
 | 9 | **`suggest`, `reddit`, `cc-cz`** — end-to-end proof | **ZERO records since inception** (§0). Nothing is technically blocked; the path has simply never completed, and **nothing was watching for the silence**. | None today. §7.5 makes it visible as `PENDING` on a public page. | **None.** Phase 3's sharpest target. |
 | 10 | **GitHub Actions** | No `.github/` directory yet. Remote exists: `github.com/mchlkucera/localproblems`. | None. | **None** — coordinator commits the workflow at CP2. |
-| 11 | **launchd local runner** | macOS **TCC** may deny a launchd-spawned process access to `~/Documents`, silently, with EPERM. | Plist ships committed and **not loaded**. | Install per §5.4, approve the prompt on first `kickstart`, verify with `log show --predicate 'process == "direnv"' --last 10m` |
+| 11 | **launchd local runner** | macOS **TCC** may deny a launchd-spawned process access to `~/Documents`, silently, with EPERM. | **None — and the mitigation this row used to claim was false.** It read "Plist ships committed and not loaded"; no `.plist` has ever been tracked in this repo (§5.4, measured 2026-08-20). Nothing is scheduled, so nothing is exposed to TCC yet. | Decide whether to schedule at all. If yes: write the plist per §5.4, approve the prompt on first `kickstart`, verify with `log show --predicate 'process == "direnv"' --last 10m` |
 | 12 | **NKÚ** (`nku`) | **NOT BLOCKED. Both stated reasons were FALSE and are struck.** W2 measured `www.nku.cz` returning **200** with curl's default UA — **byte-identical 28,795 B** to non-www, **no 403** — and uppercase `VESTNIK.asp` returning **200 with no redirect**. "www 403s generic fetchers" and "uppercase 301s to http" were relayed from the feeds research and are wrong. **Deleted rather than left as folklore a future worker would trust** (`scripts/fetch_nku.sh:105` already records the measurement). | **Keep non-www** — it works and is mandated (`scripts/fetch_nku.sh:113`); it simply is not a workaround for a 403 that does not exist. | **None.** |
 | 13 | **Reddit** (`reddit-*`) | All public `.json` endpoints 403 for non-browser clients. | **In place:** `.rss` + descriptive UA + `--retry --retry-delay 35` (`fetch_reddit.sh:19`). | **None.** |
 | 14 | **HIRING stream** (§13) | **RESOLVED — not a blocker.** The probe answered the decisive test: **99.90% IČO coverage** on MPSV/ÚP `volna-mista`, ARES join verified live, licence disclaims copyright and the sui-generis DB right (§13.0). What remains is build scope, not an unknown. | The Phase 2 cheap half ships regardless; the fetcher is a parallel worker that may slip to Phase 3 without blocking CP2 (§13.5). | **None.** |
@@ -1897,77 +1914,30 @@ to ourselves.**
 
 ---
 
-## 11. SPEC amendments
+## 11. SPEC amendments — APPLIED, and superseded by SPEC.md
 
-Applied to `SPEC.md` by a Phase-2 agent.
+This section carried a change-order of 24 rows against `SPEC.md`, `pipeline/PROCESS.md`,
+`README.md`, `data/CONVENTIONS.md`, `web/lib/data.ts` and the design skill. **Every row
+but one has landed** — verified mechanically on 2026-08-20, one needle per row grepped
+against the target file on disk, whitespace-normalised so a wrapped line cannot read as a
+miss. The verifier was proven able to fail: reverting a landed clause in a scratch copy of
+`SPEC.md` turned exactly that row red and left the others green.
 
-> ### ⚠ THE LINE NUMBERS BELOW HAVE ALREADY DRIFTED. USE THE QUOTED TEXT.
->
-> `SPEC.md` grew **277 → 287 lines** while this document was being written — the
-> inline-source-citations program landed its `[Sn]` spec (now `SPEC.md:120-122`) and a
-> `lint-citations.mjs` prebuild block (now `:164-167`). **Every anchor below shifted, and NOT
-> by a uniform amount:** two insertion points produced a +5 zone and a +10 zone, so "just add
-> 10" is wrong.
->
-> **Do not trust any number in this table. Locate each target with:**
-> ```
-> grep -n "<the quoted text from the row>" SPEC.md
-> ```
->
-> Measured mapping at time of writing (doc value → actual), kept so a reader can confirm the
-> drift is real — not as something to rely on:
->
-> | doc says | actual | doc says | actual |
-> |---|---|---|---|
-> | `28-38` | **30** | `180-185` | **189** |
-> | `44-51` | **45** | `199` | **209** |
-> | `62-73` | **63** | `232-234` | **242** |
-> | `108` | **108** (unmoved) | `235` | **245** |
-> | `122` | **127** | `242` | **252** |
-> | `156-157` | **161** | `253` | **263** |
-> | `166` | **176** | `254` | **264** |
-> | `170` / `172` | **180** / **182** | `267-277` | **281** |
->
-> This is THE RECEIPTS RULE firing on this document's own citations, inside a day, from one
-> parallel checkpoint. It is the concrete case for *cite the quoted text, not the line
-> number* — and it will happen again before Phase 2 lands.
+The tables are deleted rather than kept. Their "Current" column quoted `SPEC.md` text the
+file no longer contains, and their "Amendment" column held text `SPEC.md` now contains
+verbatim — a second copy of the spec wearing the clothes of a plan, and the one thing a
+reader cannot safely diff. **`SPEC.md` is authoritative** (§12 doc map); read it there.
+
+The methodological lesson the deleted preamble carried is kept, because the repo runs on
+it: **cite the quoted text, never the line number.** `SPEC.md` grew 277 → 287 lines while
+that table was being written, through two insertions of different sizes, so every anchor
+in it was wrong inside a day. Locate a target with `grep -n "<quoted text>" SPEC.md`.
+
+**One row has NOT landed. It is a future action, not a record, so it stays here verbatim:**
 
 | Target | Current | Amendment |
 |---|---|---|
-| `SPEC.md:199` (§7) | "**SQLite / Postgres / servers / embeddings** — tripwires only (§10)." | "**Postgres, database servers, queues, client-side apps** — banned. **SQLite + embeddings** are sanctioned (owner, 2026-08-20) as a **gitignored, rebuildable working store** only: `data/register.db`. Never a publication dependency — `trash data/register.db && npm --prefix web run build` must stay green." |
-| `SPEC.md:253` (§10) | ">~400 problems … \| SQLite + embeddings" | Mark **graduated by owner decision 2026-08-20, not by threshold** — 31 problems / 6,181 signals, far under >~400. Keep the row visible with that note. |
-| `SPEC.md:254` (§10) | ">~10 sources, or silent fetch failures \| GitHub Actions cron" | Mark **FIRED**: 14 feeds; `scripts/fetch_feeds.sh:11` is a documented silent 404-as-success. Warrants §5 and §7. |
-| `SPEC.md:28-38` (§2) | one weekly loop | Split into **INGEST** (hourly-ish, objective, `pipeline/INGEST.md`) and **PROCESSING** (on-demand judgment, `pipeline/PROCESS.md`). **Keep `SPEC.md:37-38` verbatim** and append: "a gitignored SQLite working store is not a database server: nothing serves it and nothing reads it at publish time." |
-| `SPEC.md:44-51` (§3 layout) | `data/signals/…` | Add `data/raw/<run-date>/   # raw payloads; gitignored except manifest.md; pruned at 28 days`. Add `hiring/` to the evidence-type list when §13 lands. |
-| `SPEC.md:62-73` (§3 schema) | record schema | Add optional `quote`, `http_status`, `fetched_at`, **`extraction`**; note they must be added to `SignalSchema` in the same change. |
-| `SPEC.md:108` (§4 frontmatter) | `sources[] {type,url,note,date,signal?,dims?}` | Add `queries?[]`, `checked?[]`, `expires?` for gap-check sources; expiry is display-only and never moves `gap`. |
-| `SPEC.md:122` (§4) | "(`/sources/tenders#dotace-...`)" | → `/signals/tenders#dotace-...` |
-| `SPEC.md:166` (§5 route table) | `/sources/[type]` row | → `/signals/[type]`; **add a row** for `/sources` — the feeds registry **and feed-health status ledger** (§7.5). |
-| `SPEC.md:170` (§5) | "nav reads `Problems` then `Sources: Funded · …`" | → "`Problems` then `Signals: Funded · Regulation · Tenders · Demand`" |
-| `SPEC.md:172` (§5) | "Nothing else: **no redirects (v1 was never publicly deployed)**, …" | **The redirects clause must go.** → "permanent redirects for retired routes only (the site is publicly deployed), no test suite, no OG images, no middleware, no API routes." |
-| `SPEC.md:180-185` (§5 deploy) | "(Git-driven deploys become possible once a GitHub remote exists…)" | The remote **now exists**. Reword: the remote exists; local-prebuilt stays because the app reads `../data`, which remote builders cannot see. |
-| **`SPEC.md:232-234` (§9.1)** | "A fresh Claude session given only **pipeline/PROCESS.md** runs **fetch → normalize** → match → score → build → newsletter → commit" | **False after the split** — fetch and normalize move to `pipeline/INGEST.md`. → "A fresh Claude session given only `pipeline/INGEST.md` runs fetch → contract-check → normalize; given only `pipeline/PROCESS.md` runs match → score → build → newsletter → commit. Neither asks questions; failures land in the run manifest, never fatal." |
-| `SPEC.md:235` (§9.2) | "re-run against the existing `data/sources/2026-08-13/` snapshot" | **REWORD OR RETIRE — not a path swap.** That snapshot was deleted in `96fd405`, and `data/raw/` is pruned every 28 days, so a path swap leaves it unrunnable. Replacement: "**Normalize is objective:** a re-run over the newest `data/raw/<date>/` payloads keeps hundreds of TED records (vs 11 in v1); `jq` parses every JSONL line; ids unique against `seen.txt`; a second run is append-only (git diff proves it); `python3 scripts/db.py rebuild` exits 0 with `jsonl_lines == signals_count`." |
-| `SPEC.md:242` (§9.5) | "only SPEC / SCORING / **TASK** / CONVENTIONS / FOUNDER VISION + `data/` `scripts/` `web/` `newsletter/` `skills/` + `docs/archive/`" | `TASK` no longer exists (`af63331`). → "only SPEC / SCORING / CONVENTIONS / FOUNDER VISION + `pipeline/` (both entry points + the prepared launchd plist) + `data/` `scripts/` `web/` `newsletter/` `skills/` + `docs/` (sources catalog, architecture, `archive/`)." The list already fails as written — `docs/sources-catalog.md` and `docs/FOUNDER VISION.md` sit outside `docs/archive/` today. |
-| `SPEC.md:267-277` (§12 doc map) | five document rows | Add: **`pipeline/`** as a **FOLDER** row (both entry points); `data/feeds.json` — "the feeds registry + per-feed contracts — binding"; `data/feed_health.json` — "observed feed health, generated"; `docs/architecture-v3.md`; `docs/sources-catalog.md` — advisory. |
-
-### 11.1 Outside SPEC, same pass
-
-| Target | Current | Amendment |
-|---|---|---|
-| `pipeline/PROCESS.md:60-61` | "git push **(skip push while no remote exists)**" | **Stale** — `origin` exists. Remove the parenthetical. |
-| `pipeline/PROCESS.md:4,7,15,16` | `data/sources/…` | → `data/raw/…` — **same commit as the scripts** (§9.1) |
-| `pipeline/PROCESS.md:18-29` | step 2 NORMALIZE | Moves to `pipeline/INGEST.md`; PROCESS keeps a one-line pointer. Steps 3–7 unchanged, **plus** the `match_log` append command (§2.5) in step 3 and the BROKEN-feed escalation line (§7.6) in the run summary. |
-| **`README.md:15`** | "the whole **pipeline is launchable by Claude from this file alone**" | **False after the split** — name both entry points: `pipeline/INGEST.md` (fetch + normalize) and `pipeline/PROCESS.md` (match → deploy). Same correction at `README.md:14,24,30`. |
-| `data/CONVENTIONS.md:27-46` | record schema | Add optional `quote`, `http_status`, `fetched_at`, `extraction` |
-| `data/CONVENTIONS.md:105-111` | source type → dimension | Add the `checked` vocabulary (§8), the gap-check expiry law, and `hiring` → demand/money, **never proof** (§13.9) |
-| `web/lib/data.ts:16` | `EVIDENCE_TYPES = ["funded","regulation","tenders","demand"]` | Gains `"hiring"` — **in the same checkpoint as the first hiring record, not before** (§13.5). Lights up `/signals/hiring` via `generateStaticParams`, and forces `TITLES`/`DESCRIPTIONS` entries by TypeScript exhaustiveness |
-| `web/lib/data.ts:25` | `source: z.enum([…])` | Gains **`"nen"`, `"dotace"`** (§4.5 — so new records can carry a correct `source` instead of the legacy `hlidac`) and **`"mpsv"`** (§13). **Self-enforcing: `z.enum` fails loudly**, unlike the `z.object` strip (§3). **Do NOT retro-edit the 349 committed records** whose `source` is legacy-wrong — append-only is law, and the discrepancy is documented in §4.5 |
-| `SPEC.md:170` + `skills/design-language/SKILL.md:86` | nav lists **four** ledgers | The nav gains a **fifth**: `Signals: Funded · Regulation · Tenders · Demand · Hiring`. Both files state the four explicitly and must move together; the skill is binding, so `SKILL.md` is not optional |
-| `web/lib/data.ts:23-41` | `SignalSchema = z.object` | → **`z.strictObject`** + the four optional receipt fields. **Also make the nested `scores: z.object` at `:34-39` strict** — `strictObject` is top-level only, so the trap otherwise just moves one level down (§3, AC-Z2). |
-| `web/lib/data.ts:48` | `SourceSchema = z.looseObject` | Add typed optionals `queries`, `checked`, `expires` — keep it loose |
-| `web/lib/data.ts` (new) | — | Load + zod-validate `data/feeds.json` and `data/feed_health.json`; assertions AC-F1/AC-F2 (§4.3) |
-| `skills/design-language/SKILL.md:85,86` | `/sources/[type]` route names | → `/signals/[type]`; nav label `Signals:`; add the `/sources` feeds + health page |
+| `web/lib/data.ts` — `source: z.enum([…])` | carries neither `"nen"` nor `"dotace"` | Gains **`"nen"`, `"dotace"`** (§4.5 — so new records carry a correct `source` instead of the legacy `hlidac`). **Self-enforcing: `z.enum` fails loudly**, unlike the `z.object` strip (§3). **Do NOT retro-edit the committed records** whose `source` is legacy-wrong — append-only is law, and the discrepancy is documented in §4.5. Measured 2026-08-20 across all 6,181 ledger lines: **0 records carry either value**, so the enum entry lands in the same change as the first `nen`/`dotace` record, never before it. |
 
 **`SCORING.md`: zero changes.** Stated explicitly because §8 touches gap display.
 
@@ -2115,8 +2085,10 @@ than as a pass.
    window on `data/problems/cz/`: the frontmatter fields and the expiry line in the gap
    drawer. **Gated by AC-GAP1** (§8.4) — `score` and `scores.gap` byte-identical afterwards,
    diffed numerically, never by prose review. (§8)
-10. **Prepared runners** — `.github/workflows/ingest.yml` (`workflow_dispatch` only, cron
-    commented) + `pipeline/launchd/…plist` (committed, not loaded). (§5)
+10. **Runners — NOT DONE, and never were.** This item used to read "Prepared runners"
+    as though both were shipped. Measured 2026-08-20: there is no `.github/` directory
+    (blocker 10 says so too) and no `.plist` has ever been tracked in this repo (§5.4).
+    Both remain designs; scheduling is an open owner decision. (§5)
 11. **Warning-only checks** — the **ingest-side** claim lint (claim→quote only; the
     marker→source lint is the citations program's, §7.8) + provenance completeness. (§7.8)
 12. **Amendments** — SPEC / PROCESS / CONVENTIONS / README / SKILL.md. (§11)
