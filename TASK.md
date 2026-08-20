@@ -58,9 +58,10 @@ Read SPEC.md, SCORING.md and data/CONVENTIONS.md before step 1.
 
 7. COMMIT + DEPLOY: git add -A && git commit -m "weekly run <today>: +N
    signals, +X new / Y updated problems" && git push (skip push while no
-   remote exists). Then deploy: cd web && vercel build --prod &&
-   vercel deploy --prebuilt --prod (build stays local — the app reads
-   ../data). End by printing a 5-line run summary (fetched / kept / new
+   remote exists). Then deploy: cd web && NODE_USE_ENV_PROXY=1 vercel build
+   --prod && NODE_USE_ENV_PROXY=1 vercel deploy --prebuilt --prod (build
+   stays local — the app reads ../data; the env var makes Node's fetch
+   honor sandbox proxies, so no sandbox overrides are needed). End by printing a 5-line run summary (fetched / kept / new
    problems / updated / top mover).
 
 Quarterly (first run of Jan/Apr/Jul/Oct): dedup sweep — scan the register for

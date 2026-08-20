@@ -177,8 +177,8 @@ build's validation IS the gate), no OG images, no middleware, no API routes.
   drift; no new classes, colors, or components; fonts load exactly as the skill
   specifies.
 - **Deploy:** Vercel project `localproblems` (live: https://localproblems.vercel.app);
-  the deploy is a LOCAL prebuilt upload — `cd web && vercel build --prod &&
-  vercel deploy --prebuilt --prod` — because the app reads `../data` at build time,
+  the deploy is a LOCAL prebuilt upload — `cd web && NODE_USE_ENV_PROXY=1 vercel build --prod &&
+  NODE_USE_ENV_PROXY=1 vercel deploy --prebuilt --prod` — because the app reads `../data` at build time,
   which remote builders can't see. (Git-driven deploys become possible once a GitHub
   remote exists and the Vercel project sets root directory `web/` with files outside
   the root included.) Wire `localproblems.org` when registered. **The local build is
