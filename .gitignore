@@ -3,5 +3,18 @@
 .env*
 !.env.enc
 !.env.example
-# raw fetches are reproducible via scripts/ and pruned after 28 days — keep only curated .md/.xml
-data/sources/*/*.json
+
+# Raw fetch payloads are reproducible via scripts/ and pruned after 28 days —
+# never committed. Both trees are covered so the data/sources -> data/raw rename
+# cannot leak payloads, and ALL extensions are covered (the old .json-only rule
+# was committing .rss/.xml/.jsonl payloads — ~19MB/day once ingest runs hourly).
+# The per-run manifest stays: it is the human-readable record of what each fetch did.
+data/sources/*/*
+data/raw/*/*
+!data/sources/*/manifest.md
+!data/raw/*/manifest.md
+
+# The working store: deterministically rebuildable from the committed ledgers.
+data/register.db
+data/register.db-wal
+data/register.db-shm
