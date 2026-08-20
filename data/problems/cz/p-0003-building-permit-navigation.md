@@ -78,6 +78,17 @@ sources:
     signal covers this article (the one ČKAIT signal on file, chamber-ckait-dsr, is
     a different 2026-03 piece about the DSŘ portal).'
   date: '2024-01-31'
+- type: news
+  url: https://www.worldbank.org/en/news/statement/2021/09/16/world-bank-group-to-discontinue-doing-business-report
+  note: 'World Bank Group statement, 16 Sep 2021 — the Doing Business report is DISCONTINUED
+    following the investigation into data irregularities in the Doing Business 2018 and 2020
+    editions. Traced by the 2026-08-20 evidence audit as the primary source for the discontinuation
+    half of this record''s CORRECTION block. The specific "246 days / 157th" figures the correction
+    attributes to Doing Business 2020 were NOT traced to a primary source and stay flagged as
+    untraced in the block. No evidence-layer signal covers this statement (Doing Business returns
+    zero hits corpus-wide); correction receipt only, backs no score dimension.'
+  date: '2021-09-16'
+  dims: []
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -93,4 +104,6 @@ Existing non-solutions: the state's own portál stavebníka (the source of much 
 Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26) show a funded US cluster around AI permit/zoning navigation [S1]. Arbitrage is scored conservatively at 1 because all analogs are US-based [S1,S4] and permitting is jurisdiction-specific; demand and gap carry this problem.
 
 ---
-**CORRECTION (2026-08-13, post-run fact check):** The "OECD's slowest / 246 days / 157th in the world" framing traces to World Bank Doing Business 2020 — an index discontinued in 2021 after a data-manipulation scandal, and it measured the full administrative cycle, not permitting alone. Replace with: ČKAIT survey (Jan 2024, n≈1,100): typical proceedings **6–12 months**. Source: https://zpravy.ckait.cz/vydani/2024-01/delka-povolovani-staveb-v-cr-nikoliv-roky-ale-mesice-ukazal-pruzkum-inzenyrske-komory/
+**CORRECTION (2026-08-13, post-run fact check):** The "OECD's slowest / 246 days / 157th in the world" framing traces to World Bank Doing Business 2020 — an index discontinued in 2021 after a data-manipulation scandal [S6], and it measured the full administrative cycle, not permitting alone. Replace with: ČKAIT survey (Jan 2024, n≈1,100): typical proceedings **6–12 months** [S5]. Source: https://zpravy.ckait.cz/vydani/2024-01/delka-povolovani-staveb-v-cr-nikoliv-roky-ale-mesice-ukazal-pruzkum-inzenyrske-komory/
+
+*Checked by the 2026-08-20 evidence audit. **Verified:** the ČKAIT survey (Z+i 2024/01, published 20 Feb 2024) reports that for nearly 1,100 authorized persons "délka trvání většiny povolovacích řízení staveb v ČR, a to včetně související inženýrské činnosti, je obvykle šest měsíců až jeden rok" [S5]; and the World Bank Group discontinued Doing Business on 16 Sep 2021 following its investigation into data irregularities in the 2018 and 2020 editions [S6]. **Still open:** the specific "246 days / 157th" figures attributed to Doing Business 2020 — the archived country profile publishes them only inside downloadable figures, and `Doing Business` returns zero hits across all 6,181 signals. (figure not yet traced to a primary source on file — flagged by the 2026-08-20 evidence audit)*

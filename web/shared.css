@@ -269,6 +269,10 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 .scorecard button.dim { border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .scorecard button.dim + button.dim { border-left: 1px solid var(--rule); }
 .scorecard .dim:hover { background: var(--paper-2); }    /* instant, no transition */
+/* the dim button styles itself out of the UA button look, so it must state
+   its own focus in ink — otherwise the keyboard route into the rundown
+   sheets is painted in the browser's orange, an eighth colour (v1.6) */
+.scorecard .dim:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; background: var(--paper-2); }
 .scorecard .num { font: 600 var(--fs-body)/1 var(--mono); }
 .scorecard .verdict {
   font: 600 var(--fs-label)/1 var(--mono);
@@ -364,6 +368,10 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
    sub-scores — but at --fs-body it is the largest running text on the
    sheet, which is what makes it the finding rather than a caption. */
 .rundown .crit { margin: 0 0 var(--sp-5); font-size: var(--fs-body); font-weight: 500; line-height: 1.5; }
+/* a dimension with no source on file is a page with a finding and no
+   exhibits — a stated absence, so it keeps the foot margin but not the
+   air that would have separated it from an exhibit list */
+.rundown .crit:last-child { margin-bottom: 0; }
 /* verdict-bands legend in the total rundown: borderless, current band
    marked → (v1.4); indented and ruled like an exhibit (v1.6) so the
    total sheet keeps the same finding-then-exhibits structure */

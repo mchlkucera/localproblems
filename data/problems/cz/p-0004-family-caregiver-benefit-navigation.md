@@ -65,6 +65,16 @@ sources:
     budgets tens of millions EUR/yr for benefits back-office IT while the citizen-facing navigation
     layer stays unbuilt. Adjacent spend: kept at money=1, not 2.'
   date: '2026-06-11'
+- type: statistic
+  url: https://csu.gov.cz/produkty/prispevek-na-peci-loni-vyuzivalo-vice-nez-370-tisic-lidi
+  note: 'ČSÚ release published 2025-11-14, traced by the 2026-08-20 evidence audit as the primary
+    source for this record''s CORRECTION block: "V prosinci 2024 pobíralo příspěvek na péči již
+    374 tisíc osob" — 374,000 recipients in December 2024 — and "V roce 2024 bylo ze státního
+    rozpočtu prostřednictvím příspěvku na péči vydáno 41,3 mld. Kč". Both figures in the correction
+    are confirmed. No evidence-layer signal covers this release, so no signal ref; it is a correction
+    receipt and backs no score dimension.'
+  date: '2025-11-14'
+  dims: []
 created: '2026-08-13'
 updated: '2026-08-20'
 ---
@@ -80,4 +90,6 @@ Existing non-solutions: static information portals (pece.cz, mpsv.gov.cz guides)
 Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) form a validated US cluster around getting family caregivers trained and paid from state programs [S1]. Arbitrage scored 1 because validation is US-only; the money point reflects the příspěvek na péči program explicitly referenced in the signal note [S2].
 
 ---
-**CORRECTION (2026-08-13, post-run fact check):** The recipient figure should read **374,000 (Dec 2024, ČSÚ/MPSV)** — 41.3 bn CZK paid in 2024. The ~380k figure in this record is slightly above the latest confirmed official number. Sources: https://csu.gov.cz/produkty/prispevek-na-peci-loni-vyuzivalo-vice-nez-370-tisic-lidi
+**CORRECTION (2026-08-13, post-run fact check):** The recipient figure should read **374,000 (Dec 2024, ČSÚ/MPSV)** — 41.3 bn CZK paid in 2024 [S5]. The ~380k figure in this record is slightly above the latest confirmed official number. Sources: https://csu.gov.cz/produkty/prispevek-na-peci-loni-vyuzivalo-vice-nez-370-tisic-lidi
+
+*Verified by the 2026-08-20 evidence audit: the ČSÚ release of 2025-11-14 states "V prosinci 2024 pobíralo příspěvek na péči již 374 tisíc osob" and 41,3 mld. Kč paid out through the benefit in 2024. Both figures in this correction check out against the primary source, which is now on the ledger as [S5].*

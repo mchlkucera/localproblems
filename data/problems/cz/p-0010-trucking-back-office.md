@@ -97,13 +97,13 @@ sources:
   - proof
 - type: gap-check
   url: https://ringil.com/en
-  note: 'Incumbent re-check 2026-08-14 (cz-ringil flag): Ringil (CZ, founded 2020; 800+ companies
-    on platform, clients incl. Notino and Plzeňský Prazdroj) verified as a shipper-side logistics
-    platform — transport procurement (poptávky broadcast to carriers), timeslot/yard management,
-    inbound tracking for manufacturers and retailers. Hauliers use it free as bidding counterparties;
-    it sells no haulier back-office (own-fleet dispatch, POD/CMR document automation, invoicing).
-    Adjacent player on the buyer side of the same freight market — gap 1 stands for haulier
-    ops tooling.'
+  note: 'Incumbent re-check 2026-08-14 (cz-ringil flag): Ringil (CZ) — a Czech platform digitizing
+    transport procurement and logistics workflows between shippers and carriers; the signal names
+    Notino and Škoda (Škodovka) as clients and records no public funding round. The signal flags
+    Ringil as OCCUPYING A REGISTER NICHE — "p-0010 claims no CZ player, Ringil is evidence to the
+    contrary" — and marks it a DE-RANK CANDIDATE for this record. The signal carries no product
+    breakdown, so nothing is asserted here about which side of the back office Ringil sells to.
+    Gap requires re-judgment at the next MATCH run; see the correction on this record.'
   date: '2026-08-14'
   signal: cz-ringil
 - type: subsidy
@@ -126,7 +126,7 @@ Why now: AI phone agents and document ingestion have matured to the point where 
 
 Who pays: the hauliers themselves, priced per truck or per dispatcher seat; savings show up as dispatcher capacity and faster invoicing/cash collection. Factoring providers serving small hauliers are a plausible distribution channel since cleaner documents speed their own operations.
 
-Existing non-solutions: legacy Czech dispatch/TMS products (records, not automation), load boards (Timocom, Trans.eu) that cover freight sourcing but not operations [S2], and Ringil — the largest Czech logistics platform, verified 2026-08-14 as shipper-side transport procurement (Notino, Plzeňský Prazdroj digitize their inbound logistics on it) [S6]; hauliers appear on it free as bidding counterparties, their own back office untouched [S6]. The 2026-08-13 absence check found no AI-native CZ ops player selling to hauliers [S2], and the Ringil re-check did not change that [S6].
+Existing non-solutions: legacy Czech dispatch/TMS products (records, not automation), load boards (Timocom, Trans.eu) that cover freight sourcing but not operations [S2], and Ringil — a Czech platform digitizing transport procurement and logistics workflows between shippers and carriers, with Notino and Škoda among its named clients [S6]. The 2026-08-13 absence check found no AI-native CZ ops player selling to hauliers [S2]; the 2026-08-14 Ringil signal flags that finding as contradicted and marks Ringil a de-rank candidate for this record [S6] — see the correction below.
 
 Solved elsewhere: the US YC trucking-ops cluster above [S1], now joined by two independent freight-ops rounds closed a month apart in Europe — Cargofy (Kyiv, ~€9.5M, Polish lead investor) [S4] and Nexcade (London, ~€5.2M) [S5], both building AI agents for freight operations. Proof upgraded to 2: the model is funded in multiple markets including a CEE-origin player, though the European pair targets freight forwarders — an adjacent buyer to the small hauliers here, which keeps proof below 3. Czech and Central European language handling for AI phone agents remains both the barrier for foreign entrants and the moat for a local one, and the forwarder wedge (spedice) and the haulier wedge land in the same document/dispatch workflows.
 
@@ -139,4 +139,7 @@ Regulatory trigger added 2026-08-13: the eFTI Regulation makes electronic freigh
 3. Verify the moat assumption before betting on it: run an AI phone-agent prototype against recorded Czech dispatcher calls — the record names Czech and Central European language handling as both the barrier for foreign entrants and the moat for a local player.
 4. Pitch two factoring providers serving small hauliers as the distribution channel — the record notes cleaner documents speed their own operations, so a per-truck bundle gives them a reason to sell for you.
 5. Let public money halve the buyer's price: hauliers based in MAS territories — outside Prague and cities over 25,000 inhabitants — can co-fund software and IT purchases at 50% (grants up to 1.49M CZK) from [OP TAK Technologie pro MAS II](/sources/tenders#dotace-optak-technologie-mas-2), €22M allocated, applications open 2026-09-01 to 2027-09-01 [S7].
-6. Competition, per the record's own checks: **Hemut, Dayjob and Peer** (US cluster, same buyer, no CZ presence) [S1], **Cargofy and Nexcade** (funded, but selling to freight forwarders — an adjacent buyer) [S4,S5], **Ringil** (CZ, shipper-side transport procurement — adjacent) [S6], and legacy TMS/dispečink plus the Timocom/Trans.eu load boards (records and load sourcing, not ops automation) [S2].
+6. Competition, per the record's own checks: **Hemut, Dayjob and Peer** (US cluster, same buyer, no CZ presence) [S1], **Cargofy and Nexcade** (funded, but selling to freight forwarders — an adjacent buyer) [S4,S5], **Ringil** (CZ, transport procurement between shippers and carriers — flagged by its own signal as a de-rank candidate for this record) [S6], and legacy TMS/dispečink plus the Timocom/Trans.eu load boards (records and load sourcing, not ops automation) [S2].
+
+---
+**CORRECTION (2026-08-20, evidence audit):** The S6 note asserted facts that appear nowhere in the signal it cites (`cz-ringil`, `data/signals/funded/2026-08-14.jsonl`): a founding year of 2020, "800+ companies on platform", Plzeňský Prazdroj as a client (the signal names Škoda; `Prazdroj` returns zero hits across all 6,181 signals), and a product-surface verification that Ringil "sells no haulier back-office" — the signal carries no product breakdown at all [S6]. The note then concluded "gap 1 stands", which **reverses the signal's own finding**: `cz-ringil` flags Ringil as OCCUPYING A REGISTER NICHE ("p-0010 claims no CZ player — Ringil is evidence to the contrary") and marks it a DE-RANK CANDIDATE for this record. The note, the existing-non-solutions sentence and the First moves competition line have been rewritten to what the signal actually supports. `scores.gap` is deliberately left at 1 and `score` at 7: moving them is a MATCH judgment under SPEC §4, not an audit one. **The gap score now rests on a withdrawn note and REQUIRES RE-JUDGMENT at the next MATCH run.**
