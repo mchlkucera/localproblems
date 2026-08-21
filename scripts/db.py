@@ -211,6 +211,48 @@ def js_yaml_loader():
     return _JS12
 
 
+def _candidates():
+    """Interpreters to try, explicit list first, then EVERY python3 on PATH.
+
+    THE HARDCODED LIST WAS THE BUG. It named `/usr/local/bin/python3` — which on
+    this Apple Silicon host is the one interpreter carrying PyYAML, and is also an
+    Intel-era path that a `brew cleanup`, a Python upgrade or a different operator's
+    machine need not have at all. The build's data gate ran through that single
+    absolute path: green here, `ModuleNotFoundError` on any host that happens to
+    lay its interpreters out differently, with nothing in the list to fall back to.
+
+    So the list is now a preference, not the whole search. Anything named python3*
+    on PATH is probed after it. Ordering still matters and is deliberate — newest
+    first — because `row_bytes()` was interpreter-dependent until it was fixed
+    (repr() escapes by str.isprintable(), which reads the bundled Unicode database,
+    and one signal carries a Unicode 14.0 codepoint unassigned in 3.9's tables).
+    Which interpreter wins is therefore a correctness question, not just an
+    availability one, and a stable preference order keeps it answerable.
+    """
+    seen, out = set(), []
+    for c in _YAML_CANDIDATES:
+        if c not in seen:
+            seen.add(c); out.append(c)
+    for d in os.environ.get("PATH", "").split(os.pathsep):
+        if not d:
+            continue
+        try:
+            names = sorted(os.listdir(d), reverse=True)  # python3.13 before python3.9
+        except OSError:
+            continue
+        for n in names:
+            # `python3`, `python3.12` — but NOT `python3.14-config`, `python3-build`
+            # and friends, which sit in the same bin dir, are executable, and are not
+            # interpreters. The probe below would reject them anyway; excluding them
+            # here keeps the candidate list readable when it has to be debugged.
+            if not re.fullmatch(r"python3(\.\d+)?", n):
+                continue
+            p = os.path.join(d, n)
+            if p not in seen and os.path.isfile(p) and os.access(p, os.X_OK):
+                seen.add(p); out.append(p)
+    return out
+
+
 def ensure_yaml(argv):
     """Guarantee the running interpreter has PyYAML, re-execing once if not."""
     try:
@@ -223,7 +265,7 @@ def ensure_yaml(argv):
             f"db: re-exec under {os.environ[_REEXEC_GUARD]} still has no PyYAML. "
             f"Install it: {sys.executable} -m pip install pyyaml")
     me = os.path.realpath(sys.executable)
-    for cand in _YAML_CANDIDATES:
+    for cand in _candidates():
         exe = cand if os.path.isabs(cand) else shutil.which(cand)
         if not exe or not os.path.isfile(exe) or os.path.realpath(exe) == me:
             continue
