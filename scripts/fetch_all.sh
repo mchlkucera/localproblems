@@ -34,8 +34,23 @@ export RUN_ID
 #    scripts/fetch_reddit.sh   $1 = OUTDIR              --
 #    scripts/fetch_nku.sh      $1 = OUTDIR              $2.. = years  (new; joins
 #                                                        the majority shape)
+#    ---- landed 2026-08-21, six parallel workers ----------------------------
+#    scripts/fetch_ec_hys.sh   $1 = OUTDIR              --
+#    scripts/fetch_vestbee.sh  $1 = OUTDIR              --
+#    scripts/fetch_sukl.sh     $1 = OUTDIR              --   (full snapshot, so
+#                                                        there is no since-date)
+#    scripts/fetch_shoptet.sh  $1 = OUTDIR              --   (enrichment)
+#    scripts/fetch_upgates.sh  $1 = OUTDIR              --   (enrichment)
+#    scripts/fetch_coi.sh      $1 = SINCE (YYYY-MM-DD)  $2 = OUTDIR
+#    scripts/fetch_nen.sh      $1 = SINCE (YYYY-MM-DD)  $2 = OUTDIR
+#    scripts/fetch_smlouvy.sh  $1 = SINCE (YYYY-MM-DD)  $2 = OUTDIR
+#    scripts/fetch_mpsv.sh     $1 = OUTDIR              $2 = optional YYYY-MM
+#    scripts/fetch_ares.sh     $1 = OUTDIR              --   (enrichment; MUST
+#                                                        run AFTER mpsv, same
+#                                                        dir — see the ares case)
 #
-#  VERIFIED 2026-08-20 by reading all six scripts, not by trusting the table.
+#  VERIFIED 2026-08-20 by reading all six scripts, and RE-VERIFIED 2026-08-21 by
+#  reading the eleven added since, not by trusting the table.
 #  This fails SILENTLY: TED would query with a garbage since-date and return an
 #  empty or wrong window, which looks like a yield anomaly rather than a bug.
 #  Therefore the call shape is an EXPLICIT PER-FEED SWITCH, never a convention.
@@ -107,13 +122,28 @@ mf() { # feed_key result http bytes items ms started_at raw_path error
 # Read from data/feeds.json when it exists (W1 owns that file; we only read it).
 # The built-in fallback keeps this script runnable before the registry lands and
 # is deliberately identical in shape: "key<TAB>status<TAB>script<TAB>allow_missing".
-# `vestbee` appears in NEITHER: it is DEAD (301 -> /insights/rss.xml -> 404,
-# re-measured 2026-08-20 at 313,275 bytes of 404 HTML) and its fetch line is gone.
+#
+# `vestbee` IS NO LONGER DEAD, and the note that used to stand here saying so is
+# gone rather than amended. The dead thing was the RSS feed (301 ->
+# /insights/rss.xml -> 404, 313,275 bytes of 404 HTML). scripts/fetch_vestbee.sh
+# reads the DECLARED SITEMAP instead — a different interface on the same host —
+# and the registry row is `active` again with a measured contract.
+#
+# ── THE ENRICHMENT FILTER IS ON THE DEFAULT RUN ONLY ─────────────────────────
+# `role: enrichment` rows (ares, shoptet, upgates) produce ZERO signals, so a
+# bare `fetch_all.sh <dir>` must not run them: they are monthly lookup refreshes
+# on a daily dispatcher, and one of them (ares) is meaningless unless mpsv ran
+# first. But they DO have scripts and argv shapes, and naming one explicitly is
+# a deliberate act — `fetch_all.sh <dir> mpsv ares` is the documented MPSV
+# sequence in pipeline/INGEST.md. Filtering them out of the table unconditionally
+# meant the dispatcher answered that command with "no argv shape defined", which
+# is false and sends the operator to a bare `scripts/fetch_ares.sh` that writes
+# no receipt into the run. So the filter is applied only when WANT is empty.
 feed_table() {
   if [ -f "$REGISTRY" ] && command -v jq >/dev/null 2>&1; then
-    jq -r '
+    jq -r --arg want "$WANT" '
       .feeds[]
-      | select((.role // "feed") != "enrichment")
+      | select(($want | length) > 0 or (.role // "feed") != "enrichment")
       | select((.script // "") != "")
       | [ .key,
           (.status // "active"),
@@ -207,6 +237,40 @@ while IFS=$'\t' read -r key status script allow_missing; do
                         continue
                       fi ;;
     nku)              run_feed "$script" "$OUTDIR" ;;
+    # ---- landed 2026-08-21 — outdir is $2, SINCE is $1 ----------------------
+    coi)              run_feed "$script" "$SINCE_ISO"      "$OUTDIR" ;;
+    nen)              run_feed "$script" "$SINCE_ISO"      "$OUTDIR" ;;
+    smlouvy)          run_feed "$script" "$SINCE_ISO"      "$OUTDIR" ;;
+    # ---- landed 2026-08-21 — outdir is $1 -----------------------------------
+    ec-hys)           run_feed "$script" "$OUTDIR" ;;
+    vestbee)          run_feed "$script" "$OUTDIR" ;;
+    sukl)             run_feed "$script" "$OUTDIR" ;;
+    shoptet|upgates)  run_feed "$script" "$OUTDIR" ;;
+    # mpsv takes an OPTIONAL second argument, the target month. It is left
+    # UNSET here on purpose: the fetcher's own default is "the most recent
+    # COMPLETE month", which is the only correct choice for an unattended run —
+    # passing $(date +%Y-%m) would ask for the month in progress and get a
+    # partial window every time. Backfill by naming the month by hand.
+    mpsv)             run_feed "$script" "$OUTDIR" ;;
+    # ---- ares: an ORDER DEPENDENCY, made explicit -------------------------
+    # fetch_ares.sh resolves the IČO worklist that fetch_mpsv.sh leaves in the
+    # SAME outdir. Run it first and it finds nothing, writes nothing, and exits
+    # clean — a zero that reads exactly like "no employer candidates this
+    # month". Today the ordering holds only because `mpsv` happens to sit above
+    # `ares` in data/feeds.json and this loop walks the registry in file order.
+    # That is a landmine, not a mechanism: re-ordering a JSON file is a
+    # formatting change nobody would think to test. So the dependency is
+    # CHECKED, and a violation is a loud skip rather than a silent empty run.
+    ares)             if ls "$OUTDIR"/mpsv-hiring-*.json >/dev/null 2>&1; then
+                        run_feed "$script" "$OUTDIR"
+                      else
+                        echo "-- ares: no mpsv-hiring-*.json in $OUTDIR — ares resolves"
+                        echo "   the IČO worklist MPSV leaves there, so running it now would"
+                        echo "   silently resolve nothing. Run mpsv into this dir first."
+                        mf "$key" skipped 000 0 0 0 "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "" \
+                           "ordering: mpsv has not run into this outdir"
+                        continue
+                      fi ;;
     *)                echo "!! $key: no argv shape defined in fetch_all.sh — REFUSING to guess."
                       echo "   Add an explicit case above; a wrong argv position fails silently (§5.3)."
                       mf "$key" error 000 0 0 0 "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "" \

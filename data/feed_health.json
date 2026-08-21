@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-20",
+  "generated": "2026-08-21",
   "run_id": "2026-08-20T1416",
   "feeds": [
     {
@@ -11,7 +11,7 @@
       "signals_total": 3200,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": 0,
+      "days_since_last_signal": 1,
       "parse_method": "structured",
       "error": null
     },
@@ -24,7 +24,7 @@
       "signals_total": 114,
       "consecutive_failures": 1,
       "consecutive_zero_yield": 1,
-      "days_since_last_signal": 7,
+      "days_since_last_signal": 8,
       "parse_method": "none",
       "error": "transport: auth probe could not run: with-secrets never reached curl (sandboxed shell, locked vault or wrong --dir). Token presence UNKNOWN, not absent."
     },
@@ -37,7 +37,7 @@
       "signals_total": 4,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": 0,
+      "days_since_last_signal": 1,
       "parse_method": "structured",
       "error": null
     },
@@ -63,7 +63,7 @@
       "signals_total": 4790,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": 0,
+      "days_since_last_signal": 1,
       "parse_method": "structured",
       "error": null
     },
@@ -76,7 +76,7 @@
       "signals_total": 15,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": 0,
+      "days_since_last_signal": 1,
       "parse_method": "structured",
       "error": null
     },
@@ -167,7 +167,7 @@
       "signals_total": 137,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": 6,
+      "days_since_last_signal": 7,
       "parse_method": null,
       "error": null
     },
@@ -180,7 +180,7 @@
       "signals_total": 175,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": 6,
+      "days_since_last_signal": 7,
       "parse_method": null,
       "error": null
     },
@@ -193,7 +193,7 @@
       "signals_total": 414,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": 6,
+      "days_since_last_signal": 7,
       "parse_method": null,
       "error": null
     },
@@ -206,7 +206,7 @@
       "signals_total": 126,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": 6,
+      "days_since_last_signal": 7,
       "parse_method": null,
       "error": null
     },
@@ -219,7 +219,7 @@
       "signals_total": 53,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": 6,
+      "days_since_last_signal": 7,
       "parse_method": null,
       "error": null
     },

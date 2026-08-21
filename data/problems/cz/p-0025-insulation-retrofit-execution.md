@@ -118,11 +118,14 @@ Why now: VARM in Berlin just raised €17.5M for the answer: train career-change
 
 Who pays: homeowners (with NZÚ co-payment) [S2], later SVJ/bytová družstva for multi-unit buildings. The fixed-price, one-day product is the wedge [S1]; subsidy handling in-house removes the paperwork objection that suppresses demand today.
 
-Existing non-solutions: the fragmented installer long tail [S3]; general contractors for whom insulation is a side line; energy-consulting firms that specify but don't build. Woltair is the proof the CZ market rewards this model — and the proof it's unoccupied for insulation [S3].
+EPBD gives the same work a dated regulatory driver: transposition is overdue, the Commission opened infringement against CZ in July 2026, and residential MEPS trajectories (2030/2033) mean household insulation stops being optional [S5] — deadline receipted at 1, urgency 2. EPBD pressure (p-0024) is upstream demand for the same work: as renovation obligations firm up [S5], execution capacity becomes the bottleneck this model builds.
 
-Updated 2026-08-13: Berlin funded the second half of the model within a month of the first — dsb Deutsche Sanierungsberatung (€10M Series A) packages renovation consulting, subsidy applications and contractor delivery for homeowners, the demand-side navigation wedge to VARM's supply-side installer wedge [S4]. Both rounds are German [S1,S4], so proof honestly stays at 2, but the full stack (find the homeowner, handle the subsidy, deliver the retrofit at fixed price) is now venture-validated next door. EPBD gives the same work a dated regulatory driver: transposition is overdue, the Commission opened infringement against CZ in July 2026, and residential MEPS trajectories (2030/2033) mean household insulation stops being optional [S5] — deadline receipted at 1, urgency 2.
+Existing non-solutions: the fragmented installer long tail [S3]; general contractors for whom insulation is a side line; energy-consulting firms that specify but don't build. Woltair is the proof the CZ market rewards this model — and the proof it's unoccupied for insulation [S3]. Next evidence: NZÚ zateplení application/backlog statistics as a demand receipt, and a check on whether Woltair has insulation expansion plans (the competitive risk).
 
-EPBD pressure (p-0024) is upstream demand for the same work: as renovation obligations firm up [S5], execution capacity becomes the bottleneck this model builds. Next evidence: NZÚ zateplení application/backlog statistics as a demand receipt, and a check on whether Woltair has insulation expansion plans (the competitive risk).
+Solved elsewhere: Berlin funded the second half of the model within a month of the first — dsb Deutsche Sanierungsberatung (€10M Series A) packages renovation consulting, subsidy applications and contractor delivery for homeowners, the demand-side navigation wedge to VARM's supply-side installer wedge [S4]. Both rounds are German [S1,S4], so proof honestly stays at 2, but the full stack — find the homeowner, handle the subsidy, deliver the retrofit at fixed price — is now venture-validated next door.
 
----
-**CORRECTION (2026-08-20, evidence audit):** Removed **ENBRA** from the next-evidence proposal. The name returns no hits anywhere in the signal corpus and appears in no source note on this record — a named competitive risk with nothing behind it. Woltair is receipted [S3] and stays.
+## Revisions
+
+2026-08-13 · proof and deadline receipted — The dsb Deutsche Sanierungsberatung round [S4] and the EPBD infringement and MEPS trajectory [S5] were added; the substance now sits in Where it works and The window above rather than here.
+
+2026-08-20 · evidence audit — Removed ENBRA from the next-evidence proposal. The name returns no hits anywhere in the signal corpus and appears in no source note on this record — a named competitive risk with nothing behind it. Woltair is receipted [S3] and stays.

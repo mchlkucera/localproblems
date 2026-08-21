@@ -166,7 +166,13 @@ verifiable traction; empty only where `proof` is 0 and no comparable exists.
 Full field semantics in `data/CONVENTIONS.md`.
 
 Body: 3–6 paragraphs — problem · why-now · who-pays · existing non-solutions ·
-foreign comparables. Appended CORRECTION blocks are rendered prominently.
+foreign comparables — written short at creation, because the reader arrives
+asking *what is the problem, and could I build it* and must answer both without
+reading an audit trail. Target ≤ 60 words a paragraph and ≤ 300 words of
+argument prose; the lead-ins (`Why now:`, `Who pays:`, `Existing
+non-solutions:`, `Solved elsewhere:`) are literal, because `web/lib/sections.ts`
+keys the rendered sections off them. Full shape rules in `data/CONVENTIONS.md`
+("Body shape and length").
 **Every factual claim carries an inline citation** — an `[Sn]` marker naming the
 entry at position n of the record's own `sources[]`, rendered as a superscript
 S-number linking its ledger row (`[S3,S5]` for two). Citation is stated, never
@@ -175,6 +181,18 @@ inferred from a url coincidence; the syntax and its rules live in
 Records scoring >= 7 additionally carry a `## First moves` body section: 4–6
 numbered concrete steps, named competition, and the open subsidy call that funds
 the work, cross-linked to the tenders ledger (`/signals/tenders#dotace-...`).
+
+**Corrections live in a `## Revisions` section at the foot of the body, one
+entry per date** (`2026-08-20 · evidence audit — …`), oldest first. This
+replaces the appended `**CORRECTION (…):**` block rendered prominently with a
+4px rule (v1.4–v2): 40 of those had accumulated across 31 records, and on
+p-0026 the trail outweighed the argument it corrected 441 words to 181. **A
+new correction merges into that date's entry; it never appends another block.**
+The demotion is in weight and position only — every revision still ships on the
+page, in the reading order, in the photocopy, never behind a disclosure — and
+**deleting or silently shrinking one is forbidden**: a silent deletion is the
+same sin as the invention it corrected. Merging two entries that say the same
+thing is allowed, and the merged entry says that it is a merge.
 
 ### MATCH (the region agent)
 
@@ -227,7 +245,7 @@ Discipline keeps it exactly as simple as a static generator:
 | Route | Content |
 |---|---|
 | `/` | register table ranked by score: id · title · category · locality · score meter · updated. `rejected` excluded, `stale` greyed at the bottom. Category filter nav above the table: `All (31) · B2B (07) · …` — build-time counts, links to the category pages. |
-| `/problem/[region]/[id]` | one rundown page for **every** problem: docket (id · title · dek · facts · quiet meta line) · scorecard band · The problem (prose) · The window (why now, deadline receipts) · How big (money receipts) · Who builds this (build block) · Where it works (comps ledger) · First moves (score >= 7) · Record updates · sources ledger (S1…Sn, each linking its evidence record) · provenance footer. Score rundown dialogs embed the referenced source records (external links only, close cross). The crumb's category links to its category page. |
+| `/problem/[region]/[id]` | one rundown page for **every** problem: docket (id · title · dek · facts · quiet meta line) · scorecard band · The problem (prose) · The window (why now, deadline receipts) · How big (money receipts) · Who builds this (build block) · Where it works (comps ledger) · First moves (score >= 7) · Revisions (`ol.revisions` — the record's audit trail as a quiet ledger at the foot: row hairline, indented content, mono date-and-tag reference line, muted serif prose; design-language v1.9) · sources ledger (S1…Sn, each linking its evidence record) · provenance footer. Score rundown dialogs embed the referenced source records (external links only, close cross). The crumb's category links to its category page. |
 | `/category/[slug]` | one page per category (all 12, SSG; slug = category id): the register table filtered to the category, same filter nav with the current category marked; empty categories render the house empty-category string. |
 | `/about` | brief static page: the vision, the evidence streams (with live counts, derived — a stream at zero counts still lists), and the register's rules — sourced claims, no estimates, printed corrections, de-ranking. |
 | `/signals/[type]` | the evidence ledgers (funded · regulation · tenders · demand · hiring): recent records per type, anchor per id — the provenance target. **A registered type with no records renders an empty ledger rather than 404ing** — which is why `hiring` is already routed at zero records: a pending feed is a registered fact, and `/sources` shows it as `PENDING`. The route list and the nav are derived from `EVIDENCE_TYPES`, so both track the code automatically; this table is the copy that can go stale. |

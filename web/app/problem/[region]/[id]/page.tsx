@@ -1,6 +1,6 @@
 // The record page — docket (dek, facts, quiet meta) · scorecard · evidence
 // dialogs · fixed-role sections (problem → window → how big → who builds →
-// where it works → first moves → record updates) · sources · provenance.
+// where it works → first moves → revisions) · sources · provenance.
 // Every section anchors down into receipts; absence is stated, never hidden.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -392,16 +392,25 @@ export default async function Record({ params }: Params) {
           </>
         )}
 
-        {sections.updates.length > 0 && (
+        {/* Revisions — the record's own audit trail, oldest first, one entry per
+            date. It stays ON the record and in the reading order (never behind
+            a disclosure: this page must photocopy whole), but it is set in the
+            quiet register of a ledger rather than as the 4px-ruled interruption
+            corrections used to be, because visible is not the same as dominant
+            (owner, 2026-08-21). Each entry opens on the exhibit grammar the
+            rundown already uses — full-measure row hairline, content indented,
+            mono reference line — so nothing new was invented to hold it. */}
+        {sections.revisions.length > 0 && (
           <>
-            <h2>Record updates</h2>
-            {sections.updates.map((u, i) =>
-              u.startsWith("**CORRECTION") ? (
-                <div key={i} className="correction" dangerouslySetInnerHTML={{ __html: body(u) }} />
-              ) : (
-                <div key={i} dangerouslySetInnerHTML={{ __html: body(u) }} />
-              ),
-            )}
+            <h2>Revisions</h2>
+            <ol className="revisions">
+              {sections.revisions.map((r, i) => (
+                <li key={i}>
+                  {r.meta && <span className="meta">{r.meta}</span>}
+                  <div dangerouslySetInnerHTML={{ __html: body(r.text) }} />
+                </li>
+              ))}
+            </ol>
           </>
         )}
 

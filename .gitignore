@@ -20,6 +20,13 @@ data/raw/*/*
 !data/sources/*/manifest.md
 !data/raw/*/manifest.md
 
+# data/lookup/ IS NOT LISTED HERE, AND THAT IS THE POINT. It looks like fetch
+# output and it is not: it is the enrichment corpus (CONVENTIONS.md "Lookup
+# layer"), ~600 HTTP requests to rebuild, and its whole job is to still exist
+# next quarter when a gap-check asks what the CZ e-commerce add-on market held.
+# Putting it under data/raw/ would have gitignored it AND pruned it at 28 days.
+# Do not widen the rules above to `data/*` — that would swallow it silently.
+
 # The working store: deterministically rebuildable from the committed ledgers.
 data/register.db
 data/register.db-wal

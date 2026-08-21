@@ -78,16 +78,40 @@ this loop, and it is the only step that needs you.
    that calls "$script" "$RAW" hands TED a directory path as its
    since-date and gets a silently wrong window back. The call shapes are
    explicit, never conventional:
-     ted      scripts/fetch_ted.sh    <SINCE YYYYMMDD>   <rawdir>
-     hlidac   scripts/fetch_hlidac.sh <SINCE YYYY-MM-DD> <rawdir>
-     cc-cz    scripts/fetch_feeds.sh  <rawdir>
-     yc-oss   scripts/fetch_feeds.sh  <rawdir>
+     ted      scripts/fetch_ted.sh     <SINCE YYYYMMDD>   <rawdir>
+     hlidac   scripts/fetch_hlidac.sh  <SINCE YYYY-MM-DD> <rawdir>
+     coi      scripts/fetch_coi.sh     <SINCE YYYY-MM-DD> <rawdir>
+     nen      scripts/fetch_nen.sh     <SINCE YYYY-MM-DD> <rawdir>
+     smlouvy  scripts/fetch_smlouvy.sh <SINCE YYYY-MM-DD> <rawdir>
+     cc-cz    scripts/fetch_feeds.sh   <rawdir>
+     yc-oss   scripts/fetch_feeds.sh   <rawdir>
      suggest  scripts/fetch_suggest.sh <rawdir>
      reddit-* scripts/fetch_reddit.sh  <rawdir>
      nku      scripts/fetch_nku.sh     <rawdir> [year ...]
+     ec-hys   scripts/fetch_ec_hys.sh  <rawdir>
+     vestbee  scripts/fetch_vestbee.sh <rawdir>
+     sukl     scripts/fetch_sukl.sh    <rawdir>          (full snapshot;
+                                                          takes no since-date)
+     mpsv     scripts/fetch_mpsv.sh    <rawdir> [YYYY-MM]
+     ---- role: enrichment. ZERO signals; never in a feed total ----------
+     ares     scripts/fetch_ares.sh    <rawdir>
+     shoptet  scripts/fetch_shoptet.sh <rawdir>
+     upgates  scripts/fetch_upgates.sh <rawdir>
    Verify a signature against the script before adding a new row here
    rather than copying the shape of its neighbour — that is the exact
    mistake this table exists to prevent.
+   ARES HAS AN ORDER DEPENDENCY, NOT JUST A SIGNATURE. fetch_ares.sh
+   resolves the IČO worklist fetch_mpsv.sh leaves in the SAME rawdir, so
+   it MUST run after mpsv, into that dir:
+     scripts/fetch_all.sh data/raw/<today> mpsv ares
+   Run alone it finds no worklist, resolves nothing and exits clean — a
+   zero indistinguishable from "no employer candidates this month".
+   fetch_all.sh now CHECKS this and logs a `skipped` manifest row instead
+   of running; do not work around it by calling the script directly.
+   THE ENRICHMENT ROWS ARE NOT IN THE DEFAULT RUN. A bare
+   `fetch_all.sh <rawdir>` skips role: enrichment entirely — they are
+   monthly lookup refreshes and ares is meaningless before mpsv. Naming
+   one explicitly runs it.
    THE PAYLOAD FILENAME IS ALSO A CROSS-FILE CONTRACT, and it broke once
    already. normalize.py maps <raw>/<file> back to a registry feed key by
    matching a distinctive token in the name, so a fetcher renaming its
@@ -98,6 +122,15 @@ this loop, and it is the only step that needs you.
      fetch_hlidac.sh   hlidac-<query>-p<N>.json  -> hlidac (all pages)
    Change a fetcher's output names and fix FILE_FEED_TOKENS /
    feed_for_file() in the same commit.
+   A FEED THAT PARSES CLEANLY AND KEEPS NOTHING IS NOW AN ERROR. `ok=1
+   items_kept=0` was this pipeline's signature failure — a live fetcher, a
+   200, a clean contract, and no EXTRACTORS entry, so the extraction loop
+   broke on the first item and the run looked like a quiet week. Two feeds
+   sat there for weeks. normalize.py now fails the contract for any row
+   with `signal_source` set and `role != enrichment` that has no
+   extractor, and names the missing key. The enrichment rows above are the
+   only ones for which items_kept 0 is a legal outcome, and they declare
+   it: `signal_source: null`, `id_prefixes: []`.
    SECRETS NEVER TRANSIT THE SHELL. Do NOT use `direnv exec .` for them:
    the direnv->sops hook prints "using sops .env.enc", exits clean, and
    exports nothing but DIRENV_* bookkeeping. That silent no-op — not a

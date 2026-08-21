@@ -315,6 +315,84 @@ CREATE INDEX IF NOT EXISTS signals_type   ON signals(type, date DESC);
 CREATE INDEX IF NOT EXISTS signals_ico    ON signals(entity_ico)       WHERE entity_ico IS NOT NULL;
 CREATE INDEX IF NOT EXISTS signals_domain ON signals(entity_domain)    WHERE entity_domain IS NOT NULL;
 CREATE INDEX IF NOT EXISTS signals_ename  ON signals(entity_name_norm) WHERE entity_name_norm IS NOT NULL;
+
+-- ---- THE COUNTERPARTY ------------------------------------------------------
+-- `signals` holds ONE entity per signal, and by house convention that entity is
+-- the BUYER (entity_name_norm is the text before the em dash in `title`, which
+-- CONVENTIONS.md defines as "Thing — what it is"). A public contract has two
+-- sides and the interesting one was missing: the SUPPLIER — who actually wins
+-- the work — is what tells you who the incumbents are, which is the `gap`
+-- dimension, the register's worst (9 of 62 points, 23 of 31 records at zero).
+--
+-- A SEPARATE TABLE, NOT TWO MORE COLUMNS ON `signals`, and the reason is
+-- cardinality rather than taste: a contract can name several winners. MEASURED
+-- — data.smlouvy.gov.cz dump_2026_08_19.xml has up to 6 <smluvniStrana> on one
+-- contract (1 on 96.8%, 2 on 2.9%, 3-6 on the rest), and TED notice 167-2026
+-- lists three winners against one buyer. A scalar column silently keeps the
+-- first and drops the others, which is the same class of loss this table exists
+-- to end.
+--
+-- STILL DERIVED-ONLY AND DB-ONLY. Nothing here is ever written back to a
+-- ledger; this is a projection of `notes` (or of a future first-class `parties`
+-- field), rebuilt from the committed JSONL on every `rebuild` exactly like
+-- `signals` is. See parse_parties().
+CREATE TABLE IF NOT EXISTS signal_parties (
+  signal_id TEXT NOT NULL,
+  position  INTEGER NOT NULL,      -- order within the record; stable, not meaningful
+  role      TEXT NOT NULL,         -- buyer | supplier | payer | recipient
+  name      TEXT,                  -- NULL when the source name was withheld (see below)
+  name_norm TEXT,                  -- norm_name(name), for the same joins entity_name_norm feeds
+  ico       TEXT,                  -- 8 digits, CHECKSUM-VALIDATED, else NULL
+  ident     TEXT,                  -- the raw identifier as published (may be a foreign VAT id)
+  PRIMARY KEY (signal_id, position)
+);
+CREATE INDEX IF NOT EXISTS sp_ico   ON signal_parties(ico)       WHERE ico IS NOT NULL;
+CREATE INDEX IF NOT EXISTS sp_name  ON signal_parties(name_norm) WHERE name_norm IS NOT NULL;
+CREATE INDEX IF NOT EXISTS sp_role  ON signal_parties(role, ico);
+
+-- THE MOAT QUERY, as a view so it cannot drift between callers: who supplies
+-- the Czech state, how often, and to how many distinct buyers. `gap` asks "is
+-- the local field empty?" and this is the first thing in the corpus that can
+-- answer it with evidence instead of a search that found nothing.
+--
+-- `n_buyers` matters more than `n_contracts`: one vendor with 40 contracts at
+-- one hospital is a supplier relationship, the same vendor across 12 hospitals
+-- is an INCUMBENT, and only the second falsifies an absence claim.
+CREATE VIEW IF NOT EXISTS supplier_activity AS
+  SELECT p.ico,
+         MIN(p.name)                          AS name,
+         COUNT(DISTINCT p.signal_id)          AS n_contracts,
+         COUNT(DISTINCT b.ico)                AS n_buyers,
+         MIN(s.date)                          AS first_seen,
+         MAX(s.date)                          AS last_seen,
+         GROUP_CONCAT(DISTINCT s.source)      AS sources
+    FROM signal_parties p
+    JOIN signals s ON s.id = p.signal_id
+    LEFT JOIN signal_parties b
+           ON b.signal_id = p.signal_id
+          AND b.role IN ('buyer', 'payer')
+          AND b.ico IS NOT NULL
+   WHERE p.role IN ('supplier', 'recipient') AND p.ico IS NOT NULL
+   GROUP BY p.ico;
+
+-- The other direction: what one public body buys and from whom. This is what
+-- makes "the same problem is being re-bought with no shared platform" checkable
+-- rather than asserted.
+CREATE VIEW IF NOT EXISTS buyer_activity AS
+  SELECT p.ico,
+         MIN(p.name)                          AS name,
+         COUNT(DISTINCT p.signal_id)          AS n_contracts,
+         COUNT(DISTINCT v.ico)                AS n_suppliers,
+         MIN(s.date)                          AS first_seen,
+         MAX(s.date)                          AS last_seen
+    FROM signal_parties p
+    JOIN signals s ON s.id = p.signal_id
+    LEFT JOIN signal_parties v
+           ON v.signal_id = p.signal_id
+          AND v.role IN ('supplier', 'recipient')
+          AND v.ico IS NOT NULL
+   WHERE p.role IN ('buyer', 'payer') AND p.ico IS NOT NULL
+   GROUP BY p.ico;
 """
 
 # ===========================================================================
@@ -550,9 +628,14 @@ DDL_PROJECTIONS = DDL_SIGNALS + DDL_PROBLEMS
 # keep yesterday's definition and make a schema edit a no-op.
 PROJECTION_VIEWS = ("dangling_signal_refs", "problem_adjacency", "signals_uncited",
                     "signal_citations", "deadline_unbacked", "urgency_deadline",
-                    "score_unbacked", "problem_dim_scores")
+                    "score_unbacked", "problem_dim_scores",
+                    # entity-graph views. Listed here for the same reason as the
+                    # rest: a stale view body survives CREATE VIEW IF NOT EXISTS.
+                    "supplier_activity", "buyer_activity")
+# signal_parties is dropped BEFORE signals — it is derived from the same ledger
+# read and holds no history a rebuild could not reconstruct.
 PROJECTION_TABLES = ("problem_source_dims", "problem_comps", "problem_sources",
-                     "problems", "signals", "meta")
+                     "problems", "signal_parties", "signals", "meta")
 
 # THE HEALTH SPINE and THE MATCH MEMORY. Created if absent, NEVER dropped.
 DDL_HISTORY = """
@@ -823,14 +906,121 @@ def entity_from_title(title):
     return title.strip()
 
 
+# --------------------------------------------------------------------------
+# the counterparty — parsing the parties off a committed record
+# --------------------------------------------------------------------------
+
+# The grammar scripts/normalize.py's party_line() writes, on ONE line of `notes`:
+#     parties: buyer=NAME [ICO]; supplier=NAME [ICO]; supplier=[ICO]
+# A party whose name was withheld renders `role=[ICO]`; a party with no
+# identifier renders `role=NAME`.
+#
+# WHY `notes` AND NOT A FIELD OF ITS OWN. `SignalSchema` (web/lib/data.ts) is a
+# z.strictObject, so a new ledger key is a BUILD FAILURE unless the schema moves
+# in the same change — and the schema lives in a directory the pipeline does not
+# own. `notes` is already allowlisted, already optional, already free text, and
+# no mechanical extractor wrote it before this, so nothing collides. Parsing is
+# per-LINE precisely so a later model pass appending prose to `notes` cannot
+# break it.
+#
+# FORWARD SEAM: `rec["parties"]` is read FIRST. The day a first-class `parties`
+# field lands in SignalSchema and LEDGER_ALLOWLIST, this file needs no edit —
+# the structured value wins and the notes line becomes redundant rather than
+# wrong. That is what makes the hand-off a one-side change instead of a
+# flag-day.
+PARTIES_LINE_RE = re.compile(r"^\s*parties:\s*(.+)$", re.M)
+PARTY_RE = re.compile(r"^\s*([a-z_]+)\s*=\s*(.*?)\s*(?:\[([^\]]*)\])?\s*$")
+
+# Roles the pipeline emits. An unknown role is KEPT rather than dropped — a new
+# source naming a 'guarantor' should show up in the graph, not vanish silently —
+# but it is normalised to lowercase so joins stay predictable.
+BUYER_ROLES = ("buyer", "payer")
+SUPPLIER_ROLES = ("supplier", "recipient")
+
+
+def parse_parties(rec):
+    """[(role, name_or_None, ico_or_None, raw_ident_or_None)] for one record.
+
+    Never raises and never invents: a record with no party information returns
+    [], which is the honest state for the 9,324 signals committed before this
+    existed. Their suppliers are not recoverable — `data/raw/` is gitignored and
+    pruned at 28 days — and back-filling them would mean editing an append-only
+    ledger, so they simply have no parties until the feed runs again.
+    """
+    out = []
+
+    # 1. the first-class field, if it ever exists (see FORWARD SEAM above)
+    structured = rec.get("parties")
+    if isinstance(structured, list):
+        for p in structured:
+            if not isinstance(p, dict):
+                continue
+            ident = p.get("ico") or p.get("ident") or p.get("identifier")
+            out.append((str(p.get("role") or "party").strip().lower(),
+                        (p.get("name") or None), None, (str(ident) if ident else None)))
+
+    # 2. the notes line
+    if not out:
+        m = PARTIES_LINE_RE.search(str(rec.get("notes") or ""))
+        if m:
+            for chunk in m.group(1).split(";"):
+                pm = PARTY_RE.match(chunk)
+                if not pm:
+                    continue
+                role = pm.group(1).strip().lower()
+                name = (pm.group(2) or "").strip() or None
+                ident = (pm.group(3) or "").strip() or None
+                if not name and not ident:
+                    continue
+                out.append((role, name, None, ident))
+
+    # The IČO checksum is what promotes a raw identifier to an entity key. TED
+    # publishes foreign VAT ids in the same array (`DE124727617`,
+    # `BE0826207990` — 7 of 642 winner ids sampled), and those are real
+    # identifiers but they are not IČO and must never be joined as one.
+    return [(role, name, (ident if ident and valid_ico(ident) else None), ident)
+            for role, name, _ico, ident in out]
+
+
 def derive_entity_keys(rec):
-    """Compute the three DERIVED-ONLY entity keys for one signal record."""
+    """Compute the three DERIVED-ONLY entity keys for one signal record.
+
+    `entity_name_norm` and `entity_domain` are UNCHANGED — the title segment and
+    the URL's eTLD+1, exactly as before, because both are documented contracts
+    that the whole match shortlist and `dupes` already sit on.
+
+    `entity_ico` gains a definition. It used to be `extract_ico(notes, summary,
+    money_note, url)` — the FIRST checksum-valid 8-digit run anywhere in the
+    record's prose, which is not a claim about anything: it is whichever number
+    happened to appear first. It now prefers the BUYER's identifier when the
+    record carries structured parties, which is the same entity
+    `entity_name_norm` names, so the two columns finally describe one company
+    instead of two unrelated ones. The prose scrape remains the fallback, so no
+    existing key changes: MEASURED — all 55 currently-populated `entity_ico`
+    values come from records with no parties line, and every one of them takes
+    the fallback path unchanged.
+
+    The SUPPLIER is deliberately not here. It does not fit — a contract can have
+    six — and it lives in `signal_parties`, which is the point of that table.
+    """
     name = entity_from_title(rec.get("title"))
+    parties = parse_parties(rec)
+    buyer_ico = next((ico for role, _n, ico, _i in parties
+                      if ico and role in BUYER_ROLES), None)
     return (
         norm_name(name),
-        extract_ico(rec.get("notes"), rec.get("summary"), rec.get("money_note"), rec.get("url")),
+        buyer_ico or extract_ico(rec.get("notes"), rec.get("summary"),
+                                 rec.get("money_note"), rec.get("url")),
         etld1(rec.get("url")),
     )
+
+
+def party_rows(sid, rec):
+    """Rows for `signal_parties` from one record. [] when it carries none."""
+    rows = []
+    for pos, (role, name, ico, ident) in enumerate(parse_parties(rec)):
+        rows.append((sid, pos, role, name, norm_name(name), ico, ident))
+    return rows
 
 
 # --------------------------------------------------------------------------
@@ -878,6 +1068,7 @@ def insert_records(con, path, rel, typ, seen_ids):
     """Insert every record of one ledger file. Returns (lines_read, rows_written)."""
     lines = 0
     rows = []
+    prows = []
     for n, raw, rec in iter_jsonl(path, rel):
         lines += 1
         sid = rec.get("id")
@@ -892,10 +1083,15 @@ def insert_records(con, path, rel, typ, seen_ids):
         ename, ico, domain = derive_entity_keys(rec)
         rows.append((sid, rec.get("source"), typ, rec.get("date"),
                      ename, ico, domain, None, rel, n, raw))
+        prows.extend(party_rows(sid, rec))
     con.executemany(
         "INSERT INTO signals (id, source, type, date, entity_name_norm, entity_ico,"
         " entity_domain, dup_of, jsonl_file, jsonl_line, raw)"
         " VALUES (?,?,?,?,?,?,?,?,?,?,?)", rows)
+    if prows:
+        con.executemany(
+            "INSERT INTO signal_parties (signal_id, position, role, name, name_norm,"
+            " ico, ident) VALUES (?,?,?,?,?,?,?)", prows)
     return lines, len(rows)
 
 
@@ -1496,6 +1692,16 @@ def cmd_rebuild(args):
     ico = con.execute("SELECT COUNT(*) FROM signals WHERE entity_ico IS NOT NULL").fetchone()[0]
     dom = con.execute("SELECT COUNT(*) FROM signals WHERE entity_domain IS NOT NULL").fetchone()[0]
     nam = con.execute("SELECT COUNT(*) FROM signals WHERE entity_name_norm IS NOT NULL").fetchone()[0]
+    # THE ENTITY GRAPH, reported every rebuild. `sig_with_parties` is the honest
+    # denominator: a corpus where it stays at 0 while `signals_count` grows means
+    # the tender feeds are running and the counterparty is being dropped again,
+    # which is exactly the regression this work reverses and is invisible from
+    # any per-feed count.
+    parties = con.execute("SELECT COUNT(*) FROM signal_parties").fetchone()[0]
+    sig_parties = con.execute(
+        "SELECT COUNT(DISTINCT signal_id) FROM signal_parties").fetchone()[0]
+    suppliers = con.execute("SELECT COUNT(*) FROM supplier_activity").fetchone()[0]
+    buyers = con.execute("SELECT COUNT(*) FROM buyer_activity").fetchone()[0]
     fl = con.execute("SELECT COUNT(*) FROM fetch_log").fetchone()[0]
     ml = con.execute("SELECT COUNT(*) FROM match_log").fetchone()[0]
     cited = con.execute("SELECT COUNT(DISTINCT signal_id) FROM signal_citations").fetchone()[0]
@@ -1510,6 +1716,8 @@ def cmd_rebuild(args):
     print(f"rebuild OK  jsonl_lines={total_lines} == signals_count={signals_count}")
     print(f"            md_files={md_files} == problems_count={n_problems}")
     print(f"  entity keys : ico={ico}  domain={dom}  name={nam}")
+    print(f"  entity graph: {parties} party rows on {sig_parties} signal(s)"
+          f"  -> {suppliers} distinct supplier IČO, {buyers} distinct buyer IČO")
     print(f"  register    : sources={n_sources}  comps={n_comps}  dim rows={n_dims}"
           f"  extract_date={extract}")
     print(f"  provenance  : {cited} distinct signal(s) cited by the register")
@@ -1557,6 +1765,16 @@ def cmd_upsert(args):
             " raw=excluded.raw",
             (sid, rec.get("source"), typ, rec.get("date"), ename, ico, domain,
              None, rel, n, raw))
+        # DELETE-then-INSERT, not an upsert: the party LIST is what changed, and
+        # a record whose parties shrank from three to one would otherwise keep
+        # the stale third row forever. The signals row is a fixed set of columns
+        # and can be updated in place; this one cannot.
+        con.execute("DELETE FROM signal_parties WHERE signal_id = ?", (sid,))
+        prows = party_rows(sid, rec)
+        if prows:
+            con.executemany(
+                "INSERT INTO signal_parties (signal_id, position, role, name,"
+                " name_norm, ico, ident) VALUES (?,?,?,?,?,?,?)", prows)
         n_up += 1
 
     total = con.execute("SELECT COUNT(*) FROM signals").fetchone()[0]
@@ -2027,6 +2245,24 @@ def cmd_dupes(args):
         if len(groups) > args.limit:
             print(f"  ... {len(groups) - args.limit} more groups (--limit to widen)")
         total += len(groups)
+
+    # THE COUNTERPARTY SWEEP. A shared supplier IČO is NOT a duplicate signal —
+    # it is the opposite, an incumbent appearing across genuinely different
+    # contracts — so it is reported separately and never feeds `dup_of`.
+    # Conflating the two would let a vendor with 40 contracts look like 40
+    # duplicate records and get collapsed, destroying the exact evidence the
+    # `gap` dimension needs.
+    rows = con.execute(
+        "SELECT ico, name, n_contracts, n_buyers, sources FROM supplier_activity"
+        " WHERE n_contracts > 1 ORDER BY n_buyers DESC, n_contracts DESC").fetchall()
+    print(f"\n== supplier IČO: {len(rows)} vendor(s) on more than one contract"
+          f"  (INCUMBENTS, not duplicates — never collapsed into dup_of)")
+    for ico, name, nc, nb, src in rows[: args.limit]:
+        print(f"  {ico}  {(name or '(name withheld)')[:44]:44s} "
+              f"{nc:4d} contract(s)  {nb:3d} buyer(s)  [{src}]")
+    if len(rows) > args.limit:
+        print(f"  ... {len(rows) - args.limit} more (--limit to widen)")
+
     con.close()
     print(f"\ndupes: {total} shared keys total. No rows modified.")
     return 0

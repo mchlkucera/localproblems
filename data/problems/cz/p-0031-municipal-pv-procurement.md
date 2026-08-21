@@ -74,5 +74,6 @@ Existing non-solutions — and why gap scores 0: the aggregation answer partiall
 
 No foreign analog is receipted (proof 0) and no buyer-side complaint is documented (demand 0) — the record is carried by receipted money and the freshness of the wave. It exists in the register because ~€60M a quarter of duplicated small-lot procurement is a measured, recurring inefficiency [S1]; it will re-rank if a demand receipt (svazek complaints about PV procurement burden) or an aggregation-service analog appears.
 
----
-**CORRECTION (2026-08-20, evidence audit):** Removed **SMO ČR** from the next-evidence proposal. Neither "Svaz měst" nor "SMO ČR" returns any hit in the signal corpus, and the association appears in no source note here — a named institution proposed as a demand source with nothing on file to say it is one. The proposal still stands, without pre-naming who would file the complaint.
+## Revisions
+
+2026-08-20 · evidence audit — Removed SMO ČR from the next-evidence proposal. Neither "Svaz měst" nor "SMO ČR" returns any hit in the signal corpus, and the association appears in no source note here — a named institution proposed as a demand source with nothing on file to say it is one. The proposal still stands, without pre-naming who would file the complaint.

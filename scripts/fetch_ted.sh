@@ -91,7 +91,39 @@ parse_w() { # "<http_code> <size_download> <time_total>"
 }
 
 API="https://api.ted.europa.eu/v3/notices/search"
-FIELDS='["publication-number","publication-date","notice-title","buyer-name","buyer-city","classification-cpv","notice-type","form-type","contract-nature","estimated-value-lot","estimated-value-cur-lot","estimated-value-glo","estimated-value-cur-glo","total-value","total-value-cur","deadline-receipt-tender-date-lot"]'
+
+# ── THE WINNER FIELDS ── added 2026-08-21 ────────────────────────────────────
+# 55% of what this fetcher already downloads is an AWARD notice naming the
+# company that won (measured: 1,480 of 2,678 notices in data/raw/2026-08-20/
+# carry `form-type: result`), and none of it reached data/raw/ because the
+# FIELDS list never asked for a winner. `entity_ico` was populated on 0 of
+# 3,200 committed TED signals as a direct result.
+#
+# THE TRAP THIS LIST IS BUILT AROUND: the TED v3 API SILENTLY DROPS an unknown
+# field name from `fields` rather than erroring, so a typo returns a notice with
+# the key simply absent — indistinguishable from "this notice has no winner".
+# Every name below was therefore validated through the QUERY parser instead,
+# which DOES reject unknowns:
+#     POST /v3/notices/search  {"query": "(<field> = \"ZZQQXX\")"}
+#       unknown name -> HTTP 400 "Unknown search field '<field>' found in
+#                       expert query"
+#       real name    -> HTTP 200 (0 hits), or a 400 naming a VALUE/pattern
+#                       problem, which also proves the FIELD exists
+# Measured verdicts: winner-name, winner-identifier, winner-country, winner-size,
+# winner-decision-date, organisation-name-tenderer, organisation-identifier-
+# tenderer, organisation-name-buyer, organisation-identifier-buyer are all REAL;
+# organisation-identifier, tenderer-name, contractor-name, winner-national-id,
+# winner-ico are NOT (all four spellings a reasonable person would try first).
+#
+# WHY BOTH THE `winner-*` AND THE `*-tenderer` PAIR. They carry the same ids
+# (identical arrays on 299 of 300 sampled notices) but only the tenderer pair
+# can be zipped: over 300 CZ result notices the `winner-name`/`winner-identifier`
+# array LENGTHS disagreed on 51 (17%) — winner-name repeats a name per lot and
+# winner-identifier does not — so pairing them by position attaches one
+# company's name to another company's IČO. normalize.py's ted_parties() prefers
+# the tenderer pair and treats `winner-*` as the fallback; both are fetched so
+# that decision is reviewable from the payload instead of being baked in here.
+FIELDS='["publication-number","publication-date","notice-title","buyer-name","buyer-city","classification-cpv","notice-type","form-type","contract-nature","estimated-value-lot","estimated-value-cur-lot","estimated-value-glo","estimated-value-cur-glo","total-value","total-value-cur","deadline-receipt-tender-date-lot","winner-name","winner-identifier","winner-country","winner-decision-date","organisation-name-tenderer","organisation-identifier-tenderer","organisation-name-buyer","organisation-identifier-buyer"]'
 
 # CPV groups relevant to the register (keep in sync with problem categories)
 # bash 3.2 compatible: "key:cpv-list" pairs

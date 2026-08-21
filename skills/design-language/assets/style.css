@@ -1,5 +1,19 @@
 /* ============================================================
-   localproblems.org · design system v1.8 · 2026-08-20
+   localproblems.org · design system v1.9 · 2026-08-21
+   v1.9: revisions. The record's audit trail stops interrupting
+   the argument and becomes a ledger at the foot of the page.
+   .correction (v1.4 — the 4px "page begins" rule turned sideways,
+   body-size ink prose, appended wherever the correction landed)
+   is RETIRED and its rules pruned: it was right for one correction
+   and wrong for the forty the corpus had accumulated across 31
+   records, where on p-0026 the trail outweighed the argument it
+   corrected 441 words to 181. ol.revisions replaces it by REUSING
+   the .rundown .sig exhibit grammar — full-measure 1px row
+   hairline, --sp-5 hang, muted mono reference line — because a
+   revision is subordinate to a record exactly as an exhibit is to
+   a finding. Nothing is hidden: no disclosure, no collapse, the
+   trail still prints. A demotion in weight, not in visibility.
+   No colour, size, weight, rule weight or spacing value added.
    v1.8: the narrow table. Below 56rem an .index row stops being
    a squeezed table row and becomes the ruled ledger entry the
    record pages already use — the serif name on its own line,
@@ -509,11 +523,11 @@ ol.sources { list-style: none; margin: 0; padding: 0; counter-reset: src; font: 
 .comps .ref { font-size: var(--fs-meta); color: var(--ink-muted); }
 .comps .note { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); font-style: italic; color: var(--ink-muted); max-width: var(--w-prose); }
 
-/* ---- record-page devices (v1.4) --------------------------------
+/* ---- record-page devices (v1.4; .correction retired v1.9) ------
    .absent: stated absence (no sized figure / no comparable on file).
    .buildnote: one muted serif sentence under the build facts.
-   .correction: the 4px page-begins rule turned sideways — a
-   correction interrupts the record.                              */
+   .correction (the 4px page-begins rule turned sideways) is gone —
+   see ol.revisions below for what replaced it and why.           */
 p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
 /* who-builds-this as a ruled ledger — one fact per line, readable
    (owner, 2026-08-20; replaces the facts-grid rendering here) */
@@ -524,8 +538,48 @@ ul.buildfacts { list-style: none; margin: 0 0 var(--sp-4); padding: 0; max-width
 .buildfacts .val .range { color: var(--ink-muted); font-weight: 400; }
 
 .buildnote { margin: var(--sp-4) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); max-width: var(--w-prose); }
-.correction { border-left: 4px solid var(--ink); padding-left: var(--sp-4); margin: 0 0 var(--sp-4); max-width: var(--w-prose); }
-.correction p:last-child { margin-bottom: 0; }
+
+/* ---- revisions: the record's audit trail, at the foot (v1.9) ---
+   The register prints its corrections — that is the entire claim it
+   has over an LLM guess — and .correction (v1.4) stated that loudly:
+   the 4px "page begins" rule turned sideways, body-size ink prose,
+   sitting wherever the correction was appended. It was right for one
+   correction and wrong for forty: by 2026-08-20 the corpus had 40 of
+   them across 31 records, and on p-0026 the audit trail outweighed
+   the argument it was correcting 441 words to 181. A reader asking
+   "what is the problem, and could I build it?" was reading a diff.
+
+   VISIBLE IS NOT THE SAME AS DOMINANT, so this is a demotion in
+   weight and position, never a deletion: every revision still ships
+   on the record, in the reading order, in the photocopy. It is NOT
+   behind a <details> — a gazette does not fold its own errata away,
+   and a collapsed disclosure prints closed.
+
+   No new device. This is the .rundown .sig exhibit grammar, reused
+   verbatim, because a revision stands in exactly the same relation
+   to a record as an exhibit does to a finding: the 1px row hairline
+   runs the full measure and opens the entry, the content hangs one
+   --sp-5 step inside it, and the indent is what says "subordinate".
+   The head is the exhibit's reference line — muted mono --fs-meta,
+   the clerk stating date and what kind of change this was.
+
+   The prose is the muted serif note voice .buildnote already sets:
+   ROMAN, not the italic of .rundown .sig .note. That italic exists
+   to contrast with a source's roman summary beside it; there is no
+   second voice in a revision, so the contrast would encode nothing —
+   and encoding nothing is the definition of slop in this system.  */
+ol.revisions { list-style: none; margin: 0; padding: 0; max-width: var(--w-prose); }
+.revisions li { border-top: 1px solid var(--rule); margin-top: var(--sp-5); padding: var(--sp-4) 0 0 var(--sp-5); }
+.revisions li:first-child { margin-top: 0; }
+.revisions .meta { display: block; font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); margin-bottom: var(--sp-2); }
+.revisions p { margin: 0 0 var(--sp-3); font: 400 var(--fs-data)/1.6 var(--serif); color: var(--ink-muted); max-width: none; }
+.revisions p:last-child { margin-bottom: 0; }
+/* narrow screens: the same one-step indent collapse the rundown sheet
+   makes at 30rem, for the same reason — a --sp-5 hang starves the
+   measure on a 375px phone. */
+@media screen and (max-width: 30rem) {
+  .revisions li { padding-left: var(--sp-4); }
+}
 
 /* ---- inline source references (v1.5; modernised v1.6) ----------
    Body prose carries a small mono S-number marker jumping to the

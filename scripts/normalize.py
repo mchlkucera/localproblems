@@ -57,6 +57,27 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FEEDS_JSON = os.path.join(ROOT, "data", "feeds.json")
 DEFAULT_SIGNALS_DIR = os.path.join(ROOT, "data", "signals")
 
+# ── the sibling extractor modules ────────────────────────────────────────────
+# Four feeds are big enough to own a file: their payloads are ZIPs and monthly
+# bulk dumps that get reduced to aggregates, and inlining that here would double
+# this file. They are imported, not re-implemented, so there is exactly one
+# definition of each feed's shape.
+#
+# THE sys.path LINE IS NOT DECORATION. `sys.path[0]` is the SCRIPT'S directory
+# only when normalize.py is the entry point. scripts/model_pass.py imports
+# normalize precisely so the two halves of the model seam cannot drift, and a
+# future importer may sit somewhere else entirely — at which point a bare
+# `import coi_extract` raises ImportError at module load and takes the whole
+# pipeline down. Deriving the path from __file__ makes the import work from any
+# cwd and any importer.
+_SCRIPTS = os.path.join(ROOT, "scripts")
+if _SCRIPTS not in sys.path:
+    sys.path.insert(0, _SCRIPTS)
+import coi_extract    # noqa: E402
+import nen_extract    # noqa: E402
+import sukl_extract   # noqa: E402
+from mpsv_extract import extract_mpsv  # noqa: E402
+
 # A FIXED, STATED ASSUMPTION, not a live rate. Ingest must run with no network,
 # so money_eur derived from a CZK figure uses this constant and money_note says
 # so. A record whose EUR value matters to a decision is re-checked by a human,
@@ -91,10 +112,33 @@ CPV_SECTOR = {
 # produced nothing.
 FILE_FEED_TOKENS = [
     ("hlidac", "hlidac"),
+    # `smlouvy-<date>.jsonl`, written by scripts/fetch_smlouvy.sh from the
+    # OFFICIAL registr smluv bulk dump. Placed here rather than appended at the
+    # end because this list is FIRST-MATCH-WINS and the token has to be checked
+    # before any shorter token that could appear inside the same filename;
+    # verified 2026-08-21 that "smlouvy" contains none of the tokens below and
+    # no other fetcher writes a filename containing it.
+    ("smlouvy", "smlouvy"),
     ("czechcrunch", "cc-cz"), ("cc-cz", "cc-cz"),
     ("vestbee", "vestbee"),
     ("suggest", "suggest"),
+    # The two ENRICHMENT marketplaces. Mapped on purpose rather than left to
+    # fall through as unmapped: an unmapped payload is parsed by NOBODY, so its
+    # transport receipt and its contract are never checked and the file is
+    # merely named in the manifest. Mapping them puts `shoptet-addons.jsonl` and
+    # `upgates-addons.jsonl` under their own registry rows, exactly as `ares`
+    # already is, and their `items_kept: 0` is then the DECLARED enrichment
+    # outcome (role: enrichment, id_prefixes: []) instead of an unexplained zero.
+    # See the enrichment exemption in the extraction loop below.
+    ("shoptet", "shoptet"), ("upgates", "upgates"),
+    # `coi` MUST be here and not only in EXTRACTORS. Without the token,
+    # `coi-<period>.json` is an UNMAPPED payload and the feed fails a DIFFERENT
+    # way from a missing extractor — no contract is evaluated at all, so the
+    # manifest shows the file as unclaimed rather than showing the feed as
+    # broken. Verified 2026-08-21 that no other fetcher writes a filename
+    # containing `coi`, and that `coi-*.json` contains none of the tokens above.
     ("nku", "nku"), ("sukl", "sukl"), ("mpsv", "mpsv"), ("ares", "ares"),
+    ("coi", "coi"),
     ("hys", "ec-hys"),
     ("nen", "nen"),
     ("ted", "ted"),
@@ -390,8 +434,24 @@ def parse_payload(path, parse_kind):
         raw = open(path, "r", encoding="utf-8", errors="replace").read()
     except OSError as e:
         return [], False, f"unreadable: {e}"
+    # AN EMPTY FILE IS NOT A PARSE FAILURE. It used to be, and that was wrong
+    # for every feed that writes MORE THAN ONE file — one empty member poisoned
+    # the whole feed's contract while its other files carried perfectly good
+    # data. MEASURED 2026-08-21: `shoptet` writes `shoptet-addons.jsonl` AND
+    # `shoptet-vendors.jsonl`, and its STEADY STATE is an unchanged marketplace
+    # -> 0 new add-on rows -> a 0-byte addons file beside 179 good vendor rows.
+    # That read as `parse: shoptet-addons.jsonl: zero bytes`, i.e. the feed
+    # reported BROKEN on the day it worked exactly as designed. The same shape
+    # exists on `hlidac-<query>-p<N>.json` the moment a query has fewer pages
+    # than the fetcher asks for.
+    #
+    # NOTHING IS LOST BY THIS. "The feed produced no bytes at all" is already
+    # checked one level up and at the right granularity — evaluate_contract
+    # step 1 fails on `nbytes == 0` summed across the feed's files, with the
+    # `zero` yield anomaly. This check was a second, per-file copy of that rule
+    # applied where the rule does not hold.
     if not raw.strip():
-        return [], False, "zero bytes"
+        return [], True, None
 
     try:
         if parse_kind == "json":
@@ -486,6 +546,249 @@ def flat(v):
     return v
 
 
+# ==========================================================================
+# THE COUNTERPARTY — who actually WINS the contract
+# ==========================================================================
+#
+# Every tender feed we fetch names two sides, and until now we kept one. The
+# buyer reaches `title` (house convention: "Buyer — what it is") and the
+# SUPPLIER was dropped on the floor in three separate places:
+#   · Hlídač returns `prijemce[]` with ico; extract_hlidac read `platce` only.
+#   · TED exposes `winner-name` / `winner-identifier`; fetch_ted.sh never asked.
+#   · data.smlouvy.gov.cz carries <smluvniStrana><ico>; we did not fetch it.
+# MEASURED consequence, 2026-08-21: entity_ico populated on 55 of 9,324 signals
+# (0.6%), and 0 of 3,200 TED records. The joined database was never built.
+#
+# WHY `notes` AND NOT A NEW FIELD. `SignalSchema` (web/lib/data.ts) is a
+# z.strictObject and CONVENTIONS.md makes any new optional field a same-change
+# schema edit — in a file this program does not own. `notes` is already
+# allowlisted, already optional, already free text ("absence checks, transfer
+# logic"), and NO mechanical extractor writes it today, so there is nothing to
+# collide with. The line below is therefore additive with ZERO schema risk, and
+# it is deliberately a stable one-line grammar rather than prose, because
+# db.py's `parse_parties` has to read it back deterministically. A model pass
+# that later appends to `notes` cannot break it: the parser matches per line.
+#
+# THE HAND-OFF this leaves open is stated in the report — when a first-class
+# `parties` field is added to SignalSchema and LEDGER_ALLOWLIST, db.py already
+# prefers it (see parse_parties) and this line becomes redundant, not wrong.
+
+PARTIES_PREFIX = "parties: "
+
+# Legal-form and institution markers. A name matching one of these is a LEGAL
+# PERSON and may be published; anything else is treated as a possible
+# fyzická osoba (sole trader) and its NAME IS SUPPRESSED — the IČO still lands,
+# because the IČO is what the entity graph joins on and the name is display
+# sugar recoverable from ARES at read time.
+#
+# MEASURED 2026-08-19 over one full data.smlouvy.gov.cz daily dump (4,169
+# counterparty names): 21.3% carry no legal-form marker, and the residue is
+# exactly what you fear — "Jana Vítková", "Karel Dreveňák", "Ing. Tomáš Koutný",
+# "Josef Janeček". Those are natural persons' names, and our ledgers are public,
+# append-only and on GitHub. Hlídač's own `identifikace: "PO"` flag CANNOT be
+# used instead: it was null on 19 of 27 recipients in the probe payload, so
+# trusting it would suppress most legal persons and, worse, read as authority.
+#
+# The list errs toward SUPPRESSION on purpose. A missed legal person loses a
+# display name (recoverable); a missed natural person publishes someone's name
+# forever (not recoverable). That asymmetry is the whole design.
+# 1. Legal-form abbreviations. Boundary-anchored, because `as` and `se` are
+#    ordinary Czech words and an unanchored match would pass almost anything.
+LEGAL_FORM_RE = re.compile(
+    r"(?:^|[\s,.(\"])(?:"
+    r"s\.?\s?r\.?\s?o|a\.?\s?s|spol|v\.?\s?o\.?\s?s|k\.?\s?s|s\.?\s?p"
+    r"|o\.?\s?p\.?\s?s|z\.?\s?s|z\.?\s?ú|v\.?\s?v\.?\s?i|o\.?\s?s"
+    r"|gmbh|a\.?\s?g|s\.?\s?e|s\.?\s?a|n\.?\s?v|b\.?\s?v|oy|ab|as"
+    r"|sp\.?\s?z\.?\s?o\.?\s?o|kft|srl|sarl|s\.?\s?p\.?\s?a|oü|d\.?\s?o\.?\s?o"
+    r"|plc|ltd|llc|l\.?\s?p|inc|corp|limited|holding|group|company|co"
+    r")(?:$|[\s,.)\"])", re.I)
+
+# 2. Institution STEMS, matched as substrings. Czech inflects, so `vysoká` does
+#    not match "VYSOKÉ UČENÍ TECHNICKÉ" and `příspěvková organizace` has to be
+#    caught by its stem. These are matched WITHOUT a trailing boundary for
+#    exactly that reason. MEASURED against one daily dump: without this list
+#    1,002 of 4,026 contracts lost a party name, and the losses were public
+#    bodies — "Městská část Praha 8", "Dopravní podnik hl. m. Prahy",
+#    "Krajská správa a údržba silnic ... příspěvková organizace",
+#    "Policejní prezidium České republiky".
+INSTITUTION_RE = re.compile(
+    r"(?:příspěvkov|akciová\s+spole|obecně\s+prospěš|veřejná\s+výzkumn"
+    r"|městská\s+část|statutární|magistrát|ministerstv|prezidi|ředitelstv"
+    r"|úřad|správa|inspek|komise|agentur|podnik|služby|závod|dráhy|dopravní"
+    r"|univerzit|fakult|vysok[áéý]|škol|gymnázi|učiliště|akademi|ústav"
+    r"|institut|knihovn|muzeum|divadl|galeri|filharmoni|observatoř"
+    r"|nemocnic|poliklinik|zdravotn|lékárn|hospic|ozdravovn|léčebn"
+    r"|domov|dětský\s+dom|jesle|mateřsk|základní\s+škol|středisk|centrum"
+    r"|družstv|nadac|nadační|spolek|sdružen|svaz|unie|asociac|komora|klub"
+    r"|farnost|církev|diecéz|arcibiskup|biskupstv|kongregac|klášter|obec\b"
+    r"|město\b|městys|kraj\b|krajsk|obecní|lesy|povodí|vodovod|kanaliz"
+    r"|teplárn|elektrárn|energetik|plynárn|technick[áéý]\s+služ"
+    r"|banka|bankovní|pojišťovn|fond\b|burza|spořiteln|záložn"
+    r"|česk[áéýo]|národní|státní|republik|zoolog|botanick|arboret"
+    r"|sportovní|tělovýchovn|tělocvičn|sokol|hasič|charita|diakoni"
+    r"|zahraničn|spolupráce|rozvoj|výzkum|laboratoř|hvězdárn"
+    r")", re.I)
+
+_PARTY_STRIP_RE = re.compile(r"[;\[\]|\r\n]+")
+
+
+def party_name_public(name):
+    """The name if it is provably a legal person, else None (IČO-only).
+
+    THE ASYMMETRY IS THE DESIGN. A missed legal person loses a display name,
+    which `scripts/fetch_ares.sh` can resolve from the IČO at read time. A
+    missed NATURAL person publishes someone's name into a public, append-only,
+    on-GitHub ledger where there is no quiet cleanup. So this is an ALLOWLIST
+    (CONVENTIONS.md: "ALLOWLIST, NEVER DENYLIST"), and the residue it suppresses
+    is accepted cost rather than a bug to tune away.
+
+    Not a denylist of person-shapes, which was the tempting alternative: a Czech
+    sole trader is `Jana Vítková` or `Ing. Tomáš Koutný` and a two-plain-words
+    pattern catches most of them — but it FAILS OPEN on the first name shaped
+    unusually, and failing open here is the one outcome that cannot be undone.
+    """
+    n = collapse(_PARTY_STRIP_RE.sub(" ", str(name or "")))
+    if not n:
+        return None
+    if LEGAL_FORM_RE.search(n) or INSTITUTION_RE.search(n):
+        return n
+    return None
+
+
+def party_line(parties):
+    """One `notes` line for a contract's parties, or "" when there is nothing.
+
+    Grammar (stable, parsed by db.py parse_parties):
+        parties: buyer=NAME [ICO]; supplier=NAME [ICO]; supplier=NAME [ICO]
+    A party with a suppressed name renders `role=[ICO]`; a party with no IČO
+    renders `role=NAME`. A party with neither is not a party and is skipped.
+    """
+    out = []
+    for role, name, ico in parties:
+        pub = party_name_public(name)
+        ico = collapse(str(ico or ""))
+        ico = ico if re.fullmatch(r"\d{8}", ico) else ""
+        if not pub and not ico:
+            continue
+        if pub and ico:
+            out.append(f"{role}={pub} [{ico}]")
+        elif ico:
+            out.append(f"{role}=[{ico}]")
+        else:
+            out.append(f"{role}={pub}")
+    return (PARTIES_PREFIX + "; ".join(out)) if out else ""
+
+
+def hlidac_parties(item):
+    """(role, name, ico) tuples from a Hlídač / registr-smluv shaped item.
+
+    `platce` is the PAYER and `prijemce[]` the RECIPIENTS — money-flow roles,
+    not procurement roles, and they are NOT always buyer/supplier. Measured in
+    the probe payload: `KMM net, s.r.o. -> Domov seniorů Vratislavice` pays a
+    public body. So the roles are recorded as `payer` / `recipient` and the
+    interpretation is left to the reader, rather than asserting a "supplier"
+    the payload does not actually claim.
+    """
+    out = []
+    p = item.get("platce")
+    if isinstance(p, dict):
+        out.append(("payer", p.get("nazev"), p.get("ico")))
+    r = item.get("prijemce")
+    if isinstance(r, dict):
+        r = [r]
+    for one in (r or []):
+        if isinstance(one, dict):
+            out.append(("recipient", one.get("nazev"), one.get("ico")))
+    return out
+
+
+def ted_list(v):
+    """TED multi-valued field as a flat list. `{lang: [..]}` maps take the
+    Czech/English branch; scalars become one-element lists."""
+    if isinstance(v, dict):
+        for k in ("ces", "eng", "en", "cs"):
+            if k in v:
+                return ted_list(v[k])
+        vals = list(v.values())
+        return ted_list(vals[0]) if vals else []
+    if isinstance(v, (list, tuple)):
+        return list(v)
+    return [] if v in (None, "") else [v]
+
+
+def ted_parties(item):
+    """(role, name, ico) tuples from one TED notice.
+
+    THE FIELD NAMES ARE MEASURED, NOT GUESSED — and the obvious pair is the
+    wrong one. Probed 2026-08-21 against 300 CZ `form-type: result` notices:
+
+      organisation-name-tenderer / organisation-identifier-tenderer
+          name↔id array lengths ALIGNED on 300 of 300 (100%)
+      winner-name / winner-identifier
+          name↔id array lengths MISMATCHED on 51 of 300 (17%) — winner-name
+          repeats a name once per lot, winner-identifier does not, so zipping
+          them pairs company A's name to company B's IČO. SILENTLY.
+      organisation-name-buyer / organisation-identifier-buyer
+          present on 300 of 300; every id an 8-digit checksum-valid IČO.
+
+    So the tenderer pair carries the pairing and `winner-*` is the fallback for
+    a notice that has one but not the other. `winner-identifier` and
+    `organisation-identifier-tenderer` held identical arrays on 299 of 300, so
+    this loses no coverage — it only refuses to guess the alignment.
+
+    Non-Czech ids arrive here too (`DE124727617`, `BE0826207990` are VAT
+    numbers, 7 of 642 winner ids). They are passed through as-is; db.py's IČO
+    checksum is what decides whether one becomes an entity key.
+    """
+    out = []
+    bn = ted_list(item.get("organisation-name-buyer")) or \
+        ted_list(item.get("buyer-name"))
+    bi = ted_list(item.get("organisation-identifier-buyer"))
+    if bi and len(bn) == len(bi):
+        out += [("buyer", n, i) for n, i in zip(bn, bi)]
+    elif bi:
+        # Lengths disagree (2 of 300 sampled notices, where a notice lists
+        # several buying organisations but one name). Same rule as suppliers:
+        # keep the IDENTIFIERS and drop the names rather than pair them by
+        # position. An unpaired IČO is a usable entity key; a mispaired name is
+        # a lie, and it is the kind of lie nothing downstream can detect.
+        out += [("buyer", None, i) for i in bi]
+    else:
+        out += [("buyer", n, None) for n in bn[:1]]
+
+    sn = ted_list(item.get("organisation-name-tenderer"))
+    si = ted_list(item.get("organisation-identifier-tenderer"))
+    if not (sn and si and len(sn) == len(si)):
+        sn2, si2 = ted_list(item.get("winner-name")), ted_list(item.get("winner-identifier"))
+        if len(sn2) == len(si2):
+            sn, si = sn2, si2
+        else:
+            # Lengths disagree: keep the IDENTIFIERS, drop the names. An
+            # unpaired IČO is a usable entity key; a mispaired name is a lie.
+            sn, si = [], (si or si2)
+    if len(sn) == len(si):
+        pairs = list(zip(sn, si))
+    else:
+        pairs = [(None, i) for i in si]
+    for n, i in pairs:
+        out.append(("supplier", n, i))
+
+    # De-duplicate WITHIN a role, not across roles. TED repeats an organisation
+    # once per lot, so one three-lot award to one company arrives three times;
+    # and an organisation legitimately appears as BOTH buyer and supplier on the
+    # same notice (measured on 1762-2025, where Dopravní podnik hl. m. Prahy is
+    # a listed buying organisation AND the winner). Collapsing across roles
+    # would delete exactly that fact, which is the interesting one.
+    seen, uniq = set(), []
+    for role, n, i in out:
+        k = (role, collapse(str(n or "")), str(i or ""))
+        if k in seen:
+            continue
+        seen.add(k)
+        uniq.append((role, n, i))
+    return uniq
+
+
 def extract_ted(item, payload_key, today):
     pub = flat(get_first(item, "publication-number", "publicationNumber"))
     if not pub:
@@ -523,6 +826,11 @@ def extract_ted(item, payload_key, today):
         "urgency_date": iso_date(deadline),
         "quote_parts": [p for p in (title, (f"{val} {cur}" if val is not None else "")) if p],
         "excerpt": collapse(f"{title} — {buyer}"),
+        # The counterparty. Empty string on a notice with no award (a
+        # `competition`/`planning` form has no winner yet) and apply_allowlist
+        # drops an empty optional receipt, so nothing is written that says
+        # nothing. 55% of the committed CZ payload is `form-type: result`.
+        "notes": party_line(ted_parties(item)),
     }
 
 
@@ -585,7 +893,48 @@ def extract_hlidac(item, payload_key, today):
         "urgency_date": None,
         "quote_parts": [p for p in (predmet, str(cena) if cena is not None else "") if p],
         "excerpt": predmet,
+        # THE COUNTERPARTY, which this extractor used to discard. `platce` was
+        # read for its `nazev` alone and `prijemce[]` — the party that WINS the
+        # contract, with its IČO — was never touched. Measured on an
+        # authenticated probe payload (25 contracts): 25 of 25 carry a
+        # checksum-valid IČO on BOTH sides.
+        "notes": party_line(hlidac_parties(item)),
     }
+
+
+def extract_smlouvy(item, payload_key, today):
+    """The official registr smluv dump. Reuses extract_hlidac's field reading —
+    fetch_smlouvy.sh emits the Hlídač item shape on purpose — and overrides only
+    the two things that are genuinely different: the id namespace and the
+    provenance.
+
+    WHY NOT JUST REUSE `hlidac-` IDS. It is tempting, and it would be free
+    deduplication: both feeds read the SAME register and both ids would embed
+    the same registr-smluv `idVerze`, so one contract fetched twice would
+    collapse in `seen.txt` by itself. It is still wrong twice over.
+      · `source` is defined by CONVENTIONS.md as FETCH PROVENANCE. A record
+        pulled from data.smlouvy.gov.cz that says `hlidac` is a false receipt,
+        and receipts are the point.
+      · db.py's `attribute_prefixes` resolves a prefix claimed by TWO capable
+        registry rows to UNATTRIBUTED — deliberately, so nothing is credited to
+        whichever row sorts first. Sharing the `hlidac-` prefix would therefore
+        make BOTH feeds' records unattributable on /sources.
+
+    THE COST IS REAL AND IS NOT PAPERED OVER: a contract that both feeds see
+    lands twice, under two ids, and the ledgers are append-only. The two ids
+    embed the same `idVerze` and both records carry the same
+    `smlouvy.gov.cz/smlouva/<idVerze>` url, so the overlap is one query away —
+    but nothing here prevents it. Running both fetchers against overlapping
+    windows is an operational choice for the registry owner, not a decision this
+    extractor can make.
+    """
+    rec = extract_hlidac(item, payload_key, today)
+    if not rec:
+        return None
+    nid = rec["id"].split("-", 1)[1]
+    rec["id"] = f"smlouvy-{nid}"
+    rec["source"] = "smlouvy"
+    return rec
 
 
 def extract_yc(item, payload_key, today):
@@ -695,12 +1044,142 @@ def extract_feed(item, payload_key, today):
     }
 
 
+def extract_ec_hys(item, payload_key, today):
+    """EC Have Your Say — one Commission initiative open for feedback.
+
+    `feedback_end` becomes `urgency_date`: a consultation deadline is a real
+    date the world imposes on us, which is exactly what score_urgency() is for.
+    """
+    iid = str(item.get("initiative_id") or "").strip()
+    title = collapse(item.get("title") or "")
+    link = (item.get("link") or "").strip()
+    if not iid or not title or not link:
+        return None
+    summary = collapse(item.get("summary") or "")
+    cs = collapse(item.get("title_cs") or "")
+    end = (item.get("feedback_end") or "")[:10].replace("/", "-")
+    return {
+        "id": f"echys-{slugify(iid)}",
+        # `reg-scan`, NOT a new `ec-hys` source. CONVENTIONS defines `source` as
+        # fetch provenance at the granularity the corpus already uses, and the
+        # 34 committed `consult-*` records are the SAME Commission initiatives
+        # harvested by hand under `reg-scan`. Minting a fourth name for one
+        # source would split the provenance and force a SignalSchema edit for
+        # no gain.
+        "source": "reg-scan",
+        "evidence_type": "regulation",
+        "url": link,
+        "date": (item.get("feedback_start") or "")[:10].replace("/", "-") or today.isoformat(),
+        "title_native": cs or title,
+        "entity_native": "European Commission",
+        "sector": None,
+        "money_eur": None,
+        "money_note": "",
+        "urgency_date": end or None,
+        "quote_parts": [p for p in (title, summary[:280]) if p],
+        "excerpt": collapse(f"{title} {summary}")[:400],
+    }
+
+
+def extract_nku(item, payload_key, today):
+    """NKÚ Věstník / press release — one documented state-audit item."""
+    nid = str(item.get("nku_id") or "").strip()
+    title = collapse(item.get("title") or "")
+    link = (item.get("link") or "").strip()
+    if not nid or not title or not link:
+        return None
+    return {
+        "id": f"nku-{slugify(nid)}",
+        "source": "demand-scan",
+        "evidence_type": "demand",
+        "url": link,
+        "date": (item.get("date") or "") or today.isoformat(),
+        "title_native": title,
+        "entity_native": "Nejvyšší kontrolní úřad",
+        "sector": None,
+        "money_eur": None,
+        "money_note": "",
+        "urgency_date": None,
+        "quote_parts": [title],
+        "excerpt": collapse(
+            f"{title} [{item.get('doc_type','')}"
+            f"{' ' + item['audit_no'] if item.get('audit_no') else ''}]")[:400],
+    }
+
+
+def extract_vestbee(item, payload_key, today):
+    """Vestbee — one CEE funding round (or a flagged roundup awaiting a split).
+
+    The id is minted by the FETCHER (`signal_id`), because the collision rule
+    needs to see the whole per-round family at once — see fetch_vestbee.sh.
+    Money is carried only when the published figure is already in EUR; a USD or
+    GBP figure keeps its note and leaves money_eur null rather than inventing
+    an FX rate for a date nobody recorded.
+    """
+    sid = (item.get("signal_id") or "").strip()
+    link = (item.get("link") or "").strip()
+    title = collapse(item.get("title") or item.get("slug") or "")
+    if not sid or not link or not title:
+        return None
+    cur = (item.get("amount_currency") or "").upper()
+    val = item.get("amount_value")
+    summary = collapse(item.get("summary") or "")
+    return {
+        "id": slugify(sid),
+        "source": "round",
+        "evidence_type": "funded",
+        "url": link,
+        "date": (item.get("date") or "")[:10] or today.isoformat(),
+        "title_native": title,
+        "entity_native": "",
+        "sector": None,
+        "money_eur": int(val) if (val and cur == "EUR") else None,
+        "money_note": (item.get("amount_note") or ""),
+        "urgency_date": None,
+        "quote_parts": [p for p in (title, summary[:280]) if p],
+        "excerpt": collapse(f"{title} {summary}")[:400],
+    }
+
+
 EXTRACTORS = {
-    "ted": extract_ted, "hlidac": extract_hlidac, "nen": extract_hlidac,
+    # `smlouvy` delegates to extract_hlidac for every field because
+    # fetch_smlouvy.sh emits the Hlídač ITEM SHAPE from the official XML dump
+    # (identifikator / odkaz / predmet / datumUzavreni / hodnotaVcetneDph /
+    # platce / prijemce[]). The XML->item mapping lives in the fetcher, where
+    # the XML is; only id and provenance differ, and extract_smlouvy overrides
+    # exactly those two rather than forking a near-identical extractor that
+    # would drift.
+    "ted": extract_ted, "hlidac": extract_hlidac,
+    "smlouvy": extract_smlouvy,
     "yc-oss": extract_yc, "suggest": extract_suggest,
     "reddit-new": extract_reddit, "reddit-search": extract_reddit,
-    "cc-cz": extract_feed, "vestbee": extract_feed,
+    "cc-cz": extract_feed,
+    # `nen` NO LONGER DELEGATES TO extract_hlidac. It used to, and that was a
+    # live attribution defect rather than a shortcut: extract_hlidac stamps
+    # `hlidac-<id>` and `source: "hlidac"`, so every NEN record the feed
+    # produced would have been filed under the WRONG feed's prefix — invisible,
+    # because a hlidac- id is a perfectly valid id and AC-F3 would pass. The
+    # `nen` row is PARKED (see its blocker), so this mapping is not live today;
+    # it is corrected now so that un-parking cannot re-open the defect.
+    "nen": nen_extract.extract_nen,
+    # `vestbee` NO LONGER DELEGATES TO extract_feed either. The dead RSS is
+    # gone; scripts/fetch_vestbee.sh reads the sitemap and emits a per-round
+    # jsonl item (signal_id / link / lastmod), which extract_feed cannot read —
+    # it looks for `title` + `link|guid` and would have returned None for every
+    # item, i.e. ok=1 items_kept=0, the exact silent state below.
+    "vestbee": extract_vestbee,
+    "ec-hys": extract_ec_hys, "nku": extract_nku,
+    "coi": coi_extract.extract_coi, "sukl": sukl_extract.extract_sukl,
+    "mpsv": extract_mpsv,
 }
+
+# Feeds that legitimately keep ZERO records from a healthy payload. `ares`,
+# `shoptet` and `upgates` are `role: enrichment` in data/feeds.json: they resolve
+# lookups, they declare `id_prefixes: []`, and nothing they fetch is ever meant
+# to reach data/signals/**. This set is DERIVED FROM THE REGISTRY at run time
+# (see extractor_missing() below), never hand-maintained here — a hardcoded list
+# would drift from feeds.json the first time a role changed, and the drift would
+# fail silent in exactly the direction this whole guard exists to prevent.
 
 # --------------------------------------------------------------------------
 # WHAT A RECORD OWES BEFORE IT MAY REACH A LEDGER — ONE DEFINITION, TWO USERS.
@@ -764,6 +1243,20 @@ def model_debt(feed_key, rec):
 # --------------------------------------------------------------------------
 # contract evaluation
 # --------------------------------------------------------------------------
+
+def produces_signals(feed):
+    """True when this registry row is supposed to write records to a ledger.
+
+    Both halves are load-bearing and are checked together on purpose.
+    `role: enrichment` is db.py's own `_capable` test (db.py:1913) and is what
+    exempts `ares` / `shoptet` / `upgates`; `signal_source` is the field
+    CONVENTIONS makes null for exactly those rows. Requiring both means a row
+    that is half-converted — role flipped but signal_source left set, or the
+    reverse — still counts as a signal feed and still trips the guard, rather
+    than silently buying an exemption from a one-word edit.
+    """
+    return feed.get("role") != "enrichment" and feed.get("signal_source") is not None
+
 
 def evaluate_contract(feed, items, parse_ok, parse_err, nbytes, receipt):
     """
@@ -879,6 +1372,256 @@ def load_seen(path):
         return {l.strip() for l in fh if l.strip()}
 
 
+# ==========================================================================
+# THE SECOND DEDUP AXIS — same resource, different id
+# ==========================================================================
+#
+# `seen.txt` is ID-KEYED and that is the only dedup this program had. It cannot
+# see the case it was most likely to meet: the SAME resource harvested twice
+# under two different id conventions. MEASURED 2026-08-21 against the committed
+# corpus and one staged run of the four newly-wired feeds:
+#
+#   · 20 `echys-<initiative-id>` records point at the identical
+#     ec.europa.eu/.../initiatives/<n> URL as an existing `consult-<slug>`
+#     record from the attended harvest. Same page, two ids.
+#   · 30 `nku-k<code>` records are the SAME NKÚ audit conclusion as an existing
+#     `nku-<topic-slug>` record — and THEIR URLS DO NOT MATCH AT ALL. The hand
+#     harvest linked the PDF (`/assets/kon-zavery/k25011.pdf`); the fetcher
+#     links the Věstník landing page. A url-keyed pass alone catches 0 of 30.
+#
+# So the axis is not "url". It is ANY key that identifies the resource, and
+# `url` is only the most common one.
+#
+# ── WHY THIS IS NOT JUST `if url in ledger: skip` ─────────────────────────────
+# BECAUSE URL EQUALITY IS NOT IDENTITY, AND THE COUNTEREXAMPLE IS ALREADY IN
+# THE LEDGER. MEASURED over data/signals/**: 67 URLs are carried by MORE THAN
+# ONE record, covering 571 records — 6.1% of the corpus. One Vestbee roundup
+# article is the cited URL for 32 DISTINCT funding rounds; one EIC press release
+# is the URL for 25. A naive url-keyed merge would collapse those 571 records
+# into 67 and destroy 504 legitimately distinct ones.
+#
+# It is not a legacy quirk either — three of the feeds landing in this same
+# change are built that way BY DESIGN. `coi`, `sukl` and `mpsv` emit AGGREGATES
+# (act x half-year, ATC group x month, theme x month) and every aggregate in a
+# family carries the same constant dataset URL: coi_extract.py:394 and
+# sukl_extract.py:275 are literal string constants. Url-keyed dedup without the
+# gate below would keep 1 of 32 ČOI aggregates and 1 of 15 SÚKL aggregates,
+# every run, for ever, and the manifest would read green.
+#
+# ── THE GATE: A KEY EARNS IDENTITY BY BEING UNIQUE, AND IS MEASURED, NOT TRUSTED
+# A key value is IDENTIFYING only where it maps to exactly one record. If it
+# maps to two or more — on either side, ledger or batch — it is by construction
+# a listing page, a dataset landing page or a roundup, and it is EXEMPT. The
+# same applies within one record: a page yielding two conclusion codes is an
+# index of two audits, not either of them, so it contributes no key.
+#
+# ── WHY EXEMPT RATHER THAN MERGE, WHEN IT IS GENUINELY UNDECIDABLE ────────────
+# Two batch records sharing a key and the ledger holding none is the one case
+# the data cannot settle. It resolves to EXEMPT because the errors are not
+# symmetric IN PRACTICE: a wrong skip leaves a record out of a run that can be
+# re-ingested, while a wrong merge deletes a distinct record from a corpus that
+# never fetches that window again. And the exemption is LOGGED, so it is a
+# decision a human can overturn rather than a silence nobody can see.
+#
+# ── NOTHING IS EVER DROPPED QUIETLY ──────────────────────────────────────────
+# Every skip prints BOTH ids and the URL, and every exemption prints its reason.
+# A silent drop and a silent duplicate are equally invisible, and this file's
+# whole subject is the difference between "produced nothing" and "said nothing".
+
+_KCODE_RE = re.compile(r"\bk(\d{5})\b", re.I)
+
+# Feeds whose records are AGGREGATES OVER A PERIOD, for which the url is the
+# dataset and never the record. The `url` key is not computed for these at all.
+#
+# THE MULTIPLICITY GATE ALONE IS NOT ENOUGH HERE, and the gap is narrow enough
+# to be worth stating. It exempts a key once TWO records carry it — so a month
+# in which one of these feeds emits exactly ONE aggregate produces a unique url,
+# which then looks like an identity and merges against next period's aggregate.
+# MEASURED on the proof run: `coi` emitted exactly 1 item and `sukl` exactly 1.
+# `mpsv` is worse than a narrow window: its employer aggregates carry
+# `ares.gov.cz/ekonomicke-subjekty?ico=<ico>` (mpsv_reduce.py:589), which
+# identifies a COMPANY, so the same employer hiring again in September would be
+# merged into its July record and silently lost.
+#
+# DECLARED RATHER THAN DERIVED, because it is not derivable: the grain lives in
+# the extractor's choice of id, and the url is a constant string three files
+# away (coi_extract.py:394, sukl_extract.py:275, mpsv_reduce.py:547). A feed
+# joins this list when its id encodes a period — which is the same rule
+# CONVENTIONS.md already states for `hiring`.
+#
+# KEYED ON THE ID PREFIX, not the feed key or `source`, so ONE test works on
+# both shapes this function sees. A staged record carries `_feed_key`; a ledger
+# record does not, and the 4 committed `sukl-` and 3 committed `coi-` rows say
+# `source: demand-scan` because a human harvested them. The prefix is the one
+# field CONVENTIONS.md binds to the feed on every record, whoever wrote it.
+AGGREGATE_PREFIXES = frozenset({"coi", "sukl", "mpsv"})
+
+
+def _norm_url(u):
+    """A URL reduced to the resource it names, for EQUALITY ONLY.
+
+    Scheme and a leading `www.` are dropped and a trailing slash is stripped,
+    because the attended harvests and the fetchers disagree on all three for the
+    same page (`www.nku.cz` vs `nku.cz` is in the committed corpus today). The
+    QUERY IS KEPT: `?q=katalog/...` and `?partnerId=104` are the resource on
+    two of these hosts, and folding it would merge a whole marketplace into one
+    row. The fragment is dropped — it addresses a position within a resource,
+    never a different one.
+    """
+    s = str(u or "").strip()
+    if not s:
+        return ""
+    s = s.split("#", 1)[0]
+    s = re.sub(r"^[a-z][a-z0-9+.-]*://", "", s, flags=re.I)
+    host, _, rest = s.partition("/")
+    host = host.lower()
+    if host.startswith("www."):
+        host = host[4:]
+    path, q, query = rest.partition("?")
+    path = re.sub(r"/+$", "", path)
+    return host + "/" + path + (("?" + query) if q else "")
+
+
+def record_keys(rec):
+    """Identity keys for one record, as `kind:value` strings.
+
+    Reads BOTH field vocabularies on purpose — staged records carry
+    `title_native`, ledger records carry `title` — so the same function indexes
+    the ledger and screens a batch, and the two can never drift apart.
+    """
+    keys = set()
+    prefix = str(rec.get("id") or "").split("-", 1)[0]
+
+    # An aggregate's url is its dataset, not itself. No url key at all — see
+    # AGGREGATE_PREFIXES. This is a REFUSAL TO FORM A KEY, deliberately, rather
+    # than forming one and exempting it later: an exemption is decided by how
+    # many records happen to share the value THIS run, and the whole point here
+    # is that one aggregate in a quiet period would look unique.
+    u = "" if prefix in AGGREGATE_PREFIXES else _norm_url(rec.get("url"))
+    if u:
+        keys.add("url:" + u)
+
+    # `nku-kzaver` — the NKÚ conclusion code, the identity the two nku harvests
+    # actually share. Read from the URL and the TITLE only, never the excerpt or
+    # summary: a press release that mentions a neighbouring audit in its body
+    # would otherwise claim that audit's identity. EXACTLY ONE code required —
+    # a Věstník issue page listing several conclusions is an index of them, not
+    # any one of them, and contributes no key at all. Measured over the corpus:
+    # 0 of 52 staged nku records carry two codes, and 0 of the 30 ledger codes
+    # is claimed twice, so this rule is unambiguous on today's data — which is
+    # why the ambiguity gate re-checks it every run instead of assuming it.
+    if prefix == "nku":
+        text = f"{rec.get('url') or ''} {rec.get('title_native') or rec.get('title') or ''}"
+        codes = {m.lower() for m in _KCODE_RE.findall(text)}
+        if len(codes) == 1:
+            keys.add("nku-kzaver:" + codes.pop())
+    return keys
+
+
+def build_key_index(signals_dir):
+    """`kind:value` -> [ledger ids carrying it], over the committed ledgers.
+
+    DERIVED FROM THE LEDGER ON EVERY RUN, never persisted. A `seen_urls.txt`
+    beside `seen.txt` would be a second source of truth that can drift from the
+    corpus it claims to describe, and a dedup index that is quietly wrong is
+    worse than none: it drops real records and says nothing. The ledger is the
+    canonical corpus (SPEC §3), so it is what gets read — 9,324 lines, ~0.4 s.
+    """
+    idx = {}
+    if not os.path.isdir(signals_dir):
+        return idx
+    for typ in sorted(os.listdir(signals_dir)):
+        d = os.path.join(signals_dir, typ)
+        if not os.path.isdir(d):
+            continue
+        for fn in sorted(os.listdir(d)):
+            if not fn.endswith(".jsonl"):
+                continue
+            try:
+                with open(os.path.join(d, fn), "r", encoding="utf-8") as fh:
+                    for line in fh:
+                        if not line.strip():
+                            continue
+                        r = json.loads(line)
+                        for k in record_keys(r):
+                            idx.setdefault(k, []).append(r.get("id"))
+            except (OSError, json.JSONDecodeError) as e:
+                log(f"normalize: dedup index could not read {typ}/{fn} ({e}) — "
+                    f"NOT skipping the pass on a partial index would silently "
+                    f"under-dedup, so this is reported and the run continues with "
+                    f"what was readable.")
+    return idx
+
+
+def screen_duplicates(records, ledger_idx, id_of=lambda r: r.get("id"),
+                      feed_of=lambda r: r.get("_feed_key") or ""):
+    """Split `records` into (kept, skipped, exempt) on the identity keys above.
+
+    Returns
+      kept    — records whose keys are new, in input order
+      skipped — [(new_id, existing_id, key, feed)] — every one of these is
+                printed by the caller with BOTH ids and the URL
+      exempt  — [(key, reason, n)] — keys that were NOT used for dedup, and why
+    """
+    batch_counts = {}
+    for r in records:
+        for k in record_keys(r):
+            batch_counts[k] = batch_counts.get(k, 0) + 1
+
+    exempt, seen_exempt = [], set()
+    def _exempt(k, reason, n):
+        if k not in seen_exempt:
+            seen_exempt.add(k)
+            exempt.append((k, reason, n))
+
+    kept, skipped, taken = [], [], {}
+    for r in records:
+        hit = None
+        for k in sorted(record_keys(r)):
+            led = ledger_idx.get(k) or []
+            if len(led) > 1:
+                _exempt(k, "carried by %d ledger records — a listing or dataset "
+                           "page, not an identity" % len(led), len(led))
+                continue
+            if batch_counts.get(k, 0) > 1:
+                _exempt(k, "carried by %d records in THIS batch — undecidable, so "
+                           "no merge" % batch_counts[k], batch_counts[k])
+                continue
+            if led:
+                hit = (led[0], k)
+                break
+            if k in taken:
+                hit = (taken[k], k)
+                break
+        if hit:
+            skipped.append((id_of(r), hit[0], hit[1], feed_of(r)))
+            continue
+        for k in record_keys(r):
+            taken.setdefault(k, id_of(r))
+        kept.append(r)
+    return kept, skipped, exempt
+
+
+def report_duplicates(records_by_id, skipped, exempt, where):
+    """Print every skip with BOTH ids and the URL, and every exemption."""
+    if exempt:
+        print(f"  dedup exemptions ({where}): {len(exempt)} key(s) NOT used — a key "
+              f"that names more than one record is a listing, not an identity")
+        for k, reason, _n in exempt[:8]:
+            print(f"    · {k[:96]}\n        {reason}")
+        if len(exempt) > 8:
+            print(f"    ... and {len(exempt) - 8} more")
+    if not skipped:
+        print(f"  dedup by identity key ({where}): 0 skipped")
+        return
+    print(f"  dedup by identity key ({where}): {len(skipped)} record(s) already in "
+          f"the ledger under a DIFFERENT id — skipped, never appended:")
+    for new_id, old_id, key, feed in skipped:
+        url = (records_by_id.get(new_id) or {}).get("url") or ""
+        print(f"    · {feed or '-'}: {new_id}  ==  {old_id}   [{key.split(':', 1)[0]}]")
+        print(f"        {url}")
+
+
 def run_mechanical(args):
     raw_dir = os.path.abspath(args.raw)
     if not os.path.isdir(raw_dir):
@@ -944,6 +1687,39 @@ def run_mechanical(args):
             no_receipt.append(feed_key)
         ok, error, anomaly, parse_method = evaluate_contract(
             feed, items_all, parse_ok, parse_err, nbytes, receipt)
+
+        # ══════════════════════════════════════════════════════════════════
+        #  THE SCRIPTED-SILENT TRAP, CLOSED. THIS REPO'S NAMED FAILURE MODE.
+        # ══════════════════════════════════════════════════════════════════
+        # Twelve lines below, the extraction loop opens `if not extractor:
+        # break`. A feed with a live fetcher, a 200, a clean parse and a
+        # passing contract, but NO EXTRACTORS entry, therefore breaks on its
+        # first item and keeps nothing — and the run reports `ok=1
+        # items_kept=0`, which is indistinguishable from a quiet week. TWO
+        # FEEDS SAT IN EXACTLY THAT STATE FOR WEEKS (`nku`, `ec-hys`), and
+        # nothing anywhere said so, because every single check they pass IS
+        # passing: transport, parse, required_fields and yield are all
+        # measured on items FETCHED, never on records KEPT.
+        #
+        # The fix is to make the one thing nobody measured into a contract
+        # failure. `ok=1 items_kept=0` remains a legal state for exactly the
+        # rows that DECLARE it — `role: enrichment`, `signal_source: null`,
+        # `id_prefixes: []` (ares, shoptet, upgates) — and is a first-class
+        # error for every row that claims to produce signals.
+        #
+        # DERIVED FROM THE REGISTRY, never from a list kept here. A hardcoded
+        # exemption list drifts from feeds.json the first time a role changes,
+        # and drifts silent — which is the failure this guard exists to end.
+        if ok and EXTRACTORS.get(feed_key) is None and produces_signals(feed):
+            ok = False
+            anomaly = anomaly or "zero"
+            error = (f"no extractor: scripts/normalize.py EXTRACTORS has no "
+                     f"`{feed_key}` entry, so all {len(items_all)} fetched item(s) "
+                     f"were discarded and this feed can never write a record. The "
+                     f"payload, the transport and the contract are all FINE — this "
+                     f"is the wiring. Add an extractor, or set `role: enrichment` "
+                     f"in data/feeds.json if the feed is genuinely not meant to "
+                     f"produce signals.")
 
         kept = 0
         if ok:
@@ -1108,6 +1884,16 @@ def run_mechanical(args):
             "raw_path": None,
         })
 
+    # ── the SECOND dedup axis, run here as well as at --complete ─────────────
+    # Screening at STAGING is not redundant with screening at append: a record
+    # that will be skipped anyway must not be handed to the model pass first.
+    # That pass is the expensive half (one subagent or one API call per batch),
+    # and asking it to write a sector and a scale for 50 records that are about
+    # to be thrown away is the whole cost of the run spent on nothing.
+    by_id = {r.get("id"): r for r in staged}
+    staged, dup_skipped, dup_exempt = screen_duplicates(staged, build_key_index(
+        os.path.abspath(args.out_dir)))
+
     with open(os.path.join(raw_dir, "contract.json"), "w", encoding="utf-8") as fh:
         json.dump({"run_id": run_id,
                    "raw_dir": os.path.relpath(raw_dir, ROOT),
@@ -1119,11 +1905,12 @@ def run_mechanical(args):
             fh.write(json.dumps(r, ensure_ascii=False) + "\n")
 
     write_manifest(raw_dir, run_id, today, results, staged, unmapped, dupes,
-                   quote_failures, gdpr_refused)
+                   quote_failures, gdpr_refused, dup_skipped, dup_exempt, by_id)
 
     print(f"normalize --mechanical-only  run_id={run_id}")
     print(f"  feeds with payloads : {len(by_feed)}   unmapped files: {len(unmapped)}")
     print(f"  staged records      : {len(staged)}   deduped against seen.txt: {dupes}")
+    report_duplicates(by_id, dup_skipped, dup_exempt, "staging")
     print(f"  quote not verified  : {len(quote_failures)}")
     print(f"  contract failures   : {sum(1 for r in results if not r['ok'])}")
     print(f"  AC-GDPR1 refused    : {len(gdpr_refused)}")
@@ -1140,7 +1927,8 @@ def run_mechanical(args):
 
 
 def write_manifest(raw_dir, run_id, today, results, staged, unmapped, dupes,
-                   quote_failures, gdpr_refused=()):
+                   quote_failures, gdpr_refused=(), dup_skipped=(), dup_exempt=(),
+                   staged_by_id=None):
     L = []
     L.append(f"# Ingest run {run_id}\n")
     L.append(f"Run date: {today.isoformat()}  ·  mode: mechanical-only (no model, no secrets, no network)\n")
@@ -1192,6 +1980,35 @@ def write_manifest(raw_dir, run_id, today, results, staged, unmapped, dupes,
     else:
         L.append(f"No personal data detected. {len(staged)} staged record(s) passed the "
                  f"field allowlist and the email/phone content scan.\n")
+    # ── the identity-key dedup, ON THE COMMITTED RECORD ─────────────────────
+    # This section is the point of the pass. A record that was skipped is a
+    # record that will never appear in a ledger, and the ONLY place that fact
+    # survives is here — so it names both ids and the URL. A silent drop and a
+    # silent duplicate are equally invisible.
+    L.append("\n## Dedup by identity key — same resource, different id\n\n")
+    if dup_skipped:
+        L.append(f"**{len(dup_skipped)} staged record(s) name a resource the ledger "
+                 f"already holds under a DIFFERENT id.** They were removed before "
+                 f"staging, so no model was asked to complete them and nothing was "
+                 f"appended. `seen.txt` is id-keyed and cannot see this case.\n\n")
+        L.append("| staged id | already in the ledger as | key | feed | url |\n|---|---|---|---|---|\n")
+        for new_id, old_id, key, feed in dup_skipped:
+            url = ((staged_by_id or {}).get(new_id) or {}).get("url") or ""
+            L.append(f"| `{new_id}` | `{old_id}` | `{key.split(':', 1)[0]}` | "
+                     f"`{feed or '—'}` | {url} |\n")
+    else:
+        L.append("No staged record matched an existing record on an identity key.\n")
+    if dup_exempt:
+        L.append(f"\n**{len(dup_exempt)} key(s) were EXEMPTED from dedup**, because a key "
+                 f"naming more than one record is a listing page, a dataset landing page "
+                 f"or a roundup — not an identity. Merging on one would delete distinct "
+                 f"records. Measured over the committed corpus: 67 urls are shared by 571 "
+                 f"records (6.1%), one Vestbee roundup being the url of 32 funding rounds.\n\n")
+        L.append("| key | why it was not used |\n|---|---|\n")
+        for k, reason, _n in dup_exempt[:40]:
+            L.append(f"| `{k[:120]}` | {reason} |\n")
+        if len(dup_exempt) > 40:
+            L.append(f"| … and {len(dup_exempt) - 40} more | |\n")
     if unmapped:
         L.append(f"\n## Unmapped payloads\n\nNo registry feed claims these files, so nothing "
                  f"parsed them. They are named here rather than dropped silently:\n\n")
@@ -1299,12 +2116,30 @@ def run_complete(args):
     # raw dir not named for a date falls through to the clock as before.
     run_date = args.today or run_date_from_raw(args.raw) or date.today().isoformat()
 
+    # ── THE LAST GATE BEFORE AN IRREVERSIBLE APPEND ─────────────────────────
+    # Run here as well as at staging, and NOT because staging might have missed
+    # it. A staged.jsonl is completed by a human session that routinely runs
+    # hours or days after the mechanical pass, and the ledger moves in between —
+    # another run may have appended the very record this batch is about to
+    # duplicate. The staging screen is an economy; THIS one is the gate. The
+    # ledgers are append-only: a wrong append has no quiet cleanup.
+    dup_by_id = {r.get("id"): r for r in records}
+    records, dup_skipped, dup_exempt = screen_duplicates(
+        records, build_key_index(signals_dir))
+
     by_file = {}
+    id_dupes = []
     for r in records:
         if not is_material(r["scores"]):
             dropped += 1
             continue
         if r["id"] in seen:
+            # WAS A BARE `continue` — the one drop in this file that told
+            # nobody. An id already in seen.txt is the ordinary re-run case and
+            # is not alarming, but it is still a record that will not appear,
+            # and "did not appear" must never be something the output leaves the
+            # reader to infer from a count that does not add up.
+            id_dupes.append(r["id"])
             continue
         typ = r.get("evidence_type") or "demand"
         out = os.path.join(signals_dir, typ, f"{run_date}.jsonl")
@@ -1349,12 +2184,19 @@ def run_complete(args):
             if len(gdpr_refused) > 10:
                 log(f"  ... and {len(gdpr_refused) - 10} more")
 
+    def report_dedup():
+        report_duplicates(dup_by_id, dup_skipped, dup_exempt, "append")
+        if id_dupes:
+            print(f"  already in seen.txt (id-keyed): {len(id_dupes)} skipped — "
+                  f"{', '.join(id_dupes[:6])}{' …' if len(id_dupes) > 6 else ''}")
+
     if args.dry_run:
         print(f"normalize --complete --dry-run: would append {appended} records "
               f"across {len(by_file)} file(s); {dropped} dropped by materiality; "
               f"{len(incomplete)} incomplete; {len(gdpr_refused)} refused by AC-GDPR1.")
         for f, rs in sorted(by_file.items()):
             print(f"  {os.path.relpath(f, ROOT)}: +{len(rs)}")
+        report_dedup()
         report_gdpr()
         return 1 if gdpr_refused else 0
 
@@ -1371,6 +2213,7 @@ def run_complete(args):
     print(f"  materiality drops: {dropped}   incomplete skipped: {len(incomplete)}")
     for f, rs in sorted(by_file.items()):
         print(f"  {os.path.relpath(f, ROOT)}: +{len(rs)}")
+    report_dedup()
     report_gdpr()
     print("  Next: python3 scripts/db.py upsert <each file above>")
     # A GDPR refusal exits non-zero even though the clean records were written.

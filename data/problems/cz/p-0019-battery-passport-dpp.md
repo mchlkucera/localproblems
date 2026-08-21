@@ -65,5 +65,6 @@ Existing non-solutions: European DPP startups exist; no CZ-localized offering or
 
 Scored strictly at deadline + freshness. Next moves: a gap check on CZ DPP tooling, a demand receipt from AutoSAP (the Czech automotive association), and identifying whether Škoda's own supplier mandates create a de-facto standard a product could implement against.
 
----
-**CORRECTION (2026-08-20, evidence audit):** Removed **Minespider**, which appears nowhere — not in the signal corpus, not in the comps ledger, not in any source note on this record — and the go-to-market claim that European DPP startups "sell enterprise-first", which has no support either. Circulor and Circularise also left the body: they are real comparables, but a `comps:` entry cannot back a body claim, and the "Where it works" ledger already names both with their traction.
+## Revisions
+
+2026-08-20 · evidence audit — Removed Minespider, which appears nowhere: not in the signal corpus, not in the comps ledger, not in any source note on this record. Removed the go-to-market claim that European DPP startups "sell enterprise-first", which has no support either. Circulor and Circularise also left the body — they are real comparables, but a comps entry cannot back a body claim, and the "Where it works" ledger already names both with their traction.

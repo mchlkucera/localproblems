@@ -31,6 +31,38 @@ consumes is produced by the other one.
      frontmatter per CONVENTIONS.md, 3-6 paragraph statement (problem ·
      why-now · who-pays · existing non-solutions · foreign comparables).
      Never create a problem from a single tier-3-grade signal alone.
+
+   RECORDS ARE BORN SHORT. A reader arrives asking two questions — what is
+   the problem, and could I build it — and must be able to answer both
+   without reading an audit trail. Binding shape, full rules in
+   data/CONVENTIONS.md ("Body shape and length"):
+     · SECTION ORDER, exactly: lead paragraph(s) · `Why now:` · `Who pays:` ·
+       `Existing non-solutions:` · `Solved elsewhere:` · `## First moves`
+       (score >= 7 only) · `## Revisions`. The lead-ins are LITERAL — the
+       site keys its rendered sections off them (web/lib/sections.ts), and
+       an orphaned lead-in silently dumps a paragraph into the wrong
+       section. Never invent a seventh section.
+     · LENGTH TARGET: <= 60 words per argument paragraph, <= 300 words of
+       argument prose, <= 80 words per revision entry. First moves is 4-6
+       numbered steps. If a record exceeds this, cut connective tissue and
+       repetition — NEVER a sentence carrying an [Sn] marker.
+     · THE ARGUMENT STATES THE PICTURE AS IT IS NOW. "The 2026-08-13 check
+       found X, the 2026-08-20 re-check overturned it" is revision-list
+       prose, not argument prose. In the body, say what is true and cite it.
+     · ONE REVISION ENTRY PER DATE. A new correction MERGES into that date's
+       existing entry — it never appends a new block. Two entries that say
+       the same thing are folded into one that says it once, and the entry
+       says that it is a merge. Format, oldest first:
+         2026-08-20 · evidence audit — <what changed and why, with [Sn]s>
+       The tag is short, has no em dash, and names the kind of change
+       (evidence audit · gap re-check · de-rank · title sweep · fact check ·
+       money receipted · regulation added). No `**CORRECTION (…):**` blocks,
+       no `---` separators, no backticks and no single-asterisk italics —
+       the body renderer supports only **strong**, links and lists, so any
+       other markdown ships to the reader as literal punctuation.
+     · A REVISION IS NEVER DELETED OR SILENTLY SHRUNK. Merging and
+       compressing are allowed; dropping a fact one of them asserts is not.
+       A silent deletion is the same sin as the invention it corrected.
    - DE-RANK RULE: re-check the gap on every problem you touch; if a local
      player now exists or entered the market -> gap: 0, add a gap-check
      source naming the incumbent, status -> watching.

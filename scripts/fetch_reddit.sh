@@ -1,12 +1,60 @@
 #!/usr/bin/env bash
 # fetch_reddit.sh — Reddit demand search via RSS (CZ subreddits). No auth.
-# Ported from the demand-signals project; REWORKED 2026-08-15: Reddit now 403s
-# all public .json endpoints regardless of UA, but .rss serves fine with a
-# descriptive UA. Rate limit is tight (~1 req then 429) — curl --retry with a
-# 35s delay honors it; keep sleeps generous.
-# Usage: scripts/fetch_reddit.sh [outdir]          <-- outdir is $1 (see §5.3)
+# Ported from the demand-signals project.
+#
+# ══ THE 429, MEASURED 2026-08-21 — AND WHY THE OLD SHAPE COULD NOT WIN ═══════
+#
+# data/feed_health.json said "transport: HTTP 429 — 3 of 4 failed". The doc
+# docs/feeds-status.md said "the `.rss` + descriptive-UA mitigation works; no
+# 429 seen". THE LEDGER WAS RIGHT AND THE DOC WAS WRONG, and the doc was wrong
+# in an instructive way: it probed ONE URL at a time, and one URL at a time is
+# exactly the workload that never trips this limiter.
+#
+# Reddit states its budget in the response, on every reply including the 429:
+#     x-ratelimit-used: 1
+#     x-ratelimit-remaining: 0.0
+#     x-ratelimit-reset: <seconds>
+# MEASURED, four back-to-back .rss GETs with the descriptive UA:
+#     czech/new.rss    -> 200   used=1 remaining=0.0 reset=34
+#     Brno/new.rss     -> 429   used=1 remaining=0.0 reset=34
+#     Prague/new.rss   -> 429   used=1 remaining=0.0 reset=33
+#     czechia/new.rss  -> 429   used=1 remaining=0.0 reset=33
+# The budget for an unauthenticated client on www.reddit.com is ONE REQUEST PER
+# WINDOW, and the window is clock-aligned to the minute (a probe at 11:39:56
+# reported reset=4; one at 11:40:26 reported reset=34 — both point at the next
+# :00 boundary).
+#
+# That single fact explains the whole failure arithmetic. The old script issued
+# 4 subs x (1 firehose + 4 pain queries) = 20 requests with `sleep 10` between
+# them: ~200 s of wall clock, ~4 windows, so ~4 requests could ever succeed.
+# The ledger recorded 1 of 4 firehose + 3 of 16 search = exactly 4 successes.
+# The model predicts the observed failure to the request.
+#
+# `curl --retry 3 --retry-delay 35` could not save it either: 35 s is shorter
+# than a window when the request lands early in one, so the retries burned
+# themselves against the same closed door.
+#
+# NOT A WORKAROUND — MEASURED AND REJECTED: a shared cookie jar changes nothing
+# (req1 200, req2 429, req3 429 with -c/-b), so the bucket is per-IP, not
+# per-session. There is no client-side trick here; the only winning move is to
+# ASK FOR LESS AND OBEY THE STATED RESET.
+#
+# ══ WHAT CHANGED ═════════════════════════════════════════════════════════════
+#
+# 1. FEWER REQUESTS, NOT LONGER SLEEPS. Reddit serves a merged multireddit:
+#    `/r/czech+Brno+Prague+czechia/new.rss?limit=100` is ONE request that
+#    returns 100 entries across all four subs (MEASURED: 76 czech / 16 Prague /
+#    8 Brno). 20 requests collapse to 2. At the registry's 6h cadence these
+#    subs produce far fewer than 100 posts per window, so recall is unharmed.
+# 2. THE SERVER SETS THE PACE. After every reply the script reads
+#    `x-ratelimit-reset` and waits exactly that long (+ a small margin) instead
+#    of guessing a sleep. If Reddit changes its window, this follows without an
+#    edit — which is the least-fragile shape available on an undeclared limit.
+# 3. A 429 IS RETRIED AGAINST THE STATED RESET, not against a fixed delay.
+#
 # Serves TWO registry feed keys: `reddit-new` (new.rss) and `reddit-search`
 # (search.rss) — hence two manifest rows, one per key, not one per HTTP call.
+# Usage: scripts/fetch_reddit.sh [outdir]          <-- outdir is $1 (see §5.3)
 set -uo pipefail   # no -e: one failed fetch must not kill the rest
 export LC_NUMERIC=C   # curl's %{time_total} must use '.' whatever the locale
 
@@ -93,70 +141,161 @@ parse_w() { # "<http_code> <size_download> <time_total>"
   W_MS="$(awk -v s="$W_SECS" 'BEGIN{printf "%d", s*1000}')"
 }
 
-SUBS="czech Brno Prague czechia"
+# ONE merged multireddit instead of one request per sub — see header note 1.
+SUBS_PATH="${REDDIT_SUBS:-czech+Brno+Prague+czechia}"
 QUERIES="nefunguje|problém|byrokracie|proč neexistuje"
+LIMIT="${REDDIT_LIMIT:-100}"
+# `combined` = one OR query for all pain terms (1 request). `per-term` = one
+# request per term (4 requests, ~4 more minutes) — see the recall note at the
+# search block below.
+SEARCH_MODE="${REDDIT_SEARCH_MODE:-combined}"
+MAX_RETRIES="${REDDIT_MAX_RETRIES:-3}"
+RESET_MARGIN="${REDDIT_RESET_MARGIN:-3}"
 
 STARTED="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-NEW_OK=0;  NEW_FAIL=0;  NEW_BYTES=0;  NEW_MS=0;  NEW_CODE=000;  NEW_ERRS=""
-SRCH_OK=0; SRCH_FAIL=0; SRCH_BYTES=0; SRCH_MS=0; SRCH_CODE=000; SRCH_ERRS=""
+NEW_OK=0;  NEW_FAIL=0;  NEW_BYTES=0;  NEW_MS=0;  NEW_CODE=000;  NEW_ITEMS=0; NEW_ERRS=""
+SRCH_OK=0; SRCH_FAIL=0; SRCH_BYTES=0; SRCH_MS=0; SRCH_CODE=000; SRCH_ITEMS=0; SRCH_ERRS=""
+HDR="${TMPDIR:-/tmp}/reddit-hdr.$$"
+cleanup() { [ -f "$HDR" ] && find "$HDR" -type f -delete 2>/dev/null; }
+trap cleanup EXIT
 
-rfetch() { # feed_key outfile url
-  fkey="$1"; fname="$2"; furl="$3"
-  # -f prevents the 403/429 BODY being written to $OUTDIR as a .rss file. The
-  # pre-existing `code = 200` test already stopped this script LYING about the
-  # result, but without -f the garbage payload still landed on disk where
-  # normalize.py would find it. --remove-on-error clears any partial file.
-  # Both checks stay: -f catches >=400, the 200 test catches a 3xx that lands.
-  parse_w "$(curl -fsS -m 60 --retry 3 --retry-delay 35 -A "$UA" \
-                  -o "$OUTDIR/$fname" --remove-on-error \
-                  -w '%{http_code} %{size_download} %{time_total}' "$furl" 2>/dev/null || true)"
-  if [ "$W_CODE" = "200" ]; then
-    echo "OK  $fname (HTTP $W_CODE, $W_BYTES bytes)"
-  else
-    echo "FAILED $fname (HTTP $W_CODE)"
-  fi
-  case "$fkey" in
-    reddit-new)
-      NEW_CODE="$W_CODE"; NEW_MS=$((NEW_MS + W_MS))
-      if [ "$W_CODE" = "200" ]; then
-        NEW_OK=$((NEW_OK+1)); NEW_BYTES=$((NEW_BYTES + W_BYTES))
-      else
-        NEW_FAIL=$((NEW_FAIL+1)); NEW_ERRS="$NEW_ERRS $fname:HTTP-$W_CODE"
-      fi ;;
-    reddit-search)
-      SRCH_CODE="$W_CODE"; SRCH_MS=$((SRCH_MS + W_MS))
-      if [ "$W_CODE" = "200" ]; then
-        SRCH_OK=$((SRCH_OK+1)); SRCH_BYTES=$((SRCH_BYTES + W_BYTES))
-      else
-        SRCH_FAIL=$((SRCH_FAIL+1)); SRCH_ERRS="$SRCH_ERRS $fname:HTTP-$W_CODE"
-      fi ;;
-  esac
-  sleep 10
+# The reset the server asked for on the LAST reply. 0 = no wait owed yet.
+RL_RESET=0
+
+# Read the rate-limit budget off the header dump. The FIRST status line in the
+# dump can be the proxy's `HTTP/1.1 200 Connection Established`, so the reset
+# header is read by name (tail -1 = the real response's, not the CONNECT's).
+read_rl() {
+  RL_RESET=$(grep -i '^x-ratelimit-reset:' "$HDR" 2>/dev/null \
+             | tr -d '\r' | awk '{print $2}' | tail -1)
+  case "${RL_RESET:-}" in ''|*[!0-9.]*) RL_RESET=0 ;; esac
+  RL_RESET=$(awk -v r="${RL_RESET:-0}" 'BEGIN{printf "%d", r}')
 }
 
-for sub in $SUBS; do
-  rfetch reddit-new "reddit-$sub-new.rss" "https://www.reddit.com/r/$sub/new.rss"
-  # HERE-STRING, not `echo … | tr … | while`: a piped while runs in a SUBSHELL
-  # and every counter rfetch touches would be discarded when the loop ended.
+# Wait out the window the server declared. This replaces the old fixed
+# `sleep 10`, which was shorter than the window and therefore guaranteed a 429.
+rl_wait() {
+  w=$((RL_RESET + RESET_MARGIN))
+  [ "$w" -gt 0 ] || w="$RESET_MARGIN"
+  echo "    …waiting ${w}s for the rate-limit window the server declared (reset=$RL_RESET)"
+  sleep "$w"
+}
+
+# One fetch, retried against the server's own reset until it lands or the retry
+# budget runs out. Sets R_CODE / R_BYTES / R_MS / R_ITEMS.
+rfetch() { # outfile url
+  fname="$1"; furl="$2"
+  R_CODE=000; R_BYTES=0; R_MS=0; R_ITEMS=0
+  attempt=0
+  while [ "$attempt" -le "$MAX_RETRIES" ]; do
+    [ "$attempt" -gt 0 ] && rl_wait
+    : > "$HDR"
+    # -f prevents the 403/429 BODY being written to $OUTDIR as a .rss file.
+    # --remove-on-error clears any partial file. The explicit `code = 200` test
+    # is NOT redundant with -f: --fail only trips at HTTP >= 400, so a 3xx that
+    # lands bytes still needs catching. -D still captures the response headers
+    # on a failed transfer (MEASURED), which is what makes the backoff possible.
+    parse_w "$(curl -fsS -m 60 -A "$UA" -D "$HDR" \
+                    -o "$OUTDIR/$fname" --remove-on-error \
+                    -w '%{http_code} %{size_download} %{time_total}' "$furl" 2>/dev/null || true)"
+    read_rl
+    R_CODE="$W_CODE"; R_MS=$((R_MS + W_MS))
+    if [ "$W_CODE" = "200" ]; then
+      # ── MODE-A GUARD ── a 200 carrying the wrong body. Reddit answers some
+      # blocks with an HTML interstitial at status 200; an HTML page stored as
+      # a .rss payload is the §7.1 failure this repo has already been bitten by.
+      if ! head -c 400 "$OUTDIR/$fname" 2>/dev/null | grep -q '<feed\|<rss\|<?xml'; then
+        echo "FAILED $fname — MODE-A: HTTP 200 but body is not XML."
+        echo "       first 120 bytes: $(head -c 120 "$OUTDIR/$fname" 2>/dev/null | tr -d '\n')"
+        find "$OUTDIR" -name "$fname" -type f -delete 2>/dev/null
+        R_CODE="200-not-xml"
+        return 1
+      fi
+      # `grep -o | wc -l`, NOT `grep -c`: -c counts matching LINES and Reddit
+      # ships the whole feed on ONE line, so -c reports 1 where the real count
+      # is 100. A silently-wrong item count is the yield check lying to itself.
+      R_ITEMS=$(grep -o '<entry' "$OUTDIR/$fname" 2>/dev/null | wc -l | tr -d ' ')
+      [ -n "$R_ITEMS" ] || R_ITEMS=0
+      R_BYTES="$W_BYTES"
+      echo "OK  $fname (HTTP 200, $W_BYTES bytes, $R_ITEMS entries)"
+      return 0
+    fi
+    if [ "$W_CODE" = "429" ]; then
+      echo "    429 on $fname (attempt $((attempt+1))/$((MAX_RETRIES+1))) — server says reset=$RL_RESET"
+      attempt=$((attempt + 1))
+      continue
+    fi
+    echo "FAILED $fname (HTTP $W_CODE)"
+    return 1
+  done
+  echo "FAILED $fname — still 429 after $((MAX_RETRIES+1)) attempts"
+  return 1
+}
+
+# ── 1. the firehose: ONE request for all four subs ───────────────────────────
+# Filename must NOT contain a REDDIT_SEARCH_MARKER ("-q-" or "search"), or
+# normalize.py files it under reddit-search (normalize.py:350-352).
+if rfetch "reddit-cz4-new.rss" \
+          "https://www.reddit.com/r/$SUBS_PATH/new.rss?limit=$LIMIT"; then
+  NEW_OK=1; NEW_ITEMS="$R_ITEMS"; NEW_BYTES="$R_BYTES"
+else
+  NEW_FAIL=1; NEW_ERRS=" reddit-cz4-new.rss:HTTP-$R_CODE"
+fi
+NEW_CODE="$R_CODE"; NEW_MS="$R_MS"
+
+# ── 2. the pain search ───────────────────────────────────────────────────────
+# RECALL TRADEOFF, STATED. `combined` sends ONE OR-query for all four terms and
+# takes the 100 newest matches. MEASURED: it returns a full page of 100, i.e.
+# it TRUNCATES — over a year of history that loses older matches. At the
+# registry's daily cadence that is harmless (these subs do not produce 100
+# pain-matching posts a day and everything older is already in seen.txt), but a
+# COLD START or a long outage would silently under-read. REDDIT_SEARCH_MODE=
+# per-term spends 4 requests (≈4 more minutes) to restore full-history recall.
+if [ "$SEARCH_MODE" = "per-term" ]; then
+  # HERE-STRING, not `echo … | while`: a piped while runs in a SUBSHELL and
+  # every counter rfetch touches would be discarded when the loop ended.
   while IFS= read -r q; do
     [ -n "${q:-}" ] || continue
+    rl_wait
     enc="$(printf '%s' "$q" | jq -sRr @uri)"
-    rfetch reddit-search "reddit-$sub-q-$(printf '%s' "$q" | tr ' ' '_' | tr -cd '[:alnum:]_').rss" \
-      "https://www.reddit.com/r/$sub/search.rss?q=$enc&restrict_sr=1&sort=new&t=year"
+    slug="$(printf '%s' "$q" | tr ' ' '_' | tr -cd '[:alnum:]_')"
+    if rfetch "reddit-cz4-q-$slug.rss" \
+              "https://www.reddit.com/r/$SUBS_PATH/search.rss?q=$enc&restrict_sr=1&sort=new&t=year&limit=$LIMIT"; then
+      SRCH_OK=$((SRCH_OK+1)); SRCH_ITEMS=$((SRCH_ITEMS + R_ITEMS)); SRCH_BYTES=$((SRCH_BYTES + R_BYTES))
+    else
+      SRCH_FAIL=$((SRCH_FAIL+1)); SRCH_ERRS="$SRCH_ERRS reddit-cz4-q-$slug.rss:HTTP-$R_CODE"
+    fi
+    SRCH_CODE="$R_CODE"; SRCH_MS=$((SRCH_MS + R_MS))
   done <<EOF
 $(printf '%s' "$QUERIES" | tr '|' '\n')
 EOF
-done
-
-emit() { # feed_key ok_count fail_count bytes ms code errs
-  if [ "$2" -eq 0 ]; then
-    mf "$1" error "$6" "$4" "$2" "$5" "$STARTED" "$OUTDIR" "all $3 fetches failed:$7"
-  elif [ "$3" -gt 0 ]; then
-    mf "$1" ok "$6" "$4" "$2" "$5" "$STARTED" "$OUTDIR" "partial: $3 of $(($2+$3)) failed:$7"
+else
+  rl_wait
+  orq="$(printf '%s' "$QUERIES" | sed 's/|/ OR /g')"
+  enc="$(printf '%s' "$orq" | jq -sRr @uri)"
+  if rfetch "reddit-cz4-q-pain.rss" \
+            "https://www.reddit.com/r/$SUBS_PATH/search.rss?q=$enc&restrict_sr=1&sort=new&t=year&limit=$LIMIT"; then
+    SRCH_OK=1; SRCH_ITEMS="$R_ITEMS"; SRCH_BYTES="$R_BYTES"
   else
-    mf "$1" ok "$6" "$4" "$2" "$5" "$STARTED" "$OUTDIR" ""
+    SRCH_FAIL=1; SRCH_ERRS=" reddit-cz4-q-pain.rss:HTTP-$R_CODE"
+  fi
+  SRCH_CODE="$R_CODE"; SRCH_MS="$R_MS"
+fi
+
+emit() { # feed_key ok_count fail_count bytes ms code items errs
+  if [ "$2" -eq 0 ]; then
+    mf "$1" error "$6" "$4" "$7" "$5" "$STARTED" "$OUTDIR" "all $3 fetches failed:$8"
+  elif [ "$7" -eq 0 ]; then
+    # A clean 200 that carried zero entries is the yield=zero anomaly, not a
+    # success — it must be LOUD rather than read as a healthy empty day.
+    mf "$1" error "$6" "$4" 0 "$5" "$STARTED" "$OUTDIR" "yield: 200 OK but zero entries parsed"
+  elif [ "$3" -gt 0 ]; then
+    mf "$1" ok "$6" "$4" "$7" "$5" "$STARTED" "$OUTDIR" "partial: $3 of $(($2+$3)) failed:$8"
+  else
+    mf "$1" ok "$6" "$4" "$7" "$5" "$STARTED" "$OUTDIR" ""
   fi
 }
-emit reddit-new    "$NEW_OK"  "$NEW_FAIL"  "$NEW_BYTES"  "$NEW_MS"  "$NEW_CODE"  "$NEW_ERRS"
-emit reddit-search "$SRCH_OK" "$SRCH_FAIL" "$SRCH_BYTES" "$SRCH_MS" "$SRCH_CODE" "$SRCH_ERRS"
-echo "== reddit-new: $NEW_OK ok / $NEW_FAIL failed · reddit-search: $SRCH_OK ok / $SRCH_FAIL failed"
+emit reddit-new    "$NEW_OK"  "$NEW_FAIL"  "$NEW_BYTES"  "$NEW_MS"  "$NEW_CODE"  "$NEW_ITEMS"  "$NEW_ERRS"
+emit reddit-search "$SRCH_OK" "$SRCH_FAIL" "$SRCH_BYTES" "$SRCH_MS" "$SRCH_CODE" "$SRCH_ITEMS" "$SRCH_ERRS"
+echo "== reddit-new: $NEW_OK ok / $NEW_FAIL failed, $NEW_ITEMS entries fetched"
+echo "== reddit-search: $SRCH_OK ok / $SRCH_FAIL failed, $SRCH_ITEMS entries fetched (mode=$SEARCH_MODE)"

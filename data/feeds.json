@@ -7,7 +7,9 @@
       "yields": "EU-threshold public tenders with CZ place of performance; CPV-grouped notices carrying buyer, value and tender deadline.",
       "role": "feed",
       "signal_source": "ted",
-      "id_prefixes": ["ted"],
+      "id_prefixes": [
+        "ted"
+      ],
       "evidence_type": "tenders",
       "cadence": "daily",
       "runner": "local",
@@ -23,7 +25,11 @@
       },
       "contract": {
         "parse": "json",
-        "required_fields": ["publication-number", "notice-title", "publication-date"],
+        "required_fields": [
+          "publication-number",
+          "notice-title",
+          "publication-date"
+        ],
         "expected_yield": {
           "min": 40,
           "max": 900,
@@ -38,7 +44,9 @@
       "yields": "CZ public contracts below the TED threshold, from the state contracts register; subject, VAT-inclusive value and signature date.",
       "role": "feed",
       "signal_source": "hlidac",
-      "id_prefixes": ["hlidac"],
+      "id_prefixes": [
+        "hlidac"
+      ],
       "evidence_type": "tenders",
       "cadence": "daily",
       "runner": "local",
@@ -54,7 +62,12 @@
       },
       "contract": {
         "parse": "json",
-        "required_fields": ["identifikator", "predmet", "datumUzavreni", "hodnotaVcetneDph"],
+        "required_fields": [
+          "identifikator",
+          "predmet",
+          "datumUzavreni",
+          "hodnotaVcetneDph"
+        ],
         "expected_yield": {
           "min": 5,
           "max": 800,
@@ -69,7 +82,9 @@
       "yields": "CZ startup funding rounds, launches and acquisitions as they are reported.",
       "role": "feed",
       "signal_source": "feed",
-      "id_prefixes": ["feed"],
+      "id_prefixes": [
+        "feed"
+      ],
       "evidence_type": "funded",
       "cadence": "6h",
       "runner": "cloud",
@@ -85,7 +100,12 @@
       },
       "contract": {
         "parse": "rss",
-        "required_fields": ["title", "link", "pubDate", "description"],
+        "required_fields": [
+          "title",
+          "link",
+          "pubDate",
+          "description"
+        ],
         "expected_yield": {
           "min": 1,
           "max": 100,
@@ -100,14 +120,14 @@
       "yields": "Central and Eastern European venture rounds. Produces nothing: the feed URL is gone.",
       "role": "feed",
       "signal_source": "feed",
-      "id_prefixes": ["feed"],
+      "id_prefixes": [],
       "evidence_type": "funded",
       "cadence": null,
       "runner": "none",
-      "url": "https://www.vestbee.com/blog/rss.xml",
-      "script": null,
-      "status": "dead",
-      "blocker": "301 redirects to /insights/rss.xml, which 404s. scripts/fetch_feeds.sh used curl -sL without -f, so the 404 body was saved and the script printed OK — the first Mode-A receipt in architecture-v3 §7.1.",
+      "url": "https://www.vestbee.com/sitemap_index.xml",
+      "script": "scripts/fetch_vestbee.sh",
+      "status": "active",
+      "blocker": null,
       "last_known_good": null,
       "access": {
         "verdict": "unknown",
@@ -115,12 +135,16 @@
         "checked": "2026-08-20"
       },
       "contract": {
-        "parse": "rss",
-        "required_fields": ["title", "link"],
+        "parse": "jsonl",
+        "required_fields": [
+          "signal_id",
+          "link",
+          "lastmod"
+        ],
         "expected_yield": {
           "min": 1,
-          "max": 100,
-          "basis": "Vestigial — the feed is dead and has no runner. Retained so the registry explains the corpus rather than deleting the evidence of a failure."
+          "max": 200,
+          "basis": "MEASURED 2026-08-21: 3,065 sitemap urls -> 45 per-round articles + 2 roundups inside a 30d window. A 304 on the conditional GET is `skipped`, not zero."
         },
         "allow_missing": false
       }
@@ -131,7 +155,9 @@
       "yields": "Y Combinator's full company directory as structured JSON, with an English one-liner per company.",
       "role": "feed",
       "signal_source": "yc",
-      "id_prefixes": ["yc"],
+      "id_prefixes": [
+        "yc"
+      ],
       "evidence_type": "funded",
       "cadence": "daily",
       "runner": "cloud",
@@ -147,7 +173,10 @@
       },
       "contract": {
         "parse": "json",
-        "required_fields": ["name", "one_liner"],
+        "required_fields": [
+          "name",
+          "one_liner"
+        ],
         "expected_yield": {
           "min": 500,
           "max": 20000,
@@ -162,7 +191,9 @@
       "yields": "Czech-language autocomplete completions for pain-shaped query patterns; the completion string is the evidence.",
       "role": "feed",
       "signal_source": "suggest",
-      "id_prefixes": ["suggest"],
+      "id_prefixes": [
+        "suggest"
+      ],
       "evidence_type": "demand",
       "cadence": "daily",
       "runner": "local",
@@ -178,7 +209,10 @@
       },
       "contract": {
         "parse": "jsonl",
-        "required_fields": ["query", "completions"],
+        "required_fields": [
+          "query",
+          "completions"
+        ],
         "expected_yield": {
           "min": 20,
           "max": 144,
@@ -193,7 +227,9 @@
       "yields": "Every new post across four Czech subreddits, as an Atom firehose. Owns the `reddit-` id space: the firehose covers exactly the corpus both reddit rows read, so the post-id namespace is attributed here.",
       "role": "feed",
       "signal_source": "reddit",
-      "id_prefixes": ["reddit"],
+      "id_prefixes": [
+        "reddit"
+      ],
       "evidence_type": "demand",
       "cadence": "6h",
       "runner": "local",
@@ -209,7 +245,10 @@
       },
       "contract": {
         "parse": "rss",
-        "required_fields": ["title", "link"],
+        "required_fields": [
+          "title",
+          "link"
+        ],
         "expected_yield": {
           "min": 20,
           "max": 200,
@@ -240,7 +279,10 @@
       },
       "contract": {
         "parse": "rss",
-        "required_fields": ["title", "link"],
+        "required_fields": [
+          "title",
+          "link"
+        ],
         "expected_yield": {
           "min": 5,
           "max": 200,
@@ -255,14 +297,16 @@
       "yields": "Supreme Audit Office audit conclusions: named state failures with quantified waste and the body responsible.",
       "role": "feed",
       "signal_source": "demand-scan",
-      "id_prefixes": ["nku"],
+      "id_prefixes": [
+        "nku"
+      ],
       "evidence_type": "demand",
       "cadence": "daily",
       "runner": "local",
-      "url": "https://nku.cz/scripts/rka/vestnik.asp?rok=2026",
+      "url": "https://nku.cz/cz/rss.xml",
       "script": "scripts/fetch_nku.sh",
-      "status": "planned",
-      "blocker": "Fetcher now exists (scripts/fetch_nku.sh); stays `planned` until it lands a record, because status is INTENT and PENDING/LIVE in feed_health.json is the observed half. www.nku.cz 403s generic clients; the non-www host works with lowercase filenames.",
+      "status": "active",
+      "blocker": null,
       "last_known_good": null,
       "access": {
         "verdict": "allowed",
@@ -270,43 +314,54 @@
         "checked": "2026-08-20"
       },
       "contract": {
-        "parse": "html-table",
-        "required_fields": [],
+        "parse": "jsonl",
+        "required_fields": [
+          "nku_id",
+          "title",
+          "link"
+        ],
         "expected_yield": {
-          "min": 1,
-          "max": 200,
-          "basis": "UNMEASURED — no fetcher exists, so no payload has been parsed and no field names are confirmed. required_fields is deliberately EMPTY rather than guessed. This is the LLM-fallback proof feed: its HTML is expected to resist structured parsing, so a parse violation here is the designed path to extraction: llm-fallback, not a defect. Roughly 2-6 conclusions per month accumulate on a per-year page."
+          "min": 10,
+          "max": 400,
+          "basis": "MEASURED 2026-08-21: 30 RSS items + 2 Vestnik year pages -> 122 unique, of which 52 kontrolni-zaver. NOT an llm-fallback feed: a declared RSS exists and the Vestnik table parses cleanly."
         },
         "allow_missing": false
       }
     },
     {
       "key": "sukl",
-      "name": "SÚKL — drug availability open data",
-      "yields": "Reported shortages and availability status for medicines on the Czech market.",
+      "name": "SÚKL — medicine supply interruptions",
+      "yields": "Monthly aggregates over the state medicines agency's supply-notification register: how many medicine presentations have interrupted supply right now by ATC anatomical group, how many carry no promised restock date, the manufacturers' stated reasons, and permanent market exits per month.",
       "role": "feed",
-      "signal_source": "demand-scan",
-      "id_prefixes": ["sukl"],
+      "signal_source": "sukl",
+      "id_prefixes": [
+        "sukl"
+      ],
       "evidence_type": "demand",
       "cadence": "daily",
-      "runner": "cloud",
+      "runner": "local",
       "url": "https://opendata.sukl.cz/soubory/MR/mr.zip",
-      "script": null,
+      "script": "scripts/fetch_sukl.sh",
       "status": "planned",
-      "blocker": "No fetcher exists yet — Phase 3 (architecture-v3 §12 LATER). Needs a conditional GET on ETag plus zip extraction.",
+      "blocker": "Wiring is LANDED (2026-08-21): fetch_all.sh argv case, normalize.py EXTRACTORS, and the `sukl` value in web/lib/data.ts SignalSchema.source. Stays `planned` until it lands a record. AT ACTIVATION, READ THIS: `sukl-` is claimed by BOTH this row and `demand-scan`, which wrote the 4 committed sukl- records. The same AC-F3 consequence as `coi` applies — remove `sukl` from demand-scan.id_prefixes in the SAME change that activates this row.",
       "last_known_good": null,
       "access": {
         "verdict": "allowed",
-        "basis": "Published open data of a state medicines agency; no auth.",
-        "checked": "2026-08-20"
+        "basis": "Published open data of a state medicines agency; no auth, plain HTTP GET of a bulk file, ETag and Last-Modified served so a conditional GET is the polite default.",
+        "checked": "2026-08-21"
       },
       "contract": {
-        "parse": "csv",
-        "required_fields": [],
+        "parse": "json",
+        "required_fields": [
+          "kind",
+          "period",
+          "presentations",
+          "validity"
+        ],
         "expected_yield": {
-          "min": 100,
-          "max": 100000,
-          "basis": "UNMEASURED — no fetcher exists and no CSV column names are confirmed, so required_fields is EMPTY rather than guessed. The ONE thing measured here is cadence, not yield: a HEAD returned 200 with ETag and Last-Modified showing content had changed less than 9 hours before the probe, which proves refresh is at least daily and that the catalog's 'weekly' understates it."
+          "min": 5,
+          "max": 30,
+          "basis": "MEASURED 2026-08-21: 82,837 notice rows aggregate to 15 items — 14 ATC-1 interruption groups plus one monthly market-exit total. The grain is (month x ATC group) and NOT one row per medicine, because a single presentation scores money 0 / urgency 0 and would be filtered out of existence by materiality while the manifest read green (CONVENTIONS.md, the `hiring` trap). Bounded by the 14 WHO anatomical groups, so this range is structural rather than statistical. Counts items_fetched."
         },
         "allow_missing": false
       }
@@ -317,14 +372,16 @@
       "yields": "European Commission initiatives open for feedback, with problem statements and feedback counts.",
       "role": "feed",
       "signal_source": "reg-scan",
-      "id_prefixes": [],
+      "id_prefixes": [
+        "echys"
+      ],
       "evidence_type": "regulation",
       "cadence": "daily",
       "runner": "cloud",
-      "url": "https://ec.europa.eu/info/law/better-regulation/api/groupInitiatives",
-      "script": null,
-      "status": "planned",
-      "blocker": "No fetcher exists yet — Phase 3. Also the only host that fails locally: ec.europa.eu returns curl exit 60 (TLS interception by the sandbox proxy), which is a local sandbox fact and NOT a remote refusal — hence runner: cloud.",
+      "url": "https://ec.europa.eu/info/law/better-regulation/brpapi/searchInitiatives",
+      "script": "scripts/fetch_ec_hys.sh",
+      "status": "active",
+      "blocker": null,
       "last_known_good": null,
       "access": {
         "verdict": "allowed",
@@ -332,45 +389,56 @@
         "checked": "2026-08-20"
       },
       "contract": {
-        "parse": "json",
-        "required_fields": [],
+        "parse": "jsonl",
+        "required_fields": [
+          "initiative_id",
+          "title",
+          "link"
+        ],
         "expected_yield": {
-          "min": 1,
-          "max": 500,
-          "basis": "UNMEASURED — no fetcher exists and the response shape has never been parsed here, so required_fields is EMPTY rather than guessed."
+          "min": 5,
+          "max": 200,
+          "basis": "MEASURED 2026-08-21: 200 initiatives over 2 pages, 45 currently OPEN for feedback. Counts items kept (open only), not items fetched."
         },
         "allow_missing": false
       }
     },
     {
       "key": "nen",
-      "name": "NEN — below-threshold tenders",
-      "yields": "Czech National Electronic Tool listings for contracts under the TED threshold.",
+      "name": "NEN — below-threshold tenders (via ISVZ open data)",
+      "yields": "Czech public contracts under the TED threshold — small-scale (VZMR) and below-threshold procedures from the National Electronic Tool, with buyer IČO, CPV, NUTS, estimated value and, once awarded, the contract price and the winning supplier.",
       "role": "feed",
       "signal_source": "nen",
-      "id_prefixes": ["nen"],
+      "id_prefixes": [
+        "nen"
+      ],
       "evidence_type": "tenders",
-      "cadence": "daily",
+      "cadence": "monthly",
       "runner": "local",
-      "url": "https://nen.nipez.cz/en/verejne-zakazky",
-      "script": null,
+      "url": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-MM-YYYY.zip",
+      "script": "scripts/fetch_nen.sh",
       "status": "planned",
-      "blocker": "No fetcher exists yet. NEN is a wave-2 catalog addition with no assigned priority, below NKÚ, ochrance, Have Your Say, SÚKL and ČOI.",
+      "blocker": "PARKED BY OWNER DECISION, 2026-08-21 — not a missing-fetcher blocker. scripts/fetch_nen.sh and scripts/nen_extract.py both exist and were measured, but the 296 nen- records already committed are cited by ZERO of the 31 register records, so the feed has never paid for its volume. It is deliberately NOT activated. The wiring it needed is nonetheless LANDED so that un-parking is a one-word status change and not a re-integration: normalize.py EXTRACTORS now maps `nen` to nen_extract.extract_nen (it previously mapped to extract_hlidac, which stamped `hlidac-` ids and grew a silent attribution defect on every run), web/lib/data.ts accepts `nen` as a source, and fetch_all.sh declares its argv shape.",
       "last_known_good": null,
       "access": {
-        "verdict": "unknown",
-        "basis": "Terms not yet read. A state procurement portal is very likely permissible, but unknown is recorded rather than assumed — an unchecked verdict must never read as a clean allowed.",
-        "checked": "2026-08-20"
+        "verdict": "allowed",
+        "basis": "Open data published by the Ministry for Regional Development (MMR) from the Registr veřejných zakázek, with a named open-data curator and a versioned public JSON schema (dokumentace 2.10.1). No auth, no rate terms, no robots restriction — a bulk file offered for download.",
+        "checked": "2026-08-21"
       },
       "contract": {
-        "parse": "html-table",
-        "required_fields": ["datumPrvniUver"],
+        "parse": "json",
+        "required_fields": [
+          "nen_kod",
+          "nazev",
+          "zadavatel",
+          "datum_zahajeni"
+        ],
         "expected_yield": {
-          "min": 1,
-          "max": 500,
-          "basis": "UNMEASURED — no fetcher exists. The listing is server-rendered at 50 rows/page and carries ISO dates in datumPrvniUver, which is the only field name on record for this source."
+          "min": 100,
+          "max": 8000,
+          "basis": "MEASURED 2026-08-21 on two real monthly files, not estimated. VZ-07-2026: 33,855 contracts in file, 20,286 carrying a NEN identifier, 3,868 below-threshold with a procedure started on or after 2026-06-01. VZ-06-2026: 16,662 in file, 574 selected on the same window. The spread is the changefeed's own shape — an older month has had fewer of its recent procedures touched — so the range is wide on purpose. Counts items_fetched. Replace with a rolling median once six fetch_log runs exist."
         },
-        "allow_missing": false
+        "allow_missing": true
       }
     },
     {
@@ -379,7 +447,23 @@
       "yields": "Monthly agent research pass over NKÚ findings, ombudsman reports, civic complaint data, chamber and NGO surveys and consultations.",
       "role": "feed",
       "signal_source": "demand-scan",
-      "id_prefixes": ["chamber", "civic", "cnb", "coi", "consult", "ctu", "eru", "fa", "mpo", "ngo", "nku", "ombud", "smo", "spcr", "sukl", "uni"],
+      "id_prefixes": [
+        "chamber",
+        "civic",
+        "cnb",
+        "coi",
+        "consult",
+        "ctu",
+        "eru",
+        "fa",
+        "mpo",
+        "ngo",
+        "ombud",
+        "smo",
+        "spcr",
+        "sukl",
+        "uni"
+      ],
       "evidence_type": "demand",
       "cadence": "monthly",
       "runner": "attended",
@@ -410,7 +494,35 @@
       "yields": "Foreign-market scans: companies running a proven model abroad with no Czech equivalent.",
       "role": "feed",
       "signal_source": "arb-scan",
-      "id_prefixes": ["am", "at", "bg", "cz", "de", "dk", "ee", "es", "fi", "fr", "gb", "hr", "hu", "is", "it", "lt", "lv", "md", "mk", "nl", "pl", "ro", "rs", "si", "sk", "ua", "uk"],
+      "id_prefixes": [
+        "am",
+        "at",
+        "bg",
+        "cz",
+        "de",
+        "dk",
+        "ee",
+        "es",
+        "fi",
+        "fr",
+        "gb",
+        "hr",
+        "hu",
+        "is",
+        "it",
+        "lt",
+        "lv",
+        "md",
+        "mk",
+        "nl",
+        "pl",
+        "ro",
+        "rs",
+        "si",
+        "sk",
+        "ua",
+        "uk"
+      ],
       "evidence_type": "funded",
       "cadence": "monthly",
       "runner": "attended",
@@ -441,7 +553,10 @@
       "yields": "Czech and CEE funding rounds gathered by an agent pass over trade press and investor portfolios.",
       "role": "feed",
       "signal_source": "round",
-      "id_prefixes": ["round"],
+      "id_prefixes": [
+        "round",
+        "roundup"
+      ],
       "evidence_type": "funded",
       "cadence": "monthly",
       "runner": "attended",
@@ -472,7 +587,9 @@
       "yields": "Dated CZ and EU regulatory obligations — transposition deadlines, in-force dates and compliance waves — read by an agent from EUR-Lex, e-Sbirka, vlada.gov.cz and sector regulators.",
       "role": "feed",
       "signal_source": "reg-scan",
-      "id_prefixes": ["reg"],
+      "id_prefixes": [
+        "reg"
+      ],
       "evidence_type": "regulation",
       "cadence": "monthly",
       "runner": "attended",
@@ -503,7 +620,9 @@
       "yields": "Open CZ and EU grant/subsidy calls with a deadline and an allocation — operational programmes (IROP, OPZP, OPJAK), SFZP, TACR, national recovery plan and EU CINEA/HaDEA calls.",
       "role": "feed",
       "signal_source": "dotace",
-      "id_prefixes": ["dotace"],
+      "id_prefixes": [
+        "dotace"
+      ],
       "evidence_type": "tenders",
       "cadence": "monthly",
       "runner": "attended",
@@ -531,30 +650,39 @@
     {
       "key": "mpsv",
       "name": "MPSV/ÚP — volná místa (vacancies)",
-      "yields": "Czech job vacancies from the Labour Office register, carrying employer IČO, CZ-ISCO occupation, salary floor and NUTS-3 region — the entity-graph join.",
+      "yields": "Monthly AGGREGATES of newly registered Czech Labour Office vacancies, by occupation theme and by theme x IČO: posting and seat counts, distinct-employer counts, annualised wage floor in EUR and NUTS-3 distribution. Never one record per vacancy. Source dataset: https://data.mpsv.cz/web/data/volna-mista-za-celou-cr",
       "role": "feed",
       "signal_source": "mpsv",
-      "id_prefixes": ["mpsv"],
+      "id_prefixes": [
+        "mpsv"
+      ],
       "evidence_type": "hiring",
-      "cadence": "daily",
+      "cadence": "monthly",
       "runner": "local",
-      "url": "https://data.mpsv.cz/od/soubory/volna-mista",
-      "script": null,
-      "status": "planned",
-      "blocker": "Fetcher is a separate parallel worker that may slip to Phase 3 without blocking CP2. The GDPR contact-field allowlist and its checker must land BEFORE any record can be written — the rule has to exist before the first record, not alongside it.",
-      "last_known_good": null,
+      "url": "https://data.mpsv.cz/od/soubory/volna-mista-prirustek/",
+      "script": "scripts/fetch_mpsv.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": "2026-08-21T12:12:53Z",
       "access": {
         "verdict": "allowed",
-        "basis": "The dataset licence explicitly disclaims both copyright and the sui-generis database right. Note the separate GDPR obligation: the DCAT record declares obsahuje-osobni-udaje (contact names, emails, phones), so an ALLOWLIST of safe fields is mandatory at ingest — licence permission is not privacy permission.",
-        "checked": "2026-08-20"
+        "basis": "The dataset licence explicitly disclaims copyright (neobsahuje-autorska-dila) AND the sui-generis database right (neni-chranena-zvlastnim-pravem-porizovatele-databaze) — re-read first-hand from volna-mista-metadata.jsonld on 2026-08-21. Note the SEPARATE GDPR obligation: the same distribution declares obsahuje-osobni-udaje, and the payload earns it (2,471 of 2,473 postings in one day carry a contact person's surname, 2,243 an email, 1,676 a phone). Licence permission is not privacy permission: scripts/mpsv_reduce.py applies a SOURCE-side field allowlist before anything is written, and refuses the whole run if a contact string survives.",
+        "checked": "2026-08-21"
       },
       "contract": {
         "parse": "json",
-        "required_fields": ["typZmenyOpenData"],
+        "required_fields": [
+          "id",
+          "theme",
+          "month",
+          "typZmenyOpenData",
+          "postings",
+          "money_eur"
+        ],
         "expected_yield": {
-          "min": 100,
-          "max": 8000,
-          "basis": "Grounded in the probe's single measured day: 2026-08-19 carried 287 novy + 817 zmeneny + 986 zruseny = 2,090 items. THE CHANGELOG TRAP: the increment file is a changelog, not a list of new items — a parser ignoring typZmenyOpenData would record 2,090 new postings when 287 are new, a ~7x flood into an append-only permanent log. That is why typZmenyOpenData is a required field and why branching on change type is itself a contract check."
+          "min": 6,
+          "max": 24,
+          "basis": "COUNTS AGGREGATES, NOT POSTINGS — this is the number scripts/normalize.py's yield check actually sees, because the payload is one item per aggregate. Measured end to end on the full 2026-07 window (27 of 31 daily increments present, 19.4 MB on the wire, 25 s): 46,716 changelog rows -> 35,921 distinct postings -> 6,597 novy -> 18 aggregates written (10 theme + 8 employer candidates) -> 16 after scripts/fetch_ares.sh applied the 6-record employer cap. The band 6-24 brackets that with room for a month in which several themes go quiet; architecture-v3.md 13.4 sizes the feed at 8-15 records/month. THE PREVIOUS BAND (100-8000) DESCRIBED RAW POSTINGS and would have declared this feed below-range on every correct run. THE CHANGELOG TRAP: the increment is a changelog, not a list of new items — a parser ignoring typZmenyOpenData records 46,716 new postings when 6,597 are new, a 7.1x flood into an append-only permanent log. typZmenyOpenData stays in required_fields and every aggregate carries its own novy/zmeneny/zruseny census (novy always equals the record's own `postings`), so 'the parser branches on change type' is checked by the FIELDS step rather than remembered."
         },
         "allow_missing": true
       }
@@ -562,30 +690,177 @@
     {
       "key": "ares",
       "name": "ARES — company register lookup",
-      "yields": "Enrichment only: IČO to company name, NACE, founding date and region. Produces ZERO signals.",
+      "yields": "Enrichment only: IČO to registered trade name, legal form, NACE, founding date and seat region. Produces ZERO signals; it decides which MPSV employer aggregates may be NAMED.",
       "role": "enrichment",
       "signal_source": null,
       "id_prefixes": [],
       "evidence_type": null,
-      "cadence": "daily",
+      "cadence": "monthly",
       "runner": "local",
       "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty",
-      "script": null,
-      "status": "planned",
-      "blocker": "No enrichment client exists yet. Lands with the MPSV fetcher, whose IČO column it resolves.",
-      "last_known_good": null,
+      "script": "scripts/fetch_ares.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": "2026-08-21T12:13:01Z",
       "access": {
         "verdict": "allowed",
-        "basis": "Public state company register with a documented REST API, no auth.",
-        "checked": "2026-08-20"
+        "basis": "Public state company register with a documented REST API, no auth. Measured 2026-08-21: 9 of 9 lookups HTTP 200, ~2.2 s and ~4.3 kB each. Only ico, obchodniJmeno, pravniForma, datumVzniku, czNace and the SEAT REGION are read — never the street address, which for a sole trader is a home address.",
+        "checked": "2026-08-21"
       },
       "contract": {
         "parse": "json",
-        "required_fields": [],
+        "required_fields": [
+          "ico",
+          "pravniForma"
+        ],
         "expected_yield": {
-          "min": 0,
-          "max": 5000,
-          "basis": "UNMEASURED — no client exists. Counts LOOKUPS PERFORMED, not signals: this is an enrichment source, it is exempt from AC-F1 totality, it produces no records, and it must never be counted in the feed total."
+          "min": 1,
+          "max": 12,
+          "basis": "COUNTS LOOKUPS RESOLVED, not signals: ARES is an enrichment source, it is exempt from AC-F1 totality, and it must never be counted in the feed total. The worklist is capped at 12 (2x the 6-record employer cap in scripts/mpsv_reduce.py), so 12 is a hard ceiling rather than an estimate. Measured 2026-08-21 on the 2026-07 window: 8 requested, 8 resolved, 6 named. A month with no employer candidate writes NO payload and logs `skipped` — allow_missing stays false because a missing ARES answer for an IČO we did ask about is a real miss, handled per-IČO by ares_fold.py (the employer record is DROPPED, never published unnamed)."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "coi",
+      "name": "ČOI — consumer-protection enforcement",
+      "yields": "Half-yearly aggregates of legally-final fines levied by the Czech Trade Inspection Authority, split by the act breached: fine count, total value, distinct businesses fined, top paragraphs, regional spread, and growth against both the previous half-year and the year-ago half.",
+      "role": "feed",
+      "signal_source": "coi",
+      "id_prefixes": [
+        "coi"
+      ],
+      "evidence_type": "demand",
+      "cadence": "quarterly",
+      "runner": "local",
+      "url": "https://coi.gov.cz/userdata/files/dokumenty-ke-stazeni/open-data/sankce.csv",
+      "script": "scripts/fetch_coi.sh",
+      "status": "planned",
+      "blocker": "Wiring is LANDED (2026-08-21): fetch_all.sh argv case, normalize.py FILE_FEED_TOKENS + EXTRACTORS, and the `coi` value in web/lib/data.ts SignalSchema.source. Stays `planned` until it lands a record, because status is INTENT and PENDING/LIVE in feed_health.json is the observed half. AT ACTIVATION, READ THIS: `coi-` is claimed by BOTH this row and `demand-scan`, which wrote the 3 committed coi- records by hand. While this row is `planned` only demand-scan is CAPABLE, so db.py attributes the prefix to it and AC-F3 stays at 0 ambiguous. Flipping this row to `active` without ALSO removing `coi` from demand-scan.id_prefixes makes two capable claimants and sends every coi- record to UNATTRIBUTED. Follow the `nku` precedent in this same file.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "ČOI has published these datasets under an explicit open licence since 27 October 2013 and links the licence from the dataset index. Plain unauthenticated GET, 200 to a descriptive User-Agent, ETag and Last-Modified served.",
+        "checked": "2026-08-21"
+      },
+      "contract": {
+        "parse": "json",
+        "required_fields": [
+          "zakon",
+          "period",
+          "fines",
+          "czk_total"
+        ],
+        "expected_yield": {
+          "min": 5,
+          "max": 40,
+          "basis": "MEASURED 2026-08-21: 176,945 sanction rows joined to 288,962 inspection rows aggregate to 32 items over an 18-month window (16 acts x 2 completed half-years). The grain is (act x half-year) and NOT one row per fine, because the MEDIAN fine is 3,000 CZK (~EUR 120) — money 0, urgency 0, scale 0 — so a per-fine feed would carry 176,945 items and write approximately none of them while the manifest read green (CONVENTIONS.md, the `hiring` trap). Bounded above by ~16 acts with real volume x the number of completed half-years in the window, so this range is structural. Counts items_fetched."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "smlouvy",
+      "name": "Registr smluv — the official bulk dump",
+      "yields": "Czech public contracts from the state's own daily XML dump of the contract register, carrying BOTH sides of every contract: the publishing public body and the counterparty, each with an IČO. This is the entity-graph join that fetching the same register through Hlídač does not deliver.",
+      "role": "feed",
+      "signal_source": "smlouvy",
+      "id_prefixes": [
+        "smlouvy"
+      ],
+      "evidence_type": "tenders",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://data.smlouvy.gov.cz/",
+      "script": "scripts/fetch_smlouvy.sh",
+      "status": "planned",
+      "blocker": "Wiring is LANDED (2026-08-21): fetch_all.sh declares the argv shape ($1 = SINCE ISO date, $2 = outdir — the ted/hlidac shape, NOT the outdir-first shape), normalize.py FILE_FEED_TOKENS maps `smlouvy` ahead of the generic tokens and EXTRACTORS maps it to extract_smlouvy, and web/lib/data.ts accepts `smlouvy` as a source. Stays `planned` until it lands a record. NOTE THE KNOWN OVERLAP, which is an operational choice and not a defect: this feed and `hlidac` read the SAME register, so a contract both see lands twice under two ids. Both ids embed the same registr-smluv idVerze and both records carry the same smlouvy.gov.cz/smlouva/<idVerze> url, so the url-keyed dedup pass in normalize.py collapses the second one — see DEDUP_KEYS there.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "The state's own open data, published under the contract-register act with no licence string, no auth and no page cap. The index at data.smlouvy.gov.cz ships a sha1 and a byte count for every dump, so the transfer is verified against the publisher's own digest rather than a shape heuristic. VERIFIED 2026-08-21: dump_2026_08_19.xml, published sha1 ea70711268d85b070d9d7a02daa90414e62c6da4, 5,010,141 bytes — byte-exact match.",
+        "checked": "2026-08-21"
+      },
+      "contract": {
+        "parse": "jsonl",
+        "required_fields": [
+          "identifikator",
+          "odkaz",
+          "predmet",
+          "datumUzavreni"
+        ],
+        "expected_yield": {
+          "min": 1,
+          "max": 20000,
+          "basis": "MEASURED 2026-08-21 on one full daily dump (dump_2026_08_19.xml): 4,026 contracts, buyer IČO on 99.9%, counterparty IČO on 97.2%, both sides resolved on 97.1%. Counts items_fetched over the whole requested window, which is a MULTI-DAY window by default, hence the wide ceiling. THE PUBLISHER LAGS: on 2026-08-21 the newest dump was 2026-08-19, so a window whose days are all still unpublished exits `skipped` (ok=1, parse_method=none) and must not move the feed toward BROKEN."
+        },
+        "allow_missing": true
+      }
+    },
+    {
+      "key": "shoptet",
+      "name": "Shoptet add-on marketplace (vendor lookup)",
+      "yields": "Enrichment only: CZ e-commerce add-on products and the vendors who publish them, so an absence claim on `gap` can name the surface it searched. Produces ZERO signals.",
+      "role": "enrichment",
+      "signal_source": null,
+      "id_prefixes": [],
+      "evidence_type": null,
+      "cadence": "monthly",
+      "runner": "local",
+      "url": "https://doplnky.shoptet.cz/sitemap.xml",
+      "script": "scripts/fetch_shoptet.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": "2026-08-21T13:23:18Z",
+      "access": {
+        "verdict": "allowed",
+        "basis": "robots.txt read 2026-08-21 12:16 UTC: `User-agent: *` with an EMPTY `Disallow:` (crawling explicitly permitted), plus a second `Disallow: /prihlaseni` for the login page, which nothing here requests. A `Sitemap:` line is declared and is the surface read. Re-read on EVERY run by the fetcher itself, which aborts if a path it is about to request has become disallowed. Permission is the basis for the whole build, so it is verified rather than remembered.",
+        "checked": "2026-08-21"
+      },
+      "contract": {
+        "parse": "jsonl",
+        "required_fields": [
+          "id",
+          "marketplace"
+        ],
+        "expected_yield": {
+          "min": 1,
+          "max": 700,
+          "basis": "COUNTS LOOKUP ROWS, NOT SIGNALS. This is an enrichment source: it is exempt from AC-F1 totality, it writes to data/lookup/ and never to data/signals/**, and it must never be counted in the feed total. MEASURED 2026-08-21: the declared sitemap holds 593 <url> entries = 404 add-on detail pages + 179 vendor pages + 9 category pages + the homepage; a full pass resolved 392 add-on rows and 179 vendor rows. The ceiling is the sitemap's own size, so the range is structural. A run whose content hash is unchanged exits `skipped` at ONE request and 0 new rows, which is the steady state, not a miss."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "upgates",
+      "name": "Upgates add-on marketplace (vendor lookup)",
+      "yields": "Enrichment only: the second CZ e-commerce add-on marketplace, same corpus and same consumer as `shoptet`. Produces ZERO signals.",
+      "role": "enrichment",
+      "signal_source": null,
+      "id_prefixes": [],
+      "evidence_type": null,
+      "cadence": "monthly",
+      "runner": "local",
+      "url": "https://doplnky.upgates.cz/",
+      "script": "scripts/fetch_upgates.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": "2026-08-21T13:19:52Z",
+      "access": {
+        "verdict": "allowed",
+        "basis": "robots.txt read 2026-08-21 12:16 UTC: HTTP 200, Content-Length 0 — the file is EMPTY. No `User-agent`, no `Disallow`, and no `Sitemap:`. An empty robots.txt is unrestricted by the standard, so crawling is permitted; this is recorded as 'empty, therefore permitted' rather than 'permitted', because only the first is what was observed. Re-read on EVERY run by the fetcher itself, which aborts if a path it is about to request has become disallowed. Permission is the basis for the whole build, so it is verified rather than remembered.",
+        "checked": "2026-08-21"
+      },
+      "contract": {
+        "parse": "jsonl",
+        "required_fields": [
+          "id",
+          "marketplace"
+        ],
+        "expected_yield": {
+          "min": 1,
+          "max": 400,
+          "basis": "COUNTS LOOKUP ROWS, NOT SIGNALS — same exemption as `shoptet` and `ares`. MEASURED 2026-08-21: there is NO sitemap (https://doplnky.upgates.cz/sitemap.xml -> HTTP 404), so the declared surface is the category nav: 10 category links of which /ai-1 is a linked-but-dead 404, and the 9 live listings plus the homepage enumerate 221 distinct /detail/<slug> URLs, of which 214 resolved. THE MODE-A TRAP IS LIVE ON THIS HOST and is why required_fields carries `url`: an unknown add-on slug returns HTTP 200 with the homepage, BYTE-IDENTICAL (102,039 bytes, sha256 3272a51e2079f26b0e...). A status check cannot see it; only the page's own og:url can."
         },
         "allow_missing": false
       }

@@ -51,5 +51,6 @@ Existing non-solutions: law-firm advisories and one-off consulting [S2]; nothing
 
 Next moves: demand receipts from Czech industry associations (SP ČR, AutoSAP) on Data Act readiness, and a gap check on productized data-access tooling; either would lift the score toward newsletter range.
 
----
-**CORRECTION (2026-08-20, evidence audit):** Three unbacked claims removed. That Czech machinery, appliance and vehicle-component manufacturers "have never built user-facing data access" — the **who-list** is real and is carried by the reg-data-act signal, so it stays and is now cited to [S1]; the absence claim about what those firms have built is not, and is gone. That the switching-charge wave hits export paths "most have deferred indefinitely" — an empirical claim about Czech SaaS vendors with no receipt anywhere. And "some enterprise IoT platforms advertise Data Act modules" — the Data Act appears in exactly one signal, which names no vendor and makes no such claim.
+## Revisions
+
+2026-08-20 · evidence audit — Three unbacked claims removed. That Czech machinery, appliance and vehicle-component manufacturers "have never built user-facing data access": the who-list is real and is carried by the reg-data-act signal, so it stays and is now cited to [S1], but the absence claim about what those firms have built is not, and is gone. That the switching-charge wave hits export paths "most have deferred indefinitely" — an empirical claim about Czech SaaS vendors with no receipt anywhere. And "some enterprise IoT platforms advertise Data Act modules" — the Data Act appears in exactly one signal, which names no vendor and makes no such claim.

@@ -57,8 +57,9 @@ export default function About() {
         Every point in every score is justified by a source on file; every number in the prose
         links to where it was recorded. When a figure is not on file, the register says so — it
         never estimates. When a local player turns out to occupy a niche a record called empty,
-        the record is corrected in print and de-ranked, with the incumbent named. Corrections
-        stay visible. That is the difference between this register and asking a chatbot for
+        the record is corrected in print and de-ranked, with the incumbent named. Every such
+        change is kept, dated, at the foot of the record it changed. That is the difference
+        between this register and asking a chatbot for
         business ideas: the claims here are checkable, they refresh weekly, and they are
         accountable to what actually happens.
       </p>

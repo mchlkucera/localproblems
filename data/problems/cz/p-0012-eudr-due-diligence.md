@@ -62,8 +62,6 @@ Existing non-solutions: nothing CZ-specific was searched this cycle (gap scored 
 
 Recommended follow-up: a gap check on CZ-language EUDR tooling and whether celní deklaranti / customs software vendors are bundling DDS filing.
 
----
-**CORRECTION (2026-08-20, evidence audit):** Removed two unbacked assertions. The scale claim "— a large sector in Czechia —" had no count, turnover or firm population behind it anywhere in the corpus; `reg-eudr-deforestation` names the CZ sectors but makes no scale claim. The named vendors "(e.g. Grit, Aimtec ecosystem)" in the follow-up proposal return no hits anywhere in the signal corpus — two Czech companies asserted as customs-software vendors with nothing behind them. The follow-up still proposes the check, without pre-naming who will be found.
+## Revisions
 
----
-**CORRECTION (2026-08-20, title sweep):** The **title** asserted that mid-sized firms "have no traceability stack" while `scores.gap` is 0, which by definition means no CZ incumbent check has been run. An absence claim in the title with an unchecked gap score beneath it is the contradiction this sweep exists to remove. The clause is gone; no score changed.
+2026-08-20 · evidence audit and title sweep — Two blocks recorded on this date, merged here. Two unbacked assertions removed: the scale claim "— a large sector in Czechia —", which had no count, turnover or firm population behind it anywhere in the corpus (reg-eudr-deforestation names the CZ sectors but makes no scale claim); and the named vendors "(e.g. Grit, Aimtec ecosystem)" in the follow-up proposal, two Czech companies asserted as customs-software vendors with nothing behind them — they return no hits anywhere in the signal corpus. The follow-up still proposes the check, without pre-naming who will be found. The title asserted that mid-sized firms "have no traceability stack" while gap is 0, which by definition means no CZ incumbent check has been run; an absence claim in the title with an unchecked gap score beneath it is the contradiction the sweep exists to remove. The clause is gone; no score changed.

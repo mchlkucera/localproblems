@@ -92,7 +92,18 @@ export const EXTRACTION_METHODS = ["structured", "llm-fallback", "manual"] as co
 // keys below (12 top-level, 4 under `scores`), so this is safe today.
 const SignalSchema = z.strictObject({
   id: z.string().regex(/^[a-z]{2,10}-[\w.-]+$/),
-  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv"]),
+  // WIDENED BEFORE ANYTHING APPENDS, and that order is the whole point: this
+  // enum is the schema the build validates against, so a ledger line carrying a
+  // `source` this list does not know RED-BUILDS and blocks the deploy (SPEC §5).
+  // The append is irreversible and the ledger has no quiet cleanup, so the enum
+  // must already accept the value on the commit BEFORE the first record lands —
+  // never in the same change, and never after.
+  //   `coi` `sukl` `nen`      — scripts/{coi,sukl,nen}_extract.py
+  //   `smlouvy`               — extract_smlouvy, the official registr smluv dump
+  // `mpsv` was already here. `ec-hys`, `nku` and `vestbee` need NO entry: their
+  // extractors deliberately reuse the existing `reg-scan` / `demand-scan` /
+  // `round` provenances rather than minting a fourth name for the same source.
+  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv", "coi", "sukl", "nen", "smlouvy"]),
   url: z.string().url(),
   date: isoDate,
   title: z.string().min(1),
@@ -132,6 +143,12 @@ const STATUSES = ["candidate", "active", "watching", "stale", "claimed", "solved
     these keys get typed rather than left to looseObject. */
 export const GAP_CHECKED = [
   "ares", "app-stores", "cz-saas-directories", "google-cz", "startupjobs", "own-funded-ledger",
+  // A SEPARATE TOKEN, deliberately not a widened `app-stores`. The two name
+  // different populations — a consumer app store and a platform add-on
+  // catalogue — and a `checked` value whose coverage the reader has to guess
+  // fails the one job this vocabulary has. Backed by data/lookup/, built by
+  // scripts/fetch_{shoptet,upgates}.sh. See data/CONVENTIONS.md.
+  "eshop-addon-marketplaces",
 ] as const;
 export type GapChecked = (typeof GAP_CHECKED)[number];
 

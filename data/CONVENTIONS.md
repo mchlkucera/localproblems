@@ -10,6 +10,46 @@ One JSONL file per evidence type per run date: `data/signals/<type>/<run-date>.j
 append-only, committed to git. `data/signals/seen.txt` = one canonical id per
 line, sorted — the dedup index.
 
+**`seen.txt` IS ID-KEYED AND THAT IS NOT THE ONLY WAY A RECORD DUPLICATES.** The
+same resource harvested twice under two id conventions is invisible to it, and
+that is not hypothetical: on 2026-08-21 a staged run held 20 `echys-<id>`
+records naming the identical Commission page as an existing `consult-<slug>`
+record, and 30 `nku-k<code>` records naming the same NKÚ audit conclusion as an
+existing `nku-<topic>` record. So `scripts/normalize.py` runs a SECOND dedup
+axis, on identity keys, at both staging and `--complete`. Two things about it
+are binding:
+
+- **A key is identifying only where it is unique.** A key value carried by more
+  than one record — on either side — is a listing page, a dataset landing page
+  or a round-up, and is EXEMPTED rather than merged. This is measured, not
+  assumed: 67 urls in the committed corpus are shared by 571 records (6.1%),
+  one Vestbee round-up being the cited url of 32 distinct funding rounds, and
+  `coi` / `sukl` / `mpsv` emit whole aggregate families under one constant
+  dataset url BY DESIGN. Merging on url alone would delete 504 real records.
+- **Nothing is dropped quietly.** Every skip names both ids and the url, on the
+  console and in the run manifest; every exemption names its reason. A silent
+  drop and a silent duplicate are equally invisible.
+
+## Lookup layer — data/lookup/
+
+A THIRD tree, and deliberately not a variant of the other two. `data/raw/` is
+gitignored and pruned at 28 days; `data/signals/` is the canonical append-only
+ledger and every id prefix in it must be claimed by a registry row (AC-F3).
+An enrichment corpus is neither: it is a rebuildable-but-expensive lookup table
+that has no evidence type, no date, no score, and no business being in a signal
+ledger — filing `shoptet-partner-104` under `data/signals/` would create an
+orphan id prefix and fail the build for everyone.
+
+So: `data/lookup/<name>.jsonl`, COMMITTED, never pruned, never walked by
+`scripts/db.py`, `web/lib/data.ts` or the build gate (verified 2026-08-21 —
+all three walk only `data/signals/`, `data/problems/` and `data/raw/`).
+Rewritten in place by its fetcher rather than appended to, because it describes
+a CURRENT population and not a sequence of events. Today it holds
+`cz-eshop-addons.jsonl` (606 add-ons) and `cz-eshop-vendors.jsonl` (179
+vendors), written by `scripts/fetch_shoptet.sh` and `scripts/fetch_upgates.sh`,
+and its consumer is the `gap` check — it is what makes
+`checked: [eshop-addon-marketplaces]` a claim we can back.
+
 **Which date is `<run-date>`:** the date naming the `data/raw/<run-date>/` directory the
 records were completed from — never the wall clock. An attended completion routinely
 happens a day or more after the fetch, and naming the ledger from the clock would file one
@@ -20,7 +60,15 @@ operationally.
 Evidence types and their feeds:
 - `funded` — companies founded/financed: yc, round, arb-scan (foreign-market scans)
 - `regulation` — regulatory triggers with dates: reg-scan
-- `tenders` — tenders, grants, public contracts: ted, hlidac
+- `tenders` — tenders, grants, public contracts: ted, hlidac, smlouvy (the
+  state's OWN daily bulk dump of registr smluv, scripts/fetch_smlouvy.sh) and
+  nen (below-threshold contracts via ISVZ open data — REGISTERED and PARKED,
+  see data/feeds.json). `smlouvy` reads the same register `hlidac` reads, and
+  keeps its own `smlouvy-` prefix rather than reusing `hlidac-`, because
+  `source` is FETCH PROVENANCE: a record pulled from data.smlouvy.gov.cz that
+  says `hlidac` is a false receipt. The overlap that creates is handled at
+  ingest by the identity-key dedup in scripts/normalize.py, not by pretending
+  the two feeds are one.
 - `demand` — bottom-up documented complaints and unmet needs (NKÚ audit
   findings, ombudsman reports, civic complaint data, chamber/NGO surveys,
   consultations): demand-scan research harvests; plus fetched feeds: suggest
@@ -55,8 +103,25 @@ id          canonical <prefix>-<nativeid>; v1 ids grandfathered unchanged.
             mpsv-<YYYY-MM>-<ico>-<theme>. Reposting is the whole problem —
             the same vacancy reappears for months, so any id derived from
             the posting itself defeats the dedup index)
+            · smlouvy- (the registr-smluv idVerze) · nen- (the NEN code)
+            · coi- (coi-<YYYY-Hn>-<act slug>) and sukl- (sukl-<YYYY-MM>-<ATC
+            group>) — both AGGREGATE keys, for the `hiring` reason above
+            · echys- (the Commission initiative id) · roundup- (a Vestbee
+            round-up article awaiting a split into per-round records)
 source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan |
-            demand-scan | suggest | reddit | feed | mpsv
+            demand-scan | suggest | reddit | feed | mpsv | coi | sukl | nen |
+            smlouvy
+            THIS LIST IS AN ENUM IN web/lib/data.ts (SignalSchema.source) AND
+            A LEDGER LINE CARRYING AN UNLISTED VALUE RED-BUILDS THE SITE.
+            Widen the enum in a commit BEFORE the first record lands, never in
+            the same one and never after: the ledgers are append-only, so a
+            record written against a schema that does not accept it blocks
+            every deploy until someone edits a file that must not be edited.
+            NOT EVERY FEED NEEDS A NEW VALUE, and most should not take one.
+            ec-hys writes `reg-scan`, nku writes `demand-scan` and vestbee
+            writes `round`, because each is a new FETCHER for a provenance the
+            corpus already has. A new value is for a new publisher, not a new
+            script.
 url         primary source URL
 date        native ISO date of the signal
 title       short English display name, "Thing — what it is"
@@ -155,9 +220,95 @@ no comparable exists (build-enforced: proof >= 1 requires >= 1 comp):
 - `markets?: [ISO2…]` — countries the comparable verifiably operates/sells in
   beyond its HQ; recorded only when sourced (never repeats `geo`; vague claims
   like "15+ countries" get no list)
-Body: 3–6 paragraphs — problem · why-now · who-pays · existing non-solutions ·
-foreign comparables. Corrections are appended after a `---` line, opening with
-`**CORRECTION (<date>...):**`.
+## Body shape and length (binding)
+
+A reader arrives at a record with two questions — **what is the problem, and
+could I build it** — and must be able to answer both without reading an audit
+trail. The body is written to be answerable in one screen, and it is written
+that way at creation: trimming 31 records by hand is a one-off, the shape is
+what lasts.
+
+**Section order, exactly this, nothing else:**
+
+```
+<lead paragraph(s)>            the problem
+Why now: …                     the window
+Who pays: …                    how big (first sentence becomes the page dek)
+Existing non-solutions: …      closes the problem section
+Solved elsewhere: …            where it works
+## First moves                 score >= 7 only — 4–6 numbered steps
+## Revisions                   the record's own audit trail, at the foot
+```
+
+**The lead-ins are LITERAL.** `web/lib/sections.ts` splits the body by matching
+`Why now:`, `Who pays:`, `Existing non-solutions`, `Solved elsewhere`,
+`## First moves` and `## Revisions` at the start of a paragraph. A paragraph
+with no recognised lead-in stays with whichever bucket is open, so a renamed or
+dropped lead-in does not error — it silently files prose under the wrong
+heading, which has broken a record before. Read that file before touching one.
+Never invent a seventh section.
+
+**Length targets** (targets, not build gates — the gate is the evidence):
+
+| Part | Target |
+|---|---|
+| Argument paragraph | ≤ 60 words |
+| Argument prose, whole record | ≤ 300 words |
+| Revision entry | ≤ 80 words |
+| First moves | 4–6 numbered steps |
+
+Over target, cut connective tissue, restated framing and adjectives.
+**Never cut a sentence that carries an `[Sn]` marker** — the markers are the
+receipts, and a record that loses them stops being a register entry.
+
+**The argument states the picture as it stands now.** "The 2026-08-13 absence
+check found no vendor; the 2026-08-20 re-check overturned it" is revision
+prose. In the body write what is true and cite it, then let the revision list
+carry who checked what, when, and why they were wrong.
+
+### Revisions (replaces the appended CORRECTION block, 2026-08-21)
+
+The register prints its corrections — that is the whole claim it has over an
+LLM guess — but printing them is not the same as leading with them. Until
+2026-08-20 each correction was appended as its own `**CORRECTION (date,
+tag):**` block after a `---` rule and rendered with a 4px ink left rule; 40 of
+them had accumulated across 31 records, and on p-0026 the trail outweighed the
+argument it corrected 441 words to 181. **Visible is not the same as dominant.**
+
+```
+## Revisions
+
+2026-08-13 · de-rank — The gap check found the position occupied … [S6].
+2026-08-20 · evidence audit — Two blocks from this date, merged … [S1,S3].
+```
+
+- **ONE ENTRY PER DATE.** A new correction **merges into that date's existing
+  entry**; it never appends a second block. Where two corrections assert the
+  same thing, fold them into one statement and say in the entry that it is a
+  merge ("Two blocks recorded on this date, merged here").
+- **Oldest first**, appended at the end — the same append discipline
+  `sources[]` uses. No sort step, so no sort to get wrong.
+- **Head:** `<ISO date> · <tag> — `. The tag is short (≤ 40 chars), contains
+  no em dash, and names the kind of change: `evidence audit` · `gap re-check`
+  · `de-rank` · `title sweep` · `fact check` · `money receipted` ·
+  `regulation added`. Everything after the first em dash is the entry prose.
+- **Cite like the argument.** A revision carries `[Sn]` markers exactly as
+  body prose does; they resolve against the same `sources[]` list.
+- **Plain prose only.** `web/lib/md.ts` supports `**strong**`, links and
+  lists — nothing else. Backticks and single-asterisk italics ship to the
+  reader as literal punctuation, and the quiet register the revision list is
+  set in does not want bold anyway.
+- **NEVER DELETE OR SILENTLY SHRINK A REVISION.** Merging and compressing are
+  allowed. Dropping a fact one of them asserts is not: a silent deletion is
+  the same sin as the invention it corrected. If a claim is withdrawn, the
+  withdrawal is written down.
+- **Never hidden.** The list renders on the page, in the reading order, in the
+  photocopy — quieter than the argument (`ol.revisions`, design-language
+  v1.9), never behind a disclosure.
+- Legacy `**CORRECTION (…)` blocks and `Updated <date>` tails still route into
+  this list from anywhere in the body, so a stray old-format block lands in
+  the revisions ledger rather than leaking into the argument. Do not write new
+  ones.
 
 ## Citations in the body (binding)
 
@@ -241,9 +392,23 @@ states its own coverage instead of asserting a bare negative:
 | `ares` | ARES business register searched by NACE/obor |
 | `app-stores` | Apple/Google store search for a consumer app |
 | `cz-saas-directories` | CZ SaaS/vendor directories |
+| `eshop-addon-marketplaces` | the CZ e-commerce add-on marketplaces — `data/lookup/cz-eshop-addons.jsonl`, built by scripts/fetch_shoptet.sh and scripts/fetch_upgates.sh |
 | `google-cz` | Czech-language web search, `hl=cs` |
 | `startupjobs` | StartupJobs.cz / hiring signals for a CZ player |
 | `own-funded-ledger` | our own `data/signals/funded/` searched for a CZ entrant |
+
+**A NEW TOKEN, NOT A WIDENED `app-stores`.** The add-on marketplaces raised a
+real question: `app-stores` is defined as "Apple/Google store search for a
+consumer app", which does not literally cover a platform add-on marketplace, and
+the token has been used 0 times. Stretching the definition to cover both was the
+cheap fix and is the wrong one. THE WHOLE POINT OF THIS VOCABULARY is that an
+absence claim states its own coverage; "I searched the app stores" and "I
+searched the Shoptet and Upgates add-on catalogues" are claims about two
+different populations, and a reader who cannot tell which was searched has been
+told nothing. One token per surface, and `app-stores` keeps its literal meaning.
+Adding a token is a SAME-CHANGE EDIT IN TWO FILES: this table and the
+`GAP_CHECKED` enum in web/lib/data.ts, which is closed on purpose so a typo
+fails the build loudly instead of quietly reading as a surface nobody searched.
 
 **THE LAW — expiry is display-only.** An expired gap-check flags staleness on
 the rendered page and never changes `scores.gap`, never changes `score`, and
