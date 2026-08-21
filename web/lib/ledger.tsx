@@ -92,7 +92,7 @@ export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
         <table className="index">
           <colgroup>
             <col className="c-name" /><col className="c-src" /><col className="c-cat" />
-            <col className="c-geo" /><col className="c-val" /><col className="c-rec" />
+            <col className="c-geo" /><col className="c-val" />
             <col className="c-date" />
           </colgroup>
           <caption>
@@ -103,7 +103,7 @@ export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
           <thead>
             <tr>
               <th>Name</th><th>Source</th><th>Sector</th><th>Origin</th>
-              <th className="t-num">Value</th><th>Record</th><th className="t-num">Date</th>
+              <th className="t-num">Value</th><th className="t-num">Date</th>
             </tr>
           </thead>
           <tbody>
@@ -122,7 +122,6 @@ export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
                 <td className="t-cat">{categoryLabel(s.sector)}</td>
                 <td className="mono">{s.geo_origin}</td>
                 <td className="t-num mono">{euro(s.money_eur)}</td>
-                <td className="t-id">{s.id}</td>
                 <td className="t-num t-date"><time>{s.date}</time></td>
               </tr>
             ))}

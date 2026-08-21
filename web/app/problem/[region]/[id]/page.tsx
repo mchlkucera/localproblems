@@ -29,7 +29,7 @@ function find(region: string, id: string): Problem | undefined {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { region, id } = await params;
   const p = find(region, id);
-  return { title: p ? `${p.id.toUpperCase()} · ${p.title} — localproblems.org` : "Record not found" };
+  return { title: p ? `${p.title} — localproblems.org` : "Record not found" };
 }
 
 function sourceName(s: ProblemSource): { label: string; url: string | null } {
@@ -151,7 +151,6 @@ export default async function Record({ params }: Params) {
   if (!p) notFound();
 
   const refs = dimRefs(p);
-  const idUp = p.id.toUpperCase();
   const dimLabel = (d: Dim) => d.charAt(0).toUpperCase() + d.slice(1);
   const provenance = p.sources.filter((s) => s.signal).map((s) => s.signal!);
   const sections = splitBody(p.body);
@@ -195,14 +194,13 @@ export default async function Record({ params }: Params) {
     <>
       <Masthead />
       <nav className="crumb">
-        <a href="/">Problems</a> / <a href={`/category/${p.category}`}>{categoryLabel(p.category)}</a> / {idUp}
+        <a href="/">Problems</a> / <a href={`/category/${p.category}`}>{categoryLabel(p.category)}</a>
       </nav>
       <SiteNav />
 
       <article>
         <header className="docket">
           <p className="idline">
-            <span className="id">{idUp}</span>
             <span className="meta">
               {"updated "}<time className="rel" dateTime={p.updated}>{p.updated}</time>
               {" · created "}<time className="rel" dateTime={p.created}>{p.created}</time>
@@ -436,7 +434,7 @@ export default async function Record({ params }: Params) {
       </article>
 
       <footer>
-        Record {idUp} · created <time>{p.created}</time> · updated <time>{p.updated}</time>
+        Created <time>{p.created}</time> · updated <time>{p.updated}</time>
         {provenance.length > 0 && (
           <>
             {" "}· source signals:{" "}

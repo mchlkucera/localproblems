@@ -38,7 +38,7 @@ export default function Register() {
         </caption>
         <thead>
           <tr>
-            <th>ID</th><th>Problem</th><th>Category</th><th>Locality</th>
+            <th>Problem</th><th>Category</th><th>Locality</th>
             {/* the build order is score desc — stated for AT even with JS off */}
             <th className="t-num" aria-sort="descending">Score</th><th className="t-num">Updated</th>
           </tr>
@@ -48,7 +48,6 @@ export default function Register() {
             const href = `/problem/${p.region}/${p.id}`;
             return (
               <tr key={p.id} className={p.status === "stale" || p.status === "solved" ? "is-solved" : undefined}>
-                <td className="t-id"><a href={href}>{p.id.toUpperCase()}</a></td>
                 <td className="t-title"><a href={href}>{p.title}</a></td>
                 <td className="t-cat">{categoryLabel(p.category)}</td>
                 <td>{localityLabel(p.geo)}</td>

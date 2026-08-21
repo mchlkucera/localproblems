@@ -698,12 +698,15 @@ ol.revisions { list-style: none; margin: 0; padding: 0; max-width: var(--w-prose
    the serif name column can never be starved by nowrap mono columns. */
 .index:has(col.c-name) { table-layout: fixed; }
 .index:has(col.c-name) td { overflow: hidden; text-overflow: ellipsis; }
-.index col.c-name { width: 30%; }
+/* v1.10: the Record column (c-rec, 20%) is retired — the signal id no longer
+   renders (owner, 2026-08-21). Its width goes to the serif name, which was the
+   column doing the reading work and the one that truncated first. The row still
+   carries id={s.id} as its anchor: 104 in-body deep links resolve against it. */
+.index col.c-name { width: 50%; }
 .index col.c-src  { width: 12%; }
 .index col.c-cat  { width: 11%; }
 .index col.c-geo  { width: 7%; }
 .index col.c-val  { width: 8%; }
-.index col.c-rec  { width: 20%; }
 .index col.c-date { width: 12%; }
 
 /* ---- narrow tables: the row becomes a ledger entry (v1.8) --------
