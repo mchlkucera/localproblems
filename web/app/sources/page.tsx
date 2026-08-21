@@ -2,13 +2,36 @@
 // §7.5, §9.6). SOURCES = the feeds we ingest from; SIGNALS = the records they
 // produce, which live at /signals/[type].
 //
-// This is the admin space, and it is deliberately public: a page that admits
-// which of its own feeds are broken is the receipt discipline applied to
-// ourselves.
+// THIS IS THE ADMIN SPACE AND IT IS PRIVATE (owner, 2026-08-21). It was public
+// on the argument that a page admitting which of its own feeds are broken is the
+// receipt discipline applied to ourselves. The owner overrode that: it carries
+// operational internals — blockers, access verdicts, per-feed yields, which
+// sources are dry — that are ours to read and nobody else's.
+//
+// PRIVATE MEANS NOT BUILT, not hidden. A page that renders and merely goes
+// unlinked is still fetchable by anyone who guesses the path, and "unlisted" is
+// the weakest possible privacy. `notFound()` before any data is read means the
+// production bundle never contains the feed registry at all.
+//
+// It stays fully available locally, where it is genuinely useful: `npm run dev`
+// sets LP_ADMIN=1 (see web/package.json), so http://localhost:3000/sources works
+// exactly as before. Set LP_ADMIN=1 on a build to emit it deliberately.
+//
+// The `/sources/:type` -> `/signals/:type` redirect in next.config.ts is
+// UNAFFECTED and must stay: it serves old deep links in record bodies, and those
+// point at the public signal ledgers, not at this page.
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { CORRECTIONS_MAILTO, FooterHouseLine, Masthead, SiteNav } from "../../lib/chrome";
 import { pad2 } from "../../lib/format";
 import { since, sourcesView, type Feed } from "./registry";
+
+/** Read inside the component, never at module scope: a module-scope constant can
+    be folded by the bundler, and this is the only thing standing between the
+    feed registry and the public internet. */
+function adminEnabled(): boolean {
+  return process.env.LP_ADMIN === "1";
+}
 
 export const metadata: Metadata = {
   title: "Sources — the feeds this register ingests from — localproblems.org",
@@ -29,6 +52,9 @@ function feedTitle(f: Feed): string {
 const count = (v: number | null | undefined) => (v == null ? "—" : pad2(v));
 
 export default function Sources() {
+  // FIRST STATEMENT, before sourcesView() reads the registry. The guard is
+  // worth nothing if the data is already loaded when it fires.
+  if (!adminEnabled()) notFound();
   const { rows, unregistered, registryMissing, healthMissing, generated, runId, anchor, feedCount } = sourcesView();
   const blocked = rows.filter((r) => r.feed.status !== "active");
   const errored = rows.filter((r) => r.health?.error);

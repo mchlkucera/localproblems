@@ -5,7 +5,7 @@
   "scripts": {
     "predev": "node scripts/check-css.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/db-gate.mjs",
     "prebuild": "node scripts/check-css.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/db-gate.mjs && node scripts/lint-citations.mjs",
-    "dev": "next dev",
+    "dev": "LP_ADMIN=1 next dev",
     "build": "next build",
     "start": "next start",
     "parity": "node scripts/parity.mjs"

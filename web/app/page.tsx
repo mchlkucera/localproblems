@@ -87,7 +87,7 @@ export default function Register() {
         <FooterHouseLine />
         <br />
         <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
-        <a href="/signals/funded">signal ledgers</a> · <a href="/sources">feeds and health</a>
+        <a href="/signals/funded">signal ledgers</a>
       </footer>
       <SortScript />
     </>
