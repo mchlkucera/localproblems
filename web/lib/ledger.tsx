@@ -47,8 +47,11 @@ const SOURCE_LABELS: Record<string, string> = {
     recorded a verbatim `quote` (§7.2) the row shows it beneath our paraphrase:
     the source's own words are the stronger receipt, and a field that reaches
     the JSONL but never reaches the page has not shipped (AC-Z3). */
-function rowTitle(s: Signal): string {
-  return s.quote ? `${s.summary}\n\n“${s.quote}”` : s.summary;
+/** The summary now renders visibly under the name (owner, 2026-08-24), so the
+    native-title reveal carries only what stays hidden: the verbatim quote. A
+    tooltip that repeats visible text is noise; no quote, no title at all. */
+function rowTitle(s: Signal): string | undefined {
+  return s.quote ? `“${s.quote}”` : undefined;
 }
 
 /** THE LEDGERS CARRY NO SORT SCRIPT, AND THAT IS THE POINT.
@@ -109,7 +112,12 @@ export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
           <tbody>
             {rows.map((s) => (
               <tr key={s.id} id={s.id}>
-                <td className="t-title"><a href={s.url} title={rowTitle(s)}>{s.title}</a></td>
+                <td className="t-title">
+                  <a href={s.url} title={rowTitle(s)}>{s.title}</a>
+                  {/* the recorded ≤2-sentence abstract — visible, not hover-only
+                      (owner, 2026-08-24): on a phone there is no hover at all. */}
+                  <span className="note">{s.summary}</span>
+                </td>
                 <td className="t-cat">
                   {s.source === "arb-scan" ? s.geo_origin : SOURCE_LABELS[s.source] ?? s.source}
                   {/* §7.3: the extraction value IS the review flag — an

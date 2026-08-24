@@ -1,5 +1,14 @@
 /* ============================================================
-   localproblems.org · design system v1.9 · 2026-08-21
+   localproblems.org · design system v1.11 · 2026-08-24
+   v1.11: the signal abstract renders. Each ledger row's recorded ≤2-sentence
+   summary moves from the name's hover title — invisible on every phone — to a
+   visible muted serif note line under the name (`.index .t-title .note`), the
+   comps-ledger two-line entry grammar reused verbatim. Truncation moves from
+   the cell to the anchor so the name still ellipsises on one line (NEVER 14)
+   while the note wraps. The hover title now carries only the verbatim quote —
+   a tooltip repeating visible text is noise. No new colour, size or weight.
+   v1.10 (2026-08-21): ledger Record column retired with the visible ids
+   (owner) — its 20% width passed to the serif name; row anchors kept.
    v1.9: revisions. The record's audit trail stops interrupting
    the argument and becomes a ledger at the foot of the page.
    .correction (v1.4 — the 4px "page begins" rule turned sideways,
@@ -233,8 +242,17 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 .index .t-id { font-weight: 600; white-space: nowrap; }
 .index .t-title {                            /* the only serif cell */
   font: 600 0.9375rem/1.3 var(--serif);
-  max-width: 0; width: 46%;                  /* force truncation */
-  overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  max-width: 0; width: 46%;                  /* the sizing trick stays on the cell */
+}
+/* v1.11: truncation lives on the ANCHOR so the name keeps its one ellipsised
+   line (NEVER 14) while the abstract beneath is free to wrap. */
+.index .t-title > a { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* the recorded ≤2-sentence abstract — the comps `.note` voice, roman because it
+   is the clerk's recorded summary, muted because it is subordinate to the name */
+.index .t-title .note {
+  display: block; margin-top: var(--sp-1);
+  font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted);
+  white-space: normal;
 }
 .index .t-cat { text-transform: uppercase; font-size: var(--fs-label); letter-spacing: 0.06em; }
 .index .t-num, .index thead .t-num { text-align: left; white-space: nowrap; }  /* v2: every column left-aligns */
@@ -778,6 +796,7 @@ ol.revisions { list-style: none; margin: 0; padding: 0; max-width: var(--w-prose
     white-space: normal; overflow: visible; text-overflow: clip;
     margin-bottom: var(--sp-1);
   }
+  .index .t-title > a { white-space: normal; overflow: visible; text-overflow: clip; }
   .index:has(col.c-name) td { overflow: visible; text-overflow: clip; }
   .index .t-id { white-space: normal; }
   /* the clerk line: the cells run on, joined by the house middot. The
