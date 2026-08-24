@@ -57,9 +57,9 @@ Why now: the obligation is live [S1]. Merchant-facing FAQ content and industry c
 
 Who pays: e-shops and digital-service providers buying audits, remediation and continuous monitoring [S1]; e-commerce platforms (Shoptet and peers) are the structural channel — one platform integration reaches many obligated shops at once.
 
-Existing non-solutions: no productized CZ compliance offering with zákon č. 424/2023 mapping was verified this cycle (gap unchecked, scored 0).
+Existing non-solutions: no productized CZ compliance offering with zákon č. 424/2023 mapping has been verified — the market has not been searched yet, so no open local field is claimed.
 
-Next moves: a gap check on Czech accessibility-tooling, a ČOI enforcement-statistics receipt (first fines would be a demand=2 upgrade), and a Shoptet-ecosystem probe to validate the platform channel.
+Next moves: a search for Czech accessibility tooling, ČOI enforcement statistics (first fines would materially raise this record), and a Shoptet-ecosystem probe to validate the platform channel.
 
 ## Revisions
 

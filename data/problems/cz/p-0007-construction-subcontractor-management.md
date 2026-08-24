@@ -115,9 +115,9 @@ Why now: in Germany — a structurally similar subcontractor market — CoCrafte
 
 Who pays: general contractors and mid-sized stavební firmy — the marketplace side monetizes matching and compliance document management; the payroll side is per-employee SaaS replacing accountant hours and compliance risk. Entry through either wedge lands in the same buyer.
 
-Existing non-solutions: consumer home-services marketplaces (Wilio, Nejřemeslníci) that do not serve B2B crews [S3], site-diary and attendance tools (Stavario, PlanRadar) that stop short of pay and compliance, and generic payroll software [S2,S4]. Absence checks on 2026-08-13 found no Czech B2B subcontractor marketplace and no construction-vertical payroll product [S3].
+Existing non-solutions: consumer home-services marketplaces (Wilio, Nejřemeslníci) that do not serve B2B crews [S3], site-diary and attendance tools (Stavario, PlanRadar) that stop short of pay and compliance, and generic payroll software [S2,S4]. Searches on 2026-08-13 found no Czech B2B subcontractor marketplace and no construction-vertical payroll product [S3].
 
-Solved elsewhere: CoCrafter (DE) for sourcing [S1] and Hammr (US, YC W23) for construction payroll/HR [S2]. Arbitrage scored 2 rather than 3 because each facet of the merged problem is validated in only one market.
+Solved elsewhere: CoCrafter (DE) for sourcing [S1] and Hammr (US, YC W23) for construction payroll/HR [S2]. Each facet of the merged problem is validated in only one market so far.
 
 ## Revisions
 

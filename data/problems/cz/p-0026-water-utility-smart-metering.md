@@ -86,7 +86,7 @@ Czech water supply is run by hundreds of VaK companies and municipal svazky, mos
 
 Why now: a svazek with three employees cannot run a data platform; each project embeds years of operational dependence on whichever integrator won.
 
-Who pays: the utilities themselves via receipted public procurement — today an integrator/dev-shop market in which each small utility contracts supply, licences and operation separately (seven distinct buyers receipted by August 2026) [S3,S5].
+Who pays: the utilities themselves via documented public procurement — today an integrator/dev-shop market in which each small utility contracts supply, licences and operation separately (seven distinct buyers documented by August 2026) [S3,S5].
 
 Existing non-solutions: the managed-service position is not empty — Softlink sells the CEM Smart metering-data platform with water-utility references (running Prague's remote readouts since 2016) [S6,S7], VODÁRENSKÁ AKCIOVÁ SPOLEČNOST operates metering as a service [S6,S7], Popron Systems sells SMG Water, and SUEZ and Techem serve the utility and housing tiers [S6].
 

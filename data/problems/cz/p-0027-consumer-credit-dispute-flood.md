@@ -107,9 +107,9 @@ Why now: the growth is industrial, not organic. The arbiter's own reporting desc
 
 Who pays: non-bank lenders and banks first — each incoming FA proceeding demands document production, a legal position, and a settlement decision, and at 2026 volumes that is tens of thousands of case-handling cycles a year across the sector [S1], run today by legal departments and external advokáti by hand [S4]. The claimant side already has industrial tooling economics (standardized filings at scale) [S1]; the response side does not. The arbiter itself, drowning at 167 days per case [S1], is the third affected party and a plausible govtech buyer.
 
-Existing non-solutions: manual legal departments, outsourced law firms billing per case, and the arbiter's static information pages [S4]. The 2026-08-13 gap check found no Czech product for dispute-response operations, docket management against the FA, or settlement workflow — only information portals and services [S4].
+Existing non-solutions: manual legal departments, outsourced law firms billing per case, and the arbiter's static information pages [S4]. A 2026-08-13 market search found no Czech product for dispute-response operations, docket management against the FA, or settlement workflow — only information portals and services [S4].
 
-Solved elsewhere, weakly: no funded analog exists for consumer-credit dispute operations specifically; the nearest proven models are AI claims-operations companies in insurance (ClaimSorted, Avallon, Basepilot, Amera) and AI-native debt collection (Audun, Norway) [S3]. Proof is scored 1 accordingly — this record is carried by its documented demand, and the first Czech mover would be productizing a workflow that provably exists at scale rather than importing a proven product.
+Solved elsewhere, weakly: no funded analog exists for consumer-credit dispute operations specifically; the nearest proven models are AI claims-operations companies in insurance (ClaimSorted, Avallon, Basepilot, Amera) and AI-native debt collection (Audun, Norway) [S3]. This record is carried by its documented demand — the first Czech mover would be productizing a workflow that provably exists at scale rather than importing a proven product.
 
 ## Revisions
 

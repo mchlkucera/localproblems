@@ -104,15 +104,15 @@ created: '2026-08-13'
 updated: '2026-08-24'
 ---
 
-Czech employers structurally depend on foreign workers — Ukraine, Philippines, India — channeled through government kvóty programs [S1,S2]. The zaměstnanecká karta pipeline is, per the yc-gale signal, notoriously slow and paper-based [S1]; employers outsource it to relocation agencies and law firms that work manually at high fees, with no software layer for application preparation, status tracking or ongoing compliance (permit renewals, reporting duties) [S2].
+Czech employers structurally depend on foreign workers — Ukraine, Philippines, India — channeled through government kvóty programs [S1,S2]. The zaměstnanecká karta pipeline is notoriously slow and paper-based [S1]; employers outsource it to relocation agencies and law firms that work manually at high fees, with no software layer for application preparation, status tracking or ongoing compliance (permit renewals, reporting duties) [S2].
 
 Why now: the US shows the model being replicated rapidly — Gale (YC W25) automates the corporate visa pipeline, with Mayflower (YC F25) and LegalOS (YC W26) extending the cluster within a year [S1]. The playbook of software coordinating independent attorneys transfers to the Czech advokát market structure.
 
 Who pays: employers with recurring foreign-hiring volume (manufacturing, logistics, healthcare, IT) who currently pay per-case agency fees; agencies themselves are a secondary buyer for tooling that raises their case throughput.
 
-Existing non-solutions: ministry information pages, permit.cz (static form-filling guides), classic law firms (e.g. ARROWS) and manual relocation agencies [S2]. The 2026-08-13 absence check found no automation platform [S2], and a 2026-08-20 re-check held that finding against a market that is dense but entirely manual: zamestnaneckekarty.cz turns out to be the law firm Spring Walk with no portal or tracking of any kind, Foreigners, ReloCzech, Expat Support, Principio and DMPF sell serviced immigration agendas, and ARES lists nine "Relocation" and fifteen "Expat" companies without a software vendor among them [S4].
+Existing non-solutions: ministry information pages, permit.cz (static form-filling guides), classic law firms (e.g. ARROWS) and manual relocation agencies [S2]. A 2026-08-13 search found no automation platform [S2], and a 2026-08-20 follow-up held that finding against a market that is dense but entirely manual: zamestnaneckekarty.cz turns out to be the law firm Spring Walk with no portal or tracking of any kind, Foreigners, ReloCzech, Expat Support, Principio and DMPF sell serviced immigration agendas, and ARES lists nine "Relocation" and fifteen "Expat" companies without a software vendor among them [S4].
 
-Solved elsewhere: the US YC cluster above [S1,S3]. Arbitrage scored 1 since validation is US-only and immigration processes are jurisdiction-specific; the counterweight is that the Czech process's paper-heaviness is exactly what makes an automation layer valuable.
+Solved elsewhere: the US YC cluster above [S1,S3]. Validation is US-only and immigration processes are jurisdiction-specific; the counterweight is that the Czech process's paper-heaviness is exactly what makes an automation layer valuable.
 
 ## Revisions
 

@@ -58,9 +58,9 @@ Why now: the December 2025 amendment was the second postponement, and the simpli
 
 Who pays: importing and processing firms in the wood/furniture, coffee, food and rubber value chains [S1], buying due-diligence-as-a-service, geolocation plot verification, supplier questionnaire automation and customs-integrated filing [S1].
 
-Existing non-solutions: nothing CZ-specific was searched this cycle (gap scored 0 accordingly); EU-wide EUDR SaaS exists but mid-sized Czech importers are unlikely targets of those vendors' direct sales, leaving a localization and service gap plausible but unverified.
+Existing non-solutions: the Czech market has not been searched yet, so no open local field is claimed; EU-wide EUDR SaaS exists but mid-sized Czech importers are unlikely targets of those vendors' direct sales, leaving a localization and service gap plausible but unverified.
 
-Recommended follow-up: a gap check on CZ-language EUDR tooling and whether celní deklaranti / customs software vendors are bundling DDS filing.
+Recommended follow-up: a search for CZ-language EUDR tooling, and checking whether celní deklaranti / customs software vendors are bundling DDS filing.
 
 ## Revisions
 

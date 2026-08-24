@@ -6,7 +6,7 @@ export default function NotFound() {
       <Masthead />
       <SiteNav />
       <h2>404</h2>
-      <p>Record not found. Either it never existed, or it was solved so thoroughly it disappeared.</p>
+      <p>Record not found. Check the address, or start from the register.</p>
       <p className="crumb"><a href="/">← Back to the register</a></p>
     </>
   );

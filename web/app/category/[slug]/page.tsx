@@ -36,7 +36,7 @@ export default async function CategoryPage({ params }: Params) {
 
       {rows.length === 0 ? (
         <p className="crumb">
-          No open problems on record in this category. As of <time>{date}</time>.
+          No open problems in this category as of <time>{date}</time>.
         </p>
       ) : (
         <table className="index">
@@ -75,7 +75,7 @@ export default async function CategoryPage({ params }: Params) {
         <FooterHouseLine />
         <br />
         <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
-        <a href="/signals/funded">signal ledgers</a> · <a href="/sources">feeds and health</a>
+        <a href="/signals/funded">signal ledgers</a>
       </footer>
       {/* an empty category renders no table — ship no script for it */}
       {rows.length > 0 && <SortScript />}

@@ -82,9 +82,9 @@ Why now: the iuslaboris analysis notes the Czech draft goes beyond the directive
 
 Who pays: initially the 150+-employee reporting tier (thousands of Czech employers, HR departments with no pay-equity analytics), then effectively every employer adjusting hiring practice [S1]. Buyers split between HRIS/payroll vendors needing modules, and standalone audit/analytics tools plus consulting.
 
-Existing non-solutions: Vema and OKbase are on file as Czech payroll and HR systems in production use [S3,S4]; what they do or do not analyze was never checked, and no CZ gap check was run this cycle, so gap scores 0 [S2]. Foreign analogs — Figures (FR), PayAnalytics (IS), Syndio (US) — sell exactly this elsewhere in Europe [S2].
+Existing non-solutions: Vema and OKbase are on file as Czech payroll and HR systems in production use [S3,S4]; what they do or do not analyze was never checked, and the Czech market has not been searched yet, so no open local field is claimed [S2]. Foreign analogs — Figures (FR), PayAnalytics (IS), Syndio (US) — sell exactly this elsewhere in Europe [S2].
 
-Scored strictly: deadline and freshness are receipted, arbitrage conservatively at 1 (analogs named, no CZ absence check yet) [S2]. A gap check on Czech pay-equity tooling and a demand receipt (HR-association surveys, komora statements) are the obvious next moves and would likely lift this into the top tier.
+The score is strict: only the deadline and its freshness are documented; the analogs are named, but the Czech market has not been searched yet [S2]. A search for Czech pay-equity tooling and documented demand (HR-association surveys, komora statements) are the obvious next moves and would likely lift this into the top tier.
 
 ## Revisions
 

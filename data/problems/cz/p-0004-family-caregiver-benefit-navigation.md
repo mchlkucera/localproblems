@@ -104,15 +104,15 @@ created: '2026-08-13'
 updated: '2026-08-20'
 ---
 
-Roughly 380,000 dependent persons in Czechia receive příspěvek na péči [S2], and the care it funds is largely delivered informally by family members [S1]. To get the benefit — and the correct level of it — families must navigate the application, the hodnocení stupně závislosti assessment, and frequently appeals, in a process the yc-oma-care signal characterizes as bureaucratic and opaque [S3]. Families that misnavigate it leave state money on the table while providing the care anyway.
+Roughly 380,000 dependent persons in Czechia receive příspěvek na péči [S2], and the care it funds is largely delivered informally by family members [S1]. To get the benefit — and the correct level of it — families must navigate the application, the hodnocení stupně závislosti assessment, and frequently appeals, in a process the evidence on file characterizes as bureaucratic and opaque [S3]. Families that misnavigate it leave state money on the table while providing the care anyway.
 
 Why now: benefit levels were raised again in 2024-25 [S2], increasing the money at stake per claim, while the navigation layer remains nonexistent [S3]. Demographic aging steadily grows the claimant pool.
 
 Who pays: families themselves (success-fee or flat-fee claim assistance, subscription support and caregiver training), analogous to how Oma Care monetizes caregiver enablement in the US [S1]. Downstream, home-care providers and insurers are plausible channel partners since properly funded clients can afford services.
 
-Existing non-solutions: static information portals (pece.cz, mpsv.gov.cz guides) [S3] and word-of-mouth from social workers. No Czech company files, tracks or optimizes claims for families [S3] — a finding a later re-check held and sharpened. Help exists, but as free social counselling rather than product: pece.cz, run by NN Životní pojišťovna, carries an entitlement calculator and a poradna, and registered odborné sociální poradenství services draft appeals for families [S6].
+Existing non-solutions: static information portals (pece.cz, mpsv.gov.cz guides) [S3] and word-of-mouth from social workers. No Czech company files, tracks or optimizes claims for families [S3] — a finding a later market search confirmed and sharpened. Help exists, but as free social counselling rather than product: pece.cz, run by NN Životní pojišťovna, carries an entitlement calculator and a poradna, and registered odborné sociální poradenství services draft appeals for families [S6].
 
-Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) form a validated US cluster around getting family caregivers trained and paid from state programs [S1]. Arbitrage scored 1 because validation is US-only; the money point reflects the příspěvek na péči program explicitly referenced in the signal note [S2].
+Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) form a validated US cluster around getting family caregivers trained and paid from state programs [S1]. Validation is US-only so far; the money in the problem is the příspěvek na péči program itself [S2].
 
 ## Revisions
 

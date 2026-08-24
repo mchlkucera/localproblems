@@ -61,7 +61,7 @@ Why now: the 50-tonne de minimis in the 2025 Omnibus is designed to cut the comp
 
 Who pays: the importing firms — declarant registration support, supplier emissions data collection, ERP plug-ins for embedded-emissions accounting, and hedging advisory for the certificate cost [S1]. The buyer is the CFO, and the trigger dates are fixed.
 
-Existing non-solutions: no CZ-specific gap check was run this cycle (gap 0).
+Existing non-solutions: the Czech market has not been searched yet, so no open local field is claimed.
 
 Recommended follow-up: quantify the Czech population of above-threshold importers (customs data) and check whether CZ customs-software vendors are building CBAM modules.
 

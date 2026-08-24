@@ -70,13 +70,13 @@ created: '2026-08-13'
 updated: '2026-08-20'
 ---
 
-Czechia must offer an EU Digital Identity Wallet to citizens and businesses by the end of 2026 [S1,S2], and within 36 months of the December 2024 implementing acts — i.e. during 2027 — banks, telcos, large platforms and other regulated businesses must accept it wherever strong user authentication is required [S1]. The state's deadline creates the private sector's problem: every Czech relying party needs wallet-acceptance flows, and the reg-eidas2 signal names banks, utilities, e-shops with KYC obligations and municipalities among them [S1].
+Czechia must offer an EU Digital Identity Wallet to citizens and businesses by the end of 2026 [S1,S2], and within 36 months of the December 2024 implementing acts — i.e. during 2027 — banks, telcos, large platforms and other regulated businesses must accept it wherever strong user authentication is required [S1]. The state's deadline creates the private sector's problem: every Czech relying party needs wallet-acceptance flows, and the regulation's own scope names banks, utilities, e-shops with KYC obligations and municipalities among them [S1].
 
 Why now: the wallet launch is months away and the acceptance obligation lands within the scoring horizon [S1,S2]. KYC-heavy businesses that rebuild onboarding around wallet-presented attestations early can cut verification cost; the rest will scramble against a legal obligation.
 
 Who pays: relying parties — banks and payment institutions first (strong-authentication obligations under PSD2 make them the clearest obligated acceptors), then telcos, utilities and e-commerce with age/identity checks [S1]. Product surfaces named in the signal: relying-party registration and integration SDKs, KYC-flow rebuilds, QES and attribute-attestation services [S1].
 
-The state's own spend is receipted: DIA put the national wallet's client part out as an open ~€78M competition in July 2026 [S3], which both funds an SI/dev-shop opportunity today and confirms the 2027 relying-party clock.
+The state's own spend is documented: DIA put the national wallet's client part out as an open ~€78M competition in July 2026 [S3], which both funds an SI/dev-shop opportunity today and confirms the 2027 relying-party clock.
 
 Existing non-solutions and the incumbent: eDoklady is the state wallet precursor, not an integration product [S2]. The relying-party integration niche itself, however, is occupied: Wultra (Prague) sells the Digital ID Wallet Gateway — accept and verify EUDI wallet credentials (OIDC4VCI, SD-JWT per the ARF) through one gateway instead of integrating dozens of national wallet implementations — plus identity verification and qualified e-signatures, and raised a €6.8M Series A in June 2026 explicitly on the eIDAS2/EUDI acceptance wave [S4].
 

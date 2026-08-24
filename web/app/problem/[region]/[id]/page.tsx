@@ -199,25 +199,25 @@ export default async function Record({ params }: Params) {
             <span className="n"><b>{p.score}</b>/12</span>
           </div>
           <div className="dims">
-            {/* Each cell is a plain anchor to the section carrying its
+            {/* Each row is a plain anchor to the section carrying its
                 evidence (owner: "easier to scan, with links to read more").
-                The read line wears the hairline underline + a mono "→" so
-                the affordance is visible at rest. No JS. */}
+                Rows scan straight down — label, pip meter with its figure,
+                read — and the read line wears the hairline underline + a
+                mono "→" so the affordance is visible at rest. No JS. */}
             {SCORE_ROWS.map(({ dim, label }) => (
               <a key={dim} className={p.scores[dim] === 0 ? "dim is-zero" : "dim"} href={anchors[dim]}>
-                <div className="top2">
-                  <span className="label">{label}</span>
+                <span className="label">{label}</span>
+                <span className="meter">
                   <Tally s={p.scores[dim]} max={MAX[dim]} />
-                </div>
-                <div className="read">{scoreRead(p, dim)}</div>
+                  <span className="num">{p.scores[dim]}/{MAX[dim]}</span>
+                </span>
+                <span className="read">{scoreRead(p, dim)}</span>
               </a>
             ))}
             <a className="dim dim--build" href="#what-you-need">
-              <div className="top2">
-                <span className="label">Build</span>
-                <span className="pill">{builderLabel(build.builder)}</span>
-              </div>
-              <div className="read">{CAPITAL_RANGE[build.capital]} · first revenue in {FIRST_REVENUE[build.first_revenue]}</div>
+              <span className="label">Build</span>
+              <span className="meter"><span className="pill">{builderLabel(build.builder)}</span></span>
+              <span className="read">{CAPITAL_RANGE[build.capital]} · first revenue in {FIRST_REVENUE[build.first_revenue]}</span>
             </a>
           </div>
         </section>
@@ -251,7 +251,7 @@ export default async function Record({ params }: Params) {
             </ul>
           </div>
         ) : (
-          <p className="absent">No verified foreign comparable on file. As of <time dateTime={p.updated}>{p.updated}</time>.</p>
+          <p className="absent">No verified foreign comparable on file as of <time dateTime={p.updated}>{p.updated}</time>.</p>
         )}
 
         {sections.competition && (

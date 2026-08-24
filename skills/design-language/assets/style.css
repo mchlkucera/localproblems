@@ -339,16 +339,18 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   .docket .facts--rail > div:first-child { padding-top: 0; }
 }
 
-/* ---- scorecard: the "Opportunity /12" card (v1.12 rebuild) -----
-   Owner rebuild, 2026-08-24. The top-line band that answers "how good is
-   this opportunity, objectively?" becomes a plain bordered card — a
-   header "Opportunity {sum}/12", then the five dimensions as a two-column
-   grid: plain builder label, a tally PIP METER (--s of --max ticks; more
-   is better on EVERY row — gap high means the field is open, not "more
-   competition"), and one plain line. NO verdict words, NO rundown dialog:
-   the receipts live in the Sources ledger, not behind a popover of rubric
-   jargon and audit prose. A sixth Build cell sits apart — it is
-   feasibility, not opportunity. Tally ticks only; never a gauge or ring. */
+/* ---- scorecard: the "Opportunity /12" card (v1.14 rows) -----
+   Owner rebuild 2026-08-24; re-laid as ledger rows 2026-08-25 ("find a
+   better layout", "add number there to enable quick scanning"). The card
+   answers "how good is this opportunity, objectively?": a header
+   "Opportunity {sum}/12", then the five dimensions as SINGLE-COLUMN
+   ROWS that scan straight down like a table — plain builder label left,
+   the tally PIP METER with its mono figure (2/3, 1/2 …) in a shared
+   middle column, the one plain read right. More is better on EVERY row
+   — gap high means the field is open, not "more competition". NO
+   verdict words, NO rundown dialog: the receipts live in the Sources
+   ledger. The sixth Build row sits apart behind a 3px double rule — it
+   is feasibility, not opportunity. Tally ticks only; never a gauge. */
 .scorecard {
   border: 1px solid var(--rule);
   margin: 0 0 var(--sp-6);
@@ -366,19 +368,28 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 }
 .scorecard .hd .n { font: 600 var(--fs-body)/1 var(--mono); }
 .scorecard .hd .n b { font-size: var(--fs-title); }   /* the loudest figure on the page */
-.scorecard .dims { display: grid; grid-template-columns: 1fr 1fr; }
+.scorecard .dims { display: block; }
+/* one row, three fixed columns, so label / meter / read align down the
+   card: the label column clears the longest label (VALIDATED ABROAD at
+   --fs-label + 0.08em tracking), the meter column clears the widest pip
+   run and the Build pill. Rules are border-TOP so the Build row can
+   trade its hairline for the double rule without stacking two rules. */
 .scorecard .dim {
-  display: flex; flex-direction: column; gap: var(--sp-2);
+  display: grid;
+  grid-template-columns: 8.5rem 6.5rem minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--sp-4);
   padding: var(--sp-3) var(--sp-4);
-  border-bottom: 1px solid var(--rule);
 }
-.scorecard .dim:nth-child(odd) { border-right: 1px solid var(--rule); }
-/* six cells, two columns: the last row hands its rule to the card border */
-.scorecard .dim:nth-last-child(-n+2) { border-bottom: 0; }
-.scorecard .top2 { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); }
+.scorecard .dim + .dim { border-top: 1px solid var(--rule); }
+/* Build sits apart — feasibility, not opportunity: the major boundary */
+.scorecard .dim--build { border-top: 3px double var(--rule); }
+.scorecard .meter { display: flex; align-items: center; gap: var(--sp-2); }
+/* the figure beside the pips — the register's .score fraction grammar */
+.scorecard .num { font: 600 var(--fs-data)/1 var(--mono); }
 .scorecard .read { font: 400 var(--fs-data)/1.4 var(--serif); color: var(--ink); }
-/* absence is stated, never hidden: a zero row greys its read (owner rule) */
-.scorecard .is-zero .read { color: var(--ink-muted); }
+/* absence is stated, never hidden: a zero row greys its read and figure */
+.scorecard .is-zero .read, .scorecard .is-zero .num { color: var(--ink-muted); }
 /* the Build cell's team pill — a quiet bordered mono mark, not a stamp */
 .scorecard .pill {
   font: 600 var(--fs-label)/1 var(--mono);
@@ -397,11 +408,10 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   width: calc(var(--s) / var(--max) * 100%);  /* set style="--s:3;--max:3" in HTML */
   background: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 10px);
 }
-@media (max-width: 40rem) {                   /* narrow: one column of stacked rows */
-  .scorecard .dims { grid-template-columns: 1fr; }
-  .scorecard .dim:nth-child(odd) { border-right: 0; }
-  .scorecard .dim:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
-  .scorecard .dim:last-child { border-bottom: 0; }
+@media (max-width: 40rem) {  /* narrow: label + meter share the top line, read below */
+  .scorecard .dim { grid-template-columns: minmax(0, 1fr) auto; row-gap: var(--sp-2); }
+  .scorecard .meter { justify-content: flex-end; }
+  .scorecard .read { grid-column: 1 / -1; }
 }
 /* v1.13: each cell links to the section carrying its evidence ("read
    more" — owner, 2026-08-24). The label and pips stay plain; the READ

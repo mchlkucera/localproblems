@@ -110,7 +110,7 @@ updated: '2026-08-24'
 
 Between June and August 2026, at least four Czech regional hospital groups went to market separately for what is structurally the same thing: an interoperability layer that lets hospital systems talk to each other and to outside providers [S1,S3]. Uherské Hradiště awarded ~€7.7M for an eHealth communication platform [S1]; the Plzeňský kraj hospital group has an open ~€5.8M tender for NIS delivery with ESB and integrations [S2]; Zlín's KNTB awarded ~€2.8M for a NIS with integration scope [S3]; FN Olomouc bought interoperability work [S3].
 
-Why now: the European Health Data Space regulation (in force since March 2025, with obligations phasing toward 2029+) makes structured, exchangeable health records a legal end-state [S7], and Czech hospitals are spending toward it now, hospital by hospital [S4], without a shared platform. The procurement cluster is the receipt: this is recurring, multi-buyer public spend on an unsolved integration problem.
+Why now: the European Health Data Space regulation (in force since March 2025, with obligations phasing toward 2029+) makes structured, exchangeable health records a legal end-state [S7], and Czech hospitals are spending toward it now, hospital by hospital [S4], without a shared platform. The procurement cluster is the evidence: this is recurring, multi-buyer public spend on an unsolved integration problem.
 
 Who pays: hospital groups and kraje (the owners) — today via SI tenders, which is exactly the opportunity for consultancies and dev shops; longer-term, a productized interop/ESB layer with Czech NIS integrations (Stapro FONS/TransMISE, ICZ eMEDOCS) [S8] could compress these €0.7-7.7M projects into licensing deals [S1,S2,S3].
 

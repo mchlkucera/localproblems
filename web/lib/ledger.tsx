@@ -85,7 +85,7 @@ export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
       <p>{DESCRIPTIONS[type]}</p>
 
       {rows.length === 0 ? (
-        <p className="crumb">No signals on record in this ledger. As of <time>{extractDate()}</time>. Feed pending.</p>
+        <p className="crumb">Nothing in this ledger as of <time>{extractDate()}</time> — the feed is registered but not yet producing.</p>
       ) : (
         <table className="index">
           <colgroup>
@@ -138,8 +138,7 @@ export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
       <footer>
         <FooterHouseLine />
         <br />
-        <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> · <a href="/">problem register</a> ·{" "}
-        <a href="/sources">feeds and health</a>
+        <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> · <a href="/">problem register</a>
       </footer>
     </>
   );

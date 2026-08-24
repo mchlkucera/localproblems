@@ -107,15 +107,15 @@ created: '2026-08-13'
 updated: '2026-08-20'
 ---
 
-Hundreds of small Czech montážní firmy execute the tens of thousands of heat-pump and photovoltaic installations driven each year by Nová zelená úsporám [S1,S2]. Per the yc-autarc signal they are drowning in the surrounding paperwork: digital site survey, heat-load calculation, quote generation, subsidy application handling and install project tracking are done with spreadsheets, manufacturer configurators and manual NZÚ form-filling [S1].
+Hundreds of small Czech montážní firmy execute the tens of thousands of heat-pump and photovoltaic installations driven each year by Nová zelená úsporám [S1,S2]. The evidence on file shows them drowning in the surrounding paperwork: digital site survey, heat-load calculation, quote generation, subsidy application handling and install project tracking are done with spreadsheets, manufacturer configurators and manual NZÚ form-filling [S1].
 
 Why now: NZÚ volumes keep the long tail of installers at capacity [S2], and the German comparison is direct — autarc (YC S24, Berlin) built exactly this stack for a market whose installer workflows and subsidy bureaucracy mirror the Czech setup, and reached ~30 people on it [S1]. The workflow is subsidy-shaped, so a CZ product must be built around NZÚ specifically; foreign tools do not transfer without localization, which protects a local entrant.
 
 Who pays: the installation firms themselves (per-seat or per-project SaaS), for whom faster quoting and correctly filed subsidy applications convert directly to revenue; secondarily manufacturers and distributors who want their long-tail installer channel to be more productive.
 
-Existing non-solutions: manufacturer sizing configurators (e.g. Master Therm), generic project tools, and Woltair — which is a vertically integrated installer competing with the long tail, not selling software to it [S3]. But the software position itself is not empty: Wue sells per-seat quoting-plus-NZÚ-documentation software to FVE and heat-pump firms at 650 Kč/user/month, RAYNET ships a photovoltaics CRM vertical that auto-generates NZÚ and distributor forms with a field app for installation crews, and AutoERP and Infina sell CRM/ERP into the same buyers [S6]. The earlier absence finding [S3] is superseded; the revisions below record why.
+Existing non-solutions: manufacturer sizing configurators (e.g. Master Therm), generic project tools, and Woltair — which is a vertically integrated installer competing with the long tail, not selling software to it [S3]. But the software position itself is not empty: Wue sells per-seat quoting-plus-NZÚ-documentation software to FVE and heat-pump firms at 650 Kč/user/month, RAYNET ships a photovoltaics CRM vertical that auto-generates NZÚ and distributor forms with a field app for installation crews, and AutoERP and Infina sell CRM/ERP into the same buyers [S6]. The earlier finding that no such software existed [S3] is superseded.
 
-Solved elsewhere: autarc in Germany is the funded, directly adjacent analog [S1]. The arbitrage no longer reads as DE-analog-plus-no-CZ-player, because CZ players exist [S6]; what the German comparison now describes is depth — heat-load calculation and digital site survey — rather than absence. Money point reflects the NZÚ subsidy program referenced in the signal note as the workflow's economic engine [S2].
+Solved elsewhere: autarc in Germany is the funded, directly adjacent analog [S1]. The case is no longer a German analog facing an empty Czech field, because CZ players exist [S6]; what the German comparison now describes is depth — heat-load calculation and digital site survey — rather than absence. The NZÚ subsidy program is the workflow's economic engine [S2].
 
 ## First moves
 

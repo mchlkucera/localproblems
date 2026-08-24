@@ -59,7 +59,7 @@ Why now: the receive deadline is under five months away at record creation; the 
 
 Who pays: the obligated institutions — the market the signal names is VoP APIs, instant-payment gateway integration and real-time screening sold as services [S1].
 
-Existing non-solutions: in-house projects at large banks; for the long tail, nothing verified — no CZ-specific gap check was run this cycle, and eurozone VoP/gateway vendors (the natural suppliers) may or may not be selling into CZ, so gap scores 0.
+Existing non-solutions: in-house projects at large banks; for the long tail, nothing verified — the Czech market has not been searched yet, and eurozone VoP/gateway vendors (the natural suppliers) may or may not be selling into CZ, so no open local field is claimed.
 
 Recommended follow-up: verify which VoP scheme providers cover Czech PSPs and whether ČBA is coordinating a shared utility; a shared-service gap here would sharpen the problem considerably.
 

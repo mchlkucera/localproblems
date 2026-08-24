@@ -110,7 +110,7 @@ Who pays: the agencies. The pitch is capacity, not cost: an agency that automate
 
 Existing non-solutions — superseded. The original check found only the providers themselves and IRESOFT [S2], but it searched the wrong words: domestic vendors hold the operations layer [S4]. VeruApp plans each caregiver's day automatically from the client's digital record and carries a field mobile app; e-Sestřička covers domácí a paliativní péče across odbornosti 925, 720 and 926; the pecovatelska.cz system from Petr Zajíc software runs terénní sociální služby in more than 200 locations; and Ústecký kraj is putting the E-péče field app into 39 providers on EU money [S4]. Phone and paper are still widespread, but they are no longer the only option on the market.
 
-Solved elsewhere: the US home-care AI-ops cluster above [S1,S3]. Arbitrage scored 1 (US-only) [S3]. What a domestic entrant would own is narrower than first written — not the operations layer as such, which is occupied [S4], but the AI-native slice of it: voice intake in Czech, and displacing or integrating with incumbents that already hold the scheduling and records seat.
+Solved elsewhere: the US home-care AI-ops cluster above [S1,S3]. The model is proven in the US only so far [S3]. What a domestic entrant would own is narrower than first written — not the operations layer as such, which is occupied [S4], but the AI-native slice of it: voice intake in Czech, and displacing or integrating with incumbents that already hold the scheduling and records seat.
 
 ## Revisions
 

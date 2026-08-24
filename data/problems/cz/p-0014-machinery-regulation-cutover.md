@@ -54,7 +54,7 @@ Why now: the cutover is under 18 months away at record creation [S1].
 
 Who pays: machinery manufacturers, importers, and integrators and retrofit shops that need conformity gap audits, updated risk assessments (including the new cybersecurity annexes), and digital user-instruction tooling [S1]. These are recurring engineering-services and documentation-software purchases, not one-off legal advice.
 
-Existing non-solutions: no CZ-specific gap check was run this cycle, so gap scores 0.
+Existing non-solutions: the Czech market has not been searched yet, so no open local field is claimed.
 
 Recommended follow-up: check Czech notified-body queue times and whether any CZ vendor offers digital-instructions/technical-file software localized to the new regulation — both would strengthen (or kill) the productizable angle.
 

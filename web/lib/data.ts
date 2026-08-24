@@ -103,7 +103,20 @@ const SignalSchema = z.strictObject({
   // `mpsv` was already here. `ec-hys`, `nku` and `vestbee` need NO entry: their
   // extractors deliberately reuse the existing `reg-scan` / `demand-scan` /
   // `round` provenances rather than minting a fourth name for the same source.
-  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv", "coi", "sukl", "nen", "smlouvy"]),
+  //   `dotace`                — dotace-scan agent harvests of grant/subsidy
+  //                             calls read from the grantor's own call page
+  //                             (registry key dotace-scan, prefix dotace-).
+  //                             Widened 2026-08-25, BEFORE the first `dotace`
+  //                             ledger line — commit this file ahead of (or.
+  //                             at minimum never after) that record.
+  //   `veklep`                — scripts/fetch_veklep.sh, the government's
+  //                             legislative e-library (ODok VeKLEP) via the
+  //                             Hlídač dataset mirror. A new PUBLISHER, not a
+  //                             new script for an existing provenance — the
+  //                             CONVENTIONS.md test ec-hys/nku fail and this
+  //                             passes. Widened 2026-08-25, before the first
+  //                             `veklep` ledger line.
+  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv", "coi", "sukl", "nen", "smlouvy", "dotace", "veklep"]),
   url: z.string().url(),
   date: isoDate,
   title: z.string().min(1),

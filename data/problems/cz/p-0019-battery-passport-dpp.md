@@ -61,9 +61,9 @@ Why now: the date is hard, there is no transition period [S1], and the passport 
 
 Who pays: battery-placing manufacturers and importers buying DPP SaaS, data-collection integration and identity/QR infrastructure [S1]. The strategic kicker: the battery passport is the EU's first mandatory digital product passport and the template for the ESPR passports that follow for other product groups [S1,S2] — battery-passport plumbing is a beachhead, not a niche.
 
-Existing non-solutions: European DPP startups exist; no CZ-localized offering or supply-chain onboarding service for the Czech tier-2/3 supplier base was verified this cycle (gap unchecked, scored 0).
+Existing non-solutions: European DPP startups exist; no CZ-localized offering or supply-chain onboarding service for the Czech tier-2/3 supplier base has been verified — the market has not been searched yet, so no open local field is claimed.
 
-Scored strictly at deadline + freshness. Next moves: a gap check on CZ DPP tooling, a demand receipt from AutoSAP (the Czech automotive association), and identifying whether Škoda's own supplier mandates create a de-facto standard a product could implement against.
+The score rests on the deadline and its freshness alone. Next moves: a search for CZ DPP tooling, a demand statement from AutoSAP (the Czech automotive association), and identifying whether Škoda's own supplier mandates create a de-facto standard a product could implement against.
 
 ## Revisions
 

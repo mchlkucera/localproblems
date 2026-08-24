@@ -83,9 +83,9 @@ Why now: the cliff is not approaching, it has happened, and the exposed populati
 
 Who pays: three distinct buyers. Exiting providers need wind-down execution — customer notification, asset-transfer mechanics, records, tax closure — done defensibly. The eleven licensees (and applicants behind them) need ongoing compliance operations they never ran before: safeguarding of client assets, DORA resilience, MiCA-grade AML and reporting [S1,S3] — recurring obligations, not a one-off project. And licensed incumbents (including EU-passported entrants) have a concrete acquisition channel: the orphaned customer books that must legally land somewhere licensed.
 
-Existing non-solutions: licensing advisory as a service — Finreg Partners, ARROWS, Kopečný & Partners and peers write applications and policies at law-firm economics [S3]. The 2026-08-13 gap check found no productized wind-down or CASP-compliance-operations offering in Czechia [S3].
+Existing non-solutions: licensing advisory as a service — Finreg Partners, ARROWS, Kopečný & Partners and peers write applications and policies at law-firm economics [S3]. A 2026-08-13 market search found no productized wind-down or CASP-compliance-operations offering in Czechia [S3].
 
-No funded foreign analog is receipted for the wind-down/migration wedge specifically (proof 0 — MiCA compliance tooling is emerging EU-wide but nothing is on file), and no documented complaint from affected firms is yet in evidence (demand 0). The score is carried by the enforcement-live deadline; the affected population is a few hundred firms [S1,S2], so this is a sharp, time-boxed problem rather than an economy-wide one — the register should expect it to decay unless the licensee-side compliance-ops wedge proves recurring.
+No funded foreign analog is on file for the wind-down/migration wedge specifically — MiCA compliance tooling is emerging EU-wide, but nothing is documented — and no complaint from affected firms is yet in evidence. The score is carried by the enforcement-live deadline; the affected population is a few hundred firms [S1,S2], so this is a sharp, time-boxed problem rather than an economy-wide one — the register should expect it to decay unless the licensee-side compliance-ops wedge proves recurring.
 
 ## Revisions
 
