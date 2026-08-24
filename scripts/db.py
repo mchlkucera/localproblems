@@ -466,8 +466,10 @@ CREATE TABLE IF NOT EXISTS problem_sources (
   position     INTEGER NOT NULL,      -- 1-based, = S-number, NEVER reassigned
   type         TEXT    NOT NULL,      -- free text today: 'round'/'statistic' are live
   url          TEXT    NOT NULL,
-  note         TEXT    NOT NULL,
+  note         TEXT    NOT NULL,      -- the internal receipt; NOT rendered verbatim
   date         TEXT    NOT NULL,
+  name         TEXT,                  -- public display-name override (owner, 2026-08-24)
+  why          TEXT,                  -- public one-line "what it is / why it's cited"
   signal_id    TEXT,                  -- ref into signals(id); 101/160 populated
   -- THREE-STATE, and the third state is load-bearing.  NULL = key absent
   -- (fall through to the type map).  '[]' = key present and empty = the
@@ -1171,7 +1173,7 @@ PROBLEM_KEYS = frozenset((
     "id", "region", "title", "category", "geo", "score", "scores", "status",
     "build", "comps", "sources", "created", "updated"))
 SOURCE_KEYS = frozenset((
-    "type", "url", "note", "date", "signal", "dims", "queries", "checked", "expires"))
+    "type", "url", "note", "date", "name", "why", "signal", "dims", "queries", "checked", "expires"))
 COMP_KEYS = frozenset(("name", "url", "geo", "since", "traction", "signal", "markets"))
 BUILD_KEYS = frozenset(("capital", "first_revenue", "builder", "note"))
 SCORE_KEYS = frozenset(("proof", "money", "urgency", "demand", "gap"))
@@ -1530,6 +1532,7 @@ def insert_problems(con, records):
         for i, s in enumerate(fm["sources"]):
             srows.append((
                 region, pid, i + 1, s["type"], s["url"], s["note"], s["date"],
+                s.get("name"), s.get("why"),
                 s.get("signal"), _jsonl_or_none(s, "dims"),
                 _jsonl_or_none(s, "queries"), _jsonl_or_none(s, "checked"),
                 s.get("expires"), _overflow(s, SOURCE_KEYS)))
@@ -1551,8 +1554,8 @@ def insert_problems(con, records):
                   lambda r: f"{r[21]} ({r[0]}/{r[1]})")
     _insert_named(con,
                   "INSERT INTO problem_sources (region, problem_id, position, type, url,"
-                  " note, date, signal_id, dims_json, queries_json, checked_json, expires,"
-                  " extra_json) VALUES (" + ",".join("?" * 13) + ")", srows,
+                  " note, date, name, why, signal_id, dims_json, queries_json, checked_json,"
+                  " expires, extra_json) VALUES (" + ",".join("?" * 15) + ")", srows,
                   lambda r: f"{r[0]}/{r[1]} sources[{r[2]}]")
     _insert_named(con,
                   "INSERT INTO problem_comps (region, problem_id, position, name, url, geo,"
@@ -1582,8 +1585,8 @@ def problems_digest(con):
                      " build_first_revenue, build_builder, build_note, created, updated,"
                      " body, extra_json, md_file, md_sha256"
                      " FROM problems ORDER BY region, id"),
-        ("sources", "SELECT region, problem_id, position, type, url, note, date, signal_id,"
-                    " dims_json, queries_json, checked_json, expires, extra_json"
+        ("sources", "SELECT region, problem_id, position, type, url, note, date, name, why,"
+                    " signal_id, dims_json, queries_json, checked_json, expires, extra_json"
                     " FROM problem_sources ORDER BY region, problem_id, position"),
         ("comps", "SELECT region, problem_id, position, name, url, geo, since, traction,"
                   " signal_id, markets_json"

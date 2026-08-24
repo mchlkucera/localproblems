@@ -22,6 +22,71 @@ export const BANDS: [number, string][] = [
 ];
 export const bandWord = (score: number) => BANDS.find(([min]) => score >= min)![1];
 
+// ---- the PUBLIC scorecard: plain labels + plain reads (owner, 2026-08-24) ---
+// The record page no longer shows the SCORING.md verdict words (UNPROVEN, FAINT,
+// LIKELY …) — "who are you impressing with the jargon". Each dimension is stated
+// with a plain, builder-facing label and one plain line, and the whole card is
+// headed "Opportunity {sum}/12". Polarity is consistent: on EVERY row more is
+// better (gap high = the field is open, not "more competition"). The Build line
+// is separate — it is feasibility, not opportunity. VERDICTS/criterion above
+// stay in the module: they remain the vocabulary the build asserts against
+// SCORING.md (lib layout.tsx `assertScoringVocabulary`), just not rendered.
+
+/** Dimension order and plain label on the public card — proof first, urgency
+    ("why now") last, exactly as the owner's exemplar reads. */
+export const SCORE_ROWS: { dim: Dim; label: string }[] = [
+  { dim: "proof", label: "Validated abroad" },
+  { dim: "gap", label: "Local opportunity" },
+  { dim: "demand", label: "Demand signal" },
+  { dim: "money", label: "Money available" },
+  { dim: "urgency", label: "Why now" },
+];
+
+/** One plain line per dimension level. Indexed by the raw sub-score; higher is
+    always the better reading. No verdict words, no rubric jargon. */
+const READS: Record<Dim, string[]> = {
+  proof: [
+    "no funded example found abroad",
+    "one example abroad, still thin",
+    "funded companies build this elsewhere",
+    "funded and proven across several markets",
+  ],
+  gap: [
+    "local competitors not yet checked",
+    "no local player found — field open",
+    "field open — only legacy or adjacent players",
+  ],
+  demand: [
+    "demand assumed, not yet shown",
+    "documented, not yet loud",
+    "recurring, documented demand",
+  ],
+  money: [
+    "no funding receipt on file",
+    "an adjacent grant or tender nearby",
+    "funding attached to this",
+  ],
+  urgency: [
+    "no dated trigger",
+    "a trigger, but over a year out",
+    "a dated trigger, closing in",
+    "a dated deadline is forcing the change",
+  ],
+};
+
+/** The plain read for a dimension. Proof folds in the real comps count when
+    there are analogs on file ("4 funded companies build this elsewhere"), so
+    the strongest row states its own evidence; everything else is the level
+    phrase. Total is a pure function of the sub-score — safe for every record. */
+export function scoreRead(p: Problem, dim: Dim): string {
+  const n = p.comps?.length ?? 0;
+  if (dim === "proof" && n > 0) {
+    if (p.scores.proof >= 3) return `${n} funded companies, proven across markets`;
+    if (p.scores.proof === 2) return `${n} funded companies build this elsewhere`;
+  }
+  return READS[dim][p.scores[dim]];
+}
+
 // Rubric criteria, quoted from SCORING.md — the rundown drawers state the
 // criterion for the achieved level, never invented prose.
 const CRITERIA: Record<Dim, string[]> = {

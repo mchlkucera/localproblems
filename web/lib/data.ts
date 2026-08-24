@@ -162,6 +162,14 @@ const SourceSchema = z.looseObject({
   url: z.string().min(1),
   note: z.string().min(1),
   date: isoDate,
+  // PUBLIC-RENDER FIELDS (owner, 2026-08-24). `note` is the internal receipt and
+  // no longer renders verbatim on the page; these two are what the reader sees.
+  // `name` overrides the ledger display name (so a gap-check reads "Ringil", not
+  // "Gap check — host"); `why` is the one plain line saying what it is and why it
+  // is cited. Both optional — a source with neither falls back to its signal's
+  // title/summary, then to the type. The receipt in `note` is never touched.
+  name: z.string().min(1).optional(),
+  why: z.string().min(1).optional(),
   signal: z.string().optional(),
   dims: z.array(z.enum(["proof", "money", "urgency", "demand", "gap"])).optional(),
   queries: z.array(z.string().min(1)).optional(),
@@ -288,7 +296,7 @@ function putJson(o: Record<string, unknown>, key: string, v: unknown): void {
 
 function problemsFromDb(): Problem[] {
   const srcRows = rows(
-    "SELECT region, problem_id, position, type, url, note, date, signal_id," +
+    "SELECT region, problem_id, position, type, url, note, date, name, why, signal_id," +
     " dims_json, queries_json, checked_json, expires, extra_json FROM problem_sources"
   );
   const compRows = rows(
@@ -353,6 +361,8 @@ function problemsFromDb(): Problem[] {
         const src: Record<string, unknown> = {
           type: String(s.type), url: String(s.url), note: String(s.note), date: String(s.date),
         };
+        put(src, "name", s.name === null ? null : String(s.name));
+        put(src, "why", s.why === null ? null : String(s.why));
         put(src, "signal", s.signal_id === null ? null : String(s.signal_id));
         putJson(src, "dims", s.dims_json);
         putJson(src, "queries", s.queries_json);

@@ -1,5 +1,22 @@
 /* ============================================================
-   localproblems.org · design system v1.11 · 2026-08-24
+   localproblems.org · design system v1.12 · 2026-08-24
+   v1.12 (owner rebuild): the record page becomes a board brief, not a
+   dossier. THE JARGON IS GONE — the scorecard drops the SCORING.md verdict
+   words (UNPROVEN, FAINT, LIKELY …) the owner struck out ("who are you
+   impressing with the jargon"). The top-line band is now a plain
+   "Opportunity {sum}/12" card: plain builder labels, a tally pip meter
+   (more is better on EVERY row — gap high = the field is open), one plain
+   line each, zero rows muted. A Build cell sits apart (feasibility, not
+   opportunity). The rundown popover dialogs are RETIRED from the record
+   page (their rubric criteria and raw notes were internal audit prose); the
+   .rundown grammar stays in the stylesheet, dormant, for reference. Sources
+   become a named link + one plain "what it is / why it's cited" line (the
+   new `name`/`why` source fields); the internal `note` receipt and the
+   S-number no longer render. The revision wall is replaced by one quiet
+   "Last verified {date}" line — the full trail stays in the markdown/git.
+   "Who builds this" folds into the scorecard Build cell. New: p.whenline
+   (the "why now" relative distance), p.verified (last-verified marker).
+   No new colour; tally ticks kept as the pip meter (no circles/rings).
    v1.11: the signal abstract renders. Each ledger row's recorded ≤2-sentence
    summary moves from the name's hover title — invisible on every phone — to a
    visible muted serif note line under the name (`.index .t-title .note`), the
@@ -310,40 +327,56 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   .docket .facts--rail > div:first-child { padding-top: 0; }
 }
 
-/* ---- scorecard: the top-line dimensions band (v1.2) -----------
-   Five dimensions + total, straight under the docket. Mono figures,
-   tally ticks (--s of --max), one-word uppercase verdicts. Each
-   dimension is an anchor to its breakdown row. No gauges, ever.  */
+/* ---- scorecard: the "Opportunity /12" card (v1.12 rebuild) -----
+   Owner rebuild, 2026-08-24. The top-line band that answers "how good is
+   this opportunity, objectively?" becomes a plain bordered card — a
+   header "Opportunity {sum}/12", then the five dimensions as a two-column
+   grid: plain builder label, a tally PIP METER (--s of --max ticks; more
+   is better on EVERY row — gap high means the field is open, not "more
+   competition"), and one plain line. NO verdict words, NO rundown dialog:
+   the receipts live in the Sources ledger, not behind a popover of rubric
+   jargon and audit prose. A sixth Build cell sits apart — it is
+   feasibility, not opportunity. Tally ticks only; never a gauge or ring. */
 .scorecard {
-  display: flex; flex-wrap: wrap;
-  padding: var(--sp-5) 0;
-  border-bottom: 1px solid var(--ink);
+  border: 1px solid var(--rule);
+  margin: 0 0 var(--sp-6);
   font-family: var(--mono);
 }
+.scorecard .hd {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-2);
+}
+.scorecard .hd .t {
+  font: 500 var(--fs-label)/1 var(--mono);
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted);
+}
+.scorecard .hd .n { font: 600 var(--fs-body)/1 var(--mono); }
+.scorecard .hd .n b { font-size: var(--fs-title); }   /* the loudest figure on the page */
+.scorecard .dims { display: grid; grid-template-columns: 1fr 1fr; }
 .scorecard .dim {
   display: flex; flex-direction: column; gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-6) var(--sp-2) 0;
-  text-decoration: none;
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--rule);
 }
-.scorecard .dim + .dim { border-left: 1px solid var(--rule); padding-left: var(--sp-6); }
-.scorecard button.dim { border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
-.scorecard button.dim + button.dim { border-left: 1px solid var(--rule); }
-.scorecard .dim:hover { background: var(--paper-2); }    /* instant, no transition */
-/* the dim button styles itself out of the UA button look, so it must state
-   its own focus in ink — otherwise the keyboard route into the rundown
-   sheets is painted in the browser's orange, an eighth colour (v1.6) */
-.scorecard .dim:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; background: var(--paper-2); }
-.scorecard .num { font: 600 var(--fs-body)/1 var(--mono); }
-.scorecard .verdict {
+.scorecard .dim:nth-child(odd) { border-right: 1px solid var(--rule); }
+/* six cells, two columns: the last row hands its rule to the card border */
+.scorecard .dim:nth-last-child(-n+2) { border-bottom: 0; }
+.scorecard .top2 { display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3); }
+.scorecard .read { font: 400 var(--fs-data)/1.4 var(--serif); color: var(--ink); }
+/* absence is stated, never hidden: a zero row greys its read (owner rule) */
+.scorecard .is-zero .read { color: var(--ink-muted); }
+/* the Build cell's team pill — a quiet bordered mono mark, not a stamp */
+.scorecard .pill {
   font: 600 var(--fs-label)/1 var(--mono);
-  text-transform: uppercase; letter-spacing: 0.08em;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted);
+  border: 1px solid var(--rule); padding: 2px 6px; white-space: nowrap;
 }
-.scorecard .is-zero .num, .scorecard .is-zero .verdict { color: var(--ink-muted); }
-.scorecard .dim--total { margin-left: auto; padding-right: 0; }
-.scorecard .dim--total .num { font-size: var(--fs-title); } /* the loudest figure on the page */
-/* .score-high on the total dim turns .num stamp-red for totals 10–12 */
+/* the tally is the pip meter: --s of --max ticks filled, ink on rule.
+   Shared with the (retained, currently dormant) rundown header. */
 .scorecard .tally, .rundown header .tally {
-  width: calc(var(--max) * 0.625rem); height: 0.625rem; position: relative;
+  width: calc(var(--max) * 0.625rem); height: 0.625rem; position: relative; flex: none;
   /* wide-tick variant of the tally — still the only *-gradient() device */
   background: repeating-linear-gradient(90deg, var(--rule) 0 6px, transparent 6px 10px);
 }
@@ -352,10 +385,11 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   width: calc(var(--s) / var(--max) * 100%);  /* set style="--s:3;--max:3" in HTML */
   background: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 10px);
 }
-@media (max-width: 56rem) {                   /* narrow: even 3-up grid, no mid-row borders */
-  .scorecard { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4) var(--sp-5); }
-  .scorecard .dim, .scorecard .dim + .dim { border-left: 0; padding: 0; }
-  .scorecard .dim--total { margin-left: 0; }
+@media (max-width: 40rem) {                   /* narrow: one column of stacked rows */
+  .scorecard .dims { grid-template-columns: 1fr; }
+  .scorecard .dim:nth-child(odd) { border-right: 0; }
+  .scorecard .dim:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
+  .scorecard .dim:last-child { border-bottom: 0; }
 }
 /* ---- score rundown: a page of the report, opened (v2; rebuilt v1.6)
    A scorecard dimension is a button (popovertarget); the popover it
@@ -507,20 +541,22 @@ ul.queries {
   .rundown .bands td:first-child { padding-left: var(--sp-4); }
 }
 
-/* ---- sources: one-line ledger entries S1…Sn (v1.3) ------------
-   One line per source: S-number, linked name, date right-aligned.
-   The name IS the link; the row rule is the only line — leaders
-   in ruled lists are blank spacers, never dotted.               */
-ol.sources { list-style: none; margin: 0; padding: 0; counter-reset: src; font: 500 var(--fs-data)/1.5 var(--mono); }
-.sources li { counter-increment: src; display: flex; align-items: baseline; gap: 0.75ch; padding: var(--sp-2) 0; border-bottom: 1px solid var(--rule); }
-.sources li::before { content: "S" counter(src); font-weight: 600; min-width: 3ch; }
-.sources li .leader { flex: 1; }
-.sources li time { color: var(--ink-muted); }
-/* a gap-check row may state a second date — the check's own horizon
-   (v1.7). Once crossed it is stamp red, and .sources li time (0,2,1)
-   would re-mute it past .urgent (0,1,0): the same one-notch shim the
-   comps window date needs below, for exactly the same reason. */
-.sources li time.urgent { color: var(--stamp); }
+/* ---- sources: named link + one plain line (owner rebuild, v1.12) --
+   Two-line ledger entries, the comps `.entry` grammar reused: the serif
+   NAME links out, a muted date sits at the right of that line, and one
+   muted serif line says what the source is / why it is cited. The
+   S-number is the row anchor (id="sN") so in-body [Sn] markers still
+   jump here, but it is no longer PRINTED — a reader wants the source,
+   not its filing number (owner, 2026-08-21). The internal `note` receipt
+   does not render; the register keeps it in the markdown, auditable. */
+ol.sources { list-style: none; margin: 0; padding: 0; }
+.sources li { padding: var(--sp-3) 0; border-bottom: 1px solid var(--rule); }
+.sources .line { display: flex; align-items: baseline; gap: 0.75ch; font: 400 var(--fs-data)/1.5 var(--mono); }
+.sources .line > a, .sources .line > span:first-child { font: 600 0.9375rem/1.3 var(--serif); }
+.sources .line .leader { flex: 1; }
+.sources time { color: var(--ink-muted); }
+.sources li time.urgent { color: var(--stamp); }   /* retained shim */
+.sources .why { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); max-width: var(--w-prose); }
 
 
 /* comps: solved elsewhere — same one-line ledger grammar */
@@ -547,6 +583,13 @@ ol.sources { list-style: none; margin: 0; padding: 0; counter-reset: src; font: 
    .correction (the 4px page-begins rule turned sideways) is gone —
    see ol.revisions below for what replaced it and why.           */
 p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
+/* the "why now" relative line and the quiet last-verified marker (v1.12).
+   Both muted mono meta, computed at build against the register's own newest
+   `updated` (extractDate) — never the wall clock, so the page stays
+   reproducible. The last-verified line replaces the old wall of revision
+   prose: the full trail stays in the markdown/git, not shouted on the page. */
+p.whenline { margin: var(--sp-3) 0 0; font: 500 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
+p.verified { margin: var(--sp-5) 0 0; font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
 /* who-builds-this as a ruled ledger — one fact per line, readable
    (owner, 2026-08-20; replaces the facts-grid rendering here) */
 ul.buildfacts { list-style: none; margin: 0 0 var(--sp-4); padding: 0; max-width: var(--w-prose); font: 500 var(--fs-data)/1.5 var(--mono); }

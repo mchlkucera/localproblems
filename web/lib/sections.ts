@@ -39,6 +39,10 @@ export type Revision = {
 
 export type Sections = {
   problem: string;
+  /** The "Existing non-solutions…" paragraph(s) — who already sells into this
+      market locally. Split out of `problem` so the page can head it plainly as
+      "Local competition" (owner, 2026-08-24); empty when a record states none. */
+  competition: string;
   window: string;
   dek: string;
   howbig: string;
@@ -70,6 +74,7 @@ function revision(p: string): Revision {
 
 export function splitBody(body: string): Sections {
   const problem: string[] = [];
+  const competition: string[] = [];
   const win: string[] = [];
   const whoPays: string[] = [];
   const solved: string[] = [];
@@ -110,7 +115,7 @@ export function splitBody(body: string): Sections {
       if (/^Who pays:/i.test(p)) { whoPays.push(stripLead(p, /^Who pays:\s*/i)); current = whoPays; continue; }
       // Loose prefixes: the corpus writes "Existing non-solutions and the incumbent:",
       // "Solved elsewhere, weakly:" — variants keep their full wording.
-      if (/^Existing non-solutions/i.test(p)) { problem.push(p); current = problem; continue; }
+      if (/^Existing non-solutions/i.test(p)) { competition.push(stripLead(p, /^Existing non-solutions[^:]*:\s*/i)); current = competition; continue; }
       if (/^Solved elsewhere:/i.test(p)) { solved.push(stripLead(p, /^Solved elsewhere:\s*/i)); current = solved; continue; }
       if (/^Solved elsewhere/i.test(p)) { solved.push(p); current = solved; continue; }
     }
@@ -127,6 +132,7 @@ export function splitBody(body: string): Sections {
   }
   return {
     problem: problem.join("\n\n"),
+    competition: competition.join("\n\n"),
     window: win.join("\n\n"),
     dek: first,
     howbig: [rest, ...whoPays.slice(1)].filter(Boolean).join("\n\n"),
