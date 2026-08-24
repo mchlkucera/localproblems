@@ -74,12 +74,12 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
 Czechia entered the MiCA era with crypto services provided under a plain trade licence (živnost), and hundreds of firms did exactly that [S1,S2]. That regime ended on 1 July 2026: ČNB's warning is explicit that only CASP-licensed firms may serve clients [S1], and it has licensed eleven [S2]. Everyone else must cease activity and transfer customer crypto-assets and funds to licensed providers or the customers' own custody [S1] — an orderly-wind-down obligation most small providers have no playbook for.
 
-Why now: the cliff is not approaching, it has happened, and the exposed population is large. Operating unlicensed now risks fines that can exceed CZK 100M [S1]; a licence application is a CZK 1-5M project [S1], out of reach for most of the former živnost tier. Every week of 2026 H2 is therefore a live sorting of hundreds of firms into three bins: migrate the business into a licensed structure, wind down correctly, or drift into illegality.
+Why now: the cliff is not approaching, it has happened, and the exposed population is large. Operating unlicensed now risks fines that can exceed CZK 100M [S1], and the licence gate is demonstrably narrow: ČNB assessed 251 applications and granted 11 [S2,S4]. Every week of 2026 H2 is therefore a live sorting of hundreds of firms into three bins: migrate the business into a licensed structure, wind down correctly, or drift into illegality.
 
 Who pays: three distinct buyers. Exiting providers need wind-down execution — customer notification, asset-transfer mechanics, records, tax closure — done defensibly. The eleven licensees (and applicants behind them) need ongoing compliance operations they never ran before: safeguarding of client assets, DORA resilience, MiCA-grade AML and reporting [S1,S3] — recurring obligations, not a one-off project. And licensed incumbents (including EU-passported entrants) have a concrete acquisition channel: the orphaned customer books that must legally land somewhere licensed.
 
@@ -90,3 +90,5 @@ No funded foreign analog is receipted for the wind-down/migration wedge specific
 ## Revisions
 
 2026-08-20 · evidence audit — Three unbacked claims removed from the framing. "one of Europe's loosest crypto regimes": a cross-EU comparison the register never ran, and neither ČNB source makes any comparative claim about other member states. "from exchanges and brokers to ATM operators": the enumeration follows the marker and has no receipt — the signal says only that hundreds of former živnost-based providers are affected. "with bank-licence-grade scrutiny": nothing in the corpus compares CASP licensing to bank licensing. The money figures in the same paragraph are not affected — the fine ceiling and the licensing project cost are both carried verbatim in the ČNB regulation signal and stay cited [S1].
+
+2026-08-24 · fact check — The licensing-cost claim, "a licence application is a CZK 1-5M project", is gone. The 2026-08-20 audit kept it as carried by the regulation signal, but the signal's only URL is the ČNB warning, which was fetched on this date and does not state it; nor does the licensing-advisory article on this ledger [S3], and it verifies nowhere else on file. The fine ceiling stays — it is on the ČNB page verbatim ("pokut, jejichž horní hranice přesahuje 100 milionů Kč") [S1]. The narrow gate is now stated from receipted numbers instead: 251 applications assessed, 11 granted, both confirmed live on the ČNB press release [S2,S4].

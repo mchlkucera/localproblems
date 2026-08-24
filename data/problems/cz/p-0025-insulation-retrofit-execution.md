@@ -109,12 +109,12 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
-Insulating a Czech family home means finding one of thousands of small zateplení firms, waiting for a quote, and hoping the NZÚ subsidy paperwork gets handled. The trade is fragmented, quality is unverifiable, and capacity is capped by the same labor shortage as every other building trade [S1,S3]. Meanwhile the subsidy program that co-pays the work — Nová zelená úsporám — runs continuously, pre-validating household demand the supply side cannot serve [S2].
+Insulating a Czech family home means finding one of thousands of small zateplení firms, waiting for a quote, and hoping the NZÚ subsidy paperwork gets handled. The trade is a fragmented long tail of small regional firms [S3,S6]. Meanwhile the subsidy program that co-pays the work — Nová zelená úsporám — runs continuously, pre-validating household demand [S2].
 
-Why now: VARM in Berlin just raised €17.5M for the answer: train career-changers into certified insulation installers, standardize the job to one day at a fixed ~€5k price, and run the whole operation on software [S1]. It is Woltair's Czech playbook — vertical integration of a subsidized energy trade — applied to a trade Woltair skipped [S3]. The model attacks labor supply, the actual constraint, rather than selling software to firms that are too small to buy it [S1].
+Why now: VARM in Berlin just raised €17.5M for the answer: train career-changers into certified insulation installers, standardize the job to one day at a fixed ~€5k price, and run the whole operation on software [S1]. It is Woltair's Czech playbook — vertical integration of a subsidized energy trade — applied to a trade Woltair skipped [S3]. The model attacks labor supply rather than selling software to firms that are too small to buy it [S1].
 
 Who pays: homeowners (with NZÚ co-payment) [S2], later SVJ/bytová družstva for multi-unit buildings. The fixed-price, one-day product is the wedge [S1]; subsidy handling in-house removes the paperwork objection that suppresses demand today.
 
@@ -129,3 +129,5 @@ Solved elsewhere: Berlin funded the second half of the model within a month of t
 2026-08-13 · proof and deadline receipted — The dsb Deutsche Sanierungsberatung round [S4] and the EPBD infringement and MEPS trajectory [S5] were added; the substance now sits in Where it works and The window above rather than here.
 
 2026-08-20 · evidence audit — Removed ENBRA from the next-evidence proposal. The name returns no hits anywhere in the signal corpus and appears in no source note on this record — a named competitive risk with nothing behind it. Woltair is receipted [S3] and stays.
+
+2026-08-24 · fact check — Three unreceipted clauses cut from the lead and window: "quality is unverifiable", "capacity is capped by the same labor shortage as every other building trade", and labor as "the actual constraint" — none carried by any source here (S1 is a German funding note, and the Czech receipts document fragmentation, not workforce data). Fragmentation stays, cited to the Czech checks [S3,S6], and "demand the supply side cannot serve" lost its unreceipted second half. A live re-check of woltair.cz on this date again surfaced only heat-pump and photovoltaics service pages, with insulation appearing only as blog content — consistent with [S3]; the S6 open question, whether Woltair expands into insulation, stands.

@@ -2,8 +2,8 @@
 id: p-0029
 region: cz
 title: Czech public bodies must run state-attested electronic records systems by 31 Dec 2026
-  — non-attested products are already banned from sale, and ~19 buyers re-procured eSSL in
-  a single ten-week window
+  — non-attested products are already banned from sale to public bodies, and ~19 buyers re-procured
+  eSSL in a single ten-week window
 category: govtech
 geo: CZ-national
 score: 5
@@ -80,10 +80,10 @@ sources:
   date: '2026-07-31'
   signal: ted-533101-2026
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
-Every Czech public body runs a spisová služba — the legally mandated records-management layer beneath all official correspondence — and the state has now put a hard gate on the software that runs it: eSSL systems must pass state attestation, suppliers have been banned from offering non-attested products since 1 July 2025, and the transitional period for state organizational units, contributory organisations and state enterprises to operate attested systems ends 31 December 2026 [S1].
+Every Czech public body runs a spisová služba — the legally mandated records-management layer beneath all official correspondence — and the state has now put a hard gate on the software that runs it: eSSL systems must pass state attestation, suppliers have been banned from offering or supplying non-attested products to public-law originators since 1 July 2025, and the transitional period for state organizational units, contributory organisations and state enterprises to operate attested systems ends 31 December 2026 [S1].
 
 Why now: the procurement wave the deadline predicts is visible in the data. In a single June–August 2026 window, ~19 distinct public buyers generated ~28 TED records for records-management systems (~€17M) — SÚKL, ministries, hospitals, universities, insurance funds, state enterprises [S2,S4,S5,S6]. The friction is visible too: SÚRAO published its certified-eSSL tender four times and the Pardubice hospital group three times, the classic signature of procedures that fail to attract compliant bids and must be re-run against a fixed statutory clock [S2].
 
@@ -92,3 +92,7 @@ Who pays: twice over. Public bodies pay for migration, integration and support o
 Existing non-solutions — and why gap scores 0: this is not an empty field. GORDIC (GINIS), ICZ (e-spis) and the other attested-product vendors dominate, and the wave is being bought from them [S3,S7]; the register does not pretend a greenfield product gap where strong incumbents are winning. The honest problem is narrower: a statutory deadline colliding with concentrated attested supply and repeat-failing tenders — a migration-capacity and procurement problem, with the attestation barrier itself defining who can compete.
 
 No foreign analog is receipted (attestation of records software this strict is a Czech construction; proof 0) and no buyer-side complaint is yet on file (demand 0). What would move this record: a documented count of bodies still running non-attested systems as the deadline approaches, or vendor-queue evidence that attestation and migration capacity cannot clear the 31 Dec 2026 wall.
+
+## Revisions
+
+2026-08-24 · fact check — The supply-side ban was stated one notch too widely: §69e bans offering or supplying non-attested eSSL to public-law originators ("zákaz nabízet nebo dodávat veřejnoprávním původcům"), not from sale generally — verified live on the S1 commentary, and title and lead now say so [S1]. The procurement-wave arithmetic was re-counted mechanically against the signal corpus on this date: ~30 matching records, 19 distinct buyers, SÚRAO with four publications and Nemocnice Pardubického kraje with three, as stated [S2].

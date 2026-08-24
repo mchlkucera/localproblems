@@ -2,18 +2,17 @@
 id: p-0013
 region: cz
 title: Czech banks and payment institutions must receive instant euro payments by 9 Jan 2027
-  and send them with Verification of Payee by 9 Jul 2027, and smaller PSPs lack the in-house
-  capability
+  and send them with Verification of Payee by 9 Jul 2027
 category: fintech
 geo: CZ-national
-score: 3
+score: 2
 scores:
   proof: 0
   money: 0
   urgency: 2
-  demand: 1
+  demand: 0
   gap: 0
-status: candidate
+status: rejected
 build:
   capital: funded
   first_revenue: year-plus
@@ -51,15 +50,19 @@ sources:
     Instant rails. Demand point: signal documents that smaller PSPs/EMIs lack in-house capability.'
   date: '2025-12-31'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
-Czech banks, payment institutions and e-money institutions — CZK-centric by history — must be able to receive instant euro credit transfers by 9 January 2027 and to send them, plus run Verification of Payee (name-IBAN matching), by 9 July 2027 under the Instant Payments Regulation [S1]. The reg-instant-payments-cz signal documents that smaller PSPs and EMIs lack the in-house capability to build SEPA Instant rails, 24/7 sanctions screening and VoP matching [S1,S2].
+Czech banks, payment institutions and e-money institutions — CZK-centric by history — must be able to receive instant euro credit transfers by 9 January 2027 and to send them, plus run Verification of Payee (name-IBAN matching), by 9 July 2027 under the Instant Payments Regulation [S1].
 
 Why now: the receive deadline is under five months away at record creation; the send+VoP deadline is under eleven [S1]. Eurozone PSPs went live in 2025 [S2], so the technical patterns are proven, but each Czech institution still needs core-banking integration, screening rework for 24/7 operation, and liquidity management for continuous settlement — and the regulation caps instant-payment fees at standard transfer levels [S1], so cost recovery must come from efficiency, not pricing.
 
-Who pays: the obligated institutions — particularly the long tail of smaller banks, spořitelní družstva, payment institutions and EMIs that cannot staff this internally and will buy VoP APIs, instant-payment gateway integration and real-time screening as services [S1,S2].
+Who pays: the obligated institutions — the market the signal names is VoP APIs, instant-payment gateway integration and real-time screening sold as services [S1].
 
 Existing non-solutions: in-house projects at large banks; for the long tail, nothing verified — no CZ-specific gap check was run this cycle, and eurozone VoP/gateway vendors (the natural suppliers) may or may not be selling into CZ, so gap scores 0.
 
 Recommended follow-up: verify which VoP scheme providers cover Czech PSPs and whether ČBA is coordinating a shared utility; a shared-service gap here would sharpen the problem considerably.
+
+## Revisions
+
+2026-08-24 · rejected — Removed from the register per the owner's quality mandate. One regulation signal is the entire evidence base; the second source is a URL copied from that signal's own notes, and the 9,324-signal corpus holds no Czech tender, contract or complaint touching SEPA Instant readiness. The demand receipt failed verification: the cited Worldline post says nothing about smaller PSPs lacking capability — it omits implementation challenges entirely and notes CZ is fast-tracking payment innovation [S2] — so the capability sentence and title clause are cut, demand 1 → 0, score 3 → 2. What remains is an EU deadline restated from memory-grade material, not a confirmed Czech problem.

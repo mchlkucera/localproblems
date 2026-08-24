@@ -67,8 +67,19 @@ sources:
     Popron Systems sells SMG Water, and SUEZ/Techem serve the utility and housing tiers. Local
     players named: gap stays 0 and status moves to watching per the de-rank rule.'
   date: '2026-08-13'
+- type: gap-check
+  url: https://www.softlink.cz/nase-sluzby-vyuzivaji/vodarenske-spolecnosti
+  note: 'Incumbent re-verify 2026-08-24: the S6 product URL (/reseni/cem-smart/) now returns
+    404 after a softlink.cz restructure, so the de-rank receipt was re-taken live. Softlink
+    is still selling: the site lists vodárenské společnosti as a served segment, states the
+    CEM Smart platform has run remote water-meter readouts for Pražské vodovody a kanalizace
+    since 2016 at ~1M daily transactions, and the CEM software family now lives under /software-cem.
+    Mechanical cross-check: data/lookup/cz-contract-parties.jsonl pairs VODÁRENSKÁ AKCIOVÁ
+    SPOLEČNOST as supplier with Vodovody a kanalizace Židlochovicko as buyer — the exact
+    operates-as-a-service relationship the S6 note asserted. Gap stays 0, incumbents unchanged.'
+  date: '2026-08-24'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
 Czech water supply is run by hundreds of VaK companies and municipal svazky, most of them small [S2], and they are digitizing metering the only way they know: one infrastructure tender at a time. In a single ten-week TED window, Kroměříž awarded ~€1.3M for network smart metering [S2], the Ivančice association opened a ~€1.2M competition for the same [S1], and Bruntál tendered a water data dispatch [S2] — three buyers independently procuring hardware, telemetry, data platform and integration as bespoke projects [S2].
@@ -77,10 +88,12 @@ Why now: a svazek with three employees cannot run a data platform; each project 
 
 Who pays: the utilities themselves via receipted public procurement — today an integrator/dev-shop market in which each small utility contracts supply, licences and operation separately (seven distinct buyers receipted by August 2026) [S3,S5].
 
-Existing non-solutions: the managed-service position is not empty — Softlink sells the CEM Smart metering-data platform with water-utility references, VODÁRENSKÁ AKCIOVÁ SPOLEČNOST operates metering as a service, Popron Systems sells SMG Water, and SUEZ and Techem serve the utility and housing tiers [S6].
+Existing non-solutions: the managed-service position is not empty — Softlink sells the CEM Smart metering-data platform with water-utility references (running Prague's remote readouts since 2016) [S6,S7], VODÁRENSKÁ AKCIOVÁ SPOLEČNOST operates metering as a service [S6,S7], Popron Systems sells SMG Water, and SUEZ and Techem serve the utility and housing tiers [S6].
 
 ## Revisions
 
 2026-08-13 · de-rank — The gap check found the managed-service position occupied: Softlink sells its CEM Smart metering-data platform to Czech water utilities, VODÁRENSKÁ AKCIOVÁ SPOLEČNOST operates remote metering as a service for small utilities (it runs Židlochovicko's system), Popron Systems licenses SMG Water, and SUEZ and Techem hold framework and housing-tier positions [S6]. The original framing — "no shared platform, nobody operates a neutral managed service" — does not survive it: the buying is fragmented, but the supply side is present and winning these contracts [S4,S5,S6]. Gap stays 0 with incumbents named; status moves to watching. What would re-rank this: evidence the incumbents fail the smallest svazky on price or capability, or a below-threshold tender count showing the long tail remains unserved.
 
 2026-08-20 · evidence audit — Three corrections, merged. (1) The "Why now" sentence removed in full; none of its three claims has support in the 6,181-signal corpus. "Price regulation via ERSO oversight": ERSO returns zero hits corpus-wide, case-sensitively and case-insensitively, and no Czech water-price regulator appears anywhere in the evidence. There is no such body — the Czech energy regulator is ERÚ and it does not regulate water — and no substitute name was inserted, because we hold no receipt for one. "EU funding streams (OPŽP) co-finance the projects": eleven OPŽP calls are on file and none funds metering; they fund public-building energy retrofits, renewables, landscape and water-landscape measures, rain/greywater capture, slope stability, flood prevention, contaminated-site remediation, food banks and air-quality monitoring. The drought and water-loss driver was likewise uncited. Money is untouched — it never rested on OPŽP but on the receipted tenders and contracts already on this ledger [S1,S2,S3,S4,S5]. (2) The "Existing non-solutions" sentence removed in full — proprietary head-end systems, one-off SCADA/dispatch integrations, and the large VaKs' in-house solutions attributed to Veolia-operated utilities. Veolia returns no hits anywhere in the signal corpus, in either case, and appears in no source note here; the head-end and SCADA characterisations have no receipt either. The paragraph now states what this record's own gap check found: the managed-service position is occupied by named local players [S6]. The lead's "hundreds of VaK companies and municipal svazky" is not an invention — it is carried by the signal behind [S2], and is now cited there rather than left bare. (3) The title clause "with no shared platform" is gone: the body already recorded that this exact framing does not survive the check [S6].
+
+2026-08-24 · gap re-check — The S6 receipt URL died in a softlink.cz restructure (404); the incumbent did not. Re-verified live: Softlink still lists water utilities as a served segment and states CEM Smart has read Pražské vodovody a kanalizace meters remotely since 2016, ~1M transactions a day [S7]. The registr-smluv lookup corpus independently pairs VODÁRENSKÁ AKCIOVÁ SPOLEČNOST as supplier with VaK Židlochovicko as buyer, corroborating the operates-as-a-service claim [S7]. Nothing rescored; the de-rank stands on a live receipt again.

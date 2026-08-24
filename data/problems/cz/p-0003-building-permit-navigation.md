@@ -1,8 +1,8 @@
 ---
 id: p-0003
 region: cz
-title: Czech developers and builders navigate one of the OECD's slowest building-permit processes
-  through a still-dysfunctional state portal
+title: Czech developers and builders face building-permit proceedings that typically run
+  six months to a year, through a still-dysfunctional state portal
 category: housing
 geo: CZ-national
 score: 4
@@ -116,10 +116,10 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
-Czech stavebníci — from housing developers to firms building industrial capacity — face one of the slowest building-permit processes in the OECD [S2]. The July 2024 launch of the digitalized permitting system (DSŘ / portál stavebníka) made things acutely worse [S2]: a year on, trade press (archiweb, cited in the yc-permitportal signal) describes the system as stabilized "but still facing complications." Both applicants and úřady lost throughput during the transition to the new stavební zákon procedures [S2].
+Czech stavebníci — from housing developers to firms building industrial capacity — face permit proceedings that typically run six months to a year, related inženýrská činnost included [S5]. The July 2024 launch of the digitalized permitting system (DSŘ / portál stavebníka) made things acutely worse [S2]: a year on, trade press (archiweb, cited in the yc-permitportal signal) describes the system as stabilized "but still facing complications." Both applicants and úřady lost throughput during the transition to the new stavební zákon procedures [S2].
 
 Why now: the new building act changed procedures, the state portal remains unreliable [S2], and every month of permitting delay carries direct financing cost for developers. The pain is documented in national press rather than inferred.
 
@@ -134,3 +134,5 @@ Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26)
 2026-08-13 · fact check — The "OECD's slowest / 246 days / 157th in the world" framing traces to World Bank Doing Business 2020 — an index discontinued in 2021 after a data-manipulation scandal [S6] — and it measured the full administrative cycle, not permitting alone. Replaced with the ČKAIT survey (Jan 2024, n≈1,100): typical proceedings 6–12 months [S5], https://zpravy.ckait.cz/vydani/2024-01/delka-povolovani-staveb-v-cr-nikoliv-roky-ale-mesice-ukazal-pruzkum-inzenyrske-komory/
 
 2026-08-20 · evidence audit and gap re-check — Two blocks recorded on this date, merged here. Verifying the 2026-08-13 fact check: the ČKAIT survey (Z+i 2024/01, published 20 Feb 2024) does report that for nearly 1,100 authorized persons "délka trvání většiny povolovacích řízení staveb v ČR, a to včetně související inženýrské činnosti, je obvykle šest měsíců až jeden rok" [S5], and the World Bank Group did discontinue Doing Business on 16 Sep 2021 after investigating data irregularities in the 2018 and 2020 editions [S6]. Still open: the specific "246 days / 157th" figures attributed to Doing Business 2020, which the archived country profile publishes only inside downloadable figures — "Doing Business" returns zero hits across all 6,181 signals, so the figure is not yet traced to a primary source on file. De-ranked in the same pass. The absence this record was built on — "no CZ startup automating permit preparation or navigation" [S3] — was never checked against Czech-language surfaces; it was recorded against a YC company page, and it does not hold: Průvodka (pruvodka.cz) is a live, priced Czech AI product that assembles the vyjadřovačky and stanoviska a stavebník needs before applying, and Efektivia (efektivia.eu) sells the mirror-image triage tool to stavební úřady [S7]. Gap 2 → 0 and score 6 → 4 under the SPEC §4 de-rank rule, status → watching; the existing-non-solutions and comparables paragraphs were rewritten so the prose no longer contradicts the score. Neither incumbent appears in data/signals/funded/, and neither would: both are unfunded, so a capital-shaped ledger is structurally blind to them and only a live Czech-language search could surface them. The title carried the same disproved absence, "with no tooling of their own", and has been cut. Still unresolved and left for MATCH: the title also keeps the "one of the OECD's slowest" framing that the 2026-08-13 entry above retracts. S2 appears to carry the OECD claim independently, so resolving it is a judgment about that source, not an audit fix, and it has not been made here.
+
+2026-08-24 · title sweep — The judgment left open above is now made: the "one of the OECD's slowest" framing in the title and lead is cut. Its only carrier, the yc-permitportal harvest note [S2], states no source of its own, and the record's own 2026-08-13 fact check traced the family of superlatives to the discontinued Doing Business index [S6]. Title and lead now state what the ČKAIT survey receipts: proceedings typically run six months to a year [S5]. Scores untouched; the DSŘ-dysfunction demand receipts [S2] stand.

@@ -13,7 +13,7 @@ scores:
   urgency: 3
   demand: 0
   gap: 0
-status: candidate
+status: rejected
 build:
   capital: funded
   first_revenue: months
@@ -52,7 +52,7 @@ sources:
     wave that follows.
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
 From 18 February 2027, every EV battery, light-means-of-transport battery and industrial battery over 2 kWh placed on the EU market must carry a digital battery passport accessible by QR code [S1] — carbon footprint, materials provenance, state-of-health data and more, maintained over the battery's life. The obligation falls on whoever places the battery on the market, which in Czechia means the automotive supply chain: Škoda Auto's EV programme, battery and module plants, industrial-battery importers, e-bike and scooter brands [S1].
@@ -68,3 +68,5 @@ Scored strictly at deadline + freshness. Next moves: a gap check on CZ DPP tooli
 ## Revisions
 
 2026-08-20 · evidence audit — Removed Minespider, which appears nowhere: not in the signal corpus, not in the comps ledger, not in any source note on this record. Removed the go-to-market claim that European DPP startups "sell enterprise-first", which has no support either. Circulor and Circularise also left the body — they are real comparables, but a comps entry cannot back a body claim, and the "Where it works" ledger already names both with their traction.
+
+2026-08-24 · rejected — Owner review. The record holds no Czech evidence at all: no tender, no demand receipt, no money, and the gap was never checked — proof, money, demand and gap all sit at 0. Its two sources are an EU regulation page and a foreign trade-promotion article; the deadline is real [S1], but everything here is knowable without this register, and the only Czech content is unreceipted speculation about who is affected. A register of receipted local problems cannot carry it. Rejected, not deleted — the trail stays.

@@ -307,7 +307,20 @@ CREATE TABLE IF NOT EXISTS signals (
   dup_of           TEXT,
   jsonl_file       TEXT NOT NULL,
   jsonl_line       INTEGER NOT NULL,
-  raw              TEXT NOT NULL
+  raw              TEXT NOT NULL,
+  -- BROWSABLE PROJECTIONS of the fields buried in `raw` (owner, 2026-08-24: the
+  -- signals table showed one wall of JSON in a SQL client — you could not read a
+  -- title or sort by money). VIRTUAL, not STORED: they compute from `raw` on
+  -- read, so they add ZERO bytes, duplicate no canonical data, and cannot drift
+  -- from the journal — the same reason the whole DB is a projection. The web
+  -- loader selects `id,type,jsonl_file,jsonl_line,raw` by name and never touches
+  -- these, so they are invisible to the build and parity holds. They exist purely
+  -- so a human browsing register.db in TablePlus sees columns, not a blob.
+  title       TEXT GENERATED ALWAYS AS (json_extract(raw, '$.title'))      VIRTUAL,
+  summary     TEXT GENERATED ALWAYS AS (json_extract(raw, '$.summary'))    VIRTUAL,
+  sector      TEXT GENERATED ALWAYS AS (json_extract(raw, '$.sector'))     VIRTUAL,
+  geo_origin  TEXT GENERATED ALWAYS AS (json_extract(raw, '$.geo_origin')) VIRTUAL,
+  money_eur   REAL GENERATED ALWAYS AS (json_extract(raw, '$.money_eur'))  VIRTUAL
 );
 CREATE INDEX IF NOT EXISTS signals_date   ON signals(date DESC);
 CREATE INDEX IF NOT EXISTS signals_source ON signals(source, date DESC);

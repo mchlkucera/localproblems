@@ -6,14 +6,14 @@ title: Czech importers of steel, aluminium and other CBAM goods have been accrui
   open in Feb 2027
 category: environment
 geo: CZ-national
-score: 3
+score: 2
 scores:
   proof: 0
   money: 0
   urgency: 2
-  demand: 1
+  demand: 0
   gap: 0
-status: candidate
+status: rejected
 build:
   capital: garage
   first_revenue: months
@@ -52,12 +52,12 @@ sources:
     payment is deferred to 2027.'
   date: '2025-12-31'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
-Czech importers of iron and steel, aluminium, cement, fertilisers, hydrogen and electricity above 50 tonnes per year are in CBAM's definitive regime as of 1 January 2026: financial liability for embedded emissions is accruing on this year's imports even though certificates only go on sale in February 2027 and the first declaration (covering 2026) is due 30 September 2027 [S1]. For Czech metal fabrication, machinery and construction firms importing steel and aluminium inputs, this is an unpriced, unhedged cost building up on the balance sheet — the signal frames it as a CFO-level cash-planning problem [S1,S2].
+Czech importers of iron and steel, aluminium, cement, fertilisers, hydrogen and electricity above 50 tonnes per year are in CBAM's definitive regime as of 1 January 2026: financial liability for embedded emissions is accruing on this year's imports even though certificates only go on sale in February 2027 and the first declaration (covering 2026) is due 30 September 2027 [S1]. For Czech metal fabrication, machinery and construction firms importing steel and aluminium inputs, this is a cost accruing before it can be settled [S1].
 
-Why now: the de minimis in the 2025 Omnibus removed ~90% of importers but kept ~99% of emissions in scope [S2], concentrating a real financial obligation on the mid-sized-and-up importers who remain. They need authorised declarant status before February 2027 to buy certificates at all [S1], embedded-emissions data from non-EU suppliers, and a view of the liability accruing at EU ETS prices [S2].
+Why now: the 50-tonne de minimis in the 2025 Omnibus is designed to cut the compliance burden for small-volume importers while preserving the regulation's environmental scope [S2], concentrating the obligation on the importers who remain. They need authorised declarant status before February 2027 to buy certificates at all [S1], embedded-emissions data from non-EU suppliers, and a view of the liability accruing at EU ETS-linked certificate prices [S1].
 
 Who pays: the importing firms — declarant registration support, supplier emissions data collection, ERP plug-ins for embedded-emissions accounting, and hedging advisory for the certificate cost [S1]. The buyer is the CFO, and the trigger dates are fixed.
 
@@ -68,3 +68,5 @@ Recommended follow-up: quantify the Czech population of above-threshold importer
 ## Revisions
 
 2026-08-20 · evidence audit — Removed three unbacked assertions. From "Why now", the supplier-behaviour clause "who are often unable or unwilling to provide it": "unable or unwilling" returns zero hits corpus-wide, and reg-cbam-definitive lists supplier emissions data collection as a market while saying nothing about supplier conduct. From "Existing non-solutions", the whole sentence claiming that Big Four and customs consultancies serve the largest importers, and that the transitional-period reporting firms did does not prepare them for the financial mechanics of the definitive regime — no corpus receipt names a Big Four or customs consultancy serving CZ importers, and nothing documents what Czech firms did during the transitional period. The paragraph now states only what the record can back: no CZ gap check was run, so gap scores 0.
+
+2026-08-24 · rejected — Removed from the register per the owner's quality mandate. One regulation signal is the entire evidence base; the second source is a URL copied from that signal's own notes, and the 9,324-signal corpus holds no Czech tender, contract or complaint touching CBAM. Two receipts failed verification against the fetched EY alert [S2]: it contains neither the "~90% of importers / ~99% of emissions" figures attributed to it (rewritten to what it does say) nor any documented CFO-level cash-planning pressure (clause cut; demand 1 → 0, score 3 → 2). What remains is an EU deadline an LLM reproduces from memory, not a confirmed Czech problem.

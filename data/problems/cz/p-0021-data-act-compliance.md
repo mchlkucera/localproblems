@@ -2,8 +2,7 @@
 id: p-0021
 region: cz
 title: Czech device manufacturers must ship 'access by design' data APIs from Sep 2026 and
-  every SaaS must abolish switching charges by Jan 2027 under the EU Data Act — two waves
-  most affected firms haven't started
+  every SaaS must abolish switching charges by Jan 2027 under the EU Data Act
 category: b2b
 geo: CZ-national
 score: 3
@@ -13,7 +12,7 @@ scores:
   urgency: 3
   demand: 0
   gap: 0
-status: candidate
+status: rejected
 build:
   capital: garage
   first_revenue: months
@@ -38,7 +37,7 @@ sources:
     charges and support exit.'
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
 The EU Data Act has been applicable since September 2025, but its two hardest engineering obligations land inside the next five months: from 12 September 2026, connected products newly placed on the EU market must be designed so users can access the data they generate — directly or via APIs — and from 12 January 2027, cloud and SaaS providers must abolish switching charges entirely and support customer exit [S1,S2]. Czechia's industrial base makes the first wave heavy: the reg-data-act signal names CZ IoT and device manufacturers — industrial equipment, appliances, vehicles — as the who [S1].
@@ -54,3 +53,5 @@ Next moves: demand receipts from Czech industry associations (SP ČR, AutoSAP) o
 ## Revisions
 
 2026-08-20 · evidence audit — Three unbacked claims removed. That Czech machinery, appliance and vehicle-component manufacturers "have never built user-facing data access": the who-list is real and is carried by the reg-data-act signal, so it stays and is now cited to [S1], but the absence claim about what those firms have built is not, and is gone. That the switching-charge wave hits export paths "most have deferred indefinitely" — an empirical claim about Czech SaaS vendors with no receipt anywhere. And "some enterprise IoT platforms advertise Data Act modules" — the Data Act appears in exactly one signal, which names no vendor and makes no such claim.
+
+2026-08-24 · rejected — Owner review. One regulation signal and one law-firm advisory carry the whole record; on every other dimension there is nothing Czech — no tender, no demand receipt, no money, gap never checked, no comparable on the ledger. The two compliance dates are real and correctly stated [S1,S2], and the title's own closing claim, that most affected firms "haven't started", was never receipted at all. A record whose entire content is an EU deadline plus scope framing does not meet the register's bar. Rejected, not deleted — the trail stays.

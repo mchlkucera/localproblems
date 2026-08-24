@@ -98,21 +98,23 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-24'
 ---
 
 The recast Energy Performance of Buildings Directive obliges member states to drive building automation retrofits, renovation passports, zero-emission new construction and solar-readiness — and Czechia, like all 27 member states, missed the May 2026 transposition deadline and received a Commission infringement procedure in July [S3]. The implementing law now arrives compressed and retroactively urgent [S3], and with it a rolling obligation wave for building owners: which buildings need BACS, which need envelope work, in what order, at what capex.
 
-Why now: portfolio owners cannot answer those questions today — Czech commercial landlords, family offices, municipalities and facility managers have no analytics layer, only per-building energy-certificate consultancies [S2]. In Berlin, Fuchs & Eule just raised €10M for exactly this product and has run 10,000 building analyses [S1]; the regulatory driver (EPBD + ESG reporting) is identical in Czechia, offset by roughly the transposition lag.
+Why now: portfolio owners cannot answer those questions with what is on the Czech shelf — portfolio platforms here do consumption monitoring and ESG reporting (Enmon by PKV, ENERGOMETR by DEKSOFT), certificate consultancies work one building at a time, and the re-check found no product that plans and sequences retrofit measures with capex across a portfolio [S2,S5]. In Berlin, Fuchs & Eule just raised €10M for exactly this product and has run 10,000 building analyses [S1]; the regulatory driver (EPBD + ESG reporting) is identical in Czechia, offset by roughly the transposition lag.
 
 The deadline scores 1 rather than 2 because the Czech implementing dates are not yet fixed [S3] — the infringement procedure makes acceleration likely, and the moment the law publishes with dates, this record's deadline dimension and rank should jump.
 
 Who pays: commercial and institutional building owners triaging retrofit capex. Municipal building stock — obligated early under EPBD's public-building provisions — is a procurement channel. The money side is receipted from the EPC market: 11 public buyers awarded ~€58M of energy-performance contracting between June and August 2026, including three Plzeň-region hospitals in a single week [S4]. That is exactly the spend a portfolio-analytics layer front-ends — which buildings, in what order, at what capex — receipted as adjacent tenders [S4].
 
-Existing non-solutions: energy specialists issuing PENB certificates one building at a time (PKV Build the scale player) [S2], ESG consultancies producing PDFs, and spreadsheets. The quick check found no Czech portfolio-level retrofit analytics product [S2], and the unoccupied position is the owner-side analytics product, not retrofit delivery [S2].
+Existing non-solutions: energy specialists issuing PENB certificates one building at a time (PKV Build the scale player) [S2], and portfolio energy-management platforms that monitor consumption and report ESG but carry no renovation roadmap, measure prioritisation or capex modelling — Enmon (PKV) and ENERGOMETR (DEKSOFT) [S5]. The position this record tracks is the owner-side retrofit-planning product, not retrofit delivery [S2,S5] — and the distinction is monitoring versus retrofit planning, narrower than an empty field [S5].
 
 ## Revisions
 
 2026-08-13 · money receipted — The EPC award wave was put on the ledger — 11 public buyers, ~€58M between June and August 2026 [S4] — carrying money to 1. The substance now sits in How big above rather than here.
 
 2026-08-20 · evidence audit — Removed the EPC supplier-side sentence: the four named companies and associations (ENESA, ČEZ ESCO, MVV, APES) return no hits anywhere in the signal corpus and appear in no source note on this record, and the maturity verdict attached to them had nothing behind it either. The clause that survives, that the unoccupied position is the owner-side analytics product, is the record's own gap check and is now cited to [S2]. Also removed from "Who pays": the claim that banks pricing green mortgages and sustainability-linked loans are a second buyer, since no green-mortgage receipt exists in the corpus.
+
+2026-08-24 · fact check — The window paragraph claimed owners have "no analytics layer, only per-building energy-certificate consultancies"; the record's own re-check found two Czech portfolio energy-management platforms (Enmon by PKV, ENERGOMETR by DEKSOFT) and flagged that the real distinction is monitoring versus retrofit planning, "narrower than the body currently implies" [S5]. The body now names both and claims only what was checked: no retrofit-planning product found, gap unchanged at 1. Enmon's own page was re-verified live on this date — 15-minute consumption collection and ESG reporting, no renovation planning [S5]. The unreceipted "ESG consultancies producing PDFs, and spreadsheets" flourish is gone.
