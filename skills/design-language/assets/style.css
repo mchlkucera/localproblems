@@ -1,5 +1,17 @@
 /* ============================================================
-   localproblems.org · design system v1.12 · 2026-08-24
+   localproblems.org · design system v1.13 · 2026-08-24
+   v1.13 (same day, owner: "easier to scan, with links to read more"):
+   each scorecard cell becomes a plain anchor to the record section that
+   carries its evidence (Validated abroad → Proven abroad, Local
+   opportunity → Local competition, Money available → How big, Why now →
+   Why now, Demand signal → its source row; Build → What you need). The
+   affordance is visible at rest: the READ line wears the house link
+   grammar — hairline underline + a trailing mono "→" — hover thickens to
+   the 2px ink underline, focus states the 2px ink outline inset so it
+   never crosses the cell rules it abuts. No JS — plain #anchors. The
+   retired "Who builds this" buildfacts ledger returns as the "What you
+   need" section (capital · team · first revenue, with the team line
+   citing a comp where one states its headcount) — grammar unchanged.
    v1.12 (owner rebuild): the record page becomes a board brief, not a
    dossier. THE JARGON IS GONE — the scorecard drops the SCORING.md verdict
    words (UNPROVEN, FAINT, LIKELY …) the owner struck out ("who are you
@@ -391,6 +403,22 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   .scorecard .dim:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule); }
   .scorecard .dim:last-child { border-bottom: 0; }
 }
+/* v1.13: each cell links to the section carrying its evidence ("read
+   more" — owner, 2026-08-24). The label and pips stay plain; the READ
+   line wears the house link grammar — hairline underline + a trailing
+   mono "→" — so the affordance is visible at rest. Hover = the 2px ink
+   underline the site spends on "this is the one"; focus = the 2px ink
+   outline, INSET so it never crosses the cell rules the .dim abuts
+   (the .dot--solved offset would cut through the card grid). */
+a.dim { text-decoration: none; }
+a.dim .read {
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 2px;
+}
+a.dim .read::after { content: " →"; font-family: var(--mono); }
+a.dim:hover .read { text-decoration: underline 2px var(--ink); }
+a.dim:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 /* ---- score rundown: a page of the report, opened (v2; rebuilt v1.6)
    A scorecard dimension is a button (popovertarget); the popover it
    opens is not a panel but a sheet — the report page that justifies

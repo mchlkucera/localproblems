@@ -2,7 +2,9 @@
 // docket (dek, facts, quiet meta) · a plain "Opportunity /12" scorecard (plain
 // labels, plain reads, no verdict words, no rundown dialogs) · a builder funnel
 // of plain sections: the problem → proven abroad → local competition → how big
-// → why now → first moves → sources. Sources render as a named link + one plain
+// → why now → what you need → first moves → sources. Each scorecard cell links
+// to the section carrying its evidence (v1.13, owner: "easier to scan, with
+// links to read more"). Sources render as a named link + one plain
 // line; the internal receipt (`note`) and the audit trail (revisions) stay in
 // the markdown/git, not shouted on the page.
 import type { Metadata } from "next";
@@ -11,7 +13,7 @@ import { extractDate, getProblems, getSignal, signalHref, type Problem, type Pro
 import { annotateSourceRefs, renderBody, renderInline, repageLedgerLinks, type SourceRef } from "../../../../lib/md";
 import { splitBody } from "../../../../lib/sections";
 import { categoryLabel, countryName, euro, localityLong } from "../../../../lib/format";
-import { MAX, SCORE_ROWS, dimRefs, scoreRead } from "../../../../lib/scorecard";
+import { type Dim, MAX, SCORE_ROWS, dimRefs, scoreRead } from "../../../../lib/scorecard";
 import {
   CORRECTIONS_MAILTO, FooterHouseLine, Masthead, RelDatesScript, SiteNav, Tally,
 } from "../../../../lib/chrome";
@@ -96,6 +98,10 @@ function builderLabel(b: string): string {
   const s = b.replace("-", " ");
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
+/** The builder ladder as plain headcount (CONVENTIONS.md: small-team = 2–5). */
+const TEAM_BAND: Record<string, string> = {
+  solo: "1 person", "small-team": "2–5 people", "funded-team": "a funded team",
+};
 
 export default async function Record({ params }: Params) {
   const { region, id } = await params;
@@ -136,6 +142,25 @@ export default async function Record({ params }: Params) {
 
   const build = p.build;
 
+  // Scorecard "read more" targets (owner, 2026-08-24): each cell links to the
+  // section of the page carrying its evidence. Gap falls back to the sources
+  // ledger when a record states no local-competition paragraph; demand lands
+  // on its first backing source row, or on the problem when none is on file.
+  const anchors: Record<Dim, string> = {
+    proof: "#proven-abroad",
+    gap: sections.competition ? "#local-competition" : "#sources",
+    demand: refs.demand.length ? `#s${refs.demand[0]}` : "#problem",
+    money: "#how-big",
+    urgency: "#why-now",
+  };
+
+  // "What you need" — team intelligence from the comps: where a comp's
+  // traction string records its own headcount, that comp is the evidence and
+  // gets stated and linked; where none does, the build note alone carries it.
+  const teamComp = comps
+    .map((c) => ({ c, m: c.traction.match(/(\d+)[-\s]person team/i) }))
+    .find((x) => x.m !== null);
+
   return (
     <>
       <Masthead />
@@ -174,29 +199,33 @@ export default async function Record({ params }: Params) {
             <span className="n"><b>{p.score}</b>/12</span>
           </div>
           <div className="dims">
+            {/* Each cell is a plain anchor to the section carrying its
+                evidence (owner: "easier to scan, with links to read more").
+                The read line wears the hairline underline + a mono "→" so
+                the affordance is visible at rest. No JS. */}
             {SCORE_ROWS.map(({ dim, label }) => (
-              <div key={dim} className={p.scores[dim] === 0 ? "dim is-zero" : "dim"}>
+              <a key={dim} className={p.scores[dim] === 0 ? "dim is-zero" : "dim"} href={anchors[dim]}>
                 <div className="top2">
                   <span className="label">{label}</span>
                   <Tally s={p.scores[dim]} max={MAX[dim]} />
                 </div>
                 <div className="read">{scoreRead(p, dim)}</div>
-              </div>
+              </a>
             ))}
-            <div className="dim dim--build">
+            <a className="dim dim--build" href="#what-you-need">
               <div className="top2">
                 <span className="label">Build</span>
                 <span className="pill">{builderLabel(build.builder)}</span>
               </div>
               <div className="read">{CAPITAL_RANGE[build.capital]} · first revenue in {FIRST_REVENUE[build.first_revenue]}</div>
-            </div>
+            </a>
           </div>
         </section>
 
-        <h2>The problem</h2>
+        <h2 id="problem">The problem</h2>
         <div dangerouslySetInnerHTML={{ __html: body(sections.problem) }} />
 
-        <h2>Proven abroad</h2>
+        <h2 id="proven-abroad">Proven abroad</h2>
         {sections.solved && <div dangerouslySetInnerHTML={{ __html: body(sections.solved) }} />}
         {comps.length > 0 ? (
           <div className="works">
@@ -227,12 +256,12 @@ export default async function Record({ params }: Params) {
 
         {sections.competition && (
           <>
-            <h2>Local competition</h2>
+            <h2 id="local-competition">Local competition</h2>
             <div dangerouslySetInnerHTML={{ __html: body(sections.competition) }} />
           </>
         )}
 
-        <h2>How big</h2>
+        <h2 id="how-big">How big</h2>
         {sections.howbig && <div dangerouslySetInnerHTML={{ __html: body(sections.howbig) }} />}
         {refs.money.length > 0 ? (
           <ul className="comps">
@@ -253,7 +282,7 @@ export default async function Record({ params }: Params) {
           <p className="absent">No sized figure on file.</p>
         )}
 
-        <h2>Why now</h2>
+        <h2 id="why-now">Why now</h2>
         {sections.window && <div dangerouslySetInnerHTML={{ __html: body(sections.window) }} />}
         {p.scores.urgency > 0 && refs.urgency.length > 0 && (
           <ul className="comps">
@@ -280,9 +309,29 @@ export default async function Record({ params }: Params) {
           <p className="whenline">{relativeOut(extract, windowFact)}, as of <time dateTime={extract}>{extract}</time>.</p>
         )}
 
+        {/* What you need — the buy-in requirements, stated plainly (owner,
+            2026-08-24): the capital band as money, the team the comps prove
+            sufficient abroad (linked where a comp records its headcount),
+            time to first revenue, and the build note carrying what the
+            product actually demands. The scorecard Build cell lands here. */}
+        <h2 id="what-you-need">What you need</h2>
+        <ul className="buildfacts">
+          <li>CAPITAL<span className="leader"></span><span className="val">{CAPITAL_RANGE[build.capital]}</span></li>
+          <li>TEAM<span className="leader"></span>
+            <span className="val">{TEAM_BAND[build.builder]}{teamComp && (
+              <span className="range"> — <a href={teamComp.c.url}>{teamComp.c.name}</a> runs this with a {teamComp.m![1]}-person team</span>
+            )}</span>
+          </li>
+          <li>FIRST REVENUE<span className="leader"></span><span className="val">in {FIRST_REVENUE[build.first_revenue]}</span></li>
+        </ul>
+        <p className="buildnote">{build.note}</p>
+        {comps.length > 0 && (
+          <p className="buildnote"><a href="#proven-abroad">See the teams doing it abroad →</a></p>
+        )}
+
         {sections.firstmoves && (
           <>
-            <h2>First moves</h2>
+            <h2 id="first-moves">First moves</h2>
             <div dangerouslySetInnerHTML={{ __html: body(sections.firstmoves) }} />
           </>
         )}

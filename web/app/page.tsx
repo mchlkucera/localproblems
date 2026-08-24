@@ -1,13 +1,11 @@
 // The problem register — distilled from the source ledgers.
-import { extractDate, registerRows, signalHref, stats, EVIDENCE_TYPES } from "../lib/data";
+import { registerRows } from "../lib/data";
 import { categoryLabel, localityLabel, pad2 } from "../lib/format";
 import { CategoryNav } from "../lib/category-nav";
 import { FooterHouseLine, Masthead, SiteNav, SortScript, Tally, CORRECTIONS_MAILTO } from "../lib/chrome";
 
 export default function Register() {
   const rows = registerRows();
-  const s = stats();
-  const date = extractDate();
 
   return (
     <>
@@ -26,16 +24,15 @@ export default function Register() {
       </nav>
 
       <p>
-        Real local problems, stated properly. Distilled weekly from public sources — tenders,
+        A register of local problems, compiled weekly from public sources — tenders,
         regulations, funding rounds, documented complaints. Every claim links to its source.
       </p>
 
       <CategoryNav />
 
       <table className="index">
-        <caption>
-          Sorted by score, descending · extract generated <time>{date}</time>
-        </caption>
+        {/* visually hidden — kept in the DOM so assistive tech gets the sort order */}
+        <caption>Sorted by score, descending</caption>
         <thead>
           <tr>
             <th>Problem</th><th>Category</th><th>Locality</th>
@@ -65,24 +62,8 @@ export default function Register() {
       </table>
 
       <footer>
-        {/* the register's vitals — footer matter, not headline matter (owner, 2026-08-19) */}
-        {s.open} problems on record · Czechia, pilot country · distilled from{" "}
-        {s.signalCount} source signals:{" "}
-        {EVIDENCE_TYPES.map((t, i) => (
-          <span key={t}>
-            {i > 0 && " · "}
-            <a href={`/signals/${t}`}>{s.byType[t]} {t}</a>
-          </span>
-        ))}
-        {s.nextDeadline && (
-          <>
-            {" "}· next regulatory deadline{" "}
-            {/* through signalHref: the regulation ledger is paged, and a
-                fragment only scrolls on the page that holds the row */}
-            <a href={signalHref(s.nextDeadline.id, "regulation")}><time>{s.nextDeadline.date}</time></a>
-          </>
-        )}
-        <br />
+        {/* the stats self-narration ("N problems on record · Czechia, pilot
+            country · distilled from …") is retired (owner, 2026-08-24) */}
         <FooterHouseLine />
         <br />
         <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}

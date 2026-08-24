@@ -40,9 +40,8 @@ export default async function CategoryPage({ params }: Params) {
         </p>
       ) : (
         <table className="index">
-          <caption>
-            Sorted by score, descending · extract generated <time>{date}</time>
-          </caption>
+          {/* visually hidden — kept in the DOM so assistive tech gets the sort order */}
+          <caption>Sorted by score, descending</caption>
           <thead>
             <tr>
               <th>Problem</th><th>Category</th><th>Locality</th>

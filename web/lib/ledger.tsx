@@ -5,7 +5,7 @@
 // there is exactly one ledger rendering; the route only decides which slice.
 import {
   EVIDENCE_TYPES, extractDate, ledgerPages, ledgerRows,
-  signalsByType, type EvidenceType, type Signal,
+  type EvidenceType, type Signal,
 } from "./data";
 import { categoryLabel, euro, pad2 } from "./format";
 import { CORRECTIONS_MAILTO, FooterHouseLine, Masthead, Pager, SiteNav } from "./chrome";
@@ -63,29 +63,24 @@ function rowTitle(s: Signal): string | undefined {
  *  could only ever reorder the slice while looking exactly like it had sorted
  *  the ledger. That is not a smaller feature, it is a false statement about the
  *  data, so the ledgers keep ONE order: date descending, fixed at build time,
- *  stated in the caption for assistive tech and in the crumb for everyone else.
+ *  stated in the (visually hidden) caption for assistive tech; the date column
+ *  shows it to everyone else.
  *
  *  If a ledger ever needs a second order, it is a second set of pre-rendered
  *  pages — never a script over one slice. */
 export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
-  const all = signalsByType(type);
   const pages = ledgerPages(type);
   const rows = ledgerRows(type, page);
-  const latest = all.map((s) => s.date).sort().at(-1);
 
   return (
     <>
       <Masthead />
       <SiteNav current={`/signals/${type}`} />
 
-      <p className="crumb">
-        {TITLES[type]} · {pad2(all.length)} signals on file
-        {latest && <> · latest <time>{latest}</time></>}
-        {/* once a ledger is more than one document, "page 03 of 37" and the
-            order it is paged in are load-bearing facts about what you are
-            looking at — not chrome. A single-page ledger states neither. */}
-        {pages > 1 && <> · newest first · page {pad2(page)} of {pad2(pages)}</>}
-      </p>
+      {/* the crumb is a heading, not a status line: the counts, "latest",
+          "newest first" and "page NN of MM" narration are retired (owner,
+          2026-08-24). Position lives in the pager; order in the caption. */}
+      <p className="crumb">{TITLES[type].split(" — ")[0]}</p>
 
       <p>{DESCRIPTIONS[type]}</p>
 
@@ -98,9 +93,10 @@ export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
             <col className="c-geo" /><col className="c-val" />
             <col className="c-date" />
           </colgroup>
+          {/* visually hidden — kept in the DOM so assistive tech gets the sort
+              order and, on a paged ledger, the position */}
           <caption>
-            Sorted by date, descending · extract generated <time>{extractDate()}</time> ·
-            hover a name for the recorded summary
+            Sorted by date, descending
             {pages > 1 && <> · page {pad2(page)} of {pad2(pages)}</>}
           </caption>
           <thead>

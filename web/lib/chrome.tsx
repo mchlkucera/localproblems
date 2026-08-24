@@ -1,14 +1,7 @@
 // Gazette chrome — reproduces the v1.3 hand-built structures verbatim.
 // Class vocabulary comes from shared.css only; nothing invented here.
 import { EVIDENCE_TYPES, extractDate } from "./data";
-import { isoWeek, pad2 } from "./format";
-
-/** Gazette numbering. Lives in the footer house line only (owner, 2026-08-19):
-    the masthead's vol./no. slot passed to the About link. */
-export function issueLine(): { vol: string; no: string } {
-  const date = extractDate();
-  return { vol: date.slice(0, 4), no: pad2(isoWeek(date)) };
-}
+import { pad2 } from "./format";
 
 /** `current` is the page path; the About link marks itself on /about.
     The right-hand slot keeps the issue line's styling (`.issue`, mono meta). */
@@ -82,9 +75,12 @@ export function Pager({ base, page, pages }: { base: string; page: number; pages
   );
 }
 
+/** The one footer statement every page carries (owner, 2026-08-24): region and
+    extract date, nothing else. The gazette self-narration — "Extract no.
+    NN/YYYY, generated automatically", "Data as recorded, no warranty" — is
+    retired; a professional register does not describe itself in its own footer. */
 export function FooterHouseLine() {
-  const { vol, no } = issueLine();
-  return <>Data as recorded, no warranty. Sources with links. Extract no. {no}/{vol}, generated automatically.</>;
+  return <>Czechia · updated <time>{extractDate()}</time></>;
 }
 
 export const CORRECTIONS_MAILTO = "mailto:corrections@localproblems.org?subject=CORRECTION";

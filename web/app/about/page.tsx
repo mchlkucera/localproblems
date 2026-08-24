@@ -1,6 +1,6 @@
 // About — the vision and the method, briefly. Serif prose, no chrome tricks.
 import type { Metadata } from "next";
-import { extractDate, stats } from "../../lib/data";
+import { stats } from "../../lib/data";
 import { CORRECTIONS_MAILTO, FooterHouseLine, Masthead, SiteNav } from "../../lib/chrome";
 
 export const metadata: Metadata = {
@@ -64,13 +64,10 @@ export default function About() {
         accountable to what actually happens.
       </p>
 
-      <p className="crumb">
-        Extract of <time>{extractDate()}</time> · {s.open} problems on record ·{" "}
-        <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a>
-      </p>
-
       <footer>
         <FooterHouseLine />
+        <br />
+        <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a>
       </footer>
     </>
   );
