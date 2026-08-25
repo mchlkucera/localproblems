@@ -2,18 +2,18 @@
 id: p-0010
 region: cz
 title: Small Czech trucking firms still run on phones, e-mail and paper
-fix: 'A back office for small hauliers: turn each delivered load''s paperwork into a ready
-  invoice in Czech, and put the freight documents on an electronic footing before
-  authorities must accept them in July 2027.'
+fix: 'A back office for small hauliers that reads the paperwork: the delivered load''s own
+  delivery note and CMR become the invoice, and those documents go onto the electronic
+  footing authorities must accept from July 2027.'
 category: mobility
 geo: CZ-national
-score: 7
+score: 6
 scores:
   proof: 2
   money: 0
   urgency: 3
   demand: 1
-  gap: 1
+  gap: 0
 status: candidate
 build:
   capital: garage
@@ -60,21 +60,26 @@ locals:
   maturity: established
   evidence: 'named customers: VEDOS runs its transport and forwarding on the LORI system, which
     OLTIS announces on its own site. LORI is dispatch and forwarding software with e-CMR — it
-    records the work: who drove what, when, on which order. What it does not do is the thing
-    this record is about, turning a delivered load''s paperwork into an invoice without a person
-    in the middle, or answering the dispatcher''s phone. It is the legacy generation an entrant
+    records the work: who drove what, when, on which order. What it does not do is turn a
+    delivered load''s paperwork into an invoice without a person in the middle, or answer the
+    dispatcher''s phone. It is the legacy generation an entrant
     would displace, and it is the reason gap here is contested rather than open. OLTIS Group
     a.s. is ARES-dated December 2004 and dates its own origins to 1997; it employs around 200
     people across four countries.'
 - name: TruckManager / TruckAgenda
   url: https://www.truckmanager.eu/cs/
-  competes: adjacent
-  maturity: early
-  evidence: 'Czech haulier-side dispatch and TMS software — order records, vehicle files,
-    paperwork stored rather than processed. Same generation as LORI and sold to the same small
-    firms this record names as buyers, which is what makes it real competition for attention
-    and budget, but it stops where automation would start. No company resolves in ARES under the
-    trade name and no founding year is published, so no limb of the established test is on file.'
+  ico: '60743395'
+  since: 2007
+  competes: direct
+  maturity: established
+  evidence: 'This is the haulier''s own back office, sold in Czech to exactly these small
+    hauliers, and it states 700+ transport firms on it — the limb it passes.
+    Dispatchers get a live board, drivers scan delivery papers into the load from the cab, and the
+    system raises the invoice itself from the recorded kilometres and weight and mails it out with
+    the transport documents attached. It does not answer the phone, it builds the invoice from
+    telematics rather than by reading the document, and it claims no certified electronic freight
+    rail for 2027 — but it sells this. The vendor is 1. Česká obchodní, spol. s r.o. of Nové
+    Veselí, ARES-dated March 1995, which dates the product itself to 2007.'
 - name: Ringil
   url: https://ringil.com/funkce-pro-dopravce
   ico: '09194673'
@@ -89,6 +94,18 @@ locals:
     driver app. That is a counterparty portal, not a haulier''s own back office — no dispatch
     across the haulier''s whole book, no POD or CMR feeding its invoicing, no invoicing and no
     factoring. Ringil s.r.o. is ARES-dated May 2020.'
+- name: Transfer Manager
+  url: https://www.transfermanager.cz/
+  ico: '26747359'
+  since: 2015
+  competes: direct
+  maturity: early
+  evidence: 'sells small Czech carriers the same job in a smaller box: orders in one place, a trip
+    book, capacity alerts and a PDF invoice sent to the customer. No document capture from the
+    cab, no automation beyond the invoice, and it stops well short of dispatch calls or freight
+    paperwork. THINline s.r.o. is ARES-dated January 2003 and the product has run since 2015, but
+    nothing published names or counts who runs on it, so no limb of the established test is on
+    file.'
 sources:
 - type: arbitrage
   name: "Hemut"
@@ -225,19 +242,54 @@ sources:
     for 1–6 trucks). Grounds the bottom-up market math; not a receipt for this record''s money
     score.'
   date: '2026-05-15'
+- type: gap-check
+  name: "TruckManager, read on its own pages"
+  why: "The Czech product the earlier sweep filed as legacy turns out to raise the invoice itself from the recorded kilometres and to take delivery-note scans from the cab, on 700+ transport firms — a working Czech haulier back office, sold to this record's buyer."
+  url: https://www.truckmanager.eu/cs/dopravni-spedicni-software.html
+  note: 'Incumbent check 2026-08-25, and it de-ranks this record. POSITIVE CONTROL FIRST: the
+    descriptive Czech query "software pro dopravce dispečink zakázky vozový park evidence přeprav
+    česká aplikace pro malé dopravce", naming no vendor, returned TruckManager/TruckAgenda,
+    Transfer Manager, SPZ software and spravavozu.cz — the method surfaces small Czech haulier
+    vendors when they are there. READING THE PAGES, not the summaries: truckmanager.eu states
+    verbatim "25+ let zkušeností", "700+ firem", "Automatická fakturace z GPS — dle reálných hodnot
+    z realizace přepravy (hmotnost, km) systém sám vystaví fakturu (i hromadnou) a odešle e-mailem
+    společně s přepravními doklady", "Skenování dokumentů ve vozidle — řidiči mohou přímo ve
+    vozidle snadno, rychle a kvalitně skenovat přepravní doklady a posílat na server přímo k dané
+    přepravě", plus "Digitalizace a archivace dokumentů" and "Samofakturace z GPS dat". Its /o-nas
+    page names the operator as 1. Česká obchodní, s.r.o., Potoční 340, Nové Veselí — the address
+    ARES gives for 1. Česká obchodní, spol. s r.o., IČO 60743395, incorporated 1995-03-21 — and
+    dates the first TruckManager release to 2007. WHAT THAT MEANS FOR THE SCORE: the 2026-08-20
+    sweep filed TruckManager under "legacy dispatch/TMS that records the work rather than
+    automating it", and its own marketing contradicts that on the two functions this record is
+    about — invoice raised without a person, delivery papers captured at the source. A named local
+    player that SELLS THIS and passes the established test on a stated customer count is rung 0,
+    and gap authority is asymmetric in exactly this direction: a positive incumbent finding lowers
+    the score on a receipt. `scores.gap` 1 → 0 and `score` 7 → 6. WHAT IS STILL NOT SOLD HERE: AI
+    phone agents for Czech dispatch calls; an invoice built by READING the delivery note rather
+    than from telematics; and any claim to a certified eFTI platform for July 2027. Also added
+    from the same sweep: Transfer Manager, live at transfermanager.cz (orders, trip book, capacity,
+    PDF invoicing) and operated by THINline s.r.o., IČO 26747359, ARES-dated 2003, product since
+    2015 — the 2026-08-20 note recorded it as unreachable with no ARES match, and both are now on
+    file. AutoCRM remains unreachable and unmatched, so it stays named in prose only.'
+  date: '2026-08-25'
+  queries:
+    - "software pro dopravce dispečink zakázky vozový park evidence přeprav česká aplikace pro malé dopravce"
+    - "TruckManager automatická fakturace z GPS skenování přepravních dokladů ve vozidle"
+  checked: [ares, google-cz]
+  expires: '2026-11-23'
 created: '2026-08-13'
 updated: '2026-08-25'
 ---
 
 Road freight is one of Czechia's biggest sectors — roughly 40,000 haulier firms, most with fewer than ten trucks [S2]. Their back office is manual: a dispatcher on the phone arranging loads, someone re-typing delivery notes and CMR paperwork, invoices and factoring chased by hand [S2]. Margins are thin and drivers scarce [S2], so the admin cost per truck is one these firms cannot hire their way out of. It is repetitive, document-heavy and in Czech — exactly the shape AI phone agents and document ingestion now handle [S1].
 
-Existing non-solutions: a Czech-language search returns only legacy dispatch and TMS software that records the work rather than automating it — TruckManager/TruckAgenda, Transfer Manager, AutoCRM and OLTIS Group's LORI [S8]. Load boards (Timocom, Trans.eu) find freight but do not touch operations [S2]. Ringil is the one name worth clearing up: a Czech logistics platform, but it sells to shippers — Škoda and Notino among its clients — and gives their carriers only free counterparty access [S6], so it is not a haulier's own back office [S8]. No AI-native Czech operations product sells to the hauliers themselves [S8].
+Existing non-solutions: the Czech field is old but not idle. TruckManager has sold hauliers a back office since 2007 and states 700+ transport firms on it: a live dispatch board, drivers scanning delivery papers into the load from the cab, and an invoice the system raises itself from the recorded kilometres and weight [S11]. It does not answer the dispatcher's phone, read the delivery note it stores, or claim the certified electronic rail July 2027 requires [S11]. Transfer Manager, AutoCRM and OLTIS Group's LORI sit a generation behind that, recording the work rather than automating it [S8,S11]. Load boards (Timocom, Trans.eu) find freight but do not touch operations [S2]. Ringil sells the shipper side, and gives those shippers' carriers only free counterparty access [S6,S8]. No AI-native product sells to Czech hauliers themselves [S8].
 
 Why now: two things line up. AI phone agents and document ingestion have matured — a US cluster is already forming around exactly this buyer, led by Hemut (YC 2025) [S1]. And the regulatory trigger is dated: from 9 July 2027 the EU's eFTI Regulation makes electronic freight documents (eCMR and kin) a standard authorities must accept EU-wide [S3]. Every paper CMR workflow in those 40,000 firms gets an expiry date, and the certified e-document rail becomes the channel an AI back-office product rides in on [S3].
 
 Who pays: the hauliers themselves — around 40,000 firms, most under ten trucks — priced per truck or per dispatcher seat, with a dated reason to buy from 9 July 2027 when their paper freight documents stop being enough [S3].
 
-Czech road freight turns over about $6.6 billion a year [S9], and back-office admin is a real slice of every firm's cost. The software line is smaller but concrete: small-fleet trucking software runs roughly $100–500 per firm a month [S10], so 40,000 firms at about €150 a month is on the order of €70M a year if every one bought — call it a conservative floor of about €18M a year reachable if a quarter are software-ready [S10]. The point is not the exact figure: it is that 40,000 near-identical small buyers each spend real money here today, on worse tools.
+Czech road freight turns over about $6.6 billion a year [S9], and back-office admin is a real slice of every firm's cost. The software line is smaller but concrete: small-fleet trucking software runs roughly $100–500 per firm a month [S10], so 40,000 firms at about €150 a month is on the order of €70M a year if every one bought — call it a conservative floor of about €18M a year reachable if a quarter are software-ready [S10].
 
 Solved elsewhere: four funded companies already build this back office for small hauliers in other markets, and none operates in Czechia. Hemut (US, YC 2025) is the closest template — AI phone agents, document ingestion and automated accounting from a three-person team [S1]. Cargofy (Kyiv, about $11M) and Nexcade (London, $8.5M) each raised a month apart for AI freight-operations agents [S4,S5], proof the model funds in Central Europe too — though that pair aims one buyer over, at freight forwarders. cargo.one (Germany, €17M growth round, 28,000+ users) shows the category scales. Czech and Central European language handling for the phone agents is both the barrier for foreign entrants and the moat for a local one.
 
@@ -255,4 +307,4 @@ Solved elsewhere: four funded companies already build this back office for small
 
 2026-08-20 · evidence audit and gap re-check — Two blocks recorded on this date, merged here; the second answers the first. The audit found that the S6 note asserted facts appearing nowhere in the signal it cites (cz-ringil, data/signals/funded/2026-08-14.jsonl): a founding year of 2020, "800+ companies on platform", Plzeňský Prazdroj as a client (the signal names Škoda; "Prazdroj" returns zero hits across all 6,181 signals), and a product-surface verification that Ringil "sells no haulier back-office" — the signal carries no product breakdown at all [S6]. The note then concluded "gap 1 stands", which reverses the signal's own finding: cz-ringil flags Ringil as occupying a register niche ("p-0010 claims no CZ player — Ringil is evidence to the contrary") and marks it a de-rank candidate for this record. The note, the existing-non-solutions sentence and the First moves competition line were rewritten to what the signal actually supports, and gap was deliberately left at 1 and score at 7 — moving them is a MATCH judgment under SPEC §4, not an audit one — with the gap score resting on a withdrawn note and flagged as requiring re-judgment. That re-judgment was then made in the same pass, against Ringil's own site rather than against a signal summary, and the de-rank candidacy is not upheld. Ringil s.r.o. (IČ 09194673) sells four modules — TMS, Avizace, Timesloty, Yard management — under the headline "Systém pro kompletní řízení logistiky ve výrobních a prodejních firmách", i.e. to the shipper; its carrier page opens "Zveme do Ringilu všechny dopravce našich zákazníků. Máte přístup zdarma" and offers those carriers an RFQ inbox, one-click bidding, a record of that shipper's transports and a driver app [S8]. Nothing there is the small haulier's own back office — no dispatch automation across its own book, no POD/CMR ingestion into invoicing, no invoicing or factoring — and nothing there is sold to the haulier at all: Ringil belongs with the load boards this record already excludes, on the other side of the same trade. The wider sweep found Czech haulier-side software, all of it the legacy dispatch/TMS the body already discounts, and no AI-native Czech ops player [S8]. Gap stays 1 and score stays 7. The check that was missing has now been run and recorded with its queries; it did not find an absence, it failed to find a player, and that pass had no authority to convert the second into the first by raising a score.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Both dimensions were re-derived and both held. `scores.proof` stays 2: Cargofy (Kyiv) and cargo.one both pass the established test, but cargo.one sells air-cargo booking to forwarders rather than a small haulier's back office, so only one established player sits on this record's own product — rung 2. Hemut and Nexcade are both under three years old. `scores.gap` stays 1. No `locals[]` key, and the omission is deliberate: the Czech haulier-side field is legacy dispatch and TMS — TruckManager/TruckAgenda, Transfer Manager, AutoCRM and OLTIS Group's LORI [S8] — which is precisely rung 1's 'only weak or legacy incumbents' clause, but `locals[]` has two states and neither of them says 'established but legacy'. Marking OLTIS early would be false, and marking it established would force gap 0 on the product generation this record exists to replace, so the ledger stays absent and the body keeps naming them. Ringil is out for the reason already recorded above: it sells the shipper side. `score` unchanged at 7. Fifth pass this date, merged here: **this record gains a `locals[]` ledger for the first time**, reversing the omission the pass above recorded. That entry named the exact defect the split now fixes — "`locals[]` has two states and neither of them says 'established but legacy'" — so the legacy Czech field goes on the ledger as `competes: adjacent` carrying the maturity it actually has. **OLTIS Group (LORI)**, IČO 26847281, ARES-dated December 2004 and dating its own origins to 1997, is adjacent and established: OLTIS announces VEDOS running its transport and forwarding on LORI, which is the named-customer limb, and LORI is dispatch and forwarding software with e-CMR that records the work rather than automating it. **TruckManager / TruckAgenda** is adjacent and early — the same generation sold to the same small hauliers, but no company resolves in ARES under the trade name and no year is published, so no limb is on file. **Ringil** goes on the ledger too, adjacent and established (Ringil s.r.o., IČO 09194673, ARES-dated May 2020; named customers Škoda and Notino): the 2026-08-20 finding that it sells the shipper side is unchanged, and it is now recorded saying so instead of being kept off the page. NOT added: **Transfer Manager** and **AutoCRM**, named by the same sweep [S8], for which no reachable site and no ARES match could be found — the schema needs a URL or an IČO and neither was invented, so both stay in the body. `scores.gap` stays 1 and `score` stays 7. FLAGGED FOR MATCH, NOT CHANGED HERE: with every named local now adjacent and no direct player on the ledger, the new ladder reads this record at rung 2 rather than rung 1. That is a scoring judgment under SPEC §4, and gap authority is asymmetric — a search that failed to find a player cannot raise a score in a conversion pass.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Both dimensions were re-derived and both held. `scores.proof` stays 2: Cargofy (Kyiv) and cargo.one both pass the established test, but cargo.one sells air-cargo booking to forwarders rather than a small haulier's back office, so only one established player sits on this record's own product — rung 2. Hemut and Nexcade are both under three years old. `scores.gap` stays 1. No `locals[]` key, and the omission is deliberate: the Czech haulier-side field is legacy dispatch and TMS — TruckManager/TruckAgenda, Transfer Manager, AutoCRM and OLTIS Group's LORI [S8] — which is precisely rung 1's 'only weak or legacy incumbents' clause, but `locals[]` has two states and neither of them says 'established but legacy'. Marking OLTIS early would be false, and marking it established would force gap 0 on the product generation this record exists to replace, so the ledger stays absent and the body keeps naming them. Ringil is out for the reason already recorded above: it sells the shipper side. `score` unchanged at 7. Fifth pass this date, merged here: **this record gains a `locals[]` ledger for the first time**, reversing the omission the pass above recorded. That entry named the exact defect the split now fixes — "`locals[]` has two states and neither of them says 'established but legacy'" — so the legacy Czech field goes on the ledger as `competes: adjacent` carrying the maturity it actually has. **OLTIS Group (LORI)**, IČO 26847281, ARES-dated December 2004 and dating its own origins to 1997, is adjacent and established: OLTIS announces VEDOS running its transport and forwarding on LORI, which is the named-customer limb, and LORI is dispatch and forwarding software with e-CMR that records the work rather than automating it. **TruckManager / TruckAgenda** is adjacent and early — the same generation sold to the same small hauliers, but no company resolves in ARES under the trade name and no year is published, so no limb is on file. **Ringil** goes on the ledger too, adjacent and established (Ringil s.r.o., IČO 09194673, ARES-dated May 2020; named customers Škoda and Notino): the 2026-08-20 finding that it sells the shipper side is unchanged, and it is now recorded saying so instead of being kept off the page. NOT added: **Transfer Manager** and **AutoCRM**, named by the same sweep [S8], for which no reachable site and no ARES match could be found — the schema needs a URL or an IČO and neither was invented, so both stay in the body. `scores.gap` stays 1 and `score` stays 7. FLAGGED FOR MATCH, NOT CHANGED HERE: with every named local now adjacent and no direct player on the ledger, the new ladder reads this record at rung 2 rather than rung 1. That is a scoring judgment under SPEC §4, and gap authority is asymmetric — a search that failed to find a player cannot raise a score in a conversion pass. Sixth pass this date, merged here: that flag is answered, and the answer runs the other way — **`scores.gap` 1 → 0 and `score` 7 → 6.** The pass above assumed the only open question was whether an empty direct column should become rung 2. It was not, because the direct column was empty by mistake. A fresh check ran a positive control first — a descriptive Czech query naming no vendor returned TruckManager, Transfer Manager, SPZ software and spravavozu.cz, so the method sees small Czech haulier vendors — and then read TruckManager's own pages instead of a summary of them [S11]. They state 700+ transport firms, 25+ years, drivers scanning delivery papers into the load from the cab, and "Automatická fakturace z GPS": the system raises the invoice itself from the recorded kilometres and weight and mails it with the transport documents attached. That is this record's product, sold in Czech to this record's buyer. The 2026-08-20 sweep had filed it under "legacy dispatch/TMS that records the work rather than automating it", and its own marketing contradicts that on the two functions this record is about. **TruckManager / TruckAgenda** therefore moves from `adjacent`/`early` to `competes: direct` and `maturity: established`, and gains the receipts the earlier entry said did not exist: the vendor is 1. Česká obchodní, spol. s r.o. of Nové Veselí, IČO 60743395, ARES-dated March 1995, and the product dates to 2007 [S11]. A named established local player that sells this is rung 0 by the letter of the ladder, and gap authority is asymmetric in this direction: a positive incumbent finding lowers a score on a receipt, where a failed search could never have raised one. Also added from the same sweep: **Transfer Manager** (THINline s.r.o., IČO 26747359, ARES-dated 2003, product since 2015 — orders, trip book, capacity alerts, PDF invoicing), `direct` and `early`, which the 2026-08-20 note had recorded as unreachable with no ARES match; transfermanager.cz is live and the IČO is on its contact page. AutoCRM is still unreachable and unmatched, so it stays in the prose only. The non-solutions paragraph was rewritten to say what TruckManager actually sells and where it stops, and `fix:` was narrowed to the part nobody here sells — an invoice built by READING the delivery note, and the certified electronic rail for 2027 — because the unnarrowed version described something a builder can already buy. What the ladder cannot say: rung 0 renders as TAKEN, and what a builder should read here is not "stay out" but "the cheapest wedge is gone" — the incumbent is a 2007 telematics product with 700+ firms and no phone agents, on a base of roughly 40,000 hauliers. Proof, money, urgency and demand are untouched; no source note was edited and no [Sn] marker moved. Same pass, prose hygiene: ledger lines that talked about this file rather than about the market were reworded — they render under each entry on the public page, where a reader has no idea a register exists.

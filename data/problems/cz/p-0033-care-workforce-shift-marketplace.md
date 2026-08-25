@@ -295,7 +295,7 @@ sources:
     - 'burza směn zdravotníci aplikace kde si sestry berou volné směny v nemocnicích a domovech Česko 2026'
     - 'Grason Solutions s.r.o. flexibilní směny obory gastro maloobchod výroba zdravotnictví rozšíření'
     - 'Flecto platforma flexibilní zaměstnávání obory zdravotnictví sociální služby domovy seniorů směny'
-  checked: [google-cz, ares, zivnostensky-rejstrik, grason-public-job-feed, cz-contract-parties, own-funded-ledger]
+  checked: [google-cz, ares, zivnostensky-rejstrik, company-job-feed, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
 created: '2026-08-25'
 updated: '2026-08-25'

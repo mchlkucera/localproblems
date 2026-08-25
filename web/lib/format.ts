@@ -73,6 +73,9 @@ export const GAP_SURFACES: Record<GapChecked, string> = {
   "startupjobs": "StartupJobs.cz",
   "own-funded-ledger": "Our funded-company ledger",
   "eshop-addon-marketplaces": "CZ e-shop add-on marketplaces",
+  "cz-contract-parties": "State contracts register",
+  "zivnostensky-rejstrik": "Czech trade-licence register",
+  "company-job-feed": "The company's own job listings",
 };
 export function gapSurface(token: string): string {
   return GAP_SURFACES[token as GapChecked] ?? token;

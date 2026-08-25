@@ -162,6 +162,29 @@ export const GAP_CHECKED = [
   // fails the one job this vocabulary has. Backed by data/lookup/, built by
   // scripts/fetch_{shoptet,upgates}.sh. See data/CONVENTIONS.md.
   "eshop-addon-marketplaces",
+  // Widened 2026-08-25, AFTER the records that use them — a rule violation
+  // recorded rather than hidden. Three gap checks recorded surfaces this
+  // vocabulary did not know, the build failed on zod, and the fix is forward.
+  // Note what it exposes: `scripts/check-records.py` passed all three, so an
+  // agent verifying with the checker alone saw a false green. The two
+  // validators disagree, and only `npm run build` runs both.
+  //   `cz-contract-parties`   — the state contracts register, aggregated by
+  //                             supplier in data/lookup/. NOT `own-funded-ledger`:
+  //                             that is capital, this is public purchasing, and
+  //                             they surface opposite populations — a
+  //                             bootstrapped vendor with public buyers appears
+  //                             here and never there.
+  //   `zivnostensky-rejstrik` — the trade-licence register. Distinct from `ares`:
+  //                             it lists WHAT A COMPANY IS LICENSED TO DO, which
+  //                             is how p-0033 established that Grason holds no
+  //                             employment-agency licence.
+  //   `company-job-feed`      — a company's own public job listings, read to
+  //                             establish which market it actually serves.
+  //                             Deliberately general: it was first written as
+  //                             `grason-public-job-feed`, which names one
+  //                             investigation rather than a surface anyone could
+  //                             check again.
+  "cz-contract-parties", "zivnostensky-rejstrik", "company-job-feed",
 ] as const;
 export type GapChecked = (typeof GAP_CHECKED)[number];
 

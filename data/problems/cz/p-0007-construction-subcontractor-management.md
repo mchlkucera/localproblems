@@ -7,13 +7,13 @@ fix: 'A marketplace for vetted building crews: the contractor hires a subcontrac
   the same place.'
 category: housing
 geo: CZ-national
-score: 5
+score: 6
 scores:
   proof: 2
   money: 0
   urgency: 1
   demand: 1
-  gap: 1
+  gap: 2
 status: candidate
 build:
   capital: garage
@@ -46,6 +46,101 @@ comps:
   geo: US
   since: 2023
   traction: '$21M total — $15.5M Series A led by Foundation Capital (PRNewswire, 2025); construction payroll, time and insurance'
+locals:
+- name: Stavario
+  url: https://stavario.com/cs/
+  ico: '06935338'
+  since: 2018
+  competes: adjacent
+  maturity: established
+  evidence: 'sells the site office in an app — electronic site diary, attendance, tasks, stores
+    and equipment — and reports 5,900+ construction firms on it, which is the limb it passes.
+    What it manages is the crew a contractor already has: it does not find crews, check anybody''s
+    papers or pay anybody. The operator is Vím o všem s.r.o. of Duchcov, ARES-dated March 2018.'
+- name: Bildix
+  url: https://bildix.app/
+  ico: '06681506'
+  since: 2017
+  competes: adjacent
+  maturity: early
+  evidence: 'sells one platform for a whole contracting firm — leads, quotes, projects, service,
+    purchasing and cashflow, for construction, electrical and solar firms. It is the closest Czech
+    thing to the German back-office platforms proven abroad, and it stops exactly where the crew
+    problem starts: no crew sourcing, no document vetting, no pay run. CVF Group s.r.o. is
+    ARES-dated December 2017, and nothing it publishes names or counts who runs on it, so no limb
+    of the established test is on file.'
+- name: Nejřemeslníci.cz
+  url: https://www.nejremeslnici.cz/
+  since: 2009
+  competes: adjacent
+  maturity: established
+  evidence: 'sells leads to tradesmen and choice to households: a homeowner posts a job and picks
+    on reviews. It has run since 2009 and lists 33,937 registered tradesmen and firms, which is
+    the limb it passes. The buyer is the household, not a general contractor who needs a crew with
+    its papers in order, and no money or document ever moves through it.'
+- name: Wilio
+  url: https://www.wilio.sk/
+  competes: adjacent
+  maturity: early
+  evidence: 'sells the same consumer service — a household posts a job, tradesmen bid — and it is
+    Slovak-founded. Its Czech presence could not be verified in this pass: wilio.cz does not
+    resolve and wilio.com is a parked domain-sales page, leaving the Slovak site as the only live
+    one. Consumer matching either way, not general-contractor-to-crew, and no limb of the
+    established test is on file.'
+- name: PlanRadar
+  url: https://www.planradar.com/cs/
+  since: 2013
+  competes: adjacent
+  maturity: established
+  evidence: 'sells construction documentation — site diary, defects, inspections, handover — from
+    Vienna since 2013, in Czech, and states more than 200,000 users in over 75 countries, which is
+    the limb it passes. Subcontractors appear inside it once they are already on the project: it
+    does not source them, check their documents or pay them.'
+- name: Vema (Seyfor)
+  url: https://www.vema.cz/
+  ico: '01572377'
+  since: 2013
+  competes: adjacent
+  maturity: established
+  evidence: 'sells the payroll and HR program many Czech construction firms already run on — and
+    sells the same program to every other industry. Nothing in it knows a site crew from an office
+    clerk: no posted-worker A1 paperwork, no subcontractor documents, no per-site labour costing.
+    The vendor is Seyfor, a. s., ARES-dated 2013, with 2 distinct public buyers in the state
+    contracts register.'
+- name: PAMICA (STORMWARE)
+  url: https://www.stormware.cz/pamica/
+  ico: '25313142'
+  since: 1996
+  competes: adjacent
+  maturity: early
+  evidence: 'sells general payroll and personnel software to businesses of every size and to the
+    accountants who process wages for others — the second horizontal product Czech builders fall
+    back on. It is construction-blind by design. STORMWARE s.r.o. is ARES-dated 1996, but the
+    PAMICA pages carry no tally of who runs it and no other limb of the established test could be
+    verified, so it is recorded as early on its receipts rather than on its age.'
+- name: NejStav.cz
+  url: https://nejstav.cz/
+  ico: '07342250'
+  since: 2018
+  competes: adjacent
+  maturity: established
+  evidence: 'sells construction leads: it advertises 1,000+ checked building opportunities a month
+    and more than 1,000 buyers posting in the previous month, which is the limb it passes. The
+    check is on the opportunity, not on the tradesman — nobody''s documents are verified and no
+    money moves through it — and the same class of portal (ePoptávka, Poptávky.cz, TrhPoptávek)
+    sells the same thing. The operator is AAA poptávka, s.r.o., ARES-dated August 2018.'
+- name: ANOKU (agentura práce)
+  url: https://www.anoku.cz/
+  ico: '06297196'
+  since: 2017
+  competes: adjacent
+  maturity: early
+  evidence: 'sells the crew itself: a licensed staffing agency that recruits Ukrainian workers,
+    employs them, runs their wages, insurance and documents, and swaps them out if the client is
+    unhappy. That is the incumbent answer to "find a crew whose papers are in order", and it is
+    sold as a service with a margin on every hour — the contractor engages no subcontractor, gets
+    no marketplace and buys no software. One representative of a licensed trade with hundreds of
+    holders. ARES-dated July 2017; nothing published names or counts the firms it staffs.'
 sources:
 - type: arbitrage
   name: "CoCrafter"
@@ -116,6 +211,47 @@ sources:
     - "český startup stavebnictví nedostatek dělníků zprostředkování ukrajinských part software 2026"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: gap-check
+  name: "Market scan — a control first, then the two wedges"
+  why: "A Czech query in a builder's own words returned a dozen small Czech site-diary and attendance vendors, which is proof the method sees this kind of firm — and then found no crew marketplace and no construction payroll behind the same method."
+  url: https://stavario.com/cs/
+  note: 'Gap check 2026-08-25, run because the 2026-08-20 sweep recorded no positive control and
+    rung 2 cannot be claimed without one. POSITIVE CONTROL FIRST, and it passed hard: the
+    descriptive Czech query "software stavební deník docházka pracovníků na stavbě česká aplikace
+    pro stavební firmy", naming no vendor, returned Stavario, Buldo, Adapty, Buildo, ELEGIS
+    Stavebník, CloudForce and Software 42 — seven bootstrapped Czech construction SMB vendors, the
+    exact class the funded-and-tendered corpus is blind to. The method sees them. FOUR MORE
+    SHAPES, all in customer vocabulary, none of them finding either wedge. (1) Vetted crews for
+    contractors: what came back was the STATE''s qualification machinery — the seznam
+    kvalifikovaných dodavatelů at NIPEZ, SPS''s certified-contractor scheme, VÚPS and TZÚS
+    certification — all of it for public tendering, none of it a marketplace. (2) Sourcing crews:
+    request portals only — NejStav, ePoptávka, Poptávky.cz, TrhPoptávek, AAAPoptávka, ČeskéStavby
+    — selling leads, checking nobody''s papers, moving no money. (3) Construction payroll: Vema
+    and Alfa-soft horizontal, KROS/ÚRS and NETDATA budgeting, Stavario attendance; no vertical
+    payroll product exists. (4) Subcontractor compliance: PlanStavby verifies a tradesman''s IČO
+    against ARES at signup and moderates its catalogue, PlanRadar tracks subcontractors already on
+    a project, PwC sells partner screening inside SAP — nothing that vets a crew for a contractor
+    hiring one. WHAT DOES SELL THE OUTCOME: licensed staffing agencies (ANOKU, KASEA CZ, Inspectis,
+    Batys and a long tail behind them) lease Ukrainian workers with wages, insurance and papers
+    handled — the incumbent answer, sold as a service, and ANOKU is on the ledger as its
+    representative. OWN FUNDED LEDGER, grepped the same day: Stavario, PlanRadar, Wilio and
+    Nejřemeslníci appear only inside other signals'' summaries, and Bildix, NejStav, ANOKU and Vím
+    o všem s.r.o. return zero hits anywhere in it — the capital-and-tender corpus cannot see this
+    half of the field at all, which is why the searching had to be done in Czech. VERDICT: NOT
+    FOUND, on a controlled method — no Czech B2B marketplace matching
+    contractors with vetted subcontractor crews, and no construction-vertical payroll or
+    posted-worker product. Nine local players recorded, every one of them adjacent. That is rung 2
+    as SCORING.md words it: gap 1 → 2, score 5 → 6.'
+  date: '2026-08-25'
+  queries:
+    - "software stavební deník docházka pracovníků na stavbě česká aplikace pro stavební firmy"
+    - "databáze prověřených stavebních part subdodavatelé pro generální dodavatele ověření dokladů platforma"
+    - "sháníme party na stavbu zprostředkování subdodavatelů stavební firmy online portál poptávka řemeslníci B2B"
+    - "mzdový a docházkový software pro stavební firmy výplaty dělníků úkolová mzda stavebnictví"
+    - "agentura práce ukrajinští dělníci na stavbu zajistíme partu zaměstnance stavební firmy zprostředkování 2026"
+    - "platforma ověření spolehlivosti subdodavatele stavebnictví kontrola dokladů pojištění stavební firmy software compliance"
+  checked: [ares, google-cz, own-funded-ledger]
+  expires: '2026-11-23'
 created: '2026-08-13'
 updated: '2026-08-25'
 ---
@@ -126,7 +262,7 @@ Why now: in Germany — a structurally similar subcontractor market — CoCrafte
 
 Who pays: general contractors and mid-sized construction firms — the marketplace side monetizes matching and compliance document management; the payroll side is per-employee SaaS replacing accountant hours and compliance risk. Entry through either wedge lands in the same buyer.
 
-Existing non-solutions: consumer home-services marketplaces (Wilio, Nejřemeslníci) that do not serve B2B crews [S3], site-diary and attendance tools (Stavario, PlanRadar) that stop short of pay and compliance, and generic payroll software [S2,S4]. Searches on 2026-08-13 found no Czech B2B subcontractor marketplace and no construction-vertical payroll product [S3].
+Existing non-solutions: consumer home-services marketplaces (Wilio, Nejřemeslníci) that do not serve B2B crews [S3], site-diary and attendance tools (Stavario, PlanRadar) that stop short of pay and compliance, and generic payroll software [S2,S4]. Request portals such as NejStav and ePoptávka sell leads and check nobody's papers [S6]. The one thing that does deliver a crew with its documents in order is a licensed staffing agency, which leases the workers and keeps them on its own payroll [S6]. Searches on 2026-08-13 found no Czech B2B subcontractor marketplace and no construction-vertical payroll product [S3], and a controlled Czech-language sweep on 2026-08-25 — one that surfaced seven small Czech site-diary vendors before it was trusted — found neither of them either [S6].
 
 Solved elsewhere: CoCrafter (DE) for sourcing [S1] and Hammr (US, YC W23) for construction payroll/HR [S2]. Each facet of the merged problem is validated in only one market so far.
 
@@ -134,4 +270,4 @@ Solved elsewhere: CoCrafter (DE) for sourcing [S1] and Hammr (US, YC W23) for co
 
 2026-08-20 · evidence audit and title sweep — Two blocks recorded on this date, merged here. The "Why now" trend sentence was removed: the claims that the labour shortage keeps worsening, that foreign-crew usage keeps rising, and that posted-worker compliance exposure grows with them. No signal in the corpus carries a trajectory for any of the three — yc-cocrafter and yc-hammr document a chronic shortage and informal Ukrainian/Balkan sourcing at a single point in time, with no second data point behind any of the three verbs. The lead-in now carries the German productization receipt, which is sourced. The title claimed "no vetting, compliance or construction-specific tooling". The first two stand — the 2026-08-20 gap check searched five surfaces and found no crew-vetting or construction payroll product [S5]. The third did not: Bildix is Czech construction-specific tooling, named on this record, and it simply does not do crew sourcing. Narrowed to what the check actually supports.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "mid-sized stavební firmy" now reads "mid-sized construction firms". Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Both dimensions were re-derived and both held. `scores.proof` stays 2: on the comps ledger only Lumber passes the established test — CoCrafter, Hammr and conmeet are all three years old or younger with no limb the test reads — so rung 2, one established foreign player. Rung 3 is not claimed even though established players sit in two markets, because the two halves of this merged problem (crew sourcing and construction payroll) are different products, each proven once. That is a place where the ladder does not fit a merged record cleanly, and it is flagged here rather than forced into a number. No `locals[]` key: the 2026-08-20 check found neither a Czech GC-to-crew marketplace nor a construction-vertical payroll product, and the near-misses it named — Bildix, NejStav, ePoptávka, PlanRadar, Stavario, Vema — sell different products, so none belongs in a ledger the gap ladder reads. `scores.gap` stays 1 rather than rising to 2 because that check recorded no positive control, and rung 2 requires one. `score` unchanged at 5.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "mid-sized stavební firmy" now reads "mid-sized construction firms". Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Both dimensions were re-derived and both held. `scores.proof` stays 2: on the comps ledger only Lumber passes the established test — CoCrafter, Hammr and conmeet are all three years old or younger with no limb the test reads — so rung 2, one established foreign player. Rung 3 is not claimed even though established players sit in two markets, because the two halves of this merged problem (crew sourcing and construction payroll) are different products, each proven once. That is a place where the ladder does not fit a merged record cleanly, and it is flagged here rather than forced into a number. No `locals[]` key: the 2026-08-20 check found neither a Czech GC-to-crew marketplace nor a construction-vertical payroll product, and the near-misses it named — Bildix, NejStav, ePoptávka, PlanRadar, Stavario, Vema — sell different products, so none belongs in a ledger the gap ladder reads. `scores.gap` stays 1 rather than rising to 2 because that check recorded no positive control, and rung 2 requires one. `score` unchanged at 5. Fifth pass this date, merged here: **this record gains a `locals[]` ledger for the first time and `scores.gap` moves 1 → 2, `score` 5 → 6.** Both halves of the pass above are reversed, and for the same reason. It withheld the ledger because Bildix, NejStav, ePoptávka, PlanRadar, Stavario, Vema and Pamica "sell different products" — but selling a different product is what `competes: adjacent` is FOR, and leaving a real firm off the page to keep the ladder tidy is the false absence the split was written to stop. Nine entries now, every one adjacent: **Stavario** (Vím o všem s.r.o., IČO 06935338, ARES-dated 2018, 5,900+ construction firms — established), **Bildix** (CVF Group s.r.o., IČO 06681506, 2017 — early, nothing published about who runs on it), **Nejřemeslníci.cz** (since 2009, 33,937 registered tradesmen and firms — established), **Wilio** (Slovak-founded; wilio.cz no longer resolves and wilio.com is a parked domain-sales page, so its Czech presence is unverified — early), **PlanRadar** (Vienna, since 2013, 200,000+ users in 75+ countries — established), **Vema** (Seyfor, a. s., IČO 01572377 — established), **PAMICA** (STORMWARE s.r.o., IČO 25313142, ARES-dated 1996 but publishing no tally of who runs it, so early on its receipts rather than on its age), **NejStav.cz** (AAA poptávka, s.r.o., IČO 07342250 — established) and **ANOKU** (IČO 06297196 — a licensed staffing agency, early), which is on the ledger as the representative of the trade that actually delivers a crew with papers today [S6]. It also said `scores.gap` stays 1 for want of a positive control, which was the right call then and is answered now. The control was run first and passed hard: a descriptive Czech query naming no vendor returned seven bootstrapped Czech site-diary and attendance vendors, the exact class the funded-and-tendered corpus cannot see — four of the nine ledger entries return zero hits in it. Five further query shapes then found no marketplace matching contractors with vetted crews and no construction payroll product; what they returned instead was the state's own qualification lists for public tendering, lead portals, and staffing agencies [S6]. Rung 1 says locals sell this and are all early; nobody here sells this, so rung 2 is the honest rung and the page says so above a ledger of nine firms explaining what each one does sell. What the ladder still cannot express, unchanged from the pass above: this is one record carrying two products, crew sourcing and construction payroll, and both gap and proof have to answer for both at once. The non-solutions paragraph gains the portals, the agencies and the new check [S6]; no source note was edited and no [Sn] marker moved. Same pass, prose hygiene: ledger lines that talked about this file rather than about the market were reworded — they render under each entry on the public page, where a reader has no idea a register exists.

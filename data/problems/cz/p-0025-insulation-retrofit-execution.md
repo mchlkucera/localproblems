@@ -2,17 +2,18 @@
 id: p-0025
 region: cz
 title: Czech home insulation runs through one-man firms nobody can vet
-fix: 'An insulation contractor that actually turns up: own trained crews, a fixed price
-  per house, and the state renovation subsidy handled for the homeowner.'
+fix: 'The whole house at one fixed price — facade included, own trained crews, and the
+  state renovation subsidy handled — where today the roof, the walls and the paperwork
+  mean three firms and three quotes.'
 category: energy
 geo: CZ-national
-score: 6
+score: 5
 scores:
   proof: 2
   money: 1
   urgency: 2
   demand: 0
-  gap: 1
+  gap: 0
 status: candidate
 build:
   capital: funded
@@ -38,6 +39,45 @@ comps:
   since: 2020
   traction: '€20M Series B, €40M total raised (Tech.eu, 2025); digital energy audits, subsidy handling and renovation delivery for homeowners'
 locals:
+- name: IP Polná (MAGMARELAX)
+  url: https://www.magmarelax.cz/
+  ico: '25323601'
+  since: 1997
+  competes: direct
+  maturity: established
+  evidence: 'It sells the installed job, to the homeowner, across the whole country: blown mineral
+    insulation of roofs, lofts and ceilings under its own MAGMARELAX brand, applied by its own
+    technicians, with help on the state subsidy and an official EKIS advisory listing behind that
+    help. It passes the established test on a public customer count — the site claims 30,100+
+    insulated buildings and 30+ years on the market — and ARES dates IP Polná s.r.o. to January
+    1997. What it does not do is the facade, and it prices each house on survey rather than at a
+    published fixed price; everything else an entrant here would sell, it already sells.'
+- name: ZOFI
+  url: https://www.zofi.cz/
+  since: 2009
+  competes: direct
+  maturity: established
+  evidence: 'It sells turnkey facade insulation to homeowners and files their subsidy application
+    under power of attorney — the half of the job IP Polná leaves alone. It passes the established
+    test on a public customer count: it states it has put through over 500 subsidy applications in
+    the Nová zelená úsporám programme since 2009. It works five cities — Ostrava, Olomouc, Zlín,
+    Brno, Praha — and quotes every house on survey, so it is a regional specialist rather than a
+    standardised national operator. No IČO is claimed here: the contact page names two companies
+    at one Olomouc address, ZOFI STAVBY s.r.o. and ZOFI fasády s.r.o., neither of which can be
+    tied to the 2009 start, so the year is taken from the firm''s own words and the identity is
+    left for a reader to check.'
+- name: Fouknuto
+  url: https://www.fouknuto.cz/
+  ico: '19610351'
+  since: 2023
+  competes: direct
+  maturity: early
+  evidence: 'The long tail, with a name on it: a Plzeň-region crew that blows insulation into
+    lofts, roofs and ceilings of family houses, apartment blocks and schools, offers a free survey
+    and a quote per job, and will help with the subsidy. This is what a homeowner actually meets,
+    and it is why a standardised offer is worth building. Fouknuto s.r.o. is ARES-dated August
+    2023, its own "insulated more than …" counter renders zero, and the only names on the site are
+    review signatures, so no limb of the established test is on file.'
 - name: CIUR
   url: https://www.ciur.cz/
   ico: '40612724'
@@ -47,8 +87,8 @@ locals:
   evidence: 'It manufactures insulation material and sells it through its own application
     centre and a partner-firm network for Climatizer Plus [S6] — a manufacturer channel
     supplying installers, not the trained-crew, fixed-price installed job an entrant here
-    would sell. Established on named customers: data/lookup/cz-contract-parties.jsonl pairs
-    CIUR a.s. as supplier with statutární město Karviná as buyer. ARES registration
+    would sell. Established on named customers: the city of Karviná appears as a
+    public buyer against CIUR a.s. in the state contracts register. ARES registration
     1991-07-11.'
 - name: dotacenarenovace.cz
   url: https://dotacenarenovace.cz/
@@ -146,11 +186,52 @@ sources:
     - "Woltair zateplení izolace domu služba nabídka rozšíření"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: gap-check
+  name: "The long tail, named — and the firm that is not in it"
+  why: "Putting names to the installers turned up one that is not long-tail at all: a Polná firm that has been insulating Czech roofs and lofts with its own crews for thirty years, on a claimed 30,100+ buildings."
+  url: https://www.magmarelax.cz/
+  note: 'Gap check 2026-08-25, run to put NAMES on the direct competition this record has always
+    argued in prose, and it de-ranks the record. POSITIVE CONTROL FIRST: descriptive Czech queries
+    naming no vendor ("foukaná izolace zateplení půdy realizace firma celá ČR"; "zateplení
+    rodinného domu na klíč vyřídíme dotaci Nová zelená úsporám realizace firma") put working Czech
+    installers on the first page — Fouknuto, ZOFI, Ekoizolace and the trade directories — so the
+    method finds this class of firm. WHAT IT FOUND. (1) MAGMARELAX is not an individual applicator,
+    which is how the 2026-08-20 note filed it. magmarelax.cz is operated by IP Polná s.r.o., IČO
+    25323601, ARES-dated 1997-01-17, Tyršova 405, Polná; the site states "30 100+ zateplených
+    objektů", a counter reading 31200+, "30+ let na trhu", "Máme vlastní tým zkušených techniků"
+    and "přijedeme za vámi kamkoliv po celé ČR", plus "Jsme oficiální poradenské středisko EKIS"
+    and cooperation with ROCKWOOL since 1998. That is a national installer with its own crews, a
+    branded product, subsidy guidance and a customer count — the VARM shape without the fixed price
+    or the software — selling to this record''s buyer. It does roofs, lofts, ceilings and
+    roof-frame protection; it does NOT do the facade. (2) ZOFI (zofi.cz) sells turnkey facade
+    insulation and files the NZÚ application under power of attorney: "Dotace na zateplení
+    vyřizujeme od roku 2009. V programu Nová zelená úsporám jsme již úspěšně vyřídili přes 500
+    žádostí", working Ostrava, Olomouc, Zlín, Brno and Praha. Its contact page names ZOFI STAVBY
+    s.r.o. (IČO 22109731, 2024) and ZOFI fasády s.r.o. (IČO 27761258, 2006) at one address, so no
+    IČO is claimed on the ledger and the 2009 start is taken from the firm''s own words. (3)
+    Fouknuto s.r.o., IČO 19610351, ARES-dated 2023-08-10 — the long tail with a name on it: one
+    region, free survey, quote per job, subsidy help offered. NOT RECORDED: Bezvaizolace (the site
+    returns HTTP 403 and no company resolves under the trade name) and Ekoizolace (unverified this
+    pass) — no URL and no IČO were invented for either, and they stay in the search record only.
+    CONSEQUENCE: a named local player that sells this AND passes the established test is rung 0 by
+    the letter of the ladder, and gap authority runs in this direction — a positive incumbent
+    finding lowers a score on a receipt, where a failed search could never raise one. `scores.gap`
+    1 → 0 and `score` 6 → 5. WHAT IS STILL NOT SOLD HERE: one firm doing the whole envelope, facade
+    included, at a published fixed price, nationally, with the subsidy handled — the VARM/dsb
+    stack. That is what `fix:` was narrowed to.'
+  date: '2026-08-25'
+  queries:
+    - "foukaná izolace zateplení půdy realizace firma referencí realizací celá ČR fixní cena za den"
+    - "zateplení rodinného domu na klíč vyřídíme dotaci Nová zelená úsporám realizace firma od roku realizací"
+    - "bezvaizolace foukaná izolace firma kontakt IČO; magmarelax foukané izolace"
+    - "IP Polná MAGMARELAX foukaná izolace vlastní montážní týmy počet zateplených domů firma historie"
+  checked: [ares, google-cz]
+  expires: '2026-11-23'
 created: '2026-08-13'
 updated: '2026-08-25'
 ---
 
-Insulating a Czech family home means finding one of thousands of small zateplení firms, waiting for a quote, and hoping the NZÚ subsidy paperwork gets handled. The trade is a fragmented long tail of small regional firms [S3,S6]. Meanwhile the subsidy program that co-pays the work — Nová zelená úsporám — runs continuously, pre-validating household demand [S2].
+Insulating a Czech family home means finding one of thousands of small zateplení firms, waiting for a quote, and hoping the NZÚ subsidy paperwork gets handled. The trade is a fragmented long tail of small regional firms [S3,S6] — with one exception: IP Polná has insulated a claimed 30,000+ Czech buildings with its own crews over thirty years [S7]. Meanwhile the subsidy program that co-pays the work — Nová zelená úsporám — runs continuously, pre-validating household demand [S2].
 
 Why now: VARM in Berlin just raised €17.5M for the answer: train career-changers into certified insulation installers, standardize the job to one day at a fixed ~€5k price, and run the whole operation on software [S1]. It is Woltair's Czech playbook — vertical integration of a subsidized energy trade — applied to a trade Woltair skipped [S3]. The model attacks labor supply rather than selling software to firms that are too small to buy it [S1].
 
@@ -158,7 +239,7 @@ Who pays: homeowners, part-funded by the state renovation subsidy Nová zelená 
 
 EPBD gives the same work a dated regulatory driver: transposition is overdue, the Commission opened infringement against CZ in July 2026, and residential MEPS trajectories (2030/2033) mean household insulation stops being optional [S5]. [EPBD pressure](/problem/cz/p-0024) is upstream demand for the same work: as renovation obligations firm up [S5], execution capacity becomes the bottleneck this model builds.
 
-Existing non-solutions: the fragmented installer long tail [S3]; general contractors for whom insulation is a side line; energy-consulting firms that specify but don't build. Woltair is the proof the CZ market rewards this model — and the proof it's unoccupied for insulation [S3]. Next evidence: NZÚ zateplení application/backlog statistics to document demand, and a check on whether Woltair has insulation expansion plans (the competitive risk).
+Existing non-solutions: taken at the top, fragmented underneath. IP Polná sells the blown-in half of the job nationally with its own crews and subsidy help — everything VARM sells bar the fixed price and the software — and never touches the facade [S7]. Facades go to specialists like ZOFI: subsidy filed under power of attorney, five cities, every house priced on survey [S7]. Under both is the long tail — Fouknuto and hundreds like it, one crew, one region, a free quote [S6,S7] — and contractors for whom insulation is a side line. Nobody sells the whole envelope at one fixed price, and Woltair still does not sell insulation at all [S3].
 
 Solved elsewhere: Berlin funded the second half of the model within a month of the first — dsb Deutsche Sanierungsberatung (€10M Series A) packages renovation consulting, subsidy applications and contractor delivery for homeowners, the demand-side navigation wedge to VARM's supply-side installer wedge [S4]. VARM has been installing since 2023 across seven German sites, and Enter has sold homeowner audits and delivery since 2020 on €40M raised; dsb only opened in 2024 [S1,S4]. It is all one country. The full stack — find the homeowner, handle the subsidy, deliver the retrofit at a fixed price — is proven next door and nowhere else yet.
 
@@ -173,4 +254,6 @@ Solved elsewhere: Berlin funded the second half of the model within a month of t
 2026-08-25 · plain-language pass, then re-scoring — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "NZÚ co-payment" now reads "part-funded by the state renovation subsidy Nová zelená úsporám", and "SVJ/bytová družstva" now reads "the apartment-owner associations and housing cooperatives". Scores, status, source notes and every [Sn] marker are untouched by that pass. Second pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, and both dimensions held. `scores.proof` stays 2, but on a different and better reason than before. The v1 answer was "both rounds are German"; the maturity test gives the same number for a sharper cause — VARM has sold since 2023 across seven sites and Enter since 2020 on €40M raised, so both are established, while dsb only opened in 2024 and is early. Established sellers in ONE market is rung 2; rung 3 needs two, and Germany is the only one on file. `scores.gap` stays 1. The two Czech players the [S6] sweep found were lifted into a structured `locals[]` ledger, and both are established — CIUR (IČO 40612724, ARES 1991) on the named-customer limb via its Karviná contract in `data/lookup/cz-contract-parties.jsonl`, and dotacenarenovace.cz on a stated 500+ renovations over 25 years. Neither sells what this record proposes: CIUR sells material through a partner channel and dotacenarenovace.cz is a general contractor with a subsidy desk, which is the "weak or legacy incumbents" wording of rung 1 exactly, not the "already sells this" of rung 0. Nothing raises it either — rung 2 requires a check that found no local player, and this one found several. `score` unchanged at 6. Deliberately not lifted into `locals[]`: Woltair and Schlieger, because the checks on this record establish that neither sells zateplení at all [S3,S6], and the individual applicators and regional directories, because they are the long tail this record is about rather than incumbents holding the position. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.
 
 THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. Both entries move `early` → `established`, and both are `competes: adjacent`. As on p-0024, the `early` was a schema artefact rather than a judgment: this file's re-score entry from earlier the same day says outright that both are established — CIUR on the named-customer limb via its statutární město Karviná pairing in `data/lookup/cz-contract-parties.jsonl`, dotacenarenovace.cz on a stated 500+ renovations over 25 years — and the ledger then contradicted its own audit trail to protect the score. CIUR gains the `since: 1991` its ARES registration always supported. dotacenarenovace.cz carries `since: 2001`, derived from the sourced "25-year construction firm" in [S6] rather than invented, and the derivation is stated in the evidence line so a reader can check it; the three-year limb clears by two decades either way, so the approximation cannot flip the verdict. Neither sells what an entrant here would sell: CIUR is a material manufacturer supplying installers through a partner channel, and dotacenarenovace.cz is a general contractor with a subsidy desk. `scores.gap` stays 1. The checker warns that no ledger entry is `competes: direct`; the warning is a correct description and is left standing rather than answered by relabelling a manufacturer as a competitor. The direct-but-early field this rung rests on is the fragmented installer long tail [S3,S6], which lives in the argument because no individual applicator is worth a ledger row. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+
+Same date, later pass: **`scores.gap` 1 → 0 and `score` 6 → 5**, and the ledger now names the direct competition instead of leaving it as an assertion in the prose. The pass above closed by saying the checker's "no entry is `competes: direct`" warning was a correct description, and that the direct-but-early field the rung rested on was the installer long tail, too fragmented to give anybody a row. Putting names to that long tail is what broke the score [S7]. The 2026-08-20 note had filed **Magmarelax** among "individual applicators": it is not one. magmarelax.cz is operated by **IP Polná s.r.o.**, IČO 25323601, ARES-dated January 1997, and states 30,100+ insulated buildings, 30+ years on the market, its own team of technicians, coverage of the whole country, an official EKIS advisory listing and cooperation with ROCKWOOL since 1998. That is a national installer selling the trained-crew, subsidy-handled, blown-in job to the homeowner this file is about — the VARM shape minus the fixed price and the software — so it goes on the ledger as `competes: direct`, `maturity: established`, and rung 0 follows by the letter of the ladder. **ZOFI** joins it, also direct and established: turnkey facade insulation with the subsidy filed under power of attorney, over 500 applications since 2009, five cities. It carries no IČO on purpose — its contact page names ZOFI STAVBY s.r.o. (2024) and ZOFI fasády s.r.o. (2006) at one address and neither can be tied to the 2009 start, so the year comes from the firm's own words rather than from a guess. **Fouknuto** (Fouknuto s.r.o., IČO 19610351, ARES-dated August 2023) is the third, direct and early, and it is the long tail with a name on it. Not recorded, for want of a receipt: Bezvaizolace, whose site returns 403 and which resolves to no company under that trade name, and Ekoizolace, unverified this pass — neither a URL nor an IČO was invented to fill the schema. Gap authority is asymmetric and this is the direction it runs: a failed search can never raise the score, and a named established incumbent lowers it on a receipt. The lead and the non-solutions paragraph were rewritten to match, the sentence claiming the position is "unoccupied for insulation" is gone, and `fix:` was narrowed from an insulation contractor with trained crews — which IP Polná already is — to the thing still nobody sells: the whole envelope, facade included, at one fixed price, nationally. CIUR's line lost the file path it was printing to readers and says the same thing in words. **What the ladder cannot express**: rung 0 renders as TAKEN, and taken is too strong for a physical-services market of this shape. One national installer at roughly a thousand houses a year, plus a regional facade specialist, against millions of unrenovated Czech houses, is not a closed market — it is a market with the easy wedge already gone and no standardised offer in it. The score cannot say that; the ledger and these three evidence lines are where a builder reads it. Money, urgency, demand and proof are untouched; no source note was edited and no [Sn] marker moved.
 
