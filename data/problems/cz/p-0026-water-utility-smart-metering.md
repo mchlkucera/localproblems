@@ -109,7 +109,7 @@ created: '2026-08-13'
 updated: '2026-08-25'
 ---
 
-Czech water supply is run by hundreds of VaK companies and municipal svazky, most of them small [S2], and they are digitizing metering the only way they know: one infrastructure tender at a time. In a single ten-week TED window, Kroměříž awarded ~€1.3M for network smart metering [S2], the Ivančice association opened a ~€1.2M competition for the same [S1], and Bruntál tendered a water data dispatch [S2] — three buyers independently procuring hardware, telemetry, data platform and integration as bespoke projects [S2].
+Czech water supply is run by hundreds of VaK companies and municipal svazky, most of them small [S2], and they are digitizing metering the only way they know: one infrastructure tender at a time. Three buyers did exactly that inside a single ten-week window. Kroměříž awarded about €1.3M for network smart metering and Bruntál tendered a water data dispatch [S2]. The Ivančice association opened a competition of about €1.2M for the same thing [S1]. Each is procuring hardware, telemetry, a data platform and integration as its own bespoke project.
 
 Why now: a svazek with three employees cannot run a data platform; each project embeds years of operational dependence on whichever integrator won.
 

@@ -129,15 +129,33 @@ sources:
     - "Czech startup permitting software construction permits automation Czechia proptech"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: news
+  url: https://csu.gov.cz/plk/vydana-stavebni-povoleni-a-orientacni-hodnota-staveb-v-plzenskem-kraji-v-roce-2025
+  name: 'CSU: building permits issued, 2025'
+  why: The national permit count and its value — the population any permit-preparation product is sold against. 61,613 permits in 2025, down 14.5% on 2024.
+  note: 'CSU preliminary full-year 2025: 61,613 stavebnich povoleni nationally (-10,453 / -14.5% vs 2024); orientacni hodnota 503.3bn CZK (-13.3%). CSU has announced orientacni hodnota will be discontinued and replaced by pocet povolenych zameru, so any series built on the value terminates.'
+  date: '2026-02-18'
+- type: news
+  url: https://www.ckait.cz/o-nas
+  name: 'CKAIT: authorised engineers and technicians'
+  why: Sizes the professional buyer side — the projektanti who prepare permit documentation and would buy the tooling.
+  note: 'CKAIT states "vice jak 32 tisic autorizovanych inzenyru a techniku"; the architects chamber CKA separately records 4,288 authorised architects as of 1 Jan 2026. Combined addressable professional population approximately 36,300.'
+  date: '2026-01-01'
+- type: news
+  url: https://www.cespron.cz/ceny-inzenyrskych-cinnosti/
+  name: 'Published price lists for permit engineering'
+  why: What the manual alternative costs today — the price ceiling a software product prices against.
+  note: 'Published Czech inzenyrska cinnost price lists for a single family house cluster at 16,000-42,000 CZK per project (CESPRON 16,000 total; Pruvodce drevostavbou 42,000 incl. VAT from 1.1.2026). Pruvodka sells at 12,900 CZK per project, below the low end of human-delivered permit engineering.'
+  date: '2026-08-25'
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-08-25'
 ---
 
 Czech stavebníci — from housing developers to firms building industrial capacity — face permit proceedings that typically run six months to a year, related inženýrská činnost included [S5]. The July 2024 launch of the digitalized permitting system (DSŘ / portál stavebníka) made things acutely worse [S2]: a year on, trade press (archiweb) describes the system as stabilized "but still facing complications." Both applicants and úřady lost throughput during the transition to the new stavební zákon procedures [S2].
 
 Why now: the new building act changed procedures, the state portal remains unreliable [S2], and every month of permitting delay carries direct financing cost for developers. The pain is documented in national press rather than inferred.
 
-Who pays: developers and larger stavebníci, for whom shaving months off entitlement and permit preparation is worth meaningful fees; architecture/engineering offices preparing dokumentace; potentially municipalities buying triage tooling, though the private side is the realistic first buyer.
+Who pays: developers and larger stavebníci, for whom shaving months off entitlement and permit preparation is worth meaningful fees; architecture and engineering offices preparing dokumentace; potentially municipalities buying triage tooling, though the private side is the realistic first buyer. The volume is documented: 61,613 building permits were issued in 2025 [S8], and roughly 36,300 authorised engineers and architects prepare the documentation behind them [S9]. Manual permit engineering for a single family house is published at 16,000–42,000 CZK a project [S10]. Průvodka undercuts that at 12,900 CZK [S7], so even a tenth of the annual permit flow at that price is on the order of €3M a year — a floor, and one that assumes the tool sells only per permit rather than by subscription.
 
 Existing non-solutions: the state's own portál stavebníka (the source of much of the pain), law firms and inženýring service providers who navigate permits manually per project. Czech software for permit preparation does exist, contrary to this record's original finding [S3]: **Průvodka** sells it to projektanti and stavebníci — upload the dokumentace, AI checks it and recommends which dotčené orgány and správci sítí (ČEZ, GasNet, vodárny, CETIN) to approach, the žádosti go out by datová schránka, and the service tracks each 30/60/90-day lhůta and issues the doklad o fikci souhlasu when one lapses, at 12,900 CZK per project or 29,900 CZK a month on the Studio plan [S7]. On the authority side of the same counter, **Efektivia** sells AI document triage into Czech municipal offices, live at MČ Brno-střed and MěÚ Neratovice [S7].
 

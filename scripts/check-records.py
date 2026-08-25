@@ -29,13 +29,25 @@ LEAD_INS = ["Why now:", "Who pays:", "Existing non-solutions", "Solved elsewhere
 
 # Prose that is about OUR PROCESS, not about the problem. Banned from rendered
 # body text; belongs in `## Revisions`, which the page does not render.
+# Phrases that are process jargon in any casing.
 JARGON = [
     "de-rank", "gap-check", "gap check", "absence check", "incumbent re-check",
     "re-judgment", "the audit found", "receipted", "materiality",
-    "UNPROVEN", "FAINT", "SCATTERED", "LIKELY", "CONFIRMED", "VALIDATED",
 ]
 
-ARG_WORDS_MAX = 300      # argument prose only (excludes First moves / Revisions)
+# The retired scorecard verdict labels. Matched CASE-SENSITIVELY and as whole
+# words, because the lower-case forms are ordinary English the register is
+# entitled to use: "a later market search confirmed it" and "a validated US
+# cluster" are not jargon, and flagging them taught readers to ignore the
+# checker — which is how a warning stops being a warning.
+VERDICTS = ["UNPROVEN", "FAINT", "SCATTERED", "LIKELY", "CONFIRMED", "VALIDATED",
+            "STRONG", "PRIME", "THIN", "UNFUNDED", "MILD", "FORCING"]
+
+# Argument prose only (excludes First moves / Revisions). Calibrated to flag
+# genuine bloat rather than the house norm: the owner-approved exemplar p-0010
+# runs 529 words, so a 300 target would fail the standard it is meant to enforce
+# and produce twenty warnings nobody reads. 450 catches the outliers.
+ARG_WORDS_MAX = 450
 MARKERS_PER_SENTENCE = 3  # more than this reads as citation clot (the p-0008 lesson)
 
 
@@ -92,6 +104,9 @@ def check(path):
     for j in JARGON:
         if j.lower() in low:
             warns.append(f"process jargon in rendered prose: '{j}'")
+    for v in VERDICTS:
+        if re.search(r"\b" + v + r"\b", arg):
+            warns.append(f"retired verdict label in rendered prose: '{v}'")
 
     words = len(re.sub(r"\[S[\d,S]+\]", "", arg).split())
     if words > ARG_WORDS_MAX:

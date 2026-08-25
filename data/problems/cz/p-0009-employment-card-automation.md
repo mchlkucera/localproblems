@@ -108,15 +108,27 @@ sources:
     - "immigration software platform Czech Republic employee card employer visa tracking SaaS"
   checked: [ares, google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: news
+  url: https://mv.gov.cz/migrace/clanek/vyrocni-zpravy-o-situaci-v-oblasti-migrace-a-integrace.aspx
+  name: 'Interior Ministry migration report 2024'
+  why: The transaction volume this product would automate — new applications, extensions and employer changes, counted by the ministry that decides them.
+  note: 'MV CR OAMP annual report for 2024 (published 30 Jul 2025): 14,287 new employee-card applications filed at embassies, 12,843 granted; 44,869 employment-purpose extension applications; 22,793 employer/position-change notifications. Total employer-facing proceedings approximately 82,000 for the year. The same report records 3,518 formal complaints of administrative inaction, upheld in 40.6% of cases.'
+  date: '2025-07-30'
+- type: regulation
+  url: https://www.zakonyprolidi.cz/cs/2019-220
+  name: 'Government Decree 220/2019: employee-card quotas'
+  why: The hard ceiling on annual volume — and evidence the constraint is processing capacity rather than quota.
+  note: 'Narizeni vlady 220/2019 Sb., in force version effective 1 Jul 2026, sets a maximum of approximately 45,300 employee-card applications a year across listed embassies (Priloha 2: 44,820; Priloha 3: 480). Utilisation is far below the ceiling for most countries - Ukraine drew about 10% of its 11,000 capacity in 2024 - so quota is not the binding constraint except for India and Kazakhstan.'
+  date: '2026-07-01'
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-08-25'
 ---
 
 Czech employers structurally depend on foreign workers — Ukraine, Philippines, India — channeled through government kvóty programs [S1,S2]. The zaměstnanecká karta pipeline is notoriously slow and paper-based [S1]; employers outsource it to relocation agencies and law firms that work manually at high fees, with no software layer for application preparation, status tracking or ongoing compliance (permit renewals, reporting duties) [S2].
 
 Why now: the US shows the model being replicated rapidly — Gale (YC W25) automates the corporate visa pipeline, with Mayflower (YC F25) and LegalOS (YC W26) extending the cluster within a year [S1]. The playbook of software coordinating independent attorneys transfers to the Czech advokát market structure.
 
-Who pays: employers with recurring foreign-hiring volume (manufacturing, logistics, healthcare, IT) who currently pay per-case agency fees; agencies themselves are a secondary buyer for tooling that raises their case throughput.
+Who pays: employers with recurring foreign-hiring volume (manufacturing, logistics, healthcare, IT) who currently pay per-case agency fees; agencies themselves are a secondary buyer for tooling that raises their case throughput. The volume is large and documented: about 82,000 employee-card proceedings ran in 2024 — 14,287 new applications, 44,869 extensions and 22,793 employer changes [S5] — against an annual quota ceiling of roughly 45,300 that most countries never reach [S6]. What cannot be sized from public sources is the price: nine Czech relocation agencies and law firms were checked and not one publishes a per-case fee, so any revenue assumption here has no public receipt behind it and must come from a vendor conversation. The state fee alone is 1,000 CZK at an embassy [S5].
 
 Existing non-solutions: ministry information pages, permit.cz (static form-filling guides), classic law firms (e.g. ARROWS) and manual relocation agencies [S2]. A 2026-08-13 search found no automation platform [S2], and a 2026-08-20 follow-up held that finding against a market that is dense but entirely manual: zamestnaneckekarty.cz turns out to be the law firm Spring Walk with no portal or tracking of any kind, Foreigners, ReloCzech, Expat Support, Principio and DMPF sell serviced immigration agendas, and ARES lists nine "Relocation" and fifteen "Expat" companies without a software vendor among them [S4].
 
