@@ -50,28 +50,27 @@ locals:
   since: 2004
   competes: direct
   maturity: established
-  evidence: 'public customer count: Apertia states dozens of completed customer integrations
-    across Pohoda, ABRA, ABRA Flexi, Money S3/S5, Helios and K2. Its "B2B Objednávky pomocí
-    AI" extracts products and specifications from an inbound e-mail, matches them against the
-    buyer''s catalogue and internal item codes, writes the order into the ERP and replies with
-    a confirmation and a delivery date. Apertia Tech s.r.o. has traded since 2004.'
+  evidence: 'Its "B2B objednávky pomocí AI" reads products and specifications out of an inbound
+    e-mail, matches them against the buyer''s catalogue and internal item codes, writes the
+    order into the ERP and replies with a confirmation and a delivery date. Apertia Tech s.r.o.
+    has traded since 2004 and says it is used in dozens of completed customer integrations
+    across Pohoda, ABRA, ABRA Flexi, Money S3/S5, Helios and K2.'
 - name: Dativery
   url: https://www.dativery.com/cs/
   ico: '05574617'
   since: 2016
   competes: direct
   maturity: established
-  evidence: 'named customers: Dativery is the integration layer behind Digitoo, and sells
-    order and invoice extraction into ABRA Flexi and POHODA. Dativery s.r.o. has traded since
-    2016.'
+  evidence: 'Used by Digitoo as its integration layer, Dativery sells order and invoice
+    extraction into ABRA Flexi and POHODA. Dativery s.r.o. has traded since 2016.'
 - name: Alice (Redque)
   url: https://redque.cz/
   ico: '14430266'
   since: 2022
   competes: direct
   maturity: early
-  evidence: 'extracts receipts, invoices and objednávky into Helios, Pohoda and Abra. Redque
-    s.r.o. was incorporated in April 2022 and no limb of the established test is on file.'
+  evidence: 'Extracts receipts, invoices and purchase orders into Helios, Pohoda and Abra. Redque
+    s.r.o. was incorporated in April 2022 and names nobody using it.'
 sources:
 - type: arbitrage
   name: "Mercura"
@@ -144,7 +143,7 @@ Solved elsewhere: the wedge is funded in Germany and the US [S1,S3], but the com
 
 ## Revisions
 
-2026-08-25 · re-scored on the new ladder — Re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries Apertia Tech, Dativery and Alice by Redque [S4]. Apertia (trading since 2004, dozens of completed customer integrations across the Czech SMB ERPs) and Dativery (since 2016, the integration layer behind Digitoo) both pass the established test, so `scores.gap` stays 0 and the 2026-08-20 de-rank now rests on a receipt a machine can re-check; Redque s.r.o., incorporated in April 2022, is early. `scores.proof` 3 → 2, a genuine downgrade: only Workist passes the established test — Mercura and Ventura are under three years old, and turian, though older, cites no customer count, no public buyer, no Series A and no state listing. One established player in one market is rung 2, not rung 3, and the 'Solved elsewhere' paragraph no longer claims two. `score` 4 → 3. Second pass this date, merged here: `locals[]` converted from `status:` to the orthogonal `competes:` + `maturity:` pair. All three entries are `competes: direct`: Apertia's B2B Objednávky, Dativery's order and invoice extraction into ABRA Flexi and POHODA, and Redque's Alice each take an inbound order document and write it into a Czech ERP, which is this record's product for this record's buyer. Maturities are unchanged. `scores.gap` stays 0 on Apertia Tech and Dativery, both direct and established. No player was ever excluded from this ledger, so there is nothing to restore.
+2026-08-25 · re-scored on the new ladder — Re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries Apertia Tech, Dativery and Alice by Redque [S4]. Apertia (trading since 2004, dozens of completed customer integrations across the Czech SMB ERPs) and Dativery (since 2016, the integration layer behind Digitoo) both pass the established test, so `scores.gap` stays 0 and the 2026-08-20 de-rank now rests on a receipt a machine can re-check; Redque s.r.o., incorporated in April 2022, is early. `scores.proof` 3 → 2, a genuine downgrade: only Workist passes the established test — Mercura and Ventura are under three years old, and turian, though older, cites no customer count, no public buyer, no Series A and no state listing. One established player in one market is rung 2, not rung 3, and the 'Solved elsewhere' paragraph no longer claims two. `score` 4 → 3. Second pass this date, merged here: `locals[]` converted from `status:` to the orthogonal `competes:` + `maturity:` pair. All three entries are `competes: direct`: Apertia's B2B Objednávky, Dativery's order and invoice extraction into ABRA Flexi and POHODA, and Redque's Alice each take an inbound order document and write it into a Czech ERP, which is this record's product for this record's buyer. Maturities are unchanged. `scores.gap` stays 0 on Apertia Tech and Dativery, both direct and established. No player was ever excluded from this ledger, so there is nothing to restore. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed.
 
 2026-08-20 · gap re-check — De-ranked. The 2026-08-13 absence check behind gap 2 was recorded against a YC company page and returned only US/global tools plus "CZ generic AI agencies" [S2]; it never looked at what Czech vendors call this in Czech. Re-run against Czech-language search, the first query surfaced Apertia Tech s.r.o. selling a named B2B order-processing AI product with the exact Pohoda/ABRA/Helios/Money/K2 integration set that would have been the moat, plus Alice by Redque and Dativery doing the same extraction into the same ERPs [S4]. Gap 2 → 0 and score 6 → 4 under the SPEC §4 de-rank rule, status → watching; the who-pays and existing-non-solutions paragraphs were rewritten so the prose no longer contradicts the score. The record's remaining honest content is its proof: the wedge is funded in DE and the US, and it is also already being sold here.
 

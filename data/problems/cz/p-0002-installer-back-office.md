@@ -45,40 +45,39 @@ locals:
   since: 2022
   competes: direct
   maturity: early
-  evidence: 'per-seat vertical SaaS at 650 Kč/user/month plus 200 Kč for the heat-pump module;
-    generates quotes, contracts, handover protocols and NZÚ subsidy documentation. Wue
-    Technologies s.r.o. was incorporated in December 2022 and publishes no limb of the
-    established test.'
+  evidence: 'Software for solar installers at 650 Kč a month per seat plus 200 Kč for the
+    heat-pump module, generating quotes, contracts, handover protocols and the paperwork for
+    the state renovation subsidy (NZÚ). Wue Technologies s.r.o. was incorporated in December
+    2022 and names no installer running on it.'
 - name: RAYNET
   url: https://raynet.cz/
   ico: '26843820'
   since: 2004
   competes: direct
   maturity: established
-  evidence: 'public customer count: the RAYNET photovoltaics vertical is reported by its
-    implementation partner Bubble Development as live at roughly 20 photovoltaic installer
-    firms. It auto-generates NZÚ and distributor forms straight out of the CRM and ships a
-    field app for montážní týmy. RAYNET s.r.o. has traded since 2004; the launch year of the
-    PV vertical is not published, so the year here is the
-    company''s founding year, which is the fallback the scoring rule allows.'
+  evidence: 'Its photovoltaics vertical runs at roughly 20 Czech solar installer firms, per its
+    implementation partner Bubble Development, and generates state-subsidy and distributor
+    forms straight out of the CRM, with a field app for fitting crews. RAYNET s.r.o. has traded
+    since 2004; the year the photovoltaics vertical itself launched is not published, so the
+    year shown is the company''s.'
 - name: AutoERP (Apertia Tech)
   url: https://autoerp.cz/
   ico: '27117758'
   since: 2004
   competes: direct
   maturity: early
-  evidence: 'three CRM/ERP variants sold to photovoltaic installation firms. Apertia Tech
-    s.r.o. has traded since 2004, but no limb of the established test is on file for this
-    product — no published deployment figure, no public contract for the IČO in the
-    Czech contracts register, no disclosed round, no state listing.'
+  evidence: 'Three CRM and ERP variants sold to photovoltaic installation firms. Apertia Tech
+    s.r.o. has traded since 2004, but for this product nothing is published: no deployment
+    figure, no public contract for the IČO in the state contracts register and no funding.'
 - name: Infina
   url: https://infina.cz/
   ico: '06904424'
   since: 2018
   competes: direct
   maturity: early
-  evidence: 'a CRM with a payback calculator sold to heat-pump and photovoltaic dealers.
-    Infina company s.r.o. has traded since 2018; no limb of the established test is on file.'
+  evidence: 'A CRM with a payback calculator sold to heat-pump and photovoltaic dealers. Infina
+    company s.r.o. has traded since 2018 but names no dealer running it and publishes no
+    funding.'
 sources:
 - type: arbitrage
   name: "autarc"
@@ -186,4 +185,4 @@ Solved elsewhere: autarc in Germany is the funded, directly adjacent analog [S1]
 
 2026-08-20 · gap re-check and evidence audit — Two blocks recorded on this date, merged here. The absence claim was false: Czech-language search found four CZ vendors selling installer-facing software to heat-pump and FVE firms — Wue, RAYNET's photovoltaics vertical, AutoERP and Infina [S6] — so gap moved 2 → 0, score 7 → 5, status candidate → watching per the SPEC §4 de-rank rule. The record's proposed first product move, the NZÚ-paperwork wedge, is the part most clearly already shipped. Two things made the original check miss this. It cited a foreign page (ycombinator.com/companies/autarc) as the receipt for a Czech absence, which proves nothing about Czechia; and the search appears to have run in English, where the same re-check returned no Czech vendor at all while the Czech-language queries returned four. None of the four appears anywhere in this register's signal corpus — they are bootstrapped SMB software companies that no funding feed surfaces. The title carried the same disproved absence, "with no vertical software", and has been cut to the part that still stands, for the same reason: the title is the most-read line on the record and it was asserting what the ledger below it now refutes. What survives is the demand claim [S1] and the observation that the CZ tools are quoting/CRM-shaped rather than autarc-depth — heat-load calculation and digital site survey remain genuinely thin here, but that is a product-differentiation argument, not an absence. Cut in the same pass: the autarc funding-and-customer parenthetical and the Reonic Series A parenthetical in the fourth first move. Both figures live only in the comps ledger — Reonic returns no hits anywhere in the signal corpus, and yc-autarc carries neither the raise nor the customer count — and a comparable's traction line cannot back a body claim. The "Where it works" ledger still prints both.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` now carries Wue, RAYNET, AutoERP (Apertia Tech) and Infina [S6]. RAYNET passes the established test — trading since 2004, with its photovoltaics vertical reported live at roughly 20 installer firms by its implementation partner — so `scores.gap` stays 0 and the 2026-08-20 de-rank now rests on a receipt a machine can re-check. The other three are early: Wue Technologies was incorporated in December 2022 and publishes nothing the test reads, and neither AutoERP nor Infina publishes a deployment figure. `scores.proof` 2 → 3: autarc and Reonic both pass the established test on the comps ledger, and Reonic sells the same stack across DACH, France and Italy, so the model is established in more than one market with a CEE-adjacent one among them. `score` 5 → 6. The retired rung 2 read 'funded analog in DE/AT/PL/Nordics + no CZ player found', which docked this record for the very Czech vendors named below it; that gap condition is gone from the proof ladder. Fifth pass this date, merged here: `locals[]` converted from `status:` to the orthogonal `competes:` + `maturity:` pair. All four entries are `competes: direct` — Wue, RAYNET's photovoltaics vertical, AutoERP and Infina each sell quoting, subsidy paperwork and installer CRM to Czech heat-pump and solar firms, which is this record's product and this record's buyer — and each keeps the maturity it already carried. `scores.gap` stays 0: RAYNET is direct and established, so the space is taken on exactly the receipt it was taken on before. No player was ever excluded from this ledger, so there is nothing to restore.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` now carries Wue, RAYNET, AutoERP (Apertia Tech) and Infina [S6]. RAYNET passes the established test — trading since 2004, with its photovoltaics vertical reported live at roughly 20 installer firms by its implementation partner — so `scores.gap` stays 0 and the 2026-08-20 de-rank now rests on a receipt a machine can re-check. The other three are early: Wue Technologies was incorporated in December 2022 and publishes nothing the test reads, and neither AutoERP nor Infina publishes a deployment figure. `scores.proof` 2 → 3: autarc and Reonic both pass the established test on the comps ledger, and Reonic sells the same stack across DACH, France and Italy, so the model is established in more than one market with a CEE-adjacent one among them. `score` 5 → 6. The retired rung 2 read 'funded analog in DE/AT/PL/Nordics + no CZ player found', which docked this record for the very Czech vendors named below it; that gap condition is gone from the proof ladder. Fifth pass this date, merged here: `locals[]` converted from `status:` to the orthogonal `competes:` + `maturity:` pair. All four entries are `competes: direct` — Wue, RAYNET's photovoltaics vertical, AutoERP and Infina each sell quoting, subsidy paperwork and installer CRM to Czech heat-pump and solar firms, which is this record's product and this record's buyer — and each keeps the maturity it already carried. `scores.gap` stays 0: RAYNET is direct and established, so the space is taken on exactly the receipt it was taken on before. No player was ever excluded from this ledger, so there is nothing to restore. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed. Also cut from the RAYNET entry: the aside explaining which fallback year the scoring rule permits — a reader does not have a rule to fall back under.

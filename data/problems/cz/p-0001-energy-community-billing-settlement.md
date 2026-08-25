@@ -56,60 +56,58 @@ locals:
   since: 2024
   competes: direct
   maturity: early
-  evidence: 'sells energy-community administration — automated member onboarding, invoicing
-    and full EDC integration. Czech electricity sharing over EDC opened only in 2024, so
-    nothing here has been on sale for three years; the site''s testimonial block still carries
-    placeholder names and its community counters render empty. No limb of the established
-    test is on file.'
+  evidence: 'Sells energy-community administration: automated member onboarding, invoicing and
+    full integration with the national electricity data hub (EDC). Czech electricity sharing
+    over that hub opened only in 2024, and the site still shows placeholder testimonial names
+    and empty community counters, so it names nobody it has signed up.'
 - name: Softlink CEM
   url: https://www.softlink.cz/
   ico: '27109682'
   since: 2024
   competes: direct
   maturity: early
-  evidence: 'allocation-key setup and invoicing for shared electricity, from a Czech
-    metering-software house trading since 2003; the sharing module itself belongs to the
-    2024 EDC regime. Marketing copy only — no limb of the established test is on file, and no
-    public contract for this IČO appears in the Czech contracts register.'
+  evidence: 'Sets up allocation keys and issues invoices for shared electricity; the vendor is a
+    Czech metering-software house trading since 2003, but this sharing module belongs to the
+    2024 rules. Only marketing copy is published — nobody using it is named, and no public
+    contract for the IČO appears in the state contracts register.'
 - name: EnerCA (EnerCo Solutions)
   url: https://enerca.cz/
   ico: '19753691'
   since: 2024
   competes: direct
   maturity: early
-  evidence: 'allocation-key optimisation, automated EDC data transfer and a complete billing
-    solution. EnerCo Solutions, s.r.o. was incorporated in September 2023 and the sharing
-    regime it sells into opened in 2024. No limb of the established test is on file.'
+  evidence: 'Sells allocation-key optimisation, automated data transfer from the national
+    electricity data hub and a complete billing solution. EnerCo Solutions, s.r.o. was
+    incorporated in September 2023 and the sharing regime it sells into opened in 2024; it
+    names no community running on it.'
 - name: ENERGOMETR (DEKSOFT)
   url: https://deksoft.eu/
   since: 2024
   competes: direct
   maturity: early
-  evidence: 'a dedicated community-energy module inside the DEKSOFT metering product, issuing
-    invoices for shared energy off EDC production and consumption data; the module belongs to
-    the 2024 sharing regime. No limb of the established test is on file.'
+  evidence: 'A community-energy module inside the DEKSOFT metering product that issues invoices
+    for shared energy off production and consumption data from the national electricity data
+    hub. The module belongs to the 2024 sharing regime and no buyer of it is named anywhere.'
 - name: CANCOM Czech Republic
   url: https://www.cancom.cz/
   ico: '06343970'
   since: 2024
   competes: direct
   maturity: early
-  evidence: 'end-to-end community management — onboarding, contracts, sharing data, settlement
-    and billing — from a systems house incorporated in 2017; the community-energy offer belongs
-    to the 2024 sharing regime. No limb of the established test is on file.'
+  evidence: 'End-to-end community management — onboarding, contracts, sharing data, settlement
+    and billing — from a systems house incorporated in 2017. The community-energy offer itself
+    belongs to the 2024 sharing regime, and it names no community running on it.'
 - name: Delta Green
   url: https://www.deltagreen.cz/
   competes: adjacent
   maturity: early
-  evidence: 'sells spot-price electricity supply and household flexibility aggregation — a
+  evidence: 'Sells spot-price electricity supply and household flexibility aggregation — a
     virtual power plant that pays households for the flexibility of their solar, batteries,
     heat pumps and EVs. That is generation and grid services, not a community''s books: no
-    member billing, no allocation keys and no EDC settlement appears on its site or in its
-    press. It raised EUR 2M in October 2025 after EUR 2.2M in May 2024, neither round carrying
-    a stage letter, and it publishes no launch year, so no limb of the established test is on
-    file. Worth watching rather than worth discounting: vyhláška 132/2026 Sb. opens EDC rules
-    for flexibility and storage from August 2026, which makes it the most plausible local
-    entrant into this niche.'
+    member billing, no allocation keys and no settlement appears on its site or in its press.
+    It raised EUR 2M in October 2025 after EUR 2.2M in May 2024 and publishes no launch year;
+    worth watching, because vyhláška 132/2026 Sb. opens the data hub to flexibility and storage
+    from August 2026, which makes it the most plausible local entrant into this niche.'
 sources:
 - type: arbitrage
   name: "Exnaton"
@@ -305,4 +303,4 @@ Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across 
 
 2026-08-24 · evidence audit — The lead still asserted that municipalities founding společenství "have no software at all for the task" — the same absence the 2026-08-20 de-rank disproved by naming five CZ vendors [S13]. Cut: a lead cannot assert what the record's own ledger refutes. The de-rank receipt was re-verified live on this date: enerio.cz still sells automated member onboarding, invoicing automation and EDC integration [S13]. Nothing else changed; scores untouched.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "DSO-adjacent service firms" now reads "the service firms around the regional grid operators". Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Local players moved out of gap-check prose into a structured `locals[]` ledger — Enerio, Softlink CEM, EnerCA, ENERGOMETR (DEKSOFT) and CANCOM, all five marked early [S13]. None passes the established test: Czech sharing over EDC opened only in 2024, so none has three years of selling behind it, and none publishes a customer, a public buyer, a round or a state listing — enerio.cz still runs placeholder testimonial names and empty counters. An early local player does not close a space, so `scores.gap` moves 0 → 1: contested, not taken. `scores.proof` holds at 3 — Exnaton, eFriends, OurPower and Pionierkraft all pass the test, across CH, AT and DE, two of them CEE-adjacent. `score` 8 → 9. The 2026-08-20 de-rank is not withdrawn; the five vendors are real and still named in the body. What changed is that a crowded young field is now scored as contested rather than closed. Fifth pass this date, merged here: the ledger's `status:` field was split into `competes:` (direct or adjacent) and `maturity:` (established or early), so it can now say the thing one field could not — that a real player nearby does not sell this record's product. All five vendors convert to `competes: direct` keeping the maturity they already carried: each sells community administration with allocation keys, member invoicing and EDC settlement to communities, which is this record's product to this record's buyer. **Delta Green** joins the ledger as `competes: adjacent`, reversing the 2026-08-14 decision above to keep it out: it sells spot-price supply and household flexibility aggregation and no sharing administration [S9], and under the split that is intelligence a builder needs rather than a name to drop. It publishes no launch year and neither of its rounds carries a stage letter, so it is early on the test's own terms. `scores.gap` stays 1 — an adjacent player never moves the score, and the direct field is still five young vendors. Deliberately NOT added, and the reasons are recorded so the next pass does not relitigate them: **EDC** is state data infrastructure rather than a vendor; **JMEA** is named in First moves #2 as a target customer, so filing it as competition would mislead the reader the ledger exists to inform; and **ASITIS** has no receipt on file beyond the fact that a 2026-08-13 search returned it [S3], with nothing recorded about what it sells.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "DSO-adjacent service firms" now reads "the service firms around the regional grid operators". Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Local players moved out of gap-check prose into a structured `locals[]` ledger — Enerio, Softlink CEM, EnerCA, ENERGOMETR (DEKSOFT) and CANCOM, all five marked early [S13]. None passes the established test: Czech sharing over EDC opened only in 2024, so none has three years of selling behind it, and none publishes a customer, a public buyer, a round or a state listing — enerio.cz still runs placeholder testimonial names and empty counters. An early local player does not close a space, so `scores.gap` moves 0 → 1: contested, not taken. `scores.proof` holds at 3 — Exnaton, eFriends, OurPower and Pionierkraft all pass the test, across CH, AT and DE, two of them CEE-adjacent. `score` 8 → 9. The 2026-08-20 de-rank is not withdrawn; the five vendors are real and still named in the body. What changed is that a crowded young field is now scored as contested rather than closed. Fifth pass this date, merged here: the ledger's `status:` field was split into `competes:` (direct or adjacent) and `maturity:` (established or early), so it can now say the thing one field could not — that a real player nearby does not sell this record's product. All five vendors convert to `competes: direct` keeping the maturity they already carried: each sells community administration with allocation keys, member invoicing and EDC settlement to communities, which is this record's product to this record's buyer. **Delta Green** joins the ledger as `competes: adjacent`, reversing the 2026-08-14 decision above to keep it out: it sells spot-price supply and household flexibility aggregation and no sharing administration [S9], and under the split that is intelligence a builder needs rather than a name to drop. It publishes no launch year and neither of its rounds carries a stage letter, so it is early on the test's own terms. `scores.gap` stays 1 — an adjacent player never moves the score, and the direct field is still five young vendors. Deliberately NOT added, and the reasons are recorded so the next pass does not relitigate them: **EDC** is state data infrastructure rather than a vendor; **JMEA** is named in First moves #2 as a target customer, so filing it as competition would mislead the reader the ledger exists to inform; and **ASITIS** has no receipt on file beyond the fact that a 2026-08-13 search returned it [S3], with nothing recorded about what it sells. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed.
