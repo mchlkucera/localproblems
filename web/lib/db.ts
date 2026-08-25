@@ -26,7 +26,7 @@ import { join, resolve } from "node:path";
     Asserted on open: a stale v3 database must be a loud failure, not a page of
     missing records. THE DB WAS MEASURED 7+ COMMITS STALE while reporting
     success, so "it opened" is not evidence that it is current. */
-export const REQUIRED_SCHEMA_VERSION = "7";
+export const REQUIRED_SCHEMA_VERSION = "8";
 
 const DB_PATH = join(resolve(process.cwd(), ".."), "data", "register.db");
 

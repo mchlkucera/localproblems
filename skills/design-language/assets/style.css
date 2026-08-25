@@ -1,5 +1,24 @@
 /* ============================================================
-   localproblems.org · design system v1.16 · 2026-08-25
+   localproblems.org · design system v1.18 · 2026-08-25
+   v1.18 (owner: "even the link explanations are too long. Maybe we
+   could have a few word explanation and see more on a toggle"): the
+   sources ledger row gains an optional GIST — the clerk's few-word
+   label after the serif name, in the line's existing mono voice and
+   muted like the date beside it, so the name keeps the row — and the
+   full `why` sentence folds behind the page's first native disclosure:
+   <details class="more"> with a quiet mono "more" summary wearing the
+   house link grammar (rule-hairline underline, ink on hover, the 2px
+   ink outline at 2px offset on :focus-visible — the v1.6 doctrine for
+   any control styled out of its default look). The default disclosure
+   triangle is suppressed (no icons — NEVER 6); the fold is HTML, not
+   script (NEVER 13 untouched). Open state simply reveals the existing
+   .sources .why voice. A source without a gist renders exactly as
+   before — the open why line, no toggle. Seven declaration blocks and
+   NO new colour, size, weight, rule weight, spacing value, breakpoint
+   or glyph: --fs-meta, the muted ink, the a-rule underline pair, the
+   2px focus outline and cursor:pointer are all already on the sheet.
+   (v1.17 — 2026-08-25, same day — is the .locals ledger→prose seam
+   margin, recorded in full at its rule below.)
    v1.16 (owner: "never exclude — the goal is to inform the builder
    properly"): the local-competition ledger renders in TWO LABELLED
    GROUPS. `locals[].status` split into `competes` (direct | adjacent)
@@ -677,6 +696,27 @@ ol.sources { list-style: none; margin: 0; padding: 0; }
 .sources time { color: var(--ink-muted); }
 .sources li time.urgent { color: var(--stamp); }   /* retained shim */
 .sources .why { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); max-width: var(--w-prose); }
+/* v1.18: the gist row + the "more" disclosure (owner: "even the link
+   explanations are too long — a few word explanation and see more on
+   a toggle"). The gist is the clerk's few-word label: it stays in the
+   line's mono voice and takes the date's muted ink, so the serif name
+   keeps the row. When a source carries one, its full why sentence
+   folds behind a native <details> — the only sanctioned fold, HTML
+   rather than script (NEVER 13) — summoned by a small mono "more" in
+   the house link grammar. The default triangle is suppressed (no
+   icons — NEVER 6), so the control states its own focus in ink, the
+   v1.6 pairing: hover = ink underline, focus = 2px ink outline.
+   Sources without a gist keep the open why line and no toggle. */
+.sources .gist { color: var(--ink-muted); }
+.sources details.more { margin: var(--sp-1) 0 0; }
+.sources details.more summary {
+  display: inline-block; list-style: none; cursor: pointer;
+  font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted);
+  text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px;
+}
+.sources details.more summary::-webkit-details-marker { display: none; }
+.sources details.more summary:hover { text-decoration-color: var(--ink); }
+.sources details.more summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 
 /* comps: solved elsewhere — same one-line ledger grammar */

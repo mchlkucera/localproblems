@@ -501,10 +501,26 @@ export default async function Record({ params }: Params) {
               <li key={i} id={`s${i + 1}`}>
                 <span className="line">
                   {url ? <a href={url}>{label}</a> : <span>{label}</span>}
+                  {/* the gist: the clerk's few-word label (owner, 2026-08-25:
+                      "even the link explanations are too long — a few word
+                      explanation and see more on a toggle"). With it the row
+                      is one line — NAME · gist · date — and the full why
+                      sentence folds behind the native <details> below: HTML,
+                      not script (NEVER 13), a quiet mono "more" as the
+                      summary. Without a gist the row renders exactly as
+                      before — the open why line, no toggle. */}
+                  {s.gist && <span className="gist">· {s.gist}</span>}
                   <span className="leader"></span>
                   <time dateTime={s.date}>{s.date}</time>
                 </span>
-                {why && <p className="why">{why}</p>}
+                {why && (s.gist ? (
+                  <details className="more">
+                    <summary>more</summary>
+                    <p className="why">{why}</p>
+                  </details>
+                ) : (
+                  <p className="why">{why}</p>
+                ))}
               </li>
             );
           })}

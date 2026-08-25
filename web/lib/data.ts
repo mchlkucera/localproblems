@@ -206,6 +206,14 @@ const SourceSchema = z.looseObject({
   // title/summary, then to the type. The receipt in `note` is never touched.
   name: z.string().min(1).optional(),
   why: z.string().min(1).optional(),
+  // `gist` — the clerk's few-word label for the source, 2–6 words (owner,
+  // 2026-08-25: "even the link explanations are too long — a few word
+  // explanation and see more on a toggle"). With it the ledger row reads
+  // NAME · gist · date and the full `why` sentence moves behind a native
+  // <details> "more"; without it the row renders exactly as before — the
+  // open why line, no toggle. A first-class column in scripts/db.py
+  // (problem_sources.gist, schema_version 8), never looseObject overflow.
+  gist: z.string().min(1).optional(),
   signal: z.string().optional(),
   dims: z.array(z.enum(["proof", "money", "urgency", "demand", "gap"])).optional(),
   queries: z.array(z.string().min(1)).optional(),
@@ -453,7 +461,7 @@ function putJson(o: Record<string, unknown>, key: string, v: unknown): void {
 
 function problemsFromDb(): Problem[] {
   const srcRows = rows(
-    "SELECT region, problem_id, position, type, url, note, date, name, why, signal_id," +
+    "SELECT region, problem_id, position, type, url, note, date, name, why, gist, signal_id," +
     " dims_json, queries_json, checked_json, expires, extra_json FROM problem_sources"
   );
   const compRows = rows(
@@ -525,6 +533,7 @@ function problemsFromDb(): Problem[] {
         };
         put(src, "name", s.name === null ? null : String(s.name));
         put(src, "why", s.why === null ? null : String(s.why));
+        put(src, "gist", s.gist === null ? null : String(s.gist));
         put(src, "signal", s.signal_id === null ? null : String(s.signal_id));
         putJson(src, "dims", s.dims_json);
         putJson(src, "queries", s.queries_json);

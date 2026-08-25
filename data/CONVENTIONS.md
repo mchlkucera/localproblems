@@ -208,9 +208,18 @@ build {capital, first_revenue, builder, note},
 comps [{name, url, geo, since, traction, signal?: <evidence id>, markets?: [ISO2..]}],
 locals? [{name, url?, ico?, since, competes: direct|adjacent,
           maturity: established|early, evidence}],   (url? — one of url/ico)
-sources [{type, url, note, date, signal?: <evidence id>, dims?: [dimension..]}],
+sources [{type, url, note, date, name?, gist?, why?, signal?: <evidence id>,
+          dims?: [dimension..]}],
 created, updated
 ```
+
+`sources[].name` / `gist` / `why` — the public face of a source (`note` is the
+internal receipt and never renders). `name` is the display name the ledger row
+links. `gist` is the clerk's few-word label on the ledger row — 2–6 words,
+optional (owner, 2026-08-25: "even the link explanations are too long"). `why`
+is the full plain sentence saying what the source is and why it is cited — with
+a `gist` present it moves behind the row's native "more" toggle; without one it
+renders in the open, exactly as before.
 
 `fix` — OPTIONAL, one plain sentence naming the product a builder would build,
 rendered under the dek as `WHAT TO BUILD`. Compression of `## First moves` and
@@ -406,6 +415,14 @@ Never invent a seventh section.
 Over target, cut connective tissue, restated framing and adjectives.
 **Never cut a sentence that carries an `[Sn]` marker** — the markers are the
 receipts, and a record that loses them stops being a register entry.
+
+**The gloss law.** The first use of a trade term in rendered prose carries a
+plain-language appositive — an em-dash or parenthetical gloss in the same
+sentence (`NZÚ — the state renovation subsidy`; `RIA (the mandatory impact
+assessment)`). The allowlist in `scripts/check-records.py` (`GLOSS_ALLOWLIST`)
+names what a builder is assumed to know — EU, VAT, API and the like — and the
+checker flags every other ALL-CAPS token whose first use goes ungloss'd,
+WARNING-ONLY: the warnings are the retrofit worklist, never a build failure.
 
 **The argument states the picture as it stands now.** "The 2026-08-13 absence
 check found no vendor; the 2026-08-20 re-check overturned it" is revision

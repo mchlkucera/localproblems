@@ -106,6 +106,41 @@ JARGON = [
 VERDICTS = ["UNPROVEN", "FAINT", "SCATTERED", "LIKELY", "CONFIRMED", "VALIDATED",
             "STRONG", "PRIME", "THIN", "UNFUNDED", "MILD", "FORCING"]
 
+# THE GLOSS LAW (CONVENTIONS.md, "Body shape and length"): the FIRST use of an
+# ALL-CAPS trade term in rendered body prose carries a plain-language appositive
+# — an em-dash or parenthetical gloss in the same sentence ("NZÚ — the state
+# renovation subsidy"). This check enforces it, WARNING-ONLY by design: the
+# corpus predates the law, so the warnings ARE the retrofit worklist and must
+# never turn 33 unretrofitted records red. The allowlist names what a builder
+# is assumed to know and needs no gloss; [Sn] citation markers are stripped
+# before the scan, so a marker's S never reads as a term.
+GLOSS_ALLOWLIST = frozenset((
+    "EU", "US", "CZ", "IT", "AI", "VAT", "CZK", "EUR", "USD", "GBP", "ISO",
+    "SAAS", "YC", "HW", "SW", "API", "PDF", "XLSX", "GDPR", "ICO", "IČO",
+))
+# A WHOLE word of 2–6 letters (Unicode — IČO and SÚKL are ALL-CAPS too); the
+# \b anchors matter: without them an 8-letter caps name is chopped into 6+2
+# fragments and flagged twice. Digits and underscores excluded so "B2B" and an
+# id fragment never match.
+_GLOSS_TOKEN = re.compile(r"\b[^\W\d_]{2,6}\b", re.UNICODE)
+
+
+def ungloss_terms(prose):
+    """ALL-CAPS trade terms whose FIRST use is not glossed in its own sentence."""
+    text = re.sub(r"\[S[\d,S]+\]", "", prose)      # citation markers are not prose
+    text = re.sub(r"\]\([^)]*\)", "]", text)       # markdown link targets are not prose
+    seen, flagged = set(), []
+    for sent in re.split(r"(?<=[.!?])\s+", text):
+        for m in _GLOSS_TOKEN.finditer(sent):
+            tok = m.group(0)
+            if not tok.isupper() or tok.upper() in GLOSS_ALLOWLIST or tok in seen:
+                continue
+            seen.add(tok)                          # first use decides; later uses ride on it
+            if "—" not in sent[m.end():] and "(" not in sent[m.end():]:
+                flagged.append(tok)
+    return flagged
+
+
 # The register talking about ITSELF. A builder does not care what "this record
 # originally judged" or what "would move this record" — that is our bookkeeping
 # leaking onto a public page, the same class of tell as the retired verdict
@@ -377,6 +412,18 @@ def check(path, year):
     for r in SELF_REF:
         if r.lower() in low:
             warns.append(f"register self-reference in rendered prose: '{r}'")
+
+    # THE GLOSS LAW (CONVENTIONS.md): first use of an ALL-CAPS trade term
+    # carries a plain-language appositive. WARNING-ONLY, permanently — the
+    # corpus predates the law and these warnings are its retrofit worklist.
+    # Rejected records are exempt: their prose never renders, so an ungloss'd
+    # term on one can confuse nobody (the same flood lesson as above).
+    if live:
+        for tok in ungloss_terms(arg + "\n" + firstmoves):
+            warns.append(f"ungloss'd trade term '{tok}' — first use carries no "
+                         f"em-dash or parenthetical gloss in its sentence; add a "
+                         f"plain-language appositive or allowlist it "
+                         f"(CONVENTIONS.md, the gloss law)")
 
     # THE LEDGER NOTES ARE RENDERED PROSE TOO, and until now nothing read them.
     # `comps[].traction` and `locals[].evidence` print under every entry on the

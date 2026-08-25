@@ -86,7 +86,9 @@ import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
-SCHEMA_VERSION = "7"   # 7: problem_locals.competes + .maturity replace .status;
+SCHEMA_VERSION = "8"   # 8: problem_sources.gist (the few-word public ledger
+#                          label beside name/why — owner, 2026-08-25)
+#                       7: problem_locals.competes + .maturity replace .status;
 #                          url nullable against an ico (the ARES fallback)
 #                       6: problem_locals (the local-incumbent ledger)
 #                       5: problems.fix (the one-sentence proposed product)
@@ -481,6 +483,8 @@ CREATE TABLE IF NOT EXISTS problem_sources (
   date         TEXT    NOT NULL,
   name         TEXT,                  -- public display-name override (owner, 2026-08-24)
   why          TEXT,                  -- public one-line "what it is / why it's cited"
+  gist         TEXT,                  -- public few-word ledger label; `why` folds behind
+                                      -- a "more" toggle when present (owner, 2026-08-25)
   signal_id    TEXT,                  -- ref into signals(id); 101/160 populated
   -- THREE-STATE, and the third state is load-bearing.  NULL = key absent
   -- (fall through to the type map).  '[]' = key present and empty = the
@@ -1266,7 +1270,7 @@ PROBLEM_KEYS = frozenset((
 #   locals — the local-incumbent ledger, projected into problem_locals.
 PROBLEM_OPTIONAL_KEYS = frozenset(("fix", "locals"))
 SOURCE_KEYS = frozenset((
-    "type", "url", "note", "date", "name", "why", "signal", "dims", "queries", "checked", "expires"))
+    "type", "url", "note", "date", "name", "why", "gist", "signal", "dims", "queries", "checked", "expires"))
 COMP_KEYS = frozenset(("name", "url", "geo", "since", "traction", "signal", "markets"))
 LOCAL_KEYS = frozenset(("name", "url", "ico", "since", "competes", "maturity", "evidence"))
 LOCAL_COMPETES = ("direct", "adjacent")
@@ -1729,7 +1733,7 @@ def insert_problems(con, records):
         for i, s in enumerate(fm["sources"]):
             srows.append((
                 region, pid, i + 1, s["type"], s["url"], s["note"], s["date"],
-                s.get("name"), s.get("why"),
+                s.get("name"), s.get("why"), s.get("gist"),
                 s.get("signal"), _jsonl_or_none(s, "dims"),
                 _jsonl_or_none(s, "queries"), _jsonl_or_none(s, "checked"),
                 s.get("expires"), _overflow(s, SOURCE_KEYS)))
@@ -1756,8 +1760,8 @@ def insert_problems(con, records):
                   lambda r: f"{r[22]} ({r[0]}/{r[1]})")
     _insert_named(con,
                   "INSERT INTO problem_sources (region, problem_id, position, type, url,"
-                  " note, date, name, why, signal_id, dims_json, queries_json, checked_json,"
-                  " expires, extra_json) VALUES (" + ",".join("?" * 15) + ")", srows,
+                  " note, date, name, why, gist, signal_id, dims_json, queries_json, checked_json,"
+                  " expires, extra_json) VALUES (" + ",".join("?" * 16) + ")", srows,
                   lambda r: f"{r[0]}/{r[1]} sources[{r[2]}]")
     _insert_named(con,
                   "INSERT INTO problem_comps (region, problem_id, position, name, url, geo,"
@@ -1793,7 +1797,7 @@ def problems_digest(con):
                      " body, extra_json, md_file, md_sha256"
                      " FROM problems ORDER BY region, id"),
         ("sources", "SELECT region, problem_id, position, type, url, note, date, name, why,"
-                    " signal_id, dims_json, queries_json, checked_json, expires, extra_json"
+                    " gist, signal_id, dims_json, queries_json, checked_json, expires, extra_json"
                     " FROM problem_sources ORDER BY region, problem_id, position"),
         ("comps", "SELECT region, problem_id, position, name, url, geo, since, traction,"
                   " signal_id, markets_json"

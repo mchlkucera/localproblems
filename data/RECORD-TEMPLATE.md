@@ -96,15 +96,18 @@ sources:
   - type: arbitrage
     url: https://…
     name: 'Hemut'                 # ← what the READER sees
+    gist: 'US trucking back office'   # ← 2–6 words, the label on the ledger row
     why: 'AI back office for small hauliers — the closest template.'   # ← one plain line
     note: '<internal receipt — NEVER rendered, NEVER edited once written>'
     date: '2026-08-13'
     signal: yc-hemut
 ```
 
-`name`/`why` are the public face of a source; `note` is the internal receipt.
-Without `name`/`why` the page falls back to the signal's title/summary — readable,
-but write them.
+`name`/`gist`/`why` are the public face of a source; `note` is the internal
+receipt. `gist` is the few-word label printed on the ledger row (NAME · gist ·
+date); `why` is the full sentence — behind the row's "more" toggle when a `gist`
+is present, in the open otherwise. Without `name`/`why` the page falls back to
+the signal's title/summary — readable, but write them.
 
 ### `fix:` — the proposed product, in one sentence (optional)
 
