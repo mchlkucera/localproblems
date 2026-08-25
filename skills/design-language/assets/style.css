@@ -1,5 +1,33 @@
 /* ============================================================
-   localproblems.org · design system v1.15 · 2026-08-25
+   localproblems.org · design system v1.16 · 2026-08-25
+   v1.16 (owner: "never exclude — the goal is to inform the builder
+   properly"): the local-competition ledger renders in TWO LABELLED
+   GROUPS. `locals[].status` split into `competes` (direct | adjacent)
+   + `maturity` (established | early), so the section now holds two
+   kinds of row — firms selling THIS, and real firms nearby selling
+   something else — and printing them in one undifferentiated list
+   made the second kind read as a competitor nobody had scored. Each
+   group is opened by a plain count line in the EXISTING .crumb voice
+   (muted mono meta), re-spaced by `.locals .crumb` for its new job:
+   a label sitting ON a list hugs the rows it names, and the air moves
+   above it (`.locals + .locals .crumb`) to open the second group. The
+   .pill carries maturity ALONE now — one field, one meaning, on the
+   page as in the schema. NO new colour, size, weight, rule weight,
+   spacing value, breakpoint or glyph: two selectors, existing tokens.
+   v1.16 also CUTS FURNITURE (owner: "there are still artifacts like
+   `Created … · updated … · Source wrong? Corrections →`"). One date,
+   once, per page. A record page was rendering the same date FIVE
+   times — docket, the standalone "Last verified" line, twice in its
+   own footer, once in the site footer line — because three separate
+   passes each added a currency marker and none removed the one
+   before. Retired and PRUNED: p.verified (the standalone marker) and
+   the extract date inside FooterHouseLine, which printed on every
+   page of the site and duplicated a real date wherever one existed.
+   p.whenline keeps its relative distance and loses its ", as of
+   <date>" tail. `created` no longer renders anywhere: when a record
+   was minted is our bookkeeping, and git holds it. The corrections
+   link stops being telegraphic ("Source wrong? Corrections →") and
+   becomes one plain sentence from one component. Nothing was added.
    v1.15 (owner: "there could be a simple proposed fix mentioned under
    the subheading"): the record docket gains ONE line under the dek —
    .docket .fixline, a mono registry label (`WHAT TO BUILD`, the .facts dt
@@ -40,7 +68,8 @@
    S-number no longer render. The revision wall is replaced by one quiet
    "Last verified {date}" line — the full trail stays in the markdown/git.
    "Who builds this" folds into the scorecard Build cell. New: p.whenline
-   (the "why now" relative distance), p.verified (last-verified marker).
+   (the "why now" relative distance), p.verified (last-verified marker —
+   RETIRED and pruned at v1.16: one date, once, per page).
    No new colour; tally ticks kept as the pip meter (no circles/rings).
    v1.11: the signal abstract renders. Each ledger row's recorded ≤2-sentence
    summary moves from the name's hover title — invisible on every phone — to a
@@ -438,10 +467,12 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 /* the quiet bordered mono mark, not a stamp: a value from a CLOSED ENUM
    stated as a band. Two callers, one device — the Build cell's team band
    (solo / small-team / funded-team) and, since v1.15, the local-competition
-   ledger's established/early band, which is the fact the GAP score turns on
-   and therefore has to be readable at a glance rather than inferred from a
-   sentence. No colour, size, weight, spacing value or breakpoint joins the
-   sheet for the second caller: the selector widens, the rule does not. */
+   ledger's MATURITY band (established / early), which is half of what the GAP
+   score turns on and therefore has to be readable at a glance rather than
+   inferred from a sentence. The other half — does this firm sell THIS? — is
+   the group the row sits in (v1.16), not a second pill: two stamps on one line
+   would read as a rating. No colour, size, weight, spacing value or breakpoint
+   joins the sheet for the second caller: the selector widens, the rule does not. */
 .scorecard .pill, .comps .pill {
   font: 600 var(--fs-label)/1 var(--mono);
   text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted);
@@ -665,6 +696,24 @@ ol.sources { list-style: none; margin: 0; padding: 0; }
 .comps .name { font: 600 0.9375rem/1.3 var(--serif); }
 .comps .ref { font-size: var(--fs-meta); color: var(--ink-muted); }
 .comps .note { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); font-style: italic; color: var(--ink-muted); max-width: var(--w-prose); }
+/* local competition, grouped (v1.16): the ledger holds firms that sell
+   THIS and firms nearby that sell something else, and a reader must see
+   which is which without reading four evidence lines. Each group is one
+   .locals block opened by the house .crumb label — no new device, the
+   muted mono meta voice already in the sheet. Only its SPACING is
+   scoped: a label sitting on a list hugs its rows, and the group break
+   is the air above the second label. Existing tokens, both of them. */
+.locals .crumb { margin: 0 0 var(--sp-2); }
+.locals + .locals .crumb { margin-top: var(--sp-6); }
+/* v1.17 (2026-08-25, owner): the one inverted seam left unguarded. The
+   house rhythm is one-way — p carries bottom margin only, ledgers none —
+   which holds everywhere prose precedes its ledger. Local competition is
+   the one section that inverts the order (locals ledger, THEN the
+   existing-non-solutions paragraph), so the paragraph seated directly on
+   the ledger's last hairline. One step of air below every .locals block;
+   between groups it collapses under the --sp-6 crumb gap above, so only
+   the ledger→prose seam changes. Existing token, no new device. */
+.locals { margin-block: 0 var(--sp-5); }
 
 /* ---- record-page devices (v1.4; .correction retired v1.9) ------
    .absent: stated absence (no sized figure / no comparable on file).
@@ -672,13 +721,17 @@ ol.sources { list-style: none; margin: 0; padding: 0; }
    .correction (the 4px page-begins rule turned sideways) is gone —
    see ol.revisions below for what replaced it and why.           */
 p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
-/* the "why now" relative line and the quiet last-verified marker (v1.12).
-   Both muted mono meta, computed at build against the register's own newest
-   `updated` (extractDate) — never the wall clock, so the page stays
-   reproducible. The last-verified line replaces the old wall of revision
-   prose: the full trail stays in the markdown/git, not shouted on the page. */
+/* the "why now" relative line (v1.12). Muted mono meta, computed at build
+   against the register's own newest `updated` (extractDate) — never the wall
+   clock, so the page stays reproducible. It now prints the DISTANCE alone
+   ("~4 months out."); the ", as of <date>" that closed it was a second copy of
+   the docket's currency line (v1.16).
+   p.verified — the standalone "Last verified {date}" marker — is RETIRED and
+   its rule pruned with it (v1.16). It was the second of FIVE renderings of one
+   date on a record page, and the page now states that date once, in the docket,
+   where the reader forms a trust judgment. Pruned rather than left dormant: a
+   rule with no caller is a rule that gets re-adopted by accident. */
 p.whenline { margin: var(--sp-3) 0 0; font: 500 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
-p.verified { margin: var(--sp-5) 0 0; font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
 /* who-builds-this as a ruled ledger — one fact per line, readable
    (owner, 2026-08-20; replaces the facts-grid rendering here) */
 ul.buildfacts { list-style: none; margin: 0 0 var(--sp-4); padding: 0; max-width: var(--w-prose); font: 500 var(--fs-data)/1.5 var(--mono); }

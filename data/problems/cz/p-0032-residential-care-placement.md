@@ -45,22 +45,32 @@ locals:
 - name: SrovnejPéči.cz
   url: https://srovnejpeci.cz/
   since: 2024
-  status: early
-  evidence: 'EARLY — fails the three-year limb: launched 2024, two years of trading [S12]. It
-    compares 1,500+ registered facilities with reviews and prices and monetises provider-side
-    listings, but publishes no customer count, pairs with no public buyer in
-    data/lookup/cz-contract-parties.jsonl, and carries no round or state listing'
+  competes: direct
+  maturity: early
+  evidence: 'It sells provider-side listings on a family-facing comparison of more than
+    1,500 registered facilities, with reviews and prices, and forwards inquiries [S12] — the
+    same buyer and the same job, without the vacancy data or the application handling.
+    Launched 2024, two years of trading, so the three-year limb fails; no published tally
+    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
+    stage and no state listing.'
 - name: Můjdůchod.cz
   url: https://www.mujduchod.cz/
-  status: early
-  evidence: 'EARLY on receipts only — a static database of facilities [S12]; no customer count,
-    public-buyer pair, round or state listing on file, and no vacancy or queue data behind it'
+  competes: direct
+  maturity: early
+  evidence: 'It runs a static database of facilities for families to search themselves [S12]
+    — the same job again, thinner, with no vacancy or queue data behind it. Nothing names
+    who has bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing, so
+    no limb of the established test is met.'
 - name: pece.cz
   url: https://www.pece.cz/
-  status: early
-  evidence: 'EARLY on receipts only — advises families but does not place them, alongside the
-    free odborné sociální poradenství [S12]; no customer count, public-buyer pair, round or
-    state listing on file'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells advice rather than placement: it counsels families and does not place
+    them, alongside the free odborné sociální poradenství [S12]. Nothing names who has
+    bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing, so
+    no limb of the established test is met.'
 sources:
 - type: arbitrage
   name: "A Place for Mom"
@@ -239,12 +249,15 @@ Solved elsewhere: three markets, three sellers, none of them new. A Place for Mo
 
 ## First moves
 
-1. Build the vacancy dataset nobody has: start from the MPSV register of providers, then phone-survey every DS and DZR in one pilot kraj for live queue length and expected openings — the data asymmetry is the product.
-2. Sell families first: flat-fee guided placement (shortlist, applications filed, queues tracked) in the pilot region, with the yearbook's 70,209 pending applications [S4] as the opening fact of every conversation.
-3. Sign private homes with sellable capacity onto per-move-in referral fees — the A Place for Mom model [S1] — and offer them the occupancy tooling Lottie proved providers buy [S2].
-4. Watch the successor to the closed 1 bn CZK modernization call [S10] on the [tenders ledger](/signals/tenders#dotace-npo-31-24-138-pobytove-sluzby): every funded bed is new inventory.
-5. Named competition: SrovnejPéči.cz [S12] — two years old, it owns the directory position and could add vacancy data; move before it does.
+1. Build the list nobody has: start from the MPSV register of providers, then phone every DS and DZR in one pilot kraj and record how long its queue is and when beds are expected to open. That list is the product.
+2. Sell to families first: one flat fee for guided placement — a shortlist, applications filed, queues tracked — in the pilot region. Open every conversation with the yearbook's fact: 70,209 pending applications [S4].
+3. Then sign private homes with beds to fill: a referral fee per move-in — the A Place for Mom model [S1] — plus the occupancy tools Lottie proved homes will pay for [S2].
+4. Watch the successor to the closed 1 bn CZK modernization call [S10] on the [tenders ledger](/signals/tenders#dotace-npo-31-24-138-pobytove-sluzby): every bed it funds is new inventory for you.
+5. Named competition: SrovnejPéči.cz [S12] — two years old, owns the directory position, could add vacancy data. Move before it does.
 
 ## Revisions
 
-2026-08-25 · record created — Minted from the elder-care deep sweep (run 2026-08-24): demand from the MPSV yearbook queue statistics [S4] and capacity models [S5], money from the Brno and Praha 14 concessions [S8,S9] and the closed NPO call [S10], comparables verified against their funding announcements [S1,S2,S3]. The 80+ figures were recomputed from the primary ČSÚ workbook (Tab. 1, middle variant): 465,991 on 1 Jan 2023 → 690,376 on 1 Jan 2030, +48.2% [S7]. Unmet-application counts are stated as a multi-application pressure index throughout, never as persons waiting [S4]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched by that pass. Third pass this date, merged here: the 2026-08-25 retrospective harvest added the municipal construction wave — 13+ senior-care building contracts and grants Nov 2025–Aug 2026, led by Prague's Bohnice pavilions [S13] — and the pending legislative motion on the Social Services Act (MPs' bill 125 plus the decree 505/2006 update) [S14]. Both context; no score moved by that pass. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, and the two dimensions moved in opposite directions to the same total. `scores.proof` 2 → 3. All three comparables pass the maturity test — A Place for Mom selling since 2000 on $175M of growth equity above a $1B valuation, Lottie since 2021 with a $21M Series A and 500,000 monthly users, pflege.de since 2011 at ~10M visitors a year and acquired outright by Paul Hartmann [S1,S2,S3] — established in three markets with Germany CEE-adjacent, which is rung 3. The [S3] note's reason for holding proof at 2, that pflege.de is content-and-leads rather than full placement navigation, was a judgment about product shape; the rewritten ladder measures maturity and market spread instead, and does not read product shape at all. That note is left exactly as written. `scores.gap` 2 → 1, a genuine de-rank on the same evidence. Rung 2 now means a check that found NO local player, and [S12] found three: SrovnejPéči.cz, Můjdůchod.cz and pece.cz, all lifted into a structured `locals[]` ledger and all early — SrovnejPéči.cz fails the three-year limb outright at two years old, and none of the three publishes a customer count, pairs with a public buyer in `data/lookup/cz-contract-parties.jsonl`, or carries a round or state listing. Rung 1, "local players exist but all EARLY, or only weak/legacy incumbents", is that exactly, and [S12]'s own note called them weak incumbents. Nothing about the opportunity changed: early players do not close a space, and the placement position [S12] looked for is still unoccupied. `score` unchanged at 8. The Středočeský kraj SENIOR portal was deliberately not lifted into `locals[]` — it is a regional public database, not a player — and stays named in the body. The non-solutions and Proven-abroad paragraphs now state ages rather than only funding, and first move 5 says how old the named competitor is. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.
+2026-08-25 · record created — Minted from the elder-care deep sweep (run 2026-08-24): demand from the MPSV yearbook queue statistics [S4] and capacity models [S5], money from the Brno and Praha 14 concessions [S8,S9] and the closed NPO call [S10], comparables verified against their funding announcements [S1,S2,S3]. The 80+ figures were recomputed from the primary ČSÚ workbook (Tab. 1, middle variant): 465,991 on 1 Jan 2023 → 690,376 on 1 Jan 2030, +48.2% [S7]. Unmet-application counts are stated as a multi-application pressure index throughout, never as persons waiting [S4]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched by that pass. Third pass this date, merged here: the 2026-08-25 retrospective harvest added the municipal construction wave — 13+ senior-care building contracts and grants Nov 2025–Aug 2026, led by Prague's Bohnice pavilions [S13] — and the pending legislative motion on the Social Services Act (MPs' bill 125 plus the decree 505/2006 update) [S14]. Both context; no score moved by that pass. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, and the two dimensions moved in opposite directions to the same total. `scores.proof` 2 → 3. All three comparables pass the maturity test — A Place for Mom selling since 2000 on $175M of growth equity above a $1B valuation, Lottie since 2021 with a $21M Series A and 500,000 monthly users, pflege.de since 2011 at ~10M visitors a year and acquired outright by Paul Hartmann [S1,S2,S3] — established in three markets with Germany CEE-adjacent, which is rung 3. The [S3] note's reason for holding proof at 2, that pflege.de is content-and-leads rather than full placement navigation, was a judgment about product shape; the rewritten ladder measures maturity and market spread instead, and does not read product shape at all. That note is left exactly as written. `scores.gap` 2 → 1, a genuine de-rank on the same evidence. Rung 2 now means a check that found NO local player, and [S12] found three: SrovnejPéči.cz, Můjdůchod.cz and pece.cz, all lifted into a structured `locals[]` ledger and all early — SrovnejPéči.cz fails the three-year limb outright at two years old, and none of the three publishes a customer count, pairs with a public buyer in `data/lookup/cz-contract-parties.jsonl`, or carries a round or state listing. Rung 1, "local players exist but all EARLY, or only weak/legacy incumbents", is that exactly, and [S12]'s own note called them weak incumbents. Nothing about the opportunity changed: early players do not close a space, and the placement position [S12] looked for is still unoccupied. `score` unchanged at 8. The Středočeský kraj SENIOR portal was deliberately not lifted into `locals[]` — it is a regional public database, not a player — and stays named in the body. The non-solutions and Proven-abroad paragraphs now state ages rather than only funding, and first move 5 says how old the named competitor is. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved. Same date, separate pass, merged here: First moves lightly rewritten in plain language (owner: "make the ideas simple") — "the data asymmetry is the product" and "sellable capacity" replaced with plain sentences; every [Sn] marker and link kept; scores untouched.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. SrovnejPéči.cz and Můjdůchod.cz stay `competes: direct` at `early`: both sell families the job of finding a facility, without the vacancy data, application filing or queue tracking that would finish it, and both fail the established test on their own receipts. pece.cz moves to `adjacent` — it counsels families and does not place them, sold beside the free odborné sociální poradenství, which is advice rather than the placement service this file describes. `scores.gap` stays 1, read literally: locals sell this and all of them are early. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+

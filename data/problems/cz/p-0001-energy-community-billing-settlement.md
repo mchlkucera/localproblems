@@ -54,7 +54,8 @@ locals:
 - name: Enerio
   url: https://enerio.cz/
   since: 2024
-  status: early
+  competes: direct
+  maturity: early
   evidence: 'sells energy-community administration — automated member onboarding, invoicing
     and full EDC integration. Czech electricity sharing over EDC opened only in 2024, so
     nothing here has been on sale for three years; the site''s testimonial block still carries
@@ -64,7 +65,8 @@ locals:
   url: https://www.softlink.cz/
   ico: '27109682'
   since: 2024
-  status: early
+  competes: direct
+  maturity: early
   evidence: 'allocation-key setup and invoicing for shared electricity, from a Czech
     metering-software house trading since 2003; the sharing module itself belongs to the
     2024 EDC regime. Marketing copy only — no limb of the established test is on file, and
@@ -73,14 +75,16 @@ locals:
   url: https://enerca.cz/
   ico: '19753691'
   since: 2024
-  status: early
+  competes: direct
+  maturity: early
   evidence: 'allocation-key optimisation, automated EDC data transfer and a complete billing
     solution. EnerCo Solutions, s.r.o. was incorporated in September 2023 and the sharing
     regime it sells into opened in 2024. No limb of the established test is on file.'
 - name: ENERGOMETR (DEKSOFT)
   url: https://deksoft.eu/
   since: 2024
-  status: early
+  competes: direct
+  maturity: early
   evidence: 'a dedicated community-energy module inside the DEKSOFT metering product, issuing
     invoices for shared energy off EDC production and consumption data; the module belongs to
     the 2024 sharing regime. No limb of the established test is on file.'
@@ -88,7 +92,8 @@ locals:
   url: https://www.cancom.cz/
   ico: '06343970'
   since: 2024
-  status: early
+  competes: direct
+  maturity: early
   evidence: 'end-to-end community management — onboarding, contracts, sharing data, settlement
     and billing — from a systems house incorporated in 2017; the community-energy offer belongs
     to the 2024 sharing regime. No limb of the established test is on file.'
@@ -268,16 +273,16 @@ Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across 
 
 ## First moves
 
-1. Call the operator of **Energetické společenství Liberec** first — the community that signed ~14 near-identical sharing contracts with Liberec schools and kindergartens in Jun–Jul 2026 (series numbering observed up to č. 58) [S7]: ask to walk through how allocation keys and member settlement are run today, and turn that manual process into the product spec.
-2. Second call: **Jihomoravská energetická agentura**, which manually administers sharing for the sdílEjme community including Sonnentor [S8] — administration providers like JMEA are exactly the white-label customer the Exnaton model sells to [S1].
-3. Build the settlement-reconciliation wedge first: ingest one community's real EDC sharing data, recompute allocation and member billing, and put a CZK figure on the recovered value — the reporting on file claims up to ~50% of shared-electricity value is lost to bad allocation and settlement [S2]. The same exercise verifies the risky assumption that EDC data exchange gives an outside operator enough data to automate settlement.
-4. Price under the documented spend: Dům seniorů Františkov paid ~1.0M CZK for a sharing-service contract [S6] — SaaS priced below that manual-service level has documented willingness-to-pay on file.
-5. Funding channel: [Modernizační fond KOMUNERG 1/2025](/sources/tenders#dotace-mf-komunerg-1-energeticka-spolecenstvi) — 1bn CZK (~€40.8M) for energy communities and municipalities building shared renewable generation, applications open until **2027-12-31** [S11]; every funded community build becomes a settlement/billing customer.
-6. Competition on file — the niche is contested rather than empty, so treat the first moves above as competitive research as much as a build plan: **Enerio**, **Softlink CEM**, **EnerCA**, **ENERGOMETR** (DEKSOFT) and **CANCOM** all ship Czech community administration with allocation keys, member invoicing and EDC integration [S13]. Also on file: **Delta Green** (adjacent — spot-price supply and flexibility aggregation, no sharing-administration product [S9]), **ASITIS** (consulting/services, not product) [S3], **EDC** itself (data exchange only, explicitly no member billing) [S1,S3], and **JMEA** (manual regional service) [S8].
+1. Call **Energetické společenství Liberec** first. It signed ~14 near-identical sharing contracts with Liberec schools and kindergartens in June–July 2026 (series numbering observed up to č. 58) [S7]. Ask them to walk you through how they split the shared electricity and bill the members today — that manual routine is your product spec.
+2. Then call **Jihomoravská energetická agentura**. It runs sharing by hand for the sdílEjme community, Sonnentor included [S8]. Agencies like this are exactly who Exnaton sells its white-label software to [S1].
+3. First product: check one community's numbers. Take their real EDC sharing data, recompute who should have gotten what and who owes what, and show the money being lost — reporting on file claims up to ~50% of shared-electricity value is lost to bad allocation and settlement [S2]. This also tests the one risky assumption: that EDC's data is enough for an outsider to automate the settlement.
+4. Price below what they already pay: Dům seniorů Františkov paid ~1.0M CZK for a manual sharing service [S6]. Software that costs less than that has a buyer on record.
+5. Your customers' money: [Modernizační fond KOMUNERG 1/2025](/sources/tenders#dotace-mf-komunerg-1-energeticka-spolecenstvi) gives 1bn CZK (~€40.8M) to communities and municipalities building shared renewable generation, applications open until **2027-12-31** [S11]. Every community it funds will need billing and settlement.
+6. Know who you're up against — the field is contested, not empty: **Enerio**, **Softlink CEM**, **EnerCA**, **ENERGOMETR** (DEKSOFT) and **CANCOM** all sell Czech community administration with allocation keys, member invoicing and EDC integration [S13]. Nearby but not competing: **Delta Green** (spot-price supply and flexibility, no sharing administration [S9]), **ASITIS** (consulting, not a product) [S3], **EDC** itself (data exchange only, no member billing) [S1,S3], and **JMEA** (a manual regional service) [S8].
 
 ## Revisions
 
-2026-08-25 · status follows gap — Corrected from `watching` to `candidate` under the rewritten de-rank rule in SPEC.md. The old rule sent a record to `watching` the moment ANY local player was found; this record's local field is contested rather than taken, meaning the players on file are all EARLY by the SCORING.md established test and none of them closes the space. Scores are untouched — only the status word, which had been asserting the opposite of the score printed beside it.
+2026-08-25 · status follows gap — Corrected from `watching` to `candidate` under the rewritten de-rank rule in SPEC.md. The old rule sent a record to `watching` the moment ANY local player was found; this record's local field is contested rather than taken, meaning the players on file are all EARLY by the SCORING.md established test and none of them closes the space. Scores are untouched — only the status word, which had been asserting the opposite of the score printed beside it. Same date, separate pass, merged here: First moves rewritten in plain language (owner: "full of fluff and jargon — make the ideas simple"); jargon like "settlement-reconciliation wedge" and "documented willingness-to-pay" replaced with plain sentences. Every [Sn] marker, ledger link and named competitor kept; no claim added or dropped; scores untouched.
 
 2026-08-13 · money re-score — The registr smluv shows the spend is structural, not anecdotal [S6,S7]: the Liberec community alone signed ~14 near-identical sharing contracts with city schools and kindergartens in June–July 2026 (series numbering to č. 58) [S7], Pardubice-region institutions follow the same pattern [S10], and Sonnentor became the first private company in the bucket, administered by a public energy agency [S8]. Recurring, multi-organisation service spend on sharing administration is receipted: money 1 → 2, and the record entered PRIME territory.
 
