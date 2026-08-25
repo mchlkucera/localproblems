@@ -43,14 +43,15 @@ Solved elsewhere: <the funded comparables abroad, what each proves>
 | *(no lead-in — the opener)* | **The problem** | anchors `#problem` |
 | `Why now:` | **Why now** | `#why-now`; also feeds the dated Window fact |
 | `Who pays:` | **dek** + **How big** | first sentence → dek, remainder → `#how-big` |
-| `Existing non-solutions:` | **Local competition** | `#local-competition` |
+| `Existing non-solutions:` | **Local competition** | `#local-competition`, **below** the `locals[]` ledger |
 | `Solved elsewhere:` | **Proven abroad** | `#proven-abroad`, above the comps ledger |
 | `## First moves` | **First moves** | score ≥ 7 only |
 | `## Revisions` | *(not rendered)* | stays auditable in git |
 
 Everything else on the page is generated from **frontmatter**, not prose: the
-scorecard from `scores`, the comps ledger from `comps[]`, "What you need" from
-`build` + a comp's team size, Sources from `sources[]`.
+scorecard from `scores`, the comps ledger from `comps[]`, the local-competition
+ledger from `locals[]`, "What you need" from `build` + a comp's team size,
+Sources from `sources[]`.
 
 ---
 
@@ -76,6 +77,13 @@ comps:
     geo: US
     since: 2024
     traction: '…3-person team…'   # a "N-person team" here is cited in "What you need"
+locals:                         # OPTIONAL — omit the key entirely, NEVER `locals: []`
+  - name: GORDIC
+    url: https://www.gordic.cz/
+    ico: '47903783'             # optional, strongly preferred — QUOTED (leading zeros)
+    since: 1993                 # year it started selling THIS product, else founded
+    status: established         # established | early  ← this IS the gap score
+    evidence: 'GINIS holds atest 1/2025 for eSSL; 3 distinct public buyers in registr smluv'
 sources:
   - type: arbitrage
     url: https://…
@@ -109,6 +117,59 @@ what the product actually is. Rules:
   would build that the incumbent does not already sell. The page renders nothing
   when the key is absent, and an absent line is better than a vague one. Four
   live records are deliberately without it.
+
+### `locals:` — who already sells this HERE (optional, but required at `gap: 0`)
+
+The mirror of `comps[]`, and it exists because the asymmetry between the two let
+a bug ship: 69 foreign comparables carried structured `since` + `traction` while
+every local player lived as prose inside a gap-check `note:`. A machine could
+read the foreign half of the register and not the local half, so `gap` could not
+be audited, and `gap: 0` silently meant two opposite things.
+
+It renders as a ledger under **Local competition**, in the same grammar as
+"Proven abroad": linked name · IČO · since · the `established`/`early` band, with
+`evidence` as the note line. The `Existing non-solutions:` paragraph keeps
+rendering **underneath** it — the ledger says *who*, the prose says *what that
+means for an entrant*.
+
+| key | |
+|---|---|
+| `name`, `url` | the company and its site |
+| `ico` | optional, **strongly preferred** — 8 digits, **quoted** (`'04903783'`; unquoted YAML eats the leading zero). It is what makes the claim checkable without a human: the checker counts distinct public buyers for it in `data/lookup/cz-contract-parties.jsonl`. |
+| `since` | the year it started selling **this product**, else its founding year. Unquoted integer, exactly like `comps[].since`. **Required at `status: established`** (the test's first limb is "≥ 3 years selling"); optional at `early`, where a small Czech vendor often publishes no year — state what is verifiable, **never invent a year to fill the field**. |
+| `status` | `established` \| `early` — **this is the gap score** |
+| `evidence` | which limb(s) of the established test it passes, stated so a reader can check it |
+
+**THE ESTABLISHED TEST** (`SCORING.md`; enforced by `scripts/check-records.py`):
+
+> A player is **ESTABLISHED** when it has been selling for **≥ 3 years** AND shows
+> at least one of: named customers or a public customer count · ≥ 2 distinct
+> public buyers in `data/lookup/cz-contract-parties.jsonl` · funding at Series A
+> or later · a state certification, attest or framework listing.
+> Otherwise it is **EARLY** — funded-but-prototype, solo-operator, pre-customer.
+
+The same test scores both ledgers **with the sign flipped**, and that is the
+whole point of the field:
+
+- **Abroad**, established is good news — the model is proven and someone else
+  paid the tuition. `comps[]` maturity is what moves `proof` up the ladder.
+- **Locally**, established is bad news — the space is taken, and `gap` is 0.
+  **An EARLY local player does NOT close the space and must never de-rank a
+  record on its own**; that is `gap: 1`, contested and still enterable.
+
+Rules the build enforces (each one fails `npm run build`):
+
+- `status: established` must **cite a limb** in `evidence` and have a `since`
+  implying ≥ 3 years. A claim without a receipt is not a score.
+- `gap: 0` requires at least one `locals[]` entry with `status: established`.
+  "Not checked" is not a score on this ladder — an absent check is a missing
+  receipt, caught here, never rendered as a number.
+- `gap` at **any** value requires a `type: gap-check` source carrying
+  `queries[]`. Every gap score is a claim about the local field.
+- `gap ≥ 1` while `locals[]` names an established player is a contradiction.
+- Omit the key when there is no named local player. **Never write `locals: []`** —
+  `problem_locals` is a child table and cannot tell an empty list from an absent
+  key, so the two loaders would disagree about the record.
 
 ---
 
@@ -144,7 +205,12 @@ what the product actually is. Rules:
 
 ```bash
 node web/scripts/lint-citations.mjs     # reads output, ALWAYS exits 0 — read the WARNs
+python3 scripts/check-records.py        # this contract, reported (exits 0; read the ERRORs)
 npm --prefix web run build              # zod-validated; a bad record fails the build
 npm --prefix web run parity             # both loaders must emit byte-identical HTML
-python3 scripts/check-records.py        # this contract, enforced
 ```
+
+**`check-records.py` is now a build gate.** `npm run build` runs it as
+`--strict` in `prebuild`, so any **ERROR** stops the build. Run it bare while you
+work — it exits 0 and prints everything, warnings included — and treat the ERROR
+lines as the list of things that must be gone before the record ships.

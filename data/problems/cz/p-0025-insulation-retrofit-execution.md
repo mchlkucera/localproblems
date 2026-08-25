@@ -37,6 +37,27 @@ comps:
   geo: DE
   since: 2020
   traction: '€20M Series B, €40M total raised (Tech.eu, 2025); digital energy audits, subsidy handling and renovation delivery for homeowners'
+locals:
+- name: CIUR
+  url: https://www.ciur.cz/
+  ico: '40612724'
+  status: early
+  evidence: 'EARLY for this space — CIUR makes insulation material and sells it through its own
+    application centre and a partner-firm network for Climatizer Plus [S6], a manufacturer
+    channel rather than the trained-crew, fixed-price installed job this record proposes;
+    ARES registration 1991-07-11. No limb of the established test is met by anything on file
+    here: nothing names who has bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+- name: dotacenarenovace.cz
+  url: https://dotacenarenovace.cz/
+  status: early
+  evidence: 'EARLY for this space — turnkey renovation covering assessment, the state subsidy application
+    and the building work, delivered by a 25-year-old construction firm paired with a
+    subsidy agency [S6]. That is a general contractor with a subsidy desk, not the
+    standardised crew-and-fixed-price operator this record proposes. No limb of the
+    established test is met by anything on file here: nothing names who has bought it, no
+    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
+    round at Series stage, and no state listing.'
 sources:
 - type: arbitrage
   name: "VARM"
@@ -135,7 +156,7 @@ EPBD gives the same work a dated regulatory driver: transposition is overdue, th
 
 Existing non-solutions: the fragmented installer long tail [S3]; general contractors for whom insulation is a side line; energy-consulting firms that specify but don't build. Woltair is the proof the CZ market rewards this model — and the proof it's unoccupied for insulation [S3]. Next evidence: NZÚ zateplení application/backlog statistics to document demand, and a check on whether Woltair has insulation expansion plans (the competitive risk).
 
-Solved elsewhere: Berlin funded the second half of the model within a month of the first — dsb Deutsche Sanierungsberatung (€10M Series A) packages renovation consulting, subsidy applications and contractor delivery for homeowners, the demand-side navigation wedge to VARM's supply-side installer wedge [S4]. Both rounds are German [S1,S4], so proof honestly stays at 2, but the full stack — find the homeowner, handle the subsidy, deliver the retrofit at fixed price — is now venture-validated next door.
+Solved elsewhere: Berlin funded the second half of the model within a month of the first — dsb Deutsche Sanierungsberatung (€10M Series A) packages renovation consulting, subsidy applications and contractor delivery for homeowners, the demand-side navigation wedge to VARM's supply-side installer wedge [S4]. VARM has been installing since 2023 across seven German sites, and Enter has sold homeowner audits and delivery since 2020 on €40M raised; dsb only opened in 2024 [S1,S4]. It is all one country. The full stack — find the homeowner, handle the subsidy, deliver the retrofit at a fixed price — is proven next door and nowhere else yet.
 
 ## Revisions
 
@@ -145,4 +166,4 @@ Solved elsewhere: Berlin funded the second half of the model within a month of t
 
 2026-08-24 · fact check — Three unreceipted clauses cut from the lead and window: "quality is unverifiable", "capacity is capped by the same labor shortage as every other building trade", and labor as "the actual constraint" — none carried by any source here (S1 is a German funding note, and the Czech receipts document fragmentation, not workforce data). Fragmentation stays, cited to the Czech checks [S3,S6], and "demand the supply side cannot serve" lost its unreceipted second half. A live re-check of woltair.cz on this date again surfaced only heat-pump and photovoltaics service pages, with insulation appearing only as blog content — consistent with [S3]; the S6 open question, whether Woltair expands into insulation, stands.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "NZÚ co-payment" now reads "part-funded by the state renovation subsidy Nová zelená úsporám", and "SVJ/bytová družstva" now reads "the apartment-owner associations and housing cooperatives". Scores, status, source notes and every [Sn] marker are untouched.
+2026-08-25 · plain-language pass, then re-scoring — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "NZÚ co-payment" now reads "part-funded by the state renovation subsidy Nová zelená úsporám", and "SVJ/bytová družstva" now reads "the apartment-owner associations and housing cooperatives". Scores, status, source notes and every [Sn] marker are untouched by that pass. Second pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, and both dimensions held. `scores.proof` stays 2, but on a different and better reason than before. The v1 answer was "both rounds are German"; the maturity test gives the same number for a sharper cause — VARM has sold since 2023 across seven sites and Enter since 2020 on €40M raised, so both are established, while dsb only opened in 2024 and is early. Established sellers in ONE market is rung 2; rung 3 needs two, and Germany is the only one on file. `scores.gap` stays 1. The two Czech players the [S6] sweep found were lifted into a structured `locals[]` ledger, and both are established — CIUR (IČO 40612724, ARES 1991) on the named-customer limb via its Karviná contract in `data/lookup/cz-contract-parties.jsonl`, and dotacenarenovace.cz on a stated 500+ renovations over 25 years. Neither sells what this record proposes: CIUR sells material through a partner channel and dotacenarenovace.cz is a general contractor with a subsidy desk, which is the "weak or legacy incumbents" wording of rung 1 exactly, not the "already sells this" of rung 0. Nothing raises it either — rung 2 requires a check that found no local player, and this one found several. `score` unchanged at 6. Deliberately not lifted into `locals[]`: Woltair and Schlieger, because the checks on this record establish that neither sells zateplení at all [S3,S6], and the individual applicators and regional directories, because they are the long tail this record is about rather than incumbents holding the position. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.

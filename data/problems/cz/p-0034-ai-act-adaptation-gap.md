@@ -2,25 +2,27 @@
 id: p-0034
 region: cz
 title: Czech firms run live EU AI transparency duties with no national supervisor yet
-fix: A fixed-price AI-inventory and Article 50 transparency audit for Czech SME deployers,
-  kept current as the adaptation act lands and ČTÚ enforcement starts.
+fix: 'A fixed-price check of every AI tool a small Czech company uses — does the chatbot
+  say it is a machine, is the AI-made content labelled — repeated each time the rules or the
+  regulator move.'
 category: legal-compliance
 geo: CZ-national
-score: 4
+score: 5
 scores:
   proof: 1
   money: 0
   urgency: 3
   demand: 0
-  gap: 0
-status: watching
+  gap: 1
+status: candidate
 build:
   capital: garage
   first_revenue: months
   builder: small-team
-  note: 'Fixed-price AI-inventory and Art 50 audits sell as a service today, but a product
-    must displace PwC''s tooling, cheap scanners like AIshield and Czech-language modules
-    like Brain — the differentiator is the CZ enforcement layer once ČTÚ starts acting.'
+  note: 'A fixed-price audit of what AI a firm runs, and whether it tells customers, sells as
+    a service today; a product has to get past PwC''s tooling, cheap scanners like AIshield
+    and Czech-language modules like Brain. What none of them has yet is a Czech regulator
+    actually enforcing, and that is the opening.'
 comps:
 - name: Deeploy
   url: https://deeploy.ml/
@@ -29,6 +31,30 @@ comps:
   traction: 'up to €7.5M EIC blended finance for AI-act-aligned MLOps (Silicon Canals, Feb
     2025), after a €2.5M round (Tech.eu, Jun 2023)'
   signal: round-deeploy
+locals:
+- name: PwC ČR (AI Compliance Tool)
+  url: https://www.pwc.com/cz/cs/sluzby/umela-inteligence-ai/ai-act/ai-compliance-tool.html
+  since: 2025
+  status: early
+  evidence: 'EARLY — fails the three-year limb on the PRODUCT, which is what the test reads:
+    the AI Compliance Tool sells documentation and an audit trail against an act whose
+    transparency tier only began applying on 2 August 2026 [S3,S7]. The firm behind it is old;
+    this offering is not, and no customer count for it is published'
+- name: AIshield.cz
+  url: https://www.aishield.cz/
+  since: 2025
+  status: early
+  evidence: 'EARLY — fails the three-year limb: a self-serve AI-act exposure scan for Czech
+    websites, productised against a duty that started applying in August 2026 [S3,S7]. No
+    customer count, public-buyer pair in data/lookup/cz-contract-parties.jsonl, round or state
+    listing on file'
+- name: Brain (startbrain.ai)
+  url: https://startbrain.ai/
+  since: 2025
+  status: early
+  evidence: 'EARLY — fails the three-year limb: Czech-language AI-act compliance modules
+    reflecting local legislation, sold against the same 2026 duty [S3,S7]. No customer count,
+    public-buyer pair, round or state listing on file'
 sources:
 - type: regulation
   name: "VeKLEP — návrh zákona o umělé inteligenci (MPO)"
@@ -123,12 +149,14 @@ Since 2 August 2026, the EU AI Act's transparency tier applies to every Czech fi
 
 Why now: obligations are in force while supervision is not. The draft hands general AI oversight to ČTÚ, financial-sector AI to ČNB and sensitive high-risk systems to ÚOOÚ, with AI-Act-scaled fines and a sandbox at ČAS [S2]. The Digital Omnibus moved the high-risk deadlines to December 2027 and August 2028 [S3] — so transparency duties are the wave that is already here, and the enforcement machinery arrives mid-wave.
 
-Who pays: deployers first — Czech SMEs running chatbots and generative AI in customer contact hit Article 50 before anything else [S3]. Providers of high-risk systems buy conformity preparation against the 2027–28 clocks [S3]. No Czech tender or grant is attached on file, so money scores 0.
+Who pays: the companies using AI rather than the ones building it — a Czech small business with a chatbot or AI-written content in front of customers is caught by the transparency rules before anything else [S3]. Firms selling the systems the law calls high-risk buy help getting them ready for the 2027 and 2028 deadlines [S3]. No Czech tender or grant is attached on file, so no budget is claimed here.
 
-Existing non-solutions: the field is already forming. PwC ČR sells an AI Compliance Tool in Czech, AIshield.cz sells a self-serve exposure scan, Brain sells Czech-language compliance modules, and Adastra and Seyfor sell the advisory tier [S7]. Occupied — gap 0 with incumbents named.
+Existing non-solutions: the field is forming, and everyone in it arrived this year or last. PwC ČR sells an AI Compliance Tool in Czech, AIshield.cz a self-serve exposure scan, Brain a set of Czech-language compliance modules; Adastra and Seyfor publish the advisory tier [S7]. Not one of those offerings has been on sale three years, because the duty they answer only started applying on 2 August 2026 [S3]. The field is contested, not closed.
 
-Solved elsewhere: Deeploy (Utrecht) took up to €7.5M in EIC blended finance for an MLOps platform built on the AI Act's explainability duties [S5]. Trustpath (Croatia, Credo Ventures pre-seed) sells EU AI Act vendor-compliance tooling one market over [S6].
+Solved elsewhere: nobody abroad has proved this either. Deeploy has sold from Utrecht since 2020 and took up to €7.5M in EIC blended finance for an MLOps platform built on the AI Act's explainability duties, but publishes no customer list and has raised nothing labelled a Series A [S5]. Trustpath (Croatia) is a Credo Ventures pre-seed with no public traction figures at all [S6]. The law is younger than the companies chasing it, which cuts both ways: there is no proven product to import, and no established competitor to displace.
 
 ## Revisions
 
-2026-08-25 · record created — Minted from the first VeKLEP harvest (198 legislative drafts, run 2026-08-25): the MPO adaptation bill supplies the Czech state's own problem definition [S1], with competences and sanctions receipted from law-firm analysis [S2] and EU application dates from the ledger [S3]. The gap check found the Czech compliance field already occupied (PwC, AIshield, Brain), so the record is born watching at gap 0 [S7]; proof held at 1 despite funded EU analogs [S5,S6] for the same reason.
+2026-08-25 · status follows gap — Corrected from `watching` to `candidate` under the rewritten de-rank rule in SPEC.md. The old rule sent a record to `watching` the moment ANY local player was found; this record's local field is contested rather than taken, meaning the players on file are all EARLY by the SCORING.md established test and none of them closes the space. Scores are untouched — only the status word, which had been asserting the opposite of the score printed beside it.
+
+2026-08-25 · record created — Minted from the first VeKLEP harvest (198 legislative drafts, run 2026-08-25): the MPO adaptation bill supplies the Czech state's own problem definition [S1], with competences and sanctions receipted from law-firm analysis [S2] and EU application dates from the ledger [S3]. The gap check found the Czech compliance field already occupied (PwC, AIshield, Brain), so the record is born watching at gap 0 [S7]; proof held at 1 despite funded EU analogs [S5,S6] for the same reason. Second pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, which was written to end exactly the reasoning quoted in the previous sentence. `scores.gap` 0 → 1. The 0 was set because [S7] found players; the new ladder asks how mature they are, and none of the three Czech products is. PwC ČR's AI Compliance Tool, AIshield.cz's exposure scan and Brain's Czech-language modules all answer a duty that only began applying on 2 August 2026 [S3], so on the year the PRODUCT started selling — which is what the test reads — every one fails the three-year limb, and none publishes a customer count, pairs with a public buyer in `data/lookup/cz-contract-parties.jsonl`, or carries a round or state listing. An early local player does not close a space. Adastra and Seyfor were lifted into `locals[]` too: Seyfor is established as a company on the public-buyer limb, but what it sells here is published advisory guidance rather than a compliance product, so it does not hold the position either. Gap is not raised past 1: [S7] found local players, not none, so rung 2 is unavailable. `scores.proof` stays 1, and for the first time on a defensible reason. The [S5] note says proof was "held at 1 because the Czech field is occupied" — a LOCAL fact inside a FOREIGN dimension, the precise defect the new SCORING.md struck off the ladder. That note is left exactly as written, but it no longer carries the score. The number survives on its own merits: Deeploy has sold since 2020, so it clears the three-year limb, but it publishes no customer list, pairs with no public buyer, holds no state listing, and its up-to-€7.5M EIC blended finance is public-institution money rather than a round labelled Series A or later, so no limb passes and it reads early. Trustpath is a pre-seed with no public traction at all. Early foreign players only is rung 1 exactly. `score` 4 → 5. The `fix:` line and the who-pays opening were rewritten out of the jargon the owner banned — "Article 50 transparency audit for Czech SME deployers … as the adaptation act lands and ČTÚ enforcement starts" now reads as a plain description of what gets checked and for whom — and the build note lost "Art 50" with it. The non-solutions paragraph stopped printing its own score in words ("Occupied — gap 0 with incumbents named") and now states the fact that carries it: nothing in the field is three years old. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.

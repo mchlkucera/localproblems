@@ -7,12 +7,14 @@ scripts/db.py — the working store driver for data/register.db.
     derived working store. It is gitignored, it is deterministically rebuildable,
     and the web build never opens it.
 
-Six tables and six views are projections of committed files and are DROPPED and
-recreated by `rebuild`: `signals`, `meta`, and — since schema_version 4 — the
-register itself: `problems`, `problem_sources`, `problem_comps` and
-`problem_source_dims`, rebuilt from `data/problems/**/*.md` exactly as `signals`
-is rebuilt from the JSONL ledgers. Problems are deterministically rebuildable;
-history is not, which is the whole reason for the split below.
+Everything in PROJECTION_TABLES and PROJECTION_VIEWS is a projection of
+committed files and is DROPPED and recreated by `rebuild`: `signals`,
+`signal_parties`, `meta`, and — since schema_version 4 — the register itself:
+`problems`, `problem_sources`, `problem_comps`, `problem_source_dims` and
+(schema_version 6) `problem_locals`, rebuilt from `data/problems/**/*.md`
+exactly as `signals` is rebuilt from the JSONL ledgers. Problems are
+deterministically rebuildable; history is not, which is the whole reason for the
+split below.
 
 Two tables are HISTORY THAT EXISTS NOWHERE ELSE and are NEVER dropped:
 `fetch_log` (the health spine — liveness, yield, contract results) and
@@ -84,7 +86,8 @@ import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
-SCHEMA_VERSION = "5"   # 5: problems.fix (the one-sentence proposed product)
+SCHEMA_VERSION = "6"   # 6: problem_locals (the local-incumbent ledger)
+#                       5: problems.fix (the one-sentence proposed product)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(ROOT, "data", "register.db")
@@ -519,6 +522,49 @@ CREATE INDEX IF NOT EXISTS problem_comps_signal
   ON problem_comps(signal_id) WHERE signal_id IS NOT NULL;
 CREATE INDEX IF NOT EXISTS problem_comps_geo ON problem_comps(geo);
 
+-- ---- local incumbents (schema_version 6) -----------------------------------
+-- The mirror of problem_comps, and it is a TABLE rather than a JSON column for
+-- the same reason comps is: these are rows a query has to reach into. Until
+-- schema 6 the local half of the register existed only as PROSE inside a
+-- gap-check `note:`, so "which records have an established local player?" —
+-- the question SCORING.md's GAP dimension IS — could not be asked at all.
+--
+-- `status` is the whole point: established LOCALLY means the space is taken
+-- (gap 0), early means it is not. CHECKed against the same two words the zod
+-- enum in web/lib/data.ts closes on, so a third spelling fails here first.
+--
+-- `ico` is TEXT, never INTEGER: '04903783' is a real IČO and an integer column
+-- would silently eat its leading zero, breaking the join into
+-- data/lookup/cz-contract-parties.jsonl that the established test runs.
+--
+-- ZERO ROWS IS THE ONLY SPELLING OF "no locals" — an absent key and `locals: []`
+-- are indistinguishable here, which is why read_problems() REFUSES the empty
+-- list in frontmatter rather than letting the two loaders disagree about it.
+CREATE TABLE IF NOT EXISTS problem_locals (
+  region       TEXT    NOT NULL,
+  problem_id   TEXT    NOT NULL,
+  position     INTEGER NOT NULL,
+  name         TEXT    NOT NULL,
+  url          TEXT    NOT NULL,
+  ico          TEXT,                  -- optional; 8 digits, leading zeros real
+  since        INTEGER,               -- optional; NULL = no year on file (EARLY only)
+  status       TEXT    NOT NULL,      -- established | early
+  evidence     TEXT    NOT NULL,      -- which limb(s) of the established test it passes
+  PRIMARY KEY (region, problem_id, position),
+  FOREIGN KEY (region, problem_id) REFERENCES problems(region, id),
+  CHECK (position >= 1),
+  CHECK (status IN ('established', 'early')),
+  CHECK (ico IS NULL OR (length(ico) = 8 AND ico GLOB '[0-9]*')),
+  -- The established test's first limb is ">= 3 years selling", so an
+  -- established player without a year is a claim with no receipt. An EARLY one
+  -- may genuinely have no discoverable founding year, and inventing one to fill
+  -- a NOT NULL would be the worse trade.
+  CHECK (status <> 'established' OR since IS NOT NULL)
+);
+CREATE INDEX IF NOT EXISTS problem_locals_ico
+  ON problem_locals(ico) WHERE ico IS NOT NULL;
+CREATE INDEX IF NOT EXISTS problem_locals_status ON problem_locals(status);
+
 -- ---- the scoring graph ----------------------------------------------------
 -- This is the MATERIALISED OUTPUT of web/lib/scorecard.ts dimRefs(), not a
 -- projection of the raw `dims` field.  The distinction matters: dimRefs()
@@ -655,8 +701,8 @@ PROJECTION_VIEWS = ("dangling_signal_refs", "problem_adjacency", "signals_uncite
                     "supplier_activity", "buyer_activity")
 # signal_parties is dropped BEFORE signals — it is derived from the same ledger
 # read and holds no history a rebuild could not reconstruct.
-PROJECTION_TABLES = ("problem_source_dims", "problem_comps", "problem_sources",
-                     "problems", "signal_parties", "signals", "meta")
+PROJECTION_TABLES = ("problem_source_dims", "problem_locals", "problem_comps",
+                     "problem_sources", "problems", "signal_parties", "signals", "meta")
 
 # THE HEALTH SPINE and THE MATCH MEMORY. Created if absent, NEVER dropped.
 DDL_HISTORY = """
@@ -1184,11 +1230,14 @@ PROBLEM_KEYS = frozenset((
 # carrying one would both warn as "unknown" and get its value written twice
 # (column + extra_json). Kept as a second set rather than folded into
 # PROBLEM_KEYS because that set doubles as the missing-key list.
-#   fix — the one-sentence proposed product, rendered under the dek.
-PROBLEM_OPTIONAL_KEYS = frozenset(("fix",))
+#   fix    — the one-sentence proposed product, rendered under the dek.
+#   locals — the local-incumbent ledger, projected into problem_locals.
+PROBLEM_OPTIONAL_KEYS = frozenset(("fix", "locals"))
 SOURCE_KEYS = frozenset((
     "type", "url", "note", "date", "name", "why", "signal", "dims", "queries", "checked", "expires"))
 COMP_KEYS = frozenset(("name", "url", "geo", "since", "traction", "signal", "markets"))
+LOCAL_KEYS = frozenset(("name", "url", "ico", "since", "status", "evidence"))
+LOCAL_STATUSES = ("established", "early")
 BUILD_KEYS = frozenset(("capital", "first_revenue", "builder", "note"))
 SCORE_KEYS = frozenset(("proof", "money", "urgency", "demand", "gap"))
 
@@ -1417,6 +1466,22 @@ def read_problems():
             raise SystemExit(f"db: {rel}: sources[] must be a non-empty list")
         if not isinstance(fm["comps"], list):
             raise SystemExit(f"db: {rel}: comps must be a list")
+        if "locals" in fm:
+            if not isinstance(fm["locals"], list):
+                raise SystemExit(f"db: {rel}: locals must be a list")
+            # THE EMPTY LIST IS REFUSED, NOT ACCEPTED-AND-DROPPED. problem_locals
+            # is a child table: zero rows is the only spelling it has, so a
+            # record written `locals: []` would come back from the DB loader with
+            # the key ABSENT while the JSONL loader kept it present-and-empty —
+            # two loaders disagreeing about the corpus, which is precisely what
+            # `npm run parity` exists to make impossible. Both spellings mean the
+            # same thing ("no local player on file"), so one of them is banned
+            # here rather than represented with a second column nobody would read.
+            if not fm["locals"]:
+                raise SystemExit(
+                    f"db: {rel}: locals is present but EMPTY — omit the key instead. "
+                    f"problem_locals is a child table and cannot tell `locals: []` "
+                    f"from an absent key, so the two loaders would disagree.")
 
         for n, s in enumerate(fm["sources"], 1):
             for k in ("type", "url", "note"):
@@ -1452,6 +1517,33 @@ def read_problems():
                 raise SystemExit(
                     f"db: {rel}: comps[{n}].since is {c['since']!r} — CONVENTIONS.md "
                     f"requires an UNQUOTED integer year (the site reads it as a number)")
+        for n, l in enumerate(fm.get("locals") or [], 1):
+            for k in ("name", "url", "status", "evidence"):
+                if k not in l:
+                    raise SystemExit(f"db: {rel}: locals[{n}] missing {k}")
+            if l["status"] not in LOCAL_STATUSES:
+                raise SystemExit(
+                    f"db: {rel}: locals[{n}].status is {l['status']!r} — the enum is "
+                    f"{' | '.join(LOCAL_STATUSES)}, and it IS the gap score "
+                    f"(SCORING.md, the established test)")
+            if "since" in l and (not isinstance(l["since"], int)
+                                 or isinstance(l["since"], bool)):
+                raise SystemExit(
+                    f"db: {rel}: locals[{n}].since is {l['since']!r} — CONVENTIONS.md "
+                    f"requires an UNQUOTED integer year (the site reads it as a number)")
+            # `since` is optional for an EARLY player and REQUIRED for an
+            # established one: the test's first limb is '>= 3 years selling'.
+            if l.get("status") == "established" and "since" not in l:
+                raise SystemExit(
+                    f"db: {rel}: locals[{n}] '{l.get('name')}' is established but has no "
+                    f"`since` — the established test's first limb is '>= 3 years selling' "
+                    f"and cannot be evaluated without it")
+            # Quoted in YAML on purpose: '04903783' is a real IČO and an
+            # unquoted one loses its leading zero before this loader ever runs.
+            if "ico" in l and not (isinstance(l["ico"], str) and re.fullmatch(r"\d{8}", l["ico"])):
+                raise SystemExit(
+                    f"db: {rel}: locals[{n}].ico is {l['ico']!r} — an IČO is 8 digits "
+                    f"as a QUOTED string (leading zeros are real; unquoted YAML eats them)")
 
         # ProblemSchema is z.looseObject as well — same pass-through, same silence.
         extra = sorted(set(fm) - PROBLEM_KEYS - PROBLEM_OPTIONAL_KEYS)
@@ -1473,6 +1565,11 @@ def read_problems():
             extra = sorted(set(c) - COMP_KEYS)
             if extra:
                 warnings.append(f"{rel}: comps[{n}] carries {', '.join(extra)} — z.object "
+                                f"strips it, so it reaches neither the site nor this DB")
+        for n, l in enumerate(fm.get("locals") or [], 1):
+            extra = sorted(set(l) - LOCAL_KEYS)
+            if extra:
+                warnings.append(f"{rel}: locals[{n}] carries {', '.join(extra)} — z.object "
                                 f"strips it, so it reaches neither the site nor this DB")
 
         records.append({
@@ -1528,9 +1625,9 @@ def _insert_named(con, sql, rows, describe):
 
 
 def insert_problems(con, records):
-    """Write problems / problem_sources / problem_comps / problem_source_dims."""
+    """Write problems / problem_sources / problem_comps / problem_locals / problem_source_dims."""
     extract = extract_date(records)
-    prows, srows, crows, drows = [], [], [], []
+    prows, srows, crows, lrows, drows = [], [], [], [], []
     for r in records:
         fm, region, pid = r["fm"], r["region"], r["fm"]["id"]
         sc = fm["scores"]
@@ -1558,6 +1655,11 @@ def insert_problems(con, records):
                 region, pid, i + 1, c["name"], c["url"], c["geo"], c["since"],
                 c["traction"], c.get("signal"), _jsonl_or_none(c, "markets")))
 
+        for i, l in enumerate(fm.get("locals") or []):
+            lrows.append((
+                region, pid, i + 1, l["name"], l["url"], l.get("ico"), l.get("since"),
+                l["status"], l["evidence"]))
+
         for position, dim, origin in dim_refs(fm, extract):
             drows.append((region, pid, position, dim, origin))
 
@@ -1579,10 +1681,15 @@ def insert_problems(con, records):
                   " VALUES (" + ",".join("?" * 10) + ")", crows,
                   lambda r: f"{r[0]}/{r[1]} comps[{r[2]}] '{r[3]}'")
     _insert_named(con,
+                  "INSERT INTO problem_locals (region, problem_id, position, name, url, ico,"
+                  " since, status, evidence)"
+                  " VALUES (" + ",".join("?" * 9) + ")", lrows,
+                  lambda r: f"{r[0]}/{r[1]} locals[{r[2]}] '{r[3]}'")
+    _insert_named(con,
                   "INSERT INTO problem_source_dims (region, problem_id, position, dim, origin)"
                   " VALUES (?,?,?,?,?)", drows,
                   lambda r: f"{r[0]}/{r[1]} sources[{r[2]}] dim={r[3]} origin={r[4]}")
-    return extract, len(prows), len(srows), len(crows), len(drows)
+    return extract, len(prows), len(srows), len(crows), len(lrows), len(drows)
 
 
 def problems_digest(con):
@@ -1607,6 +1714,8 @@ def problems_digest(con):
         ("comps", "SELECT region, problem_id, position, name, url, geo, since, traction,"
                   " signal_id, markets_json"
                   " FROM problem_comps ORDER BY region, problem_id, position"),
+        ("locals", "SELECT region, problem_id, position, name, url, ico, since, status,"
+                   " evidence FROM problem_locals ORDER BY region, problem_id, position"),
         ("dims", "SELECT region, problem_id, position, dim, origin FROM problem_source_dims"
                  " ORDER BY region, problem_id, position, dim"),
     ):
@@ -1676,7 +1785,7 @@ def cmd_rebuild(args):
     md_files = len(records)
     for w in warnings:
         log(f"db: WARN — {w}")
-    extract, n_problems, n_sources, n_comps, n_dims = insert_problems(con, records)
+    extract, n_problems, n_sources, n_comps, n_locals, n_dims = insert_problems(con, records)
 
     set_meta(con,
              schema_version=SCHEMA_VERSION,
@@ -1688,6 +1797,7 @@ def cmd_rebuild(args):
              problems_count=n_problems,
              problem_sources_count=n_sources,
              problem_comps_count=n_comps,
+             problem_locals_count=n_locals,
              problem_source_dims_count=n_dims,
              extract_date=extract,
              vec=vec)
@@ -1744,14 +1854,15 @@ def cmd_rebuild(args):
             print(f"  {rel:44s} {lines:6d}")
         for r in records:
             print(f"  {r['rel']:44s} {len(r['fm']['sources']):3d} src "
-                  f"{len(r['fm']['comps']):3d} comp")
+                  f"{len(r['fm']['comps']):3d} comp "
+                  f"{len(r['fm'].get('locals') or []):3d} local")
     print(f"rebuild OK  jsonl_lines={total_lines} == signals_count={signals_count}")
     print(f"            md_files={md_files} == problems_count={n_problems}")
     print(f"  entity keys : ico={ico}  domain={dom}  name={nam}")
     print(f"  entity graph: {parties} party rows on {sig_parties} signal(s)"
           f"  -> {suppliers} distinct supplier IČO, {buyers} distinct buyer IČO")
-    print(f"  register    : sources={n_sources}  comps={n_comps}  dim rows={n_dims}"
-          f"  extract_date={extract}")
+    print(f"  register    : sources={n_sources}  comps={n_comps}  locals={n_locals}"
+          f"  dim rows={n_dims}  extract_date={extract}")
     print(f"  provenance  : {cited} distinct signal(s) cited by the register")
     print(f"  preserved   : fetch_log={fl} rows  match_log={ml} rows")
     print(f"  vec         : {vec}")
@@ -2310,7 +2421,8 @@ def cmd_stats(args):
     print(f"db: {os.path.relpath(DB_PATH, ROOT)}")
     for k in ("schema_version", "rebuilt_at", "git_head", "jsonl_lines", "signals_count",
               "md_files", "problems_count", "problem_sources_count", "problem_comps_count",
-              "problem_source_dims_count", "extract_date", "problems_digest", "vec"):
+              "problem_locals_count", "problem_source_dims_count", "extract_date",
+              "problems_digest", "vec"):
         print(f"  meta.{k:25s} {get_meta(con, k, '(unset)')}")
     try:
         print("\n  by type:")

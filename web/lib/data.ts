@@ -220,6 +220,56 @@ const CompSchema = z.object({
   markets: z.array(z.string().regex(/^[A-Z]{2}$/)).optional(),
 });
 
+// Local incumbents — who already sells this HERE. The mirror of `comps`, and it
+// exists because the asymmetry between the two was what let a bug ship: 69
+// foreign comparables carried structured `since` + `traction`, while every
+// local player lived as PROSE inside a gap-check `note:`. A machine could read
+// the foreign half of the register and not the local half, so `gap` could not
+// be audited and `gap: 0` silently meant two opposite things.
+//
+// `status` IS THE SCORE. Under SCORING.md's established test the same fact
+// carries opposite signs: established ABROAD proves the model, established
+// LOCALLY takes the space, and an EARLY local player closes nothing and must
+// never de-rank a record on its own. That makes this enum the field both PROOF
+// and GAP turn on — which is why it is a closed enum checked by script
+// (scripts/check-records.py `established`), not a judgment in prose.
+const LocalSchema = z.object({
+  name: z.string().min(1),
+  url: z.string().url(),
+  // IČO — optional but strongly preferred: it is the only key that makes the
+  // claim verifiable without a human. With it, the distinct-public-buyer limb
+  // of the established test runs against data/lookup/cz-contract-parties.jsonl;
+  // without it, that limb simply cannot be evaluated for this player.
+  ico: z.string().regex(/^\d{8}$/, "IČO is 8 digits, quoted (leading zeros are real)").optional(),
+  // The year it started selling THIS product, else its founding year. Unquoted
+  // integer, exactly like comps[].since — the site reads it as a number.
+  //
+  // OPTIONAL, AND ONLY IN THE EARLY DIRECTION (see the refinement below). The
+  // established test's first limb is ">= 3 years selling", so `established`
+  // without a year is a claim with no receipt and is refused. An EARLY player
+  // may have no discoverable founding year — small Czech SMB vendors routinely
+  // do not publish one — and the house rule there is the same as for a comp's
+  // headcount: state what is verifiable, NEVER invent the rest. Forcing a year
+  // into this field would buy schema tidiness with a fabricated fact.
+  since: z.number().int().min(1980).max(2100).optional(),
+  status: z.enum(["established", "early"]),
+  // Which limb(s) of the established test this player passes, stated so a
+  // reader can check it: named customers / distinct public buyers / Series A or
+  // later / a state attest or framework listing.
+  evidence: z.string().min(1),
+}).check((ctx) => {
+  const l = ctx.value;
+  if (l.status === "established" && l.since === undefined) {
+    ctx.issues.push({
+      code: "custom",
+      message: `local '${l.name}' is established but has no 'since' — the established ` +
+        `test's first limb is ">= 3 years selling" and cannot be evaluated without it`,
+      input: l,
+    });
+  }
+});
+export type Local = z.infer<typeof LocalSchema>;
+
 const ProblemSchema = z.looseObject({
   id: z.string().regex(/^p-\d{4}$/),
   region: z.string().regex(/^[a-z]{2}$/),
@@ -248,6 +298,15 @@ const ProblemSchema = z.looseObject({
   // buildability scorecard or the comparables ledger (SPEC.md §4).
   build: BuildSchema,
   comps: z.array(CompSchema),
+  // `locals` — the local-incumbent ledger, rendered under "Local competition"
+  // the way `comps` renders under "Proven abroad". OPTIONAL, and the two
+  // absences are NOT the same fact: an absent key means no named local player
+  // is on file, which is legitimate at `gap: 1` and `gap: 2`; at `gap: 0` it is
+  // a MISSING RECEIPT, and scripts/check-records.py fails the build on it.
+  // WRITE THE KEY ABSENT, NEVER `locals: []` — a child table cannot tell an
+  // empty list from a missing key, so db.py refuses the empty form outright
+  // rather than let the two loaders disagree (see `problem_locals`).
+  locals: z.array(LocalSchema).optional(),
   sources: z.array(SourceSchema).min(1),
   created: isoDate,
   updated: isoDate,
@@ -325,6 +384,10 @@ function problemsFromDb(): Problem[] {
     "SELECT region, problem_id, position, name, url, geo, since, traction," +
     " signal_id, markets_json FROM problem_comps"
   );
+  const localRows = rows(
+    "SELECT region, problem_id, position, name, url, ico, since, status," +
+    " evidence FROM problem_locals"
+  );
 
   // Group children by their parent, then order each group by `position` — which
   // IS the S-number and is never reassigned (480 live [Sn] citation markers key
@@ -340,6 +403,7 @@ function problemsFromDb(): Problem[] {
   };
   const sourcesFor = byParent(srcRows);
   const compsFor = byParent(compRows);
+  const localsFor = byParent(localRows);
 
   const problems: Problem[] = [];
   for (const r of rows(
@@ -402,6 +466,29 @@ function problemsFromDb(): Problem[] {
     // frontmatter, and `put` keeps it absent rather than present-and-null —
     // the JSONL loader would never produce `fix: null`, so neither may this one.
     put(fm, "fix", r.fix === null ? null : String(r.fix));
+
+    // `locals` is optional too, and a CHILD TABLE cannot represent the
+    // difference between an absent key and an empty list — zero rows is the
+    // only spelling of both. So the key is set ONLY when rows exist, and db.py
+    // refuses `locals: []` in the frontmatter outright, which is what makes
+    // this branch total rather than lossy: the state it cannot round-trip is
+    // the one state the journal is not allowed to contain.
+    const locals = (localsFor.get(key) ?? []).map((l) => {
+      const loc: Record<string, unknown> = {
+        name: String(l.name), url: String(l.url),
+        status: String(l.status), evidence: String(l.evidence),
+      };
+      // The IČO is TEXT and stays TEXT: '04903783' is a real IČO and Number()
+      // would eat its leading zero.
+      put(loc, "ico", l.ico === null ? null : String(l.ico));
+      // `since` is an unquoted YAML integer, exactly as with comps[].since:
+      // SQLite would hand back a string just as happily, and `since: "1993"`
+      // fails zod. NULL stays ABSENT — an early player with no discoverable
+      // year has no year, not a year of null.
+      put(loc, "since", l.since === null ? null : Number(l.since));
+      return loc;
+    });
+    if (locals.length) fm.locals = locals;
     if (r.extra_json !== null) Object.assign(fm, JSON.parse(String(r.extra_json)));
 
     const parsed = ProblemSchema.safeParse(fm);

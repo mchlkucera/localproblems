@@ -4,14 +4,14 @@ region: cz
 title: Six thousand Czech firms must meet new security rules, and most are not ready
 category: legal-compliance
 geo: CZ-national
-score: 7
+score: 11
 scores:
-  proof: 0
+  proof: 3
   money: 2
   urgency: 3
   demand: 2
-  gap: 0
-status: watching
+  gap: 1
+status: candidate
 build:
   capital: garage
   first_revenue: months
@@ -35,6 +35,44 @@ comps:
   traction: '€6M Series A, Feb 2026, after €2.5M seed, Nov 2024 (Vestbee); NIS2/DORA/ISO 27001
     compliance automation, rebranded from CyberUpgrade (EU-Startups, 2026)'
   signal: round-copla
+locals:
+- name: NIS2 Průvodce
+  url: https://nis2pruvodce.cz/
+  ico: '88635783'
+  since: 2025
+  status: early
+  evidence: 'a full Czech SaaS platform — twelve modules across vyhláška 409/2025 and 410/2025,
+    an asset register, a 52-measure risk catalogue, a supplier register wired to ARES, NÚKIB
+    incident forms with the 24/72h deadlines, training and an AI assistant over the statute —
+    at 3,000 CZK a month per IČO. Operated by one person, Ondřej Šitler, not VAT-registered,
+    against an obligation that only took effect in November 2025. No limb of the established
+    test is on file.'
+- name: Compligen
+  url: https://www.compligen.cz/
+  since: 2026
+  status: early
+  evidence: 'an online guided generator producing 20+ documents against vyhláška 410/2025 for
+    the lower-obligations regime, 29,900 CZK one-off ex-VAT, with a page aimed at obce. Founder
+    Lukáš Vencálek, no IČO published and no ARES match for the trade name; its own reference
+    line claims 30+ firem a obcí, but the product carries a Q3 2026 roadmap and cannot have
+    been selling for three years.'
+- name: NIS2 Doku
+  url: https://nis2doku.cz/
+  since: 2025
+  status: early
+  evidence: 'a documentation pack — Start 4,900 CZK, Pro 11,900 CZK one-off ex-VAT, 10+
+    documents per vyhláška 410/2025 plus Excel asset, incident and supplier tools — sold by
+    David Mikulec against an obligation effective November 2025. No limb of the established
+    test is on file.'
+- name: Lexnova Energy
+  url: https://www.lexnova.cz/
+  ico: '22530649'
+  since: 2025
+  status: early
+  evidence: 'sells a productised "NIS 2 package" at about 91k CZK a time, with repeat orders in
+    registr smluv. Lexnova Energy s.r.o. was incorporated in January 2025 and the sibling
+    Lexnova Services s.r.o. in July 2026, so the seller is younger than the obligation it
+    packages.'
 sources:
 - type: regulation
   name: "Act No. 264/2025 Coll. (new cybersecurity act)"
@@ -247,7 +285,7 @@ updated: '2026-08-25'
 
 Act No. 264/2025 Coll., the Czech NIS2 transposition, pulls roughly 6,000 firms and municipalities — energy, manufacturing, food, logistics, digital services — into a regulated cybersecurity regime [S1,S2]. NÚKIB counted 4,825 registered of ~6,000 expected by February 2026 [S13]; many SMEs do not know they are in scope [S2]. Security measures fall due within a year of registration — rolling deadlines through H1 2027, fines to 2% of global turnover or CZK 250m [S1] — and the typical obligated SME or town has nobody to do the work.
 
-Existing non-solutions: consultancies and MSPs are no longer the whole field [S2]. Czech products now sell the obligation itself. NIS2 Průvodce covers both regimes — asset register, risk catalogue, supplier questionnaires, NÚKIB incident forms — at 3,000 CZK a month, built by one person; Compligen generates the lower-regime documentation for 29,900 CZK once, with a page aimed at towns; NIS2 Doku sells the same pack from 4,900 CZK; ICZ's Risk*Guide serves the large end [S16]. Lexnova Energy's ~91k CZK "NIS 2 package" still sells off the shelf below them [S7].
+Existing non-solutions: consultancies and MSPs are no longer the whole field [S2]. Czech products now sell the obligation itself. NIS2 Průvodce covers both regimes — asset register, risk catalogue, supplier questionnaires, NÚKIB incident forms — at 3,000 CZK a month, built by one person; Compligen generates the lower-regime documentation for 29,900 CZK once, with a page aimed at towns; NIS2 Doku sells the same pack from 4,900 CZK; ICZ's Risk*Guide serves the large end [S16]. Lexnova Energy's ~91k CZK "NIS 2 package" still sells off the shelf below them [S7]. Every one of these sellers is younger than the obligation itself, which took effect in November 2025 [S1] — solo operators and one-off document packs rather than settled vendors [S16].
 
 Why now: the one-year clocks are running [S1]; NÚKIB warns the unregistered that proceedings worsen with delay [S13]; Act No. 266/2025 (CER) stacks parallel physical-resilience duties on overlapping entities [S5]; and the IROP subsidy window closes 17 December 2026 [S9].
 
@@ -266,8 +304,10 @@ Solved elsewhere: Secfix (Berlin, €10.2M Series A) sells compliance automation
 
 ## Revisions
 
+2026-08-25 · status follows gap — Corrected from `watching` to `candidate` under the rewritten de-rank rule in SPEC.md. The old rule sent a record to `watching` the moment ANY local player was found; this record's local field is contested rather than taken, meaning the players on file are all EARLY by the SCORING.md established test and none of them closes the space. Scores are untouched — only the status word, which had been asserting the opposite of the score printed beside it.
+
 2026-08-13 · money and demand receipted — The first successful TED run put the buying wave on the record across the full size spectrum, from Motol and Prague at the top to care homes and small towns ordering productised "NIS 2 packages" below the threshold, with an IROP subsidy channel behind the municipal projects [S3,S4,S7,S8]. That substance now sits in How big rather than here. Noted for the gap dimension at the time: Lexnova's repeat package sales and Institut kybernetické bezpečnosti's scope-analysis product are the first evidence that productised CZ offerings for the small-entity tier are emerging [S7].
 
 2026-08-24 · board-brief rewrite — The body was rewritten to the builder-first template (problem → proven abroad → local competition → how big → why now), cutting the argument from 440 to ~335 words with no claim added beyond its source. Market research joined the record: NÚKIB's own registration tally (4,825 of ~6,000 expected, Feb 2026) [S13], per-firm NIS2 tooling prices (Reglyze from €490/yr, Secfix ~€500/mo, Vanta/Drata ~$7,500/yr) [S14], and the ~$70bn 2026 European cybersecurity market with NIS2/DORA as named drivers [S15] — grounding a bottom-up floor of ~€4.5M/yr for a productised Czech offer (6,000 entities × €3,000/yr × 25%). Every source gained a public name and why line; internal notes, scores and status untouched.
 
-2026-08-25 · market check — The Czech field was searched in Czech for the first time and it is not empty: four named products sell NIS2 compliance to the obligated mid-market, from a one-person SaaS at 3,000 CZK a month to a documentation pack at 4,900 CZK, plus ICZ's Risk*Guide at the enterprise end [S16]. `scores.gap` was already 0 and stays 0 — nothing here can raise it — but `status` moves candidate → watching under the SPEC §4 de-rank rule, and "Existing non-solutions" and First moves 4 and 6 now name the incumbents instead of asking for the survey that has now been run. `score` is unchanged at 7. Method note for the next check: none of the four products appears anywhere in the 11,330-signal corpus — none raised and none sells through public tender — so only Czech-language search could find them. Positive control: the same method run at Wultra (the incumbent named on p-0017) surfaced it, so the negatives in this pass are worth something. Flagged, NOT changed: `scores.proof` is 0 while Secfix (€10.2M Series A) and Copla (€6M Series A) sit on the comps ledger — the recommended value is 3 (funded analogs in two markets, one of them CEE-adjacent), and `scripts/check-records.py` already reports the contradiction as an error.
+2026-08-25 · market check — The Czech field was searched in Czech for the first time and it is not empty: four named products sell NIS2 compliance to the obligated mid-market, from a one-person SaaS at 3,000 CZK a month to a documentation pack at 4,900 CZK, plus ICZ's Risk*Guide at the enterprise end [S16]. `scores.gap` was already 0 and stays 0 — nothing here can raise it — but `status` moves candidate → watching under the SPEC §4 de-rank rule, and "Existing non-solutions" and First moves 4 and 6 now name the incumbents instead of asking for the survey that has now been run. `score` is unchanged at 7. Method note for the next check: none of the four products appears anywhere in the 11,330-signal corpus — none raised and none sells through public tender — so only Czech-language search could find them. Positive control: the same method run at Wultra (the incumbent named on p-0017) surfaced it, so the negatives in this pass are worth something. Flagged, NOT changed: `scores.proof` is 0 while Secfix (€10.2M Series A) and Copla (€6M Series A) sit on the comps ledger — the recommended value is 3 (funded analogs in two markets, one of them CEE-adjacent), and `scripts/check-records.py` already reports the contradiction as an error. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries NIS2 Průvodce, Compligen, NIS2 Doku and Lexnova Energy, all four early [S16,S7]. NIS2 Průvodce is one person — Ondřej Šitler, IČO 88635783, not VAT-registered — selling against an obligation that only took effect in November 2025; Compligen publishes no IČO and carries a Q3 2026 roadmap; NIS2 Doku is a one-off document pack; Lexnova Energy s.r.o. was incorporated in January 2025 and its sibling Lexnova Services in July 2026. None has three years of selling behind it, so none closes the space: `scores.gap` 0 → 1. The de-rank recorded above was therefore too harsh — it read 'a Czech product exists' as 'the space is taken', which is the v1 test the rewrite retires. ICZ Risk*Guide is deliberately not in `locals[]`, and it is the one entry the ladder cannot represent: ICZ a.s. has traded since 1997 and is plainly not an early company, but the register holds no limb receipt for Risk*Guide and ICZ sells at the enterprise end rather than to the SME and municipal tier this record's buyers occupy — listing it would either force gap 0 on a segment it does not serve or label a 1997 systems house early. It stays named in the body. `scores.proof` 0 → 3, resolving the contradiction flagged above: Secfix (Berlin) and Copla (Vilnius) both pass the established test, in two markets, both CEE-adjacent. `score` 7 → 11.

@@ -8,9 +8,9 @@ fix: 'One tool for small heat-pump and solar firms: size the system, price the j
   manufacturer''s sizing tool plus spreadsheets.'
 category: energy
 geo: CZ-national
-score: 5
+score: 6
 scores:
-  proof: 2
+  proof: 3
   money: 1
   urgency: 1
   demand: 1
@@ -38,6 +38,42 @@ comps:
   traction: '€13M Series A led by Northzone, €16M total (TechCrunch, 2024); installer sales/planning/ops
     software live in DACH, FR, IT'
   markets: [AT, CH, FR, IT]
+locals:
+- name: Wue
+  url: https://wue.cz/
+  ico: '17824427'
+  since: 2022
+  status: early
+  evidence: 'per-seat vertical SaaS at 650 Kč/user/month plus 200 Kč for the heat-pump module;
+    generates quotes, contracts, handover protocols and NZÚ subsidy documentation. Wue
+    Technologies s.r.o. was incorporated in December 2022 and publishes no limb of the
+    established test.'
+- name: RAYNET
+  url: https://raynet.cz/
+  ico: '26843820'
+  since: 2004
+  status: established
+  evidence: 'public customer count: the RAYNET photovoltaics vertical is reported by its
+    implementation partner Bubble Development as live at roughly 20 photovoltaic installer
+    firms. It auto-generates NZÚ and distributor forms straight out of the CRM and ships a
+    field app for montážní týmy. RAYNET s.r.o. has traded since 2004; the launch year of the
+    PV vertical is not published, so the SCORING.md "else founded" fallback applies.'
+- name: AutoERP (Apertia Tech)
+  url: https://autoerp.cz/
+  ico: '27117758'
+  since: 2004
+  status: early
+  evidence: 'three CRM/ERP variants sold to photovoltaic installation firms. Apertia Tech
+    s.r.o. has traded since 2004, but no limb of the established test is on file for this
+    product — no published deployment figure, no public contract for the IČO in
+    cz-contract-parties.jsonl, no disclosed round, no state listing.'
+- name: Infina
+  url: https://infina.cz/
+  ico: '06904424'
+  since: 2018
+  status: early
+  evidence: 'a CRM with a payback calculator sold to heat-pump and photovoltaic dealers.
+    Infina company s.r.o. has traded since 2018; no limb of the established test is on file.'
 sources:
 - type: arbitrage
   name: "autarc"
@@ -145,4 +181,4 @@ Solved elsewhere: autarc in Germany is the funded, directly adjacent analog [S1]
 
 2026-08-20 · gap re-check and evidence audit — Two blocks recorded on this date, merged here. The absence claim was false: Czech-language search found four CZ vendors selling installer-facing software to heat-pump and FVE firms — Wue, RAYNET's photovoltaics vertical, AutoERP and Infina [S6] — so gap moved 2 → 0, score 7 → 5, status candidate → watching per the SPEC §4 de-rank rule. The record's proposed first product move, the NZÚ-paperwork wedge, is the part most clearly already shipped. Two things made the original check miss this. It cited a foreign page (ycombinator.com/companies/autarc) as the receipt for a Czech absence, which proves nothing about Czechia; and the search appears to have run in English, where the same re-check returned no Czech vendor at all while the Czech-language queries returned four. None of the four appears anywhere in this register's signal corpus — they are bootstrapped SMB software companies that no funding feed surfaces. The title carried the same disproved absence, "with no vertical software", and has been cut to the part that still stands, for the same reason: the title is the most-read line on the record and it was asserting what the ledger below it now refutes. What survives is the demand claim [S1] and the observation that the CZ tools are quoting/CRM-shaped rather than autarc-depth — heat-load calculation and digital site survey remain genuinely thin here, but that is a product-differentiation argument, not an absence. Cut in the same pass: the autarc funding-and-customer parenthetical and the Reonic Series A parenthetical in the fourth first move. Both figures live only in the comps ledger — Reonic returns no hits anywhere in the signal corpus, and yc-autarc carries neither the raise nor the customer count — and a comparable's traction line cannot back a body claim. The "Where it works" ledger still prints both.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` now carries Wue, RAYNET, AutoERP (Apertia Tech) and Infina [S6]. RAYNET passes the established test — trading since 2004, with its photovoltaics vertical reported live at roughly 20 installer firms by its implementation partner — so `scores.gap` stays 0 and the 2026-08-20 de-rank now rests on a receipt a machine can re-check. The other three are early: Wue Technologies was incorporated in December 2022 and publishes nothing the test reads, and neither AutoERP nor Infina publishes a deployment figure. `scores.proof` 2 → 3: autarc and Reonic both pass the established test on the comps ledger, and Reonic sells the same stack across DACH, France and Italy, so the model is established in more than one market with a CEE-adjacent one among them. `score` 5 → 6. The retired rung 2 read 'funded analog in DE/AT/PL/Nordics + no CZ player found', which docked this record for the very Czech vendors named below it; that gap condition is gone from the proof ladder.

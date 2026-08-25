@@ -8,14 +8,14 @@ fix: 'Settlement software for electricity-sharing communities: recompute each me
   crowns what bad allocation was costing.'
 category: energy
 geo: CZ-national
-score: 8
+score: 9
 scores:
   proof: 3
   money: 2
   urgency: 1
   demand: 2
-  gap: 0
-status: watching
+  gap: 1
+status: candidate
 build:
   capital: garage
   first_revenue: months
@@ -50,6 +50,48 @@ comps:
   since: 2019
   traction: 'High-seven-figure EUR Series A, Oct 2024 (First Imagine!, company release); HW+SW
     energy sharing for small multi-family buildings'
+locals:
+- name: Enerio
+  url: https://enerio.cz/
+  since: 2024
+  status: early
+  evidence: 'sells energy-community administration — automated member onboarding, invoicing
+    and full EDC integration. Czech electricity sharing over EDC opened only in 2024, so
+    nothing here has been on sale for three years; the site''s testimonial block still carries
+    placeholder names and its community counters render empty. No limb of the established
+    test is on file.'
+- name: Softlink CEM
+  url: https://www.softlink.cz/
+  ico: '27109682'
+  since: 2024
+  status: early
+  evidence: 'allocation-key setup and invoicing for shared electricity, from a Czech
+    metering-software house trading since 2003; the sharing module itself belongs to the
+    2024 EDC regime. Marketing copy only — no limb of the established test is on file, and
+    cz-contract-parties.jsonl holds no public contract for this IČO.'
+- name: EnerCA (EnerCo Solutions)
+  url: https://enerca.cz/
+  ico: '19753691'
+  since: 2024
+  status: early
+  evidence: 'allocation-key optimisation, automated EDC data transfer and a complete billing
+    solution. EnerCo Solutions, s.r.o. was incorporated in September 2023 and the sharing
+    regime it sells into opened in 2024. No limb of the established test is on file.'
+- name: ENERGOMETR (DEKSOFT)
+  url: https://deksoft.eu/
+  since: 2024
+  status: early
+  evidence: 'a dedicated community-energy module inside the DEKSOFT metering product, issuing
+    invoices for shared energy off EDC production and consumption data; the module belongs to
+    the 2024 sharing regime. No limb of the established test is on file.'
+- name: CANCOM Czech Republic
+  url: https://www.cancom.cz/
+  ico: '06343970'
+  since: 2024
+  status: early
+  evidence: 'end-to-end community management — onboarding, contracts, sharing data, settlement
+    and billing — from a systems house incorporated in 2017; the community-energy offer belongs
+    to the 2024 sharing regime. No limb of the established test is on file.'
 sources:
 - type: arbitrage
   name: "Exnaton"
@@ -220,7 +262,7 @@ Why now: the regulatory window opened in 2024 (Lex OZE II, EDC data exchange liv
 
 Who pays: community founders (municipalities, housing cooperatives, groups of firms) and — following the Exnaton go-to-market — utilities and the service firms around the regional grid operators, which want a white-label product to offer communities [S1]. The value proposition is direct: recovered settlement value, which the reporting on file quantifies at up to ~50% of shared electricity [S2].
 
-Existing non-solutions: EDC (data exchange only), ministry guidance, and ASITIS-style consultancies selling services rather than product [S3]; Jihomoravská energetická agentura administers sharing for the sdílEjme community as a manual regional service [S8]. The software position is occupied too — Enerio, Softlink CEM, EnerCA, ENERGOMETR and CANCOM already sell community administration, allocation keys and member billing over EDC data [S13]. The earlier finding that no such software existed [S1,S3] searched the wrong places and is superseded.
+Existing non-solutions: EDC (data exchange only), ministry guidance, and ASITIS-style consultancies selling services rather than product [S3]; Jihomoravská energetická agentura administers sharing for the sdílEjme community as a manual regional service [S8]. The software position is contested rather than empty — Enerio, Softlink CEM, EnerCA, ENERGOMETR and CANCOM all market community administration, allocation keys and member billing over EDC data [S13]. Every one of them is young: sharing over EDC opened only in 2024, and none of the five publishes a customer, a public contract or a funding round [S13]. The earlier finding that no such software existed [S1,S3] searched the wrong places and is superseded.
 
 Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across DACH and the Nordics; Austrian community-energy players eFriends and OurPower prove tooling demand under EU RED II in a market bordering Czechia [S1]. The July 2026 Pstryk round in Poland shows CEE investors funding adjacent consumer/SME energy software [S4].
 
@@ -231,9 +273,11 @@ Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across 
 3. Build the settlement-reconciliation wedge first: ingest one community's real EDC sharing data, recompute allocation and member billing, and put a CZK figure on the recovered value — the reporting on file claims up to ~50% of shared-electricity value is lost to bad allocation and settlement [S2]. The same exercise verifies the risky assumption that EDC data exchange gives an outside operator enough data to automate settlement.
 4. Price under the documented spend: Dům seniorů Františkov paid ~1.0M CZK for a sharing-service contract [S6] — SaaS priced below that manual-service level has documented willingness-to-pay on file.
 5. Funding channel: [Modernizační fond KOMUNERG 1/2025](/sources/tenders#dotace-mf-komunerg-1-energeticka-spolecenstvi) — 1bn CZK (~€40.8M) for energy communities and municipalities building shared renewable generation, applications open until **2027-12-31** [S11]; every funded community build becomes a settlement/billing customer.
-6. Competition on file — the niche is occupied, so treat the first moves above as competitive research, not a greenfield plan: **Enerio**, **Softlink CEM**, **EnerCA**, **ENERGOMETR** (DEKSOFT) and **CANCOM** all ship Czech community administration with allocation keys, member invoicing and EDC integration [S13]. Also on file: **Delta Green** (adjacent — spot-price supply and flexibility aggregation, no sharing-administration product [S9]), **ASITIS** (consulting/services, not product) [S3], **EDC** itself (data exchange only, explicitly no member billing) [S1,S3], and **JMEA** (manual regional service) [S8].
+6. Competition on file — the niche is contested rather than empty, so treat the first moves above as competitive research as much as a build plan: **Enerio**, **Softlink CEM**, **EnerCA**, **ENERGOMETR** (DEKSOFT) and **CANCOM** all ship Czech community administration with allocation keys, member invoicing and EDC integration [S13]. Also on file: **Delta Green** (adjacent — spot-price supply and flexibility aggregation, no sharing-administration product [S9]), **ASITIS** (consulting/services, not product) [S3], **EDC** itself (data exchange only, explicitly no member billing) [S1,S3], and **JMEA** (manual regional service) [S8].
 
 ## Revisions
+
+2026-08-25 · status follows gap — Corrected from `watching` to `candidate` under the rewritten de-rank rule in SPEC.md. The old rule sent a record to `watching` the moment ANY local player was found; this record's local field is contested rather than taken, meaning the players on file are all EARLY by the SCORING.md established test and none of them closes the space. Scores are untouched — only the status word, which had been asserting the opposite of the score printed beside it.
 
 2026-08-13 · money re-score — The registr smluv shows the spend is structural, not anecdotal [S6,S7]: the Liberec community alone signed ~14 near-identical sharing contracts with city schools and kindergartens in June–July 2026 (series numbering to č. 58) [S7], Pardubice-region institutions follow the same pattern [S10], and Sonnentor became the first private company in the bucket, administered by a public energy agency [S8]. Recurring, multi-organisation service spend on sharing administration is receipted: money 1 → 2, and the record entered PRIME territory.
 
@@ -243,4 +287,4 @@ Solved elsewhere: Exnaton (ETH spin-off) sells exactly this to utilities across 
 
 2026-08-24 · evidence audit — The lead still asserted that municipalities founding společenství "have no software at all for the task" — the same absence the 2026-08-20 de-rank disproved by naming five CZ vendors [S13]. Cut: a lead cannot assert what the record's own ledger refutes. The de-rank receipt was re-verified live on this date: enerio.cz still sells automated member onboarding, invoicing automation and EDC integration [S13]. Nothing else changed; scores untouched.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "DSO-adjacent service firms" now reads "the service firms around the regional grid operators". Scores, status, source notes and every [Sn] marker are untouched.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "DSO-adjacent service firms" now reads "the service firms around the regional grid operators". Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Local players moved out of gap-check prose into a structured `locals[]` ledger — Enerio, Softlink CEM, EnerCA, ENERGOMETR (DEKSOFT) and CANCOM, all five marked early [S13]. None passes the established test: Czech sharing over EDC opened only in 2024, so none has three years of selling behind it, and none publishes a customer, a public buyer, a round or a state listing — enerio.cz still runs placeholder testimonial names and empty counters. An early local player does not close a space, so `scores.gap` moves 0 → 1: contested, not taken. `scores.proof` holds at 3 — Exnaton, eFriends, OurPower and Pionierkraft all pass the test, across CH, AT and DE, two of them CEE-adjacent. `score` 8 → 9. The 2026-08-20 de-rank is not withdrawn; the five vendors are real and still named in the body. What changed is that a crowded young field is now scored as contested rather than closed.

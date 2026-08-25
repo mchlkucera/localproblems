@@ -7,9 +7,9 @@ fix: 'A marketplace where vetted nurses and carers pick up open shifts at care h
   the home pays a fee for every shift filled.'
 category: health
 geo: CZ-national
-score: 6
+score: 7
 scores:
-  proof: 1
+  proof: 2
   money: 1
   urgency: 1
   demand: 2
@@ -36,6 +36,48 @@ comps:
   since: 2017
   traction: '£28.5M ($35M) Series B led by AXA Venture Partners (company, Jun 2022); 90,000
     care professionals and 2,000+ care organisations; shift-matching plus training'
+locals:
+- name: Grason
+  url: https://www.grason.cz/
+  ico: '06884156'
+  since: 2018
+  status: early
+  evidence: 'EARLY for this space — a shift-work marketplace grown out of hospitality staffing; a
+    healthcare or social-care vertical could NOT be confirmed on its site, which loads
+    client-side [S8]. The closest local shape, and the open question on this file; ARES
+    registration 2018-02-23. No limb of the established test is met by anything on file
+    here: nothing names who has bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+- name: Směny.cz
+  url: https://www.smeny.cz/
+  status: early
+  evidence: 'EARLY on receipts only — internal shift planning for staff a provider already
+    employs, not a marketplace [S8]; no customer count, public-buyer pair, round or state
+    listing on file'
+- name: Chytrá organizace
+  url: https://www.chytraorganizace.cz/
+  ico: '04728629'
+  since: 2016
+  status: early
+  evidence: 'EARLY for this space — internal shift planning for staff a provider already employs, not a
+    marketplace [S8]; ARES registration 2016-01-18. No limb of the established test is met
+    by anything on file here: nothing names who has bought it, no published tally exists,
+    there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage,
+    and no state listing.'
+- name: VeruApp
+  url: https://www.veruapp.cz/
+  status: early
+  evidence: 'EARLY on receipts only — care-agency operations software, the incumbent named on
+    p-0011, planning employed staff rather than filling open shifts [S8]; no customer count,
+    public-buyer pair, round or state listing on file'
+- name: Domelie
+  url: https://www.domelie.cz/
+  ico: '23027371'
+  since: 2025
+  status: early
+  evidence: 'EARLY — fails the three-year limb: Domelie s.r.o. was registered 2025-03-05 in
+    ARES, and it brokers household caregivers to families (B2C) rather than shifts to
+    facilities [S8]'
 sources:
 - type: arbitrage
   name: "ShiftKey"
@@ -134,10 +176,10 @@ Why now: the demand side is structural — the ministry's models add roughly 34,
 
 Who pays: care providers pay per filled shift, out of the agency mark-up they already pay today. The July 2026 nurse postings alone carry an annualised wage floor of €10.8 million [S4] — a fraction of that flow, taken as a matching fee, is the business. Workers come for the flexibility premium; regional buyers show public money reaches care capacity too [S7].
 
-Existing non-solutions: Czech tooling plans the staff a provider already employs — Směny.cz, Chytrá organizace and VeruApp schedule internal shifts [S8]. Grason runs a shift marketplace grown out of hospitality, with no healthcare vertical visible on its site; OnSinch staffs event crews; Domelie brokers household caregivers; classic agencies place full-time employees [S8]. Nobody matches vetted care workers to facility shifts on demand [S8].
+Existing non-solutions: Czech tooling plans the staff a provider already employs — Směny.cz, Chytrá organizace and VeruApp schedule internal shifts [S8]. Grason runs a shift marketplace grown out of hospitality, with no healthcare vertical visible on its site; OnSinch staffs event crews; Domelie, a 2025 registration, brokers household caregivers to families; classic agencies place full-time employees [S8]. Nobody matches vetted care workers to facility shifts on demand, and nothing in the field is old enough or big enough to have settled it [S8].
 
-Solved elsewhere: ShiftKey (US) raised $300M at a valuation above $2 billion letting licensed professionals bid on per-diem shifts at more than 10,000 facilities, skilled nursing first [S1]. Florence (GB, £28.5M Series B) runs shift-matching plus training for 90,000 care professionals and 2,000+ care organisations [S2]. Both monetize the spread agencies charge today; neither operates in Central Europe [S1,S2].
+Solved elsewhere: two markets, and both sellers are a decade in. ShiftKey has run since 2016, raised $300M at a valuation above $2 billion, and lets licensed professionals bid on per-diem shifts at more than 10,000 facilities, skilled nursing first [S1]. Florence has run since 2017 on a £28.5M Series B, matching shifts and bundling training for 90,000 care professionals and 2,000+ care organisations [S2]. Both monetize the spread agencies charge today. But it is America and Britain: nothing of the kind operates in Central Europe or anywhere near it [S1,S2].
 
 ## Revisions
 
-2026-08-25 · record created — Minted from the first records of the hiring ledger (July 2026 Labour Office aggregates [S4]) joined with the APSS staffing survey [S3] and the elder-care sweep's regulation and capacity evidence [S5,S6]. Hiring evidence backs demand and money, never proof; proof rests on the US and GB comparables alone [S1,S2] and stays at 1 with no DE/AT/PL/Nordics analog on file. Grason's possible healthcare vertical could not be confirmed and is recorded as unresolved rather than asserted either way [S8]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.
+2026-08-25 · record created — Minted from the first records of the hiring ledger (July 2026 Labour Office aggregates [S4]) joined with the APSS staffing survey [S3] and the elder-care sweep's regulation and capacity evidence [S5,S6]. Hiring evidence backs demand and money, never proof; proof rests on the US and GB comparables alone [S1,S2] and stays at 1 with no DE/AT/PL/Nordics analog on file. Grason's possible healthcare vertical could not be confirmed and is recorded as unresolved rather than asserted either way [S8]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker were untouched by that pass. Third pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test. `scores.proof` 1 → 2. Both comparables pass the maturity test — ShiftKey selling since 2016 with $300M raised above a $2B valuation and 10,000+ facilities, Florence since 2017 with a £28.5M Series B, 90,000 care professionals and 2,000+ care organisations [S1,S2] — so the model is not unproven, which is what rung 1 asserts. The 1 was written on this file the day it was minted, reasoned as "no DE/AT/PL/Nordics analog is on file"; that is the rung 3 test, not the rung 1 test, and applying it a rung early cost a point. Rung 3 is still correctly out of reach: the United States and Britain are two markets, but neither is CEE-adjacent, so this lands on rung 2. `scores.gap` stays 1. The five Czech offerings [S8] found were lifted into a structured `locals[]` ledger and every one reads early — Domelie fails the three-year limb outright at a 2025 ARES registration, and Grason, Směny.cz, Chytrá organizace and VeruApp publish no customer count, pair with no public buyer in `data/lookup/cz-contract-parties.jsonl`, and carry no round or state listing. Early local players never de-rank, so gap does not fall to 0; and it does not rise to 2 either, because [S8] is a one-pass search that found players rather than none, and Grason's verticals are still unresolved. `score` 6 → 7. The non-solutions paragraph now notes how young the field is and the Proven-abroad paragraph states both sellers' trading ages, because under the new ladder maturity is what carries the score. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.

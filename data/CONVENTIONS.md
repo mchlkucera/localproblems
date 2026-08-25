@@ -206,6 +206,7 @@ scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status: candidate | active | watching | stale | claimed | solved | rejected,
 build {capital, first_revenue, builder, note},
 comps [{name, url, geo, since, traction, signal?: <evidence id>, markets?: [ISO2..]}],
+locals? [{name, url, ico?, since, status: established|early, evidence}],
 sources [{type, url, note, date, signal?: <evidence id>, dims?: [dimension..]}],
 created, updated
 ```
@@ -242,6 +243,71 @@ no comparable exists (build-enforced: proof >= 1 requires >= 1 comp):
 - `markets?: [ISO2…]` — countries the comparable verifiably operates/sells in
   beyond its HQ; recorded only when sourced (never repeats `geo`; vague claims
   like "15+ countries" get no list)
+
+`locals` — local incumbents (OPTIONAL; the "who already sells this HERE" ledger,
+added 2026-08-25). The mirror of `comps`, and it exists because the asymmetry
+between the two is what let a bug ship: 69 foreign comparables carried
+structured `since` + `traction` while every local player lived as PROSE inside a
+gap-check `note:`. A machine could read the foreign half of the register and not
+the local half, so `gap` could not be audited and `gap: 0` silently meant two
+opposite things. Rendered as a ledger under **Local competition**, with the
+`Existing non-solutions:` paragraph underneath it:
+- `name`, `url` — the company and its site
+- `ico` — optional but STRONGLY PREFERRED, 8 digits as a QUOTED string
+  (`'04903783'` — unquoted YAML eats the leading zero). It is what makes the
+  claim checkable without a human: `scripts/check-records.py` counts distinct
+  public buyers for it in `data/lookup/cz-contract-parties.jsonl`.
+- `since` — the year it started selling THIS product, else its founding year;
+  unquoted integer, exactly like `comps[].since`. REQUIRED at
+  `status: established` — the test's first limb is ">= 3 years selling" and
+  cannot be evaluated without it. OPTIONAL at `early`, where a small Czech
+  vendor often publishes no year at all: state what is verifiable and NEVER
+  invent a year to fill the field, exactly as with a comp's headcount.
+- `status` — `established` | `early`. **This IS the gap score** (see the test
+  below), which is why it is a closed enum checked by script rather than a
+  judgment in prose.
+- `evidence` — which limb(s) of the established test this player passes, stated
+  so a reader can check it
+- **Omit the key when there is no named local player. NEVER write `locals: []`** —
+  `problem_locals` is a child table and cannot tell an empty list from an absent
+  key, so the two loaders would disagree about the record. `scripts/db.py`
+  refuses the empty form outright.
+
+### THE ESTABLISHED TEST (SCORING.md, owner 2026-08-25)
+
+> A player is ESTABLISHED when it has been selling for **>= 3 years** AND shows
+> at least one of: named customers or a public customer count · **>= 2 distinct
+> public buyers** in `data/lookup/cz-contract-parties.jsonl` · funding at
+> **Series A or later** · a **state certification, attest or framework listing**.
+> Otherwise it is EARLY — funded-but-prototype, solo-operator, pre-customer.
+
+It replaced the v1 "does a company exist?" test, which could not discriminate:
+half the signal corpus is "a funded foreign company exists", so 81% of records
+were born passing it. Existence is not information; maturity is.
+
+**The same test scores both ledgers, WITH THE SIGN FLIPPED.** Abroad, an
+established player is good news — the model is proven and someone already paid
+the tuition, and that is what lifts `proof`. Locally, the sign flips: an
+established, well-maintained local product means the space is taken and `gap` is
+0. **An EARLY local player does NOT close the space and must never de-rank a
+record on its own** — that is `gap: 1`, contested and still enterable.
+
+Every field the test reads is on the record already (`comps[].since`,
+`comps[].traction`, `locals[].since`, `locals[].ico`, `locals[].evidence`), so
+it is CHECKED BY SCRIPT, not judged — a dimension a machine cannot audit is a
+dimension that silently rots. `scripts/check-records.py --strict` runs inside
+`npm run build` and fails it on:
+- a `status: established` entry that cites no limb, or whose `since` is under 3
+  years
+- `gap: 0` with no `locals[]` entry at `status: established` — "not checked" is
+  not a score on this ladder; an absent check is a missing receipt
+- `gap >= 1` while `locals[]` names an established player
+- `gap` at any value with no `type: gap-check` source carrying `queries[]`
+- a `proof` score that contradicts the maturity of its own `comps` ledger
+
+The established test runs against the register's own newest `updated`, never the
+wall clock — the same reproducibility law `extractDate()` enforces on the site.
+
 ## Body shape and length (binding)
 
 A reader arrives at a record with two questions — **what is the problem, and
@@ -439,15 +505,22 @@ that moves `gap`, and **`SCORING.md` is untouched by any of this.** Decay
 compares against the register's own newest `updated`, never the wall clock — a
 commit must build identically on any day it is built.
 
+**QUERIES ARE NOW MANDATORY, AT EVERY GAP VALUE.** Since 2026-08-25 every record
+needs a `type: gap-check` source carrying `queries[]`, and
+`scripts/check-records.py --strict` fails the build without one. The reason is
+the rung-0 fix: `gap: 0` used to mean "check not done", so an unchecked record
+and a de-ranked one landed on the same number. Rung 0 now means TAKEN and only
+TAKEN, which leaves the missing check with nowhere to hide as a score — so it is
+caught as the missing receipt it is.
+
 **A retrofit is not a de-rank.** Adding these keys to an existing gap-check is a
 metadata addition. If you find yourself researching incumbents while doing it,
 you have stopped retrofitting and started de-ranking: stop, leave the record
 alone, and hand it to the MATCH agent. The trap is that the intuitive fix IS the
-violation — a record scoring `gap: 0` ("CZ incumbent check not done") correctly
-has no gap-check source to extend, and "helpfully" creating one requires the
-research that moves `gap` upward. Freshly added `queries` would then *look* like
-justification for the higher score, so prose review cannot catch it. **Verify a
-retrofit by diffing `score` and `scores.gap` numerically, never by reading.**
+violation — writing the queries you would have run, rather than the ones you did,
+makes the higher score *look* justified, and prose review cannot catch it.
+**Verify a retrofit by diffing `score` and `scores.gap` numerically, never by
+reading.**
 
 **DO NOT TOUCH `note:`. AT ALL.** Not to normalize it, not to reformat it, not
 to fix a typo or a plural. The three keys above are added as siblings and
@@ -509,8 +582,15 @@ company's existence is evidence about that company and nothing else.
 
 | direction | who decides | why |
 |---|---|---|
-| down (incumbent found → `gap: 0`) | any check, immediately | SPEC §4 de-rank rule: name the incumbent, `status: watching` |
+| down (**ESTABLISHED** incumbent found → `gap: 0`) | any check, immediately | SPEC §4 de-rank rule: name the incumbent in `locals[]`, `status: watching` |
+| down (**EARLY** local player found → `gap: 1`) | any check, immediately | it is a contested field, not a closed one — see the established test |
 | up (found nothing → raise) | **nobody** | not-finding-it and not-existing are indistinguishable from where the searcher sits |
+
+**A local player found is not automatically a de-rank to 0.** Since 2026-08-25
+the de-rank lands on the rung the established test puts the player on: an
+established one takes the space (`gap: 0`), an early one contests it (`gap: 1`)
+and closes nothing on its own. Record it either way — `locals[]` takes the early
+players too, and an early local player is real information about the market.
 
 Not a matter of confidence. A searcher who looked hard and found nothing holds
 exactly the evidence of one who searched badly; only the positive control

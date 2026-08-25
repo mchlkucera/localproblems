@@ -9,11 +9,11 @@ category: health
 geo: CZ-national
 score: 8
 scores:
-  proof: 2
+  proof: 3
   money: 1
   urgency: 1
   demand: 2
-  gap: 2
+  gap: 1
 status: candidate
 build:
   capital: kiosk
@@ -41,6 +41,26 @@ comps:
   since: 2011
   traction: 'VC-backed (Holtzbrinck Digital, Hanse Ventures, KfW et al.); ~10M visitors/yr
     (Carlsquare); acquired 100% by care-products group Paul Hartmann AG (announced Jan 2021)'
+locals:
+- name: SrovnejPéči.cz
+  url: https://srovnejpeci.cz/
+  since: 2024
+  status: early
+  evidence: 'EARLY — fails the three-year limb: launched 2024, two years of trading [S12]. It
+    compares 1,500+ registered facilities with reviews and prices and monetises provider-side
+    listings, but publishes no customer count, pairs with no public buyer in
+    data/lookup/cz-contract-parties.jsonl, and carries no round or state listing'
+- name: Můjdůchod.cz
+  url: https://www.mujduchod.cz/
+  status: early
+  evidence: 'EARLY on receipts only — a static database of facilities [S12]; no customer count,
+    public-buyer pair, round or state listing on file, and no vacancy or queue data behind it'
+- name: pece.cz
+  url: https://www.pece.cz/
+  status: early
+  evidence: 'EARLY on receipts only — advises families but does not place them, alongside the
+    free odborné sociální poradenství [S12]; no customer count, public-buyer pair, round or
+    state listing on file'
 sources:
 - type: arbitrage
   name: "A Place for Mom"
@@ -213,9 +233,9 @@ Why now: the 80+ population grows from 466,000 to 690,000 between 2023 and 2030 
 
 Who pays: private care homes and assisted-living operators pay per qualified move-in — the provider-paid referral model A Place for Mom runs at national scale in the US [S1]. Families pay flat fees for guided placement — shortlisting, filing, queue tracking. Both sides buy the same missing thing: knowing where a bed is.
 
-Existing non-solutions: directories exist, placement does not. SrovnejPéči.cz, launched 2024, compares more than 1,500 registered facilities and forwards inquiries, but carries no vacancy data and places nobody [S12]. Můjdůchod.cz is a database; regional lists like Středočeský kraj's SENIOR portal cover one region each; free social counselling helps with forms [S12]. No Czech service files applications, tracks queues or finds an available bed for a family [S12].
+Existing non-solutions: directories exist, placement does not. The field is not empty so much as thinly held, and everything in it is young. SrovnejPéči.cz launched in 2024, compares more than 1,500 registered facilities and forwards inquiries, but carries no vacancy data and places nobody [S12]. Můjdůchod.cz is a database; regional lists like Středočeský kraj's SENIOR portal cover one region each; free social counselling helps with forms [S12]. No Czech service files applications, tracks queues or finds an available bed for a family [S12].
 
-Solved elsewhere: A Place for Mom (US) raised $175M in growth equity at a valuation above $1 billion on provider-paid senior-care referral [S1]. Lottie (GB) raised a $21M Series A led by Accel for a family-facing marketplace plus occupancy software that tracks real-time bed availability for providers [S2]. pflege.de (DE) built the German later-life platform and was bought outright by care-products group Paul Hartmann [S3].
+Solved elsewhere: three markets, three sellers, none of them new. A Place for Mom has run provider-paid senior-care referral in the United States since 2000 and raised $175M in growth equity at a valuation above $1 billion [S1]. Lottie has sold in Britain since 2021 — a family-facing marketplace plus occupancy software tracking real-time bed availability for providers, on a $21M Series A led by Accel and 500,000 monthly users [S2]. pflege.de has run the German later-life platform since 2011 at around ten million visitors a year, and was bought outright by care-products group Paul Hartmann [S3]. Germany is next door, and the model has been working there for fifteen years.
 
 ## First moves
 
@@ -223,8 +243,8 @@ Solved elsewhere: A Place for Mom (US) raised $175M in growth equity at a valuat
 2. Sell families first: flat-fee guided placement (shortlist, applications filed, queues tracked) in the pilot region, with the yearbook's 70,209 pending applications [S4] as the opening fact of every conversation.
 3. Sign private homes with sellable capacity onto per-move-in referral fees — the A Place for Mom model [S1] — and offer them the occupancy tooling Lottie proved providers buy [S2].
 4. Watch the successor to the closed 1 bn CZK modernization call [S10] on the [tenders ledger](/signals/tenders#dotace-npo-31-24-138-pobytove-sluzby): every funded bed is new inventory.
-5. Named competition: SrovnejPéči.cz [S12] — it owns the directory position and could add vacancy data; move before it does.
+5. Named competition: SrovnejPéči.cz [S12] — two years old, it owns the directory position and could add vacancy data; move before it does.
 
 ## Revisions
 
-2026-08-25 · record created — Minted from the elder-care deep sweep (run 2026-08-24): demand from the MPSV yearbook queue statistics [S4] and capacity models [S5], money from the Brno and Praha 14 concessions [S8,S9] and the closed NPO call [S10], comparables verified against their funding announcements [S1,S2,S3]. The 80+ figures were recomputed from the primary ČSÚ workbook (Tab. 1, middle variant): 465,991 on 1 Jan 2023 → 690,376 on 1 Jan 2030, +48.2% [S7]. Unmet-application counts are stated as a multi-application pressure index throughout, never as persons waiting [S4]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched by that pass. Third pass this date, merged here: the 2026-08-25 retrospective harvest added the municipal construction wave — 13+ senior-care building contracts and grants Nov 2025–Aug 2026, led by Prague's Bohnice pavilions [S13] — and the pending legislative motion on the Social Services Act (MPs' bill 125 plus the decree 505/2006 update) [S14]. Both context; no score moved.
+2026-08-25 · record created — Minted from the elder-care deep sweep (run 2026-08-24): demand from the MPSV yearbook queue statistics [S4] and capacity models [S5], money from the Brno and Praha 14 concessions [S8,S9] and the closed NPO call [S10], comparables verified against their funding announcements [S1,S2,S3]. The 80+ figures were recomputed from the primary ČSÚ workbook (Tab. 1, middle variant): 465,991 on 1 Jan 2023 → 690,376 on 1 Jan 2030, +48.2% [S7]. Unmet-application counts are stated as a multi-application pressure index throughout, never as persons waiting [S4]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched by that pass. Third pass this date, merged here: the 2026-08-25 retrospective harvest added the municipal construction wave — 13+ senior-care building contracts and grants Nov 2025–Aug 2026, led by Prague's Bohnice pavilions [S13] — and the pending legislative motion on the Social Services Act (MPs' bill 125 plus the decree 505/2006 update) [S14]. Both context; no score moved by that pass. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, and the two dimensions moved in opposite directions to the same total. `scores.proof` 2 → 3. All three comparables pass the maturity test — A Place for Mom selling since 2000 on $175M of growth equity above a $1B valuation, Lottie since 2021 with a $21M Series A and 500,000 monthly users, pflege.de since 2011 at ~10M visitors a year and acquired outright by Paul Hartmann [S1,S2,S3] — established in three markets with Germany CEE-adjacent, which is rung 3. The [S3] note's reason for holding proof at 2, that pflege.de is content-and-leads rather than full placement navigation, was a judgment about product shape; the rewritten ladder measures maturity and market spread instead, and does not read product shape at all. That note is left exactly as written. `scores.gap` 2 → 1, a genuine de-rank on the same evidence. Rung 2 now means a check that found NO local player, and [S12] found three: SrovnejPéči.cz, Můjdůchod.cz and pece.cz, all lifted into a structured `locals[]` ledger and all early — SrovnejPéči.cz fails the three-year limb outright at two years old, and none of the three publishes a customer count, pairs with a public buyer in `data/lookup/cz-contract-parties.jsonl`, or carries a round or state listing. Rung 1, "local players exist but all EARLY, or only weak/legacy incumbents", is that exactly, and [S12]'s own note called them weak incumbents. Nothing about the opportunity changed: early players do not close a space, and the placement position [S12] looked for is still unoccupied. `score` unchanged at 8. The Středočeský kraj SENIOR portal was deliberately not lifted into `locals[]` — it is a regional public database, not a player — and stays named in the body. The non-solutions and Proven-abroad paragraphs now state ages rather than only funding, and first move 5 says how old the named competitor is. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.

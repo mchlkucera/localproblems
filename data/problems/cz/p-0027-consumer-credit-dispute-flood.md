@@ -6,9 +6,9 @@ fix: 'Case software for lenders answering complaints at the Financial Arbitrator
   loan file, draft the response, hold every deadline, and flag which cases to settle.'
 category: fintech
 geo: CZ-national
-score: 5
+score: 6
 scores:
-  proof: 1
+  proof: 2
   money: 0
   urgency: 1
   demand: 2
@@ -38,6 +38,46 @@ comps:
   since: 2026
   traction: 'YC S26, 4-person Oslo team (YC directory, 2026); AI-native debt collection; no public funding or customer figures yet'
   signal: yc-audun
+locals:
+- name: aCompliance
+  url: https://www.acompliance.cz/klienti/nebankovni-poskytovatele-uveru/
+  status: early
+  evidence: 'EARLY on receipts only — the closest Czech offering, marketing the handling of
+    client complaints and out-of-court disputes at the financial arbiter to non-bank lenders,
+    but sold as a service with no product behind it; no customer count, no public-buyer pair
+    in data/lookup/cz-contract-parties.jsonl, no round and no state listing on file [S5]'
+- name: ePohledávky.cz (SoftGate Systems)
+  url: https://www.epohledavky.cz/
+  ico: '28859685'
+  since: 2013
+  status: early
+  evidence: 'EARLY for this space — a receivables and collections platform, automating the creditor
+    pursuing the debtor rather than the creditor defending a consumer claim [S5]; ARES
+    registration 2013-01-01. No limb of the established test is met by anything on file
+    here: nothing names who has bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+- name: Barrister (ASW)
+  url: https://www.asw.cz/
+  status: early
+  evidence: 'EARLY on receipts only — collections and receivables software on the pursuit side
+    of the same relationship [S5]; no customer count, public-buyer pair, round or state listing
+    on file'
+- name: SingleCase
+  url: https://www.singlecase.cz/
+  status: early
+  evidence: 'EARLY on receipts only — law-practice case management, generic firm tooling with
+    no financial-arbiter docket in it [S5]; no customer count, public-buyer pair, round or
+    state listing on file'
+- name: Aptien
+  url: https://www.aptien.com/
+  ico: '26397668'
+  since: 2005
+  status: early
+  evidence: 'EARLY for this space — generic case and record management with no financial-arbiter docket
+    in it [S5]; ARES registration 2005-08-30. No limb of the established test is met by
+    anything on file here: nothing names who has bought it, no published tally exists, there
+    is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no
+    state listing.'
 sources:
 - type: complaint
   name: "Financial arbiter — 2025 annual report"
@@ -130,12 +170,10 @@ Who pays: non-bank lenders and banks first — each new case at the Financial Ar
 
 Existing non-solutions: manual legal departments, outsourced law firms billing per case, and the arbiter's static information pages [S4]. A 2026-08-13 market search found no Czech product for dispute-response operations, docket management against the FA, or settlement workflow — only information portals and services [S4].
 
-Solved elsewhere, weakly: no funded analog exists for consumer-credit dispute operations specifically; the nearest proven models are AI claims-operations companies in insurance (ClaimSorted, Avallon, Basepilot, Amera) and AI-native debt collection (Audun, Norway) [S3]. The documented demand is what carries this — the first Czech mover would be productizing a workflow that provably exists at scale rather than importing a proven product.
-
-Solved elsewhere: dispute handling is funded on both sides of the Atlantic. Casap (US) raised a $25M Series A to automate the bank payment-dispute lifecycle, ClaimSorted (UK) raised $13.3M serving twenty-plus insurers as a tech-enabled claims handler, and Audun (Oslo) is building AI-native collections out of YC [S3]. The Czech arbiter's caseload is the same shape of work, still handled by hand.
+Solved elsewhere: dispute handling is funded on both sides of the Atlantic, but only one of the three sellers has been at it long enough to prove anything. Casap has automated the bank payment-dispute lifecycle since 2023 and raised a $25M Series A at a $105M valuation [S3]. ClaimSorted opened in London in 2024 and handles claims for twenty-plus insurers on $13.3M; Audun is four people in Oslo building AI-native collections out of YC [S3]. So the proven model is Casap's, one vertical away in payments — nobody anywhere has been documented productising consumer-credit dispute response itself. The Czech arbiter's caseload is the same shape of work, still handled by hand, and the documented volume carries the case here more than the foreign template does.
 
 ## Revisions
 
 
-2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "each incoming FA proceeding" now reads "each new case at the Financial Arbitrator", and "external advokáti" now reads "outside law firms". Scores, status, source notes and every [Sn] marker are untouched by those passes. Third pass this date, merged here: the first VeKLEP harvest put the Finance Ministry's pending revision of the Consumer Credit Act 257/2016 on the ledger as a context receipt [S6] — the statute generating the docket is being rewritten. No score moved.
+2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "each incoming FA proceeding" now reads "each new case at the Financial Arbitrator", and "external advokáti" now reads "outside law firms". Scores, status, source notes and every [Sn] marker are untouched by those passes. Third pass this date, merged here: the first VeKLEP harvest put the Finance Ministry's pending revision of the Consumer Credit Act 257/2016 on the ledger as a context receipt [S6] — the statute generating the docket is being rewritten. No score moved by that pass. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test. `scores.proof` 1 → 2. Casap passes the test outright — selling since 2023, so the three-year limb is met, on a $25M Series A at a $105M valuation — which is one established foreign player, rung 2. ClaimSorted and Audun do not: ClaimSorted opened in 2024 and Audun in 2026, both inside the three-year limb, so neither counts however well funded. Rung 3 was considered and declined: it needs establishment in two-plus markets with one CEE-adjacent, and Casap's United States is the only market with an established seller in it. `scores.gap` stays 1. The five Czech offerings the [S5] sweep found were lifted into a structured `locals[]` ledger and every one reads early on receipts — aCompliance sells the arbiter-dispute work as a service with no product behind it, ePohledávky.cz and Barrister automate the creditor pursuing the debtor rather than defending a claim, and SingleCase and Aptien are generic case management with no arbiter docket; none publishes a customer count, pairs with a public buyer in `data/lookup/cz-contract-parties.jsonl`, or carries a round or state listing. Early local players do not close a space, so gap does not fall to 0; and it does not rise to 2 either, because [S5] found local players rather than none. `score` 5 → 6. The two Proven-abroad paragraphs were merged into one. The first, "Solved elsewhere, weakly", asserted the old score in words — "no funded analog exists" — and, because it is not the literal lead-in, it was rendering inside the local-competition section rather than the foreign one. The merged paragraph keeps its honest limit intact: the only proven seller is one vertical away, and nobody anywhere has been documented productising consumer-credit dispute response. Avallon, Basepilot and Amera dropped out of the body with it; they remain in the [S3] source note, unedited. Money, urgency and demand untouched; no [Sn] marker moved.
 2026-08-20 · evidence audit — Three legal-status claims removed, none of which the register ever checked. The arbiter's forum was described as mandatory: neither S1's note nor the underlying signal says so. The interest-voiding doctrine ("a failed assessment can void the credit contract's interest") is gone — the corpus records only that creditworthiness-assessment claims dominate the docket, nothing about the remedy. And "Free proceedings with no lawyer requirement remove any natural brake on volume": both procedural facts had no receipt. The caseload figures, the settlement rate and the proceeding length are unaffected; they are receipted [S1].

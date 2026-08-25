@@ -5,14 +5,14 @@ title: Czech developers and builders face building-permit proceedings that typic
   six months to a year, through a still-dysfunctional state portal
 category: housing
 geo: CZ-national
-score: 5
+score: 7
 scores:
-  proof: 1
+  proof: 2
   money: 1
   urgency: 1
   demand: 2
-  gap: 0
-status: watching
+  gap: 1
+status: candidate
 build:
   capital: garage
   first_revenue: months
@@ -43,6 +43,15 @@ comps:
   since: 2025
   traction: 'YC W26, 2-person team (YC, 2026); AI plan-review workspace claiming 50-70% fewer city comments; funding undisclosed'
   signal: yc-autositu
+locals:
+- name: Průvodka
+  url: https://pruvodka.cz/o-nas
+  status: early
+  evidence: 'sells AI permit preparation to projektanti and stavebníci at 12,900 CZK per
+    project or 29,900 CZK a month — it checks the dokumentace, routes requests to dotčené
+    orgány and správci sítí through datová schránka, tracks each 30/60/90-day lhůta and
+    generates the doklad o fikci souhlasu. Unfunded, no ARES match for the trade name, no
+    launch year published and no limb of the established test on file.'
 sources:
 - type: arbitrage
   name: "PermitPortal"
@@ -169,11 +178,13 @@ Why now: the new building act changed procedures, the state portal remains unrel
 
 Who pays: developers and the larger firms that commission building work, for whom shaving months off permit preparation is worth meaningful fees; the architecture and engineering offices that draw up the design documents; potentially municipalities buying triage tooling, though the private side is the realistic first buyer. The volume is documented: 61,613 building permits were issued in 2025 [S8], and roughly 36,300 authorised engineers and architects prepare the documentation behind them [S9]. Manual permit engineering for a single family house is published at 16,000–42,000 CZK a project [S10]. Průvodka undercuts that at 12,900 CZK [S7], so even a tenth of the annual permit flow at that price is on the order of €3M a year — a floor, and one that assumes the tool sells only per permit rather than by subscription.
 
-Existing non-solutions: the state's own portál stavebníka (the source of much of the pain), law firms and inženýring service providers who navigate permits manually per project. Czech software for permit preparation does exist [S3]: **Průvodka** sells it to projektanti and stavebníci — upload the dokumentace, AI checks it and recommends which dotčené orgány and správci sítí (ČEZ, GasNet, vodárny, CETIN) to approach, the žádosti go out by datová schránka, and the service tracks each 30/60/90-day lhůta and issues the doklad o fikci souhlasu when one lapses, at 12,900 CZK per project or 29,900 CZK a month on the Studio plan [S7]. On the authority side of the same counter, **Efektivia** sells AI document triage into Czech municipal offices, live at MČ Brno-střed and MěÚ Neratovice [S7].
+Existing non-solutions: the state's own portál stavebníka (the source of much of the pain), law firms and inženýring service providers who navigate permits manually per project. Czech software for permit preparation does exist [S3]: **Průvodka** sells it to projektanti and stavebníci — upload the dokumentace, AI checks it and recommends which dotčené orgány and správci sítí (ČEZ, GasNet, vodárny, CETIN) to approach, the žádosti go out by datová schránka, and the service tracks each 30/60/90-day lhůta and issues the doklad o fikci souhlasu when one lapses, at 12,900 CZK per project or 29,900 CZK a month on the Studio plan [S7]. On the authority side of the same counter, **Efektivia** sells AI document triage into Czech municipal offices, live at MČ Brno-střed and MěÚ Neratovice [S7]. Both are young and unfunded: neither publishes a launch year or a customer list, and neither appears in any funding feed [S7].
 
-Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26) show a funded US cluster around AI permit/zoning navigation [S1]. All analogs are US-based [S1,S4] and permitting is jurisdiction-specific; with the local field occupied [S7], the documented demand is what remains.
+Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26) show a funded US cluster around AI permit/zoning navigation [S1]. All analogs are US-based [S1,S4] and permitting is jurisdiction-specific; with the local field contested rather than closed [S7], the documented demand is what remains.
 
 ## Revisions
+
+2026-08-25 · status follows gap — Corrected from `watching` to `candidate` under the rewritten de-rank rule in SPEC.md. The old rule sent a record to `watching` the moment ANY local player was found; this record's local field is contested rather than taken, meaning the players on file are all EARLY by the SCORING.md established test and none of them closes the space. Scores are untouched — only the status word, which had been asserting the opposite of the score printed beside it.
 
 2026-08-13 · fact check — The "OECD's slowest / 246 days / 157th in the world" framing traces to World Bank Doing Business 2020 — an index discontinued in 2021 after a data-manipulation scandal [S6] — and it measured the full administrative cycle, not permitting alone. Replaced with the ČKAIT survey (Jan 2024, n≈1,100): typical proceedings 6–12 months [S5], https://zpravy.ckait.cz/vydani/2024-01/delka-povolovani-staveb-v-cr-nikoliv-roky-ale-mesice-ukazal-pruzkum-inzenyrske-komory/
 
@@ -181,4 +192,4 @@ Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26)
 
 2026-08-24 · title sweep — The judgment left open above is now made: the "one of the OECD's slowest" framing in the title and lead is cut. Its only carrier, the yc-permitportal harvest note [S2], states no source of its own, and the record's own 2026-08-13 fact check traced the family of superlatives to the discontinued Doing Business index [S6]. Title and lead now state what the ČKAIT survey receipts: proceedings typically run six months to a year [S5]. Scores untouched; the DSŘ-dysfunction demand receipts [S2] stand.
 
-2026-08-25 · plain-language pass — The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "larger stavebníci" now reads "the larger firms that commission building work", and "offices preparing dokumentace" now reads "offices that draw up the design documents". No `fix:` was authored here: the argument closes with the local position held by Průvodka and names no product an entrant would build that Průvodka does not already sell, so the field is left absent rather than filled with something vague — the template renders nothing when it is. Scores, status, source notes and every [Sn] marker are untouched by that pass. Second pass this date, merged here: the 2026-08-25 retrospective harvest added the ministry's ~€0.8M contract upgrading the building-procedure portal [S11]. Money 0 → 1 on the adjacent-spend precedent p-0004 already carries — the state demonstrably pays into the system at the centre of this record — and score 4 → 5; everything else stands.
+2026-08-25 · plain-language pass — The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "larger stavebníci" now reads "the larger firms that commission building work", and "offices preparing dokumentace" now reads "offices that draw up the design documents". No `fix:` was authored here: the argument closes with the local position held by Průvodka and names no product an entrant would build that Průvodka does not already sell, so the field is left absent rather than filled with something vague — the template renders nothing when it is. Scores, status, source notes and every [Sn] marker are untouched by that pass. Second pass this date, merged here: the 2026-08-25 retrospective harvest added the ministry's ~€0.8M contract upgrading the building-procedure portal [S11]. Money 0 → 1 on the adjacent-spend precedent p-0004 already carries — the state demonstrably pays into the system at the centre of this record — and score 4 → 5; everything else stands. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries Průvodka, marked early: live and priced, but unfunded, with no launch year published and no ARES match for the trade name, so no limb of the established test is on file [S7]. An early local player does not close a space: `scores.gap` 0 → 1. Efektivia is deliberately NOT in `locals[]` — it sells AI triage to the building authority, the other side of the counter, and `locals[]` is the ledger of players selling this record's own product to its own buyer, which is what the gap ladder reads; it stays named in the body. `scores.proof` 1 → 2: PermitFlow and GreenLite both pass the established test, but both are American, so rung 3's 'two markets, one CEE-adjacent' is not met. `score` 5 → 7.

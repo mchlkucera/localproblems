@@ -8,9 +8,9 @@ fix: 'Software that files a Czech employee card — the work-and-residence permi
   instead of a per-case agency fee.'
 category: legal-compliance
 geo: CZ-national
-score: 4
+score: 6
 scores:
-  proof: 1
+  proof: 3
   money: 0
   urgency: 1
   demand: 1
@@ -135,10 +135,10 @@ Who pays: employers with recurring foreign-hiring volume (manufacturing, logisti
 
 Existing non-solutions: ministry information pages, permit.cz (static form-filling guides), classic law firms (e.g. ARROWS) and manual relocation agencies [S2]. A 2026-08-13 search found no automation platform [S2], and a 2026-08-20 follow-up held that finding against a market that is dense but entirely manual: zamestnaneckekarty.cz turns out to be the law firm Spring Walk with no portal or tracking of any kind, Foreigners, ReloCzech, Expat Support, Principio and DMPF sell serviced immigration agendas, and ARES lists nine "Relocation" and fifteen "Expat" companies without a software vendor among them [S4].
 
-Solved elsewhere: the US YC cluster above [S1,S3]. Validation is US-only and immigration processes are jurisdiction-specific; the counterweight is that the Czech process's paper-heaviness is exactly what makes an automation layer valuable.
+Solved elsewhere: the US cluster above is the newest layer [S1,S3], but the proof sits closer to home. Localyze in Germany and Jobbatical in Estonia have sold employer-side immigration case handling across Europe for years — the ledger below carries both. What does not transfer is the procedure itself, which is national; the Czech process's paper-heaviness is exactly what makes an automation layer valuable.
 
 ## Revisions
 
 2026-08-24 · evidence audit — Cut "labor shortage keeps hiring volumes up" from Why now: a trajectory claim with no second data point anywhere in the corpus — yc-gale documents employer dependence on foreign workers at a single point in time [S1], the same defect the 2026-08-20 audit removed from p-0007. The structural-dependence claim in the lead stands [S1,S2]. A fresh spot-check on this date (Czech query for foreigner-employment tracking software) returned only generic HR/asset registries (Aptien, plusPortal), consistent with the 2026-08-20 NOT FOUND verdict [S4]. Scores untouched.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `scores.proof` 1 → 3: Localyze (Germany) and Jobbatical (Estonia) both pass the established test in two CEE-adjacent markets, while Gale and LegalOS are two years old. The 'Solved elsewhere' paragraph asserted that validation was US-only, which contradicted this record's own comps ledger, and it now names the two European players instead. `scores.gap` stays 1: the 2026-08-20 scan found a dense but entirely manual market — Spring Walk, Foreigners, ReloCzech, Expat Support, Principio, DMPF [S4] — and six commercial providers selling the outcome by hand are the weak incumbents of rung 1, not the empty field of rung 2. No `locals[]` key, because those are service firms rather than product vendors and the ledger the gap ladder reads is a ledger of products. `score` 4 → 6.

@@ -5,9 +5,9 @@ title: Czech SMB distributors and manufacturing suppliers re-type inbound RFQs a
   from e-mail, PDF and Excel into their ERPs by hand
 category: b2b
 geo: CZ-national
-score: 4
+score: 3
 scores:
-  proof: 3
+  proof: 2
   money: 0
   urgency: 1
   demand: 0
@@ -43,6 +43,32 @@ comps:
   since: 2025
   traction: 'YC W26, 2-person team (YC, 2026); ERP-integrated quote and order entry automation; funding beyond YC undisclosed'
   signal: yc-ventura
+locals:
+- name: Apertia Tech
+  url: https://apertia.ai/b2b-objednavky-agent
+  ico: '27117758'
+  since: 2004
+  status: established
+  evidence: 'public customer count: Apertia states dozens of completed customer integrations
+    across Pohoda, ABRA, ABRA Flexi, Money S3/S5, Helios and K2. Its "B2B Objednávky pomocí
+    AI" extracts products and specifications from an inbound e-mail, matches them against the
+    buyer''s catalogue and internal item codes, writes the order into the ERP and replies with
+    a confirmation and a delivery date. Apertia Tech s.r.o. has traded since 2004.'
+- name: Dativery
+  url: https://www.dativery.com/cs/
+  ico: '05574617'
+  since: 2016
+  status: established
+  evidence: 'named customers: Dativery is the integration layer behind Digitoo, and sells
+    order and invoice extraction into ABRA Flexi and POHODA. Dativery s.r.o. has traded since
+    2016.'
+- name: Alice (Redque)
+  url: https://redque.cz/
+  ico: '14430266'
+  since: 2022
+  status: early
+  evidence: 'extracts receipts, invoices and objednávky into Helios, Pohoda and Abra. Redque
+    s.r.o. was incorporated in April 2022 and no limb of the established test is on file.'
 sources:
 - type: arbitrage
   name: "Mercura"
@@ -100,7 +126,7 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-08-25'
 ---
 
 Czechia is dense with SMB velkoobchody and manufacturing suppliers running Pohoda, Helios and ABRA ERPs [S1]. Inbound demand arrives as unstructured e-mails, PDFs and Excel sheets, and staff re-type it into quotes and orders by hand [S1] — slow, error-prone work that caps how many RFQs a sales desk can turn around.
@@ -111,9 +137,11 @@ Who pays: the distributors and suppliers themselves; quote-turnaround speed conv
 
 Existing non-solutions: manual entry, generic automation agencies (Appmine) building one-off scripts, and US/global tools (WizCommerce, turian) without Czech ERP integrations or language handling [S2]. A Czech vertical product already exists [S2]. **Apertia Tech s.r.o.** (Prague) sells "B2B Objednávky pomocí AI" — extraction of products and specifications from an inbound e-mail, matching against the customer's catalogue and internal item codes, order generation in the ERP, automatic confirmation with a delivery date — and names dozens of completed integrations with Pohoda, ABRA, ABRA Flexi, Money S3/S5, Helios and K2 [S4]. Its own worked example is a velkoobchod se stavebními materiály, the same construction-supply distributor Mercura sells to in Bavaria [S1,S4]. **Alice by Redque** and **Dativery** sell the same extraction into the same ERPs [S4].
 
-Solved elsewhere: funded analogs in two markets (DE and US), with the German one directly next door to CEE [S1,S3]. What that no longer buys is an empty local field: the model is validated abroad and local vendors already sell it [S4]. No complaints are documented either — the demand case is structural, not evidenced.
+Solved elsewhere: the wedge is funded in Germany and the US [S1,S3], but the comparables below are mostly young — only Workist, the oldest of them, is both three years into selling and past the seed stage. What the funding no longer buys is an empty local field: local vendors already sell the same extraction into the same ERPs [S4]. No complaints are documented either — the demand case is structural, not evidenced.
 
 ## Revisions
+
+2026-08-25 · re-scored on the new ladder — Re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries Apertia Tech, Dativery and Alice by Redque [S4]. Apertia (trading since 2004, dozens of completed customer integrations across the Czech SMB ERPs) and Dativery (since 2016, the integration layer behind Digitoo) both pass the established test, so `scores.gap` stays 0 and the 2026-08-20 de-rank now rests on a receipt a machine can re-check; Redque s.r.o., incorporated in April 2022, is early. `scores.proof` 3 → 2, a genuine downgrade: only Workist passes the established test — Mercura and Ventura are under three years old, and turian, though older, cites no customer count, no public buyer, no Series A and no state listing. One established player in one market is rung 2, not rung 3, and the 'Solved elsewhere' paragraph no longer claims two. `score` 4 → 3.
 
 2026-08-20 · gap re-check — De-ranked. The 2026-08-13 absence check behind gap 2 was recorded against a YC company page and returned only US/global tools plus "CZ generic AI agencies" [S2]; it never looked at what Czech vendors call this in Czech. Re-run against Czech-language search, the first query surfaced Apertia Tech s.r.o. selling a named B2B order-processing AI product with the exact Pohoda/ABRA/Helios/Money/K2 integration set that would have been the moat, plus Alice by Redque and Dativery doing the same extraction into the same ERPs [S4]. Gap 2 → 0 and score 6 → 4 under the SPEC §4 de-rank rule, status → watching; the who-pays and existing-non-solutions paragraphs were rewritten so the prose no longer contradicts the score. The record's remaining honest content is its proof: the wedge is funded in DE and the US, and it is also already being sold here.
 

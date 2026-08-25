@@ -113,6 +113,7 @@ export default async function Record({ params }: Params) {
   const sections = splitBody(p.body);
   const extract = extractDate();
   const comps = p.comps ?? [];
+  const locals = p.locals ?? [];
 
   // Body prose renders through the ref post-pass: an explicit `[Sn]` marker —
   // or a link to a url already on the ledger — becomes the superscript
@@ -145,11 +146,12 @@ export default async function Record({ params }: Params) {
 
   // Scorecard "read more" targets (owner, 2026-08-24): each cell links to the
   // section of the page carrying its evidence. Gap falls back to the sources
-  // ledger when a record states no local-competition paragraph; demand lands
-  // on its first backing source row, or on the problem when none is on file.
+  // ledger only when a record has NEITHER a locals[] ledger nor a
+  // local-competition paragraph; demand lands on its first backing source row,
+  // or on the problem when none is on file.
   const anchors: Record<Dim, string> = {
     proof: "#proven-abroad",
-    gap: sections.competition ? "#local-competition" : "#sources",
+    gap: locals.length > 0 || sections.competition ? "#local-competition" : "#sources",
     demand: refs.demand.length ? `#s${refs.demand[0]}` : "#problem",
     money: "#how-big",
     urgency: "#why-now",
@@ -294,10 +296,48 @@ export default async function Record({ params }: Params) {
           <p className="absent">No verified foreign comparable on file as of <time dateTime={p.updated}>{p.updated}</time>.</p>
         )}
 
-        {sections.competition && (
+        {/* LOCAL COMPETITION — the mirror of "Proven abroad", and structured for
+            the same reason: `locals[].status` is what the GAP score turns on
+            (SCORING.md, the established test), so it has to be a rendered fact a
+            reader can check, not a clause buried in a paragraph. The ledger uses
+            the comps `.entry` grammar verbatim — serif linked name, since year,
+            evidence as the muted note line — with the established/early band as
+            the quiet bordered `.pill` the Build row already spends on a closed
+            enum. The prose paragraph keeps rendering UNDERNEATH when a record
+            states one: the ledger says who, the prose says what that means. */}
+        {(locals.length > 0 || sections.competition) && (
           <>
             <h2 id="local-competition">Local competition</h2>
-            <div dangerouslySetInnerHTML={{ __html: body(sections.competition) }} />
+            {locals.length > 0 && (
+              <ul className="comps">
+                {locals.map((l) => {
+                  // ONLY THE FACTS THAT ARE ON FILE. `ico` is optional and
+                  // `since` is optional on an EARLY player — small Czech vendors
+                  // routinely publish no founding year — so the line is composed
+                  // from what exists rather than templated over what should. A
+                  // fixed template renders "· since undefined", which is the
+                  // register asserting a fact it does not hold.
+                  const meta = [l.ico && `IČO ${l.ico}`, l.since && `since ${l.since}`]
+                    .filter(Boolean)
+                    .map((s) => `· ${s}`)
+                    .join(" ");
+                  return (
+                    <li key={l.name} className="entry">
+                      <span className="line">
+                        <a className="name" href={l.url}>{l.name}</a>
+                        {meta && <span>{meta}</span>}
+                        <span className="leader"></span>
+                        <span className="pill">{l.status}</span>
+                      </span>
+                      <p className="note">{l.evidence}</p>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+            {sections.competition && (
+              <div dangerouslySetInnerHTML={{ __html: body(sections.competition) }} />
+            )}
           </>
         )}
 

@@ -435,8 +435,14 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 .scorecard .read { font: 400 var(--fs-data)/1.4 var(--serif); color: var(--ink); }
 /* absence is stated, never hidden: a zero row greys its read and figure */
 .scorecard .is-zero .read, .scorecard .is-zero .num { color: var(--ink-muted); }
-/* the Build cell's team pill — a quiet bordered mono mark, not a stamp */
-.scorecard .pill {
+/* the quiet bordered mono mark, not a stamp: a value from a CLOSED ENUM
+   stated as a band. Two callers, one device — the Build cell's team band
+   (solo / small-team / funded-team) and, since v1.15, the local-competition
+   ledger's established/early band, which is the fact the GAP score turns on
+   and therefore has to be readable at a glance rather than inferred from a
+   sentence. No colour, size, weight, spacing value or breakpoint joins the
+   sheet for the second caller: the selector widens, the rule does not. */
+.scorecard .pill, .comps .pill {
   font: 600 var(--fs-label)/1 var(--mono);
   text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted);
   border: 1px solid var(--rule); padding: 2px 6px; white-space: nowrap;

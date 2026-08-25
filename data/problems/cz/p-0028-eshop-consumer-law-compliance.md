@@ -7,14 +7,14 @@ fix: 'A weekly scanner for Czech online shops that checks the checkout, the pric
   not as a one-off legal audit.'
 category: retail-services
 geo: CZ-national
-score: 6
+score: 9
 scores:
-  proof: 1
+  proof: 3
   money: 0
   urgency: 3
   demand: 2
-  gap: 0
-status: watching
+  gap: 1
+status: candidate
 build:
   capital: kiosk
   first_revenue: weeks
@@ -42,6 +42,61 @@ comps:
   since: 2008
   traction: '30,000 members, ~92,000 digital presences (own data Mar 2026, via Wikipedia);
     legal texts, Abmahnung defense, Käufersiegel seal'
+locals:
+- name: Hlídač Slev (JARABOT)
+  url: https://doplnky.shoptet.cz/hlidac-slev
+  ico: '22571299'
+  since: 2025
+  status: early
+  evidence: 'EARLY — fails the three-year limb: JARABOT s.r.o. was registered 2025-02-10 in
+    ARES, eighteen months of trading [S8]. No customer count is published, no public-buyer
+    pair exists in data/lookup/cz-contract-parties.jsonl, no round and no state listing is on
+    file; its five Shoptet ratings average 3.4 [S10]'
+- name: Slevy správně (Cenový automat)
+  url: https://doplnky.shoptet.cz/slevy-spravne
+  ico: '07641346'
+  since: 2023
+  status: early
+  evidence: 'EARLY — the product dates to the 6 Jan 2023 reference-price rule it corrects for,
+    so the three-year limb is only just met, and no other limb is: no customer count, no
+    public-buyer pair in data/lookup/cz-contract-parties.jsonl, no round, no state listing.
+    Four Shoptet ratings averaging 4.0 [S10]'
+- name: Pravoid
+  url: https://www.pravoid.cz/
+  ico: '23683368'
+  since: 2025
+  status: early
+  evidence: 'EARLY — fails the three-year limb: the proprietor Bc. Filip Krechler was
+    registered 2025-09-03 in ARES [S8]. Generated legal texts at 199–499 CZK with an e-Sbírka
+    watch subscription; no customer count, public-buyer pair, round or state listing on file'
+- name: Právo e-shopů
+  url: https://www.pravoeshopu.cz/pravni-audit-eshopu
+  status: early
+  evidence: 'EARLY on receipts only — sells one-off právní audity priced per engagement, the
+    legacy service this record proposes to replace with a subscription [S5]; no customer count,
+    public-buyer pair, round or state listing on file'
+- name: eLegal
+  url: https://www.elegal.cz/
+  ico: '03153398'
+  since: 2014
+  status: early
+  evidence: 'EARLY for this space — a law firm selling one-off audits and terms drafting per engagement
+    [S5], the legacy service this record proposes to replace with a subscription, not the
+    monitoring product itself; ARES registration 2014-06-30. No limb of the established test
+    is met by anything on file here: nothing names who has bought it, no published tally
+    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
+    stage, and no state listing.'
+- name: AZ LEGAL
+  url: https://www.azlegal.cz/
+  ico: '05030323'
+  since: 2016
+  status: early
+  evidence: 'EARLY for this space — a law firm selling one-off audits and terms drafting per engagement
+    [S5], the legacy service this record proposes to replace with a subscription, not the
+    monitoring product itself; ARES registration 2016-04-27. No limb of the established test
+    is met by anything on file here: nothing names who has bought it, no published tally
+    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
+    stage, and no state listing.'
 sources:
 - type: complaint
   name: "ČOI — 2025 distance-selling inspection results"
@@ -198,9 +253,9 @@ Why now: the obligation stack keeps growing. From 27 September 2026 the green-cl
 
 Who pays: the merchants, because the alternative is a fine and inspectors now aim at the shops with the worst odds. Shoptet alone hosts around 30,000 of them [S5]. Czech compliance add-ons price at 19 to 200 CZK a month [S8,S10]; the German subscriptions this copies run €9.90–24.90. Thirty thousand merchants, a €12 monthly bundle over the duties nobody has productised, one in ten buying: about €430,000 a year, against ~13.0M CZK of ČOI fines in 2025 [S1].
 
-Existing non-solutions: law firms sell one-off audits at law-firm prices — Právo e-shopů, eLegal, AZ LEGAL [S5]. The discount-labelling slot is taken twice over: Hlídač Slev and Slevy správně both rewrite reference prices for the 30-day rule and keep three years of ČOI-exportable history, at ~19 CZK and a flat 200 Kč a month [S8,S10]. Pravoid sells generated terms and privacy policies with alerts when the law moves [S8]. Nobody covers the rest of ČOI's map — green claims, information duties, order buttons [S8,S10].
+Existing non-solutions: law firms sell one-off audits at law-firm prices — Právo e-shopů, eLegal, AZ LEGAL [S5]. The discount-labelling slot is taken twice over, but by newcomers. Hlídač Slev and Slevy správně both rewrite reference prices for the 30-day rule and keep three years of ČOI-exportable history, at ~19 CZK and a flat 200 Kč a month [S8,S10]; Pravoid sells generated terms and privacy policies with alerts when the law moves [S8]. The company behind Hlídač Slev and the proprietor behind Pravoid are both 2025 entries in the business register, and neither publishes a customer count [S8]. Nobody covers the rest of ČOI's map — green claims, information duties, order buttons [S8,S10].
 
-Solved elsewhere: Germany productised exactly this under harsher pressure, and two firms have lasted decades on it. Trusted Shops sells certification with buyer protection across 17,000+ European shops; IT-Recht Kanzlei sells subscription legal texts from €9.90 a month with plugins for the major shop platforms [S4]. Both grew on merchants' fear of a warning letter; here the fear comes from the regulator instead — same merchant, same checklist. Neither analog carries a fresh round [S4].
+Solved elsewhere: Germany productised exactly this under harsher pressure, and three firms have lasted decades on it. Trusted Shops has sold since 1999 and carries certification with buyer protection across 17,000+ European shops, Zalando and Obi among them, in eleven markets including Austria and Poland. IT-Recht Kanzlei has sold subscription legal texts since 2004, from €9.90 a month, with plugins for the major shop platforms. Händlerbund, trading since 2008, counts 30,000 members and some 92,000 digital presences [S4]. All three grew on merchants' fear of a warning letter; here the fear comes from the regulator instead — same merchant, same checklist. None of the three carries a fresh round [S4], which is what two decades of paying customers looks like rather than a gap in the evidence.
 
 ## First moves
 
@@ -209,12 +264,14 @@ Solved elsewhere: Germany productised exactly this under harsher pressure, and t
 3. Extend the scanner to ČOI's four documented failure buckets — missing pre-contractual information (488 breaches in 2025), missing complaint-handling information (363), unfair commercial practices (318), non-compliant order buttons (107) — the checklistable core of the 2,399 recorded violations [S1].
 4. Ship into the Shoptet app store, but not as the first compliance add-on there: the discount-labelling slot is already contested — Hlídač Slev at ~19 CZK/month per 1,000 products, its five public ratings middling with reviewers citing support and export-accuracy problems [S8], and Slevy správně at a flat 200 Kč/month on both Shoptet and Upgates [S10]. One integration still reaches tens of thousands of obligated shops [S5], and the catalogue carries no legal-compliance category to compete inside [S8,S10].
 5. Soften the price objection for the rural long tail: merchants based in MAS territories — outside Prague and cities over 25,000 inhabitants — can co-fund software purchases at 50% (grants up to 1.49M CZK) from [OP TAK Technologie pro MAS II](/sources/tenders#dotace-optak-technologie-mas-2), €22M allocated, applications 2026-09-01 to 2027-09-01 [S7].
-6. Competition, checked 2026-08-20 and 2026-08-24: **Právo e-shopů, eLegal and AZ LEGAL** sell one-off právní audity that go stale by the next legislative wave [S5], and three Czech products already hold pieces of the monitoring layer — **Hlídač Slev** and **Slevy správně** on discount labelling, **Pravoid** on legal texts with e-Sbírka alerts [S8,S10]. The wedge is no longer "continuous monitoring versus the audit price" but coverage: the ČOI buckets none of them touches — pre-contractual and complaint-handling information, order buttons, and the green claims blacklisted from 27 Sep 2026 [S1,S2,S8,S10].
+6. Competition, checked 2026-08-20 and 2026-08-24: **Právo e-shopů, eLegal and AZ LEGAL** sell one-off právní audity that go stale by the next legislative wave [S5], and three Czech products already hold pieces of the monitoring layer — **Hlídač Slev** and **Slevy správně** on discount labelling, **Pravoid** on legal texts with e-Sbírka alerts [S8,S10]. All three are young: the companies behind Hlídač Slev and Pravoid were both registered during 2025 [S8], so this is a race rather than an entrenchment. The wedge is no longer "continuous monitoring versus the audit price" but coverage: the ČOI buckets none of them touches — pre-contractual and complaint-handling information, order buttons, and the green claims blacklisted from 27 Sep 2026 [S1,S2,S8,S10].
 
 ## Revisions
+
+2026-08-25 · status follows gap — Corrected from `watching` to `candidate` under the rewritten de-rank rule in SPEC.md. The old rule sent a record to `watching` the moment ANY local player was found; this record's local field is contested rather than taken, meaning the players on file are all EARLY by the SCORING.md established test and none of them closes the space. Scores are untouched — only the status word, which had been asserting the opposite of the score printed beside it.
 
 2026-08-20 · de-rank, gap re-check and evidence audit — Three blocks recorded on this date, merged here; the de-rank was written down twice and is stated once. The absence claim was re-run in Czech against google-cz, the Shoptet add-on catalogue and ARES, and it fails. Hlídač Slev (JARABOT s.r.o., IČO 22571299) sells automated discount-labelling compliance with ČOI-exportable price history on the Shoptet store — the very store this record described as carrying no compliance product — and Pravoid (IČO 23683368) sells generated legal texts with e-Sbírka change alerts across five e-shop platforms [S8]. Gap 1 → 0, score 7 → 6, status candidate → watching. Two specific sentences were rewritten rather than deleted, because their factual halves survive: first move 4 asserted the Shoptet ecosystem had "no compliance product on it" — it has one, whose public ratings are middling — and first move 6 asserted no ČOI-mapped monitoring SaaS existed. The unbuilt part is now specific rather than total: the green-claims wave landing 27 Sep 2026, pre-contractual and complaint-handling information, and order-button texts still have nothing Czech on them [S8], against an 85–91% violation baseline that has not moved [S1]. The enforcement evidence is untouched — the 85% and 91% violation rates, the 2,399 breaches and the capacity numbers are all receipted and unaffected [S1,S6]. Method control: the same search method was run first at Wultra (p-0017) and Softlink (p-0026); the funded-ledger grep returned round-wultra and a plain descriptive Czech query surfaced softlink.cz unprompted, so the method is known to produce positives before any negative here was trusted. The title carried the same disproved absence, "who have no compliance tooling", and has been cut: Hlídač Slev is compliance tooling, sold on the very platform this record described as carrying none. Cut in the same pass: the IT-Recht Kanzlei subscription price points in the second first move. Those figures exist only in the comps ledger — neither IT-Recht Kanzlei nor Trusted Shops appears in any signal, and the source note that names both companies gives no prices — and a comparable's traction line cannot back a body claim. The move now points at the ledger, which still prints the prices in full, and nothing removed by that audit has been reintroduced.
 
 2026-08-24 · gap re-check and fact check — The mechanical sweep of the add-on lookup corpus found a second discount-labelling product this record did not name: Slevy správně by Cenový automat s.r.o., flat 200 Kč/month, 6-hour snapshots, 3-year ČOI history, on Shoptet and Upgates [S10]; the body and first moves 4 and 6 now carry it beside Hlídač Slev. The 91% risk-targeted rate had been cited to the 2025 results page, which carries only 2025 figures; the ČOI Q2/2026 release (103 inspections, 94 with violations) is now on the ledger and the claim re-cited [S9]. Cut in the same pass: "one of Europe's densest e-commerce markets", a density claim with no receipt in the corpus, and the clause tying this record to an accessibility "enforcement wave" at p-0020 — that record's enforcement claim failed verification on this date and it is rejected. The green-claims, pre-contractual, complaint-handling and order-button absences were re-confirmed against all 606 add-ons in both marketplaces [S10]. Gap stays 0; nothing rescored.
 
-2026-08-25 · board-brief rewrite — The argument was cut from 529 words to the board-brief shape, one claim per sentence and at most two markers to a sentence, with no claim added beyond its sources and none removed: the 85% and 91% violation rates, the 2,399 breaches, the ČOI capacity numbers, the two discount-labelling incumbents and Pravoid all survive in shorter form. "How big" now states a bottom-up figure instead of gesturing at the long tail — ~30,000 Shoptet merchants [S5] against Czech add-on pricing of 19–200 CZK/month [S8,S10] and the German €9.90–24.90 subscription points, giving roughly €430k/yr at a €12 bundle and 10% penetration, set beside ~13.0M CZK of 2025 fines [S1]. The "Solved elsewhere:" lead-in was already present and is unchanged in function; the German analogs now state what each proves rather than being named in passing. Every source gained a public name and why line. Scores, status and internal notes untouched. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.
+2026-08-25 · board-brief rewrite — The argument was cut from 529 words to the board-brief shape, one claim per sentence and at most two markers to a sentence, with no claim added beyond its sources and none removed: the 85% and 91% violation rates, the 2,399 breaches, the ČOI capacity numbers, the two discount-labelling incumbents and Pravoid all survive in shorter form. "How big" now states a bottom-up figure instead of gesturing at the long tail — ~30,000 Shoptet merchants [S5] against Czech add-on pricing of 19–200 CZK/month [S8,S10] and the German €9.90–24.90 subscription points, giving roughly €430k/yr at a €12 bundle and 10% penetration, set beside ~13.0M CZK of 2025 fines [S1]. The "Solved elsewhere:" lead-in was already present and is unchanged in function; the German analogs now state what each proves rather than being named in passing. Every source gained a public name and why line. Scores, status and internal notes untouched. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker were untouched by those passes. Third pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, and both dimensions moved. `scores.proof` 1 → 3. The v1 answer, 1, was reasoned as "named analogs without a fresh funding receipt" — but a fresh round was never what proof measures, and under the maturity test all three German analogs pass on the customer limb without needing one: Trusted Shops selling since 1999 across 17,000+ European shops with Zalando and Obi named and eleven markets on its ledger including Austria and Poland, IT-Recht Kanzlei since 2004 with tens of thousands of shops on subscription, Händlerbund since 2008 with 30,000 members and ~92,000 digital presences [S4]. Established in two-plus markets with Germany, Austria and Poland all CEE-adjacent is rung 3. `scores.gap` 0 → 1, which is the correction that matters here. The 2026-08-20 pass dropped gap to 0 on the strength of finding two Czech products, and the 2026-08-24 pass found a third — but the new ladder asks how mature they are, and ARES answers plainly. JARABOT s.r.o., which sells Hlídač Slev, was registered 2025-02-10; Bc. Filip Krechler, the proprietor behind Pravoid, on 2025-09-03; both dates read live from ARES on this date against the IČOs [S8] already carried. Cenový automat's Slevy správně only just clears the three-year limb, dating to the January 2023 reference-price rule it corrects for, and clears no other: none of the three publishes a customer count, pairs with a public buyer in `data/lookup/cz-contract-parties.jsonl`, or carries a round or a state listing. An early local player does not close a space. The law firms behind the one-off audits — Právo e-shopů, eLegal (ARES 2014), AZ LEGAL (ARES 2016) — are the "weak or legacy incumbents" half of the same rung. Gap does not rise past 1: [S8] and [S10] found local players, not none, so rung 2 is unavailable however the check was run. All six were lifted from the [S5], [S8] and [S10] scan prose into a structured `locals[]` ledger. `score` 6 → 9. The non-solutions paragraph, the Proven-abroad paragraph and first move 6 now state the incumbents' ages, because that is the fact carrying the gap score, and the Proven-abroad paragraph stops treating an absent round as an absent proof. Nothing found in the earlier passes was removed: the coverage gaps that remain unbuilt — green claims from 27 Sep 2026, pre-contractual and complaint-handling information, order buttons — are unchanged and still cited [S8,S10]. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved. FLAGGED, NOT CHANGED: `status` is still `watching`, set by the SPEC §4 de-rank rule when gap went to 0 on 2026-08-20. The condition that triggered it no longer holds.

@@ -38,3 +38,4 @@ data/register.db-shm
 # never a record of it.
 __pycache__/
 *.pyc
+.vercel

@@ -9,12 +9,19 @@ export type Dim = (typeof DIMS)[number];
 
 export const MAX: Record<Dim, number> = { proof: 3, money: 2, urgency: 3, demand: 2, gap: 2 };
 
+// PROOF and GAP were re-worded on 2026-08-25 with the ladders themselves
+// (SCORING.md, THE ESTABLISHED TEST). Both now turn on the same axis — is the
+// player ESTABLISHED or EARLY — with the sign flipped, so the words say which
+// side of that axis a score is on: EARLY/ESTABLISHED abroad, TAKEN/CONTESTED/
+// OPEN at home. `UNCHECKED` is gone and cannot come back: an absent gap check
+// is a missing receipt caught by scripts/check-records.py at the build gate, so
+// it is never a score, and therefore never a word on this card.
 export const VERDICTS: Record<Dim, string[]> = {
-  proof: ["UNPROVEN", "THIN", "PROVEN", "VALIDATED"],
+  proof: ["NONE", "EARLY", "ESTABLISHED", "VALIDATED"],
   money: ["UNFUNDED", "NEARBY", "ATTACHED"],
   urgency: ["NONE", "MILD", "BUILDING", "FORCING"],
   demand: ["ASSUMED", "SCATTERED", "DOCUMENTED"],
-  gap: ["UNCHECKED", "LIKELY", "CONFIRMED"],
+  gap: ["TAKEN", "CONTESTED", "OPEN"],
 };
 
 export const BANDS: [number, string][] = [
@@ -46,15 +53,15 @@ export const SCORE_ROWS: { dim: Dim; label: string }[] = [
     always the better reading. No verdict words, no rubric jargon. */
 const READS: Record<Dim, string[]> = {
   proof: [
-    "no funded example found abroad",
-    "one example abroad, still thin",
-    "funded companies build this elsewhere",
-    "funded and proven across several markets",
+    "no solution found abroad",
+    "only early players abroad — the model is not proven yet",
+    "an established company already sells this abroad",
+    "established across several markets, one close to home",
   ],
   gap: [
-    "local competitors not yet checked",
-    "no local player found — field open",
-    "field open — only legacy or adjacent players",
+    "an established local player already sells this",
+    "local players exist, but all still early",
+    "no local player found — the field is open",
   ],
   demand: [
     "demand assumed, not yet shown",
@@ -74,43 +81,77 @@ const READS: Record<Dim, string[]> = {
   ],
 };
 
-/** The plain read for a dimension. Proof folds in the real comps count when
-    there are analogs on file ("4 funded companies build this elsewhere"), so
-    the strongest row states its own evidence; everything else is the level
-    phrase. Total is a pure function of the sub-score — safe for every record. */
 /** The one-line read under each score.
  *
  *  IT IS DERIVED FROM THE DATA, NOT ONLY FROM THE NUMBER, and that is the whole
  *  point: a read that contradicts what the reader can see two inches below it
- *  destroys more trust than a missing read ever would. Two score values are
- *  ambiguous and both were rendering falsehoods on live records:
+ *  destroys more trust than a missing read ever would. The bug this shape was
+ *  built to kill (cc2dcda) was `gap: 0` meaning TWO OPPOSITE THINGS — v1
+ *  SCORING.md defined rung 0 as "CZ incumbent check not done" while the SPEC §4
+ *  de-rank rule ALSO set it to 0 when a local player WAS found, so twelve live
+ *  records printed "local competitors not yet checked" directly above the
+ *  competitors that had been found.
  *
- *  `gap: 0` means TWO OPPOSITE THINGS. SCORING.md defines it as "CZ incumbent
- *  check not done", but the SPEC §4 de-rank rule ALSO sets it to 0 when a local
- *  player IS found. Twelve live records — every de-ranked one — printed "local
- *  competitors not yet checked" directly above the competitors that had been
- *  found. The presence of a gap-check source is what separates the two, so the
- *  read asks the sources, not the integer.
+ *  THAT AMBIGUITY IS NOW CLOSED AT THE LADDER, NOT HERE. `gap: 0` means TAKEN
+ *  and nothing else; an absent check is a missing receipt that fails the build
+ *  in scripts/check-records.py. So this function no longer asks "was it
+ *  checked?" — it asks WHO, reading the established player straight out of
+ *  `locals[]` and naming them. **No branch of this function may ever say a
+ *  score was not checked**: an unchecked dimension is not a score.
  *
- *  `proof: 0` reads "no funded example found abroad", which is a lie whenever
- *  comps are listed under it — p-0008 printed it above two companies with
- *  €10.2M and €6M Series A rounds on file. Where comps exist the read states
- *  the count and lets "Proven abroad" speak; whether the score itself is right
- *  is a MATCH judgment this function must not pre-empt. */
+ *  Where a rung's meaning is a fact about a LEDGER — how many comparables, how
+ *  many local players, which one — the read states that fact and lets the
+ *  section below it speak. Where the score contradicts its own ledger
+ *  (`proof: 0` above two funded comps, as p-0008 shipped) the read reports the
+ *  ledger, never the score: whether the score itself is right is a MATCH
+ *  judgment this function must not pre-empt, and the checker's business. */
 export function scoreRead(p: Problem, dim: Dim): string {
   const n = p.comps?.length ?? 0;
-  if (dim === "proof") {
-    if (n > 0 && p.scores.proof >= 3) return `${n} funded companies, proven across markets`;
-    if (n > 0 && p.scores.proof === 2) return `${n} funded companies build this elsewhere`;
-    if (n > 0 && p.scores.proof <= 1)
-      return `${n} comparable${n === 1 ? "" : "s"} on file — see Proven abroad`;
+  const plural = (k: number) => (k === 1 ? "" : "s");
+  const companies = (k: number) => `${k} compan${k === 1 ? "y" : "ies"}`;
+
+  if (dim === "proof" && n > 0) {
+    if (p.scores.proof >= 3) return `${companies(n)} abroad, established across several markets`;
+    if (p.scores.proof === 2)
+      return n === 1
+        ? "one established company abroad — the model is proven"
+        : `${n} companies abroad, at least one established`;
+    if (p.scores.proof === 1) return `${companies(n)} abroad, all still early`;
+    // proof 0 with comps under it: the ledger wins, and check-records.py has
+    // already made this an ERROR on the new ladder.
+    return `${n} comparable${plural(n)} on file — see Proven abroad`;
   }
-  if (dim === "gap" && p.scores.gap === 0) {
-    const checked = p.sources.some((s) => s.type === "gap-check");
-    return checked
-      ? "local players already sell this — see Local competition"
-      : "the local market has not been checked";
+
+  if (dim === "gap") {
+    const locals = p.locals ?? [];
+    const established = locals.filter((l) => l.status === "established");
+    if (p.scores.gap === 0 && established.length > 0) {
+      // Oldest first — the longest-selling incumbent is the one that closed the
+      // space, and its start year is the reader's fastest check on the claim.
+      // LocalSchema's refinement guarantees `since` on an established player, so
+      // the undefined arm is unreachable; it is written anyway because a read is
+      // rendered on every record and "since undefined" is exactly the class of
+      // sentence this function exists to prevent.
+      const year = (l: { since?: number }) => l.since ?? Number.POSITIVE_INFINITY;
+      const oldest = established.reduce((a, b) => (year(b) < year(a) ? b : a));
+      const since = oldest.since === undefined ? "" : ` since ${oldest.since}`;
+      const rest = established.length - 1;
+      // No parenthetical: a third of the corpus names its incumbent with one
+      // already ("STORMWARE (POHODA)"), and nested parens read as a typo.
+      return rest === 0
+        ? `${oldest.name} has sold this${since} — see Local competition`
+        : `${oldest.name} has sold this${since}, and ${rest} more sell it locally`;
+    }
+    if (p.scores.gap === 1 && locals.length > 0)
+      return `${locals.length} local player${plural(locals.length)} on file, all still early`;
+    // gap 2 says "no local player found". A locals[] ledger under it is the
+    // contradiction this whole round exists to kill, and check-records.py fails
+    // the build on it — but for as long as one can exist, the read reports the
+    // ledger rather than denying it two inches above its own contents.
+    if (p.scores.gap === 2 && locals.length > 0)
+      return `${locals.length} local player${plural(locals.length)} on file — see Local competition`;
   }
+
   return READS[dim][p.scores[dim]];
 }
 
@@ -118,10 +159,10 @@ export function scoreRead(p: Problem, dim: Dim): string {
 // criterion for the achieved level, never invented prose.
 const CRITERIA: Record<Dim, string[]> = {
   proof: [
-    "no foreign analog",
-    "one weak analog",
-    "funded analog in DE/AT/PL/Nordics + no CZ player found",
-    "analogs in 2+ markets AND validated CEE-adjacent",
+    "no foreign solution on file",
+    "EARLY foreign players only (prototype, pre-customer, seed)",
+    "one ESTABLISHED foreign player",
+    "ESTABLISHED in 2+ markets, at least one CEE-adjacent",
   ],
   money: [
     "no budget attached",
@@ -135,9 +176,9 @@ const CRITERIA: Record<Dim, string[]> = {
     "recurring documented complaints, petition, or industry pressure",
   ],
   gap: [
-    "CZ incumbent check not done",
-    "quick search found no CZ player",
-    "absence confirmed or only weak/legacy incumbents (named)",
+    "an ESTABLISHED local player already sells this (named in locals[])",
+    "local players exist but all EARLY, or only weak/legacy incumbents",
+    "checked against Czech-language surfaces and no local player found",
   ],
 };
 

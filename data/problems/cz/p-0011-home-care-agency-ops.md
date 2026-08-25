@@ -8,9 +8,9 @@ fix: 'Czech-speaking voice intake for home-care agencies — the calls that book
   already runs.'
 category: health
 geo: CZ-national
-score: 5
+score: 6
 scores:
-  proof: 1
+  proof: 2
   money: 1
   urgency: 1
   demand: 2
@@ -50,6 +50,47 @@ comps:
   traction: 'CAD $225M Series D (Businesswire, 2021); ~$274M total raised; 500+ care
     organizations'
   markets: [US, AU]
+locals:
+- name: IRESOFT (Cygnus DP)
+  url: https://iresoft.cz/
+  ico: '26297850'
+  since: 2002
+  status: established
+  evidence: '2 distinct public buyers for IČO 26297850 in data/lookup/cz-contract-parties.jsonl
+    — Domov pro seniory Horní Stropnice and Domov sociální péče Tmavý Důl. Cygnus DP is the
+    documentation and billing record system Czech home-care agencies already run; IRESOFT
+    s.r.o. has traded since 2002.'
+- name: e-Sestřička
+  url: https://www.e-sestricka.cz/
+  ico: '05752779'
+  since: 2017
+  status: established
+  evidence: 'named customers: the reference list carries Sestřička, Most k Domovu and AHC. A
+    cloud system for domácí a paliativní péče covering odbornosti 925, 720 and 926;
+    SESTŘIČKA.CZ s.r.o. has traded since 2017.'
+- name: pecovatelska.cz (Petr Zajíc software)
+  url: https://pecovatelska.cz/
+  since: 1998
+  status: established
+  evidence: 'public customer count: deployed at more than 200 sites across Czechia. An
+    information system for terénní sociální služby under zák. 108/2006 Sb., sold one-time
+    rather than as SaaS, trading since 1998.'
+- name: VeruApp
+  url: https://veruapp.cz/
+  since: 2023
+  status: early
+  evidence: 'builds each caregiver''s chronological daily plan automatically from the client''s
+    digital record, with a field app for logging delivered tasks, re-planning around sudden
+    events, client billing and statutory reporting. The site dates itself to 2023 and no limb
+    of the established test is on file.'
+- name: E-péče
+  url: https://www.epece.cz/
+  since: 2024
+  status: early
+  evidence: 'a publicly funded Ústecký-kraj project co-financed from OP Spravedlivá
+    transformace, putting a field mobile app into 39 care providers including Město Bílina,
+    Město Kadaň and Diecézní charita Litoměřice. A grant project rather than a vendor, and
+    younger than the test requires.'
 sources:
 - type: arbitrage
   name: "Sage Care"
@@ -157,10 +198,10 @@ Who pays: the agencies. The pitch is capacity, not cost: an agency that automate
 
 Existing non-solutions — superseded. The original check found only the providers themselves and IRESOFT [S2], but it searched the wrong words: domestic vendors hold the operations layer [S4]. VeruApp plans each caregiver's day automatically from the client's digital record and carries a field mobile app; e-Sestřička covers domácí a paliativní péče across odbornosti 925, 720 and 926; the pecovatelska.cz system from Petr Zajíc software runs terénní sociální služby in more than 200 locations; and Ústecký kraj is putting the E-péče field app into 39 providers on EU money [S4]. Phone and paper are still widespread, but they are no longer the only option on the market.
 
-Solved elsewhere: the US home-care AI-ops cluster above [S1,S3]. The model is proven in the US only so far [S3]. What a domestic entrant would own is narrower than first written — not the operations layer as such, which is occupied [S4], but the AI-native slice of it: voice intake in Czech, and displacing or integrating with incumbents that already hold the scheduling and records seat.
+Solved elsewhere: the US home-care AI-ops cluster above is the newest layer [S1,S3]. The settled players are older and elsewhere: Birdie in Britain and AlayaCare in Canada have sold care-agency operations software for over a decade, and the ledger below carries both. Neither sells in continental Europe, so the model is proven — but not yet in a market that shares Czechia's reimbursement rules. What a domestic entrant would own is narrower than first written — not the operations layer as such, which is occupied [S4], but the AI-native slice of it: voice intake in Czech, and displacing or integrating with incumbents that already hold the scheduling and records seat.
 
 ## Revisions
 
 2026-08-20 · gap re-check and evidence audit — Two blocks recorded on this date, merged here. De-ranked: the operations layer is occupied. The original absence check was run in the wrong language and concluded that Cygnus DP was the only tooling in the market. Searching Czech for the operations layer returns domestic vendors on the first page: VeruApp (automatic daily work planning per caregiver from the client's digital record, field mobile app, billing and statutory reporting), e-Sestřička (cloud system for domácí a paliativní péče, odbornosti 925/720/926; SESTŘIČKA.CZ s.r.o., IČO 05752779), pecovatelska.cz from Petr Zajíc software (terénní sociální služby under zák. 108/2006 Sb., 200+ deployments) and E-péče (Ústecký kraj, OP Spravedlivá transformace, 39 providers) [S4]. Per the SPEC §4 de-rank rule: gap 1 → 0, score 4 → 3, status candidate → watching. The title lost the clause "with only a legacy record-keeping system to help", which the re-check disproved, and the non-solutions and comparables paragraphs were rewritten so the body no longer asserts an absence its own score denies. The underlying problem — phone-and-paper coordination under a nurse shortage — is not withdrawn; what is withdrawn is the claim that nobody sells into it. Also removed in the same pass: the sentence "Larger charity networks (Charita ČR) offer multi-branch deals." Charita returns no hits anywhere in the signal corpus, and yc-sagecare supports only the generic phrase "charity providers", which the lead paragraph already carries — the named organisation and the multi-branch channel claim were both unbacked.
 
-2026-08-25 · evidence added — The July 2026 Labour Office hiring aggregate (380 new general-nurse vacancies, 262 employers) and the in-force social-services amendment 92/2026 Sb. entered the evidence below [S5,S6]. Demand 1 → 2: the staffing pressure the capacity argument rests on is now documented by a recurring state dataset rather than one signal's note. Score 3 → 4; gap 0 and status watching untouched — the de-rank of 2026-08-20 stands. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched by that pass. Third pass this date, merged here: the ÚZIS KOMPAS partnership (~€5.44M for home-care classification, recommended practices and cost models) entered the evidence from the 2026-08-25 retrospective harvest [S7]. Money 0 → 1 — a relevant public contract now funds the domain's data foundations — and score 4 → 5; gap 0 and status watching still stand.
+2026-08-25 · evidence added — The July 2026 Labour Office hiring aggregate (380 new general-nurse vacancies, 262 employers) and the in-force social-services amendment 92/2026 Sb. entered the evidence below [S5,S6]. Demand 1 → 2: the staffing pressure the capacity argument rests on is now documented by a recurring state dataset rather than one signal's note. Score 3 → 4; gap 0 and status watching untouched — the de-rank of 2026-08-20 stands. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched by that pass. Third pass this date, merged here: the ÚZIS KOMPAS partnership (~€5.44M for home-care classification, recommended practices and cost models) entered the evidence from the 2026-08-25 retrospective harvest [S7]. Money 0 → 1 — a relevant public contract now funds the domain's data foundations — and score 4 → 5; gap 0 and status watching still stand. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries IRESOFT, e-Sestřička, pecovatelska.cz, VeruApp and E-péče [S4]. Three pass the established test — IRESOFT on two distinct public buyers for IČO 26297850 in data/lookup/cz-contract-parties.jsonl, e-Sestřička on a named reference list, pecovatelska.cz on more than 200 deployments since 1998 — so `scores.gap` stays 0 and the 2026-08-20 de-rank now rests on receipts a machine can re-check. VeruApp and E-péče are early. `scores.proof` 1 → 2: Birdie and AlayaCare both pass the established test, but Britain, Canada, the US and Australia are none of them CEE-adjacent, so rung 3 is not met — and the body no longer says the model is proven in the US only, which its own ledger contradicted. `score` 5 → 6.

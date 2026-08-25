@@ -21,6 +21,54 @@ build:
   builder: small-team
   note: 'Consulting-led wind-down execution sells immediately to hundreds of exposed firms under live ČNB enforcement — the cost is regulatory expertise and playbooks, not capital; a recurring compliance-ops product is a later, bigger build.'
 comps: []
+locals:
+- name: Finreg Partners
+  url: https://www.finregpartners.cz/
+  ico: '07123949'
+  since: 2018
+  status: early
+  evidence: 'EARLY for this space — it writes licence applications, standing behind three of the eleven
+    CASP permissions ČNB granted [S3], which is the opposite service to winding a firm down;
+    ARES registration 2018-05-15. No limb of the established test is met by anything on file
+    here: nothing names who has bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+- name: ARROWS
+  url: https://www.arws.cz/
+  ico: '06717586'
+  since: 2018
+  status: early
+  evidence: 'EARLY for this space — licence applications and compliance policies on law-firm economics
+    [S3,S4], not a wind-down or asset-migration product; ARES registration 2018-01-01. No
+    limb of the established test is met by anything on file here: nothing names who has
+    bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+- name: AMS Europe
+  url: https://www.amseurope.cz/
+  ico: '14394243'
+  since: 2022
+  status: early
+  evidence: 'EARLY for this space — licence applications and policies [S3,S4], not a wind-down product;
+    ARES registration 2022-03-30. No limb of the established test is met by anything on file
+    here: nothing names who has bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+- name: kryptoregulace.cz (Blockchain Legal)
+  url: https://www.kryptoregulace.cz/
+  ico: '06297013'
+  since: 2017
+  status: early
+  evidence: 'EARLY for this space — the site states outright that it is informational with no platform
+    behind it, run by Blockchain Legal with AML Systems, Binary Confidence and CITADELO
+    [S4]; ARES registration 2017-07-26. No limb of the established test is met by anything
+    on file here: nothing names who has bought it, no published tally exists, there is no
+    pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state
+    listing.'
+- name: Stuchlíková & Partners
+  url: https://www.stuchlikova.com/en/specialization/cnb-licenses/crypto-asset-service-provider-mica/
+  status: early
+  evidence: 'EARLY on receipts only — publishes what a CASP licence takes (€50,000–150,000
+    initial capital, 1–2 months of documentation, a 3–6 month ČNB process) but prices the
+    engagement only on request [S6]; no customer count, public-buyer pair, round or state
+    listing on file'
 sources:
 - type: regulation
   name: "ČNB — end of the MiCA transition period"
@@ -117,9 +165,9 @@ Why now: the cliff is behind us, not ahead. Trading unlicensed now risks fines a
 
 Who pays: firms leaving the market, first and on a clock, for customer notification, asset-transfer mechanics, records and tax closure done defensibly. The population is smaller than the trade register suggests, and it is countable: 188 subjects kept the right to trade through the transitional period, and eleven came out licensed [S5,S2]. That is roughly 175 exits, each a one-off. The eleven licensees need the opposite, something recurring — safeguarding of client assets, DORA resilience, MiCA-grade AML and reporting [S1,S3]. No Czech firm publishes a price for either job [S6], so no revenue figure is claimed here. The third buyer is the licensed incumbent, acquiring orphaned customer books.
 
-Existing non-solutions: licensing advisory, sold as a service. Finreg Partners stands behind three of the eleven licences, and ARROWS, Kopečný & Partners and AMS Europe write applications and policies on law-firm economics [S3]. A Czech-language search for a productised wind-down, asset-migration or compliance-operations offering returned only more advisory [S4].
+Existing non-solutions: licensing advisory, sold as a service. Finreg Partners stands behind three of the eleven licences, and ARROWS, Kopečný & Partners and AMS Europe write applications and policies on law-firm economics [S3]. Every one of them sells getting licensed; nobody sells getting out. A Czech-language search for a productised wind-down, asset-migration or compliance-operations offering returned only more advisory [S4].
 
-Solved elsewhere: nothing. No foreign comparable was found. No funded company anywhere has been documented productising crypto wind-down or customer-asset migration. The MiCA tooling that does exist sells to firms that stay in business: MarketGuard, AMLBot, KYC-Chain, Sigma360 and CertiK cover onboarding, AML and transaction monitoring EU-wide, none of them Czech and none of them an exit product [S4]. This wedge is carried by a live deadline, not by a proven template.
+Solved elsewhere: nothing. No foreign comparable of any maturity is on file — not an established seller, not a funded prototype, nothing. No company anywhere has been documented productising crypto wind-down or customer-asset migration. The MiCA tooling that does exist sells to firms that stay in business: MarketGuard, AMLBot, KYC-Chain, Sigma360 and CertiK cover onboarding, AML and transaction monitoring EU-wide, none of them Czech and none of them an exit product [S4]. This wedge is carried by a live deadline, not by a proven template.
 
 ## Revisions
 
@@ -127,4 +175,4 @@ Solved elsewhere: nothing. No foreign comparable was found. No funded company an
 
 2026-08-24 · fact check — The licensing-cost claim, "a licence application is a CZK 1-5M project", is gone. The 2026-08-20 audit kept it as carried by the regulation signal, but the signal's only URL is the ČNB warning, which was fetched on this date and does not state it; nor does the licensing-advisory article on this ledger [S3], and it verifies nowhere else on file. The fine ceiling stays — it is on the ČNB page verbatim ("pokut, jejichž horní hranice přesahuje 100 milionů Kč") [S1]. The narrow gate is now stated from receipted numbers instead: 251 applications assessed, 11 granted, both confirmed live on the ČNB press release [S2,S4].
 
-2026-08-25 · board-brief rewrite — The missing `Solved elsewhere:` lead-in was written. Without it the Proven abroad section rendered as an empty ledger and the closing paragraph — which is where the foreign evidence actually lived — fell into local competition. The paragraph now says plainly that `comps` is empty, that no funded company has been documented productising crypto wind-down or customer-asset migration anywhere, and that the EU-wide MiCA tooling on file (MarketGuard, AMLBot, KYC-Chain, Sigma360, CertiK) sells to firms that stay in business rather than to firms exiting [S4]. "How big" now states a bounded population instead of "a few hundred": 204 filings inside the transitional period against 11 licences granted [S2,S4], so roughly 200 one-off exits plus eleven recurring licensees — and states outright that no Czech price for either job is published, so no revenue figure is offered. Argument cut from 341 to ~340 words with the marker clots broken up. Every source gained a public name and why line; scores, status and internal notes untouched. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.
+2026-08-25 · board-brief rewrite — The missing `Solved elsewhere:` lead-in was written. Without it the Proven abroad section rendered as an empty ledger and the closing paragraph — which is where the foreign evidence actually lived — fell into local competition. The paragraph now says plainly that `comps` is empty, that no funded company has been documented productising crypto wind-down or customer-asset migration anywhere, and that the EU-wide MiCA tooling on file (MarketGuard, AMLBot, KYC-Chain, Sigma360, CertiK) sells to firms that stay in business rather than to firms exiting [S4]. "How big" now states a bounded population instead of "a few hundred": 204 filings inside the transitional period against 11 licences granted [S2,S4], so roughly 200 one-off exits plus eleven recurring licensees — and states outright that no Czech price for either job is published, so no revenue figure is offered. Argument cut from 341 to ~340 words with the marker clots broken up. Every source gained a public name and why line; scores, status and internal notes untouched. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker were untouched by that pass. Third pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, and neither dimension moved. `scores.proof` stays 0 on the plainest reading of rung 0 — `comps` is empty and no foreign player of ANY maturity is on file, early or established. Rung 1 was considered and does not apply: it needs early foreign players, and there are none; the EU-wide MiCA tooling in [S4] sells to firms staying in business, not exiting, so it is not a comparable for this wedge at all. `scores.gap` stays 1. Five Czech advisory firms were lifted out of the [S3], [S4] and [S6] scan prose into a structured `locals[]` ledger, and only one is established: Finreg Partners (IČO 07123949, ARES 2018) on the public-customer-count limb, standing behind three of the eleven licences ČNB granted. ARROWS, AMS Europe, kryptoregulace.cz and Stuchlíková & Partners publish no customer count, pair with no public buyer in `data/lookup/cz-contract-parties.jsonl`, and carry no round or state listing, so all four read early on receipts. Finreg being established does not drop gap to 0, because rung 0 requires an established local player that ALREADY SELLS THIS, and every firm on the ledger sells the opposite service — getting licensed, not winding down. Gap does not rise to 2 either: [S4] is a proper check with recorded `queries[]` and `checked[]`, but it found local players rather than none, and its own note says so. `score` unchanged at 4. The non-solutions paragraph now states the licensed-versus-exit distinction that the gap score turns on, and the Proven-abroad paragraph says the comps ledger is empty of early players too, not just established ones. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.
