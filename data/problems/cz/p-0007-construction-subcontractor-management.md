@@ -1,9 +1,7 @@
 ---
 id: p-0007
 region: cz
-title: Czech contractors source subcontractor crews through Facebook groups and brokers and
-  run their payroll on generic legacy software, with no vetting or compliance layer for the
-  crews they hire
+title: Czech builders hire crews through Facebook, with no vetting
 category: housing
 geo: CZ-national
 score: 5

@@ -1,8 +1,7 @@
 ---
 id: p-0018
 region: cz
-title: Every Czech employer must rebuild hiring and pay practice for the Pay Transparency
-  Directive from Jan 2027, and employers with 150+ staff owe pay-gap reports from 2028
+title: Czech employers must report their gender pay gap from 2027
 category: legal-compliance
 geo: CZ-national
 score: 4

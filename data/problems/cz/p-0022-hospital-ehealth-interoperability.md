@@ -1,8 +1,7 @@
 ---
 id: p-0022
 region: cz
-title: Czech regional hospitals are each buying bespoke multi-million-euro eHealth interoperability
-  platforms — the same integration problem solved separately, over and over
+title: Czech hospitals each buy the same data plumbing from scratch
 category: health
 geo: CZ-national
 score: 5

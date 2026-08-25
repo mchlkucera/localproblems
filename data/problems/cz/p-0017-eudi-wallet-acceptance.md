@@ -1,8 +1,7 @@
 ---
 id: p-0017
 region: cz
-title: Czech banks, telcos and KYC-bound businesses must accept the EU Digital Identity Wallet
-  for strong authentication from 2027
+title: Czech banks must accept the EU digital identity wallet from 2027
 category: govtech
 geo: CZ-national
 score: 5

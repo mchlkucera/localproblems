@@ -1,9 +1,7 @@
 ---
 id: p-0028
 region: cz
-title: 85% of inspected Czech e-shops broke consumer law in 2025, enforcement keeps finding
-  ~90% violation rates, and the green-claims rules landing 27 Sep 2026 stack another layer
-  on merchants
+title: Most inspected Czech e-shops break consumer law
 category: retail-services
 geo: CZ-national
 score: 6

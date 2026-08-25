@@ -1,8 +1,7 @@
 ---
 id: p-0010
 region: cz
-title: Small Czech trucking firms still run dispatch, documents and invoicing
-  on phones, e-mail and paper
+title: Small Czech trucking firms still run on phones, e-mail and paper
 category: mobility
 geo: CZ-national
 score: 7

@@ -1,8 +1,7 @@
 ---
 id: p-0025
 region: cz
-title: Czech home insulation runs through a long tail of one-man firms while NZÚ subsidies
-  wait — Berlin's VARM shows the tech-enabled installer model nobody runs here
+title: Czech home insulation runs through one-man firms nobody can vet
 category: energy
 geo: CZ-national
 score: 6

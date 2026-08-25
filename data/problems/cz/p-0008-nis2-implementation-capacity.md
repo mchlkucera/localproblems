@@ -1,9 +1,7 @@
 ---
 id: p-0008
 region: cz
-title: 6,000+ Czech firms and municipalities must implement NIS2 security measures on rolling
-  deadlines through late 2026-2027 and most lack the capacity — many don't know they're in
-  scope
+title: Six thousand Czech firms must meet new security rules, and most are not ready
 category: legal-compliance
 geo: CZ-national
 score: 7

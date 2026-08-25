@@ -1,8 +1,7 @@
 ---
 id: p-0023
 region: cz
-title: Czech accountants are scarce and the accounting law is being rewritten for 2028 — and
-  Czech AI-first accounting firms are already selling into that window
+title: Czech accountants are scarce, and the rules change in 2028
 category: b2b
 geo: CZ-national
 score: 6

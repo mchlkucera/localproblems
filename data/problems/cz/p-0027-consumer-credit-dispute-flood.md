@@ -1,9 +1,7 @@
 ---
 id: p-0027
 region: cz
-title: Consumer-credit disputes at the Czech financial arbiter quadrupled in two years toward
-  ~20,000 filings a year, and neither lenders nor the arbiter run anything but manual case
-  handling
+title: Complaints about Czech consumer loans have quadrupled, all handled by hand
 category: fintech
 geo: CZ-national
 score: 5

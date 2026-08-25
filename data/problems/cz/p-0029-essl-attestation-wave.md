@@ -1,9 +1,7 @@
 ---
 id: p-0029
 region: cz
-title: Czech public bodies must run state-attested electronic records systems by 31 Dec 2026
-  — non-attested products are already banned from sale to public bodies, and ~19 buyers re-procured
-  eSSL in a single ten-week window
+title: Czech public bodies must replace their records systems by the end of 2026
 category: govtech
 geo: CZ-national
 score: 5

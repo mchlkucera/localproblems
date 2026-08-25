@@ -1,9 +1,7 @@
 ---
 id: p-0031
 region: cz
-title: Fifty-three Czech public buyers tendered rooftop PV separately in ten weeks — ~€60M
-  of fragmented small-lot design-build procurement, with the same tenders re-published up
-  to three times to find bidders
+title: Czech towns buy rooftop solar one by one, and overpay for it
 category: energy
 geo: CZ-national
 score: 3

@@ -1,9 +1,7 @@
 ---
 id: p-0030
 region: cz
-title: The MiCA transition ended 1 Jul 2026 with only 11 licensed crypto providers in Czechia
-  — hundreds of formerly trade-licensed firms must wind down, migrate customer assets, or
-  operate illegally
+title: Only eleven Czech crypto firms got licensed; the rest must wind down
 category: fintech
 geo: CZ-national
 score: 4

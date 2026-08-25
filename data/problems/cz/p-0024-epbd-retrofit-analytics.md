@@ -1,9 +1,7 @@
 ---
 id: p-0024
 region: cz
-title: Czech building owners face the EPBD retrofit wave with no portfolio analytics — the
-  implementing law is overdue, infringement pressure is on, and Berlin already has a funded
-  product
+title: Czech building owners must plan costly renovations, with no way to compare them
 category: housing
 geo: CZ-national
 score: 6

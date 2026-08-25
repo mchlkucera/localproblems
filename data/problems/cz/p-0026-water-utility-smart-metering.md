@@ -1,8 +1,7 @@
 ---
 id: p-0026
 region: cz
-title: Hundreds of small Czech water utilities are buying smart metering one tender at a time
-  — each re-solving telemetry, data and dispatch
+title: Small Czech water utilities each buy smart metering alone
 category: environment
 geo: CZ-national
 score: 3
