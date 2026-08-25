@@ -1,0 +1,41 @@
+# What NOT to upload to Vercel.
+#
+# THE DEPLOY PROCEDURE, because getting it wrong is expensive (see below):
+#
+#     cd web
+#     vercel build --prod              # runs the full prebuild gate locally
+#     vercel deploy --prebuilt --prod  # uploads .vercel/output only
+#
+# Build LOCALLY and ship the output. The prebuild gate runs `check-css` against
+# ../skills and `db-gate` against ../data, and only a local build has those.
+#
+# TWO WAYS THIS GOES WRONG, both hit on 2026-08-25:
+#
+#  1. `cd web && vercel --prod` (no --prebuilt) uploads 38 files — web/ alone —
+#     and the Vercel-side build dies on
+#     `ENOENT: /vercel/skills/design-language/assets/style.css`.
+#
+#  2. `vercel --prod` from the repo root uploads ~650 MB across thousands of
+#     files. The CLI aborts the upload, and the attempts burn the account's
+#     free-tier file quota: `api-upload-free`, "more than 5000, try again in
+#     24 hours". A wrong deploy command costs a day, so read this first.
+#
+# The project's Root Directory is `.` and there is no package.json there, so a
+# Vercel-side build cannot detect Next.js either way. Prebuilt is the flow.
+#
+# The ignores below only matter if someone deploys from the root anyway. They
+# take that upload from ~650 MB to ~26 MB.
+
+# 117 MB of raw harvest payloads. The canonical ledger is data/signals/**.jsonl;
+# raw/ is the provenance archive and nothing in the build path opens it.
+data/raw/
+
+# A gitignored projection, rebuilt from the journal by web/scripts/db-gate.mjs
+# inside prebuild. Shipping a prebuilt one would let a stale store reach
+# production — the exact failure the gate exists to prevent.
+data/register.db
+
+node_modules
+web/node_modules
+web/.next
+.git

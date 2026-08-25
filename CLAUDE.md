@@ -38,4 +38,16 @@ by hand, never commit it.
 ## Deploys are manual
 
 There is no git auto-deploy. `git push` does not publish; production only changes
-when someone runs a Vercel CLI deploy.
+when someone runs a Vercel CLI deploy, and it must be a **prebuilt** one:
+
+```
+cd web
+vercel build --prod              # runs the full prebuild gate locally
+vercel deploy --prebuilt --prod  # uploads .vercel/output only
+```
+
+Build locally and ship the output — the gate runs `check-css` against `../skills`
+and `db-gate` against `../data`, which only a local build can see. Deploying any
+other way is costly, not merely wrong: a root deploy pushes ~650 MB across
+thousands of files and burns the account's free-tier upload quota for 24 hours.
+`.vercelignore` documents both failure modes.
