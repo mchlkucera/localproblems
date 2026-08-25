@@ -37,6 +37,8 @@ comps:
   markets: [AT, CH, FR, IT]
 sources:
 - type: arbitrage
+  name: "autarc"
+  why: "Berlin's operating system for heat-pump and solar installers (YC S24) — heat-load calculation, quoting, subsidy paperwork and project tracking in one tool, in a market whose installer workflows mirror Czechia's."
   url: https://www.ycombinator.com/companies/autarc
   note: 'yc-autarc: autarc (YC S24, Berlin, ~30 people) — agentic OS for heat-pump/solar installers:
     heat-load calc, quoting, subsidy paperwork, project management. Germany-proven where installer
@@ -49,18 +51,24 @@ sources:
   - proof
   - demand
 - type: subsidy
+  name: "Nová zelená úsporám"
+  why: "The subsidy programme behind tens of thousands of Czech heat-pump and photovoltaic installs a year — and behind the application paperwork the installers carry."
   url: https://www.ycombinator.com/companies/autarc
   note: Signal note references Nová zelená úsporám driving tens of thousands of heat-pump/FVE
     installs per year — the subsidy program whose application handling is part of the workflow
     burden.
   date: '2026-08-13'
 - type: gap-check
+  name: "First Czech market scan"
+  why: "An early sweep that surfaced only manufacturer sizing configurators and Woltair — superseded by the four Czech installer-software vendors found later."
   url: https://www.ycombinator.com/companies/autarc
   note: 'Absence check 2026-08-13: CZ searches surface only manufacturer configurators (Master
     Therm) and installation companies themselves; no installer-ops SaaS. Woltair is a vertically
     integrated installer, not a software vendor to the long tail.'
   date: '2026-08-13'
 - type: subsidy
+  name: "Nová zelená úsporám 2026 redesign"
+  why: "From 25 June 2026 advance grants up to 400k CZK narrow to vulnerable households, other owners shift to zero-interest loans, and a renovation pass becomes mandatory; applications run to 31 Oct 2029."
   url: https://novazelenausporam.cz/
   note: 'dotace-nzu-2026-zranitelne-domacnosti: the redesigned Nová zelená úsporám opened
     25.6.2026 — advance grants up to 400k CZK now target low-income/vulnerable households
@@ -70,6 +78,8 @@ sources:
   date: '2029-10-31'
   signal: dotace-nzu-2026-zranitelne-domacnosti
 - type: subsidy
+  name: "NPO call 2/2026 — renovation passport"
+  why: "Up to 50k CZK per family house and 100k per apartment building for a professional renovation assessment, deadline 30 Nov 2026 — newly the gate to NZÚ retrofit money, and new paperwork to automate."
   url: https://planobnovy.gov.cz/vyhlasene-vyzvy/
   note: 'dotace-npo-2-2026-renovacni-pas: NPO call 2/2026 funds building renovation
     passports — up to 50k CZK per family house / 100k CZK per apartment building for
@@ -79,6 +89,8 @@ sources:
   date: '2026-11-30'
   signal: dotace-npo-2-2026-renovacni-pas
 - type: gap-check
+  name: "Wue and three Czech rivals"
+  why: "Wue sells per-seat quoting plus NZÚ documentation to installers at 650 Kč per user a month (200 Kč more for heat pumps); RAYNET, AutoERP and Infina sell into the same firms."
   url: https://wue.cz/
   note: 'Gap re-check 2026-08-20: looked for CZ vertical software selling quoting, design and
     NZÚ subsidy paperwork to heat-pump/FVE montážní firmy. Found, and the NZÚ-paperwork wedge

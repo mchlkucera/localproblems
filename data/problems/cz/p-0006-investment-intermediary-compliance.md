@@ -39,6 +39,8 @@ comps:
   traction: '$6.6M Series A (Crowdfund Insider, 2019) after $1.5M seed; machine-readable compliance rules for banks and wealth managers'
 sources:
 - type: arbitrage
+  name: "Saturn"
+  why: "London's compliance operating system for wealth managers (YC S24) — KYC, suitability and regulatory reporting, on the platform of 600+ UK advisory firms."
   url: https://www.ycombinator.com/companies/saturn
   note: 'yc-saturn: Saturn (YC S24, London, ~18 people) builds compliance and back-office
     workflow software for wealth managers — KYC, suitability, regulatory reporting. UK-based,
@@ -46,6 +48,8 @@ sources:
   date: '2026-08-13'
   signal: yc-saturn
 - type: regulation
+  name: "EU AML Regulation 2024/1624"
+  why: "Applies directly from 10 July 2027, replacing much of the Czech AML regime with one harmonised rulebook under the new AMLA supervisor — every firm in scope needs a policy rewrite before then."
   url: https://eur-lex.europa.eu/eli/reg/2024/1624/oj
   note: 'reg-amlr-single-rulebook: EU AML Regulation 2024/1624 applies 10 Jul 2027 (verified
     on EUR-Lex, Art 90), directly replacing much of the Czech AML Act regime — harmonised
@@ -54,12 +58,16 @@ sources:
   date: '2027-07-10'
   signal: reg-amlr-single-rulebook
 - type: gap-check
+  name: "First Czech market scan"
+  why: "An early sweep that found only law firms and compliance consultancies selling services, and documented compliance run on Word templates under growing ČNB and MiFID II paperwork."
   url: https://www.ycombinator.com/companies/saturn
   note: 'Absence check 2026-08-13: only law firms and compliance consultancies (Comply, aCompliance)
     — services, no product. Demand point: signal documents compliance done via consultants
     and Word templates under growing ČNB/MiFID II paperwork plus DORA load from 2025.'
   date: '2026-08-13'
 - type: gap-check
+  name: "AML Proof"
+  why: "A Czech cloud AML platform sold self-serve from 25 CZK a credit to the very buyer this record names — client screening, beneficial owners, internal policies and FAÚ reporting. The MiFID II half of the stack is still empty."
   url: https://amlproof.ai/cs/aml-software
   note: 'Gap re-check 2026-08-20: OCCUPIED on the AML side. Looked for a Czech regtech SaaS
     selling AMLR-ready KYC, beneficial-owner verification, internal policies and reporting

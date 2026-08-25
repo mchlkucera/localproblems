@@ -35,6 +35,8 @@ comps:
     Update, Jul 2026); advised the EC'
 sources:
 - type: regulation
+  name: "eIDAS 2.0 — Regulation (EU) 2024/1183"
+  why: "The law behind the deadline: Czechia must offer an EU Digital Identity Wallet by the end of 2026, and regulated sectors must accept it within 36 months of the implementing acts — during 2027."
   url: https://eur-lex.europa.eu/eli/reg/2024/1183/oj
   note: 'reg-eidas2-eudi-wallet: eIDAS 2.0 (Reg. 2024/1183) — Czechia must offer at least
     one EUDI Wallet by end-2026 (24 months after Dec 2024 implementing acts); relying-party
@@ -43,11 +45,15 @@ sources:
   date: '2026-12-31'
   signal: reg-eidas2-eudi-wallet
 - type: news
+  name: "European Commission — EU Digital Identity Wallet"
+  why: "The Commission's own programme page: every Member State offers at least one wallet, launching at the end of 2026, with Czechia building on eDoklady."
   url: https://ec.europa.eu/digital-building-blocks/sites/display/EUDIGITALIDENTITYWALLET/EU+Digital+Identity+Wallet+Home
   note: Commission EUDI page confirms each Member State will offer at least one wallet by
     2026, launch at the end of 2026; CZ builds on eDoklady.
   date: '2025-12-31'
 - type: tender
+  name: "TED — DIA wallet client tender (~€78M)"
+  why: "The Digital and Information Agency put the Czech wallet's client application out to open competition in July 2026 — the largest open Czech IT tender in the window, and proof the state is building on schedule."
   url: https://ted.europa.eu/en/notice/-/detail/453265-2026
   note: 'ted-453265-2026: DIA tendered the client part of the Czech EUDI Wallet (''KLIENTSKÁ
     ČÁST EVROPSKÉ PENĚŽENKY DIGITÁLNÍ IDENTITY'') — open competition, estimated ~€78.2M (~1.9bn
@@ -56,6 +62,8 @@ sources:
   date: '2026-07-02'
   signal: ted-453265-2026
 - type: gap-check
+  name: "Wultra Digital ID Wallet Gateway"
+  why: "Prague-based, €6.8M Series A in June 2026 — sells banks and regulated firms one gateway for accepting and verifying EUDI wallet credentials, which is exactly the integration this record is about."
   url: https://www.wultra.com/products/digital-identity-wallet-gateway
   note: 'Gap check 2026-08-14 (round-wultra flag): OCCUPIED. Wultra (Prague, EUR 6.8M Series
     A Jun 2026 — Seventure, J&T Ventures, Elevator Ventures) sells the Digital ID Wallet Gateway:
@@ -67,7 +75,7 @@ sources:
   date: '2026-08-14'
   signal: round-wultra
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-25'
 ---
 
 Czechia must offer an EU Digital Identity Wallet to citizens and businesses by the end of 2026 [S1,S2], and within 36 months of the December 2024 implementing acts — i.e. during 2027 — banks, telcos, large platforms and other regulated businesses must accept it wherever strong user authentication is required [S1]. The state's deadline creates the private sector's problem: every Czech relying party needs wallet-acceptance flows, and the regulation's own scope names banks, utilities, e-shops with KYC obligations and municipalities among them [S1].
@@ -80,8 +88,12 @@ The state's own spend is documented: DIA put the national wallet's client part o
 
 Existing non-solutions and the incumbent: eDoklady is the state wallet precursor, not an integration product [S2]. The relying-party integration niche itself, however, is occupied: Wultra (Prague) sells the Digital ID Wallet Gateway — accept and verify EUDI wallet credentials (OIDC4VCI, SD-JWT per the ARF) through one gateway instead of integrating dozens of national wallet implementations — plus identity verification and qualified e-signatures, and raised a €6.8M Series A in June 2026 explicitly on the eIDAS2/EUDI acceptance wave [S4].
 
+Solved elsewhere: two funded European vendors already sell the acceptance layer — Lissi (Germany) builds EUDI-wallet connectivity for banks, and Gataca (Spain) runs wallet transactions at volume. The Czech position is not open either: Wultra, in Prague, sells a relying-party gateway built for exactly this wave [S4].
+
 ## Revisions
 
+
+2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed.
 2026-08-13 · money receipted — DIA's ~€78M open competition for the national wallet's client part was put on the ledger [S3]; the state is spending seriously and on schedule. The substance now sits in How big above rather than here.
 
 2026-08-14 · de-rank — The gap check this record was waiting on ran against the funded-CZ sweep and found the niche taken [S4]. Wultra's wallet gateway is precisely the relying-party acceptance product for banks and KYC-bound businesses that the title claimed does not exist, sold from Prague with fresh Series A capital [S4]. De-rank rule applied: gap stays 0 — now as a checked score with a named incumbent rather than an unchecked one — and the record moves to watching. The acceptance obligation still lands on thousands of relying parties in 2027, so residual room exists downstream of Wultra (sector-specific integrations, non-bank verticals, SI delivery), but the register cannot claim the integration path is missing.

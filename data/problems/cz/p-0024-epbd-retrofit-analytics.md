@@ -39,6 +39,8 @@ comps:
   markets: [GB, DE, ES, IT, NL, DK, CH, US, SG, AU]
 sources:
 - type: arbitrage
+  name: "Fuchs & Eule"
+  why: "Berlin, €10M raised in July 2026 for AI building-retrofit analytics that screen landlord and asset-manager portfolios — 10,000 building analyses done. The closest template."
   url: https://techfundingnews.com/fuchs-eule-raises-10m-commercial-landlords-esg/
   note: 'de-fuchs-eule: Fuchs & Eule (Berlin) raised €10M (GET Fund, 8 Jul 2026) for AI building-retrofit
     analytics — screens landlord/asset-manager portfolios for ESG and energy-retrofit needs;
@@ -46,12 +48,16 @@ sources:
   date: '2026-07-08'
   signal: de-fuchs-eule
 - type: gap-check
+  name: "Czech retrofit-analytics scan (first pass)"
+  why: "The early look at the Czech field: certificate consultancies work building by building, with PKV Build the scale player, and no self-serve portfolio retrofit-analytics software was found."
   url: https://techfundingnews.com/fuchs-eule-raises-10m-commercial-landlords-esg/
   note: 'Quick check 2026-08-13: CZ side shows certificate consultancies (PKV Build does energy
     certificates at scale) but no self-serve portfolio retrofit-analytics software. Gap 1
     (quick search only).'
   date: '2026-08-13'
 - type: regulation
+  name: "EPBD recast — Commission infringement notice"
+  why: "Transposition of Directive 2024/1275 was due 29 May 2026; on 15 July 2026 the Commission opened infringement procedures against all 27 Member States including Czechia."
   url: https://energy.ec.europa.eu/news/commission-calls-eu-countries-transpose-reinforced-rules-energy-performance-buildings-2026-07-15_en
   note: 'reg-epbd-recast: EPBD recast (2024/1275) transposition was due 29 May 2026; on 15
     Jul 2026 the Commission opened infringement procedures against all 27 Member States incl.
@@ -61,6 +67,8 @@ sources:
   date: '2026-07-15'
   signal: reg-epbd-recast
 - type: tender
+  name: "TED — the Czech energy-performance-contracting wave (~€58M)"
+  why: "Klatovy hospital's ~€8.3M award is one of 15 records from 11 distinct public buyers between June and August 2026 — the retrofit spend a portfolio-analytics layer would front-end."
   url: https://ted.europa.eu/en/notice/-/detail/384935-2026
   note: 'ted-384935-2026: Klatovská nemocnice awarded ~€8.3M for energy performance contracting
     (Jun 2026) — part of an EPC wave of 15 TED records from 11 distinct public buyers (~€58M
@@ -72,6 +80,8 @@ sources:
   date: '2026-06-04'
   signal: ted-384935-2026
 - type: gap-check
+  name: "Enmon, ENERGOMETR and the Czech portfolio-software field"
+  why: "A Czech-language sweep for portfolio retrofit planning. It found monitoring and ESG reporting — Enmon by PKV, ENERGOMETR by DEKSOFT — but no renovation roadmap, measure prioritisation or capex modelling."
   url: https://www.pkv.cz/en/energeticky-management
   note: 'Gap re-check 2026-08-20: looked for a Czech product that screens a PORTFOLIO of buildings
     for retrofit need and sequence — which building, which measure, in what order, at what capex
@@ -98,7 +108,7 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-08-25'
 ---
 
 The recast Energy Performance of Buildings Directive obliges member states to drive building automation retrofits, renovation passports, zero-emission new construction and solar-readiness — and Czechia, like all 27 member states, missed the May 2026 transposition deadline and received a Commission infringement procedure in July [S3]. The implementing law now arrives compressed and retroactively urgent [S3], and with it a rolling obligation wave for building owners: which buildings need BACS, which need envelope work, in what order, at what capex.
@@ -111,8 +121,12 @@ Who pays: commercial and institutional building owners triaging retrofit capex. 
 
 Existing non-solutions: energy specialists issuing PENB certificates one building at a time (PKV Build the scale player) [S2], and portfolio energy-management platforms that monitor consumption and report ESG but carry no renovation roadmap, measure prioritisation or capex modelling — Enmon (PKV) and ENERGOMETR (DEKSOFT) [S5]. The position this record tracks is the owner-side retrofit-planning product, not retrofit delivery [S2,S5] — and the distinction is monitoring versus retrofit planning, narrower than an empty field [S5].
 
+Solved elsewhere: building-portfolio decarbonisation analytics is a well-funded European category. Predium (Munich) raised a €13M Series A and counts Colliers and Baloise as customers, Fuchs & Eule (Germany) raised €10M on the back of 10,000 building analyses, and Deepki (Paris) monitors €4 trillion of assets across 80 countries after a €150M Series C [S1]. Each sells the owner-side analytics layer Czech owners still lack.
+
 ## Revisions
 
+
+2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed.
 2026-08-13 · money receipted — The EPC award wave was put on the ledger — 11 public buyers, ~€58M between June and August 2026 [S4] — carrying money to 1. The substance now sits in How big above rather than here.
 
 2026-08-20 · evidence audit — Removed the EPC supplier-side sentence: the four named companies and associations (ENESA, ČEZ ESCO, MVV, APES) return no hits anywhere in the signal corpus and appear in no source note on this record, and the maturity verdict attached to them had nothing behind it either. The clause that survives, that the unoccupied position is the owner-side analytics product, is the record's own gap check and is now cited to [S2]. Also removed from "Who pays": the claim that banks pricing green mortgages and sustainability-linked loans are a second buyer, since no green-mortgage receipt exists in the corpus.

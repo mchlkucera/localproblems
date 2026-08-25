@@ -45,6 +45,8 @@ comps:
   signal: yc-ventura
 sources:
 - type: arbitrage
+  name: "Mercura"
+  why: "Bavarian YC W25 company, around 20 people, automating quote and order processing for construction-supply distributors — the same buyer, one border away."
   url: https://www.ycombinator.com/companies/mercura
   note: 'yc-mercura: Mercura (YC W25, Bavaria, ~20 people) automates quote/order processing
     for construction-supply distributors with AI; Comena (YC S25) and Seals AI (S24) prove
@@ -53,18 +55,24 @@ sources:
   date: '2026-08-13'
   signal: yc-mercura
 - type: gap-check
+  name: "First Czech market scan"
+  why: "An early sweep that returned US and global tools plus generic Czech AI agencies — superseded by the three Czech vendors found later."
   url: https://www.ycombinator.com/companies/mercura
   note: 'Absence check 2026-08-13: searches return US/global tools (WizCommerce, turian) and
     CZ generic AI agencies (Appmine); no CZ vertical product. Classification: no CZ player
     found.'
   date: '2026-08-13'
 - type: arbitrage
+  name: "Ventura"
+  why: "A two-person YC W26 team selling ERP-integrated quote and order entry as an 'AI workforce for distributors and manufacturers' — a third funded company on this wedge inside two years."
   url: https://www.ycombinator.com/companies/ventura
   note: 'yc-ventura: Ventura (YC W26) — ''AI workforce for distributors and manufacturers'';
     a third company on the wedge within two years, confirming the category keeps getting funded.'
   date: '2026-08-13'
   signal: yc-ventura
 - type: gap-check
+  name: "Apertia Tech, Alice and Dativery"
+  why: "Apertia's 'B2B Objednávky pomocí AI' pulls orders out of e-mail into Pohoda, ABRA, Money, Helios and K2; Alice by Redque and Dativery sell the same extraction into the same ERPs."
   url: https://apertia.ai/b2b-objednavky-agent
   note: 'Gap re-check 2026-08-20: looked for a Czech vertical product that reads inbound RFQs
     and orders out of e-mail, PDF and Excel and writes them into the Czech SMB ERPs — the

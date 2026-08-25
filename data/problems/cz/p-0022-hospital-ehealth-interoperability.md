@@ -36,18 +36,24 @@ comps:
   markets: [GB, SE, CH]
 sources:
 - type: tender
+  name: "TED — Uherské Hradiště eHealth platform (~€7.7M)"
+  why: "A regional hospital bought a platform for provider-to-provider communication and data sharing in August 2026 — the largest single award in this wave."
   url: https://ted.europa.eu/en/notice/-/detail/549134-2026
   note: 'ted-549134-2026: Uherskohradišťská nemocnice awarded ~€7.7M to create an eHealth
     platform for provider-to-provider communication and data sharing (Aug 2026).'
   date: '2026-08-07'
   signal: ted-549134-2026
 - type: tender
+  name: "TED — Plzeň hospital group, NIS with ESB (~€5.8M)"
+  why: "The Plzeň region's hospital group ran an open competition for a hospital information system with an enterprise service bus and integrations."
   url: https://ted.europa.eu/en/notice/-/detail/476712-2026
   note: 'ted-476712-2026: Nemocnice Plzeňského kraje group tendering NIS + ESB + integrations,
     OPEN competition ~€5.8M (Jul–Aug 2026). Open tender ≥5M CZK: money scored 2.'
   date: '2026-07-10'
   signal: ted-476712-2026
 - type: tender
+  name: "TED — Zlín KNTB hospital system (~€2.8M)"
+  why: "Zlín's regional hospital bought a hospital information system with integration scope; FN Olomouc bought eHealth interoperability (~€0.7M) in the same weeks."
   url: https://ted.europa.eu/en/notice/-/detail/443904-2026
   note: 'ted-443904-2026: Krajská nemocnice T. Bati (Zlín) awarded ~€2.8M for a hospital information
     system incl. integrations (Jun 2026); FN Olomouc bought eHealth interoperability (~€0.7M)
@@ -55,6 +61,8 @@ sources:
   date: '2026-06-29'
   signal: ted-443904-2026
 - type: contract
+  name: "Registr smluv — Karlovy Vary hospital (~70.9M CZK)"
+  why: "The regional hospital signed for hospital-system delivery and support, alongside a wave of psychiatric-hospital system contracts in the same weeks."
   url: https://smlouvy.gov.cz/smlouva/38551596
   note: 'hlidac-38551596: Karlovarská krajská nemocnice signed ~70.9M CZK for NIS delivery
     + service support (registr smluv, 27 Jun 2026); same weeks show a psychiatric-hospital
@@ -64,6 +72,8 @@ sources:
   date: '2026-06-27'
   signal: hlidac-38551596
 - type: contract
+  name: "Registr smluv — STAPRO amendment churn"
+  why: "Price-increase amendments signed the same day, extended works deadlines and an integration platform on its eighth amendment — what buying integration from the incumbent costs after signature."
   url: https://smlouvy.gov.cz/smlouva/38419070
   note: 'hlidac-38419070: KNTB Zlín signed STAPRO NIS-service amendments No. 1 and No. 2 the
     same day — both price increases (~2.8M CZK, Jun 2026). The same weeks: FN u sv. Anny extended
@@ -77,6 +87,8 @@ sources:
   dims:
   - demand
 - type: complaint
+  name: "NKÚ — digitalisation of Czech healthcare"
+  why: "The state audit office finds health-data sharing and eŽádanka six years late and legally required registries still missing — the national layer hospitals are waiting for does not exist."
   url: https://www.zdravotnickydenik.cz/2026/01/digitalizace-ceskeho-zdravotnictvi-nku/
   note: 'nku-ehealth-delay: NKÚ''s II. summary digitalization report (Jan 2026) documents
     health-data sharing and eZádanka six years late (2020 plan → 2026 at the earliest), core
@@ -87,6 +99,8 @@ sources:
   date: '2026-01-31'
   signal: nku-ehealth-delay
 - type: regulation
+  name: "European Health Data Space — Regulation (EU) 2025/327"
+  why: "Sets the legal end state: cross-border patient summaries and ePrescription from 2029, imaging and discharge data from 2031, with conformity duties landing on the Czech hospital-system vendors."
   url: https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en
   note: 'reg-ehds: EHDS Regulation (EU) 2025/327 in force since Mar 2025; implementing acts
     due Mar 2027; cross-border primary use (patient summaries, ePrescription) and most secondary-use
@@ -96,6 +110,8 @@ sources:
   date: '2029-03-26'
   signal: reg-ehds
 - type: gap-check
+  name: "Czech hospital integration products"
+  why: "A sweep of the Czech field naming what already exists — Medicalc mEx, PHYSTER, Stapro FONS/TransMISE, ICZ eMEDOCS, AutoCont's ESB ACIB and M.I.T. Consulting's hospital bus."
   url: https://www.zdravotnickydenik.cz/2026/01/medicalc-meni-fungovani-nemocnic-jan-kupka/
   note: 'Gap check 2026-08-13: CZ integration-platform products DO exist — Medicalc mEx, PHYSTER
     TECHNOLOGY, Stapro FONS/TransMISE, ICZ eMEDOCS/ISAC, AutoCont AC Pramen/ESB ACIB are NCPeH-connected
@@ -108,13 +124,15 @@ created: '2026-08-13'
 updated: '2026-08-24'
 ---
 
-Between June and August 2026, at least four Czech regional hospital groups went to market separately for what is structurally the same thing: an interoperability layer that lets hospital systems talk to each other and to outside providers [S1,S3]. Uherské Hradiště awarded ~€7.7M for an eHealth communication platform [S1]; the Plzeňský kraj hospital group has an open ~€5.8M tender for NIS delivery with ESB and integrations [S2]; Zlín's KNTB awarded ~€2.8M for a NIS with integration scope [S3]; FN Olomouc bought interoperability work [S3].
+Between June and August 2026, four Czech regional hospital groups went to market separately for structurally the same thing: a layer that lets hospital systems talk to each other and to outside providers. Uherské Hradiště awarded ~€7.7M for an eHealth communication platform [S1]. The Plzeň hospital group opened a ~€5.8M competition for a hospital system with an enterprise service bus [S2]. Zlín awarded ~€2.8M, and FN Olomouc bought interoperability work at ~€0.7M [S3].
 
-Why now: the European Health Data Space regulation (in force since March 2025, with obligations phasing toward 2029+) makes structured, exchangeable health records a legal end-state [S7], and Czech hospitals are spending toward it now, hospital by hospital [S4], without a shared platform. The procurement cluster is the evidence: this is recurring, multi-buyer public spend on an unsolved integration problem.
+Why now: the European Health Data Space makes structured, exchangeable health records a legal end state — cross-border patient summaries from 2029, imaging and discharge data from 2031 [S7]. Czech hospitals are spending toward it now, one hospital at a time [S4]. The national layer they would otherwise wait for is six years late: health-data sharing and eŽádanka have slipped from 2020 to 2026 at the earliest, and registries required by law are still missing [S6].
 
-Who pays: hospital groups and kraje (the owners) — today via SI tenders, which is exactly the opportunity for consultancies and dev shops; longer-term, a productized interop/ESB layer with Czech NIS integrations (Stapro FONS/TransMISE, ICZ eMEDOCS) [S8] could compress these €0.7-7.7M projects into licensing deals [S1,S2,S3].
+Who pays: hospital groups and the regions that own them — today through integration tenders, which is where the money already is. Four TED awards alone carried ~€17M in ten weeks [S1,S2]. The contract registry adds the same summer's Karlovy Vary hospital at ~70.9M CZK and a psychiatric-hospital wave behind it, making eight or more distinct public buyers re-solving one problem in a single season [S4]. Projects run €0.7M to €7.7M each [S1,S3]. A product that converted even a third of that spend into licences would be a multi-million-euro annual line, and these buyers renew rather than finish.
 
-Existing non-solutions: the incumbent Czech NIS vendors (Stapro, ICZ, CompuGroup) sell systems and their own integration stacks [S7,S8]; per NKÚ's January 2026 digitalization report, the national layer hospitals are waiting for is six years late, with health-data sharing and eZádanka slipping from 2020 to 2026-at-the-earliest and legally required registries still missing [S6]. Each hospital tender therefore re-solves interoperability locally, and what the registr smluv shows about how that goes is not flattering: STAPRO service amendments repricing upward, works deadlines extended, and one integration-platform contract on its eighth amendment [S5].
+Existing non-solutions: the field is not empty. Stapro (FONS, TransMISE), ICZ (eMEDOCS) and CompuGroup sell hospital systems with their own integration stacks, and Medicalc, PHYSTER and AutoCont's ESB ACIB sell integration products beside them [S8]. What the contract registry shows about buying that from an incumbent is less flattering: two service amendments repriced upward on the same day, works deadlines extended, one integration platform on its eighth amendment [S5].
+
+Solved elsewhere: the shared layer exists as a product in other markets — built once, sold many times. Redox (Madison, $95M raised) moves data between 450+ US provider organisations and hundreds of applications through one API platform. Better (Ljubljana) runs an openEHR platform under 500+ hospitals across 15 countries, including NHS trusts, Karolinska and Basel. Better is the closer template: it grew out of a decades-old systems-integration business, which is the position Czech vendors already occupy [S8]. Neither was cheap to build.
 
 ## Revisions
 

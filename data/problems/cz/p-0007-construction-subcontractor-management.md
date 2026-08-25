@@ -47,6 +47,8 @@ comps:
   traction: '$21M total — $15.5M Series A led by Foundation Capital (PRNewswire, 2025); construction payroll, time and insurance'
 sources:
 - type: arbitrage
+  name: "CoCrafter"
+  why: "Munich B2B marketplace matching general contractors with vetted subcontractors, foreign-crew sourcing and compliance documents included — 3,000+ German SMB construction firms on it."
   url: https://www.ycombinator.com/companies/cocrafter
   note: 'yc-cocrafter: CoCrafter (YC W24, Munich) — B2B marketplace matching GCs with vetted
     subcontractors incl. foreign-crew sourcing and compliance docs; 3,000+ German SMB companies
@@ -54,6 +56,8 @@ sources:
   date: '2026-08-13'
   signal: yc-cocrafter
 - type: arbitrage
+  name: "Hammr"
+  why: "'Rippling for construction' (YC W23) — construction-specific payroll, HR and compliance, which is the second half of this problem, funded in the US."
   url: https://www.ycombinator.com/companies/hammr
   note: 'yc-hammr: Hammr (YC W23, US) — construction-specific payroll, HR and compliance (''Rippling
     for construction''). No CZ construction-vertical payroll/compliance product found; only
@@ -61,6 +65,8 @@ sources:
   date: '2026-08-13'
   signal: yc-hammr
 - type: gap-check
+  name: "First Czech market scan"
+  why: "Czech construction-tech lists showing only consumer marketplaces and generic payroll, plus the documented informal sourcing of Ukrainian and Balkan crews through Facebook groups and brokers."
   url: https://www.ycombinator.com/companies/cocrafter
   note: 'Absence checks 2026-08-13: Tracxn CZ construction-tech lists and searches show no
     B2B subcontractor marketplace (only consumer marketplaces Wilio, Nejřemeslníci) and no
@@ -68,6 +74,8 @@ sources:
     crew sourcing via Facebook groups and brokers with zero vetting.'
   date: '2026-08-13'
 - type: arbitrage
+  name: "conmeet"
+  why: "Munich, €6M seed in August 2026 for an AI operations system covering procurement to invoicing at 10–500-employee trades and construction firms — German money on construction back-office software."
   url: https://tech.eu/2026/08/05/conmeet-raises-eur6m-to-power-construction-businesses-with-ai/
   note: 'de-conmeet: conmeet (Munich) raised €6M seed (5 Aug 2026) for an AI-native ops OS
     for 10–500-employee trades/construction firms — procurement to invoicing. Reinforces DE
@@ -76,6 +84,8 @@ sources:
   date: '2026-08-05'
   signal: de-conmeet
 - type: gap-check
+  name: "Bildix and the Czech near-misses"
+  why: "Bildix runs a contractor's whole internal operation but does no crew sourcing, vetting or payroll; NejStav and ePoptávka are lead generation, and PlanRadar tenders only to subcontractors already on a live project."
   url: https://bildix.app/
   note: 'Gap re-check 2026-08-20: looked for (a) a Czech B2B marketplace matching general
     contractors with vetted subcontractor crews and (b) a construction-vertical payroll or

@@ -40,6 +40,8 @@ comps:
   signal: yc-audun
 sources:
 - type: complaint
+  name: "Financial arbiter — 2025 annual report"
+  why: "The caseload receipt: 2,660 new proceedings in 2023, 5,683 in 2024, 12,050 in 2025 and 8,200 more filed by May 2026, with consumer credit at ~92% of the running docket and proceedings averaging 167 days."
   url: https://finarbitr.gov.cz/cs/informace-pro-verejnost/aktuality/vyrocni-zprava-financniho-arbitra-za-rok-2025-425.html
   note: 'fa-spotrebitelske-uvery: the financial arbiter''s 2025 annual report documents 12,050
     new proceedings in 2025 (vs 5,683 in 2024 and 2,660 in 2023, +113% YoY), consumer-credit
@@ -50,6 +52,8 @@ sources:
   date: '2026-05-29'
   signal: fa-spotrebitelske-uvery
 - type: complaint
+  name: "MPO — consumer policy progress report"
+  why: "A second official count: ~18,700 financial-arbiter filings between 2020 and mid-2025, inside 45,000+ out-of-court dispute filings across sectors. The caseload is structural, not a one-year spike."
   url: https://mpo.gov.cz/assets/cz/ochrana-spotrebitele/aktualni-informace/2026/3/Zprava-o-prubeznem-plneni-Strategie-spotrebitelske-politiky-2025.pdf
   note: 'mpo-adr-vyuziti: MPO''s consumer-policy progress report tabulates ~18,700 financial-arbiter
     filings 2020-H1/2025 (consumer credit, strongly rising) within 45k+ out-of-court dispute
@@ -59,6 +63,8 @@ sources:
   date: '2026-03-31'
   signal: mpo-adr-vyuziti
 - type: arbitrage
+  name: "ClaimSorted"
+  why: "A YC-backed London company productising claims processing for insurers — with Audun's AI debt collection in Norway, the nearest funded model to lender-side dispute operations, and still one vertical away."
   url: https://www.ycombinator.com/companies/claimsorted
   note: 'yc-claimsorted: ClaimSorted (YC S24, London) productizes claims processing for insurers;
     the funded claims-operations cluster (Avallon AI, Basepilot, Amera in US insurance; Audun,
@@ -67,6 +73,8 @@ sources:
     — proof scored 1 (weak adjacent analogs only).'
   date: '2026-08-13'
 - type: gap-check
+  name: "Czech dispute-tooling scan (first pass)"
+  why: "Searches returned the arbiter's own information pages, consumer advisories and law firms handling cases by hand — no Czech product for lender-side dispute response was found."
   url: https://finarbitr.gov.cz/cs/informace-pro-verejnost/caste-otazky.html
   note: 'Gap check 2026-08-13: searches return only the arbiter''s own information pages,
     consumer advisories (obcanskeporadny.cz, dostupnyadvokat.cz) and law firms handling cases
@@ -74,6 +82,8 @@ sources:
     workflow was found. Gap 1 (quick search, no CZ player found).'
   date: '2026-08-13'
 - type: gap-check
+  name: "aCompliance and the Czech respondent-side field"
+  why: "A deeper Czech sweep: receivables platforms point the other way, law-practice case management carries no arbiter docket, and aCompliance handles arbiter disputes as a service rather than a product."
   url: https://www.acompliance.cz/klienti/nebankovni-poskytovatele-uveru/
   note: 'Gap re-check 2026-08-20: NOT FOUND, score unchanged. Looked for a Czech product on
     the respondent side — dispute-response workflow for lenders, docket management against
@@ -98,7 +108,7 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-25'
 ---
 
 The Kancelář finančního arbitra — the out-of-court forum for consumer disputes with banks and non-bank lenders — is absorbing a caseload explosion: 2,660 new proceedings in 2023, 5,683 in 2024, 12,050 in 2025, and 8,200 already filed by the time the 2025 annual report was published in May 2026, projecting toward ~20,000 for the year [S1]. Roughly 92% of all running proceedings are consumer-credit disputes, dominated by claims that lenders failed to properly assess creditworthiness (úvěruschopnost) [S1].
@@ -111,6 +121,10 @@ Existing non-solutions: manual legal departments, outsourced law firms billing p
 
 Solved elsewhere, weakly: no funded analog exists for consumer-credit dispute operations specifically; the nearest proven models are AI claims-operations companies in insurance (ClaimSorted, Avallon, Basepilot, Amera) and AI-native debt collection (Audun, Norway) [S3]. This record is carried by its documented demand — the first Czech mover would be productizing a workflow that provably exists at scale rather than importing a proven product.
 
+Solved elsewhere: dispute handling is funded on both sides of the Atlantic. Casap (US) raised a $25M Series A to automate the bank payment-dispute lifecycle, ClaimSorted (UK) raised $13.3M serving twenty-plus insurers as a tech-enabled claims handler, and Audun (Oslo) is building AI-native collections out of YC [S3]. The Czech arbiter's caseload is the same shape of work, still handled by hand.
+
 ## Revisions
 
+
+2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed.
 2026-08-20 · evidence audit — Three legal-status claims removed, none of which the register ever checked. The arbiter's forum was described as mandatory: neither S1's note nor the underlying signal says so. The interest-voiding doctrine ("a failed assessment can void the credit contract's interest") is gone — the corpus records only that creditworthiness-assessment claims dominate the docket, nothing about the remedy. And "Free proceedings with no lawyer requirement remove any natural brake on volume": both procedural facts had no receipt. The caseload figures, the settlement rate and the proceeding length are unaffected; they are receipted [S1].

@@ -45,6 +45,8 @@ comps:
   signal: yc-autositu
 sources:
 - type: arbitrage
+  name: "PermitPortal"
+  why: "AI pre-construction operating system for US developers (YC F24) — entitlements, zoning intelligence and permit navigation, the closest template abroad."
   url: https://www.ycombinator.com/companies/permitportal
   note: 'yc-permitportal: PermitPortal (YC F24) — AI OS for pre-construction: entitlements,
     zoning intelligence, permit navigation; adjacent YC analogs Permitify (W25) and Verdant
@@ -52,17 +54,23 @@ sources:
   date: '2026-08-13'
   signal: yc-permitportal
 - type: complaint
+  name: "Portál stavebníka — the digitalization fiasco"
+  why: "The July 2024 launch of the digitalized permitting system, and trade-press reporting a year on that it had stabilized but still faced complications."
   url: https://www.ycombinator.com/companies/permitportal
   note: Signal documents the July 2024 DSŘ digitalization fiasco (portál stavebníka) and archiweb
     reporting that digitalization 'stabilized after a year, but still faces complications';
     CZ among slowest building-permit processes in OECD.
   date: '2026-08-13'
 - type: gap-check
+  name: "First Czech market scan"
+  why: "An early sweep that returned only news about the broken state portal and US tools — superseded by the two Czech players found later."
   url: https://www.ycombinator.com/companies/permitportal
   note: 'Absence check 2026-08-13: searches return only news about the broken state system
     and US tools (CivCheck); no CZ startup automating permit preparation or navigation.'
   date: '2026-08-13'
 - type: arbitrage
+  name: "Autositu"
+  why: "A two-person YC W26 team selling an AI plan-review workspace — the fourth US company on the permitting problem inside two years."
   url: https://www.ycombinator.com/companies/autositu
   note: 'yc-autositu: Autositu (YC W26) — AI-native workspace for development plan reviews;
     a fourth YC company on the permitting/plan-review problem within two years. Still US-only,
@@ -70,6 +78,8 @@ sources:
   date: '2026-08-13'
   signal: yc-autositu
 - type: complaint
+  name: "ČKAIT survey — how long a permit takes"
+  why: "A survey of roughly 1,100 authorised engineers: most Czech permit proceedings, related engineering work included, run six months to a year."
   url: https://zpravy.ckait.cz/vydani/2024-01/delka-povolovani-staveb-v-cr-nikoliv-roky-ale-mesice-ukazal-pruzkum-inzenyrske-komory/
   note: 'ČKAIT survey published in Z+i 2024-01 (n≈1,100): typical Czech building-permit
     proceedings run 6–12 months, not years. This is the replacement figure the record''s
@@ -79,6 +89,8 @@ sources:
     a different 2026-03 piece about the DSŘ portal).'
   date: '2024-01-31'
 - type: news
+  name: "World Bank — Doing Business discontinued"
+  why: "The 2021 statement retiring the index behind this record's original 'slowest in the OECD' framing, after an investigation into data irregularities."
   url: https://www.worldbank.org/en/news/statement/2021/09/16/world-bank-group-to-discontinue-doing-business-report
   note: 'World Bank Group statement, 16 Sep 2021 — the Doing Business report is DISCONTINUED
     following the investigation into data irregularities in the Doing Business 2018 and 2020
@@ -90,6 +102,8 @@ sources:
   date: '2021-09-16'
   dims: []
 - type: gap-check
+  name: "Průvodka and Efektivia"
+  why: "Průvodka sells AI permit preparation to projektanti and stavebníci at 12,900 CZK a project or 29,900 CZK a month; Efektivia sells the mirror-image triage tool to the building authorities."
   url: https://pruvodka.cz/o-nas
   note: 'Gap re-check 2026-08-20: looked for a Czech product automating permit preparation
     or navigation for stavebníci, developers or projektanti — the absence this record has

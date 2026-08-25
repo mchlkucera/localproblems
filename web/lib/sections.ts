@@ -51,7 +51,17 @@ export type Sections = {
   revisions: Revision[];
 };
 
-const capitalize = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+/** Sentence-case the paragraph after its lead-in is stripped — but NEVER mangle a
+    brand that is deliberately lower-case. "iChoosr" became "IChoosr" and
+    "cargo.one" would become "Cargo.one": the register names companies as they
+    spell themselves, so a cosmetic helper must not overrule them. Skip when the
+    first word is camelCase (iChoosr, eDoklady) or domain-shaped (cargo.one). */
+const capitalize = (s: string) => {
+  if (!s) return s;
+  const word = s.split(/\s/, 1)[0];
+  if (/^[a-z]+[A-Z]/.test(word) || word.includes(".")) return s;
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
 
 /** First sentence of a paragraph: ends at the first ". " or the final ".". */
 export function splitFirstSentence(s: string): { first: string; rest: string } {

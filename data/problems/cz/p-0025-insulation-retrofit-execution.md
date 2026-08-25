@@ -38,6 +38,8 @@ comps:
   traction: '€20M Series B, €40M total raised (Tech.eu, 2025); digital energy audits, subsidy handling and renovation delivery for homeowners'
 sources:
 - type: arbitrage
+  name: "VARM"
+  why: "Berlin, €17.5M Series A in June 2026 — trains career-changers as certified installers, insulates a family home in one day at a fixed ~€5k price and runs the whole operation on software."
   url: https://tech.eu/2026/06/23/berlins-varm-bags-eur175m-to-scale-insulation-across-europe/
   note: 'de-varm: VARM (Berlin) raised €17.5M Series A (ABN AMRO Sustainable Impact Fund,
     23 Jun 2026) as a tech-enabled insulation installer — trains career-changers as certified
@@ -46,18 +48,24 @@ sources:
   date: '2026-06-23'
   signal: de-varm
 - type: subsidy
+  name: "Nová zelená úsporám"
+  why: "The standing Czech subsidy programme that co-pays insulation alongside heat pumps and photovoltaics — it pre-validates household demand and funds part of every ticket."
   url: https://novazelenausporam.cz/
   note: Nová zelená úsporám funds zateplení (insulation) alongside heat pumps/PV — the standing
     subsidy program that pre-validates household demand and co-pays the ticket. Money 1 (relevant
     grant program exists).
   date: '2026-08-13'
 - type: gap-check
+  name: "Czech insulation-trade scan (first pass)"
+  why: "The early look at the Czech field: Woltair proved the vertical-installer model here for heat pumps and photovoltaics but does not do insulation, which stays a long tail of small firms."
   url: https://tech.eu/2026/06/23/berlins-varm-bags-eur175m-to-scale-insulation-across-europe/
   note: 'Quick check 2026-08-13: Woltair proved the CZ vertical-installer model for heat pumps/PV
     but does not do insulation; the insulation trade remains a long tail of small firms with
     no tech-enabled consolidator. Gap 1 (quick search only).'
   date: '2026-08-13'
 - type: arbitrage
+  name: "dsb Deutsche Sanierungsberatung"
+  why: "Berlin, €10M Series A in July 2026 — packages renovation consulting, subsidy applications and contractor delivery for homeowners. The demand-side half of the model, funded a month after VARM."
   url: https://www.vestbee.com/insights/articles/top-european-funding-rounds-closed-in-july-2026
   note: 'round-dsb-sanierung: dsb Deutsche Sanierungsberatung (Berlin) raised €10M Series
     A (Jul 2026, IBB Ventures + Vireo + FJ Labs) packaging energy-renovation consulting, subsidy
@@ -68,6 +76,8 @@ sources:
   date: '2026-07-31'
   signal: round-dsb-sanierung
 - type: regulation
+  name: "EPBD recast — Commission infringement notice"
+  why: "Transposition overdue since May 2026 and infringement opened against Czechia on 15 July 2026; residential renovation trajectories dated 2030 and 2033 put a legal driver behind household insulation."
   url: https://energy.ec.europa.eu/news/commission-calls-eu-countries-transpose-reinforced-rules-energy-performance-buildings-2026-07-15_en
   note: 'reg-epbd-recast: EPBD recast (2024/1275) — transposition overdue since May 2026,
     infringement procedure opened against CZ on 15 Jul 2026; residential renovation trajectories
@@ -76,6 +86,8 @@ sources:
   date: '2026-07-15'
   signal: reg-epbd-recast
 - type: gap-check
+  name: "Czech insulation supply — a second, deeper sweep"
+  why: "Looked for a scaled tech-enabled insulation consolidator and found the long tail instead: regional directories, individual applicators, CIUR's manufacturer-partner network, and dotacenarenovace.cz — a 25-year construction firm with a subsidy desk."
   url: https://dotacenarenovace.cz/
   note: 'Gap re-check 2026-08-20: looked for a Czech tech-enabled insulation consolidator —
     either the VARM shape (trained crews, standardised fixed-price one-day job, software-run

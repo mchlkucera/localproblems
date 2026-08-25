@@ -27,6 +27,8 @@ comps:
   traction: 'First records kernel certified by Norway''s National Archives (Noark); NOK 100M from Summa Equity; revenue >15x since 2017 (Summa)'
 sources:
 - type: regulation
+  name: "The eSSL attestation regime (§69b–e, Act 499/2004)"
+  why: "Legal commentary on the gate: since 1 July 2025 suppliers may not offer non-attested records systems to public-law originators, and those bodies must be running attested systems by 31 December 2026."
   url: https://www.epravo.cz/top/clanky/dodani-elektronickeho-systemu-spisove-sluzby-po-172025-119824.html
   note: 'Attestation regime under §69b-e zákona č. 499/2004 Sb. (introduced by the DEPO amendment,
     z. č. 261/2021 Sb.): electronic records-management systems (eSSL) must hold a state atest
@@ -37,6 +39,8 @@ sources:
     sub-score 2.'
   date: '2026-12-31'
 - type: tender
+  name: "TED — SÚKL records system (~€1.4M), and the wave around it"
+  why: "An open competition by the state drug agency, inside ~28 records-management procurement records from ~19 distinct public buyers (~€17M) in ten weeks — with SÚRAO republishing four times."
   url: https://ted.europa.eu/en/notice/-/detail/415250-2026
   note: 'ted-415250-2026: SÚKL ran an OPEN ~€1.4M competition for a records management system
     (Jun 2026) — open tender ≥5M CZK: money 2. It sits in a wave of ~28 records-management
@@ -46,6 +50,8 @@ sources:
   date: '2026-06-17'
   signal: ted-415250-2026
 - type: tender
+  name: "TED — City of Prague, e-spis development (~€3.3M)"
+  why: "Prague's third records-management award in the window, buying development on the incumbent ICZ e-spis stack — the large-buyer end of the same wave."
   url: https://ted.europa.eu/en/notice/-/detail/559572-2026
   note: 'ted-559572-2026: City of Prague awarded ~€3.3M for e-spis development incl. modules
     and training (Aug 2026), its third records-management award in the window — the large-buyer
@@ -53,6 +59,8 @@ sources:
   date: '2026-08-12'
   signal: ted-559572-2026
 - type: tender
+  name: "TED — Ministry of the Interior, records support 2025–2028 (~€642k)"
+  why: "A ministry buying multi-year support rather than a licence — the recurring half of the bill, and the buyer type at the top of the obligated population."
   url: https://ted.europa.eu/en/notice/-/detail/535679-2026
   note: 'ted-535679-2026: Ministry of the Interior awarded ~€642k for records-management systems
     support 2025–2028 (Aug 2026) — a ministry-level buyer inside the same Jun–Aug window,
@@ -60,12 +68,16 @@ sources:
   date: '2026-08-03'
   signal: ted-535679-2026
 - type: tender
+  name: "TED — Ostrava University records system (~€408k)"
+  why: "The university buyer type inside the same wave, bought with service support attached."
   url: https://ted.europa.eu/en/notice/-/detail/442243-2026
   note: 'ted-442243-2026: Ostravská univerzita awarded ~€408k for a records management system
     incl. service support (Jun 2026) — the university buyer type in the same wave.'
   date: '2026-06-29'
   signal: ted-442243-2026
 - type: tender
+  name: "TED — Lesy ČR records system (~€1.1M)"
+  why: "The state-enterprise buyer type, and one of the larger single awards in the wave."
   url: https://ted.europa.eu/en/notice/-/detail/529246-2026
   note: 'ted-529246-2026: Czech State Forests (Lesy ČR) awarded ~€1.1M for an electronic records
     management system (Jul 2026) — the state-enterprise buyer type, and one of the larger
@@ -73,6 +85,8 @@ sources:
   date: '2026-07-30'
   signal: ted-529246-2026
 - type: tender
+  name: "TED — Prague, GINIS ENTERPRISE+ development (~€275k)"
+  why: "Direct evidence that GORDIC's GINIS stack is one of the incumbents this wave is being bought from, alongside ICZ's e-spis."
   url: https://ted.europa.eu/en/notice/-/detail/533101-2026
   note: 'ted-533101-2026: City of Prague awarded ~€275k for GINIS ENTERPRISE+ development incl.
     records management (framework, Jul 2026) — direct receipt that GORDIC''s GINIS stack is
@@ -80,19 +94,21 @@ sources:
   date: '2026-07-31'
   signal: ted-533101-2026
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-08-25'
 ---
 
-Every Czech public body runs a spisová služba — the legally mandated records-management layer beneath all official correspondence — and the state has now put a hard gate on the software that runs it: eSSL systems must pass state attestation, suppliers have been banned from offering or supplying non-attested products to public-law originators since 1 July 2025, and the transitional period for state organizational units, contributory organisations and state enterprises to operate attested systems ends 31 December 2026 [S1].
+Every Czech public body runs a spisová služba — the records layer beneath all official correspondence — and the state has put a hard gate on the software that runs it. Systems must hold a state attestation. Suppliers have been barred from offering non-attested products to public-law originators since 1 July 2025, and those bodies must be running attested systems by 31 December 2026 [S1].
 
-Why now: the procurement wave the deadline predicts is visible in the data. In a single June–August 2026 window, ~19 distinct public buyers generated ~28 TED records for records-management systems (~€17M) — SÚKL, ministries, hospitals, universities, insurance funds, state enterprises [S2,S4,S5,S6]. The friction is visible too: SÚRAO published its certified-eSSL tender four times and the Pardubice hospital group three times, the classic signature of procedures that fail to attract compliant bids and must be re-run against a fixed statutory clock [S2].
+Why now: the wave the deadline predicts is already in the procurement record. In one June–August 2026 window ~19 public buyers produced ~28 TED records for records-management systems worth ~€17M [S2]. So is the friction: SÚRAO published its tender four times and the Pardubice hospital group three — the signature of procedures that cannot attract compliant bids against a fixed statutory clock [S2].
 
-Who pays: twice over. Public bodies pay for migration, integration and support of attested systems — recurring public IT spend documented above threshold [S2,S3,S4], with the long tail of smaller organisations buying below TED's line of sight. Vendors pay for attestation itself [S1]: the atest is a per-product, per-version regulatory asset, which raises the cost of staying in the market and concentrates supply in the incumbents who can afford the cycle.
+Who pays: every public-law originator facing 31 December 2026 — ministries, hospitals, universities, state enterprises — first for migration onto an attested system, then annually for support. Ten weeks of TED carried ~€17M, which annualises to roughly €90M of visible spend [S2]. Individual awards spread from ~€408k at Ostrava University to ~€1.1M at Lesy ČR [S5,S6], and the Interior Ministry bought multi-year support rather than a licence [S4]. Below TED's threshold the tail is unmeasured. Vendors pay too: attestation runs per product and per version [S1], a recurring cost that concentrates supply.
 
-Existing non-solutions — and why no open local field is claimed: this is not an empty field. GORDIC (GINIS), ICZ (e-spis) and the other attested-product vendors dominate, and the wave is being bought from them [S3,S7]; the register does not pretend a greenfield product gap where strong incumbents are winning. The honest problem is narrower: a statutory deadline colliding with concentrated attested supply and repeat-failing tenders — a migration-capacity and procurement problem, with the attestation barrier itself defining who can compete.
+Existing non-solutions: this field is not empty. GORDIC's GINIS and ICZ's e-spis hold attested products and are winning the wave [S3,S7]. The problem is narrower than a missing product: a statutory deadline meeting concentrated supply and tenders that keep failing to close. No buyer-side complaint is on file, and a count of bodies still running non-attested systems is the evidence that would move this record [S2].
 
-No foreign analog is on file — attestation of records software this strict is a Czech construction — and no buyer-side complaint is yet on file. What would move this record: a documented count of bodies still running non-attested systems as the deadline approaches, or vendor-queue evidence that attestation and migration capacity cannot clear the 31 Dec 2026 wall.
+Solved elsewhere: one comparable, and it is the right shape. Documaster (Oslo) built the first records kernel certified against Norway's Noark archival standard, took NOK 100M from Summa Equity and has grown revenue more than fifteenfold since 2017 — a national certification regime turned into a product moat rather than a barrier to entry. That is the whole of the foreign evidence; attestation this strict is otherwise a Czech construction [S1].
 
 ## Revisions
 
 2026-08-24 · fact check — The supply-side ban was stated one notch too widely: §69e bans offering or supplying non-attested eSSL to public-law originators ("zákaz nabízet nebo dodávat veřejnoprávním původcům"), not from sale generally — verified live on the S1 commentary, and title and lead now say so [S1]. The procurement-wave arithmetic was re-counted mechanically against the signal corpus on this date: ~30 matching records, 19 distinct buyers, SÚRAO with four publications and Nemocnice Pardubického kraje with three, as stated [S2].
+
+2026-08-25 · board-brief rewrite — The body was rewritten to the builder-first template and the missing `Solved elsewhere:` lead-in was written: without it the Proven abroad section rendered as a bare comps ledger with no prose, and the body meanwhile claimed "no foreign analog is on file" while Documaster sat on that ledger. The paragraph now states what the one comparable proves — a national records-certification regime (Norway's Noark) turned into a product moat rather than a barrier — and keeps the honest limit that attestation this strict is otherwise a Czech construction. "How big" now carries arithmetic instead of a gesture: ~€17M across ten TED weeks annualises to roughly €90M of visible spend, with the individual awards (~€642k Interior support, ~€1.1M Lesy ČR, ~€408k Ostrava University) showing the spread and the sub-threshold tail named as unmeasured [S2,S4,S5,S6]. The open follow-up moved into the local-competition paragraph so it stops landing inside Proven abroad. Every source gained a public name and why line; scores, status and internal notes untouched. Flagged for MATCH, not changed: `scores.proof` is 0 while a funded foreign comparable (Documaster, NOK 100M from Summa Equity) sits on the comps ledger.

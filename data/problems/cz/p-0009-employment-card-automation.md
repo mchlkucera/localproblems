@@ -50,6 +50,8 @@ comps:
   markets: [DE, ES, GB, PT, FR, NL]
 sources:
 - type: arbitrage
+  name: "Gale"
+  why: "A $2.7M-seed US company automating the corporate work-visa pipeline — application prep, compliance, HR integration — by coordinating independent attorneys rather than replacing them."
   url: https://www.ycombinator.com/companies/gale
   note: 'yc-gale: Gale (YC W25) automates the corporate work-visa pipeline — application prep,
     compliance, HR-system integration, coordinating independent attorneys; Mayflower (YC F25)
@@ -57,6 +59,8 @@ sources:
   date: '2026-08-13'
   signal: yc-gale
 - type: gap-check
+  name: "First Czech market scan"
+  why: "An early sweep that surfaced ministry pages, law firms and static form-filling guides, and documented the employee-card process as slow, paper-based and handled manually at high fees."
   url: https://www.ycombinator.com/companies/gale
   note: 'Absence check 2026-08-13: searches surface ministry pages, law firms (ARROWS) and
     permit.cz (static form-filling guides); no automation platform. Demand point: signal documents
@@ -65,6 +69,8 @@ sources:
     from Ukraine, Philippines, India.'
   date: '2026-08-13'
 - type: arbitrage
+  name: "LegalOS"
+  why: "'The AI-Native Immigration Law Firm' (YC W26) — a service firm rather than a software vendor, which is the form factor that fits a paper-based process best."
   url: https://www.ycombinator.com/companies/legalos
   note: 'yc-legalos: LegalOS (YC W26) — ''The AI-Native Immigration Law Firm'', an AI-first
     service firm rather than software vendor; the service-firm form factor is the most transferable
@@ -72,6 +78,8 @@ sources:
   date: '2026-08-13'
   signal: yc-legalos
 - type: gap-check
+  name: "Market scan — Czech immigration providers"
+  why: "Six searches and an ARES sweep found a dense manual market — Spring Walk, Foreigners, ReloCzech, Expat Support, Principio, DMPF — with no portal, dashboard or tracking, and no software vendor among them."
   url: https://www.zamestnaneckekarty.cz/zamestnanecke-karty
   note: 'Gap re-check 2026-08-20: looked for the specific thing this record claims missing — a
     Czech software layer doing zaměstnanecká karta application preparation, status tracking or
