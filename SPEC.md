@@ -214,6 +214,13 @@ thing is allowed, and the merged entry says that it is a merge.
 
 ### MATCH (the region agent)
 
+**Read `pipeline/MATCH.md` before authoring or touching any record.** It carries
+the judgment this section only sketches: the established test, the never-exclude
+rule, positive controls, asymmetric gap authority, searching in Czech, and the
+one-field-two-meanings failure that has produced every public contradiction this
+register has shipped. Each law there states the failure that produced it, so it
+survives being read by someone who thinks it is verbose.
+
 Per region, per run: read new evidence records (all types), cluster, and for each
 candidate ask the region questions — *local player exists? local regulation analog?
 local buyer? does this matter here?* Then:
