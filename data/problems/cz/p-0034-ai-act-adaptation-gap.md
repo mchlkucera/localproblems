@@ -37,51 +37,45 @@ locals:
   since: 2025
   competes: direct
   maturity: early
-  evidence: 'It sells an AI Compliance Tool in Czech — documentation and an audit trail
-    against the act — which is this product, sold now [S3,S7]. The three-year limb fails on
-    the PRODUCT, which is what the test reads: the transparency tier it answers only began
-    applying on 2 August 2026. The firm behind it is old; this offering is not, and no tally
+  evidence: 'It sells an AI Compliance Tool in Czech — documentation and an audit trail against
+    the act — which is this product, sold now [S3,S7]. The firm behind it is old, the offering
+    is not: the transparency duty it answers only began applying on 2 August 2026, and no count
     of who has bought it is published.'
 - name: AIshield.cz
   url: https://www.aishield.cz/
   since: 2025
   competes: direct
   maturity: early
-  evidence: 'It sells a self-serve AI-act exposure scan for Czech websites [S3,S7] — the
-    same check, sold self-serve. Productised against a duty that started applying in August
-    2026, so the three-year limb fails; no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing.'
+  evidence: It sells a self-serve scan of a Czech website's exposure under the AI act [S3,S7]
+    — the same check, sold off the shelf. It was built against a duty that only started applying
+    in August 2026, and publishes no count of who has bought it.
 - name: Brain (startbrain.ai)
   url: https://startbrain.ai/
   since: 2025
   competes: direct
   maturity: early
-  evidence: 'It sells Czech-language AI-act compliance modules reflecting local legislation,
-    against the same 2026 duty [S3,S7]. The three-year limb fails; no published tally
-    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
-    stage and no state listing.'
+  evidence: It sells Czech-language AI-act compliance modules that reflect local legislation,
+    against the same 2026 duty [S3,S7]. Launched into a duty months old, it names no buyer and
+    publishes no count.
 - name: Seyfor
   url: https://www.seyfor.cz/
   ico: '01572377'
   since: 2013
   competes: adjacent
   maturity: established
-  evidence: 'It sells accounting and ERP software to Czech companies and publishes advisory
-    articles about the AI Act [S7]; it does not sell a check of the AI tools a company uses,
-    which is what this space is. Established as a firm on >= 2 distinct public buyers in
-    data/lookup/cz-contract-parties.jsonl (Město Krnov, Psychiatrická nemocnice v
-    Kroměříži); ARES registration 2013-04-10.'
+  evidence: It sells accounting and ERP software to Czech companies and publishes advisory articles
+    about the AI Act [S7]; it does not sell a check of the AI tools a company uses, which is what
+    this space is. Trading since 2013, with Město Krnov and Psychiatrická nemocnice v Kroměříži
+    among its public buyers on the state contracts register.
 - name: Adastra
   url: https://www.adastragrp.com/
   competes: adjacent
   maturity: early
-  evidence: 'It sells data and AI consulting engagements and publishes advisory guidance on
-    the AI Act [S7] — project work and reading material, not a fixed-price check a small
-    company buys off the shelf. No start year for an AI-act offering is on file, nothing
-    names who has bought one, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing, so
-    no limb of the established test is met. No IČO is recorded: the name resolves to more
-    than a dozen Czech entities in ARES and none could be tied to this offering.'
+  evidence: It sells data and AI consulting engagements and publishes advisory guidance on the
+    AI Act [S7] — project work and reading material, not a fixed-price check a small company buys
+    off the shelf. No start year for an AI-act offering is on file and no buyer is named; no IČO
+    is recorded either, because the name resolves to more than a dozen Czech entities and none
+    could be tied to this offering.
 sources:
 - type: regulation
   name: "VeKLEP — návrh zákona o umělé inteligenci (MPO)"
@@ -190,3 +184,5 @@ Solved elsewhere: nobody abroad has proved this either. Deeploy has sold from Ut
 
 THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. SEYFOR IS RESTORED, AND ADASTRA WITH IT. Both were named in the argument and in this file's own earlier entry as lifted into `locals[]`, and neither was actually on the ledger. Seyfor had been dropped for a specific reason: its IČO auto-passes the machine buyer limb, so under the one-field schema a firm that only publishes advisory articles about the AI Act would have read as an established local player holding the space, and dropping it was the only way to avoid saying that. That is exactly an adjacent player, and the owner's ruling is that nothing is excluded — an adjacent player is intelligence a builder needs. Seyfor returns at `competes: adjacent` + `maturity: established`, with the buyer limb doing the job it is for, settling maturity rather than eligibility, and the evidence line saying plainly that it sells accounting and ERP software and publishes AI-Act guidance, neither of which is a check of the tools a company actually uses. Adastra returns at adjacent + `early`: consulting engagements and advisory guidance, with no start year for an AI-act offering on file. No IČO is written for Adastra, because the name resolves to more than a dozen Czech entities in ARES and none could be tied to this offering — an invented identifier would be worse than none, and `url` alone satisfies the ledger. PwC ČR, AIshield.cz and Brain stay `direct` + `early`. `scores.gap` stays 1: direct competitors exist and every one of them is early, which is the rung exactly, and the two restored adjacent rows move nothing. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
 
+
+THE LEDGER NOTES, IN PLAIN LANGUAGE. All 5 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.

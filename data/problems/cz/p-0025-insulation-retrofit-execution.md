@@ -45,27 +45,26 @@ locals:
   since: 1997
   competes: direct
   maturity: established
-  evidence: 'It sells the installed job, to the homeowner, across the whole country: blown mineral
+  evidence: 'It sells the installed job to the homeowner, across the whole country: blown mineral
     insulation of roofs, lofts and ceilings under its own MAGMARELAX brand, applied by its own
     technicians, with help on the state subsidy and an official EKIS advisory listing behind that
-    help. It passes the established test on a public customer count — the site claims 30,100+
-    insulated buildings and 30+ years on the market — and ARES dates IP Polná s.r.o. to January
-    1997. What it does not do is the facade, and it prices each house on survey rather than at a
-    published fixed price; everything else an entrant here would sell, it already sells.'
+    help. Its site says the product has been used in more than 30,100 buildings over 30+ years,
+    and IP Polná s.r.o. has traded since January 1997. What it does not do is the facade, and
+    it prices each house on survey rather than at a published fixed price; everything else an
+    entrant here would sell, it already sells.'
 - name: ZOFI
   url: https://www.zofi.cz/
   since: 2009
   competes: direct
   maturity: established
   evidence: 'It sells turnkey facade insulation to homeowners and files their subsidy application
-    under power of attorney — the half of the job IP Polná leaves alone. It passes the established
-    test on a public customer count: it states it has put through over 500 subsidy applications in
-    the Nová zelená úsporám programme since 2009. It works five cities — Ostrava, Olomouc, Zlín,
-    Brno, Praha — and quotes every house on survey, so it is a regional specialist rather than a
-    standardised national operator. No IČO is claimed here: the contact page names two companies
-    at one Olomouc address, ZOFI STAVBY s.r.o. and ZOFI fasády s.r.o., neither of which can be
-    tied to the 2009 start, so the year is taken from the firm''s own words and the identity is
-    left for a reader to check.'
+    under power of attorney — the half of the job IP Polná leaves alone. It says it has filed
+    more than 500 client subsidy applications in the Nová zelená úsporám programme since 2009,
+    works five cities — Ostrava, Olomouc, Zlín, Brno, Praha — and quotes every house on survey,
+    so it is a regional specialist rather than a standardised national operator. No IČO is claimed
+    here: the contact page names two companies at one Olomouc address, ZOFI STAVBY s.r.o. and
+    ZOFI fasády s.r.o., neither tied to the 2009 start, so the year is the firm''s own word and
+    the identity is left for a reader to check.'
 - name: Fouknuto
   url: https://www.fouknuto.cz/
   ico: '19610351'
@@ -73,35 +72,33 @@ locals:
   competes: direct
   maturity: early
   evidence: 'The long tail, with a name on it: a Plzeň-region crew that blows insulation into
-    lofts, roofs and ceilings of family houses, apartment blocks and schools, offers a free survey
+    lofts, roofs and ceilings of family houses, apartment blocks and schools, gives a free survey
     and a quote per job, and will help with the subsidy. This is what a homeowner actually meets,
-    and it is why a standardised offer is worth building. Fouknuto s.r.o. is ARES-dated August
-    2023, its own "insulated more than …" counter renders zero, and the only names on the site are
-    review signatures, so no limb of the established test is on file.'
+    and it is why a standardised offer is worth building. Fouknuto s.r.o. has traded only since
+    August 2023, its own "insulated more than …" counter renders zero and the only names on the
+    site are review signatures, so how much it has done is unknown.'
 - name: CIUR
   url: https://www.ciur.cz/
   ico: '40612724'
   since: 1991
   competes: adjacent
   maturity: established
-  evidence: 'It manufactures insulation material and sells it through its own application
-    centre and a partner-firm network for Climatizer Plus [S6] — a manufacturer channel
-    supplying installers, not the trained-crew, fixed-price installed job an entrant here
-    would sell. Established on named customers: the city of Karviná appears as a
-    public buyer against CIUR a.s. in the state contracts register. ARES registration
-    1991-07-11.'
+  evidence: It manufactures insulation material and sells it through its own application centre
+    and a network of partner firms for Climatizer Plus [S6] — a manufacturer channel supplying
+    installers, not the trained-crew, fixed-price installed job an entrant here would sell. Trading
+    since 11 July 1991, with public customers including the city of Karviná on the state contracts
+    register.
 - name: dotacenarenovace.cz
   url: https://dotacenarenovace.cz/
   since: 2001
   competes: adjacent
   maturity: established
-  evidence: 'It sells turnkey renovation — assessment, the state subsidy application (10k
-    CZK deposit plus 40k on approval) and the building work including facade insulation —
-    delivered by a construction firm paired with a subsidy agency [S6]. That is a general
-    contractor with a subsidy desk, not the standardised crew-and-fixed-price operator an
-    entrant here would run. Established on a public customer count: 500+ renovations
-    delivered lifetime, by a firm [S6] describes as 25 years old, which dates the start of
-    trading to about 2001.'
+  evidence: It sells turnkey renovation — assessment, the state subsidy application (10k CZK deposit
+    plus 40k on approval) and the building work including facade insulation — delivered by a construction
+    firm paired with a subsidy agency [S6]. That is a general contractor with a subsidy desk,
+    not the standardised crew-and-fixed-price operator an entrant here would run; it claims 500+
+    customer renovations delivered, by a firm [S6] describes as 25 years old, which dates the
+    start of trading to about 2001.
 sources:
 - type: arbitrage
   name: "VARM"
@@ -257,3 +254,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 
 Same date, later pass: **`scores.gap` 1 → 0 and `score` 6 → 5**, and the ledger now names the direct competition instead of leaving it as an assertion in the prose. The pass above closed by saying the checker's "no entry is `competes: direct`" warning was a correct description, and that the direct-but-early field the rung rested on was the installer long tail, too fragmented to give anybody a row. Putting names to that long tail is what broke the score [S7]. The 2026-08-20 note had filed **Magmarelax** among "individual applicators": it is not one. magmarelax.cz is operated by **IP Polná s.r.o.**, IČO 25323601, ARES-dated January 1997, and states 30,100+ insulated buildings, 30+ years on the market, its own team of technicians, coverage of the whole country, an official EKIS advisory listing and cooperation with ROCKWOOL since 1998. That is a national installer selling the trained-crew, subsidy-handled, blown-in job to the homeowner this file is about — the VARM shape minus the fixed price and the software — so it goes on the ledger as `competes: direct`, `maturity: established`, and rung 0 follows by the letter of the ladder. **ZOFI** joins it, also direct and established: turnkey facade insulation with the subsidy filed under power of attorney, over 500 applications since 2009, five cities. It carries no IČO on purpose — its contact page names ZOFI STAVBY s.r.o. (2024) and ZOFI fasády s.r.o. (2006) at one address and neither can be tied to the 2009 start, so the year comes from the firm's own words rather than from a guess. **Fouknuto** (Fouknuto s.r.o., IČO 19610351, ARES-dated August 2023) is the third, direct and early, and it is the long tail with a name on it. Not recorded, for want of a receipt: Bezvaizolace, whose site returns 403 and which resolves to no company under that trade name, and Ekoizolace, unverified this pass — neither a URL nor an IČO was invented to fill the schema. Gap authority is asymmetric and this is the direction it runs: a failed search can never raise the score, and a named established incumbent lowers it on a receipt. The lead and the non-solutions paragraph were rewritten to match, the sentence claiming the position is "unoccupied for insulation" is gone, and `fix:` was narrowed from an insulation contractor with trained crews — which IP Polná already is — to the thing still nobody sells: the whole envelope, facade included, at one fixed price, nationally. CIUR's line lost the file path it was printing to readers and says the same thing in words. **What the ladder cannot express**: rung 0 renders as TAKEN, and taken is too strong for a physical-services market of this shape. One national installer at roughly a thousand houses a year, plus a regional facade specialist, against millions of unrenovated Czech houses, is not a closed market — it is a market with the easy wedge already gone and no standardised offer in it. The score cannot say that; the ledger and these three evidence lines are where a builder reads it. Money, urgency, demand and proof are untouched; no source note was edited and no [Sn] marker moved.
 
+
+THE LEDGER NOTES, IN PLAIN LANGUAGE. All 5 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.

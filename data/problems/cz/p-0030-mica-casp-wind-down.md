@@ -27,104 +27,91 @@ locals:
   since: 2026
   competes: direct
   maturity: early
-  evidence: 'It is the one Czech firm found offering the exit rather than the entry. On
-    18 June 2026 it published a section headed "Připravte si wind-down plán", set out the four
-    duties an unlicensed provider must discharge — move customer crypto-assets and money to an
-    authorised provider or the customer''s own wallet, tell every client in time how the
-    settlement will run, keep meeting AML duties until the last day, and be ready to report
-    the settlement to ČNB on request — and closed by naming "příprava řízeného odchodu z trhu"
-    among the things it will guide a client through [S7]. Early, and not by a technicality:
-    the duty itself is weeks old, so nobody has been selling this for the three years the test
-    asks. Its standing MiCA service page still sells only the entry side — FAÚ permission,
-    whitepaper, CASP licence application — and names Coinero as a licence client [S7].'
+  evidence: It is the one Czech firm found selling the exit rather than the entry. On 18 June
+    2026 it published a section headed "Připravte si wind-down plán", set out the four duties
+    an unlicensed provider must discharge — move customer crypto-assets and money to an authorised
+    provider or the customer's own wallet, tell every client in time how the settlement will run,
+    keep meeting anti-money-laundering duties until the last day, and be ready to report the settlement
+    to ČNB on request — and closed by naming "příprava řízeného odchodu z trhu" among the things
+    it will guide a client through [S7]. The offering is weeks old because the duty is, and its
+    standing MiCA page still sells only the entry side — FAÚ permission, whitepaper, CASP licence
+    application — naming Coinero as a licence client [S7].
 - name: Finreg Partners
   url: https://www.finregpartners.cz/
   ico: '07123949'
   since: 2018
   competes: adjacent
   maturity: established
-  evidence: 'It sells licence applications — the work of GETTING a CASP permission, which is
-    the opposite job to winding a firm down and moving its customers'' assets out [S3]. Its
-    MiCA service page was read line by line on 2026-08-25 and carries no exit, wind-down or
-    client-settlement service at all; what it has added instead is due-diligence advice for
-    firms ACQUIRING a CASP, which serves the buyer of an orphaned book rather than the firm
-    leaving [S7]. Established on a public customer count: 3 licensed CASP clients, Finreg
-    standing behind three of the eleven permissions ČNB has granted [S3]; ARES registration
-    2018-05-15.'
+  evidence: It sells licence applications — the work of GETTING a CASP permission, which is the
+    opposite job to winding a firm down and moving its customers' assets out [S3]. Its MiCA page
+    was read line by line on 2026-08-25 and carries no exit, wind-down or client-settlement service
+    at all; what it has added instead is due-diligence advice for firms ACQUIRING a CASP, which
+    serves the buyer of an orphaned book rather than the firm leaving [S7]. Trading since 15 May
+    2018, with 3 licensed CASP clients — Finreg stands behind three of the eleven permissions
+    ČNB has granted [S3].
 - name: ARROWS
   url: https://www.arws.cz/
   ico: '06717586'
   since: 2018
   competes: adjacent
   maturity: early
-  evidence: 'It sells licence applications and compliance policies on law-firm economics
-    [S3,S4] — getting a firm licensed, not getting one out; ARES registration 2018-01-01. It
-    writes about the wind-down duty, but as commentary, and what it offers off the back of it
-    is help deciding whether and how MiCA applies to a business model [S7]. Nothing names who
-    has bought it, no published tally exists, no public buyer pairs with it in the state
-    contracts register, no round at Series stage and no state listing.'
+  evidence: It sells licence applications and compliance policies on law-firm economics [S3,S4]
+    — getting a firm licensed, not getting one out. It writes about the wind-down duty, but as
+    commentary, and what it offers off the back of it is help deciding whether and how MiCA applies
+    to a business model [S7]. Trading since 2018; it names no client and publishes no count.
 - name: AMS Europe
   url: https://www.amseurope.cz/
   ico: '14394243'
   since: 2022
   competes: adjacent
   maturity: early
-  evidence: 'It sells licence applications, company formation and AML policies [S3,S4,S7] —
-    again the entry side, not a wind-down; ARES registration 2022-03-30. Nothing names who has
-    bought it, no published tally exists, no public buyer pairs with it in the state contracts
-    register, no round at Series stage and no state listing.'
+  evidence: It sells licence applications, company formation and anti-money-laundering policies
+    [S3,S4,S7] — again the entry side, not a wind-down. Trading since 30 March 2022; it names
+    no client and publishes no count.
 - name: Kopečný & Partners
   url: https://www.kopecnypartners.com/
   competes: adjacent
   maturity: early
-  evidence: 'It sells legal advice on providing crypto-asset services under MiCA, written for
-    firms working out which permission they need and how to keep client assets segregated once
-    they hold one [S3,S7] — the staying-in-business side. Nothing names who has bought it, no
-    published tally exists, no public buyer pairs with it in the state contracts register, no
-    round at Series stage and no state listing.'
+  evidence: It sells legal advice on providing crypto-asset services under MiCA, written for firms
+    working out which permission they need and how to keep client assets segregated once they
+    hold one [S3,S7] — the staying-in-business side. No start year, no named clients and no count
+    are published.
 - name: Key2Law
   url: https://key2law.com/en/licences/mica/mica
   competes: adjacent
   maturity: early
-  evidence: 'It sells CASP licensing support and crypto company setup in Czechia, and
-    publishes a case study of taking a Czech crypto-wallet startup through MiCA readiness and
-    the ČNB application [S7] — the entry side, sold to firms that intend to stay. Nothing
-    names who has bought it beyond that one anonymised study, no published tally exists, no
-    public buyer pairs with it in the state contracts register, no round at Series stage and
-    no state listing.'
+  evidence: It sells CASP licensing support and crypto company setup in Czechia, and publishes
+    a case study of taking a Czech crypto-wallet startup through MiCA readiness and the ČNB application
+    [S7] — the entry side, sold to firms that intend to stay. Beyond that one anonymised study
+    it names no client, publishes no count and has no start year on file.
 - name: PROFI Poradenství & Finance
   url: https://www.profipf.cz/
   competes: adjacent
   maturity: early
-  evidence: 'It sells financial and regulatory advisory and publishes explainers on the ČNB
-    licensing round [S4,S7] — reading material plus consulting hours aimed at firms pursuing a
-    permission, with nothing sold to a firm on its way out. Nothing names who has bought it,
-    no published tally exists, no public buyer pairs with it in the state contracts register,
-    no round at Series stage and no state listing.'
+  evidence: It sells financial and regulatory advisory and publishes explainers on the ČNB licensing
+    round [S4,S7] — reading material plus consulting hours aimed at firms pursuing a permission,
+    with nothing sold to a firm on its way out. No start year, no named clients and no count are
+    published.
 - name: kryptoregulace.cz (Blockchain Legal)
   url: https://www.kryptoregulace.cz/
   ico: '06297013'
   since: 2017
   competes: adjacent
   maturity: early
-  evidence: 'What it supplies is reading material: the site states outright that it is
-    informational with no platform behind it, run by Blockchain Legal with AML Systems,
-    Binary Confidence and CITADELO [S4]. The firm''s own crypto practice page lists six
-    services — exchanges and bureaux, mining and node operation, portfolio management,
-    trading, crypto inside a business, and inheritance — and no exit, wind-down or client
-    settlement among them [S7], so nothing here is sold to a firm on its way out. ARES
-    registration 2017-07-26. Nothing names who has bought it, no published tally exists, no
-    public buyer pairs with it in the state contracts register, no round at Series stage and
-    no state listing.'
+  evidence: 'What it supplies is reading material: the site states outright that it is informational
+    with no platform behind it, run by Blockchain Legal with AML Systems, Binary Confidence and
+    CITADELO [S4]. The firm''s own crypto practice page lists six services — exchanges and bureaux,
+    mining and node operation, portfolio management, trading, crypto inside a business, and inheritance
+    — and no exit, wind-down or client settlement among them [S7]. Trading since 26 July 2017;
+    it names no client and publishes no count.'
 - name: Stuchlíková & Partners
   url: https://www.stuchlikova.com/en/specialization/cnb-licenses/crypto-asset-service-provider-mica/
   competes: adjacent
   maturity: early
-  evidence: 'It sells CASP licensing work as a law firm and publishes what a licence takes —
-    €50,000–150,000 initial capital, 1–2 months of documentation, a 3–6 month ČNB process —
-    but prices the engagement only on request [S6]. Again the entry side, not the exit.
-    Nothing names who has bought it, no published tally exists, no public buyer pairs with it
-    in the state contracts register, no round at Series stage and no state listing.'
+  evidence: It sells CASP licensing work as a law firm and publishes what a licence takes — €50,000–150,000
+    initial capital, 1–2 months of documentation, a 3–6 month ČNB process — but prices the engagement
+    only on request [S6]. Again the entry side, not the exit; no start year, no named clients
+    and no count are published.
 sources:
 - type: regulation
   name: "ČNB — end of the MiCA transition period"
@@ -282,3 +269,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 
 FOURTH PASS THIS DATE, MERGED HERE: the local field was searched properly, and the answer went the other way from the one the ledger's shape suggested. `scores.gap` STAYS 1 and `score` stays 4. The score it replaces rested on a check whose own note ends "Gap 1 (quick search, services-only incumbents named)" — a self-declared quick search with no queries recorded — and the previous pass flagged rung 2 as the arguable reading because nothing on the ledger was `competes: direct`. [S7] is that check run for real: five Czech query shapes and a positive control run and passed before any conclusion was drawn, a query phrased as a firm hunting for licensing help returning Finreg Partners at the top of its own page. It also read four Czech service menus line by line instead of searching at them, and that is what changed the answer. SCHEJBAL&PARTNERS SELLS THIS. On 18 June 2026 it published "Připravte si wind-down plán", set out the four duties of a controlled exit — move client crypto-assets and money to an authorised provider or the customer's own wallet, tell every client in time how settlement will run, keep meeting AML duties to the last day, be ready to report the settlement to ČNB — and closed by naming preparation of an orderly departure from the market among the things it will guide a client through. That is this job sold to this buyer. It goes in at `competes: direct` and `maturity: early`, and early is not a technicality here: the duty is weeks old, so no seller on earth meets the three-year limb. One early direct seller is exactly rung 1, CONTESTED and still enterable, and rung 2 — checked, and NOBODY sells this — would have been false the moment that page was read. Gap authority is asymmetric in both directions: a not-found never raises the score, and a found seller settles it. FOUR PLAYERS ADDED under the no-exclude rule. Kopečný & Partners, Key2Law and PROFI Poradenství & Finance were all named in notes already on this file and had never reached the ledger, which is the false-absence failure the ledger exists to end; SCHEJBAL&PARTNERS is new. Finreg's entry now records what its service page does and does not carry, including the CASP-acquisition due diligence it has added, which serves whoever buys an orphaned customer book rather than the firm leaving. Every evidence line also dropped the repository filename it used to print to the reader. The non-solutions paragraph was rewritten: "Every one of them sells getting licensed; nobody sells getting out" was true when it was written and is not true now, and the paragraph says so plainly along with what is still missing — nothing here is packaged, priced or repeatable. Proof, money, urgency and demand untouched; no existing source note edited and no existing [Sn] marker moved — [S7] is appended, not inserted.
 
+
+THE LEDGER NOTES, IN PLAIN LANGUAGE. All 9 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.

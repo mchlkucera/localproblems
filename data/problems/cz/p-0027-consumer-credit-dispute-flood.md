@@ -45,110 +45,95 @@ locals:
   since: 2014
   competes: adjacent
   maturity: early
-  evidence: 'It sells a service, not a product: outsourced handling of client complaints and
-    out-of-court disputes at the financial arbiter, marketed to non-bank lenders and staffed
-    by people [S5]. Its own page offers "pomoci s vyřizováním stížností a reklamací klientů,
-    včetně případných mimosoudních sporů (zejména u Finančního arbitra)" [S7] — the same job
-    for the same buyer, and still the opposite shape: a firm doing the work, not software a
-    lender runs itself. ARES gives Acompliance poradenství s.r.o. a registration of
-    2014-01-28, so the three-year limb is met, but the page names nobody who has bought it and
-    publishes no tally, no public buyer pairs with it in the state contracts register, and
-    there is no round at Series stage and no state listing, so no second limb is met [S7].'
+  evidence: 'It sells a service, not a product: outsourced handling of client complaints and out-of-court
+    disputes at the financial arbiter, marketed to non-bank lenders and staffed by people [S5].
+    Its own page offers "pomoci s vyřizováním stížností a reklamací klientů, včetně případných
+    mimosoudních sporů (zejména u Finančního arbitra)" [S7] — the same job for the same buyer,
+    and still the opposite shape: a firm doing the work, not software a lender runs itself. Acompliance
+    poradenství s.r.o. has traded since 28 January 2014, but names nobody who has bought it and
+    publishes no count, so how many lenders it handles is unknown [S7].'
 - name: ePohledávky.cz (SoftGate Systems)
   url: https://www.epohledavky.cz/
   ico: '28859685'
   since: 2013
   competes: adjacent
   maturity: early
-  evidence: 'It sells a receivables and collections platform — software for the creditor
-    pursuing the debtor, the other side of the same relationship from the creditor defending
-    a consumer claim at the arbiter [S5]. ARES registration 2013-01-01. Nothing names who has
-    bought it, no published tally exists, no public buyer pairs with it in the state contracts
-    register, no round at Series stage and no state listing.'
+  evidence: It sells a receivables and collections platform — software for the creditor pursuing
+    the debtor, the other side of the same relationship from the creditor defending a consumer
+    claim at the arbiter [S5]. Trading since 2013; it names nobody who has bought it, publishes
+    no count and pairs with no public body on the state contracts register.
 - name: Barrister (ASW)
   url: https://www.asw.cz/
   competes: adjacent
   maturity: early
-  evidence: 'It sells collections and receivables software, again on the pursuit side of the
-    relationship rather than the defence side [S5]. Nothing names who has bought it, no
-    published tally exists, no public buyer pairs with it in the state contracts register, no
-    round at Series stage and no state listing.'
+  evidence: It sells collections and receivables software, again on the pursuit side of the relationship
+    rather than the defence side [S5]. No start year, no named buyer and no published count, so
+    how widely it is used is unknown.
 - name: Evolio (AVE Soft)
   url: https://evolio.cz/
   ico: '25378392'
   since: 1997
   competes: adjacent
   maturity: early
-  evidence: 'It sells law-office software whose headline feature is filing electronic payment
-    orders in bulk on one click — automation aimed squarely at the creditor suing the debtor,
-    which is the pursuit side again and not the defence of a consumer claim [S7]. ARES gives
-    AVE Soft s.r.o. a registration of 1997-07-14, but it publishes no tally of who runs it, no
-    public buyer pairs with it in the state contracts register, and there is no round at
-    Series stage and no state listing.'
+  evidence: It sells law-office software whose headline feature is filing electronic payment orders
+    in bulk on one click — automation aimed squarely at the creditor suing the debtor, which is
+    the pursuit side again and not the defence of a consumer claim [S7]. AVE Soft s.r.o. has traded
+    since 14 July 1997, but publishes no count of the firms running it, so its reach is unknown.
 - name: SingleCase
   url: https://www.singlecase.cz/
   competes: adjacent
   maturity: early
-  evidence: 'It sells law-practice case management to law firms — generic matter tooling,
-    with no financial-arbiter docket in it [S5]. Nothing names who has bought it, no published
-    tally exists, no public buyer pairs with it in the state contracts register, no round at
-    Series stage and no state listing.'
+  evidence: It sells law-practice case management to law firms — generic matter tooling, with
+    no financial-arbiter docket in it [S5]. No start year and no published user count are on file.
 - name: Praetor (Wolters Kluwer ČR)
   url: https://www.wolterskluwer.com/cs-cz/solutions/praetor/funkce
   ico: '63077639'
   since: 1995
   competes: adjacent
   maturity: early
-  evidence: 'It sells the widest-selling Czech case-management system for law firms and legal
-    departments — intake, documents, court-register watching, deadlines, escrow and billing —
-    and there is no arbiter docket anywhere in it [S7]. This is the vendor best placed to turn
-    and build one. The maturity band understates it and the reason is on the receipts: Wolters
-    Kluwer ČR (ARES 1995-04-03) publishes no tally of Praetor users, its distribution deal
-    with ČSOB is a bank offer rather than a reference, and only one public buyer pairs with it
-    in the state contracts register where the test wants two [S7].'
+  evidence: 'It sells the widest-selling Czech case-management system for law firms and in-house
+    legal departments — intake, documents, court-register watching, deadlines, escrow and billing
+    — and there is no arbiter docket anywhere in it [S7]. This is the vendor best placed to turn
+    and build one: Wolters Kluwer ČR has traded since 3 April 1995, though it publishes no count
+    of Praetor users, its distribution deal with ČSOB is a bank offer rather than a reference,
+    and only one public body pairs with it on the state contracts register [S7].'
 - name: Advokátní spis (ATLAS consulting)
   url: https://advokatnispis.cz/
   ico: '46578706'
   since: 1992
   competes: adjacent
   maturity: early
-  evidence: 'It sells electronic case files for individual advocates — full-text search across
-    files, time recorded per case, deadlines pushed into Outlook [S7] — general practice
-    tooling with no arbiter docket in it. ATLAS consulting spol. s r.o. is registered in ARES
-    from 1992-05-14, but no tally of users is published, only one public buyer pairs with it
-    in the state contracts register, and there is no round at Series stage and no state
-    listing.'
+  evidence: It sells electronic case files for individual advocates — full-text search across
+    files, time recorded per case, deadlines pushed into Outlook [S7] — general practice tooling
+    with no arbiter docket in it. ATLAS consulting spol. s r.o. has traded since 14 May 1992;
+    it publishes no user count, and only one public body pairs with it on the state contracts
+    register.
 - name: E-OFFICE Advokát (AISoft)
   url: http://www.aisoft.cz/akoffice.html
   ico: '18826024'
   since: 1991
   competes: adjacent
   maturity: early
-  evidence: 'It sells an office system for medium and large law firms — accounting, a diary of
-    tasks and deadlines, an electronic registry, management oversight [S7]. Again the firm''s
-    own administration rather than the arbiter''s docket. AISoft spol. s r.o. is registered in
-    ARES from 1991-05-16; nothing names who has bought it, no published tally exists, no
-    public buyer pairs with it in the state contracts register, and there is no round at
-    Series stage and no state listing.'
+  evidence: It sells an office system for medium and large law firms — accounting, a diary of
+    tasks and deadlines, an electronic registry, management oversight [S7]. Again the firm's own
+    administration rather than the arbiter's docket. AISoft spol. s r.o. has traded since 16 May
+    1991, but names nobody who has bought it and publishes no count.
 - name: ISAK
   url: https://www.isak.cz/
   competes: adjacent
   maturity: early
-  evidence: 'It sells practice software for running a law office securely and in order [S7] —
-    the same general matter tooling as the rest of this group, with nothing in it aimed at a
-    consumer-credit dispute. Nothing names who has bought it, no published tally exists, no
-    public buyer pairs with it in the state contracts register, no round at Series stage and
-    no state listing.'
+  evidence: It sells practice software for running a law office securely and in order [S7] — the
+    same general matter tooling as the rest of this group, with nothing in it aimed at a consumer-credit
+    dispute. No start year and no published user count are on file.
 - name: Aptien
   url: https://www.aptien.com/
   ico: '26397668'
   since: 2005
   competes: adjacent
   maturity: early
-  evidence: 'It sells generic case and record management to companies, with no
-    financial-arbiter docket in it [S5]; ARES registration 2005-08-30. Nothing names who has
-    bought it, no published tally exists, no public buyer pairs with it in the state contracts
-    register, no round at Series stage and no state listing.'
+  evidence: It sells generic case and record management to companies, with no financial-arbiter
+    docket in it [S5]. Trading since 30 August 2005; it names nobody who has bought it and publishes
+    no count.
 sources:
 - type: complaint
   name: "Financial arbiter — 2025 annual report"
@@ -284,6 +269,13 @@ Existing non-solutions: people, billed by the hour. In-house legal departments a
 
 Solved elsewhere: dispute handling is funded on both sides of the Atlantic, but only one of the three sellers has been at it long enough to prove anything. Casap has automated the bank payment-dispute lifecycle since 2023 and raised a $25M Series A at a $105M valuation [S3]. ClaimSorted opened in London in 2024 and handles claims for twenty-plus insurers on $13.3M; Audun is four people in Oslo building AI-native collections out of YC [S3]. So the proven model is Casap's, one vertical away in payments — nobody anywhere has been documented productising consumer-credit dispute response itself. The Czech arbiter's caseload is the same shape of work, still handled by hand, and the documented volume carries the case here more than the foreign template does.
 
+## First moves
+
+1. Sell first to the non-bank lenders carrying the docket. Consumer-credit disputes are about 92% of everything running at the Financial Arbitrator, and new filings went 2,660 in 2023, 5,683 in 2024 and 12,050 in 2025, with 8,200 more filed by May 2026 [S1]. Every one of those cases is answered by hand today, by in-house legal departments and outside law firms [S4].
+2. Build the docket, not another case-management system. Three things were searched for in Czech and found in no product sold here: a deadline clock running against each arbiter proceeding, a response pack assembled from the loan file, and a settlement recommendation [S7]. Start with the settlement recommendation — 83% of concluded cases end in settlement, so that is the decision a lender actually makes [S1].
+3. Open the first conversation with the trend line, not the market. The claimant side files standardised claims at mass scale while the response is hand-built [S1]; the year is projecting toward roughly 20,000 filings and the average proceeding runs 167 days [S1].
+4. Named competition: aCompliance already sells this exact job — outsourced handling of complaints and arbiter disputes for non-bank lenders — but as a firm doing the work rather than software a lender runs, and it has traded since 2014 [S5,S7]. Ten Czech vendors turned up in that search and not one of them carries a financial-arbiter docket; the closest is Praetor from Wolters Kluwer ČR, the widest-selling case-management system in Czech law firms [S7]. Either could add the docket. Neither has.
+
 ## Revisions
 
 
@@ -294,3 +286,7 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 FIFTH PASS THIS DATE, MERGED HERE: the local field was searched properly and `scores.gap` 1 → 2, `score` 6 → 7. The score it replaces rested on a check whose own note ends "Gap 1 (quick search, no CZ player found)" — a self-declared quick search with no queries recorded, and old-ladder language besides. Under the current ladder rung 1 means locals sell this and are all early; nothing on this ledger sold it, so the record was understating itself on a receipt nobody could audit. [S7] is that check run for real: four Czech query shapes in a lender's descriptive language, and TWO positive controls run and passed BEFORE any conclusion was drawn. The first returned aCompliance — the one Czech offering aimed at this exact need — at the top of its own query. The second, aimed at Czech legal case software, returned six bootstrapped Czech vendors on a single page, of which only SingleCase was anywhere in the register beforehand; that is the class of vendor a capital-and-tender ledger cannot see, so the method demonstrably produces positives here and its negative is worth something. It found no Czech product that runs the responding side of a consumer-credit dispute: no arbiter docket, no deadline clock against a proceeding, no settlement decisioning. FIVE PLAYERS ADDED under the no-exclude rule, all new to the register and all `competes: adjacent`: Evolio (AVE Soft s.r.o., IČO 25378392), whose bulk electronic payment-order filing puts it on the pursuit side beside ePohledávky.cz and Barrister; and Praetor (Wolters Kluwer ČR, IČO 63077639), Advokátní spis (ATLAS consulting, IČO 46578706), E-OFFICE Advokát (AISoft, IČO 18826024) and ISAK, which are general matter tooling beside SingleCase and Aptien. Praetor is the one a builder should look at twice — the widest-selling case-management system in Czech law firms, one product decision away from this — and its entry says so. aCompliance gained the IČO and registration year the ledger lacked (Acompliance poradenství s.r.o., ARES 2014-01-28) and stays early: twelve years of trading meets the first limb, and its page names no client and publishes no tally, so no second limb is met. TWO PLAYERS DELIBERATELY NOT LEDGERED, and the reason is written into [S7]: abcreklamace.cz is a dead domain that now redirects to a betting-affiliate site, and Acta Safe could not be verified at all. Every evidence line also dropped the repository filename it used to print to the reader. The non-solutions paragraph was rewritten to match the ledger and to name the choice a lender actually faces — hand the disputes to aCompliance, or run them on software that does not exist here. Proof, money, urgency and demand untouched; no existing source note edited and no existing [Sn] marker moved — [S7] is appended, not inserted.
 
 2026-08-20 · evidence audit — Three legal-status claims removed, none of which the register ever checked. The arbiter's forum was described as mandatory: neither S1's note nor the underlying signal says so. The interest-voiding doctrine ("a failed assessment can void the credit contract's interest") is gone — the corpus records only that creditworthiness-assessment claims dominate the docket, nothing about the remedy. And "Free proceedings with no lawyer requirement remove any natural brake on volume": both procedural facts had no receipt. The caseload figures, the settlement rate and the proceeding length are unaffected; they are receipted [S1].
+
+THE LEDGER NOTES, IN PLAIN LANGUAGE. All 10 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
+
+FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 7; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the non-bank lenders carrying 92% of the docket as the first buyer [S1], a settlement recommendation as the first thing to build because 83% of cases settle [S1,S7], the filing trend as the opening fact [S1], and aCompliance and Praetor named as the two that could turn [S5,S7]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.

@@ -49,65 +49,54 @@ locals:
   since: 2025
   competes: direct
   maturity: early
-  evidence: 'It sells reference-price rewriting for the 30-day discount rule with three
-    years of ČOI-exportable history [S8,S10] — the same compliance job as this space, one
-    duty wide. JARABOT s.r.o. was registered 2025-02-10 in ARES, eighteen months of trading,
-    so the three-year limb fails; no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing,
-    and its five Shoptet ratings average 3.4 [S10].'
+  evidence: It sells reference-price rewriting for the 30-day discount rule, keeping three years
+    of history a shop can export for the trade inspectorate [S8,S10] — the same compliance job
+    as this space, one duty wide. JARABOT s.r.o. has traded only since 10 February 2025 and publishes
+    no count of shops using it; its five Shoptet ratings average 3.4 [S10].
 - name: Slevy správně (Cenový automat)
   url: https://doplnky.shoptet.cz/slevy-spravne
   ico: '07641346'
   since: 2023
   competes: direct
   maturity: early
-  evidence: 'It sells the same reference-price correction for the 30-day rule, at a flat 200
-    Kč a month [S8,S10]. The product dates to the 6 Jan 2023 rule it corrects for, so the
-    three-year limb is only just met and no other limb is: no published tally exists, there
-    is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage and no
-    state listing. Four Shoptet ratings averaging 4.0 [S10].'
+  evidence: It sells the same reference-price correction for the 30-day rule, at a flat 200 Kč
+    a month [S8,S10]. The product dates to the 6 Jan 2023 rule it corrects for, it publishes no
+    count of shops using it, and its four Shoptet ratings average 4.0 [S10].
 - name: Pravoid
   url: https://www.pravoid.cz/
   ico: '23683368'
   since: 2025
   competes: direct
   maturity: early
-  evidence: 'It sells generated legal texts at 199–499 CZK with an e-Sbírka watch
-    subscription [S8] — the monitoring shape this space calls for, aimed at the texts rather
-    than the checkout. The proprietor Bc. Filip Krechler was registered 2025-09-03 in ARES,
-    so the three-year limb fails; no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing.'
+  evidence: It sells generated legal texts at 199–499 CZK with a subscription that watches the
+    e-Sbírka law gazette for changes [S8] — the monitoring shape this space calls for, aimed at
+    the texts rather than the checkout. The proprietor Bc. Filip Krechler registered on 3 September
+    2025, and no count of buyers is published.
 - name: Právo e-shopů
   url: https://www.pravoeshopu.cz/pravni-audit-eshopu
   competes: adjacent
   maturity: early
-  evidence: 'It sells one-off právní audity priced per engagement — a law firm doing the
-    check by hand, which is the legacy service a subscription would replace rather than a
-    product a shop runs every week [S5]. Nothing names who has bought it, no published tally
-    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
-    stage and no state listing, so no limb of the established test is met.'
+  evidence: It sells one-off legal audits priced per engagement — a law firm doing the check by
+    hand, which is the legacy service a subscription would replace rather than something a shop
+    runs every week [S5]. No start year, no named buyers and no count are published.
 - name: eLegal
   url: https://www.elegal.cz/
   ico: '03153398'
   since: 2014
   competes: adjacent
   maturity: early
-  evidence: 'It sells one-off audits and terms drafting per engagement as a law firm [S5] —
-    the legacy service, not the monitoring product itself; ARES registration 2014-06-30. No
-    limb of the established test is met by anything on file here: nothing names who has
-    bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+  evidence: It sells one-off audits and terms drafting per engagement, as a law firm [S5] — the
+    legacy service, not the monitoring product itself. Trading since 30 June 2014; it names nobody
+    who has bought it and publishes no count, so how many shops it covers is unknown.
 - name: AZ LEGAL
   url: https://www.azlegal.cz/
   ico: '05030323'
   since: 2016
   competes: adjacent
   maturity: early
-  evidence: 'It sells one-off audits and terms drafting per engagement as a law firm [S5] —
-    the legacy service, not the monitoring product itself; ARES registration 2016-04-27. No
-    limb of the established test is met by anything on file here: nothing names who has
-    bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+  evidence: It sells one-off audits and terms drafting per engagement, as a law firm [S5] — the
+    legacy service, not the monitoring product itself. Trading since 27 April 2016; it names nobody
+    who has bought it and publishes no count, so how many shops it covers is unknown.
 sources:
 - type: complaint
   name: "ČOI — 2025 distance-selling inspection results"
@@ -289,3 +278,5 @@ Solved elsewhere: Germany productised exactly this under harsher pressure, and t
 
 THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. Three entries stay `direct`, three move to `adjacent`, and no maturity changes. Hlídač Slev, Slevy správně and Pravoid each sell a slice of the same automated compliance job to the same shops, so they are direct, and each fails the established test on its own receipts. The three law firms — Právo e-shopů, eLegal and AZ LEGAL — move to `adjacent`: they sell one-off audits and terms drafting priced per engagement, which is the legacy service a subscription scanner would replace rather than the monitoring product itself. All three read early on receipts, so the relabel touches nothing. `scores.gap` stays 1 and now says the rung's own words: direct competitors exist here and every one of them is early. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
 
+
+THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.

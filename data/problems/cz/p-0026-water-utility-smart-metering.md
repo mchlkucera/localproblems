@@ -25,55 +25,57 @@ locals:
   since: 2003
   competes: direct
   maturity: established
-  evidence: 'named customers — softlink.cz lists vodárenské společnosti as a served segment
-    and states CEM Smart has read Pražské vodovody a kanalizace meters remotely since 2016
-    at ~1M transactions a day, verified live 2026-08-24 [S7]; ARES registration 2003-12-10'
+  evidence: It sells CEM Smart, a remote meter-reading platform, and names water utilities as
+    a segment it serves — with customers including Pražské vodovody a kanalizace, whose meters
+    it has read remotely since 2016 at roughly a million transactions a day, verified live 2026-08-24
+    [S7]. Trading since 10 December 2003.
 - name: VODÁRENSKÁ AKCIOVÁ SPOLEČNOST
   url: https://www.vodarenska.cz/
   ico: '49455842'
   since: 1993
   competes: direct
   maturity: established
-  evidence: 'named customers — the state contracts register pairs it as supplier
-    with Vodovody a kanalizace Židlochovicko as buyer, the operates-metering-as-a-service
-    relationship the scan asserted [S6,S7]; ARES registration 1993-12-01'
+  evidence: It runs metering as a service for smaller water companies, with customers including
+    Vodovody a kanalizace Židlochovicko, which pairs with it as buyer on the state contracts register
+    [S6,S7]. Trading since 1 December 1993.
 - name: Popron Systems (SMG Water)
   url: https://www.popron.cz/
   ico: '61855162'
   since: 1994
   competes: direct
   maturity: established
-  evidence: 'named customers — VaK Pardubice amended its Smart Metering licence agreement
-    with Popron Systems in June 2026 [S5]; ARES registration 1994-09-06'
+  evidence: It sells the SMG Water metering platform under licence, with customers including VaK
+    Pardubice, which amended its Smart Metering licence agreement in June 2026 [S5]. Trading since
+    6 September 1994.
 - name: SUEZ Water CZ
   url: https://www.suez.cz/
   ico: '11901403'
   since: 2021
   competes: direct
   maturity: established
-  evidence: 'named customers — VaK Břeclav signed amendment No. 1 to its framework contract
-    with SUEZ Water CZ for remote-readout devices and support [S4]; ARES registration
-    2021-10-01, so the three-year limb is met'
+  evidence: It supplies remote-readout devices and the support behind them, with customers including
+    VaK Břeclav, which signed amendment No. 1 to its framework contract for them [S4]. Trading
+    since 1 October 2021.
 - name: Severočeské vodovody a kanalizace
   url: https://www.scvk.cz/
   ico: '49099451'
   since: 1993
   competes: direct
   maturity: established
-  evidence: 'named customers — město Most bought a Smart Metering supplementary service from
-    it as incumbent operator in August 2026 [S5]; ARES registration 1993-10-01'
+  evidence: It operates water systems and sells metering alongside, with customers including město
+    Most, which bought a Smart Metering supplementary service from it as incumbent operator in
+    August 2026 [S5]. Trading since 1 October 1993.
 - name: Techem CZ
   url: https://www.techem.cz/
   ico: '61852121'
   since: 1994
   competes: adjacent
   maturity: early
-  evidence: 'It sells heat and water submetering and billing into the housing tier —
-    apartment buildings and the firms that manage them [S6] — not the utility-side managed
-    metering service a small vodárna buys. Despite ARES registration 1994, nothing on file
-    names a Czech customer of it, no public-buyer pair exists in
-    data/lookup/cz-contract-parties.jsonl, and there is no round at Series stage and no
-    state listing, so no limb of the established test is met here.'
+  evidence: It sells heat and water submetering and billing into the housing tier — apartment
+    buildings and the firms that manage them [S6] — not the utility-side managed metering service
+    a small water company buys. It has traded since 1994, but nothing on file names a Czech buyer,
+    no public body pairs with it on the state contracts register and no funding or state listing
+    is on record, so how much it sells here is unknown.
 sources:
 - type: tender
   name: "TED — Ivančice water association smart metering (~€1.2M)"
@@ -209,3 +211,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 2026-08-20 · evidence audit — Three corrections, merged. (1) The "Why now" sentence removed in full; none of its three claims has support in the 6,181-signal corpus. "Price regulation via ERSO oversight": ERSO returns zero hits corpus-wide, case-sensitively and case-insensitively, and no Czech water-price regulator appears anywhere in the evidence. There is no such body — the Czech energy regulator is ERÚ and it does not regulate water — and no substitute name was inserted, because we hold no receipt for one. "EU funding streams (OPŽP) co-finance the projects": eleven OPŽP calls are on file and none funds metering; they fund public-building energy retrofits, renewables, landscape and water-landscape measures, rain/greywater capture, slope stability, flood prevention, contaminated-site remediation, food banks and air-quality monitoring. The drought and water-loss driver was likewise uncited. Money is untouched — it never rested on OPŽP but on the receipted tenders and contracts already on this ledger [S1,S2,S3,S4,S5]. (2) The "Existing non-solutions" sentence removed in full — proprietary head-end systems, one-off SCADA/dispatch integrations, and the large VaKs' in-house solutions attributed to Veolia-operated utilities. Veolia returns no hits anywhere in the signal corpus, in either case, and appears in no source note here; the head-end and SCADA characterisations have no receipt either. The paragraph now states what this record's own gap check found: the managed-service position is occupied by named local players [S6]. The lead's "hundreds of VaK companies and municipal svazky" is not an invention — it is carried by the signal behind [S2], and is now cited there rather than left bare. (3) The title clause "with no shared platform" is gone: the body already recorded that this exact framing does not survive the check [S6].
 
 2026-08-24 · gap re-check — The S6 receipt URL died in a softlink.cz restructure (404); the incumbent did not. Re-verified live: Softlink still lists water utilities as a served segment and states CEM Smart has read Pražské vodovody a kanalizace meters remotely since 2016, ~1M transactions a day [S7]. The registr-smluv lookup corpus independently pairs VODÁRENSKÁ AKCIOVÁ SPOLEČNOST as supplier with VaK Židlochovicko as buyer, corroborating the operates-as-a-service claim [S7]. Nothing rescored; the de-rank stands on a live receipt again.
+
+THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.

@@ -47,30 +47,24 @@ locals:
   since: 2024
   competes: direct
   maturity: early
-  evidence: 'It sells provider-side listings on a family-facing comparison of more than
-    1,500 registered facilities, with reviews and prices, and forwards inquiries [S12] — the
-    same buyer and the same job, without the vacancy data or the application handling.
-    Launched 2024, two years of trading, so the three-year limb fails; no published tally
-    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
-    stage and no state listing.'
+  evidence: It sells provider-side listings on a family-facing comparison of more than 1,500 registered
+    facilities, with reviews and prices, and forwards inquiries to the home [S12] — the same buyer
+    and the same job, without the vacancy data or the application handling. It launched in 2024
+    and publishes no count of families it has placed, so how much it moves is unknown.
 - name: Můjdůchod.cz
   url: https://www.mujduchod.cz/
   competes: direct
   maturity: early
-  evidence: 'It runs a static database of facilities for families to search themselves [S12]
-    — the same job again, thinner, with no vacancy or queue data behind it. Nothing names
-    who has bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing, so
-    no limb of the established test is met.'
+  evidence: It runs a static database of facilities for families to search themselves [S12] —
+    the same job again, thinner, with no vacancy or queue data behind it. It publishes no start
+    year and nothing names who pays for it, so whether it is a business at all is unclear.
 - name: pece.cz
   url: https://www.pece.cz/
   competes: adjacent
   maturity: early
-  evidence: 'It sells advice rather than placement: it counsels families and does not place
-    them, alongside the free odborné sociální poradenství [S12]. Nothing names who has
-    bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing, so
-    no limb of the established test is met.'
+  evidence: 'It sells advice rather than placement: it counsels families and does not place them,
+    alongside the free odborné sociální poradenství [S12]. No start year and no figures for how
+    many families it advises are published.'
 sources:
 - type: arbitrage
   name: "A Place for Mom"
@@ -261,3 +255,5 @@ Solved elsewhere: three markets, three sellers, none of them new. A Place for Mo
 
 THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. SrovnejPéči.cz and Můjdůchod.cz stay `competes: direct` at `early`: both sell families the job of finding a facility, without the vacancy data, application filing or queue tracking that would finish it, and both fail the established test on their own receipts. pece.cz moves to `adjacent` — it counsels families and does not place them, sold beside the free odborné sociální poradenství, which is advice rather than the placement service this file describes. `scores.gap` stays 1, read literally: locals sell this and all of them are early. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
 
+
+THE LEDGER NOTES, IN PLAIN LANGUAGE. All 3 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.

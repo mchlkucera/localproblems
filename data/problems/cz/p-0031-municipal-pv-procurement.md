@@ -33,80 +33,74 @@ locals:
   since: 1994
   competes: adjacent
   maturity: established
-  evidence: 'A municipal waste company that ran its own solar tender: it operates the "36
-    FVE" multi-district photovoltaic framework for the city districts of Brno [S4],
-    aggregating for its own owner. It is a buyer of this service, not a seller of it, and it
-    does not offer aggregation to towns that have no framework of their own. Established as
-    a firm: two distinct public buyers pair with its IČO in the state contracts register, and
-    ARES gives a date of incorporation of 1994-07-01, verified live 2026-08-25.'
+  evidence: 'A municipal waste company that ran its own solar tender: it operates the "36 FVE"
+    multi-district photovoltaic framework for the city districts of Brno [S4], aggregating for
+    its own owner. It is a buyer of this service, not a seller of it, and it does not offer pooling
+    to towns that have no framework of their own. SAKO Brno, a.s. has traded since 1 July 1994,
+    and two separate public bodies pair with it as buyers on the state contracts register, verified
+    live 2026-08-25.'
 - name: SMS ČR (společný nákup energií)
   url: https://www.smscr.cz/benefity/spolecny-nakup-energii-na-burze/
   ico: '75130165'
   since: 2013
   competes: adjacent
   maturity: established
-  evidence: 'It sells joint purchasing to obce and has done since 2013 — but what it pools
-    is ENERGY bought on the exchange, not solar arrays, so it does not hold the
-    pooled-procurement position a town without a framework would hire [S6]. Established on a
-    public customer count: its July 2025 procedure ran for more than 200 subjects covering 1
-    Jan 2026 to 31 Dec 2027, is open to non-member obce and their schools and sports
-    grounds, and absorbs the administrative work while the obec invoices the supplier
-    directly [S6]. Registered 2008-02-05 in ARES; 2013 is when the joint purchasing itself
-    started.'
+  evidence: It sells joint purchasing to towns and has done since 2013 — but what it pools is
+    ENERGY bought on the exchange, not solar arrays, so it does not hold the pooled-procurement
+    position a town without a framework would hire [S6]. Its July 2025 procedure ran for more
+    than 200 participating customers covering 1 Jan 2026 to 31 Dec 2027, is open to non-member
+    obce and their schools and sports grounds, and absorbs the administrative work while the town
+    invoices the supplier directly [S6]. The association itself dates from 2008; the joint purchasing
+    started in 2013.
 - name: eCENTRE
   url: https://ecentre.cz/
   ico: '27149862'
   since: 2006
   competes: adjacent
   maturity: established
-  evidence: 'It is the aggregation operator this problem is shaped like, selling the wrong
-    commodity: it runs electronic auctions that pool the demand of many municipalities,
-    households and firms into one negotiated contract, and it is the machinery behind the SMS
-    ČR joint purchase. What it pools is electricity and gas — a meter reading, not a roof —
-    and its own site offers no photovoltaic procurement of any kind [S7]. Established on named
-    customers: Ostrava, Svitavy and Frýdlant nad Ostravicí appear on its site, which dates the
-    aggregated purchasing to 2006; eCENTRE, a.s. is registered in ARES from 2004-05-12 [S7].'
+  evidence: 'It is the aggregation operator this problem is shaped like, selling the wrong commodity:
+    it runs electronic auctions that pool the demand of many municipalities, households and firms
+    into one negotiated contract, and it is the machinery behind the SMS ČR joint purchase. What
+    it pools is electricity and gas — a meter reading, not a roof — and its own site offers no
+    photovoltaic procurement of any kind [S7]. Its site names customers including Ostrava, Svitavy
+    and Frýdlant nad Ostravicí, which dates the aggregated purchasing to 2006; eCENTRE, a.s. has
+    traded since 12 May 2004 [S7].'
 - name: iKomunita
   url: https://ikomunita.cz/fotovoltaika-mesta-obce/
   competes: adjacent
   maturity: early
-  evidence: 'It sells one town a turnkey project — a feasibility study, then panels and a
-    battery wired into a single managed system across that town''s own buildings, aimed at
-    self-sufficiency and a future energy community [S7]. It is a supplier answering a tender,
-    which is the side of the table this problem is not on. No year of first sale is published,
-    nothing names who has bought it, no published tally exists, no public buyer pairs with it
-    in the state contracts register, no round at Series stage and no state listing.'
+  evidence: It sells one town a turnkey project — a feasibility study, then panels and a battery
+    wired into a single managed system across that town's own buildings, aimed at self-sufficiency
+    and a future energy community [S7]. It is a supplier answering a tender, which is the side
+    of the table this problem is not on; it publishes no start year and names no town that has
+    bought it.
 - name: ADS Energy
   url: https://www.ads-energy.cz/cs/fotovoltaika/pro-obce/
   competes: adjacent
   maturity: early
-  evidence: 'It sells design-build to municipalities and comes closest of the installers: it
-    offers to build "solární elektrárny sdílené více obcemi", a plant several towns share
-    [S7]. That is one shared ASSET, contracted the ordinary way — it does not pool many towns''
-    separate roof projects into one tendered fixed-price contract, which is the position
-    nobody holds. It states more than 200 completed projects but names no municipality and
-    publishes no year of first sale, so the test''s limbs are unmet: no public buyer pairs
-    with it in the state contracts register, no round at Series stage and no state listing.'
+  evidence: 'It sells design-build to municipalities and comes closest of the installers: it offers
+    to build "solární elektrárny sdílené více obcemi", a plant several towns share [S7]. That
+    is one shared ASSET, contracted the ordinary way — it does not pool many towns'' separate
+    roof projects into one tendered fixed-price contract, which is the position nobody holds.
+    It claims more than 200 completed projects but names no municipality and publishes no start
+    year, so how much of that is municipal is unknown.'
 - name: Enado
   url: https://www.enado.cz/fotovoltaika-obec/
   competes: adjacent
   maturity: early
-  evidence: 'It sells photovoltaics and heat pumps to households, apartment buildings, firms
-    and obce, and packages energy sharing for a municipality [S7] — a supply-and-install
-    business selling into one town at a time, not procurement pooled across towns. No year of
-    first sale is published, nothing names who has bought it, no published tally exists, no
-    public buyer pairs with it in the state contracts register, no round at Series stage and
-    no state listing.'
+  evidence: It sells photovoltaics and heat pumps to households, apartment buildings, firms and
+    towns, and packages energy sharing for a municipality [S7] — a supply-and-install business
+    selling into one town at a time, not procurement pooled across towns. It publishes no start
+    year and names no town that has bought it.
 - name: Grantex
   url: https://grantex.cz/
   competes: adjacent
   maturity: early
-  evidence: 'It sells subsidy work: reading the RES+ and Modernizační fond calls for a town
-    and getting its application through, including the joint-project rule that lets one
-    applicant cover several connection points [S7]. It moves the paper, not the purchase —
-    each town still runs its own tender at the end of it. No year of first sale is published,
-    nothing names who has bought it, no published tally exists, no public buyer pairs with it
-    in the state contracts register, no round at Series stage and no state listing.'
+  evidence: 'It sells subsidy work: reading the RES+ and Modernizační fond calls for a town and
+    getting its application through, including the joint-project rule that lets one applicant
+    cover several connection points [S7]. It moves the paper, not the purchase — each town still
+    runs its own tender at the end of it; no start year is published and it names no town that
+    has hired it.'
 sources:
 - type: tender
   name: "TED — South Moravia rooftop PV (~€1.0M), and the wave around it"
@@ -258,6 +252,13 @@ No buyer-side complaint is documented, so the case rests on ~€60M a quarter of
 
 Solved elsewhere: iChoosr has run the group-buying model from the Netherlands since 2008 — demand pooled into one tendered contract, with more than 200 UK councils running it as Solar Together [S5]. Its own site lists ten operating countries, Poland, Germany and Austria among them, though with no participant figures for any [S5]. One proven operator, in Western Europe, doing precisely what Czech one-by-one municipal buying does not.
 
+## First moves
+
+1. Sell first to the towns whose tenders have already failed. Špindlerův Mlýn published the same wastewater-plant solar tender three times in ten weeks, and Hrabová and Nymburk re-ran identical lots [S2]. Each has a subsidy clock running and a lot too small to interest an efficient supplier — the cheapest first customers in the wave.
+2. Build the pooled tender, not an installation business: one catalogue specification, one fixed price per installed kilowatt, many towns' roofs inside a single procedure — the model iChoosr has run from the Netherlands since 2008 and more than 200 UK councils buy as Solar Together [S5]. No new law is needed. The RES+ rules already permit a joint project spanning up to three neighbouring municipalities, and the společenství obcí created by the 2024 amendment to the municipalities act may act as a central purchasing body for its members, through a framework agreement or a dynamic purchasing system [S7].
+3. Open the first conversation with the size of the duplication. Between June and August 2026, 53 distinct public buyers ran about 80 separate photovoltaic procurements worth roughly €60M, most lots between €120k and €1M, each carrying its own documentation, its own evaluation and its own contract administration [S1].
+4. Named competition: eCENTRE is the aggregation operator this problem is shaped like. It pools municipalities, households and firms into one negotiated contract, is the machinery behind the SMS ČR joint purchase, names Ostrava, Svitavy and Frýdlant nad Ostravicí as customers and has run aggregated buying since 2006 — but what it pools is electricity and gas, and its own site offers no photovoltaic procurement of any kind [S7]. It is one product decision away. Move first.
+
 ## Revisions
 
 
@@ -268,3 +269,7 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 FOURTH PASS THIS DATE, MERGED HERE: the two contradictory checks on this file were reconciled and `scores.gap` 1 → 2, `score` 6 → 7. The contradiction was real and readable on the page: [S4] closes "Field not empty: gap 0 with channels named" while the file scored 1, so a reader following the citation reached the opposite conclusion from the scorecard. [S4] cannot be edited and has not been. It is superseded instead, in [S7] and here, and the reason it was wrong is worth keeping: it found CHANNELS — SAKO's framework for Brno's own districts, kraj packaging, an SFŽP subsidy rule — and read them as sellers. A channel is not a vendor. [S7] is a third sweep with four Czech query shapes and a positive control run and passed BEFORE any conclusion was drawn: a query phrased as an obec hunting for joint purchasing returned the SMS ČR page already on this ledger and, beside it, eCENTRE, a.s. — the auction house that actually runs that purchase and appeared on no record anywhere in the register. The method surfaces Czech pooled-procurement operators that exist, so its negative carries weight, and the negative is that nobody sells the iChoosr position here. FIVE PLAYERS ADDED under the no-exclude rule: eCENTRE (IČO 27149862, established on named customers — Ostrava, Svitavy, Frýdlant nad Ostravicí — pooling electricity and gas since 2006), which is the aggregation operator this problem is shaped like, selling the wrong commodity and one product decision from the right one; iKomunita, ADS Energy and Enado, which sell design-build into a single town; and Grantex, which sells subsidy administration. ADS Energy is the closest call on the ledger and its line says so — it offers to build a solar plant several towns share, which is one shared asset contracted the ordinary way, not many towns' separate lots pooled into one tendered contract. Two structural channels were also confirmed and are named in [S7] without entering the ledger, because neither is a company anybody can hire: the RES+ joint-project rule, and the společenství obcí created by the 2024 amendment to the municipalities act, which may act as a central purchasing body for its members through a framework agreement or a dynamic purchasing system. SAKO's evidence line dropped the repository filename it used to print to the reader. The non-solutions prose now names the installers and eCENTRE, and the hedge "does not appear to exist here" is gone — three sweeps is a finding, not an impression. Proof, money, urgency and demand untouched; no existing source note edited and no existing [Sn] marker moved — [S7] is appended, not inserted.
 
 2026-08-20 · evidence audit — Removed SMO ČR from the next-evidence proposal. Neither "Svaz měst" nor "SMO ČR" returns any hit in the signal corpus, and the association appears in no source note here — a named institution proposed as a demand source with nothing on file to say it is one. The proposal still stands, without pre-naming who would file the complaint.
+
+THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
+
+FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 7; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the towns whose lots have already failed to close as the first customers [S2], a pooled tender run on the two vehicles that already exist in Czech law [S5,S7], the 53 buyers and ~80 duplicate procurements as the opening fact [S1], and eCENTRE named as the aggregation operator one commodity away [S7]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.

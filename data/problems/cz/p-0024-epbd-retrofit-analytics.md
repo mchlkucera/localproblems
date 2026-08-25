@@ -45,33 +45,28 @@ locals:
   since: 2013
   competes: adjacent
   maturity: established
-  evidence: 'It sells single-building energy-performance assessments and the Enmon
-    monitoring platform, which collects consumption at 15-minute intervals and reports
-    sustainability — no renovation roadmap, no measure prioritisation and no capex
-    modelling, so it does not sell the portfolio retrofit-planning product [S2,S5].
-    Established as a firm on named customers: Enmon is implemented at CTP [S5]; ARES
-    registration 2013, so the three-year limb is met many times over.'
+  evidence: It sells single-building energy-performance assessments and the Enmon monitoring platform,
+    which collects consumption every 15 minutes and reports sustainability — no renovation roadmap,
+    no ranking of measures and no capex modelling, so it does not sell portfolio retrofit planning
+    [S2,S5]. Trading since 2013, with customers including the property group CTP, where Enmon
+    is installed [S5].
 - name: DEKSOFT (ENERGOMETR)
   url: https://deksoft.eu/programy/energometr
   ico: '27636801'
   since: 2006
   competes: adjacent
   maturity: early
-  evidence: 'It sells ENERGOMETR, which consolidates consumption across buildings into
-    tables, graphs and reports [S5] — monitoring, one product over from the retrofit
-    planning this space is about; parent DEK a.s. is ARES-registered since 2006-12-18. No
-    limb of the established test is met by anything on file here: nothing names who has
-    bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+  evidence: It sells ENERGOMETR, which consolidates consumption across many buildings into tables,
+    graphs and reports [S5] — monitoring, one product over from the retrofit planning this space
+    is about. Parent DEK a.s. has traded since 18 December 2006, but nothing names who runs ENERGOMETR
+    and no count is published, so its reach is unknown.
 - name: EnergySim (renovacnipas.cz)
   url: https://renovacnipas.cz/
   competes: direct
   maturity: early
-  evidence: 'It sells a renovation-pass calculator to homeowners and energy specialists [S5]
-    — the same retrofit-planning job, one building at a time rather than ranked across a
-    portfolio. Nothing names who has bought it, no published tally exists, there is no
-    pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state
-    listing, so no limb of the established test is met.'
+  evidence: It sells a renovation-pass calculator to homeowners and energy specialists [S5] —
+    the same retrofit-planning job, one building at a time rather than ranked across a portfolio.
+    No start year, no buyer names and no count are published, so its reach is unknown.
 sources:
 - type: arbitrage
   name: "Fuchs & Eule"
@@ -158,6 +153,13 @@ Existing non-solutions: energy specialists issuing PENB certificates one buildin
 
 Solved elsewhere: building-portfolio decarbonisation analytics is a well-funded European category, and its sellers are past the prototype stage. Predium (Munich, selling since 2021) raised a €13M Series A and counts Colliers and Baloise as customers; Fuchs & Eule (Berlin, since 2021) raised €10M on the back of 10,000 building analyses; Deepki (Paris, since 2014) monitors €4 trillion of assets across 80 countries after a €150M Series C [S1]. Germany and France both — next door and one market over — and each sells the owner-side analytics layer Czech owners still lack.
 
+## First moves
+
+1. Sell first to the public owners already spending on retrofit: eleven public buyers awarded about €58M of energy-performance contracting between June and August 2026 — Klatovy hospital at ~€8.3M, three Plzeň-region hospitals inside one week, Praha 6 at ~€15.7M [S4]. They hold many buildings, they are obligated early under the directive's public-building rules [S3], and they are already paying for delivery. What they buy without is the ranking that decides which building goes first.
+2. Build the ranking, not more monitoring. Take the consumption data a building already produces plus its energy-performance certificate, and answer four questions in order: which building, which measure, in what sequence, at what capital cost. That is the product Fuchs & Eule raised €10M for, on the back of 10,000 building analyses [S1]. What is on the Czech shelf stops at consumption graphs and sustainability reports [S5].
+3. Open the first conversation with the deadline the buyer does not have yet. Czechia missed the 29 May 2026 transposition date for the recast buildings directive and drew a Commission infringement procedure on 15 July 2026 [S3]. The implementing law therefore arrives compressed, and the duties behind it — building automation, renovation passports, solar-readiness — will land with less notice than a portfolio can be surveyed in.
+4. Named competition: PKV Build sells single-building energy assessments plus the Enmon monitoring platform, is installed at the property group CTP and has traded since 2013 [S5]; DEKSOFT's ENERGOMETR consolidates the same consumption data across buildings [S5]. Both are one product decision away from this, and both will see the implementing law at the same moment you do.
+
 ## Revisions
 
 
@@ -170,3 +172,7 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 2026-08-20 · evidence audit — Removed the EPC supplier-side sentence: the four named companies and associations (ENESA, ČEZ ESCO, MVV, APES) return no hits anywhere in the signal corpus and appear in no source note on this record, and the maturity verdict attached to them had nothing behind it either. The clause that survives, that the unoccupied position is the owner-side analytics product, is the record's own gap check and is now cited to [S2]. Also removed from "Who pays": the claim that banks pricing green mortgages and sustainability-linked loans are a second buyer, since no green-mortgage receipt exists in the corpus.
 
 2026-08-24 · fact check — The window paragraph claimed owners have "no analytics layer, only per-building energy-certificate consultancies"; the record's own re-check found two Czech portfolio energy-management platforms (Enmon by PKV, ENERGOMETR by DEKSOFT) and flagged that the real distinction is monitoring versus retrofit planning, "narrower than the body currently implies" [S5]. The body now names both and claims only what was checked: no retrofit-planning product found, gap unchanged at 1. Enmon's own page was re-verified live on this date — 15-minute consumption collection and ESG reporting, no renovation planning [S5]. The unreceipted "ESG consultancies producing PDFs, and spreadsheets" flourish is gone.
+
+THE LEDGER NOTES, IN PLAIN LANGUAGE. All 3 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
+
+FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 7; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the eleven public energy-performance-contracting buyers as the first customers [S4], measure-ranking rather than monitoring as the first build [S1,S5], the missed 29 May 2026 transposition and the July infringement procedure as the opening fact [S3], and PKV Build and DEKSOFT named as the two vendors one product decision away [S5]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.
