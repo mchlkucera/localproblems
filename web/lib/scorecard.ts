@@ -60,8 +60,8 @@ const READS: Record<Dim, string[]> = {
   ],
   gap: [
     "an established local player already sells this",
-    "local players exist, but all still early",
-    "no local player found — the field is open",
+    "local players sell this, but all still early",
+    "nobody local sells this — the field is open",
   ],
   demand: [
     "demand assumed, not yet shown",
@@ -99,6 +99,13 @@ const READS: Record<Dim, string[]> = {
  *  `locals[]` and naming them. **No branch of this function may ever say a
  *  score was not checked**: an unchecked dimension is not a score.
  *
+ *  AND SINCE 2026-08-25 IT ASKS WHO SELLS *THIS*. `locals[]` records adjacent
+ *  players too — real firms in the neighbourhood selling something else — so
+ *  the gap read counts `competes: direct` and never the raw ledger length. The
+ *  pre-split version counted rows, which is why it could print "4 local players
+ *  on file, all still early" on a record where none of the four sold the
+ *  product and two had traded for a decade.
+ *
  *  Where a rung's meaning is a fact about a LEDGER — how many comparables, how
  *  many local players, which one — the read states that fact and lets the
  *  section below it speak. Where the score contradicts its own ledger
@@ -123,9 +130,27 @@ export function scoreRead(p: Problem, dim: Dim): string {
   }
 
   if (dim === "gap") {
+    // THE LEDGER IS READ THROUGH `competes` FIRST, ALWAYS. Since the 2026-08-25
+    // split, `locals[]` holds two different kinds of row: players that sell
+    // THIS, and real players nearby that sell something else. Counting them
+    // together — which is all the pre-split version could do — is how "N local
+    // players on file" ended up on records where none of the N sold the
+    // product. Every branch below counts `direct`; `adjacent` only ever appears
+    // named as what it is.
     const locals = p.locals ?? [];
-    const established = locals.filter((l) => l.status === "established");
-    if (p.scores.gap === 0 && established.length > 0) {
+    const direct = locals.filter((l) => l.competes === "direct");
+    const adjacent = locals.filter((l) => l.competes === "adjacent");
+    const established = direct.filter((l) => l.maturity === "established");
+    const sell = (k: number) => `${k} local player${plural(k)} sell${k === 1 ? "s" : ""} this`;
+    // Adjacent players are on file for a growing share of the corpus (the
+    // owner's no-exclude rule: record them, they are intelligence). A read that
+    // said "the field is open" above four named local firms would be the v1
+    // gap-read bug wearing new clothes, so the clause is appended wherever the
+    // head of the sentence is about absence.
+    const nearby = adjacent.length === 0 ? ""
+      : ` — ${adjacent.length} nearby sell${adjacent.length === 1 ? "s" : ""} something else`;
+
+    if (established.length > 0) {
       // Oldest first — the longest-selling incumbent is the one that closed the
       // space, and its start year is the reader's fastest check on the claim.
       // LocalSchema's refinement guarantees `since` on an established player, so
@@ -135,21 +160,26 @@ export function scoreRead(p: Problem, dim: Dim): string {
       const year = (l: { since?: number }) => l.since ?? Number.POSITIVE_INFINITY;
       const oldest = established.reduce((a, b) => (year(b) < year(a) ? b : a));
       const since = oldest.since === undefined ? "" : ` since ${oldest.since}`;
-      const rest = established.length - 1;
+      const rest = direct.length - 1;
       // No parenthetical: a third of the corpus names its incumbent with one
       // already ("STORMWARE (POHODA)"), and nested parens read as a typo.
       return rest === 0
         ? `${oldest.name} has sold this${since} — see Local competition`
         : `${oldest.name} has sold this${since}, and ${rest} more sell it locally`;
     }
-    if (p.scores.gap === 1 && locals.length > 0)
-      return `${locals.length} local player${plural(locals.length)} on file, all still early`;
-    // gap 2 says "no local player found". A locals[] ledger under it is the
-    // contradiction this whole round exists to kill, and check-records.py fails
-    // the build on it — but for as long as one can exist, the read reports the
-    // ledger rather than denying it two inches above its own contents.
-    if (p.scores.gap === 2 && locals.length > 0)
-      return `${locals.length} local player${plural(locals.length)} on file — see Local competition`;
+    if (direct.length > 0)
+      return p.scores.gap === 1
+        ? `${sell(direct.length)}, all still early${nearby}`
+        // gap 0 without an established seller, or gap 2 with any seller at all:
+        // both are contradictions check-records.py fails the build on. For as
+        // long as one can exist the read reports the LEDGER, never the score.
+        : `${sell(direct.length)} — see Local competition`;
+    // NOBODY ON FILE SELLS THIS. At rung 2 that is the score's own claim; at 0
+    // or 1 it is the ledger contradicting the score. Either way the adjacent
+    // players get named rather than denied — "the field is open" printed above
+    // four local firms is exactly the sentence this function exists to prevent.
+    if (adjacent.length > 0)
+      return `no local player found selling this${nearby}`;
   }
 
   return READS[dim][p.scores[dim]];
@@ -176,9 +206,9 @@ const CRITERIA: Record<Dim, string[]> = {
     "recurring documented complaints, petition, or industry pressure",
   ],
   gap: [
-    "an ESTABLISHED local player already sells this (named in locals[])",
-    "local players exist but all EARLY, or only weak/legacy incumbents",
-    "checked against Czech-language surfaces and no local player found",
+    "an ESTABLISHED local player already sells this (competes: direct, named in locals[])",
+    "local players sell this (competes: direct) but all are EARLY",
+    "checked against Czech-language surfaces and no local player sells this",
   ],
 };
 

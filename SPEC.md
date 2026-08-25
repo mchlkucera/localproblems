@@ -231,15 +231,27 @@ local buyer? does this matter here?* Then:
 - **De-rank rule (founder law):** re-check the gap on every touched problem, and apply
   the ESTABLISHED test in `SCORING.md` to whatever the check finds — existence alone
   decides nothing.
-  - An **established** local player sells it → `gap: 0` (TAKEN), name it in `locals[]`
-    with the limb of the test it passes, add a gap-check source, status → `watching`.
-  - Local players exist but are **all early** → `gap: 1` (CONTESTED), name them in
-    `locals[]`, and **THE RECORD STAYS A CANDIDATE**. An early competitor does not close
-    a space; it is evidence the market is being made, and that is a reason to move, not
-    to stand down. Owner, 2026-08-25: "if it's just funded two guys who have a prototype
-    that's a signal that it's a good time to join."
-  - Nothing local found, on a check with recorded `queries[]` and a passing positive
-    control → `gap: 2` (OPEN).
+  Two independent questions, and `locals[]` records them as two fields — `competes:
+  direct|adjacent` (does it sell THIS product to THIS buyer?) and `maturity:
+  established|early` (the SCORING.md test). **Only `competes: direct` rows are eligible
+  to move gap at all.** A mature vendor selling something adjacent has closed nothing.
+
+  - A **direct + established** local player → `gap: 0` (TAKEN), named in `locals[]` with
+    the limb it passes, plus a gap-check source; status → `watching`.
+  - **Direct** players exist but are **all early** → `gap: 1` (CONTESTED), and **THE
+    RECORD STAYS A CANDIDATE**. An early competitor does not close a space; it is
+    evidence the market is being made, and that is a reason to move, not to stand down.
+    Owner, 2026-08-25: "if it's just funded two guys who have a prototype that's a
+    signal that it's a good time to join."
+  - **No direct player**, on a check with recorded `queries[]` and a passing positive
+    control → `gap: 2` (OPEN). Adjacent players may be recorded and do not affect it.
+
+  **Never exclude a player to make a score come out right, and never mislabel one to
+  dodge an invariant.** Owner, 2026-08-25: "Never 'exclude' — the goal is to inform the
+  builder properly." Both workarounds were tried here: one pass marked mature adjacent
+  firms `early`, another dropped them entirely, and the two halves of the register ended
+  up encoding the same fact two contradictory ways. Every player found is recorded;
+  `competes` is what says whether it counts.
 
   The v1 rule read "if a local player now exists ... → gap: 0 ... status → watching",
   with no maturity test at all. It is why a one-person operator selling a 3,000 CZK/month

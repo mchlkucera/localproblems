@@ -47,56 +47,67 @@ locals:
   url: https://doplnky.shoptet.cz/hlidac-slev
   ico: '22571299'
   since: 2025
-  status: early
-  evidence: 'EARLY — fails the three-year limb: JARABOT s.r.o. was registered 2025-02-10 in
-    ARES, eighteen months of trading [S8]. No customer count is published, no public-buyer
-    pair exists in data/lookup/cz-contract-parties.jsonl, no round and no state listing is on
-    file; its five Shoptet ratings average 3.4 [S10]'
+  competes: direct
+  maturity: early
+  evidence: 'It sells reference-price rewriting for the 30-day discount rule with three
+    years of ČOI-exportable history [S8,S10] — the same compliance job as this space, one
+    duty wide. JARABOT s.r.o. was registered 2025-02-10 in ARES, eighteen months of trading,
+    so the three-year limb fails; no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing,
+    and its five Shoptet ratings average 3.4 [S10].'
 - name: Slevy správně (Cenový automat)
   url: https://doplnky.shoptet.cz/slevy-spravne
   ico: '07641346'
   since: 2023
-  status: early
-  evidence: 'EARLY — the product dates to the 6 Jan 2023 reference-price rule it corrects for,
-    so the three-year limb is only just met, and no other limb is: no customer count, no
-    public-buyer pair in data/lookup/cz-contract-parties.jsonl, no round, no state listing.
-    Four Shoptet ratings averaging 4.0 [S10]'
+  competes: direct
+  maturity: early
+  evidence: 'It sells the same reference-price correction for the 30-day rule, at a flat 200
+    Kč a month [S8,S10]. The product dates to the 6 Jan 2023 rule it corrects for, so the
+    three-year limb is only just met and no other limb is: no published tally exists, there
+    is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage and no
+    state listing. Four Shoptet ratings averaging 4.0 [S10].'
 - name: Pravoid
   url: https://www.pravoid.cz/
   ico: '23683368'
   since: 2025
-  status: early
-  evidence: 'EARLY — fails the three-year limb: the proprietor Bc. Filip Krechler was
-    registered 2025-09-03 in ARES [S8]. Generated legal texts at 199–499 CZK with an e-Sbírka
-    watch subscription; no customer count, public-buyer pair, round or state listing on file'
+  competes: direct
+  maturity: early
+  evidence: 'It sells generated legal texts at 199–499 CZK with an e-Sbírka watch
+    subscription [S8] — the monitoring shape this space calls for, aimed at the texts rather
+    than the checkout. The proprietor Bc. Filip Krechler was registered 2025-09-03 in ARES,
+    so the three-year limb fails; no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing.'
 - name: Právo e-shopů
   url: https://www.pravoeshopu.cz/pravni-audit-eshopu
-  status: early
-  evidence: 'EARLY on receipts only — sells one-off právní audity priced per engagement, the
-    legacy service this record proposes to replace with a subscription [S5]; no customer count,
-    public-buyer pair, round or state listing on file'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells one-off právní audity priced per engagement — a law firm doing the
+    check by hand, which is the legacy service a subscription would replace rather than a
+    product a shop runs every week [S5]. Nothing names who has bought it, no published tally
+    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
+    stage and no state listing, so no limb of the established test is met.'
 - name: eLegal
   url: https://www.elegal.cz/
   ico: '03153398'
   since: 2014
-  status: early
-  evidence: 'EARLY for this space — a law firm selling one-off audits and terms drafting per engagement
-    [S5], the legacy service this record proposes to replace with a subscription, not the
-    monitoring product itself; ARES registration 2014-06-30. No limb of the established test
-    is met by anything on file here: nothing names who has bought it, no published tally
-    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
-    stage, and no state listing.'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells one-off audits and terms drafting per engagement as a law firm [S5] —
+    the legacy service, not the monitoring product itself; ARES registration 2014-06-30. No
+    limb of the established test is met by anything on file here: nothing names who has
+    bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
 - name: AZ LEGAL
   url: https://www.azlegal.cz/
   ico: '05030323'
   since: 2016
-  status: early
-  evidence: 'EARLY for this space — a law firm selling one-off audits and terms drafting per engagement
-    [S5], the legacy service this record proposes to replace with a subscription, not the
-    monitoring product itself; ARES registration 2016-04-27. No limb of the established test
-    is met by anything on file here: nothing names who has bought it, no published tally
-    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
-    stage, and no state listing.'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells one-off audits and terms drafting per engagement as a law firm [S5] —
+    the legacy service, not the monitoring product itself; ARES registration 2016-04-27. No
+    limb of the established test is met by anything on file here: nothing names who has
+    bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
 sources:
 - type: complaint
   name: "ČOI — 2025 distance-selling inspection results"
@@ -275,3 +286,6 @@ Solved elsewhere: Germany productised exactly this under harsher pressure, and t
 2026-08-24 · gap re-check and fact check — The mechanical sweep of the add-on lookup corpus found a second discount-labelling product this record did not name: Slevy správně by Cenový automat s.r.o., flat 200 Kč/month, 6-hour snapshots, 3-year ČOI history, on Shoptet and Upgates [S10]; the body and first moves 4 and 6 now carry it beside Hlídač Slev. The 91% risk-targeted rate had been cited to the 2025 results page, which carries only 2025 figures; the ČOI Q2/2026 release (103 inspections, 94 with violations) is now on the ledger and the claim re-cited [S9]. Cut in the same pass: "one of Europe's densest e-commerce markets", a density claim with no receipt in the corpus, and the clause tying this record to an accessibility "enforcement wave" at p-0020 — that record's enforcement claim failed verification on this date and it is rejected. The green-claims, pre-contractual, complaint-handling and order-button absences were re-confirmed against all 606 add-ons in both marketplaces [S10]. Gap stays 0; nothing rescored.
 
 2026-08-25 · board-brief rewrite — The argument was cut from 529 words to the board-brief shape, one claim per sentence and at most two markers to a sentence, with no claim added beyond its sources and none removed: the 85% and 91% violation rates, the 2,399 breaches, the ČOI capacity numbers, the two discount-labelling incumbents and Pravoid all survive in shorter form. "How big" now states a bottom-up figure instead of gesturing at the long tail — ~30,000 Shoptet merchants [S5] against Czech add-on pricing of 19–200 CZK/month [S8,S10] and the German €9.90–24.90 subscription points, giving roughly €430k/yr at a €12 bundle and 10% penetration, set beside ~13.0M CZK of 2025 fines [S1]. The "Solved elsewhere:" lead-in was already present and is unchanged in function; the German analogs now state what each proves rather than being named in passing. Every source gained a public name and why line. Scores, status and internal notes untouched. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker were untouched by those passes. Third pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, and both dimensions moved. `scores.proof` 1 → 3. The v1 answer, 1, was reasoned as "named analogs without a fresh funding receipt" — but a fresh round was never what proof measures, and under the maturity test all three German analogs pass on the customer limb without needing one: Trusted Shops selling since 1999 across 17,000+ European shops with Zalando and Obi named and eleven markets on its ledger including Austria and Poland, IT-Recht Kanzlei since 2004 with tens of thousands of shops on subscription, Händlerbund since 2008 with 30,000 members and ~92,000 digital presences [S4]. Established in two-plus markets with Germany, Austria and Poland all CEE-adjacent is rung 3. `scores.gap` 0 → 1, which is the correction that matters here. The 2026-08-20 pass dropped gap to 0 on the strength of finding two Czech products, and the 2026-08-24 pass found a third — but the new ladder asks how mature they are, and ARES answers plainly. JARABOT s.r.o., which sells Hlídač Slev, was registered 2025-02-10; Bc. Filip Krechler, the proprietor behind Pravoid, on 2025-09-03; both dates read live from ARES on this date against the IČOs [S8] already carried. Cenový automat's Slevy správně only just clears the three-year limb, dating to the January 2023 reference-price rule it corrects for, and clears no other: none of the three publishes a customer count, pairs with a public buyer in `data/lookup/cz-contract-parties.jsonl`, or carries a round or a state listing. An early local player does not close a space. The law firms behind the one-off audits — Právo e-shopů, eLegal (ARES 2014), AZ LEGAL (ARES 2016) — are the "weak or legacy incumbents" half of the same rung. Gap does not rise past 1: [S8] and [S10] found local players, not none, so rung 2 is unavailable however the check was run. All six were lifted from the [S5], [S8] and [S10] scan prose into a structured `locals[]` ledger. `score` 6 → 9. The non-solutions paragraph, the Proven-abroad paragraph and first move 6 now state the incumbents' ages, because that is the fact carrying the gap score, and the Proven-abroad paragraph stops treating an absent round as an absent proof. Nothing found in the earlier passes was removed: the coverage gaps that remain unbuilt — green claims from 27 Sep 2026, pre-contractual and complaint-handling information, order buttons — are unchanged and still cited [S8,S10]. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved. FLAGGED, NOT CHANGED: `status` is still `watching`, set by the SPEC §4 de-rank rule when gap went to 0 on 2026-08-20. The condition that triggered it no longer holds.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. Three entries stay `direct`, three move to `adjacent`, and no maturity changes. Hlídač Slev, Slevy správně and Pravoid each sell a slice of the same automated compliance job to the same shops, so they are direct, and each fails the established test on its own receipts. The three law firms — Právo e-shopů, eLegal and AZ LEGAL — move to `adjacent`: they sell one-off audits and terms drafting priced per engagement, which is the legacy service a subscription scanner would replace rather than the monitoring product itself. All three read early on receipts, so the relabel touches nothing. `scores.gap` stays 1 and now says the rung's own words: direct competitors exist here and every one of them is early. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+

@@ -2,7 +2,7 @@
 import { registerRows } from "../lib/data";
 import { categoryLabel, localityLabel, pad2 } from "../lib/format";
 import { CategoryNav } from "../lib/category-nav";
-import { FooterHouseLine, Masthead, SiteNav, SortScript, Tally, CORRECTIONS_MAILTO } from "../lib/chrome";
+import { CorrectionsLink, FooterHouseLine, Masthead, SiteNav, SortScript, Tally } from "../lib/chrome";
 
 export default function Register() {
   const rows = registerRows();
@@ -66,7 +66,7 @@ export default function Register() {
             country · distilled from …") is retired (owner, 2026-08-24) */}
         <FooterHouseLine />
         <br />
-        <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
+        <CorrectionsLink /> ·{" "}
         <a href="/signals/funded">signal ledgers</a>
       </footer>
       <SortScript />

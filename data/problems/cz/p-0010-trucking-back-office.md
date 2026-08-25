@@ -51,6 +51,44 @@ comps:
   traction: '€17.2M growth round (Vestbee, Mar 2026) atop $42M Series B (cargo.one,
     2020); 28,000+ users across 172 countries'
   signal: round-cargo-one
+locals:
+- name: OLTIS Group (LORI)
+  url: https://www.oltis.cz/
+  ico: '26847281'
+  since: 2004
+  competes: adjacent
+  maturity: established
+  evidence: 'named customers: VEDOS runs its transport and forwarding on the LORI system, which
+    OLTIS announces on its own site. LORI is dispatch and forwarding software with e-CMR — it
+    records the work: who drove what, when, on which order. What it does not do is the thing
+    this record is about, turning a delivered load''s paperwork into an invoice without a person
+    in the middle, or answering the dispatcher''s phone. It is the legacy generation an entrant
+    would displace, and it is the reason gap here is contested rather than open. OLTIS Group
+    a.s. is ARES-dated December 2004 and dates its own origins to 1997; it employs around 200
+    people across four countries.'
+- name: TruckManager / TruckAgenda
+  url: https://www.truckmanager.eu/cs/
+  competes: adjacent
+  maturity: early
+  evidence: 'Czech haulier-side dispatch and TMS software — order records, vehicle files,
+    paperwork stored rather than processed. Same generation as LORI and sold to the same small
+    firms this record names as buyers, which is what makes it real competition for attention
+    and budget, but it stops where automation would start. No company resolves in ARES under the
+    trade name and no founding year is published, so no limb of the established test is on file.'
+- name: Ringil
+  url: https://ringil.com/funkce-pro-dopravce
+  ico: '09194673'
+  since: 2020
+  competes: adjacent
+  maturity: established
+  evidence: 'named customers: Škoda and Notino. Ringil sells four modules — TMS, avizace,
+    timesloty and yard management — to manufacturers and retailers, that is to the SHIPPER, and
+    it headlines itself as a system for running logistics inside producing and selling firms.
+    Hauliers get in free ("Zveme do Ringilu všechny dopravce našich zákazníků. Máte přístup
+    zdarma"): an RFQ inbox, one-click bidding, a record of that one shipper''s transports and a
+    driver app. That is a counterparty portal, not a haulier''s own back office — no dispatch
+    across the haulier''s whole book, no POD or CMR feeding its invoicing, no invoicing and no
+    factoring. Ringil s.r.o. is ARES-dated May 2020.'
 sources:
 - type: arbitrage
   name: "Hemut"
@@ -217,4 +255,4 @@ Solved elsewhere: four funded companies already build this back office for small
 
 2026-08-20 · evidence audit and gap re-check — Two blocks recorded on this date, merged here; the second answers the first. The audit found that the S6 note asserted facts appearing nowhere in the signal it cites (cz-ringil, data/signals/funded/2026-08-14.jsonl): a founding year of 2020, "800+ companies on platform", Plzeňský Prazdroj as a client (the signal names Škoda; "Prazdroj" returns zero hits across all 6,181 signals), and a product-surface verification that Ringil "sells no haulier back-office" — the signal carries no product breakdown at all [S6]. The note then concluded "gap 1 stands", which reverses the signal's own finding: cz-ringil flags Ringil as occupying a register niche ("p-0010 claims no CZ player — Ringil is evidence to the contrary") and marks it a de-rank candidate for this record. The note, the existing-non-solutions sentence and the First moves competition line were rewritten to what the signal actually supports, and gap was deliberately left at 1 and score at 7 — moving them is a MATCH judgment under SPEC §4, not an audit one — with the gap score resting on a withdrawn note and flagged as requiring re-judgment. That re-judgment was then made in the same pass, against Ringil's own site rather than against a signal summary, and the de-rank candidacy is not upheld. Ringil s.r.o. (IČ 09194673) sells four modules — TMS, Avizace, Timesloty, Yard management — under the headline "Systém pro kompletní řízení logistiky ve výrobních a prodejních firmách", i.e. to the shipper; its carrier page opens "Zveme do Ringilu všechny dopravce našich zákazníků. Máte přístup zdarma" and offers those carriers an RFQ inbox, one-click bidding, a record of that shipper's transports and a driver app [S8]. Nothing there is the small haulier's own back office — no dispatch automation across its own book, no POD/CMR ingestion into invoicing, no invoicing or factoring — and nothing there is sold to the haulier at all: Ringil belongs with the load boards this record already excludes, on the other side of the same trade. The wider sweep found Czech haulier-side software, all of it the legacy dispatch/TMS the body already discounts, and no AI-native Czech ops player [S8]. Gap stays 1 and score stays 7. The check that was missing has now been run and recorded with its queries; it did not find an absence, it failed to find a player, and that pass had no authority to convert the second into the first by raising a score.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Both dimensions were re-derived and both held. `scores.proof` stays 2: Cargofy (Kyiv) and cargo.one both pass the established test, but cargo.one sells air-cargo booking to forwarders rather than a small haulier's back office, so only one established player sits on this record's own product — rung 2. Hemut and Nexcade are both under three years old. `scores.gap` stays 1. No `locals[]` key, and the omission is deliberate: the Czech haulier-side field is legacy dispatch and TMS — TruckManager/TruckAgenda, Transfer Manager, AutoCRM and OLTIS Group's LORI [S8] — which is precisely rung 1's 'only weak or legacy incumbents' clause, but `locals[]` has two states and neither of them says 'established but legacy'. Marking OLTIS early would be false, and marking it established would force gap 0 on the product generation this record exists to replace, so the ledger stays absent and the body keeps naming them. Ringil is out for the reason already recorded above: it sells the shipper side. `score` unchanged at 7.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Both dimensions were re-derived and both held. `scores.proof` stays 2: Cargofy (Kyiv) and cargo.one both pass the established test, but cargo.one sells air-cargo booking to forwarders rather than a small haulier's back office, so only one established player sits on this record's own product — rung 2. Hemut and Nexcade are both under three years old. `scores.gap` stays 1. No `locals[]` key, and the omission is deliberate: the Czech haulier-side field is legacy dispatch and TMS — TruckManager/TruckAgenda, Transfer Manager, AutoCRM and OLTIS Group's LORI [S8] — which is precisely rung 1's 'only weak or legacy incumbents' clause, but `locals[]` has two states and neither of them says 'established but legacy'. Marking OLTIS early would be false, and marking it established would force gap 0 on the product generation this record exists to replace, so the ledger stays absent and the body keeps naming them. Ringil is out for the reason already recorded above: it sells the shipper side. `score` unchanged at 7. Fifth pass this date, merged here: **this record gains a `locals[]` ledger for the first time**, reversing the omission the pass above recorded. That entry named the exact defect the split now fixes — "`locals[]` has two states and neither of them says 'established but legacy'" — so the legacy Czech field goes on the ledger as `competes: adjacent` carrying the maturity it actually has. **OLTIS Group (LORI)**, IČO 26847281, ARES-dated December 2004 and dating its own origins to 1997, is adjacent and established: OLTIS announces VEDOS running its transport and forwarding on LORI, which is the named-customer limb, and LORI is dispatch and forwarding software with e-CMR that records the work rather than automating it. **TruckManager / TruckAgenda** is adjacent and early — the same generation sold to the same small hauliers, but no company resolves in ARES under the trade name and no year is published, so no limb is on file. **Ringil** goes on the ledger too, adjacent and established (Ringil s.r.o., IČO 09194673, ARES-dated May 2020; named customers Škoda and Notino): the 2026-08-20 finding that it sells the shipper side is unchanged, and it is now recorded saying so instead of being kept off the page. NOT added: **Transfer Manager** and **AutoCRM**, named by the same sweep [S8], for which no reachable site and no ARES match could be found — the schema needs a URL or an IČO and neither was invented, so both stay in the body. `scores.gap` stays 1 and `score` stays 7. FLAGGED FOR MATCH, NOT CHANGED HERE: with every named local now adjacent and no direct player on the ledger, the new ladder reads this record at rung 2 rather than rung 1. That is a scoring judgment under SPEC §4, and gap authority is asymmetric — a search that failed to find a player cannot raise a score in a conversion pass.

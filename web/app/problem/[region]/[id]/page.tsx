@@ -10,13 +10,13 @@
 // the markdown/git, not shouted on the page.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { extractDate, getProblems, getSignal, signalHref, type Problem, type ProblemSource } from "../../../../lib/data";
+import { extractDate, getProblems, getSignal, localHref, signalHref, type Problem, type ProblemSource } from "../../../../lib/data";
 import { annotateSourceRefs, renderBody, renderInline, repageLedgerLinks, type SourceRef } from "../../../../lib/md";
 import { splitBody } from "../../../../lib/sections";
 import { categoryLabel, countryName, euro, localityLong } from "../../../../lib/format";
 import { type Dim, MAX, SCORE_ROWS, dimRefs, scoreRead } from "../../../../lib/scorecard";
 import {
-  CORRECTIONS_MAILTO, FooterHouseLine, Masthead, RelDatesScript, SiteNav, Tally,
+  CorrectionsLink, FooterHouseLine, Masthead, RelDatesScript, SiteNav, Tally,
 } from "../../../../lib/chrome";
 import { EuropeMap } from "../../../../lib/geomap";
 
@@ -104,6 +104,25 @@ const TEAM_BAND: Record<string, string> = {
   solo: "1 person", "small-team": "2–5 people", "funded-team": "a funded team",
 };
 
+// ---- local competition: two groups, in this order -------------------------
+// DIRECT FIRST, because it is the group the score above the section is about —
+// a reader who stops after one line has read the answer to "is this taken?".
+// ADJACENT SECOND, and never omitted: it is who else is already in the room and
+// who the buyer already pays, which is the intelligence a builder cannot get
+// from a score. The headings are plain counts, in the muted mono `.crumb` voice
+// the site already uses for a quiet label — so the two groups read as "3 sell
+// this / 4 nearby" at a glance, with no new visual device invented for it.
+const LOCAL_GROUPS: { competes: "direct" | "adjacent"; heading: (n: number) => string }[] = [
+  {
+    competes: "direct",
+    heading: (n) => `${n} sell${n === 1 ? "s" : ""} this`,
+  },
+  {
+    competes: "adjacent",
+    heading: (n) => `${n} nearby, selling something else`,
+  },
+];
+
 export default async function Record({ params }: Params) {
   const { region, id } = await params;
   const p = find(region, id);
@@ -137,10 +156,6 @@ export default async function Record({ params }: Params) {
     .map((n) => futureDate(p.sources[n - 1], extract))
     .filter((d): d is string => d !== null)
     .sort()[0];
-
-  // "Last verified" — the quiet currency marker that replaces the old wall of
-  // revision prose (owner: thin and professional; the full trail stays in git).
-  const lastVerified = p.updated;
 
   const build = p.build;
 
@@ -196,11 +211,29 @@ export default async function Record({ params }: Params) {
               register and category tables stay id-free — that half of the
               2026-08-21 change was right — and the ledger rows keep their
               `id` anchors. */}
+          {/* ONE DATE, ONCE, ON THE WHOLE PAGE (owner, 2026-08-25: "there are
+              still artifacts like `Created … · updated … · Source wrong?
+              Corrections →`"). Three separate passes each added a currency
+              marker and none removed the one before it, so p-0032 shipped the
+              same date FIVE times: here, the `.verified` line under the sources,
+              twice in the footer, and once more in the site footer line. The
+              reader needs exactly one answer to "how current is this?", and it
+              belongs at the top, where the trust judgment is actually formed —
+              so the standalone `.verified` paragraph and both footer dates are
+              gone and this is the survivor.
+
+              "VERIFIED", NOT "UPDATED": `updated` reads as a file timestamp —
+              somebody touched the file — where what the date actually certifies
+              is that the evidence was re-checked on that day.
+
+              `created` IS GONE ENTIRELY. When a record was first minted is
+              pipeline bookkeeping; a builder deciding what to build this quarter
+              has no use for it, and git holds it. Same class of furniture as the
+              record ids the owner had removed from the tables. */}
           <p className="idline">
             <span className="id">{p.id.toUpperCase()}</span>
             <span className="meta">
-              {"updated "}<time className="rel" dateTime={p.updated}>{p.updated}</time>
-              {" · created "}<time className="rel" dateTime={p.created}>{p.created}</time>
+              {"verified "}<time className="rel" dateTime={p.updated}>{p.updated}</time>
             </span>
           </p>
           <h1>{p.title}</h1>
@@ -293,48 +326,80 @@ export default async function Record({ params }: Params) {
             </ul>
           </div>
         ) : (
-          <p className="absent">No verified foreign comparable on file as of <time dateTime={p.updated}>{p.updated}</time>.</p>
+          // the "as of {p.updated}" that closed this sentence was another copy
+          // of the docket's currency line; the absence is the statement, and
+          // when it was last checked is answered once, at the top.
+          <p className="absent">No verified foreign comparable on file.</p>
         )}
 
         {/* LOCAL COMPETITION — the mirror of "Proven abroad", and structured for
-            the same reason: `locals[].status` is what the GAP score turns on
+            the same reason: `locals[]` is what the GAP score turns on
             (SCORING.md, the established test), so it has to be a rendered fact a
             reader can check, not a clause buried in a paragraph. The ledger uses
             the comps `.entry` grammar verbatim — serif linked name, since year,
             evidence as the muted note line — with the established/early band as
             the quiet bordered `.pill` the Build row already spends on a closed
             enum. The prose paragraph keeps rendering UNDERNEATH when a record
-            states one: the ledger says who, the prose says what that means. */}
+            states one: the ledger says who, the prose says what that means.
+
+            IT RENDERS IN TWO GROUPS, BECAUSE THE LEDGER HOLDS TWO KINDS OF ROW.
+            `competes: direct` is a player selling THIS to THIS buyer;
+            `competes: adjacent` is a real firm in the neighbourhood selling
+            something else. Both are recorded — "never exclude, the goal is to
+            inform the builder properly" (owner, 2026-08-25) — and a builder
+            needs the second group as much as the first: it is who else is in
+            the room, who the buyer already pays, who could turn and compete
+            next quarter. But an adjacent firm printed in one undifferentiated
+            list reads as a competitor the record failed to score against, which
+            is how the pre-split ledger pushed one agent into mislabelling them
+            `early` and the other into leaving them out. So they are LABELLED,
+            not merged: direct first (it answers the score above it), each group
+            opened by a plain mono count line, and the `.pill` now carries
+            maturity alone — one field, one meaning, on the page as in the
+            schema. */}
         {(locals.length > 0 || sections.competition) && (
           <>
             <h2 id="local-competition">Local competition</h2>
-            {locals.length > 0 && (
-              <ul className="comps">
-                {locals.map((l) => {
-                  // ONLY THE FACTS THAT ARE ON FILE. `ico` is optional and
-                  // `since` is optional on an EARLY player — small Czech vendors
-                  // routinely publish no founding year — so the line is composed
-                  // from what exists rather than templated over what should. A
-                  // fixed template renders "· since undefined", which is the
-                  // register asserting a fact it does not hold.
-                  const meta = [l.ico && `IČO ${l.ico}`, l.since && `since ${l.since}`]
-                    .filter(Boolean)
-                    .map((s) => `· ${s}`)
-                    .join(" ");
-                  return (
-                    <li key={l.name} className="entry">
-                      <span className="line">
-                        <a className="name" href={l.url}>{l.name}</a>
-                        {meta && <span>{meta}</span>}
-                        <span className="leader"></span>
-                        <span className="pill">{l.status}</span>
-                      </span>
-                      <p className="note">{l.evidence}</p>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
+            {LOCAL_GROUPS.map(({ competes, heading }) => {
+              const group = locals.filter((l) => l.competes === competes);
+              if (group.length === 0) return null;
+              return (
+                <div key={competes} className="locals">
+                  <p className="crumb">{heading(group.length)}</p>
+                  <ul className="comps">
+                    {group.map((l) => {
+                      // ONLY THE FACTS THAT ARE ON FILE. `ico` is optional and
+                      // `since` is optional on an EARLY player — small Czech
+                      // vendors routinely publish no founding year — so the line
+                      // is composed from what exists rather than templated over
+                      // what should. A fixed template renders "· since
+                      // undefined", which is the register asserting a fact it
+                      // does not hold.
+                      const meta = [l.ico && `IČO ${l.ico}`, l.since && `since ${l.since}`]
+                        .filter(Boolean)
+                        .map((s) => `· ${s}`)
+                        .join(" ");
+                      return (
+                        <li key={l.name} className="entry">
+                          <span className="line">
+                            {/* localHref: the product site, or the company's
+                                ARES record where no product page exists. The
+                                fallback is what lets a real player with nothing
+                                to link to be RECORDED rather than dropped —
+                                inventing a URL is never the third option. */}
+                            <a className="name" href={localHref(l)}>{l.name}</a>
+                            {meta && <span>{meta}</span>}
+                            <span className="leader"></span>
+                            <span className="pill">{l.maturity}</span>
+                          </span>
+                          <p className="note">{l.evidence}</p>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              );
+            })}
             {sections.competition && (
               <div dangerouslySetInnerHTML={{ __html: body(sections.competition) }} />
             )}
@@ -385,8 +450,15 @@ export default async function Record({ params }: Params) {
             })}
           </ul>
         )}
+        {/* "~4 months out." — the relative distance, and no longer ", as of
+            2026-08-25": that trailing clause was the register re-stating its own
+            extract date beside a deadline the row above already prints in full.
+            The anchor for the relative reading is the one currency line in the
+            docket, and it is stated once. The DEADLINE itself keeps its date —
+            that is a fact about the world, not about our filing, and the two
+            must not be confused when cutting furniture. */}
         {windowFact && (
-          <p className="whenline">{relativeOut(extract, windowFact)}, as of <time dateTime={extract}>{extract}</time>.</p>
+          <p className="whenline">{relativeOut(extract, windowFact)}.</p>
         )}
 
         {/* What you need — the buy-in requirements, stated plainly (owner,
@@ -437,12 +509,18 @@ export default async function Record({ params }: Params) {
             );
           })}
         </ol>
-        <p className="verified">Last verified <time dateTime={lastVerified}>{lastVerified}</time>.</p>
+        {/* the "Last verified {date}" paragraph that stood here is GONE — it was
+            the second of five renderings of the same date, and it rendered with
+            an orphaned full stop floating after the <time>. The one currency
+            marker is in the docket at the top of the page. */}
       </article>
 
+      {/* The footer carried "Created … · updated …" — dates three and four, and
+          on a record created and updated on the same day it printed one date
+          twice in a single sentence. Both gone; the footer is now what a footer
+          is for, which is where to write to us. */}
       <footer>
-        Created <time>{p.created}</time> · updated <time>{p.updated}</time>
-        {" "}· <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a>
+        <CorrectionsLink />
         <br />
         <FooterHouseLine />
       </footer>

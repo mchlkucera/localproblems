@@ -28,24 +28,27 @@ locals:
   url: https://www.gordic.cz/
   ico: '47903783'
   since: 1993
-  status: established
-  evidence: 'state certification AND public buyers — atest 1/2025 for GINIS v525 on the Czech
-    Agency for Standardization register, valid to 25.11.2027 and extended to v5.26; and 3
-    distinct public buyers in data/lookup/cz-contract-parties.jsonl (MČ Praha 20, two
+  competes: direct
+  maturity: established
+  evidence: 'state certification AND public buyers — atest 1/2025 for GINIS v525 on the
+    Czech Agency for Standardization register, valid to 25.11.2027 and extended to v5.26;
+    and 3 distinct public buyers in data/lookup/cz-contract-parties.jsonl (MČ Praha 20, two
     Hradec-region secondary schools) [S8]. ARES registration 1993-02-01'
 - name: ICZ.DMS (e-spis)
   url: https://www.i.cz/
   ico: '06696805'
   since: 2017
-  status: established
-  evidence: 'state certification — atest 2/2026 for e-spis v3, 07.05.2026 to 07.05.2028 [S8];
-    and named customers, with Prague awarding ~€3.3M for e-spis development in August 2026
-    [S3]. ARES registration 2017-12-21'
+  competes: direct
+  maturity: established
+  evidence: 'state certification — atest 2/2026 for e-spis v3, 07.05.2026 to 07.05.2028
+    [S8]; and named customers, with Prague awarding ~€3.3M for e-spis development in August
+    2026 [S3]. ARES registration 2017-12-21'
 - name: Seyfor (ELDAx)
   url: https://www.seyfor.cz/
   ico: '01572377'
   since: 2013
-  status: established
+  competes: direct
+  maturity: established
   evidence: 'state certification AND public buyers — atest 3/2026 for ELDAx eSSL v6.0.0,
     extended to v6.0.1 [S8]; and 2 distinct public buyers in
     data/lookup/cz-contract-parties.jsonl (město Krnov, Psychiatrická nemocnice v Kroměříži)
@@ -54,38 +57,44 @@ locals:
   url: https://www.mitconsulting.cz/
   ico: '25689240'
   since: 1998
-  status: established
+  competes: direct
+  maturity: established
   evidence: 'state certification — atest 4/2026 for MIT ERMS v3.5, 22.07.2026 to 22.07.2028,
     on the Czech Agency for Standardization register [S8]. ARES registration 1998-08-31'
 - name: GEOVAP
   url: https://www.geovap.cz/
   ico: '15049248'
   since: 1991
-  status: established
-  evidence: '>= 2 distinct public buyers in data/lookup/cz-contract-parties.jsonl (statutární
-    město Karviná, Ředitelství silnic a dálnic s.p.) [S8]. Its DMS is not on the issued-attest
-    list at this check, so it sells into the wave without the certification the four attested
-    vendors hold. ARES registration 1991-02-26'
+  competes: direct
+  maturity: established
+  evidence: '>= 2 distinct public buyers in data/lookup/cz-contract-parties.jsonl
+    (statutární město Karviná, Ředitelství silnic a dálnic s.p.) [S8]. Its DMS is not on the
+    issued-attest list at this check, so it sells into the wave without the certification
+    the four attested vendors hold. ARES registration 1991-02-26'
 - name: T-MAPY (TESS Online)
   url: https://www.tmapy.cz/
   ico: '47451084'
-  status: early
-  evidence: 'EARLY for this space — TESS Online does not appear on the state''s issued-eSSL roster at
-    this check [S8], so it cannot be sold to a public-law originator from 1 January 2027 as
-    it stands. No limb of the established test is met by anything on file here: nothing
-    names who has bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.
-    It returns zero hits across all 11,330 signals in data/register.db, which is a limit of
-    the pipeline rather than of the company.'
+  competes: direct
+  maturity: early
+  evidence: 'It sells TESS Online, a Czech records system, into exactly this wave — but it
+    does not appear on the state''s issued-eSSL roster at this check [S8], so as it stands
+    it cannot be offered to a public-law originator from 1 January 2027. No limb of the
+    established test is met by anything on file here: nothing names who has bought it, no
+    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
+    round at Series stage, and no state listing. It returns zero hits across all 11,330
+    signals in data/register.db, which is a limit of the pipeline rather than of the
+    company.'
 - name: OSS Alliance
   url: https://ossalliance.cz/
-  status: early
-  evidence: 'EARLY under the test as written, and the letter and the spirit come apart here — see
-    Revisions. It does not sell at all: it supplies the smallest obce an open-source records
-    system free of charge, with two years of hosting, in cooperation with the Ministry of
-    the Interior [S8]. The first limb of the test is three years SELLING, which a free
-    offering cannot meet at any age, and no sourced year for the start of supply is on file.
-    A zero-price rival at the bottom of the market all the same.'
+  competes: direct
+  maturity: early
+  evidence: 'It supplies the smallest obce an open-source records system free of charge,
+    with two years of hosting, in cooperation with the Ministry of the Interior [S8] — the
+    same product to the same buyer at a price of zero, which is why it competes directly.
+    Maturity is the separate question, and the answer is early: the test''s first limb is
+    three years SELLING, which a free offering cannot meet at any age, and no sourced year
+    for the start of supply is on file, so none is written. A zero-price rival at the bottom
+    of the market all the same.'
 sources:
 - type: regulation
   name: "The eSSL attestation regime (§69b–e, Act 499/2004)"
@@ -248,3 +257,6 @@ Solved elsewhere: one comparable, and it is the right shape. Documaster has sold
 THE DEADLINE, SETTLED. The trade coverage is right and this file was a day out. The Czech Agency for Standardization — the body that issues the attests — states in its own Q&A that a public-law originator must be running records management in an attested eSSL "nejpozději od 1. ledna 2027", citing the transitional provision in §27 of vyhláška č. 259/2012 Sb.; legal commentary read live on the same date gives 1 January 2027 as the end of the transitional period under §63 odst. 3 zákona č. 499/2004 Sb., with a fine up to 200,000 CZK from that day [S9]. The lead and "Who pays" now say "from 1 January 2027" instead of "by 31 December 2026", and the [S1] public summary line says the transitional period runs out at the end of 2026 rather than naming the wrong compliance date. Nothing was smoothed over: the same ČAS page carries a stale section giving 1 January 2026, an internal inconsistency on the issuing agency's own page, and [S9] records it. The [S1] internal note is untouched and remains correct as written — a period that ENDS 31 December 2026 and an obligation that BITES from 1 January 2027 are the same boundary. The urgency sub-scores do not move: the date is under eighteen months out either way, so deadline stays 2 and `scores.urgency` stays 3. The title, "by the end of 2026", survives the check unchanged.
 
 THE RE-SCORE. `scores.proof` 0 → 2, resolving the contradiction flagged for MATCH earlier this same day. Documaster passes the ESTABLISHED test on three limbs at once — selling since 2014, a state certification (the first records kernel certified against Norway's Noark standard), growth equity from Summa Equity at NOK 100M, and revenue up more than fifteenfold since 2017. One established foreign player is rung 2 exactly. Rung 3 was considered and declined: it needs two-plus markets, and Norway is the only one on file, CEE-adjacent though the Nordics are. `scores.gap` stays 0, and now means TAKEN rather than the v1 rung's "check not done" — which is precisely the defect the owner caught, a page printing "not yet checked" above a list of four attested competitors. Seven local players were lifted out of the [S8] scan prose into a structured `locals[]` ledger. Six are established, four of them on the state-certification limb outright: GORDIC (atest 1/2025, and three distinct public buyers in `data/lookup/cz-contract-parties.jsonl`), ICZ.DMS (atest 2/2026, plus Prague's ~€3.3M e-spis award [S3]), Seyfor (atest 3/2026, plus two distinct public buyers) and MIT Consulting (atest 4/2026). GEOVAP is established on the public-buyer limb without an attest, and OSS Alliance on its Ministry-of-the-Interior arrangement. Only T-MAPY reads early on receipts alone. Founding years were verified in ARES on this date. `score` 5 → 7. The Proven-abroad paragraph now states Documaster's trading age and says plainly that it is one company in one country, because under the new ladder that is what caps the score. Money, urgency and demand untouched; no source note edited and no existing [Sn] marker moved — [S9] is appended, not inserted.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. THE OSS ALLIANCE QUESTION IS ANSWERED BY THE SPLIT, not compromised. Six entries convert without argument — GORDIC, ICZ.DMS, Seyfor and MIT Consulting are `direct` + `established` on their attests, GEOVAP on its public buyers, T-MAPY `direct` + `early`. OSS Alliance was this file's open interpretive problem: it was marked early with a note saying the test's letter and its spirit had come apart, because a free, state-backed, open-source offering cannot satisfy a "three years SELLING" limb at any age, while in spirit it was the strongest signal on the file that the space is taken at the bottom of the market. Two orthogonal fields dissolve that without splitting the difference. `competes` is now a separate question from maturity and its answer is plainly yes: OSS Alliance supplies the same product — an eSSL records system — to the same buyer, the smallest obce, at a price of zero. A price of zero is a price, not a different product, so it competes directly. `maturity` stays `early`, and stays early honestly: no sourced year for the start of supply is on file, so none is written and the years limb cannot be dated at all. That costs nothing, because `scores.gap` is 0 on the four attested vendors regardless — which is exactly why the two questions had to be separated. The entry now records what OSS Alliance is instead of describing a contradiction. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+

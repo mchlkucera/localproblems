@@ -1,7 +1,7 @@
 // About — the vision and the method, briefly. Serif prose, no chrome tricks.
 import type { Metadata } from "next";
 import { stats } from "../../lib/data";
-import { CORRECTIONS_MAILTO, FooterHouseLine, Masthead, SiteNav } from "../../lib/chrome";
+import { CorrectionsLink, FooterHouseLine, Masthead, SiteNav } from "../../lib/chrome";
 
 export const metadata: Metadata = {
   title: "About — localproblems.org",
@@ -61,7 +61,7 @@ export default function About() {
       <footer>
         <FooterHouseLine />
         <br />
-        <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a>
+        <CorrectionsLink />
       </footer>
     </>
   );

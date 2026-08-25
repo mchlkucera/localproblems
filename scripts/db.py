@@ -11,7 +11,7 @@ Everything in PROJECTION_TABLES and PROJECTION_VIEWS is a projection of
 committed files and is DROPPED and recreated by `rebuild`: `signals`,
 `signal_parties`, `meta`, and — since schema_version 4 — the register itself:
 `problems`, `problem_sources`, `problem_comps`, `problem_source_dims` and
-(schema_version 6) `problem_locals`, rebuilt from `data/problems/**/*.md`
+(schema_version 6, re-cut at 7) `problem_locals`, rebuilt from `data/problems/**/*.md`
 exactly as `signals` is rebuilt from the JSONL ledgers. Problems are
 deterministically rebuildable; history is not, which is the whole reason for the
 split below.
@@ -86,7 +86,9 @@ import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
-SCHEMA_VERSION = "6"   # 6: problem_locals (the local-incumbent ledger)
+SCHEMA_VERSION = "7"   # 7: problem_locals.competes + .maturity replace .status;
+#                          url nullable against an ico (the ARES fallback)
+#                       6: problem_locals (the local-incumbent ledger)
 #                       5: problems.fix (the one-sentence proposed product)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -522,20 +524,42 @@ CREATE INDEX IF NOT EXISTS problem_comps_signal
   ON problem_comps(signal_id) WHERE signal_id IS NOT NULL;
 CREATE INDEX IF NOT EXISTS problem_comps_geo ON problem_comps(geo);
 
--- ---- local incumbents (schema_version 6) -----------------------------------
+-- ---- local incumbents (schema_version 6; re-cut at 7) ----------------------
 -- The mirror of problem_comps, and it is a TABLE rather than a JSON column for
 -- the same reason comps is: these are rows a query has to reach into. Until
 -- schema 6 the local half of the register existed only as PROSE inside a
 -- gap-check `note:`, so "which records have an established local player?" —
 -- the question SCORING.md's GAP dimension IS — could not be asked at all.
 --
--- `status` is the whole point: established LOCALLY means the space is taken
--- (gap 0), early means it is not. CHECKed against the same two words the zod
--- enum in web/lib/data.ts closes on, so a third spelling fails here first.
+-- SCHEMA 7 SPLITS `status` IN TWO, because one column was answering two
+-- questions. `status: established | early` lasted one commit before both
+-- content agents hit the same wall: a MATURE Czech firm selling something
+-- ADJACENT (the other side of the counter, a different segment, a service and
+-- not a product) is not `early`, but writing `established` forced gap to 0 and
+-- stood a record down over a company that does not sell this. One agent wrote
+-- those firms down as `early`; the other left them out of the ledger. Two
+-- spellings of one situation, which is the exact defect class this table was
+-- created to end.
+--
+--   `competes`  direct | adjacent   — DOES IT SELL THIS? the only column gap
+--                                     reads for eligibility.
+--   `maturity`  established | early — the ESTABLISHED test from SCORING.md,
+--                                     unchanged. Sets the rung, once `competes`
+--                                     has said the row counts at all.
+--
+-- An `adjacent` row NEVER moves gap, at any maturity, and is still RECORDED:
+-- "Never exclude — the goal is to inform the builder properly" (owner,
+-- 2026-08-25). Both are CHECKed against the same words the zod enums in
+-- web/lib/data.ts close on, so a third spelling fails here first.
 --
 -- `ico` is TEXT, never INTEGER: '04903783' is a real IČO and an integer column
 -- would silently eat its leading zero, breaking the join into
 -- data/lookup/cz-contract-parties.jsonl that the established test runs.
+--
+-- `url` IS NULLABLE AT 7, and only against an `ico`. The no-exclude ruling made
+-- it necessary: a real player with no product page anywhere in the corpus (AML
+-- solutions s.r.o., IČO 10691766) could previously only be dropped or given an
+-- invented link. Now it is recorded and the site links its ARES record.
 --
 -- ZERO ROWS IS THE ONLY SPELLING OF "no locals" — an absent key and `locals: []`
 -- are indistinguishable here, which is why read_problems() REFUSES the empty
@@ -545,25 +569,33 @@ CREATE TABLE IF NOT EXISTS problem_locals (
   problem_id   TEXT    NOT NULL,
   position     INTEGER NOT NULL,
   name         TEXT    NOT NULL,
-  url          TEXT    NOT NULL,
+  url          TEXT,                  -- optional AGAINST an ico; NULL -> ARES fallback
   ico          TEXT,                  -- optional; 8 digits, leading zeros real
   since        INTEGER,               -- optional; NULL = no year on file (EARLY only)
-  status       TEXT    NOT NULL,      -- established | early
-  evidence     TEXT    NOT NULL,      -- which limb(s) of the established test it passes
+  competes     TEXT    NOT NULL,      -- direct | adjacent
+  maturity     TEXT    NOT NULL,      -- established | early
+  evidence     TEXT    NOT NULL,      -- the limb(s) passed, or what it sells instead
   PRIMARY KEY (region, problem_id, position),
   FOREIGN KEY (region, problem_id) REFERENCES problems(region, id),
   CHECK (position >= 1),
-  CHECK (status IN ('established', 'early')),
+  CHECK (competes IN ('direct', 'adjacent')),
+  CHECK (maturity IN ('established', 'early')),
   CHECK (ico IS NULL OR (length(ico) = 8 AND ico GLOB '[0-9]*')),
+  -- One identifier at least: a ledger row a reader cannot follow is an
+  -- assertion, not evidence.
+  CHECK (url IS NOT NULL OR ico IS NOT NULL),
   -- The established test's first limb is ">= 3 years selling", so an
   -- established player without a year is a claim with no receipt. An EARLY one
   -- may genuinely have no discoverable founding year, and inventing one to fill
   -- a NOT NULL would be the worse trade.
-  CHECK (status <> 'established' OR since IS NOT NULL)
+  CHECK (maturity <> 'established' OR since IS NOT NULL)
 );
 CREATE INDEX IF NOT EXISTS problem_locals_ico
   ON problem_locals(ico) WHERE ico IS NOT NULL;
-CREATE INDEX IF NOT EXISTS problem_locals_status ON problem_locals(status);
+-- Indexed on the PAIR, because the pair is the question: "who sells this here,
+-- and is any of them established?" is one lookup, not two.
+CREATE INDEX IF NOT EXISTS problem_locals_field
+  ON problem_locals(competes, maturity);
 
 -- ---- the scoring graph ----------------------------------------------------
 -- This is the MATERIALISED OUTPUT of web/lib/scorecard.ts dimRefs(), not a
@@ -1236,8 +1268,19 @@ PROBLEM_OPTIONAL_KEYS = frozenset(("fix", "locals"))
 SOURCE_KEYS = frozenset((
     "type", "url", "note", "date", "name", "why", "signal", "dims", "queries", "checked", "expires"))
 COMP_KEYS = frozenset(("name", "url", "geo", "since", "traction", "signal", "markets"))
-LOCAL_KEYS = frozenset(("name", "url", "ico", "since", "status", "evidence"))
-LOCAL_STATUSES = ("established", "early")
+LOCAL_KEYS = frozenset(("name", "url", "ico", "since", "competes", "maturity", "evidence"))
+LOCAL_COMPETES = ("direct", "adjacent")
+LOCAL_MATURITIES = ("established", "early")
+# The schema-6 spelling, named so the migration cannot half-happen. `status`
+# answered two questions at once and was split into `competes` + `maturity` at
+# schema 7; a record still carrying it would otherwise be STRIPPED by zod's
+# object parse and land here as a missing `competes`, which is a true error
+# reported at the wrong end. Named explicitly, the message says what to do.
+LOCAL_RETIRED_KEYS = {
+    "status": "split into `competes: direct|adjacent` + `maturity: established|early` "
+              "at schema 7 — one field was carrying both 'does it sell this' and "
+              "'how old is it', so a mature ADJACENT firm had no honest spelling",
+}
 BUILD_KEYS = frozenset(("capital", "first_revenue", "builder", "note"))
 SCORE_KEYS = frozenset(("proof", "money", "urgency", "demand", "gap"))
 
@@ -1518,14 +1561,44 @@ def read_problems():
                     f"db: {rel}: comps[{n}].since is {c['since']!r} — CONVENTIONS.md "
                     f"requires an UNQUOTED integer year (the site reads it as a number)")
         for n, l in enumerate(fm.get("locals") or [], 1):
-            for k in ("name", "url", "status", "evidence"):
+            # THE RETIRED SPELLING FAILS FIRST AND LOUDLY. 87 entries across 22
+            # records carried `status` at schema 6; a half-migrated corpus — some
+            # records split, some not — is the one outcome worse than a red
+            # tree, because both loaders would keep building and the register
+            # would quietly hold two meanings again.
+            for retired, why in LOCAL_RETIRED_KEYS.items():
+                if retired in l:
+                    raise SystemExit(
+                        f"db: {rel}: locals[{n}] '{l.get('name')}' still carries the "
+                        f"RETIRED key `{retired}` — {why}. Rewrite the entry: "
+                        f"`competes: direct` if it sells THIS record's product to THIS "
+                        f"record's buyer, `competes: adjacent` if it sells something else "
+                        f"(and say what, in `evidence`); `maturity` keeps the old "
+                        f"established/early value. data/RECORD-TEMPLATE.md")
+            for k in ("name", "competes", "maturity", "evidence"):
                 if k not in l:
                     raise SystemExit(f"db: {rel}: locals[{n}] missing {k}")
-            if l["status"] not in LOCAL_STATUSES:
+            # `url` is optional AGAINST an `ico`: one identifier at least, so
+            # every rendered row links to something a reader can check. Where
+            # only the IČO is on file the site links the ARES record, which is
+            # real and public — the alternative under the no-exclude ruling
+            # would be inventing a URL, which is forbidden.
+            if "url" not in l and "ico" not in l:
                 raise SystemExit(
-                    f"db: {rel}: locals[{n}].status is {l['status']!r} — the enum is "
-                    f"{' | '.join(LOCAL_STATUSES)}, and it IS the gap score "
-                    f"(SCORING.md, the established test)")
+                    f"db: {rel}: locals[{n}] '{l.get('name')}' has neither `url` nor "
+                    f"`ico` — one is required. With only an IČO the page links "
+                    f"https://ares.gov.cz/ekonomicke-subjekty?ico=<ico>; never invent a URL")
+            if l["competes"] not in LOCAL_COMPETES:
+                raise SystemExit(
+                    f"db: {rel}: locals[{n}].competes is {l['competes']!r} — the enum is "
+                    f"{' | '.join(LOCAL_COMPETES)}. It answers ONE question: does this "
+                    f"player sell THIS record's product to THIS record's buyer? It is the "
+                    f"only field `gap` reads for eligibility (SCORING.md, GAP)")
+            if l["maturity"] not in LOCAL_MATURITIES:
+                raise SystemExit(
+                    f"db: {rel}: locals[{n}].maturity is {l['maturity']!r} — the enum is "
+                    f"{' | '.join(LOCAL_MATURITIES)} (SCORING.md, the established test). "
+                    f"It sets the RUNG; `competes` decides whether the row counts at all")
             if "since" in l and (not isinstance(l["since"], int)
                                  or isinstance(l["since"], bool)):
                 raise SystemExit(
@@ -1533,7 +1606,9 @@ def read_problems():
                     f"requires an UNQUOTED integer year (the site reads it as a number)")
             # `since` is optional for an EARLY player and REQUIRED for an
             # established one: the test's first limb is '>= 3 years selling'.
-            if l.get("status") == "established" and "since" not in l:
+            # It rides on `maturity` alone — an ADJACENT player is still a real
+            # company and its age is still a fact the test can be run against.
+            if l.get("maturity") == "established" and "since" not in l:
                 raise SystemExit(
                     f"db: {rel}: locals[{n}] '{l.get('name')}' is established but has no "
                     f"`since` — the established test's first limb is '>= 3 years selling' "
@@ -1566,11 +1641,20 @@ def read_problems():
             if extra:
                 warnings.append(f"{rel}: comps[{n}] carries {', '.join(extra)} — z.object "
                                 f"strips it, so it reaches neither the site nor this DB")
+        # locals[] IS THE ONE LIST WHERE AN UNKNOWN KEY IS FATAL, NOT A WARNING.
+        # LocalSchema is z.strictObject (web/lib/data.ts) since schema 7, so an
+        # unrecognised key fails the site's own parse — and this loader has to
+        # agree with it or the two disagree about the corpus, which is what
+        # `npm run parity` exists to make impossible. It is also the list that
+        # just had a key retired: a silent strip is exactly how a half-migrated
+        # `status` would have survived, looking like data while backing nothing.
         for n, l in enumerate(fm.get("locals") or [], 1):
             extra = sorted(set(l) - LOCAL_KEYS)
             if extra:
-                warnings.append(f"{rel}: locals[{n}] carries {', '.join(extra)} — z.object "
-                                f"strips it, so it reaches neither the site nor this DB")
+                raise SystemExit(
+                    f"db: {rel}: locals[{n}] '{l.get('name')}' carries unknown key(s) "
+                    f"{', '.join(extra)} — the keys are {', '.join(sorted(LOCAL_KEYS))}. "
+                    f"LocalSchema is z.strictObject and rejects this too")
 
         records.append({
             "fm": fm, "body": body, "rel": rel, "region": region, "slug": slug,
@@ -1657,8 +1741,8 @@ def insert_problems(con, records):
 
         for i, l in enumerate(fm.get("locals") or []):
             lrows.append((
-                region, pid, i + 1, l["name"], l["url"], l.get("ico"), l.get("since"),
-                l["status"], l["evidence"]))
+                region, pid, i + 1, l["name"], l.get("url"), l.get("ico"), l.get("since"),
+                l["competes"], l["maturity"], l["evidence"]))
 
         for position, dim, origin in dim_refs(fm, extract):
             drows.append((region, pid, position, dim, origin))
@@ -1682,8 +1766,8 @@ def insert_problems(con, records):
                   lambda r: f"{r[0]}/{r[1]} comps[{r[2]}] '{r[3]}'")
     _insert_named(con,
                   "INSERT INTO problem_locals (region, problem_id, position, name, url, ico,"
-                  " since, status, evidence)"
-                  " VALUES (" + ",".join("?" * 9) + ")", lrows,
+                  " since, competes, maturity, evidence)"
+                  " VALUES (" + ",".join("?" * 10) + ")", lrows,
                   lambda r: f"{r[0]}/{r[1]} locals[{r[2]}] '{r[3]}'")
     _insert_named(con,
                   "INSERT INTO problem_source_dims (region, problem_id, position, dim, origin)"
@@ -1714,8 +1798,9 @@ def problems_digest(con):
         ("comps", "SELECT region, problem_id, position, name, url, geo, since, traction,"
                   " signal_id, markets_json"
                   " FROM problem_comps ORDER BY region, problem_id, position"),
-        ("locals", "SELECT region, problem_id, position, name, url, ico, since, status,"
-                   " evidence FROM problem_locals ORDER BY region, problem_id, position"),
+        ("locals", "SELECT region, problem_id, position, name, url, ico, since, competes,"
+                   " maturity, evidence FROM problem_locals ORDER BY region, problem_id,"
+                   " position"),
         ("dims", "SELECT region, problem_id, position, dim, origin FROM problem_source_dims"
                  " ORDER BY region, problem_id, position, dim"),
     ):

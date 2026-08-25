@@ -43,32 +43,35 @@ locals:
   url: https://www.pkv.cz/en/energeticky-management
   ico: '28149785'
   since: 2013
-  status: early
-  evidence: 'EARLY for this space. PKV has traded since 2013 and sells single-building energy-performance
-    assessments plus the Enmon monitoring platform, implemented at CTP — 15-minute
-    consumption collection and sustainability reporting, with no renovation roadmap, no
-    measure prioritisation and no capex modelling [S2,S5]. It does not sell the portfolio
-    retrofit-planning product, so on that product it has no years selling and no limb. No
-    limb of the established test is met by anything on file here: nothing names who has
-    bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells single-building energy-performance assessments and the Enmon
+    monitoring platform, which collects consumption at 15-minute intervals and reports
+    sustainability — no renovation roadmap, no measure prioritisation and no capex
+    modelling, so it does not sell the portfolio retrofit-planning product [S2,S5].
+    Established as a firm on named customers: Enmon is implemented at CTP [S5]; ARES
+    registration 2013, so the three-year limb is met many times over.'
 - name: DEKSOFT (ENERGOMETR)
   url: https://deksoft.eu/programy/energometr
   ico: '27636801'
   since: 2006
-  status: early
-  evidence: 'EARLY for this space — ENERGOMETR consolidates consumption across buildings into tables,
-    graphs and reports [S5], which is monitoring rather than the retrofit planning this
-    record is about; parent DEK a.s. is ARES-registered since 2006-12-18. No limb of the
-    established test is met by anything on file here: nothing names who has bought it, no
-    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
-    round at Series stage, and no state listing.'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells ENERGOMETR, which consolidates consumption across buildings into
+    tables, graphs and reports [S5] — monitoring, one product over from the retrofit
+    planning this space is about; parent DEK a.s. is ARES-registered since 2006-12-18. No
+    limb of the established test is met by anything on file here: nothing names who has
+    bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
 - name: EnergySim (renovacnipas.cz)
   url: https://renovacnipas.cz/
-  status: early
-  evidence: 'EARLY on receipts only — a single-building renovation-pass calculator aimed at
-    homeowners and energy specialists [S5]; no customer count, public-buyer pair, round or
-    state listing on file'
+  competes: direct
+  maturity: early
+  evidence: 'It sells a renovation-pass calculator to homeowners and energy specialists [S5]
+    — the same retrofit-planning job, one building at a time rather than ranked across a
+    portfolio. Nothing names who has bought it, no published tally exists, there is no
+    pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state
+    listing, so no limb of the established test is met.'
 sources:
 - type: arbitrage
   name: "Fuchs & Eule"
@@ -159,6 +162,9 @@ Solved elsewhere: building-portfolio decarbonisation analytics is a well-funded 
 
 
 2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "triaging retrofit capex" now reads "deciding which renovations to fund first, and in what order". Scores, status, source notes and every [Sn] marker are untouched by those passes. Third pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test. `scores.proof` 2 → 3. All three comparables pass the maturity test — Predium selling since 2021 with Colliers, Baloise and Deutsche Investment named and a €13M Series A; Fuchs & Eule since 2021 with 10,000 building analyses behind a €10M round; Deepki since 2014 with 500+ clients and a €150M Series C [S1] — and they are established in two markets, Germany and France, with Germany CEE-adjacent. That is rung 3 as written; the v1 rung 2 was capped by a clause that has been struck from the ladder. `scores.gap` stays 1 and the reason is now explicit rather than implied: the three Czech products the [S5] sweep found were lifted into a structured `locals[]` ledger, and only one is established — PKV BUILD (IČO 28149785, ARES 2013) on the named-customer limb, Enmon implemented at CTP. DEKSOFT's ENERGOMETR and EnergySim's renovacnipas.cz publish no customer count, pair with no public buyer and carry no round or state listing, so both read early on receipts. An early local player does not close a space, so nothing here supports gap 0; and nothing here raises it either, because rung 2 needs a check that found no local player and this one found three. `score` 6 → 7. The state-side tools in the [S5] note — the SFŽP renovation-pass application and ufae.cz — were deliberately not lifted: they are subsidy-application artifacts, not players selling a product. The Proven-abroad paragraph now states each seller's trading age, because that is the fact carrying the score. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. PKV BUILD moves `early` → `established` and takes `competes: adjacent`. The `early` was never a reading of PKV: this file's own re-score entry, written earlier the same day, calls it the one established player on the named-customer limb with Enmon implemented at CTP, and then the ledger said early anyway, because under the one-field schema an established local forced gap to 0. With `competes` carrying eligibility, PKV records its true maturity and still moves nothing — what it sells is single-building energy-performance assessments plus consumption monitoring, not the portfolio retrofit planning this file is about. DEKSOFT is adjacent for the same reason and stays `early`, no limb being on file for it. EnergySim is the one `competes: direct` entry: a renovation-pass calculator is the same planning job, one building at a time rather than ranked across a portfolio, and it is early. `scores.gap` stays 1, CONTESTED, and now on the rung's literal words — locals sell this and all of them are early. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+
 2026-08-13 · money receipted — The EPC award wave was put on the ledger — 11 public buyers, ~€58M between June and August 2026 [S4] — carrying money to 1. The substance now sits in How big above rather than here.
 
 2026-08-20 · evidence audit — Removed the EPC supplier-side sentence: the four named companies and associations (ENESA, ČEZ ESCO, MVV, APES) return no hits anywhere in the signal corpus and appear in no source note on this record, and the maturity verdict attached to them had nothing behind it either. The clause that survives, that the unoccupied position is the owner-side analytics product, is the record's own gap check and is now cited to [S2]. Also removed from "Who pays": the claim that banks pricing green mortgages and sustainability-linked loans are a second buyer, since no green-mortgage receipt exists in the corpus.

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { CATEGORIES, categoryRows, extractDate } from "../../../lib/data";
 import { categoryLabel, localityLabel, pad2 } from "../../../lib/format";
 import { CategoryNav } from "../../../lib/category-nav";
-import { CORRECTIONS_MAILTO, FooterHouseLine, Masthead, SiteNav, SortScript, Tally } from "../../../lib/chrome";
+import { CorrectionsLink, FooterHouseLine, Masthead, SiteNav, SortScript, Tally } from "../../../lib/chrome";
 
 export const dynamicParams = false;
 
@@ -74,7 +74,7 @@ export default async function CategoryPage({ params }: Params) {
       <footer>
         <FooterHouseLine />
         <br />
-        <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
+        <CorrectionsLink /> ·{" "}
         <a href="/signals/funded">signal ledgers</a>
       </footer>
       {/* an empty category renders no table — ship no script for it */}

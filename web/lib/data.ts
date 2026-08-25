@@ -227,15 +227,40 @@ const CompSchema = z.object({
 // the foreign half of the register and not the local half, so `gap` could not
 // be audited and `gap: 0` silently meant two opposite things.
 //
-// `status` IS THE SCORE. Under SCORING.md's established test the same fact
-// carries opposite signs: established ABROAD proves the model, established
-// LOCALLY takes the space, and an EARLY local player closes nothing and must
-// never de-rank a record on its own. That makes this enum the field both PROOF
-// and GAP turn on — which is why it is a closed enum checked by script
-// (scripts/check-records.py `established`), not a judgment in prose.
-const LocalSchema = z.object({
+// TWO ORTHOGONAL FIELDS, BECAUSE ONE FIELD CARRIED TWO MEANINGS. `status:
+// established | early` shipped for exactly one commit and both content agents
+// hit the same wall independently: a mature Czech firm that sells something
+// ADJACENT — the other side of the counter, a different segment, a service
+// rather than a product — is not "early", but calling it `established` forced
+// `gap: 0` and de-ranked a record over a company that does not sell this. One
+// agent wrote those firms down as `early` (a false maturity claim); the other
+// left them out of the ledger entirely (a false absence). Two halves of the
+// register encoding the same situation two different ways is the defect this
+// line of work has already fixed three times — PROOF rung 2, GAP rung 0, the
+// SPEC de-rank rule — so it is split rather than worked around a fourth time.
+//
+//   `competes` — DOES IT SELL THIS? direct = this product to this buyer.
+//                adjacent = a real player in the neighbourhood that sells
+//                something else. THE ONLY FIELD `gap` READS FOR ELIGIBILITY.
+//   `maturity` — HOW OLD AND HOW PROVEN? the ESTABLISHED test from SCORING.md,
+//                unchanged and machine-checked. Sets the RUNG once `competes`
+//                has decided the entry counts at all.
+//
+// An `adjacent` player NEVER moves gap, at any maturity. That is the whole
+// point of the split. It is still RECORDED — the owner's ruling, 2026-08-25:
+// "Never exclude — the goal is to inform the builder properly." A builder
+// needs to see who else is in the room; the adjacent half of the ledger is
+// market intelligence, not noise, and dropping it to protect a score is how
+// the register would start lying by omission.
+const LocalSchema = z.strictObject({
   name: z.string().min(1),
-  url: z.string().url(),
+  // OPTIONAL — but only against an `ico` (see the refinement below). It became
+  // optional under the no-exclude ruling: AML solutions s.r.o. (IČO 10691766)
+  // is a real player on p-0006 with no product URL anywhere in the corpus, and
+  // the choice was to drop a real firm or invent a link. Both are forbidden, so
+  // the third option is the one taken — the page links its ARES record, which
+  // is verifiable and real. See `localHref`.
+  url: z.string().url().optional(),
   // IČO — optional but strongly preferred: it is the only key that makes the
   // claim verifiable without a human. With it, the distinct-public-buyer limb
   // of the established test runs against data/lookup/cz-contract-parties.jsonl;
@@ -252,14 +277,17 @@ const LocalSchema = z.object({
   // headcount: state what is verifiable, NEVER invent the rest. Forcing a year
   // into this field would buy schema tidiness with a fabricated fact.
   since: z.number().int().min(1980).max(2100).optional(),
-  status: z.enum(["established", "early"]),
-  // Which limb(s) of the established test this player passes, stated so a
-  // reader can check it: named customers / distinct public buyers / Series A or
-  // later / a state attest or framework listing.
+  competes: z.enum(["direct", "adjacent"]),
+  maturity: z.enum(["established", "early"]),
+  // At `direct`: which limb(s) of the established test this player passes,
+  // stated so a reader can check it. At `adjacent`: WHAT IT ACTUALLY SELLS and
+  // why that is not this — the sentence that turns an entry a reader would
+  // otherwise read as a competitor into the thing it is, intelligence about the
+  // neighbourhood. Enforced as a required sentence by scripts/check-records.py.
   evidence: z.string().min(1),
 }).check((ctx) => {
   const l = ctx.value;
-  if (l.status === "established" && l.since === undefined) {
+  if (l.maturity === "established" && l.since === undefined) {
     ctx.issues.push({
       code: "custom",
       message: `local '${l.name}' is established but has no 'since' — the established ` +
@@ -267,8 +295,33 @@ const LocalSchema = z.object({
       input: l,
     });
   }
+  // A ledger row a reader cannot follow is an assertion, not evidence. One of
+  // the two identifiers must be present so every entry links somewhere real.
+  if (l.url === undefined && l.ico === undefined) {
+    ctx.issues.push({
+      code: "custom",
+      message: `local '${l.name}' has neither 'url' nor 'ico' — one is required so the ` +
+        `entry links to something verifiable (the site falls back to the ARES record)`,
+      input: l,
+    });
+  }
 });
 export type Local = z.infer<typeof LocalSchema>;
+
+/** Where a local-competition entry links.
+ *
+ *  The product site when there is one; otherwise the company's ARES record,
+ *  which is a public state register page keyed by the IČO the entry already
+ *  carries. NOT a fallback of convenience — it is what makes the no-exclude
+ *  rule honest. A real player with no discoverable product page (they exist:
+ *  s.r.o. compliance shops that sell through partners and publish nothing) can
+ *  now be recorded and still be checked by a reader in one click, instead of
+ *  being dropped from the ledger or given an invented URL.
+ *
+ *  LocalSchema guarantees one of the two exists, so this is total. */
+export function localHref(l: Local): string {
+  return l.url ?? `https://ares.gov.cz/ekonomicke-subjekty?ico=${l.ico}`;
+}
 
 const ProblemSchema = z.looseObject({
   id: z.string().regex(/^p-\d{4}$/),
@@ -385,8 +438,8 @@ function problemsFromDb(): Problem[] {
     " signal_id, markets_json FROM problem_comps"
   );
   const localRows = rows(
-    "SELECT region, problem_id, position, name, url, ico, since, status," +
-    " evidence FROM problem_locals"
+    "SELECT region, problem_id, position, name, url, ico, since, competes," +
+    " maturity, evidence FROM problem_locals"
   );
 
   // Group children by their parent, then order each group by `position` — which
@@ -475,9 +528,15 @@ function problemsFromDb(): Problem[] {
     // the one state the journal is not allowed to contain.
     const locals = (localsFor.get(key) ?? []).map((l) => {
       const loc: Record<string, unknown> = {
-        name: String(l.name), url: String(l.url),
-        status: String(l.status), evidence: String(l.evidence),
+        name: String(l.name),
+        competes: String(l.competes), maturity: String(l.maturity),
+        evidence: String(l.evidence),
       };
+      // `url` is optional against an `ico` (LocalSchema): NULL means the key was
+      // absent in the frontmatter, and it must come back ABSENT, not
+      // present-and-null — the JSONL loader would never produce `url: null`, so
+      // neither may this one, and the site links the ARES record instead.
+      put(loc, "url", l.url === null ? null : String(l.url));
       // The IČO is TEXT and stays TEXT: '04903783' is a real IČO and Number()
       // would eat its leading zero.
       put(loc, "ico", l.ico === null ? null : String(l.ico));

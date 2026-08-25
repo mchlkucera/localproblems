@@ -40,7 +40,7 @@ PARTIES = os.path.join(ROOT, "data", "lookup", "cz-contract-parties.jsonl")
 #
 # THE FRONTMATTER IS PARSED, NOT PATTERN-MATCHED, and that is a deliberate
 # upgrade over this file's first version. The cross-field invariants below read
-# INSIDE list items — `comps[i].traction`, `locals[i].status`,
+# INSIDE list items — `comps[i].traction`, `locals[i].competes`,
 # `sources[i].queries` — and the corpus writes multi-line folded scalars, so a
 # regex would have to re-implement block-sequence grouping to find them. A
 # BUILD GATE that mis-groups a record is worse than no gate: it fails an honest
@@ -115,6 +115,20 @@ SELF_REF = [
     "urgency and rank", "should jump", "would move this", "Honest limits",
 ]
 
+# A REPO PATH ON A PUBLIC PAGE. `locals[].evidence` and `comps[].traction` are
+# RENDERED — they are the note line under every ledger entry — but they are
+# frontmatter, so the prose-hygiene pass above, which reads the body only, has
+# never looked at them. It shows: live records print sentences like "there is no
+# pairing in data/lookup/cz-contract-parties.jsonl" to a builder who has no idea
+# what that file is and no way to open it. A filename is the purest form of the
+# artifact class the owner keeps striking out — page furniture that exists
+# because of how we work. Advisory, and deliberately narrow: only paths and
+# repo filenames, never phrasing, because a checker that floods is a checker
+# nobody reads.
+LEDGER_PATHS = re.compile(
+    r"(?i)\b(?:data|scripts|web|skills|pipeline|docs)/[\w./-]+"
+    r"|\b[\w-]+\.(?:jsonl|json|md|py|ts|tsx|mjs|db)\b")
+
 # Argument prose only (excludes First moves / Revisions). Calibrated to flag
 # genuine bloat rather than the house norm: the owner-approved exemplar p-0010
 # runs 529 words, so a 300 target would fail the standard it is meant to enforce
@@ -146,8 +160,23 @@ MARKERS_PER_SENTENCE = 3  # more than this reads as citation clot (the p-0008 le
 # exactly one definition of "established" in the repo and it cannot drift
 # between the two dimensions the way the v1 rubric's gap-condition-inside-proof
 # did.
+#
+# IT IS ONLY HALF THE LOCAL ANSWER, AND THAT IS THE 2026-08-25 CORRECTION.
+# Maturity says how proven a player is; it does not say WHETHER IT SELLS THIS.
+# `locals[].status` conflated the two for one commit and both content agents
+# broke on it: a mature Czech firm selling something ADJACENT had no honest
+# spelling, so one agent wrote it `early` (a false maturity claim) and the other
+# left it out of the ledger (a false absence). `competes: direct | adjacent` now
+# carries the eligibility question and `maturity` carries this test, unchanged.
+# GAP READS BOTH: `competes` decides whether a row counts at all, `maturity`
+# decides which rung it lands on.
 
 MIN_YEARS_SELLING = 3
+LOCAL_COMPETES = ("direct", "adjacent")
+LOCAL_MATURITIES = ("established", "early")
+# Schema 6 spelling. Named so a half-migrated record fails with the instruction
+# rather than with "missing competes", which is true but points at the wrong end.
+LOCAL_RETIRED_KEYS = ("status",)
 
 # The three text-readable limbs. EACH PATTERN MATCHES TWO THINGS: the limb as
 # SCORING.md words it ("named customers", "state certification") and the fact
@@ -349,6 +378,33 @@ def check(path, year):
         if r.lower() in low:
             warns.append(f"register self-reference in rendered prose: '{r}'")
 
+    # THE LEDGER NOTES ARE RENDERED PROSE TOO, and until now nothing read them.
+    # `comps[].traction` and `locals[].evidence` print under every entry on the
+    # record page; being frontmatter rather than body is a fact about our
+    # storage, not about who sees them.
+    #
+    # ONE WARNING PER RECORD, NOT ONE PER ENTRY. The offence is uniform — the
+    # same filename pasted into every ledger note — so thirty separate lines
+    # would bury the record's other findings under one repeated sentence, and a
+    # checker that floods is a checker nobody reads (the same lesson the
+    # rejected-record exemption above was written for).
+    if live:
+        hits, paths = [], set()
+        for label, items, key in (("comps", comps, "traction"),
+                                  ("locals", locals_, "evidence")):
+            for i, item in enumerate(items, 1):
+                found = LEDGER_PATHS.findall(str(item.get(key) or ""))
+                if found:
+                    hits.append(f"{label}[{i}] {item.get('name')}")
+                    paths.update(found)
+        if hits:
+            more = f" (+{len(hits) - 3} more)" if len(hits) > 3 else ""
+            warns.append(
+                f"{len(hits)} rendered ledger note(s) print a repo path to the reader "
+                f"({', '.join(sorted(paths)[:3])}): {'; '.join(hits[:3])}{more} — these "
+                f"lines render under the entry on the record page; say what was checked in "
+                f"words a builder can act on, not where we keep it")
+
     # ---- CROSS-FIELD INVARIANTS -------------------------------------------
     # The class of defect that shipped twice and was caught by a reader, not by
     # us: a SCORE that contradicts the record's own EVIDENCE. Prose review does
@@ -363,26 +419,65 @@ def check(path, year):
         errors.append("locals is present but empty — omit the key. problem_locals is a "
                       "child table and cannot tell `locals: []` from an absent key, so "
                       "the two loaders would disagree about this record")
-    established_locals = []
+    # TWO ORTHOGONAL FIELDS, COUNTED SEPARATELY. `direct_established` is the
+    # only list `gap: 0` may rest on; `direct` is what rungs 1 and 2 turn on;
+    # `adjacent` is recorded, rendered, and moves NOTHING. Keeping three lists
+    # rather than one is the whole fix — the single `established_locals` list
+    # this replaces is what made an adjacent firm indistinguishable from a
+    # competitor once it had been written down.
+    direct_established, direct, adjacent = [], [], []
+    unreadable_locals = 0   # entries this pass could not classify (see below)
     for i, l in enumerate(locals_ if live else (), 1):
         who = l.get("name") or f"locals[{i}]"
+        retired = [k for k in LOCAL_RETIRED_KEYS if k in l]
+        if retired:
+            unreadable_locals += 1
+            errors.append(
+                f"locals[{i}] '{who}' still carries the RETIRED key "
+                f"{', '.join(retired)} — `status` was split into `competes: "
+                f"direct|adjacent` (does it sell THIS record's product to THIS "
+                f"record's buyer?) plus `maturity: established|early` (the established "
+                f"test, unchanged). One field cannot answer both, which is why a mature "
+                f"ADJACENT firm had no honest spelling. data/RECORD-TEMPLATE.md")
+            continue
         ico = l.get("ico")
         if ico is not None and not (isinstance(ico, str) and re.fullmatch(r"\d{8}", ico)):
             errors.append(f"locals[{i}] '{who}' has ico {ico!r} — an IČO is 8 digits as a "
                           f"QUOTED string; unquoted YAML eats a leading zero")
             ico = None
-        if l.get("status") not in ("established", "early"):
-            errors.append(f"locals[{i}] '{who}' has status {l.get('status')!r} — the enum "
-                          f"is established | early, and it IS the gap score")
+        # One identifier at least. `url` went optional under the no-exclude
+        # ruling — a real player with no product page is linked to its ARES
+        # record instead of being dropped or given an invented URL — but a row
+        # with neither links nowhere, and a ledger row a reader cannot follow is
+        # an assertion, not evidence.
+        if not l.get("url") and not l.get("ico"):
+            errors.append(f"locals[{i}] '{who}' has neither url nor ico — one is required. "
+                          f"With only an IČO the page links the ARES record "
+                          f"(ares.gov.cz/ekonomicke-subjekty?ico=…); never invent a URL")
+        if l.get("competes") not in LOCAL_COMPETES:
+            unreadable_locals += 1
+            errors.append(f"locals[{i}] '{who}' has competes {l.get('competes')!r} — the "
+                          f"enum is {' | '.join(LOCAL_COMPETES)}. `direct` sells THIS "
+                          f"record's product to THIS record's buyer; `adjacent` is a real "
+                          f"player nearby that sells something else. It is the only field "
+                          f"gap reads for eligibility")
+            continue
+        if l.get("maturity") not in LOCAL_MATURITIES:
+            errors.append(f"locals[{i}] '{who}' has maturity {l.get('maturity')!r} — the "
+                          f"enum is {' | '.join(LOCAL_MATURITIES)} (SCORING.md, the "
+                          f"established test). It sets the RUNG; competes decides whether "
+                          f"the row counts at all")
             continue
         since = l.get("since") if isinstance(l.get("since"), int) else None
         ok, limbs, blockers = established(since, str(l.get("evidence") or ""), year,
                                           ico if isinstance(ico, str) else None)
-        if l["status"] == "established":
-            established_locals.append(l)
-            # THE TEST IS APPLIED, NOT TRUSTED. `status` is a claim; these are
+        if l["maturity"] == "established":
+            # THE TEST IS APPLIED, NOT TRUSTED. `maturity` is a claim; these are
             # its receipts, and the whole point of structuring locals[] was that
-            # a machine could ask for them.
+            # a machine could ask for them. It is asked of ADJACENT players too:
+            # the claim "this firm is established" is the same claim whichever
+            # side of the counter it sells on, and an unreceipted one is the
+            # same defect.
             if not ok:
                 errors.append(f"locals[{i}] '{who}' is marked established but fails the "
                               f"established test: {'; '.join(blockers)}. SCORING.md: "
@@ -391,9 +486,35 @@ def check(path, year):
                               f"public buyers in cz-contract-parties.jsonl · Series A or "
                               f"later · a state certification, attest or framework listing")
         elif ok:
+            # NO LONGER A CLAIM ABOUT GAP. Before the split, "early but passes
+            # the test" meant "the space may be taken"; now it means only "this
+            # maturity looks wrong", and whether that touches gap depends on
+            # `competes`. Saying so keeps the warning from teaching the reader
+            # to re-label an adjacent firm to protect a score — the exact
+            # workaround the split exists to remove.
+            tail = ("— if that is right, and it really sells this, the space is taken "
+                    "and gap is 0" if l["competes"] == "direct"
+                    else "— it is adjacent, so gap is unaffected either way; fix the "
+                         "maturity, not the score")
             warns.append(f"locals[{i}] '{who}' is marked early but PASSES the established "
-                         f"test ({'; '.join(limbs)}) — if that is right the space is "
-                         f"taken and gap is 0")
+                         f"test ({'; '.join(limbs)}) {tail}")
+        if l["competes"] == "direct":
+            direct.append(l)
+            if l["maturity"] == "established":
+                direct_established.append(l)
+        else:
+            adjacent.append(l)
+            # AN ADJACENT ENTRY EARNS ITS PLACE WITH ONE SENTENCE: what it
+            # actually sells, and why that is not this. Without it the row reads
+            # as a competitor the record failed to score against — which is
+            # worse than the exclusion the no-exclude rule replaced. A regex
+            # cannot judge the sentence, so this is advisory and says so.
+            ev = str(l.get("evidence") or "")
+            if not re.search(r"(?i)\b(sell\w*|sold|offer\w*|provid\w*|suppl\w*|serv\w*|"
+                             r"build\w*|run\w*|prodáv\w*|nabíz\w*|dodáv\w*|posky\w*)\b", ev):
+                warns.append(f"locals[{i}] '{who}' is adjacent but its evidence never says "
+                             f"what it DOES sell — an adjacent entry is market intelligence "
+                             f"only if the line states the product and why it is not this")
         # A claimed buyer count the lookup does not support is a receipt that
         # does not exist. Advisory: the lookup covers registr smluv only.
         claim = _CLAIMED_BUYERS.search(str(l.get("evidence") or ""))
@@ -431,17 +552,31 @@ def check(path, year):
                           f"the {len(comps)} comp(s) passes the established test — the "
                           f"ladder puts early-only players at 1")
 
-    # -- GAP: the check is a receipt, never a score ------------------------
+    # -- GAP: keyed on BOTH fields, and the check is a receipt, never a score --
     # v1 rung 0 literally meant "check not done", so a de-ranked record and an
     # unchecked one rendered the same verdict above a printed list of
     # competitors. Rung 0 now means TAKEN and only TAKEN; the missing check is
     # caught HERE and fails the build instead of being expressed as a number.
+    #
+    # SINCE 2026-08-25 EVERY RUNG READS `competes` FIRST. The ladder is:
+    #   0 TAKEN      >= 1 local with competes: direct AND maturity: established
+    #   1 CONTESTED  locals sell this (direct) but all are early
+    #   2 OPEN       checked, and NO local sells this
+    # An ADJACENT player never moves this score, at any maturity — that is the
+    # entire point of the split, and it is why rung 2 no longer contradicts a
+    # populated ledger. Before the split, recording a mature-but-adjacent firm
+    # forced gap to 0, so the only ways to stay honest were to mislabel it
+    # `early` or to leave it out. Both shipped. Neither is needed now.
     gap = scores.get("gap")
     if live and isinstance(gap, int):
-        if gap == 0 and not established_locals:
-            errors.append("gap 0 means TAKEN — it requires at least one locals[] entry "
-                          "with status: established, naming the player that closed the "
-                          "space. 'not checked' is not a score on this ladder")
+        if gap == 0 and not direct_established:
+            near = ("; the ledger's established entries are all `competes: adjacent`, "
+                    "and an adjacent player never takes the space"
+                    if any(l["maturity"] == "established" for l in adjacent) else "")
+            errors.append(f"gap 0 means TAKEN — it requires at least one locals[] entry "
+                          f"with competes: direct AND maturity: established, naming the "
+                          f"player that closed the space{near}. 'not checked' is not a "
+                          f"score on this ladder")
         if not gapchecks:
             errors.append(f"gap {gap} with NO gap-check source — every gap score is a "
                           f"claim about the local field and needs the check that backs it")
@@ -449,14 +584,36 @@ def check(path, year):
             errors.append(f"gap {gap} but no gap-check source records queries[] — a bare "
                           f"negative is worth what its coverage is worth (CONVENTIONS.md, "
                           f"'Proving a negative')")
-        if gap >= 1 and established_locals:
-            named = ", ".join(str(l.get("name")) for l in established_locals[:3])
-            errors.append(f"gap {gap} but locals[] names an ESTABLISHED local player "
-                          f"({named}) — an established local player is rung 0, TAKEN")
-        elif gap == 2 and locals_:
-            errors.append(f"gap 2 means checked and NO local player found, but locals[] "
-                          f"names {len(locals_)} — an early local player is rung 1, "
-                          f"CONTESTED, not rung 2")
+        if gap >= 1 and direct_established:
+            named = ", ".join(str(l.get("name")) for l in direct_established[:3])
+            errors.append(f"gap {gap} but locals[] names an ESTABLISHED player that SELLS "
+                          f"THIS ({named}) — competes: direct + maturity: established is "
+                          f"rung 0, TAKEN")
+        elif gap == 2 and direct:
+            named = ", ".join(str(l.get("name")) for l in direct[:3])
+            errors.append(f"gap 2 means checked and NO local sells this, but locals[] names "
+                          f"{len(direct)} at competes: direct ({named}) — an early player "
+                          f"that sells this is rung 1, CONTESTED, not rung 2")
+        # Rung 1 with nothing at `competes: direct` is an UNDERSTATEMENT, not a
+        # contradiction, so it warns and never fails: gap authority is
+        # asymmetric (SCORING.md) — finding nobody never raises the score on its
+        # own, only a check with queries[] and a passing positive control does.
+        # It is worth saying out loud because the commonest way to arrive here is
+        # converting a record's adjacent players and forgetting the score moved
+        # with them.
+        if gap == 1 and not direct and not unreadable_locals:
+            # …and only when every entry was READABLE. During the schema-7
+            # migration a record whose locals still carry `status` classifies as
+            # neither direct nor adjacent, and warning "the ledger is empty"
+            # above a ledger of five names is the checker crying wolf — which is
+            # how a warning stops being a warning (see the rejected-record
+            # exemption above, same lesson).
+            what = (f"{len(adjacent)} adjacent player(s) are on file, and adjacent never "
+                    f"moves gap" if adjacent else "the ledger is empty")
+            warns.append(f"gap 1 means locals sell this but are all early — no locals[] "
+                         f"entry has competes: direct ({what}). If the check really found "
+                         f"nobody selling this, rung 2 is the honest score, but only on a "
+                         f"gap-check with a passing positive control")
 
     words = len(re.sub(r"\[S[\d,S]+\]", "", arg).split())
     if words > ARG_WORDS_MAX:

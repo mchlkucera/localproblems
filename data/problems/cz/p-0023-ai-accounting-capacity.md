@@ -57,16 +57,18 @@ locals:
   url: https://www.uctarna.ai/
   ico: '88865835'
   since: 2012
-  status: established
+  competes: direct
+  maturity: established
   evidence: 'public customer count — the firm states 300+ client companies on its own site,
     with published prices (bookkeeping and VAT from 5,000 CZK/month, payroll 300 CZK per
-    employee) and licensed accountants reviewing AI-processed documents; its named CEO resolves
-    in ARES at IČO 88865835, registered 2012-06-20 [S9]'
+    employee) and licensed accountants reviewing AI-processed documents; its named CEO
+    resolves in ARES at IČO 88865835, registered 2012-06-20 [S9]'
 - name: Trivi
   url: https://www.trivi.com/
   ico: '28378440'
   since: 2008
-  status: established
+  competes: direct
+  maturity: established
   evidence: 'public customer count — Trivi a.s. states over a thousand entrepreneurs use its
     tech-enabled accounting service, with its own accountants, tax advisors and bank
     integration; ARES registration 2008-04-21 [S9]'
@@ -74,42 +76,56 @@ locals:
   url: https://www.stormware.cz/pohoda/
   ico: '25313142'
   since: 1996
-  status: established
-  evidence: 'public customer count — stormware.cz states "více než 180 000 licencí" sold for
-    POHODA (verified live 2026-08-25); POHODA is the ecosystem the new Accounting Act forces
-    a rewrite of [S3] and the first-page result of the Czech control query [S9]'
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells accounting SOFTWARE licences to companies and to the accounting firms
+    that serve them — the shelf an AI-first firm would run on, not the bookkeeping service
+    itself, which STORMWARE does not sell [S3,S9]. Established on a public customer count:
+    stormware.cz states "více než 180 000 licencí" sold for POHODA, verified live
+    2026-08-25, and POHODA is the ecosystem the new Accounting Act forces a rewrite of
+    [S3].'
 - name: Seyfor (Money)
   url: https://www.seyfor.cz/
   ico: '01572377'
   since: 2013
-  status: established
-  evidence: '>= 2 distinct public buyers in data/lookup/cz-contract-parties.jsonl (Město Krnov,
-    Psychiatrická nemocnice v Kroměříži); named in the Czech control query as a first-page
-    domestic incumbent [S9]'
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells the Money accounting and ERP software line to companies and their
+    accountants — again the tool, not the bookkeeping service, and on the other side of the
+    counter from an AI-first firm [S9]. Established on >= 2 distinct public buyers in
+    data/lookup/cz-contract-parties.jsonl (Město Krnov, Psychiatrická nemocnice v
+    Kroměříži); ARES registration 2013.'
 - name: E-Consulting (AI Accounting)
   url: https://www.e-consulting.cz/
   since: 2013
-  status: early
-  evidence: 'EARLY on receipts only — it states technology posts up to 85% of transactions
-    automatically while the firm carries responsibility, and runs Prague, Bratislava and
-    Wrocław offices, but no customer count, no public-buyer pair in cz-contract-parties.jsonl,
-    no round and no state listing is on file [S9]'
+  competes: direct
+  maturity: early
+  evidence: 'It sells the full-stack service itself — technology posts up to 85% of
+    transactions automatically while the firm carries responsibility, out of Prague,
+    Bratislava and Wrocław offices [S9]. Nothing names who has bought it, no published tally
+    exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series
+    stage and no state listing, so no limb of the established test is met.'
 - name: MyÚčto.cz
   url: https://www.myucto.cz/
-  status: early
-  evidence: 'EARLY on receipts only — posts most movements automatically by rule and ships a
-    client portal with an AI assistant, but no customer count, public-buyer pair, round or
-    state listing is on file [S9]'
+  competes: direct
+  maturity: early
+  evidence: 'It sells the tech-enabled variant of the same service, posting most movements
+    automatically by rule and shipping a client portal with an AI assistant [S9]. Nothing
+    names who has bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing, so
+    no limb of the established test is met.'
 - name: Digitoo
   url: https://www.digitoo.ai/
   ico: '08494584'
   since: 2019
-  status: early
-  evidence: 'EARLY for this space — invoice-capture automation, one layer below the full-stack AI-first
-    firm this record is about [S2,S9]; ARES registration 2019-09-09. No limb of the
-    established test is met by anything on file here: nothing names who has bought it, no
-    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
-    round at Series stage, and no state listing.'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells invoice-capture automation to companies and to their accountants — one
+    layer of the pipeline, not the firm that runs the whole ledger and signs off the return
+    [S2,S9]. ARES registration 2019-09-09. No limb of the established test is met by
+    anything on file here: nothing names who has bought it, no published tally exists, there
+    is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no
+    state listing.'
 sources:
 - type: arbitrage
   name: "Skalar"
@@ -252,4 +268,7 @@ Solved elsewhere: the AI-first accounting firm is a funded category across Europ
 
 
 2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "facing the act’s transition" now names the act — "facing the new Czech Accounting Act". Scores, status, source notes and every [Sn] marker are untouched by those passes. Third pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test. `scores.proof` 3 → 1, and this record is the worked example of why the v1 ladder had to go. The old 3 was awarded on 2026-08-13 for "analogs in 2+ markets AND CEE-adjacent validation twice over in Munich" — a count of companies that exist. Under the maturity test not one of the four comparables qualifies: Skalar and Finto started selling in 2025, Bluebook and Combinely in 2024, so all four fail the three-year limb and the ladder reads EARLY foreign players only, rung 1. That is not a demotion of the opportunity — rung 1 explicitly means the market is being proven right now and it is a good moment to join — but it is an honest statement that there is no durable business abroad to copy yet. `scores.gap` stays 0, and now means TAKEN rather than the v1 rung's "check not done": seven local players were lifted out of the [S9] scan prose into a structured `locals[]` ledger, four established — Účtárna.ai (IČO 88865835, ARES 2012, 300+ client firms), Trivi (IČO 28378440, ARES 2008, 1,000+ entrepreneurs), STORMWARE/POHODA (180,000+ licences, verified live on stormware.cz this date) and Seyfor (two distinct public buyers in `data/lookup/cz-contract-parties.jsonl`) — and three early on receipts alone: E-Consulting, MyÚčto.cz and Digitoo publish no customer count, pair with no public buyer and carry no round or state listing. `score` 6 → 4. ABRA and Helios/Asseco were deliberately NOT lifted: they appear in [S9] as first-page hits of the positive control, not as sellers of the model this record proposes, and no maturity limb is receipted for them here. The why-now and Proven-abroad paragraphs were rewritten so the words stop asserting a proven category — the foreign detail moved out of "Why now", which duplicated it, into "Solved elsewhere" where the maturity finding belongs, and the argument was trimmed back under the length target in the same pass. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. Two entries are relabelled and one more corrected. STORMWARE (POHODA) and Seyfor (Money) move to `competes: adjacent` at `maturity: established` — both sell accounting SOFTWARE licences to companies and to the firms that keep their books, which is the shelf an AI-first accounting firm would run on rather than the bookkeeping service this file describes. They stay established, on the POHODA licence tally and on Seyfor's two distinct public buyers, and neither now touches the score. Digitoo moves to `adjacent` on the reason its own evidence line already carried: invoice capture is one layer of the pipeline, not the firm that runs the ledger and signs off the return. `scores.gap` stays 0 and is now carried only by the two direct sellers that pass the test, Účtárna.ai and Trivi — which is what the 0 always meant here, and what the one-field schema could not say. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+
 2026-08-20 · gap re-check and evidence audit — Two blocks recorded on this date, merged here. De-ranked: the AI-native accounting firm has a Czech operator. The prior gap check labelled itself "quick search only" and concluded no full-stack AI-first accounting or tax firm existed here. It does. Účtárna.ai sells exactly that model as a service — bookkeeping, VAT, payroll, tax optimization, a client portal, AI-processed documents reviewed by licensed accountants, published pricing, and a stated 300+ client firms; its named CEO resolves in ARES (IČO 88865835). E-Consulting AI Accounting states technology posts up to 85% of transactions automatically while the firm remains responsible for accuracy, and Trivi a.s. (IČO 28378440) and MyÚčto.cz run tech-enabled versions of the same service [S9]. Per the SPEC §4 de-rank rule: gap 1 → 0, score 7 → 6, status candidate → watching. The title's claim that the model "has no Czech equivalent" was removed for the same reason, and the non-solutions paragraph and first move 6 were rewritten so the body stops asserting an absence its own score denies. The scarcity and the 2028 re-platforming window are untouched — they are backed by [S3] and [S6] and remain the record's live content. Cut in the same pass: the count of Czech accounting firms in "Who pays", because no count of the profession exists anywhere in the signal corpus or in any source note here and the wedge stands without it; and the client-load baseline in the third first move, which lives only in the Skalar comps traction line, and a comparable's traction cannot back a body claim. The client figure the Skalar source note does carry is unchanged and still cited [S1]. No headcount for the Czech accounting profession has been reintroduced: the re-check looked and found none.

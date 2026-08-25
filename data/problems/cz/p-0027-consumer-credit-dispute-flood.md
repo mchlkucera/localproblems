@@ -41,43 +41,54 @@ comps:
 locals:
 - name: aCompliance
   url: https://www.acompliance.cz/klienti/nebankovni-poskytovatele-uveru/
-  status: early
-  evidence: 'EARLY on receipts only — the closest Czech offering, marketing the handling of
-    client complaints and out-of-court disputes at the financial arbiter to non-bank lenders,
-    but sold as a service with no product behind it; no customer count, no public-buyer pair
-    in data/lookup/cz-contract-parties.jsonl, no round and no state listing on file [S5]'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells a service, not a product: outsourced handling of client complaints and
+    out-of-court disputes at the financial arbiter, marketed to non-bank lenders and staffed
+    by people [S5]. The closest Czech offering to this space and still the opposite shape —
+    a firm doing the work, not software a lender runs itself. Nothing names who has bought
+    it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing, so
+    no limb of the established test is met.'
 - name: ePohledávky.cz (SoftGate Systems)
   url: https://www.epohledavky.cz/
   ico: '28859685'
   since: 2013
-  status: early
-  evidence: 'EARLY for this space — a receivables and collections platform, automating the creditor
-    pursuing the debtor rather than the creditor defending a consumer claim [S5]; ARES
-    registration 2013-01-01. No limb of the established test is met by anything on file
-    here: nothing names who has bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells a receivables and collections platform — software for the creditor
+    pursuing the debtor, the other side of the same relationship from the creditor defending
+    a consumer claim at the arbiter [S5]. ARES registration 2013-01-01. No limb of the
+    established test is met by anything on file here: nothing names who has bought it, no
+    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
+    round at Series stage, and no state listing.'
 - name: Barrister (ASW)
   url: https://www.asw.cz/
-  status: early
-  evidence: 'EARLY on receipts only — collections and receivables software on the pursuit side
-    of the same relationship [S5]; no customer count, public-buyer pair, round or state listing
-    on file'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells collections and receivables software, again on the pursuit side of the
+    relationship rather than the defence side [S5]. Nothing names who has bought it, no
+    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
+    round at Series stage and no state listing, so no limb of the established test is met.'
 - name: SingleCase
   url: https://www.singlecase.cz/
-  status: early
-  evidence: 'EARLY on receipts only — law-practice case management, generic firm tooling with
-    no financial-arbiter docket in it [S5]; no customer count, public-buyer pair, round or
-    state listing on file'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells law-practice case management to law firms — generic matter tooling,
+    with no financial-arbiter docket in it [S5]. Nothing names who has bought it, no
+    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
+    round at Series stage and no state listing, so no limb of the established test is met.'
 - name: Aptien
   url: https://www.aptien.com/
   ico: '26397668'
   since: 2005
-  status: early
-  evidence: 'EARLY for this space — generic case and record management with no financial-arbiter docket
-    in it [S5]; ARES registration 2005-08-30. No limb of the established test is met by
-    anything on file here: nothing names who has bought it, no published tally exists, there
-    is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no
-    state listing.'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells generic case and record management to companies, with no
+    financial-arbiter docket in it [S5]; ARES registration 2005-08-30. No limb of the
+    established test is met by anything on file here: nothing names who has bought it, no
+    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
+    round at Series stage, and no state listing.'
 sources:
 - type: complaint
   name: "Financial arbiter — 2025 annual report"
@@ -176,4 +187,7 @@ Solved elsewhere: dispute handling is funded on both sides of the Atlantic, but 
 
 
 2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "each incoming FA proceeding" now reads "each new case at the Financial Arbitrator", and "external advokáti" now reads "outside law firms". Scores, status, source notes and every [Sn] marker are untouched by those passes. Third pass this date, merged here: the first VeKLEP harvest put the Finance Ministry's pending revision of the Consumer Credit Act 257/2016 on the ledger as a context receipt [S6] — the statute generating the docket is being rewritten. No score moved by that pass. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test. `scores.proof` 1 → 2. Casap passes the test outright — selling since 2023, so the three-year limb is met, on a $25M Series A at a $105M valuation — which is one established foreign player, rung 2. ClaimSorted and Audun do not: ClaimSorted opened in 2024 and Audun in 2026, both inside the three-year limb, so neither counts however well funded. Rung 3 was considered and declined: it needs establishment in two-plus markets with one CEE-adjacent, and Casap's United States is the only market with an established seller in it. `scores.gap` stays 1. The five Czech offerings the [S5] sweep found were lifted into a structured `locals[]` ledger and every one reads early on receipts — aCompliance sells the arbiter-dispute work as a service with no product behind it, ePohledávky.cz and Barrister automate the creditor pursuing the debtor rather than defending a claim, and SingleCase and Aptien are generic case management with no arbiter docket; none publishes a customer count, pairs with a public buyer in `data/lookup/cz-contract-parties.jsonl`, or carries a round or state listing. Early local players do not close a space, so gap does not fall to 0; and it does not rise to 2 either, because [S5] found local players rather than none. `score` 5 → 6. The two Proven-abroad paragraphs were merged into one. The first, "Solved elsewhere, weakly", asserted the old score in words — "no funded analog exists" — and, because it is not the literal lead-in, it was rendering inside the local-competition section rather than the foreign one. The merged paragraph keeps its honest limit intact: the only proven seller is one vertical away, and nobody anywhere has been documented productising consumer-credit dispute response. Avallon, Basepilot and Amera dropped out of the body with it; they remain in the [S3] source note, unedited. Money, urgency and demand untouched; no [Sn] marker moved.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. All five entries are `competes: adjacent`, and every evidence line now leads with what the player actually sells. aCompliance is the sharpest case and the reason the field exists: it handles complaints and out-of-court disputes at the financial arbiter for non-bank lenders, the same job for the same buyer, but as a firm doing the work rather than software a lender runs itself — the service-instead-of-product limb of adjacency. ePohledávky.cz and Barrister sit on the pursuit side of the same relationship, automating the creditor chasing the debtor; SingleCase and Aptien sell generic matter and record management with no arbiter docket in them. `scores.gap` stays 1 and is FLAGGED rather than moved. Under the new ladder rung 1 means locals sell this and are all early, and nothing on this ledger sells it: [S4] searched and found no Czech product for dispute-response operations. Rung 2 is the arguable score, but moving it is a MATCH judgment and not a content pass, so it is written down here and left to the owner. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+
 2026-08-20 · evidence audit — Three legal-status claims removed, none of which the register ever checked. The arbiter's forum was described as mandatory: neither S1's note nor the underlying signal says so. The interest-voiding doctrine ("a failed assessment can void the credit contract's interest") is gone — the corpus records only that creditworthiness-assessment claims dominate the docket, nothing about the remedy. And "Free proceedings with no lawyer requirement remove any natural brake on volume": both procedural facts had no receipt. The caseload figures, the settlement rate and the proceeding length are unaffected; they are receipted [S1].

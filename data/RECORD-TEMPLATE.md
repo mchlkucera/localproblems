@@ -79,11 +79,19 @@ comps:
     traction: '…3-person team…'   # a "N-person team" here is cited in "What you need"
 locals:                         # OPTIONAL — omit the key entirely, NEVER `locals: []`
   - name: GORDIC
-    url: https://www.gordic.cz/
+    url: https://www.gordic.cz/ # optional IF `ico` is present (see below)
     ico: '47903783'             # optional, strongly preferred — QUOTED (leading zeros)
     since: 1993                 # year it started selling THIS product, else founded
-    status: established         # established | early  ← this IS the gap score
+    competes: direct            # direct | adjacent  ← does it sell THIS?
+    maturity: established       # established | early  ← the established test
     evidence: 'GINIS holds atest 1/2025 for eSSL; 3 distinct public buyers in registr smluv'
+  - name: Efektivia
+    url: https://efektivia.eu/
+    since: 2022
+    competes: adjacent          # a real player nearby, selling something else
+    maturity: established       # …and mature. Adjacent NEVER moves gap.
+    evidence: 'sells AI triage to the building authority — the other side of the counter
+      from the applicant this record serves'
 sources:
   - type: arbitrage
     url: https://…
@@ -127,18 +135,69 @@ read the foreign half of the register and not the local half, so `gap` could not
 be audited, and `gap: 0` silently meant two opposite things.
 
 It renders as a ledger under **Local competition**, in the same grammar as
-"Proven abroad": linked name · IČO · since · the `established`/`early` band, with
-`evidence` as the note line. The `Existing non-solutions:` paragraph keeps
-rendering **underneath** it — the ledger says *who*, the prose says *what that
+"Proven abroad": linked name · IČO · since · the `established`/`early` maturity
+band, with `evidence` as the note line — **split into two labelled groups**, the
+ones that sell this first ("3 sell this") and the ones nearby that do not ("4
+nearby, selling something else"). The `Existing non-solutions:` paragraph keeps
+rendering **underneath** — the ledger says *who*, the prose says *what that
 means for an entrant*.
 
 | key | |
 |---|---|
-| `name`, `url` | the company and its site |
+| `name` | the company |
+| `url` | its site. **Optional IF `ico` is present** — see the ARES fallback below. At least one of `url` / `ico` is required. |
 | `ico` | optional, **strongly preferred** — 8 digits, **quoted** (`'04903783'`; unquoted YAML eats the leading zero). It is what makes the claim checkable without a human: the checker counts distinct public buyers for it in `data/lookup/cz-contract-parties.jsonl`. |
-| `since` | the year it started selling **this product**, else its founding year. Unquoted integer, exactly like `comps[].since`. **Required at `status: established`** (the test's first limb is "≥ 3 years selling"); optional at `early`, where a small Czech vendor often publishes no year — state what is verifiable, **never invent a year to fill the field**. |
-| `status` | `established` \| `early` — **this is the gap score** |
-| `evidence` | which limb(s) of the established test it passes, stated so a reader can check it |
+| `since` | the year it started selling **this product**, else its founding year. Unquoted integer, exactly like `comps[].since`. **Required at `maturity: established`** (the test's first limb is "≥ 3 years selling"); optional at `early`, where a small Czech vendor often publishes no year — state what is verifiable, **never invent a year to fill the field**. |
+| `competes` | `direct` \| `adjacent` — **does it sell THIS?** The only field `gap` reads for eligibility. |
+| `maturity` | `established` \| `early` — the established test, unchanged. It sets the **rung**. |
+| `evidence` | at `direct`: which limb(s) of the established test it passes, stated so a reader can check it. At `adjacent`: **what it actually sells, and why that is not this.** |
+
+### `competes` vs `maturity` — one field per question
+
+`status: established | early` shipped for exactly one commit and both content
+agents broke on it the same way. A **mature** Czech firm that sells something
+**adjacent** — the other side of the counter, a different segment, a service firm
+rather than a product vendor — is not `early`; but writing `established` forced
+`gap: 0` and stood a record down over a company that does not sell this. One
+agent wrote those firms down as `early` (a false maturity claim), the other left
+them out of the ledger (a false absence), so the two halves of the register
+encoded the same situation two different ways. It is the same one-field-two-
+meanings defect this line of work has already fixed three times.
+
+- **`competes: direct`** — sells THIS record's product to THIS record's buyer.
+- **`competes: adjacent`** — a real player in the neighbourhood that does NOT
+  sell this: different segment, different side of the counter, legacy/partial, or
+  a service firm rather than a product vendor. **`evidence` must say plainly what
+  it does sell and why that is not this** — without that sentence the entry reads
+  as a competitor the record failed to score against, which is worse than the
+  exclusion it replaced.
+- **An `adjacent` player NEVER moves `gap`, at any maturity.** That is the entire
+  point of the split.
+
+### NEVER EXCLUDE a local player
+
+Owner, 2026-08-25: *"Never exclude — the goal is to inform the builder
+properly."* Every local player found goes in the ledger. A builder needs to see
+who else is in the room, who the buyer already pays, and who could turn and
+compete next quarter; the adjacent half of the ledger is **intelligence, not
+noise**. Dropping a real firm to protect a score is the register lying by
+omission, and the labelled groups exist precisely so that recording one costs
+nothing.
+
+### The ARES fallback — when there is no product URL
+
+`url` is optional **against an `ico`**, and that exists because the no-exclude
+rule needs it. AML solutions s.r.o. (IČO `10691766`) is a real player on p-0006
+with no product URL anywhere in the corpus, and the choice was to drop a real
+firm or invent a link. Both are forbidden, so there is a third option: record
+the IČO and let the page link the company's public state-register record,
+
+```
+https://ares.gov.cz/ekonomicke-subjekty?ico=<ico>
+```
+
+which is verifiable and real. `web/lib/data.ts` `localHref()` picks `url` when
+present and this otherwise. **Never invent a URL to fill the field.**
 
 **THE ESTABLISHED TEST** (`SCORING.md`; enforced by `scripts/check-records.py`):
 

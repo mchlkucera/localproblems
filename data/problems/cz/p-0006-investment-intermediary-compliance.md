@@ -45,12 +45,47 @@ locals:
   url: https://amlproof.ai/cs/aml-software
   ico: '23791497'
   since: 2025
-  status: early
+  competes: direct
+  maturity: early
   evidence: 'a Czech cloud AML platform sold to the povinné osoby it names as finanční poradci
     and zprostředkovatelé — client identification, PEP and sanctions screening, beneficial-owner
     verification, risk scoring, a systém vnitřních zásad, FAÚ reporting and ten-year archival,
     self-serve from 25 CZK a credit. AML Proof, s.r.o. was incorporated on 1 October 2025, so
     it has been selling for under a year.'
+- name: AML solutions
+  ico: '10691766'
+  since: 2021
+  competes: direct
+  maturity: early
+  evidence: 'sells sanctions and PEP screening to povinné osoby, beside AML Proof and against
+    the same obligation. AML solutions s.r.o. is ARES-dated to March 2021. It is carried on its
+    IČO because no product site for it exists on this record or anywhere in the signal corpus,
+    and no domain has been guessed to fill the field. No limb of the established test is on
+    file: nothing named or counted on the buyer side, no public contract for the IČO, no round
+    and no state listing.'
+- name: Resistant AI
+  ico: '07825439'
+  since: 2019
+  competes: adjacent
+  maturity: established
+  evidence: 'funding at Series A or later: a USD 25M Series B in October 2025 led by DTCP.
+    What it sells is document-fraud and financial-crime detection to banks and fintechs, with
+    Payoneer, AXA and Finom on its own reference list — it scores whether a document or a
+    transaction is forged. This record''s buyer needs the opposite job done: its own suitability
+    questionnaires, tied-agent oversight and ČNB reporting produced and archived. Different
+    product, different buyer. Resistant AI s.r.o. has traded since January 2019, and the entry
+    is carried on its IČO because no product URL for it is on file.'
+- name: Broker Trust
+  ico: '26439719'
+  since: 2001
+  competes: adjacent
+  maturity: early
+  evidence: 'the nearest thing on the Czech market to the MiFID II half this record calls
+    missing — the Bety 2.0 and BT Invest advisor stack with a methodology base behind it. It is
+    not sold as compliance software: Broker Trust, a.s. has run it since March 2001 as in-house
+    tooling for its own broker network, so an intermediary outside that network cannot buy it
+    at any price. That is why the half stays open despite a large, old player sitting next to
+    it. No limb of the established test is on file for it as a product on sale.'
 sources:
 - type: arbitrage
   name: "Saturn"
@@ -134,4 +169,4 @@ Solved elsewhere: Saturn (YC S24, London) sells a compliance operating system to
 
 2026-08-24 · fact check — Cut "and, since 2025, DORA obligations" from the lead. DORA does not apply to investiční zprostředkovatelé: they operate under the MiFID II Article 3 national regime, which is excluded from DORA's scope (verified against Czech legal commentary on DORA's reach, 2026-08-24). The claim came from the yc-saturn harvest note ("DORA adds load from 2025") with nothing behind it — asserting an EU regulation onto a segment it exempts is the error class this register exists to avoid. MiFID II paperwork claims stand [S1,S3]; the AML Proof incumbent receipt re-verified live (amlproof.ai, HTTP 200) [S4]. Scores untouched.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries AML Proof and AML solutions, both early [S4]. AML Proof, s.r.o. was incorporated on 1 October 2025 — under a year of selling — and AML solutions cites no limb the test reads. An early local player does not close a space, so `scores.gap` 0 → 1: the 2026-08-20 de-rank was right that the AML half is no longer unbuilt, but wrong to score the field as taken on an entrant younger than the record. Resistant AI is deliberately not in `locals[]` — it sells document-fraud detection to banks and fintechs, a different product to a different buyer — and stays named in the body. `scores.proof` 1 → 2: Saturn and Apiax both pass the established test, but Britain and Switzerland are not CEE-adjacent, so rung 3 is not met. `score` 5 → 7.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries AML Proof and AML solutions, both early [S4]. AML Proof, s.r.o. was incorporated on 1 October 2025 — under a year of selling — and AML solutions cites no limb the test reads. An early local player does not close a space, so `scores.gap` 0 → 1: the 2026-08-20 de-rank was right that the AML half is no longer unbuilt, but wrong to score the field as taken on an entrant younger than the record. Resistant AI is deliberately not in `locals[]` — it sells document-fraud detection to banks and fintechs, a different product to a different buyer — and stays named in the body. `scores.proof` 1 → 2: Saturn and Apiax both pass the established test, but Britain and Switzerland are not CEE-adjacent, so rung 3 is not met. `score` 5 → 7. Fifth pass this date, merged here: `locals[]` converted from `status:` to `competes:` + `maturity:`, and three players are restored — every one of them reversing an exclusion recorded above. **AML solutions** returns: the `locals ledger` entry above dropped it because the schema then demanded a `url` and none exists anywhere in the corpus, and `url` is now optional where an `ico` is present. It is carried on **IČO 10691766** (ARES-dated March 2021) and the page links ARES rather than a guessed domain. It stays `competes: direct` and early. **Resistant AI** joins as `competes: adjacent`, reversing the decision above to keep it out: what it sells — document-fraud and financial-crime detection to banks and fintechs — is now sayable on the ledger instead of being the reason to omit it. Resistant AI s.r.o. (IČO 07825439, ARES-dated January 2019) passes the established test on its October 2025 Series B, and it too is carried on its IČO because no product URL for it is on file. **Broker Trust** joins as `competes: adjacent` and early, because it is the nearest thing on the market to the MiFID II half this record calls missing and a builder should know why it does not close it: the Bety 2.0 and BT Invest stack is in-house tooling for one broker network, not a product an intermediary outside that network can buy at any price. AML Proof converts to `competes: direct`, unchanged at early. `scores.gap` stays 1: both direct players are early, and the two adjacent entries never touch the number.

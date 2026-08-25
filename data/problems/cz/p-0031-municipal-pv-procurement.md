@@ -30,14 +30,29 @@ locals:
 - name: SAKO Brno ("36 FVE" framework)
   url: https://zakazky.sako.cz/contract_display_128.html
   ico: '60713470'
-  status: early
-  evidence: 'EARLY for this space — SAKO runs the "36 FVE" multi-district photovoltaic framework for the
-    city districts of Brno [S4], but it aggregates for its own owner: it is not a supplier
-    selling aggregation to towns that do not already have a framework of their own, which is
-    the position this record describes as open. On that service no limb of the established
-    test is met by anything on file here: nothing names who has bought it, no published
-    tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at
-    Series stage, and no state listing.'
+  since: 1994
+  competes: adjacent
+  maturity: established
+  evidence: 'A municipal waste company that ran its own solar tender: it operates the "36
+    FVE" multi-district photovoltaic framework for the city districts of Brno [S4],
+    aggregating for its own owner. It is a buyer of this service, not a seller of it, and it
+    does not offer aggregation to towns that have no framework of their own. Established as
+    a firm on >= 2 distinct public buyers in data/lookup/cz-contract-parties.jsonl;
+    incorporated 1994-07-01 per ARES, verified live 2026-08-25.'
+- name: SMS ČR (společný nákup energií)
+  url: https://www.smscr.cz/benefity/spolecny-nakup-energii-na-burze/
+  ico: '75130165'
+  since: 2013
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells joint purchasing to obce and has done since 2013 — but what it pools
+    is ENERGY bought on the exchange, not solar arrays, so it does not hold the
+    pooled-procurement position a town without a framework would hire [S6]. Established on a
+    public customer count: its July 2025 procedure ran for more than 200 subjects covering 1
+    Jan 2026 to 31 Dec 2027, is open to non-member obce and their schools and sports
+    grounds, and absorbs the administrative work while the obec invoices the supplier
+    directly [S6]. Registered 2008-02-05 in ARES; 2013 is when the joint purchasing itself
+    started.'
 sources:
 - type: tender
   name: "TED — South Moravia rooftop PV (~€1.0M), and the wave around it"
@@ -152,4 +167,7 @@ Solved elsewhere: iChoosr has run the group-buying model from the Netherlands si
 
 
 2026-08-25 · rewrite, then re-scoring — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker were untouched by those passes. Third pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test. `scores.proof` 0 → 2. iChoosr passes the maturity test — selling since 2008, with 2.5M+ households served and 200+ UK councils running Solar Together — so rung 0, "no foreign solution on file", was simply wrong while that comparable sat on the ledger. First, though, the comparable was given the receipt SCORING.md requires: it had NO `sources[]` entry at all, and no point may rest on the comps ledger alone, so ichoosr.com was fetched live on this date and [S5] appended with what it does and does not say. Rung 3 was considered and declined. It needs establishment in two-plus markets with one CEE-adjacent, and the receipted traction sits in the Netherlands and Britain; Poland, Germany and Austria appear only as entries in a country list on the company's own site, with no participant figure behind any of them. `scores.gap` stays 0, and this is the one dimension on this file where the new ladder does not fit cleanly — FLAGGED rather than forced. Rung 0 reads "an ESTABLISHED local player already sells this", and what [S4] actually found is not a seller: SAKO Brno runs the "36 FVE" framework for Brno\'s own city districts, the kraje package their own buildings, and RES+ is a subsidy line. SAKO was lifted into `locals[]` as established on the named-customer limb, with the evidence line saying outright that it aggregates for its owner rather than selling to anyone else. On the face of the ladder that reads like rung 1, contested. It is NOT scored there, because gap authority is asymmetric and [S4] is a thin check with no `queries[]`, no `checked[]` and no positive control — there is no evidence either way about whether a Czech aggregation vendor exists, and an unrun search can never raise a score. So that sweep was run on this same date, in Czech, and [S6] records it. It looked for the iChoosr shape — an operator pooling many towns' lots into one tendered fixed-price contract — and did not find one. What it found selling is turnkey design-build pitched to towns one at a time (iKomunita, LAMBDA Energy, SVP Solar, Panomik, Fotovolty, LAMA Solar, Energie Soláry, reWATT, SEFY), plus SMS ČR, which has genuinely aggregated since 2013 and took its last joint purchase in July 2025 for more than 200 subjects — but buys ENERGY, not solar arrays. RES+'s sdružený project, spanning up to three neighbouring municipalities, is a subsidy rule rather than a supplier. POSITIVE CONTROL PASSED before any conclusion was drawn: the same method aimed at SAKO's "36 FVE" framework returned its own E-ZAK tender page, the URL [S4] already carries. `scores.gap` 0 → 1, and NOT on the not-found. Gap authority is asymmetric and a failure to find can never raise a score, so the 1 rests on the positive finding instead: every local player now named — SAKO, the kraje, the installers, SMS ČR — is either a buyer aggregating for its own owner or a seller of something else, and none of them is an established local player that already sells this. That is rung 1, contested and still enterable, and rung 0 was simply the wrong reading of what [S4] found. Rung 2 was NOT taken even though the sweep was properly formed with recorded `queries[]`, `checked[]` and a passing positive control: rung 2 means no local player found, and [S6] found several. SAKO stays in `locals[]`, moved to `early` with its guessed 2018 `since` removed rather than invented — no sourced year for the start of the framework is on file. `score` 3 → 6. Money, urgency and demand untouched; no existing source note edited and no existing [Sn] marker moved — [S5] and [S6] are appended, not inserted.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. SAKO Brno moves `early` → `established` at `competes: adjacent`, and gains the `since` an earlier pass had to delete. That pass removed a guessed 2018 rather than invent one, which was right; a sourced year is now on file instead of a guess — ARES gives SAKO Brno, a.s. a date of incorporation of 1994-07-01, fetched live on this date — and the maturity limb is machine-counted rather than asserted, with two distinct public buyers for IČO 60713470 in `data/lookup/cz-contract-parties.jsonl`. The evidence line keeps saying the thing a builder needs: SAKO aggregates for its own owner, so it is a buyer of this service and not a seller of it. SMS ČR was ADDED under the no-exclude ruling. [S6] already named it as the nearest thing to a pooling operator — joint purchasing for obce since 2013, more than 200 subjects in the July 2025 procedure, open to non-members — and it sat in the argument while the ledger showed a single row. It records as adjacent because what it pools is electricity, not solar arrays, which is precisely why it does not hold this position. `scores.gap` stays 1: an adjacent player never moves it, at any maturity. The checker's warning that nothing on the ledger is `competes: direct` is correct and is left standing — rung 2 is the arguable score here and belongs to the owner, not to a content pass. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+
 2026-08-20 · evidence audit — Removed SMO ČR from the next-evidence proposal. Neither "Svaz měst" nor "SMO ČR" returns any hit in the signal corpus, and the association appears in no source note here — a named institution proposed as a demand source with nothing on file to say it is one. The proposal still stands, without pre-naming who would file the complaint.

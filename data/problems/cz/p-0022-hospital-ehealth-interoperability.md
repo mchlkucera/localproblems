@@ -41,45 +41,62 @@ locals:
   url: https://www.stapro.cz/
   ico: '13583531'
   since: 1990
-  status: established
+  competes: direct
+  maturity: established
   evidence: '>= 2 distinct public buyers in data/lookup/cz-contract-parties.jsonl (MMN a.s.,
     Vsetínská nemocnice a.s.) AND named hospital customers — KNTB Zlín, FN u sv. Anny, FN
-    Olomouc and Kroměříž hospital all sign STAPRO amendments in registr smluv [S5]'
+    Olomouc and Kroměříž hospital all sign STAPRO amendments in registr smluv [S5]. It sells
+    FONS/TransMISE as an NCPeH-connected integration offering beside its hospital systems
+    [S8].'
 - name: ICZ (eMEDOCS)
   url: https://www.i.cz/
   ico: '25145444'
   since: 1997
-  status: established
-  evidence: 'named customers — cz-contract-parties.jsonl pairs ICZ a.s. with Český statistický
-    úřad and ICZ.HEA a.s. (IČO 07240091) with Nemocnice Břeclav [S5]; eMEDOCS is also on the
-    state NCPeH connection [S8]'
+  competes: direct
+  maturity: established
+  evidence: 'named customers — cz-contract-parties.jsonl pairs ICZ a.s. with Český
+    statistický úřad and ICZ.HEA a.s. (IČO 07240091) with Nemocnice Břeclav [S5]; eMEDOCS is
+    also on the state NCPeH connection [S8]'
 - name: Medicalc (mEx)
   url: https://www.medicalc.cz/
   ico: '26350513'
   since: 2002
-  status: established
-  evidence: 'state framework listing — mEx is one of the NCPeH-connected integration offerings
-    named in the Czech field scan [S8]; company registered in ARES since 2002'
+  competes: direct
+  maturity: established
+  evidence: 'state framework listing — mEx is one of the NCPeH-connected integration
+    offerings named in the Czech field scan [S8]; company registered in ARES since 2002'
 - name: PHYSTER TECHNOLOGY
   url: https://www.physter.com/
   ico: '27091937'
   since: 2003
-  status: established
+  competes: direct
+  maturity: established
   evidence: 'state framework listing — named in the Czech field scan as an NCPeH-connected
     integration offering [S8]; company registered in ARES since 2003'
 - name: AutoCont (AC Pramen, ESB ACIB)
   url: https://www.autocont.cz/
   since: 1991
-  status: established
+  competes: direct
+  maturity: established
   evidence: 'state framework listing — AC Pramen and ESB ACIB are named in the Czech field
     scan as NCPeH-connected integration offerings [S8]'
 - name: M.I.T. Consulting
   url: https://www.mitconsulting.cz/
   ico: '25689240'
   since: 1998
-  status: established
+  competes: direct
+  maturity: established
   evidence: 'state certification — holds Czech eSSL attest 4/2026 (MIT ERMS) from the Czech
     Agency for Standardization, and sells a hospital enterprise service bus beside it [S8]'
+- name: OR-CZ
+  url: https://www.orcz.cz/
+  ico: '48168921'
+  since: 1993
+  competes: direct
+  maturity: established
+  evidence: 'named customer — supplies hospital IS integration to Psychiatrická léčebna Šternberk
+    on the contracts register, and ARES dates OR-CZ spol. s r.o. to 17 March 1993, so it clears
+    the three-year limb by three decades [S9]'
 sources:
 - type: tender
   name: "TED — Uherské Hradiště eHealth platform (~€7.7M)"
@@ -229,6 +246,8 @@ Solved elsewhere: the shared layer exists as a product in other markets — buil
 
 ## Revisions
 
+2026-08-25 · locals completeness — OR-CZ added to `locals[]`. The record's own argument already named it selling hospital IS integration alongside the five vendors on the ledger, and then observed that it was not on the ledger — the register stating its own omission rather than fixing it [S9]. Under the owner's rule that no player is ever excluded, it is now recorded: verified in ARES as OR-CZ spol. s r.o., IČO 48168921, incorporated 17 March 1993, and present in the contracts register supplying Psychiatrická léčebna Šternberk. `scores.gap` is unmoved — it was already 0 on six established direct sellers, and a seventh cannot make a taken space more taken. What changes is that a builder now sees the true size of the field.
+
 2026-08-13 · de-rank — A gap check found real CZ integration products (Medicalc mEx, PHYSTER, Stapro FONS/TransMISE, ICZ eMEDOCS, AutoCont ESB ACIB), so the original "no product layer" framing was too strong [S8]; gap stays 0 with incumbents named and status moves to watching. What survives the check: EHDS conformity deadlines (2029/2031) now put a dated end-state behind the spend [S7], and the NKÚ receipt plus the amendment churn document that the current model is failing its buyers [S5,S6]. Watch the Plzeň open tender outcome and the EHDS implementing acts (Mar 2027) for the moment this re-ranks [S2,S7].
 
 2026-08-20 · evidence audit — Four unbacked claims removed. NCEZ: the institution and the claim that it "sets standards but ships no tooling" both return no hits anywhere in the signal corpus or in any source note here. "StaproMedea" (a mangled compound) and "AMIS" appear nowhere in the register at all; the product names that are on file sit in this record's own gap-check note, so the clause now reads Stapro FONS/TransMISE and ICZ eMEDOCS and is cited to [S8] rather than to three TED tenders that name none of them. "Each is a bespoke SI project; none produces a reusable product" — the tender receipts show what was bought, not what the delivery produced. And "the products are mostly incumbent-ecosystem stacks rather than neutral layers" — the gap check names the products but does not characterise their architecture.
@@ -236,3 +255,6 @@ Solved elsewhere: the shared layer exists as a product in other markets — buil
 2026-08-24 · fact check — The "€3-8M projects" range misdescribed its own receipts: the awards on this ledger are ~€7.7M, ~€5.8M, ~€2.8M and ~€0.7M [S1,S2,S3], so two of the four fall outside it. Body and build note now state the receipted span, €0.7-7.7M. The three TED values were re-verified live against the TED API on this date — 189.2M, 143.0M and 68.8M CZK — and the registr-smluv lookup corpus independently pairs STAPRO and ICZ.HEA with named hospital buyers, corroborating the incumbent picture [S5,S8].
 
 2026-08-25 · plain-language pass and evidence added — Two passes this date, merged here. First: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek; that pass touched no score, source note or [Sn] marker. Second, from the 2026-08-25 retrospective harvest: Motol/Homolka signed ~€11.7M of health-IT licences and support in one August week [S9], corroborating the incumbent-stack spend already argued from the amendment churn [S5], and the Health Ministry filed an amendment of the national e-health act 325/2021 Sb. to VeKLEP [S10]. Both are context receipts; no score moved by that pass. Third pass this date, merged here: re-scored under the rewritten SCORING.md, which replaces the v1 "does a company exist?" test with the ESTABLISHED test and flips its sign between abroad and locally. `scores.proof` 0 → 3. Both comparables pass the test outright: Redox has sold since 2014 with 450+ named provider organisations, and Better has sold since 1989 into 500+ hospitals across fifteen countries with NHS trusts, Karolinska and Basel named [S8] — established in two-plus markets with Slovenia and Sweden both CEE-adjacent, which is rung 3 exactly. The old 0 was the contradiction the owner flagged for MATCH on 2026-08-24 and it is now resolved in the direction the evidence always pointed. `scores.gap` stays 0 and is now a positive finding rather than an unchecked one: six local incumbents were lifted out of the [S8] scan prose into a structured `locals[]` ledger, all six established — STAPRO (IČO 13583531, ARES 1990) on two limbs at once, two distinct public buyers in `data/lookup/cz-contract-parties.jsonl` plus four named hospital customers in registr smluv [S5]; ICZ and ICZ.HEA on named public customers [S5]; Medicalc, PHYSTER and AutoCont on the state NCPeH connection [S8]; M.I.T. Consulting on the eSSL attest it holds. Founding years were verified in ARES on this date. `score` 5 → 8. The non-solutions and Proven-abroad paragraphs were rewritten to state maturity rather than mere existence, because under the new ladder that is the fact carrying both scores; no claim was added beyond its sources and none removed. Money, urgency and demand untouched, and every existing [Sn] marker and source note is unchanged.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. All six entries convert to `competes: direct` + `maturity: established`: STAPRO, ICZ (eMEDOCS), Medicalc, PHYSTER, AutoCont and M.I.T. Consulting each sell an NCPeH-connected integration offering to hospitals, which is the product and the buyer this file is about [S8]. STAPRO's evidence line now names FONS/TransMISE outright, because "sells hospital systems since 1990" on its own read like a neighbouring vendor rather than a competitor. `scores.gap` stays 0 and now rests on the field it was always meant to: direct sellers that pass the established test, not merely mature firms in the vicinity. Noted and NOT acted on, because it is an addition rather than a conversion: [S9] also names OR-CZ selling hospital IS integration alongside these five, and it is not on the ledger. Adding it would move no score, but until it is added the ledger under-names the field by one. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+

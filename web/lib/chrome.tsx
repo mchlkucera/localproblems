@@ -1,6 +1,6 @@
 // Gazette chrome — reproduces the v1.3 hand-built structures verbatim.
 // Class vocabulary comes from shared.css only; nothing invented here.
-import { EVIDENCE_TYPES, extractDate } from "./data";
+import { EVIDENCE_TYPES } from "./data";
 import { pad2 } from "./format";
 
 /** `current` is the page path; the About link marks itself on /about.
@@ -75,15 +75,36 @@ export function Pager({ base, page, pages }: { base: string; page: number; pages
   );
 }
 
-/** The one footer statement every page carries (owner, 2026-08-24): region and
-    extract date, nothing else. The gazette self-narration — "Extract no.
-    NN/YYYY, generated automatically", "Data as recorded, no warranty" — is
-    retired; a professional register does not describe itself in its own footer. */
+/** The one footer statement every page carries (owner, 2026-08-24): the region,
+    and nothing else. The gazette self-narration — "Extract no. NN/YYYY,
+    generated automatically", "Data as recorded, no warranty" — was retired
+    then; the EXTRACT DATE goes now (owner, 2026-08-25, quoting the line back at
+    us: "Czechia · updated 2026-08-25").
+
+    IT WAS A DATE ABOUT US, NOT ABOUT THE EVIDENCE. `extractDate()` is when the
+    register's newest record was touched — pipeline bookkeeping — and because it
+    printed in the footer of every page it collided with the real currency
+    marker wherever one existed. On a record page it was the FIFTH rendering of
+    the same date; on the register, the category pages and the signal ledgers
+    every row already carries its own date, which is the currency signal a
+    reader actually uses. A fact that is either duplicated or irrelevant on
+    every page it appears on is page furniture, and page furniture does not
+    ship. */
 export function FooterHouseLine() {
-  return <>Czechia · updated <time>{extractDate()}</time></>;
+  return <>Czechia</>;
 }
 
 export const CORRECTIONS_MAILTO = "mailto:corrections@localproblems.org?subject=CORRECTION";
+
+/** The corrections invitation, in one place because it is one sentence.
+ *
+ *  It read "Source wrong? Corrections →" on all six page templates — telegraphic,
+ *  and the bare arrow made it look like an internal tool's affordance rather
+ *  than an offer to a person. Same target, plain English. Six copies of one
+ *  string is also how six copies drift, so it is a component now. */
+export function CorrectionsLink() {
+  return <a href={CORRECTIONS_MAILTO}>Report a correction</a>;
+}
 
 /** Sanctioned exception 2 (design-language v1.3): relative record dates.
     Verbatim v1 snippet; the page reads identically with JS off. */

@@ -51,6 +51,67 @@ comps:
   traction: '€11.6M Series A (TechCrunch, 2022); clients incl. N26, TravelPerk, Personio;
     live in 8 countries'
   markets: [DE, ES, GB, PT, FR, NL]
+locals:
+- name: Spring Walk (zamestnaneckekarty.cz)
+  url: https://www.zamestnaneckekarty.cz/zamestnanecke-karty
+  ico: '11740108'
+  since: 2021
+  competes: adjacent
+  maturity: early
+  evidence: 'a law firm, not a software vendor. zamestnaneckekarty.cz — the top Czech-language
+    result for the process itself — is run by Spring Walk vízová kancelář s.r.o., ARES-dated
+    August 2021, part of a Brno and Prague practice of over fifty people. What it sells is
+    hands-on case handling billed per application. There is no portal, dashboard, status
+    tracking or reminder anywhere on the page, and that missing layer is the whole of what this
+    record proposes. No limb of the established test is on file.'
+- name: Foreigners.cz
+  url: https://www.zamestnavamecizince.cz/
+  competes: adjacent
+  maturity: early
+  evidence: 'a five-office relocation agency and knowledge portal, running the employer-facing
+    site zamestnavamecizince.cz. What it sells is people doing the agenda, plus articles
+    explaining it — there is nothing an employer logs into to see where an application stands.
+    The group resolves in ARES as several separate Brno companies and none of them could be
+    attributed to this site, so no IČO is claimed here and no launch year is on file.'
+- name: ReloCzech
+  url: https://www.reloczech.cz/
+  competes: adjacent
+  maturity: early
+  evidence: 'sells a serviced immigration agenda: the provider files and chases the
+    zaměstnanecká karta for the employer, case by case, for a fee. No self-service tracking is
+    offered anywhere on the site. No company resolves in ARES under the trade name, so no IČO
+    is claimed and no founding year is on file.'
+- name: Expat Support
+  url: https://expatsupport.cz/
+  ico: '45148830'
+  since: 1992
+  competes: adjacent
+  maturity: early
+  evidence: 'sells a serviced immigration and expat agenda by the case rather than software.
+    Expat Support s.r.o. is ARES-dated May 1992 and is by far the oldest provider here, but age
+    is only the first limb of the test: nothing is named or counted on the buyer side, there is
+    no public contract for the IČO in the Czech contracts register, no round and no state
+    listing,
+    so the second limb is unmet.'
+- name: Principio
+  ico: '07600330'
+  competes: adjacent
+  maturity: early
+  evidence: 'sells a serviced immigration agenda and monitors document expiries as a service —
+    a person watching the dates, which is the single function this record''s product would
+    automate first. It is carried on its IČO rather than a link: ARES resolves one
+    Brno company under this trade name, Principio s.r.o., registered in October 2018, and no
+    product site was reachable to confirm the match, so the identification is stated here for
+    a reader to check. No limb of the established test is on file.'
+- name: DMPF Expat Assistant
+  ico: '19765851'
+  since: 2023
+  competes: adjacent
+  maturity: early
+  evidence: 'sells a serviced immigration agenda under the Expat Assistant name. ARES resolves
+    it as DMPF Consulting s.r.o., incorporated in October 2023, which makes it the youngest
+    provider here; no product site was reachable, so it is carried on the IČO rather than a
+    guessed domain. No limb of the established test is on file.'
 sources:
 - type: arbitrage
   name: "Gale"
@@ -141,4 +202,4 @@ Solved elsewhere: the US cluster above is the newest layer [S1,S3], but the proo
 
 2026-08-24 · evidence audit — Cut "labor shortage keeps hiring volumes up" from Why now: a trajectory claim with no second data point anywhere in the corpus — yc-gale documents employer dependence on foreign workers at a single point in time [S1], the same defect the 2026-08-20 audit removed from p-0007. The structural-dependence claim in the lead stands [S1,S2]. A fresh spot-check on this date (Czech query for foreigner-employment tracking software) returned only generic HR/asset registries (Aptien, plusPortal), consistent with the 2026-08-20 NOT FOUND verdict [S4]. Scores untouched.
 
-2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `scores.proof` 1 → 3: Localyze (Germany) and Jobbatical (Estonia) both pass the established test in two CEE-adjacent markets, while Gale and LegalOS are two years old. The 'Solved elsewhere' paragraph asserted that validation was US-only, which contradicted this record's own comps ledger, and it now names the two European players instead. `scores.gap` stays 1: the 2026-08-20 scan found a dense but entirely manual market — Spring Walk, Foreigners, ReloCzech, Expat Support, Principio, DMPF [S4] — and six commercial providers selling the outcome by hand are the weak incumbents of rung 1, not the empty field of rung 2. No `locals[]` key, because those are service firms rather than product vendors and the ledger the gap ladder reads is a ledger of products. `score` 4 → 6.
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `scores.proof` 1 → 3: Localyze (Germany) and Jobbatical (Estonia) both pass the established test in two CEE-adjacent markets, while Gale and LegalOS are two years old. The 'Solved elsewhere' paragraph asserted that validation was US-only, which contradicted this record's own comps ledger, and it now names the two European players instead. `scores.gap` stays 1: the 2026-08-20 scan found a dense but entirely manual market — Spring Walk, Foreigners, ReloCzech, Expat Support, Principio, DMPF [S4] — and six commercial providers selling the outcome by hand are the weak incumbents of rung 1, not the empty field of rung 2. No `locals[]` key, because those are service firms rather than product vendors and the ledger the gap ladder reads is a ledger of products. `score` 4 → 6. Fifth pass this date, merged here: **this record gains a `locals[]` ledger for the first time**, reversing the decision recorded above to omit one. That decision was that the six providers found on 2026-08-20 are service firms rather than product vendors and the gap ladder reads a ledger of products. Under the split, "a service firm rather than a product vendor" is one of the things `competes: adjacent` exists to say, and naming them is the point. Six entries, all adjacent and all early: **Spring Walk** (zamestnaneckekarty.cz is run by Spring Walk vízová kancelář s.r.o., IČO 11740108, ARES-dated August 2021), **Foreigners.cz**, **ReloCzech**, **Expat Support** (IČO 45148830, ARES-dated May 1992), **Principio** (ARES resolves one Brno company under the trade name, Principio s.r.o., IČO 07600330) and **DMPF Expat Assistant** (DMPF Consulting s.r.o., IČO 19765851, October 2023) [S4]. Every evidence line says what the firm actually sells — a serviced agenda billed per case, with no portal, dashboard or status tracking — because that missing layer is exactly what this record proposes to build. Foreigners.cz and ReloCzech carry a URL and no IČO on purpose: the Foreigners.cz group resolves in ARES as several separate Brno companies and none could be attributed to the site, and no company resolves under the ReloCzech trade name, so neither IČO was guessed. ARROWS stays in the body as a general law firm rather than an immigration provider. `scores.gap` stays 1 and `score` stays 6: adjacent players never move the score. FLAGGED FOR MATCH, NOT CHANGED HERE: with every named local now labelled adjacent and no direct player on the ledger, the new ladder reads this record at rung 2 rather than rung 1, and the 2026-08-20 check does carry queries[], checked[] and a passing positive control — the only thing that can raise a gap score. Making that move is a scoring judgment under SPEC §4 and was not made in a schema-conversion pass.

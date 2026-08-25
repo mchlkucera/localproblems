@@ -31,6 +31,40 @@ it. Existence is not information. Maturity is.
   the space is taken. An early local player does NOT close the space and must
   not de-rank a record on its own.
 
+MATURITY IS ONLY HALF THE LOCAL ANSWER (owner, 2026-08-25, one day later).
+The first cut of locals[] carried a single field, status: established | early,
+and it lasted one commit. Both content agents hit the same wall independently:
+a MATURE Czech firm that sells something ADJACENT — the other side of the
+counter, a different segment, a service firm rather than a product vendor — is
+not "early", but writing "established" forced gap to 0 and stood a record down
+over a company that does not sell this. One agent wrote those firms down as
+early (a false maturity claim); the other left them out of the ledger entirely
+(a false absence). The same one-field-two-meanings defect this document has
+already fixed twice — the gap condition inside PROOF, "not checked" inside GAP.
+
+  So the field is SPLIT, and the two halves answer different questions:
+
+    competes: direct    sells THIS record's product to THIS record's buyer
+    competes: adjacent  a real player in the neighbourhood that does NOT sell
+                        this — different segment, different side of the
+                        counter, legacy/partial, or a service firm rather than
+                        a product vendor. Its evidence line must say plainly
+                        WHAT IT DOES SELL and why that is not this.
+
+    maturity:           the ESTABLISHED test above, unchanged and machine-
+                        checked. It sets the RUNG, once competes has decided
+                        the entry counts at all.
+
+  AN ADJACENT PLAYER NEVER MOVES GAP, at any maturity. That is the entire
+  point of the split.
+
+  RECORD EVERY LOCAL PLAYER — never exclude one to protect a score. "The goal
+  is to inform the builder properly": a builder needs to see who else is in
+  the room, who the buyer already pays, and who could turn and compete next
+  quarter. The adjacent half of the ledger is intelligence, not noise, and it
+  renders as its own labelled group so it can never be mistaken for a
+  competitor the record failed to score against.
+
 PROOF (0-3)     is an established solution running elsewhere?
                 0: no foreign solution on file · 1: EARLY foreign players only
                 (prototype, pre-customer, seed) — model unproven, but a good
@@ -65,12 +99,30 @@ DEMAND (0-2)    is the pain documented?
                 verdicts   0 ASSUMED · 1 SCATTERED · 2 DOCUMENTED
 
 GAP (0-2)       is the local field still open?
-                0: an ESTABLISHED local player already sells this (named in
-                locals[]) — the space is taken · 1: local players exist but
-                all EARLY, or only weak/legacy incumbents — contested, still
-                enterable · 2: checked against Czech-language surfaces and no
-                local player found
+                0: at least one locals[] entry with competes: direct AND
+                maturity: established — someone mature already sells THIS, the
+                space is taken · 1: locals sell this (competes: direct) but all
+                are EARLY — contested, still enterable · 2: checked, and NO
+                local sells this. Adjacent players may be recorded and do NOT
+                affect the score
                 verdicts   0 TAKEN · 1 CONTESTED · 2 OPEN
+
+                EVERY RUNG READS BOTH FIELDS, competes FIRST. `competes`
+                decides whether an entry counts at all; `maturity` decides
+                which rung it lands on. An entry at competes: adjacent moves
+                NOTHING, however old and however proven — a mature firm selling
+                the other side of the counter has not taken this space, and
+                before the split the only ways to say so were to mislabel it
+                `early` or to leave it out of the ledger. Both shipped, in
+                different halves of the register, which is how the defect was
+                found.
+
+                RUNG 2 STILL COSTS A CHECK. "No local sells this" is a claim,
+                and it needs a type: gap-check source with recorded queries[]
+                and a passing positive control — exactly as before. What
+                changed is only that a populated locals[] no longer
+                contradicts it: four adjacent firms on file and nobody selling
+                this IS rung 2, and the page says so in those words.
 
                 "NOT CHECKED" IS NOT A SCORE ON THIS LADDER. In v1, rung 0
                 read "CZ incumbent check not done" — so a de-ranked record and
@@ -81,9 +133,10 @@ GAP (0-2)       is the local field still open?
                 never expressed as a score.
 
                 GAP AUTHORITY REMAINS ASYMMETRIC. Evidence of a named
-                established local player lowers this score. Failure to find
-                one NEVER raises it — only a check with recorded queries[],
-                checked[] and a passing positive control can do that.
+                established local player THAT SELLS THIS lowers this score.
+                Failure to find one NEVER raises it — only a check with
+                recorded queries[], checked[] and a passing positive control
+                can do that.
 
 Verdict bands (total score → word):
 

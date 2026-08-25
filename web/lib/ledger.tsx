@@ -8,7 +8,7 @@ import {
   type EvidenceType, type Signal,
 } from "./data";
 import { categoryLabel, euro, pad2 } from "./format";
-import { CORRECTIONS_MAILTO, FooterHouseLine, Masthead, Pager, SiteNav } from "./chrome";
+import { CorrectionsLink, FooterHouseLine, Masthead, Pager, SiteNav } from "./chrome";
 
 // Both maps are Record<EvidenceType, string>, so registering a type in
 // EVIDENCE_TYPES without writing its explainer is a TypeScript error. The
@@ -138,7 +138,7 @@ export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
       <footer>
         <FooterHouseLine />
         <br />
-        <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> · <a href="/">problem register</a>
+        <CorrectionsLink /> · <a href="/">problem register</a>
       </footer>
     </>
   );

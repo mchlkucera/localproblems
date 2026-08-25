@@ -41,43 +41,54 @@ locals:
   url: https://www.grason.cz/
   ico: '06884156'
   since: 2018
-  status: early
-  evidence: 'EARLY for this space — a shift-work marketplace grown out of hospitality staffing; a
-    healthcare or social-care vertical could NOT be confirmed on its site, which loads
-    client-side [S8]. The closest local shape, and the open question on this file; ARES
-    registration 2018-02-23. No limb of the established test is met by anything on file
-    here: nothing names who has bought it, no published tally exists, there is no pairing in
+  competes: adjacent
+  maturity: early
+  evidence: 'It runs a shift-work marketplace grown out of hospitality staffing and sells
+    shifts in that segment; a healthcare or social-care vertical could not be confirmed on
+    its site, which loads client-side [S8]. On what is on file it serves a different segment
+    — the closest local shape, and the open question here. ARES registration 2018-02-23. No
+    limb of the established test is met by anything on file here: nothing names who has
+    bought it, no published tally exists, there is no pairing in
     data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
 - name: Směny.cz
   url: https://www.smeny.cz/
-  status: early
-  evidence: 'EARLY on receipts only — internal shift planning for staff a provider already
-    employs, not a marketplace [S8]; no customer count, public-buyer pair, round or state
-    listing on file'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells internal shift planning to providers for staff they already employ
+    [S8] — a rota tool, not a marketplace that brings workers in from outside. Nothing names
+    who has bought it, no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing, so
+    no limb of the established test is met.'
 - name: Chytrá organizace
   url: https://www.chytraorganizace.cz/
   ico: '04728629'
   since: 2016
-  status: early
-  evidence: 'EARLY for this space — internal shift planning for staff a provider already employs, not a
-    marketplace [S8]; ARES registration 2016-01-18. No limb of the established test is met
-    by anything on file here: nothing names who has bought it, no published tally exists,
-    there is no pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage,
-    and no state listing.'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells internal shift planning to providers for staff they already employ
+    [S8] — a rota tool, not a marketplace; ARES registration 2016-01-18. No limb of the
+    established test is met by anything on file here: nothing names who has bought it, no
+    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
+    round at Series stage, and no state listing.'
 - name: VeruApp
   url: https://www.veruapp.cz/
-  status: early
-  evidence: 'EARLY on receipts only — care-agency operations software, the incumbent named on
-    p-0011, planning employed staff rather than filling open shifts [S8]; no customer count,
-    public-buyer pair, round or state listing on file'
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells care-agency operations software — the incumbent named on p-0011 —
+    which plans the staff a provider already employs rather than filling open shifts from
+    outside [S8]. Nothing names who has bought it, no published tally exists, there is no
+    pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state
+    listing, so no limb of the established test is met.'
 - name: Domelie
   url: https://www.domelie.cz/
   ico: '23027371'
   since: 2025
-  status: early
-  evidence: 'EARLY — fails the three-year limb: Domelie s.r.o. was registered 2025-03-05 in
-    ARES, and it brokers household caregivers to families (B2C) rather than shifts to
-    facilities [S8]'
+  competes: adjacent
+  maturity: early
+  evidence: 'It brokers household caregivers to families, selling to consumers rather than
+    shifts to facilities [S8]. Domelie s.r.o. was registered 2025-03-05 in ARES, so the
+    three-year limb fails as well; no published tally exists, there is no pairing in
+    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing.'
 sources:
 - type: arbitrage
   name: "ShiftKey"
@@ -183,3 +194,6 @@ Solved elsewhere: two markets, and both sellers are a decade in. ShiftKey has ru
 ## Revisions
 
 2026-08-25 · record created — Minted from the first records of the hiring ledger (July 2026 Labour Office aggregates [S4]) joined with the APSS staffing survey [S3] and the elder-care sweep's regulation and capacity evidence [S5,S6]. Hiring evidence backs demand and money, never proof; proof rests on the US and GB comparables alone [S1,S2] and stays at 1 with no DE/AT/PL/Nordics analog on file. Grason's possible healthcare vertical could not be confirmed and is recorded as unresolved rather than asserted either way [S8]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker were untouched by that pass. Third pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test. `scores.proof` 1 → 2. Both comparables pass the maturity test — ShiftKey selling since 2016 with $300M raised above a $2B valuation and 10,000+ facilities, Florence since 2017 with a £28.5M Series B, 90,000 care professionals and 2,000+ care organisations [S1,S2] — so the model is not unproven, which is what rung 1 asserts. The 1 was written on this file the day it was minted, reasoned as "no DE/AT/PL/Nordics analog is on file"; that is the rung 3 test, not the rung 1 test, and applying it a rung early cost a point. Rung 3 is still correctly out of reach: the United States and Britain are two markets, but neither is CEE-adjacent, so this lands on rung 2. `scores.gap` stays 1. The five Czech offerings [S8] found were lifted into a structured `locals[]` ledger and every one reads early — Domelie fails the three-year limb outright at a 2025 ARES registration, and Grason, Směny.cz, Chytrá organizace and VeruApp publish no customer count, pair with no public buyer in `data/lookup/cz-contract-parties.jsonl`, and carry no round or state listing. Early local players never de-rank, so gap does not fall to 0; and it does not rise to 2 either, because [S8] is a one-pass search that found players rather than none, and Grason's verticals are still unresolved. `score` 6 → 7. The non-solutions paragraph now notes how young the field is and the Proven-abroad paragraph states both sellers' trading ages, because under the new ladder maturity is what carries the score. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. All five entries are `competes: adjacent`, and each evidence line now says what the player sells before saying what it lacks. Směny.cz, Chytrá organizace and VeruApp sell rota tools for staff a provider already employs; Domelie brokers household caregivers to consumers rather than shifts to facilities. Grason runs a genuine shift marketplace, but in hospitality, and its healthcare vertical could not be confirmed on a client-side site [S8] — that stays the open question on this file, and it now appears in the ledger as a difference of segment rather than as a claim about the firm's maturity, which is what `early` was doing before. `scores.gap` stays 1 and is FLAGGED: with nothing at `competes: direct`, rung 2 is arguable, and it is a MATCH judgment rather than a content pass. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+

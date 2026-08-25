@@ -41,23 +41,27 @@ locals:
 - name: CIUR
   url: https://www.ciur.cz/
   ico: '40612724'
-  status: early
-  evidence: 'EARLY for this space — CIUR makes insulation material and sells it through its own
-    application centre and a partner-firm network for Climatizer Plus [S6], a manufacturer
-    channel rather than the trained-crew, fixed-price installed job this record proposes;
-    ARES registration 1991-07-11. No limb of the established test is met by anything on file
-    here: nothing names who has bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+  since: 1991
+  competes: adjacent
+  maturity: established
+  evidence: 'It manufactures insulation material and sells it through its own application
+    centre and a partner-firm network for Climatizer Plus [S6] — a manufacturer channel
+    supplying installers, not the trained-crew, fixed-price installed job an entrant here
+    would sell. Established on named customers: data/lookup/cz-contract-parties.jsonl pairs
+    CIUR a.s. as supplier with statutární město Karviná as buyer. ARES registration
+    1991-07-11.'
 - name: dotacenarenovace.cz
   url: https://dotacenarenovace.cz/
-  status: early
-  evidence: 'EARLY for this space — turnkey renovation covering assessment, the state subsidy application
-    and the building work, delivered by a 25-year-old construction firm paired with a
-    subsidy agency [S6]. That is a general contractor with a subsidy desk, not the
-    standardised crew-and-fixed-price operator this record proposes. No limb of the
-    established test is met by anything on file here: nothing names who has bought it, no
-    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
-    round at Series stage, and no state listing.'
+  since: 2001
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells turnkey renovation — assessment, the state subsidy application (10k
+    CZK deposit plus 40k on approval) and the building work including facade insulation —
+    delivered by a construction firm paired with a subsidy agency [S6]. That is a general
+    contractor with a subsidy desk, not the standardised crew-and-fixed-price operator an
+    entrant here would run. Established on a public customer count: 500+ renovations
+    delivered lifetime, by a firm [S6] describes as 25 years old, which dates the start of
+    trading to about 2001.'
 sources:
 - type: arbitrage
   name: "VARM"
@@ -167,3 +171,6 @@ Solved elsewhere: Berlin funded the second half of the model within a month of t
 2026-08-24 · fact check — Three unreceipted clauses cut from the lead and window: "quality is unverifiable", "capacity is capped by the same labor shortage as every other building trade", and labor as "the actual constraint" — none carried by any source here (S1 is a German funding note, and the Czech receipts document fragmentation, not workforce data). Fragmentation stays, cited to the Czech checks [S3,S6], and "demand the supply side cannot serve" lost its unreceipted second half. A live re-check of woltair.cz on this date again surfaced only heat-pump and photovoltaics service pages, with insulation appearing only as blog content — consistent with [S3]; the S6 open question, whether Woltair expands into insulation, stands.
 
 2026-08-25 · plain-language pass, then re-scoring — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "NZÚ co-payment" now reads "part-funded by the state renovation subsidy Nová zelená úsporám", and "SVJ/bytová družstva" now reads "the apartment-owner associations and housing cooperatives". Scores, status, source notes and every [Sn] marker are untouched by that pass. Second pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test, and both dimensions held. `scores.proof` stays 2, but on a different and better reason than before. The v1 answer was "both rounds are German"; the maturity test gives the same number for a sharper cause — VARM has sold since 2023 across seven sites and Enter since 2020 on €40M raised, so both are established, while dsb only opened in 2024 and is early. Established sellers in ONE market is rung 2; rung 3 needs two, and Germany is the only one on file. `scores.gap` stays 1. The two Czech players the [S6] sweep found were lifted into a structured `locals[]` ledger, and both are established — CIUR (IČO 40612724, ARES 1991) on the named-customer limb via its Karviná contract in `data/lookup/cz-contract-parties.jsonl`, and dotacenarenovace.cz on a stated 500+ renovations over 25 years. Neither sells what this record proposes: CIUR sells material through a partner channel and dotacenarenovace.cz is a general contractor with a subsidy desk, which is the "weak or legacy incumbents" wording of rung 1 exactly, not the "already sells this" of rung 0. Nothing raises it either — rung 2 requires a check that found no local player, and this one found several. `score` unchanged at 6. Deliberately not lifted into `locals[]`: Woltair and Schlieger, because the checks on this record establish that neither sells zateplení at all [S3,S6], and the individual applicators and regional directories, because they are the long tail this record is about rather than incumbents holding the position. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.
+
+THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. Both entries move `early` → `established`, and both are `competes: adjacent`. As on p-0024, the `early` was a schema artefact rather than a judgment: this file's re-score entry from earlier the same day says outright that both are established — CIUR on the named-customer limb via its statutární město Karviná pairing in `data/lookup/cz-contract-parties.jsonl`, dotacenarenovace.cz on a stated 500+ renovations over 25 years — and the ledger then contradicted its own audit trail to protect the score. CIUR gains the `since: 1991` its ARES registration always supported. dotacenarenovace.cz carries `since: 2001`, derived from the sourced "25-year construction firm" in [S6] rather than invented, and the derivation is stated in the evidence line so a reader can check it; the three-year limb clears by two decades either way, so the approximation cannot flip the verdict. Neither sells what an entrant here would sell: CIUR is a material manufacturer supplying installers through a partner channel, and dotacenarenovace.cz is a general contractor with a subsidy desk. `scores.gap` stays 1. The checker warns that no ledger entry is `competes: direct`; the warning is a correct description and is left standing rather than answered by relabelling a manufacturer as a competitor. The direct-but-early field this rung rests on is the fragmented installer long tail [S3,S6], which lives in the argument because no individual applicator is worth a ledger row. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+

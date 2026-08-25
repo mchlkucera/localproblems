@@ -22,7 +22,7 @@
 // point at the public signal ledgers, not at this page.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CORRECTIONS_MAILTO, FooterHouseLine, Masthead, SiteNav } from "../../lib/chrome";
+import { CorrectionsLink, FooterHouseLine, Masthead, SiteNav } from "../../lib/chrome";
 import { pad2 } from "../../lib/format";
 import { since, sourcesView, type Feed } from "./registry";
 
@@ -152,7 +152,7 @@ export default function Sources() {
           {/* INTENT: why a feed is not supposed to be running. */}
           <h2>Blockers</h2>
           {blocked.length === 0 ? (
-            <p className="absent">Every registered feed is marked active. As of <time>{anchor}</time>.</p>
+            <p className="absent">Every registered feed is marked active.</p>
           ) : (
             <ul className="buildfacts">
               {blocked.map(({ feed: f }) => (
@@ -175,7 +175,7 @@ export default function Sources() {
           {/* OBSERVED: what actually went wrong on the last run. */}
           <h2>Errors on last run</h2>
           {errored.length === 0 ? (
-            <p className="absent">No feed reported an error on its last run. As of <time>{anchor}</time>.</p>
+            <p className="absent">No feed reported an error on its last run.</p>
           ) : (
             <ul className="buildfacts">
               {errored.map(({ feed: f, health: h }) => (
@@ -217,7 +217,7 @@ export default function Sources() {
       <footer>
         <FooterHouseLine />
         <br />
-        <a href={CORRECTIONS_MAILTO}>Source wrong? Corrections →</a> ·{" "}
+        <CorrectionsLink /> ·{" "}
         <a href="/">problem register</a> · <a href="/signals/funded">signal ledgers</a>
       </footer>
     </>

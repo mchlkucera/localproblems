@@ -206,7 +206,8 @@ scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status: candidate | active | watching | stale | claimed | solved | rejected,
 build {capital, first_revenue, builder, note},
 comps [{name, url, geo, since, traction, signal?: <evidence id>, markets?: [ISO2..]}],
-locals? [{name, url, ico?, since, status: established|early, evidence}],
+locals? [{name, url?, ico?, since, competes: direct|adjacent,
+          maturity: established|early, evidence}],   (url? — one of url/ico)
 sources [{type, url, note, date, signal?: <evidence id>, dims?: [dimension..]}],
 created, updated
 ```
@@ -250,28 +251,74 @@ between the two is what let a bug ship: 69 foreign comparables carried
 structured `since` + `traction` while every local player lived as PROSE inside a
 gap-check `note:`. A machine could read the foreign half of the register and not
 the local half, so `gap` could not be audited and `gap: 0` silently meant two
-opposite things. Rendered as a ledger under **Local competition**, with the
-`Existing non-solutions:` paragraph underneath it:
-- `name`, `url` — the company and its site
+opposite things. Rendered as a ledger under **Local competition** — in two
+labelled groups, `direct` first — with the `Existing non-solutions:` paragraph
+underneath it:
+- `name` — the company
+- `url` — its site. OPTIONAL **if `ico` is present**; at least one of the two is
+  required (see "The ARES fallback" below).
 - `ico` — optional but STRONGLY PREFERRED, 8 digits as a QUOTED string
   (`'04903783'` — unquoted YAML eats the leading zero). It is what makes the
   claim checkable without a human: `scripts/check-records.py` counts distinct
   public buyers for it in `data/lookup/cz-contract-parties.jsonl`.
 - `since` — the year it started selling THIS product, else its founding year;
   unquoted integer, exactly like `comps[].since`. REQUIRED at
-  `status: established` — the test's first limb is ">= 3 years selling" and
+  `maturity: established` — the test's first limb is ">= 3 years selling" and
   cannot be evaluated without it. OPTIONAL at `early`, where a small Czech
   vendor often publishes no year at all: state what is verifiable and NEVER
   invent a year to fill the field, exactly as with a comp's headcount.
-- `status` — `established` | `early`. **This IS the gap score** (see the test
-  below), which is why it is a closed enum checked by script rather than a
-  judgment in prose.
-- `evidence` — which limb(s) of the established test this player passes, stated
-  so a reader can check it
+- `competes` — `direct` | `adjacent`. **Does it sell THIS?** `direct` = this
+  record's product to this record's buyer. `adjacent` = a real player in the
+  neighbourhood selling something else. The ONLY field `gap` reads for
+  eligibility.
+- `maturity` — `established` | `early`. The established test (below), unchanged.
+  It sets the RUNG, once `competes` has decided the entry counts at all.
+- `evidence` — at `direct`, which limb(s) of the established test this player
+  passes, stated so a reader can check it. At `adjacent`, WHAT IT ACTUALLY
+  SELLS and why that is not this.
 - **Omit the key when there is no named local player. NEVER write `locals: []`** —
   `problem_locals` is a child table and cannot tell an empty list from an absent
   key, so the two loaders would disagree about the record. `scripts/db.py`
   refuses the empty form outright.
+
+### `competes` + `maturity`: one field per question (2026-08-25)
+
+`status: established | early` lasted one commit. Both content agents hit the
+same wall independently: a MATURE Czech firm selling something ADJACENT — the
+other side of the counter, a different segment, a service firm rather than a
+product vendor — is not `early`, but writing `established` forced `gap: 0` and
+stood a record down over a company that does not sell this. One agent wrote
+those firms down as `early` (a false maturity claim); the other left them out of
+the ledger (a false absence). Two halves of the register encoding the same
+situation two different ways — the same one-field-two-meanings defect already
+fixed at PROOF rung 2, GAP rung 0 and the SPEC de-rank rule.
+
+**An `adjacent` player NEVER moves `gap`, at any maturity.** That is the entire
+point of the split.
+
+### NEVER EXCLUDE a local player
+
+Owner, 2026-08-25: *"Never exclude — the goal is to inform the builder
+properly."* Every local player found goes in `locals[]`. A builder needs to see
+who else is in the room, who the buyer already pays, and who could turn and
+compete next quarter: the adjacent half of the ledger is INTELLIGENCE, not
+noise. Dropping a real firm to keep a score is the register lying by omission.
+The page renders the two groups separately and counts them ("3 sell this · 4
+nearby"), so recording an adjacent player costs a record nothing.
+
+### The ARES fallback — a real player with no product URL
+
+`url` went optional (against an `ico`) because the no-exclude rule needs it:
+AML solutions s.r.o., IČO `10691766`, is a real player on p-0006 with no product
+URL anywhere in the corpus, and the choice was to drop a real firm or invent a
+link. Both are forbidden, so there is a third option — record the IČO, and the
+page links the company's public state-register record instead:
+
+    https://ares.gov.cz/ekonomicke-subjekty?ico=<ico>
+
+verifiable, real, and one click for the reader. `web/lib/data.ts` `localHref()`
+picks `url` when present and this otherwise. **NEVER invent a URL to fill the
+field**; a row with neither `url` nor `ico` fails the build.
 
 ### THE ESTABLISHED TEST (SCORING.md, owner 2026-08-25)
 
@@ -288,20 +335,31 @@ were born passing it. Existence is not information; maturity is.
 **The same test scores both ledgers, WITH THE SIGN FLIPPED.** Abroad, an
 established player is good news — the model is proven and someone already paid
 the tuition, and that is what lifts `proof`. Locally, the sign flips: an
-established, well-maintained local product means the space is taken and `gap` is
-0. **An EARLY local player does NOT close the space and must never de-rank a
-record on its own** — that is `gap: 1`, contested and still enterable.
+established, well-maintained local product **that sells this** means the space is
+taken and `gap` is 0. **An EARLY local player does NOT close the space and must
+never de-rank a record on its own** — that is `gap: 1`, contested and still
+enterable. **An ADJACENT player closes nothing at any maturity**, which is what
+`competes` is for.
 
 Every field the test reads is on the record already (`comps[].since`,
 `comps[].traction`, `locals[].since`, `locals[].ico`, `locals[].evidence`), so
 it is CHECKED BY SCRIPT, not judged — a dimension a machine cannot audit is a
 dimension that silently rots. `scripts/check-records.py --strict` runs inside
 `npm run build` and fails it on:
-- a `status: established` entry that cites no limb, or whose `since` is under 3
-  years
-- `gap: 0` with no `locals[]` entry at `status: established` — "not checked" is
-  not a score on this ladder; an absent check is a missing receipt
-- `gap >= 1` while `locals[]` names an established player
+- a `maturity: established` entry that cites no limb, or whose `since` is under
+  3 years — asked of ADJACENT entries too: "this firm is established" is the
+  same claim whichever side of the counter it sells on
+- a `locals[]` entry still carrying the RETIRED `status` key, or any other
+  unknown key (`LocalSchema` is `z.strictObject`; `scripts/db.py` refuses it as
+  well, so a record cannot be half-migrated silently)
+- a `locals[]` entry with neither `url` nor `ico`
+- `gap: 0` with no `locals[]` entry at `competes: direct` AND
+  `maturity: established` — "not checked" is not a score on this ladder; an
+  absent check is a missing receipt
+- `gap >= 1` while `locals[]` names an established player that sells this
+- `gap: 2` while `locals[]` names anyone at `competes: direct`. Adjacent entries
+  at rung 2 are FINE — they do not affect the score, and printing them under
+  "the field is open" is the point of the split, not a contradiction.
 - `gap` at any value with no `type: gap-check` source carrying `queries[]`
 - a `proof` score that contradicts the maturity of its own `comps` ledger
 
@@ -582,15 +640,17 @@ company's existence is evidence about that company and nothing else.
 
 | direction | who decides | why |
 |---|---|---|
-| down (**ESTABLISHED** incumbent found → `gap: 0`) | any check, immediately | SPEC §4 de-rank rule: name the incumbent in `locals[]`, `status: watching` |
-| down (**EARLY** local player found → `gap: 1`) | any check, immediately | it is a contested field, not a closed one — see the established test |
+| down (**ESTABLISHED** player that **SELLS THIS** found → `gap: 0`) | any check, immediately | SPEC §4 de-rank rule: name it in `locals[]` at `competes: direct` + `maturity: established`, record `status: watching` |
+| down (player that sells this found, all **EARLY** → `gap: 1`) | any check, immediately | it is a contested field, not a closed one — see the established test |
+| sideways (**ADJACENT** player found → no change) | any check, immediately | record it in `locals[]` at `competes: adjacent` and say what it sells; it is intelligence, not a competitor |
 | up (found nothing → raise) | **nobody** | not-finding-it and not-existing are indistinguishable from where the searcher sits |
 
 **A local player found is not automatically a de-rank to 0.** Since 2026-08-25
-the de-rank lands on the rung the established test puts the player on: an
-established one takes the space (`gap: 0`), an early one contests it (`gap: 1`)
-and closes nothing on its own. Record it either way — `locals[]` takes the early
-players too, and an early local player is real information about the market.
+the de-rank lands on the rung the two fields put the player on. First ask
+`competes`: if it does not sell this, NOTHING MOVES — record it and go on. If it
+does, `maturity` decides: an established one takes the space (`gap: 0`), an early
+one contests it (`gap: 1`) and closes nothing on its own. Record it in every
+case; the ledger is what a builder reads to see who is already in the room.
 
 Not a matter of confidence. A searcher who looked hard and found nothing holds
 exactly the evidence of one who searched badly; only the positive control
