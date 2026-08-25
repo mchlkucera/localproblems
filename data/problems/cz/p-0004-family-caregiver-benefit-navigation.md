@@ -39,6 +39,8 @@ comps:
   traction: 'company raise undisclosed (Tracxn, 2025); £9M+ care funding unlocked for families, avg £27k each (company, 2026); employer channel'
 sources:
 - type: arbitrage
+  name: "Oma Care"
+  why: "A two-person YC W24 team enrolling US family caregivers into Medicaid programmes that pay them up to $28 an hour — the template for getting families money they are already owed."
   url: https://www.ycombinator.com/companies/oma-care
   note: 'yc-oma-care: Oma Care (YC W24) builds infrastructure to train and get family caregivers
     paid (53M caregivers in the US); CareOasis (YC S23) is the same model — a validated US
@@ -46,12 +48,16 @@ sources:
   date: '2026-08-13'
   signal: yc-oma-care
 - type: subsidy
+  name: "Příspěvek na péči"
+  why: "The Czech care allowance itself — four dependency levels, raised again in 2024-25, and the money a family wins or loses on how well it files."
   url: https://www.ycombinator.com/companies/oma-care
   note: Signal note references příspěvek na péči — four levels, raised again in 2024-25, flowing
     to ~380k dependent persons — the state benefit program the product would help families
     access.
   date: '2026-08-13'
 - type: gap-check
+  name: "First Czech market scan"
+  why: "An early sweep that returned only advice articles and government pages, and documented the application, assessment and appeal as bureaucratic and opaque."
   url: https://www.ycombinator.com/companies/oma-care
   note: 'Absence check 2026-08-13: searches return only advice articles and government pages
     (pece.cz, mpsv.gov.cz); no player that files, tracks or optimizes claims for families.
@@ -59,6 +65,8 @@ sources:
     are bureaucratic and opaque.'
   date: '2026-08-13'
 - type: tender
+  name: "TED — MPSV 'IT delivery III' framework (~€74.7M)"
+  why: "The ministry budgets tens of millions of euros a year for benefits back-office IT, while nothing is built on the side the citizen actually touches."
   url: https://ted.europa.eu/en/notice/-/detail/402149-2026
   note: 'ted-402149-2026 (context): MPSV ''IT delivery III'' framework ~€74.7M plus a dozen
     related awards (EKIS III ~€19.8M open, OKaplikace ~€65M) in Jun–Aug 2026 — the state demonstrably
@@ -66,6 +74,8 @@ sources:
     layer stays unbuilt. Adjacent spend: kept at money=1, not 2.'
   date: '2026-06-11'
 - type: statistic
+  name: "ČSÚ — the care allowance in numbers"
+  why: "374,000 people drew příspěvek na péči in December 2024, and 41.3bn CZK was paid out through it that year — the size of the pot families are navigating for."
   url: https://csu.gov.cz/produkty/prispevek-na-peci-loni-vyuzivalo-vice-nez-370-tisic-lidi
   note: 'ČSÚ release published 2025-11-14, traced by the 2026-08-20 evidence audit as the primary
     source for this record''s CORRECTION block: "V prosinci 2024 pobíralo příspěvek na péči již
@@ -76,6 +86,8 @@ sources:
   date: '2025-11-14'
   dims: []
 - type: gap-check
+  name: "Market scan — who helps a Czech family claim"
+  why: "Five Czech searches and an ARES sweep found free counselling and calculators only — pece.cz, the NRZP poradna, Rodinný průvodce — and no company that files, tracks or appeals a claim for a fee."
   url: https://pece.cz/prispevek-peci/
   note: 'Gap re-check 2026-08-20: looked for the specific product this record claims missing —
     a Czech company that files, tracks, optimizes or appeals příspěvek na péči claims on behalf
@@ -100,13 +112,23 @@ sources:
     - "placená služba sociální poradce vyřízení dávek pro seniory příspěvek na péči firma"
   checked: [ares, google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: regulation
+  name: "Care allowance raised from 1 January 2026"
+  why: "Grades I and II rise — adult grade I from 880 to 1,300 CZK monthly — so the money a family wins or loses on a correct filing grew again."
+  url: https://mpsv.gov.cz/prehledne-legislativni-zmeny-z-gesce-mpsv-ucinne-od-1-ledna-2026
+  note: 'reg-prispevek-na-peci-2026: zákon č. 360/2025 Sb. raises příspěvek na péči for
+    dependency grades I and II from 2026-01-01 — adults I 880→1,300 CZK and II 4,900→5,400 CZK
+    monthly; children I 3,300→4,900 and II 7,400→8,200 (grades III/IV unchanged). Primary
+    receipt for the body''s "raised again" claim, which previously leaned on the S2 note.'
+  date: '2026-01-01'
+  signal: reg-prispevek-na-peci-2026
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-25'
 ---
 
 Roughly 380,000 dependent persons in Czechia receive příspěvek na péči [S2], and the care it funds is largely delivered informally by family members [S1]. To get the benefit — and the correct level of it — families must navigate the application, the hodnocení stupně závislosti assessment, and frequently appeals, in a process the evidence on file characterizes as bureaucratic and opaque [S3]. Families that misnavigate it leave state money on the table while providing the care anyway.
 
-Why now: benefit levels were raised again in 2024-25 [S2], increasing the money at stake per claim, while the navigation layer remains nonexistent [S3]. Demographic aging steadily grows the claimant pool.
+Why now: benefit levels keep rising — after the 2024-25 increases [S2], grades I and II rose again from 1 January 2026, adult grade I from 880 to 1,300 CZK monthly [S7] — increasing the money at stake per claim while the navigation layer remains nonexistent [S3]. Demographic aging steadily grows the claimant pool.
 
 Who pays: families themselves (success-fee or flat-fee claim assistance, subscription support and caregiver training), analogous to how Oma Care monetizes caregiver enablement in the US [S1]. Downstream, home-care providers and insurers are plausible channel partners since properly funded clients can afford services.
 
@@ -119,3 +141,5 @@ Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) form a validated US c
 2026-08-13 · fact check — The recipient figure should read 374,000 (Dec 2024, ČSÚ/MPSV), with 41.3 bn CZK paid through the benefit in 2024 [S5]; the ~380k figure in this record is slightly above the latest confirmed official number. Source: https://csu.gov.cz/produkty/prispevek-na-peci-loni-vyuzivalo-vice-nez-370-tisic-lidi
 
 2026-08-20 · evidence audit and title sweep — Two blocks recorded on this date, merged here. The fact check above is verified: the ČSÚ release of 2025-11-14 states "V prosinci 2024 pobíralo příspěvek na péči již 374 tisíc osob" and 41,3 mld. Kč paid out through the benefit in 2024, so both its figures check out against the primary source, which is now on the ledger as [S5]. Separately, the title claimed families have "no help beyond static info portals". The 2026-08-20 gap re-check found otherwise and the body says so: pece.cz carries an entitlement calculator and a poradna, and registered odborné sociální poradenství services draft appeals [S6]. What is absent is a product that files, tracks or optimizes a claim — which is what gap 2 records — not all help. The overstated clause is gone; the gap score is untouched.
+
+2026-08-25 · regulation added — The 2026 care-allowance raise entered the evidence ledger (zákon č. 360/2025 Sb.: grades I/II up from 1 Jan 2026) and now receipts the why-now claim directly [S7], replacing the second-hand S2 note as its source. Scores unchanged.

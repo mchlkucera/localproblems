@@ -5,12 +5,12 @@ title: Czech home-care agencies burn scarce nurse time on phone-and-paper intake
   and coordination
 category: health
 geo: CZ-national
-score: 3
+score: 4
 scores:
   proof: 1
   money: 0
   urgency: 1
-  demand: 1
+  demand: 2
   gap: 0
 status: watching
 build:
@@ -49,6 +49,8 @@ comps:
   markets: [US, AU]
 sources:
 - type: arbitrage
+  name: "Sage Care"
+  why: "AI intake and CRM for US home-care agencies (YC S24), claiming over 100 minutes saved per intake — exactly the operations layer this record is about."
   url: https://www.ycombinator.com/companies/sagecare
   note: 'yc-sagecare: Sage Care (YC S24) automates home-care agency operations with AI — intake,
     communication, scheduling busywork; Cova (S26, AI-native home care agency) shows the model
@@ -56,6 +58,8 @@ sources:
   date: '2026-08-13'
   signal: yc-sagecare
 - type: gap-check
+  name: "First Czech market scan"
+  why: "An early sweep that returned only care providers and IRESOFT's Cygnus DP, and documented hundreds of agencies running on phone and paper under a chronic nurse shortage."
   url: https://www.ycombinator.com/companies/sagecare
   note: 'Absence check 2026-08-13: CZ searches return only care providers themselves and IRESOFT
     Cygnus DP (documentation/billing records, no AI ops automation). Demand point: signal
@@ -63,6 +67,8 @@ sources:
     a chronic nurse shortage.'
   date: '2026-08-13'
 - type: arbitrage
+  name: "TakeCareOS"
+  why: "YC Spring 2026, with six agencies of 200+ employees running operations on it — a third US company on care operations inside two years."
   url: https://www.ycombinator.com/companies/takecareos
   note: 'yc-takecareos: TakeCareOS (YC Spring 2026) — AI-native operating system for long-term
     care providers; third US company on care-ops within two years. Still US-only: arbitrage
@@ -70,6 +76,8 @@ sources:
   date: '2026-08-13'
   signal: yc-takecareos
 - type: gap-check
+  name: "VeruApp and three Czech rivals"
+  why: "VeruApp builds each caregiver's day automatically from the client's digital record; e-Sestřička, the pecovatelska.cz system (200+ deployments) and the publicly funded E-péče sell into the same agencies."
   url: https://veruapp.cz/
   note: 'Gap re-check 2026-08-20: OCCUPIED. The record claimed Cygnus DP was the only thing helping
     and that no Czech player automated agency operations; a Czech-language search of the operations
@@ -98,13 +106,36 @@ sources:
     - "Chytrá péče aplikace pro pečující rodiny česká sociální dávky"
   checked: [ares, google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: regulation
+  name: "Social services amendment 92/2026 Sb."
+  why: "Since 1 July 2026 pečovatelské services may take on routine health-adjacent tasks — the agencies this record covers absorb more work per scarce nurse."
+  url: https://e-sbirka.gov.cz/sb/2026/92
+  note: 'reg-soc-sluzby-92-2026: zákon č. 92/2026 Sb., main provisions in force 1 Jul 2026 —
+    care services may help with taking medication (without breaking skin integrity) and with
+    stoma/urine-bag handling; ÚP branches gain a hardship clause for cross-border allowance
+    cases. Widens the task set flowing through the same scarce staff and the same
+    phone-and-paper coordination this record describes.'
+  date: '2026-07-01'
+  signal: reg-soc-sluzby-92-2026
+- type: hiring
+  name: "Labour Office — July 2026 nurse hiring wave"
+  why: "262 employers posted 380 new general-nurse vacancies in one month — the shortage this record's capacity argument rests on, now measured monthly by a state dataset."
+  url: https://data.mpsv.cz/od/soubory/volna-mista-prirustek/
+  note: 'mpsv-2026-07-health-care: 380 new general-nurse vacancies across 262 employers (651
+    seats), annualised wage floor €10.8M, July 2026 — among the first records of the hiring
+    ledger. Hiring evidence backs demand and money, never proof. Demand 1→2: the nurse
+    shortage was previously documented only through the yc-sagecare signal note; it is now a
+    recurring state-published measurement.'
+  date: '2026-07-31'
+  signal: mpsv-2026-07-health-care
+  dims: [demand]
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-25'
 ---
 
 Hundreds of Czech agentury domácí péče and pečovatelské služby — from Včelka to charity providers — coordinate care visits by phone and paper, with Cygnus DP (IRESOFT) serving as documentation and billing record-keeping rather than operations automation [S1,S2]. Under a chronic nurse shortage, every hour of intake calls, client onboarding and schedule juggling is an hour of clinical capacity lost; admin time savings convert directly into more clients served [S1]. The tooling gap, however, is narrower than this record originally judged: Czech vendors already sell planning, field recording and coordination into exactly these agencies [S4].
 
-Why now: the nurse shortage makes capacity the binding constraint, aging demographics grow demand, and AI-native operations layers for exactly this agency profile are being funded repeatedly in the US — Sage Care (YC S24) and Cova (YC S26) within two years of each other [S1,S3].
+Why now: capacity is the binding constraint — the Labour Office logged 380 new general-nurse vacancies across 262 employers in July 2026 alone [S6] — and since 1 July 2026 an amendment lets pečovatelské services take on routine health-adjacent tasks, adding work per scarce nurse [S5]. AI-native operations layers for exactly this agency profile are funded repeatedly in the US — Sage Care (YC S24) and Cova (YC S26) [S1,S3].
 
 Who pays: the agencies. The pitch is capacity, not cost: an agency that automates intake and coordination can take on more reimbursed care with the same staff.
 
@@ -115,3 +146,5 @@ Solved elsewhere: the US home-care AI-ops cluster above [S1,S3]. The model is pr
 ## Revisions
 
 2026-08-20 · gap re-check and evidence audit — Two blocks recorded on this date, merged here. De-ranked: the operations layer is occupied. The original absence check was run in the wrong language and concluded that Cygnus DP was the only tooling in the market. Searching Czech for the operations layer returns domestic vendors on the first page: VeruApp (automatic daily work planning per caregiver from the client's digital record, field mobile app, billing and statutory reporting), e-Sestřička (cloud system for domácí a paliativní péče, odbornosti 925/720/926; SESTŘIČKA.CZ s.r.o., IČO 05752779), pecovatelska.cz from Petr Zajíc software (terénní sociální služby under zák. 108/2006 Sb., 200+ deployments) and E-péče (Ústecký kraj, OP Spravedlivá transformace, 39 providers) [S4]. Per the SPEC §4 de-rank rule: gap 1 → 0, score 4 → 3, status candidate → watching. The title lost the clause "with only a legacy record-keeping system to help", which the re-check disproved, and the non-solutions and comparables paragraphs were rewritten so the body no longer asserts an absence its own score denies. The underlying problem — phone-and-paper coordination under a nurse shortage — is not withdrawn; what is withdrawn is the claim that nobody sells into it. Also removed in the same pass: the sentence "Larger charity networks (Charita ČR) offer multi-branch deals." Charita returns no hits anywhere in the signal corpus, and yc-sagecare supports only the generic phrase "charity providers", which the lead paragraph already carries — the named organisation and the multi-branch channel claim were both unbacked.
+
+2026-08-25 · evidence added — The July 2026 Labour Office hiring aggregate (380 new general-nurse vacancies, 262 employers) and the in-force social-services amendment 92/2026 Sb. entered the evidence ledger and this record's sources [S5,S6]. Demand 1 → 2: the staffing pressure the capacity argument rests on is now documented by a recurring state dataset rather than one signal's note. Score 3 → 4; gap 0 and status watching untouched — the de-rank of 2026-08-20 stands.

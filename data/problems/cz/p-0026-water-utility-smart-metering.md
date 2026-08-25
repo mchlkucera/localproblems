@@ -21,6 +21,8 @@ build:
 comps: []
 sources:
 - type: tender
+  name: "TED — Ivančice water association smart metering (~€1.2M)"
+  why: "A municipal water association opened a competition for smart metering across its network in summer 2026."
   url: https://ted.europa.eu/en/notice/-/detail/430180-2026
   note: 'ted-430180-2026: Svazek vodovodů a kanalizací Ivančice — OPEN competition ~€1.2M
     (~29M CZK) for smart-metering installation on the water network (Jun–Jul 2026). Open tender
@@ -28,6 +30,8 @@ sources:
   date: '2026-06-24'
   signal: ted-430180-2026
 - type: tender
+  name: "TED — VaK Kroměříž smart metering (~€1.3M)"
+  why: "Kroměříž built network smart metering and Bruntál tendered a water data dispatch in the same ten weeks; the signed Kroměříž contract runs ~21.4M CZK."
   url: https://ted.europa.eu/en/notice/-/detail/372049-2026
   note: 'ted-372049-2026: VaK Kroměříž awarded ~€1.3M to build water-network smart metering
     (Jun 2026); VaK Bruntál tendered a water data dispatch (~€0.5M, Jul 2026) — three small-utility
@@ -36,6 +40,8 @@ sources:
   date: '2026-06-01'
   signal: ted-372049-2026
 - type: contract
+  name: "Registr smluv — VaK Židlochovicko (~8.4M CZK)"
+  why: "One utility signed two contracts the same day — meters and readers, then system operation and support — the supply-plus-managed-operation split this record is about."
   url: https://smlouvy.gov.cz/smlouva/39041762
   note: 'hlidac-39041762: VaK Židlochovicko signed two contracts on 30 Jul 2026 — meter/reader
     supply (~4.8M CZK) plus system operation & support (~3.6M CZK) — a FOURTH distinct small-utility
@@ -44,6 +50,8 @@ sources:
   date: '2026-07-30'
   signal: hlidac-39041762
 - type: contract
+  name: "Registr smluv — VaK Břeclav / SUEZ framework"
+  why: "A fifth utility with a live smart-metering relationship, running remote-readout devices and support off a supplier framework."
   url: https://smlouvy.gov.cz/smlouva/38219601
   note: 'hlidac-38219601: VaK Břeclav signed amendment No. 1 to a framework contract with
     SUEZ Water CZ for remote-readout devices and support (Jun 2026) — a FIFTH distinct utility
@@ -51,6 +59,8 @@ sources:
   date: '2026-06-02'
   signal: hlidac-38219601
 - type: contract
+  name: "Registr smluv — VaK Pardubice / Popron licence"
+  why: "A sixth utility amending its Smart Metering licence, and the town of Most adding a Smart Metering service from its incumbent operator — seven distinct buyers, each contracting alone."
   url: https://smlouvy.gov.cz/smlouva/38618416
   note: 'hlidac-38618416: VaK Pardubice amended its Smart Metering licence agreement with
     Popron Systems (Jun 2026) — sixth distinct utility; město Most added a Smart Metering
@@ -60,6 +70,8 @@ sources:
   date: '2026-06-30'
   signal: hlidac-38618416
 - type: gap-check
+  name: "Softlink CEM Smart and the Czech metering-service field"
+  why: "Names who already sells this here: Softlink's metering-data platform with water-utility references, VODÁRENSKÁ AKCIOVÁ SPOLEČNOST operating metering as a service, Popron's SMG Water, and SUEZ and Techem."
   url: https://www.softlink.cz/reseni/cem-smart/
   note: 'Gap check 2026-08-13: the managed-service position is NOT empty — Softlink (CZ) sells
     the CEM Smart metering-data platform with water-utility references, VODÁRENSKÁ AKCIOVÁ
@@ -68,6 +80,8 @@ sources:
     players named: gap stays 0 and status moves to watching per the de-rank rule.'
   date: '2026-08-13'
 - type: gap-check
+  name: "Softlink — water utilities served"
+  why: "Softlink's own segment page, taken live: it states CEM Smart has read Pražské vodovody a kanalizace meters remotely since 2016 at roughly a million transactions a day."
   url: https://www.softlink.cz/nase-sluzby-vyuzivaji/vodarenske-spolecnosti
   note: 'Incumbent re-verify 2026-08-24: the S6 product URL (/reseni/cem-smart/) now returns
     404 after a softlink.cz restructure, so the de-rank receipt was re-taken live. Softlink
@@ -78,8 +92,21 @@ sources:
     SPOLEČNOST as supplier with Vodovody a kanalizace Židlochovicko as buyer — the exact
     operates-as-a-service relationship the S6 note asserted. Gap stays 0, incumbents unchanged.'
   date: '2026-08-24'
+- type: contract
+  name: "Benešov — 112-sensor remote-reading pilot"
+  why: "A small utility association pilots remote water-meter reading with 2 antennas and 112 sensors — one more utility solving telemetry alone, at pilot scale."
+  url: https://smlouvy.gov.cz/smlouva/38735844
+  note: 'hlidac-36402144: Společná voda d.s.o., Benešov, €5,987 pilot, Jul 2026. One of ~15
+    small municipal meter orders and frameworks in the 2026-08-24 run alone (e.g.
+    hlidac-36650670 Říčany, hlidac-36306864 and -36810238 Hlučín, hlidac-36785330 Turnov,
+    ted-581645-2026 Brno Nový Lískovec, Brno-střed framework pacts hlidac-36737750 and
+    -36785954) — the one-tender-at-a-time pattern this record describes, continuing. Backs
+    no score point; money already rests on the open Ivančice tender.'
+  date: '2026-07-01'
+  signal: hlidac-36402144
+  dims: []
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-08-25'
 ---
 
 Czech water supply is run by hundreds of VaK companies and municipal svazky, most of them small [S2], and they are digitizing metering the only way they know: one infrastructure tender at a time. In a single ten-week TED window, Kroměříž awarded ~€1.3M for network smart metering [S2], the Ivančice association opened a ~€1.2M competition for the same [S1], and Bruntál tendered a water data dispatch [S2] — three buyers independently procuring hardware, telemetry, data platform and integration as bespoke projects [S2].

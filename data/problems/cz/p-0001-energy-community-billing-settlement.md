@@ -49,6 +49,8 @@ comps:
     energy sharing for small multi-family buildings'
 sources:
 - type: arbitrage
+  name: "Exnaton"
+  why: "ETH Zurich spin-off selling white-label energy-community billing and settlement to utilities across DACH and the Nordics — the closest template for this product."
   url: https://exnaton.com/
   note: 'de-exnaton: DACH/Nordics-proven white-label billing/settlement SaaS for energy communities
     (ETH spin-off, used by utilities); Austrian peers eFriends/OurPower validate the category
@@ -56,17 +58,23 @@ sources:
   date: '2026-08-13'
   signal: de-exnaton
 - type: complaint
+  name: "Hospodářské noviny — value lost in sharing"
+  why: "The reporting behind this record's headline claim: Czech communities lose up to roughly half the value of shared electricity to bad allocation and settlement."
   url: https://exnaton.com/
   note: 'HN (2025) report cited in de-exnaton: CZ communities reportedly lose up to ~50% of
     shared electricity value to bad allocation/settlement; municipalities founding společenství
     have zero software.'
   date: '2026-08-13'
 - type: gap-check
+  name: "First Czech market scan"
+  why: "An early sweep that returned only EDC itself, ministry guidance and ASITIS-style consultancies — superseded by the five Czech vendors found later and listed below."
   url: https://exnaton.com/
   note: 'Absence check 2026-08-13: searches return only EDC itself, ministry PR and ASITIS
     (consulting/services); no dedicated CZ community-energy billing/settlement SaaS.'
   date: '2026-08-13'
 - type: round
+  name: "Pstryk"
+  why: "Polish dynamic-pricing app for households and SMEs, €7M Series A in July 2026 — CEE investors are funding consumer and SME energy software next door."
   url: https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-july-2026
   note: 'round-pstryk: Pstryk (PL, dynamic electricity pricing for households/SMEs) raised
     EUR 7M Series A led by Future Energy Ventures, Jul 2026 — CEE investor appetite for consumer/SME
@@ -74,6 +82,8 @@ sources:
   date: '2026-08-04'
   signal: round-pstryk
 - type: tender
+  name: "TED — Petrovice u Karviné (~€278k)"
+  why: "A municipality awarded a design-and-build community-energy project in June 2026 — public budgets are paying for the generation that later needs settling."
   url: https://ted.europa.eu/en/notice/-/detail/385664-2026
   note: 'ted-385664-2026: obec Petrovice u Karviné awarded ~€278k design-and-build for ''Komunitní
     energetika'' (TED, closed award, Jun 2026) — municipal budgets are flowing into community-energy
@@ -82,6 +92,8 @@ sources:
   date: '2026-06-05'
   signal: ted-385664-2026
 - type: contract
+  name: "Registr smluv — Dům seniorů Františkov (~1.0M CZK)"
+  why: "A Liberec care home paid about 1.0M CZK for a sharing-administration contract numbered č. 58 — what this work costs today, done by hand."
   url: https://smlouvy.gov.cz/smlouva/38899662
   note: 'hlidac-38899662: Dům seniorů Františkov (Liberec) signed ''Smlouva o zajištění sdílení
     elektřiny č. 58'' (~1.0M CZK, registr smluv) — public institutions are paying for sharing
@@ -90,6 +102,8 @@ sources:
   date: '2026-07-01'
   signal: hlidac-38899662
 - type: contract
+  name: "Registr smluv — Liberec schools sharing series"
+  why: "One community enrolled about fourteen Liberec schools and kindergartens on near-identical sharing contracts in two months, numbered up to č. 58 — recurring multi-organisation spend, not one-off projects."
   url: https://smlouvy.gov.cz/smlouva/38667544
   note: 'hlidac-38667544: MŠ Dětská, Liberec signed sharing contract č. 32 with Energetické
     společenství Liberec (Jun 2026) — representative of ~14 near-identical contracts by Liberec
@@ -100,6 +114,8 @@ sources:
   date: '2026-06-29'
   signal: hlidac-38667544
 - type: contract
+  name: "Registr smluv — sdílEjme / Sonnentor"
+  why: "A public regional agency administers sharing for Sonnentor inside the sdílEjme community — the first private company in the evidence, with a public agency doing the paperwork."
   url: https://smlouvy.gov.cz/smlouva/38760740
   note: 'hlidac-38760740: Jihomoravská energetická agentura signed a sharing-administration
     contract covering Sonnentor within the sdílEjme community (Jun 2026) — the first private-company
@@ -109,6 +125,8 @@ sources:
   date: '2026-06-29'
   signal: hlidac-38760740
 - type: gap-check
+  name: "Delta Green"
+  why: "Prague spot-price supplier and household flexibility aggregator, ~€4.2M raised — no community administration or member billing on its site, but the most plausible local entrant to watch."
   url: https://www.deltagreen.cz/
   note: 'Incumbent re-check 2026-08-14 (round-delta-green flag): Delta Green (Prague, EUR 2M
     Oct 2025 after EUR 2.2M May 2024) is a spot-price electricity supplier and household flexibility
@@ -120,6 +138,8 @@ sources:
   date: '2026-08-14'
   signal: round-delta-green
 - type: contract
+  name: "Registr smluv — Nemocnice Pardubického kraje"
+  why: "A regional hospital group contracted a community for electricity sharing (~200k CZK) — the Liberec enrolment pattern repeating in a second region and a new buyer type."
   url: https://smlouvy.gov.cz/smlouva/38404378
   note: 'hlidac-38404378: Nemocnice Pardubického kraje contracted Energetické společenství
     východních Čech for electricity sharing (~200k CZK vč. DPH, registr smluv, Jun 2026) —
@@ -128,6 +148,8 @@ sources:
   date: '2026-06-16'
   signal: hlidac-38404378
 - type: subsidy
+  name: "Modernizační fond — KOMUNERG 1/2025"
+  why: "1bn CZK (~€40.8M) for energy communities and municipalities building shared generation, open until 31 Dec 2027 — it funds the buyers, and every funded build needs settling afterwards."
   url: https://sfzp.gov.cz/dotace-a-pujcky/modernizacni-fond/vyzvy/
   note: 'dotace-mf-komunerg-1-energeticka-spolecenstvi: Modernizační fond KOMUNERG 1/2025 —
     1bn CZK (~€40.8M) for energy communities, municipalities and their associations building
@@ -136,6 +158,8 @@ sources:
   date: '2027-12-31'
   signal: dotace-mf-komunerg-1-energeticka-spolecenstvi
 - type: regulation
+  name: "ERÚ vyhláška 132/2026 Sb."
+  why: "From 1 September 2026 the three-ORP territorial limit on energy communities is gone and sharing allocation extends to groups of up to 100 supply points — bigger groups, harder settlement."
   url: https://e-sbirka.gov.cz/sb/2026/132
   note: 'reg-eru-sdileni-132-2026: ERÚ vyhláška 132/2026 Sb. amends the electricity market
     rules — the 3-ORP territorial restriction on energy communities is removed, the five-round
@@ -147,6 +171,8 @@ sources:
   date: '2026-09-01'
   signal: reg-eru-sdileni-132-2026
 - type: gap-check
+  name: "Enerio and four Czech rivals"
+  why: "Enerio sells automated member onboarding, invoicing and full EDC integration — one of five Czech products (with Softlink CEM, EnerCA, ENERGOMETR and CANCOM) already holding this position."
   url: https://enerio.cz/
   note: 'Gap re-check 2026-08-20: looked for Czech software that runs energy-community member
     administration, allocation keys and member billing over EDC data. The position is NOT empty
@@ -169,8 +195,20 @@ sources:
     - "Czech energy community electricity sharing billing settlement software vendor EDC"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: contract
+  name: "Energetické společenství Liberec — the schools wave"
+  why: "Liberec schools and kindergartens signed a run of electricity-sharing contracts in summer 2026 — municipal energy communities are operating practice now, each needing allocation and settlement."
+  url: https://smlouvy.gov.cz/smlouva/38642412
+  note: 'hlidac-36312136 plus six sibling contracts from the same run (hlidac-36314220,
+    -36334512, -36352144, -36360948, -36364860, -36394204): Liberec schools and kindergartens
+    joining Energetické společenství Liberec under the LEX OZE II framework, Jun–Jul 2026.
+    Corroborates operating municipal communities as buyers; backs no score point — money and
+    demand already carry receipts.'
+  date: '2026-06-26'
+  signal: hlidac-36312136
+  dims: []
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-08-25'
 ---
 
 Czech energy communities (energetická společenství) and groups sharing electricity under Lex OZE II have been legally able to share power via EDC since August 2024, but they run member administration, allocation keys and settlement by hand [S1]. Per Hospodářské noviny reporting on file, communities lose up to roughly half of the value of shared electricity to bad allocation and settlement [S2].
