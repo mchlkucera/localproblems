@@ -45,6 +45,9 @@ export RUN_ID
 #    scripts/fetch_nen.sh      $1 = SINCE (YYYY-MM-DD)  $2 = OUTDIR
 #    scripts/fetch_smlouvy.sh  $1 = SINCE (YYYY-MM-DD)  $2 = OUTDIR
 #    scripts/fetch_mpsv.sh     $1 = OUTDIR              $2 = optional YYYY-MM
+#    ---- landed 2026-08-25 ---------------------------------------------------
+#    scripts/fetch_veklep.sh   $1 = SINCE (YYYY-MM-DD)  $2 = OUTDIR  (the
+#                                                        ted/hlidac shape)
 #    scripts/fetch_ares.sh     $1 = OUTDIR              --   (enrichment; MUST
 #                                                        run AFTER mpsv, same
 #                                                        dir — see the ares case)
@@ -219,6 +222,7 @@ while IFS=$'\t' read -r key status script allow_missing; do
     # ---- outdir is $2, SINCE is $1 -----------------------------------------
     ted)              run_feed "$script" "$SINCE_YYYYMMDD" "$OUTDIR" ;;
     hlidac)           run_feed "$script" "$SINCE_ISO"      "$OUTDIR" ;;
+    veklep)           run_feed "$script" "$SINCE_ISO"      "$OUTDIR" ;;
     # ---- outdir is $1 -------------------------------------------------------
     cc-cz|yc-oss)     if [ "$FEEDS_DONE" -eq 0 ]; then
                         run_feed "$script" "$OUTDIR"; FEEDS_DONE=1

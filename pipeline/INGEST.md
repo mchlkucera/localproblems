@@ -80,6 +80,7 @@ this loop, and it is the only step that needs you.
    explicit, never conventional:
      ted      scripts/fetch_ted.sh     <SINCE YYYYMMDD>   <rawdir>
      hlidac   scripts/fetch_hlidac.sh  <SINCE YYYY-MM-DD> <rawdir>
+     veklep   scripts/fetch_veklep.sh  <SINCE YYYY-MM-DD> <rawdir>
      coi      scripts/fetch_coi.sh     <SINCE YYYY-MM-DD> <rawdir>
      nen      scripts/fetch_nen.sh     <SINCE YYYY-MM-DD> <rawdir>
      smlouvy  scripts/fetch_smlouvy.sh <SINCE YYYY-MM-DD> <rawdir>
@@ -201,13 +202,21 @@ this loop, and it is the only step that needs you.
    3a. MECHANICAL (script, always runs — `--mechanical-only` is this pass
        on its own): canonical id per CONVENTIONS.md; skip if the id is in
        data/signals/seen.txt; structured field extraction (url, date,
-       money_eur, geo_origin); TED CPV group -> sector; scores.money as
-       pure arithmetic on money_eur; scores.urgency by arithmetic wherever
-       a machine-readable date exists; the verbatim `quote`; liveness
-       http_status + fetched_at; extraction: structured.
+       money_eur, geo_origin); scores.money as pure arithmetic on
+       money_eur; scores.urgency by arithmetic wherever a machine-readable
+       date exists; the verbatim `quote`; liveness http_status +
+       fetched_at; extraction: structured. (2026-08-24: "TED CPV group ->
+       sector" is GONE from this list — the scripted tender feeds are
+       threshold firehoses now, mechanical keyword/category selection is
+       dead, and `sector` is model pass A's duty in 3b.)
    3b. MODEL PASS A — scoring: scores.scale, scores.recurrence, the
        urgency grade-3 branch only ("already in force AND actively
-       enforced"), and for suggest/reddit the PAIN LANGUAGE bar — record
+       enforced"), and — since 2026-08-24 — `sector` for every scripted
+       feed whose extractor carries no sector judgment (ted, hlidac,
+       veklep among them): the fetchers select by uniform threshold or
+       complete taxonomy only, so classification is model judgment here,
+       never a keyword list in a fetch script. Also for suggest/reddit
+       the PAIN LANGUAGE bar — record
        only complaints, failures, workarounds; engagement metrics never
        justify a record, and neither feed may dominate the demand ledger.
        READ `_needs` ON EACH STAGED RECORD RATHER THAN THIS PARAGRAPH.

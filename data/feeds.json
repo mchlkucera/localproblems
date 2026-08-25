@@ -4,7 +4,7 @@
     {
       "key": "ted",
       "name": "TED — EU tender notices",
-      "yields": "EU-threshold public tenders with CZ place of performance; CPV-grouped notices carrying buyer, value and tender deadline.",
+      "yields": "EU-threshold public tenders with CZ place of performance — the COMPLETE JURISDICTION, one all-CPV query with no classification clause; notices carry buyer, value, tender deadline and their CPV codes as free labels (sector is the model half's job, `sector` in _needs).",
       "role": "feed",
       "signal_source": "ted",
       "id_prefixes": [
@@ -31,9 +31,9 @@
           "publication-date"
         ],
         "expected_yield": {
-          "min": 40,
-          "max": 900,
-          "basis": "AUTHOR ESTIMATE, no rolling median — only two run-dates exist (2,827 on the 60-day backfill, 225 on the follow-up), which is a backfill and a follow-up, not a rate. Counts items_fetched. Replace with a rolling median once six fetch_log runs exist."
+          "min": 500,
+          "max": 15000,
+          "basis": "MEASURED 2026-08-24: a 30-day CZ window with NO classification-cpv clause returns ~4,754 notices vs 1,208 under the old 5-CPV-group subset — the subset silently discarded ~75% of the jurisdiction, which is why the groups died under the 2026-08-24 selection law (jurisdiction-complete coverage: place-of-performance CZE plus a publication-date window is the whole query; CPV codes stay in the fetched fields as free labels). The default 60-day window therefore lands ~9,500 notices; the ceiling is the fetcher's 60-page safety cap x 250/page. Counts items_fetched. Replace with a rolling median once six fetch_log runs exist."
         },
         "allow_missing": false
       }
@@ -41,7 +41,7 @@
     {
       "key": "hlidac",
       "name": "Hlídač státu — registr smluv",
-      "yields": "CZ public contracts below the TED threshold, from the state contracts register; subject, VAT-inclusive value and signature date.",
+      "yields": "CZ public contracts from the state contracts register as a THRESHOLD FIREHOSE: one query, every contract over 20M CZK (~EUR 800k), no keyword selection — sector labels are the model half's job (`sector` in _needs). Subject, VAT-inclusive value and signature date.",
       "role": "feed",
       "signal_source": "hlidac",
       "id_prefixes": [
@@ -69,9 +69,48 @@
           "hodnotaVcetneDph"
         ],
         "expected_yield": {
-          "min": 5,
-          "max": 800,
-          "basis": "MEASURED CEILING plus an author floor. scripts/fetch_hlidac.sh issues 7 queries and pages each one to HLIDAC_PAGES (default 4) pages of 25, so 700 items is a hard maximum. required_fields CORRECTED 2026-08-20: the previous list demanded `cenaSDph`, which appears on 0 of 75 items across three authenticated 200s — it is a QUERY-DSL field (the it-large query filters on cenaSDph:>10000000 and returns 37 hits), not a response field, so the FIELDS check would have declared BROKEN on every healthy payload. The four named here were each present on 25/25 items in all three probes. This is still the feed whose 302 login page was stored as a .json payload; required_fields exists to catch that body, which is exactly why it has to name fields the real body actually carries."
+          "min": 100,
+          "max": 1500,
+          "basis": "MEASURED THRESHOLD VOLUMES plus a hard page ceiling. Probed live 2026-08-24 against api.hlidacstatu.cz: cenaSDph:>100000000 -> 95 contracts in July 2026 (1,079 full year); >50000000 -> 182; >20000000 -> 457. scripts/fetch_hlidac.sh issues ONE firehose query (cenaSDph:>20000000, windowed on datumUzavreni — the keyword queries died 2026-08-24 under the selection law: threshold and taxonomy only, labels are model judgment) and pages it to HLIDAC_PAGES (default 60) pages of 25, so 1,500 items is a hard maximum; the default 70-day window holds ~1,070 at the measured ~460/month. The floor brackets a thin month. Counts items_fetched. required_fields note carried over from the 2026-08-20 correction: cenaSDph is a QUERY-DSL field appearing on 0 of 75 response items across three authenticated 200s — it filters, it never appears in a body — so it must stay OUT of required_fields even though the firehose query now filters on it; the four named here were present 25/25 in all probes, and this is still the feed whose 302 login page was once stored as a .json payload."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "veklep",
+      "name": "VeKLEP — legislativní knihovna (via Hlídač datasety)",
+      "yields": "Czech legislative drafts from the government's e-library (ODok VeKLEP), mirrored as a queryable Hlídač dataset: material title, submitter, type, process stage and dates, windowed on last modification. Every draft carries a mandatory RIA whose first section is 'Definice problému' — a state-authored problem statement; the script stages metadata and links only, and the RIA PDFs are read by the model half / reg-scan, never fetched-and-judged mechanically.",
+      "role": "feed",
+      "signal_source": "veklep",
+      "id_prefixes": [
+        "veklep"
+      ],
+      "evidence_type": "regulation",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://api.hlidacstatu.cz/api/v2/datasety/veklep/hledat",
+      "script": "scripts/fetch_veklep.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "Same Hlídač státu API, token and open-data terms as the `hlidac` row (HLIDAC_STATU_TOKEN — see that row's basis for the token-name correction); the underlying corpus is VeKLEP, the government's own public ODok portal (apps.odok.cz/veklep), published for exactly this kind of reading. Verified live 2026-08-25: dataset metadata and search both HTTP 200 under the token, 8,708 records. GDPR NOTE, stated at registration: the payload's adresaPripominek field is a named civil servant's work email; the extractor never reads it and AC-GDPR1 refuses any record it would leak into.",
+        "checked": "2026-08-25"
+      },
+      "contract": {
+        "parse": "json",
+        "required_fields": [
+          "PID",
+          "nazevMaterialu",
+          "url",
+          "typMaterialu",
+          "datumPosledniUpravy"
+        ],
+        "expected_yield": {
+          "min": 10,
+          "max": 200,
+          "basis": "MEASURED 2026-08-25 on the live dataset: 8,708 records total; 80 items touched in the trailing 30 days by datumPosledniUpravy (the window field the fetcher queries); 27-36 NEW materials/month by datumAutorizace (May 36, Jun 33, Jul 27). The default 70-day window therefore holds ~190 touched items and the fetcher's page cap (VEKLEP_PAGES=8 x 25) makes 200 a hard maximum. required_fields were chosen from a live 25-item probe: each named field was present on 25/25; predkladatel (submitter) was present on only 15/25 and so stays out of the contract and degrades to empty in the extractor. Counts items_fetched."
         },
         "allow_missing": false
       }
@@ -444,7 +483,7 @@
     {
       "key": "demand-scan",
       "name": "Demand research harvest (agent)",
-      "yields": "Monthly agent research pass over NKÚ findings, ombudsman reports, civic complaint data, chamber and NGO surveys and consultations.",
+      "yields": "Monthly agent research pass over NKÚ findings, ombudsman reports, civic complaint data, chamber and NGO surveys and consultations. Runs two passes: the monthly broad scan, and on-demand topic-scoped deep sweeps (pipeline/SWEEP.md) — same source value, same id prefixes, same ledger, same evidence bar. The broad pass walks the mandatory per-feed source checklist in pipeline/SCANS.md — a source not visited that pass is a named coverage gap in the run manifest, never a silence.",
       "role": "feed",
       "signal_source": "demand-scan",
       "id_prefixes": [
@@ -491,7 +530,7 @@
     {
       "key": "arb-scan",
       "name": "Arbitrage scan (agent)",
-      "yields": "Foreign-market scans: companies running a proven model abroad with no Czech equivalent.",
+      "yields": "Foreign-market scans: companies running a proven model abroad with no Czech equivalent. Runs two passes: the monthly broad scan, and on-demand topic-scoped deep sweeps (pipeline/SWEEP.md) — same source value, same id prefixes, same ledger, same evidence bar. The broad pass walks the mandatory per-feed source checklist in pipeline/SCANS.md — a source not visited that pass is a named coverage gap in the run manifest, never a silence.",
       "role": "feed",
       "signal_source": "arb-scan",
       "id_prefixes": [
@@ -584,7 +623,7 @@
     {
       "key": "reg-scan",
       "name": "Regulatory-deadline harvest (agent)",
-      "yields": "Dated CZ and EU regulatory obligations — transposition deadlines, in-force dates and compliance waves — read by an agent from EUR-Lex, e-Sbirka, vlada.gov.cz and sector regulators.",
+      "yields": "Dated CZ and EU regulatory obligations — transposition deadlines, in-force dates and compliance waves — read by an agent from EUR-Lex, e-Sbirka, vlada.gov.cz and sector regulators. Runs two passes: the monthly broad scan, and on-demand topic-scoped deep sweeps (pipeline/SWEEP.md) — same source value, same id prefixes, same ledger, same evidence bar. The broad pass walks the mandatory per-feed source checklist in pipeline/SCANS.md — a source not visited that pass is a named coverage gap in the run manifest, never a silence.",
       "role": "feed",
       "signal_source": "reg-scan",
       "id_prefixes": [
@@ -617,7 +656,7 @@
     {
       "key": "dotace-scan",
       "name": "Grant and subsidy call harvest (agent)",
-      "yields": "Open CZ and EU grant/subsidy calls with a deadline and an allocation — operational programmes (IROP, OPZP, OPJAK), SFZP, TACR, national recovery plan and EU CINEA/HaDEA calls.",
+      "yields": "Open CZ and EU grant/subsidy calls with a deadline and an allocation — operational programmes (IROP, OPZP, OPJAK), SFZP, TACR, national recovery plan and EU CINEA/HaDEA calls. Runs two passes: the monthly broad scan, and on-demand topic-scoped deep sweeps (pipeline/SWEEP.md) — same source value, same id prefixes, same ledger, same evidence bar. The broad pass walks the mandatory per-feed source checklist in pipeline/SCANS.md — a source not visited that pass is a named coverage gap in the run manifest, never a silence.",
       "role": "feed",
       "signal_source": "dotace",
       "id_prefixes": [

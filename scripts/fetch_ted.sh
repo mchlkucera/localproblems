@@ -3,7 +3,8 @@
 # Usage: scripts/fetch_ted.sh [YYYYMMDD-since] [outdir]
 #   ARGV SHAPE: $1 = SINCE, $2 = outdir.  This script and fetch_hlidac.sh are
 #   the TWO that take outdir as $2; the other four take it as $1 (§5.3).
-# Writes one JSON per CPV group into outdir (default data/raw/<today>/).
+# Writes ted-all.json into outdir (default data/raw/<today>/) — one all-CPV
+# jurisdiction firehose; per-group files only under a TED_CPV_GROUPS backfill.
 set -euo pipefail
 export LC_NUMERIC=C   # curl's %{time_total} must use '.' whatever the locale
 
@@ -125,13 +126,27 @@ API="https://api.ted.europa.eu/v3/notices/search"
 # that decision is reviewable from the payload instead of being baked in here.
 FIELDS='["publication-number","publication-date","notice-title","buyer-name","buyer-city","classification-cpv","notice-type","form-type","contract-nature","estimated-value-lot","estimated-value-cur-lot","estimated-value-glo","estimated-value-cur-glo","total-value","total-value-cur","deadline-receipt-tender-date-lot","winner-name","winner-identifier","winner-country","winner-decision-date","organisation-name-tenderer","organisation-identifier-tenderer","organisation-name-buyer","organisation-identifier-buyer"]'
 
-# CPV groups relevant to the register (keep in sync with problem categories)
-# bash 3.2 compatible: "key:cpv-list" pairs
-CPV_GROUPS="it:72* 48*
-health:85*
-bizserv:79*
-energy:09* 65*
-construction:71*"
+# ── THE FIREHOSE ── selection law, owner mandate 2026-08-24 ──────────────────
+# A fetch script selects only by a UNIFORM NUMERIC THRESHOLD and/or a complete
+# taxonomy — NEVER by invented keywords or a hand-picked category subset. The
+# five CPV groups that stood here (it/health/bizserv/energy/construction) were
+# a judgment call wearing a taxonomy's clothes: CPV itself is complete, but
+# picking five branches of it is exactly the keyword mistake, and it was
+# MEASURED to cost most of the corpus — probed 2026-08-24, a 30-day CZ window
+# returns ~4,754 notices with NO classification-cpv clause vs 1,208 under the
+# old 5-group subset, i.e. the subset silently discarded ~75% of the
+# jurisdiction. The jurisdiction (place-of-performance CZE) IS the complete
+# taxonomy this feed selects by; CPV codes stay in FIELDS below as free labels
+# on each notice, and `sector` is filled by the model half (`_needs`).
+#
+# The default is therefore ONE group, `all`, carrying no CPV list and hence no
+# classification-cpv clause. TED_CPV_GROUPS survives as the attended-backfill
+# override (added mid-flight by a concurrent backfill run and preserved):
+# setting it, e.g. TED_CPV_GROUPS="health:85*" scripts/fetch_ted.sh 20251101
+# data/raw/<d>, restores the old "key:cpv-list" grouped behaviour for that one
+# run — a deliberate narrowing for a scoped backfill, never the daily default
+# (fetch_all.sh never sets it). Same pairs, newline-separated.
+CPV_GROUPS="${TED_CPV_GROUPS:-all}"
 
 STARTED="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 TOT_ITEMS=0; TOT_BYTES=0; TOT_MS=0; LAST_CODE=000; ERRS=""
@@ -143,7 +158,12 @@ TOT_ITEMS=0; TOT_BYTES=0; TOT_MS=0; LAST_CODE=000; ERRS=""
 while IFS=: read -r key cpv; do
   [ -n "${key:-}" ] || continue
   out="$OUTDIR/ted-$key.json"
-  echo "== $key (CPV $cpv) since $SINCE"
+  # The classification-cpv clause exists ONLY under a TED_CPV_GROUPS backfill
+  # override. The default `all` group carries no cpv list, so the query is the
+  # bare jurisdiction window — the whole point of the firehose.
+  q="(place-of-performance IN (CZE)) AND (publication-date >= $SINCE)"
+  if [ -n "${cpv:-}" ]; then q="$q AND (classification-cpv IN ($cpv))"; fi
+  echo "== $key${cpv:+ (CPV $cpv)} since $SINCE"
   page=1
   : > "$out.tmp"
   while :; do
@@ -157,7 +177,7 @@ while IFS=: read -r key cpv; do
     # NOT have this bug (an assignment does not word-split), so the quoting the
     # receipt plumbing needs is precisely what introduces it. A single-line
     # variable has no braces to expand and no line continuations to mis-parse.
-    body="{\"query\": \"(place-of-performance IN (CZE)) AND (publication-date >= $SINCE) AND (classification-cpv IN ($cpv))\", \"fields\": $FIELDS, \"limit\": 250, \"page\": $page}"
+    body="{\"query\": \"$q\", \"fields\": $FIELDS, \"limit\": 250, \"page\": $page}"
     # -f: a non-2xx from TED must NOT be stored as if it were a notice page.
     # The explicit `code = 200` test below is NOT redundant with -f: --fail only
     # trips at HTTP >= 400, so a 3xx served as the terminal response passes -f.
@@ -182,7 +202,8 @@ while IFS=: read -r key cpv; do
     echo "   page $page: $n notices (total $total)"
     [ "$n" -lt 250 ] && break
     page=$((page+1))
-    [ "$page" -gt 60 ] && break   # safety
+    [ "$page" -gt 60 ] && break   # safety: 60 x 250 = 15,000 notices, ~3x the
+                                  # measured 30-day all-CPV volume (4,754)
   done
   rm -f "$out.page"
   # merge pages into one array
@@ -201,15 +222,17 @@ PY
   echo "   -> $out: $got notices"
   TOT_ITEMS=$((TOT_ITEMS + got))
   rm -f "$out.tmp"
-  sleep 2   # TED rate-limits across consecutive CPV-group queries (observed 429)
+  sleep 2   # TED rate-limits consecutive queries (observed 429); one query in
+            # the default run, several only under a TED_CPV_GROUPS backfill
 done <<EOF
 $CPV_GROUPS
 EOF
 
-# ONE row for the registry key `ted` — the five CPV groups are internal paging,
-# not five feeds. Per-group counts print above and survive as the JSON files.
+# ONE row for the registry key `ted`. The default run is one `all` group and
+# one ted-all.json; a TED_CPV_GROUPS backfill fans out into per-group files,
+# which normalize.py maps back to `ted` by filename token either way.
 if [ -n "$ERRS" ]; then
-  mf ted error "$LAST_CODE" "$TOT_BYTES" "$TOT_ITEMS" "$TOT_MS" "$STARTED" "$OUTDIR" "cpv-group failures:$ERRS"
+  mf ted error "$LAST_CODE" "$TOT_BYTES" "$TOT_ITEMS" "$TOT_MS" "$STARTED" "$OUTDIR" "query failures:$ERRS"
 else
   mf ted ok "$LAST_CODE" "$TOT_BYTES" "$TOT_ITEMS" "$TOT_MS" "$STARTED" "$OUTDIR" ""
 fi

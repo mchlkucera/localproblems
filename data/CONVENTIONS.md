@@ -59,7 +59,11 @@ operationally.
 
 Evidence types and their feeds:
 - `funded` — companies founded/financed: yc, round, arb-scan (foreign-market scans)
-- `regulation` — regulatory triggers with dates: reg-scan
+- `regulation` — regulatory triggers with dates: reg-scan; plus the fetched
+  feed veklep (the government's legislative e-library via the Hlídač dataset
+  mirror, scripts/fetch_veklep.sh — every draft carries a mandatory RIA whose
+  first section is a state-authored problem definition; the script stages
+  metadata + links, the RIA reading is the model half's / reg-scan's job)
 - `tenders` — tenders, grants, public contracts: ted, hlidac, smlouvy (the
   state's OWN daily bulk dump of registr smluv, scripts/fetch_smlouvy.sh) and
   nen (below-threshold contracts via ISVZ open data — REGISTERED and PARKED,
@@ -108,9 +112,18 @@ id          canonical <prefix>-<nativeid>; v1 ids grandfathered unchanged.
             group>) — both AGGREGATE keys, for the `hiring` reason above
             · echys- (the Commission initiative id) · roundup- (a Vestbee
             round-up article awaiting a split into per-round records)
+            · dotace- (dotace-scan: the programme + call number or a stable
+            slug of the call, e.g. dotace-npo-31-24-138-pobytove-sluzby)
+            · veklep- (the ODok material PID, e.g. veklep-KORNDVKKWEK9 —
+            native id, case preserved)
 source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan |
             demand-scan | suggest | reddit | feed | mpsv | coi | sukl | nen |
-            smlouvy
+            smlouvy | dotace (dotace-scan agent harvests of grant/subsidy
+            calls, prefix dotace-; a grant record fetched via the Hlídač
+            dotace API stays `hlidac` — provenance, not topic) | veklep
+            (the legislative e-library via the Hlídač dataset mirror — a new
+            PUBLISHER, the ODok portal, not merely a new script, which is
+            what earns it a value where ec-hys and nku did not take one)
             THIS LIST IS AN ENUM IN web/lib/data.ts (SignalSchema.source) AND
             A LEDGER LINE CARRYING AN UNLISTED VALUE RED-BUILDS THE SITE.
             Widen the enum in a commit BEFORE the first record lands, never in

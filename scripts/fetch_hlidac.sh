@@ -209,14 +209,28 @@ echo "== auth: using \$$TOKEN_VAR via with-secrets (value never enters this shel
 
 API="https://api.hlidacstatu.cz/api/v2/smlouvy/hledat"
 
-# bash 3.2 compatible: "key|query" pairs; date-range keeps results current
-QUERIES='nis2|"kybernetická bezpečnost"
-energycom|"komunitní energetika" OR "energetické společenství"
-stavebni|"portál stavebníka" OR "stavební řízení"
-ehealth|"nemocniční informační systém" OR ehealth
-watermeter|"smart metering" OR "chytré vodoměry" OR vodoměrů
-eudi|"digitální identita" OR edoklady
-it-large|oblast:it AND cenaSDph:>10000000'
+# ── THE FIREHOSE ── selection law, owner mandate 2026-08-24 ──────────────────
+# A fetch script selects only by a UNIFORM NUMERIC THRESHOLD and/or a complete
+# taxonomy — NEVER by invented keywords. Keywords and categories are labels,
+# and labels are judgment, so they are applied in the model half (`sector` in
+# each staged record's `_needs`), not baked into the query. The seven keyword
+# queries that stood here (nis2, energycom, stavebni, ehealth, watermeter,
+# eudi, it-large) were the model half's judgment smuggled into the mechanical
+# half: every theme the list did not name was invisible, and the elderly-care
+# post-mortem showed what that costs — a contract the register needed was
+# unfetchable because nobody had invented its keyword yet.
+#
+# THE THRESHOLD IS MEASURED, NOT GUESSED. Probed live 2026-08-24 against
+# api.hlidacstatu.cz (cenaSDph: is a QUERY-DSL field — it filters, it is not in
+# the response; see HLIDAC_MONEY_FIELDS in normalize.py):
+#   cenaSDph:>100000000  ->    95 contracts in July 2026 (1,079 full year)
+#   cenaSDph:>50000000   ->   182 contracts in July 2026
+#   cenaSDph:>20000000   ->   457 contracts in July 2026
+# >20M CZK (~EUR 800k at the fixed 25 CZK/EUR) keeps every contract that can
+# score money 2+, at a volume the paging below actually covers. The existing
+# loop mechanics are untouched: the datumUzavreni window is appended per run,
+# pages are 25 items (`strana`, max 250), and the 3s sleep is the free-tier limit.
+QUERIES='firehose|cenaSDph:>20000000'
 
 # ── PAGING ── measured 2026-08-20 against three authenticated 200s ───────────
 # The API page is FIXED AT 25: `strana=1` and `strana=2` on a query whose `total`
@@ -232,12 +246,15 @@ it-large|oblast:it AND cenaSDph:>10000000'
 # filled the gap. Two independent facts have to be kept apart to see it:
 # P_ITEMS (what landed on disk) and P_TOTAL (what exists).
 #
-# The cap is a real cap, not a fix: 4 pages x 25 = 100 contracts per query. When
-# a query has more than that, the shortfall is REPORTED on the manifest row
-# rather than rounded away. Raise it with HLIDAC_PAGES if the free-tier rate
-# limit allows; each extra page costs one request and one 3s sleep.
+# The cap is a real cap, not a fix: 60 pages x 25 = 1,500 contracts. When the
+# firehose has more than that, the shortfall is REPORTED on the manifest row
+# rather than rounded away. The default is sized from the measured volume, not
+# picked: ~457 contracts/month at >20M means the default 70-day window holds
+# ~1,070, so 60 pages covers it with headroom while staying far under the
+# API's `strana` ceiling of 250. Raise it with HLIDAC_PAGES for a backfill;
+# each extra page costs one request and one 3s sleep.
 PAGE_SIZE=25
-PAGES="${HLIDAC_PAGES:-4}"
+PAGES="${HLIDAC_PAGES:-60}"
 
 TOT_ITEMS=0; TOT_AVAIL=0; TOT_BYTES=0; TOT_MS=0; LAST_CODE=000; ERRS=""
 

@@ -84,17 +84,17 @@ from mpsv_extract import extract_mpsv  # noqa: E402
 # not silently re-derived from whatever the rate was that morning.
 CZK_PER_EUR = 25.0
 
-# CPV group -> sector. The group keys come from the CPV_GROUPS table in
-# scripts/fetch_ted.sh, which is also what names the ted-<key>.json payloads.
-# TED buyers are public bodies, so IT and business-services tenders land in
-# govtech / b2b rather than a vertical.
-CPV_SECTOR = {
-    "it": "govtech",
-    "health": "health",
-    "bizserv": "b2b",
-    "energy": "energy",
-    "construction": "housing",
-}
+# CPV_SECTOR IS DEAD — selection law, owner mandate 2026-08-24. A fetch script
+# selects only by a uniform numeric threshold and/or a complete taxonomy, never
+# by invented keywords, and keywords/categories become LABELS applied in the
+# model half. The dict that stood here mapped fetch_ted.sh's five hand-picked
+# CPV groups (it/health/bizserv/energy/construction) to sectors — mechanical
+# classification riding on a judgment-shaped group list. fetch_ted.sh now
+# issues one all-CPV jurisdiction query (ted-all.json), so there is no group
+# key to map: `sector` on a ted record is None at staging, lands in `_needs`
+# like every other model field, and is filled by model pass A alongside scale
+# and recurrence. (hlidac records always worked this way — their extractor
+# never set a sector.)
 
 # Payload filename -> registry feed key. THIS IS A SEAM with the fetchers, which
 # a different worker owns: they choose filenames, this table reads them.
@@ -137,6 +137,11 @@ FILE_FEED_TOKENS = [
     # manifest shows the file as unclaimed rather than showing the feed as
     # broken. Verified 2026-08-21 that no other fetcher writes a filename
     # containing `coi`, and that `coi-*.json` contains none of the tokens above.
+    # `veklep` sits ABOVE the short generic tokens on the first-match-wins rule.
+    # Verified 2026-08-25: `veklep-p<N>.json` (the only name fetch_veklep.sh
+    # writes) contains none of the tokens below, and no other fetcher writes a
+    # filename containing `veklep`.
+    ("veklep", "veklep"),
     ("nku", "nku"), ("sukl", "sukl"), ("mpsv", "mpsv"), ("ares", "ares"),
     ("coi", "coi"),
     ("hys", "ec-hys"),
@@ -400,11 +405,13 @@ def feed_for_file(fname):
     return None
 
 
-# The SUB-FEED key inside one feed's payload set. `ted-it.json` carries the CPV
-# group `it`, which is the only thing that gives a TED record its sector; the
-# optional `-p<N>` tail is fetch_hlidac.sh's page number and is not part of the
-# key. Returns None for any other filename, and extractors treat that exactly as
-# "unknown" (CPV_SECTOR falls through to `other`) rather than guessing.
+# The SUB-FEED key inside one feed's payload set — `ted-all.json` -> `all`,
+# `hlidac-firehose-p3.json` -> `firehose`. Since 2026-08-24 NO extractor derives
+# a field from it (the CPV-group->sector mapping is dead; see the CPV_SECTOR
+# obituary above), but the key is still passed to every extractor and still
+# names the payload file an item came from. The optional `-p<N>` tail is a
+# fetcher's page number and is not part of the key. Returns None for any other
+# filename.
 PAYLOAD_KEY_RE = re.compile(r"^(?:ted|hlidac)-(.+?)(?:-p\d+)?\.json$", re.I)
 
 
@@ -820,7 +827,11 @@ def extract_ted(item, payload_key, today):
         "date": iso_date(d) or "",
         "title_native": title,
         "entity_native": buyer,
-        "sector": CPV_SECTOR.get(payload_key, "other"),
+        # None ON PURPOSE (2026-08-24): sector is a model label now that the
+        # feed is an all-CPV firehose — see the CPV_SECTOR obituary above.
+        # None puts `sector` into `_needs` via missing_required(), same as
+        # every other feed whose extractor carries no sector judgment.
+        "sector": None,
         "money_eur": money,
         "money_note": note,
         "urgency_date": iso_date(deadline),
@@ -1081,6 +1092,58 @@ def extract_ec_hys(item, payload_key, today):
     }
 
 
+def extract_veklep(item, payload_key, today):
+    """VeKLEP — one legislative draft in the government's e-library, via the
+    Hlídač mirror of the ODok portal (api.hlidacstatu.cz/api/v2/datasety/veklep).
+
+    WHY THIS FEED EXISTS: every Czech legislative draft carries a mandatory RIA
+    whose first section is "Definice problému" — a state-authored problem
+    statement. The script is MECHANICAL ONLY: it stages the draft's metadata
+    and its portal link. The RIA PDFs hang off the item's `prilohy` and are
+    read later by the model half / the reg-scan pass, never fetched-and-judged
+    here — a script that downloaded and summarized a RIA would be judgment in
+    the mechanical half.
+
+    PERSONAL DATA, STATED: the payload's `adresaPripominek` is a named civil
+    servant's work email (measured 2026-08-25 on the live dataset). It is
+    simply never read — only the named-safe fields below enter the record —
+    and the AC-GDPR1 content scan would refuse any record it leaked into.
+
+    Field presence measured 2026-08-25 on a live 25-item page: PID,
+    nazevMaterialu, url, typMaterialu, datumAutorizace, datumPosledniUpravy,
+    stavMaterialuText on 25/25; predkladatel only 15/25, so it degrades to ""
+    rather than gating the record.
+    """
+    pid = collapse(item.get("PID") or item.get("Id") or "")
+    title = collapse(item.get("nazevMaterialu") or "")
+    url = (item.get("url") or "").strip()
+    if not pid or not title or not url:
+        return None
+    predkladatel = collapse(item.get("predkladatel") or "")
+    typ = collapse(item.get("typMaterialu") or "")
+    stav = collapse(item.get("stavMaterialuText") or "")
+    duvod = collapse(item.get("duvodPredlozeni") or "")
+    # A comment deadline is a real date the world imposes — score_urgency's
+    # job. Routinely in the past by fetch time, which score_urgency hands to
+    # the model as urgency_pending rather than asserting enforcement.
+    deadline = iso_date(item.get("terminPripominekDoData"))
+    return {
+        "id": f"veklep-{pid}",
+        "source": "veklep",
+        "evidence_type": "regulation",
+        "url": url,
+        "date": iso_date(get_first(item, "datumAutorizace", "datumPosledniUpravy")) or "",
+        "title_native": title,
+        "entity_native": predkladatel,
+        "sector": None,
+        "money_eur": None,
+        "money_note": "",
+        "urgency_date": deadline,
+        "quote_parts": [p for p in (title, duvod[:280]) if p],
+        "excerpt": collapse(f"{title} — {predkladatel} [{typ}; {stav}]")[:400],
+    }
+
+
 def extract_nku(item, payload_key, today):
     """NKÚ Věstník / press release — one documented state-audit item."""
     nid = str(item.get("nku_id") or "").strip()
@@ -1169,6 +1232,7 @@ EXTRACTORS = {
     # item, i.e. ok=1 items_kept=0, the exact silent state below.
     "vestbee": extract_vestbee,
     "ec-hys": extract_ec_hys, "nku": extract_nku,
+    "veklep": extract_veklep,
     "coi": coi_extract.extract_coi, "sukl": sukl_extract.extract_sukl,
     "mpsv": extract_mpsv,
 }
@@ -1663,10 +1727,13 @@ def run_mechanical(args):
         # the FIRST file's key. MEASURED 2026-08-20 on five synthetic CPV
         # payloads (ted-it / ted-health / ted-energy / ted-bizserv /
         # ted-construction, 10 notices each): all 50 records came out
-        # `sector: b2b` — ted-bizserv sorts first. The damage is silent twice
-        # over: CPV_SECTOR is the ONLY thing that gives a TED record its sector,
-        # and a wrongly-filled sector is non-empty, so it never appears in
-        # `_needs` and no model is ever asked to correct it.
+        # `sector: b2b` — ted-bizserv sorts first. The damage was silent twice
+        # over: the then-live CPV_SECTOR table was the only thing that gave a
+        # TED record its sector, and a wrongly-filled sector is non-empty, so
+        # it never appeared in `_needs` and no model was ever asked to correct
+        # it. (2026-08-24: that table is dead and ted sector is a model field,
+        # but the lockstep zip stays — the bug class it closed is about ANY
+        # per-file fact, not that one mapping.)
         pkeys_all = []
         for fn in fnames:
             p = os.path.join(raw_dir, fn)
