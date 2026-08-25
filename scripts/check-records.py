@@ -89,10 +89,17 @@ def check(path):
     status = (re.search(r"^status: '?(\w+)", fm, re.M) or [None, ""])[1]
 
     # ---- STRUCTURE: the silent-failure class this file exists for ----------
-    for lead in LEAD_INS:
-        if lead not in arg:
-            errors.append(f"missing lead-in '{lead}' — its section renders empty "
-                          f"or the text falls into the section above")
+    # Rejected records are EXEMPT, for the same reason the cross-field
+    # invariants below exempt them: they are never rendered, so a missing
+    # lead-in cannot produce the empty-section failure this check exists to
+    # catch. Before this exemption, 8 of the checker's 11 errors were rejected
+    # records — noise that makes a real error invisible and trains everyone to
+    # skip the output. A check that cries wolf gets ignored.
+    if status != "rejected":
+        for lead in LEAD_INS:
+            if lead not in arg:
+                errors.append(f"missing lead-in '{lead}' — its section renders empty "
+                              f"or the text falls into the section above")
 
     # A near-miss lead-in is worse than a missing one: it looks written.
     for near in re.findall(r"^(Why it'?s urgent|Why this now|Who buys|Who pays for|"
