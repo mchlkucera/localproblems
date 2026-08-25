@@ -78,11 +78,38 @@ const READS: Record<Dim, string[]> = {
     there are analogs on file ("4 funded companies build this elsewhere"), so
     the strongest row states its own evidence; everything else is the level
     phrase. Total is a pure function of the sub-score — safe for every record. */
+/** The one-line read under each score.
+ *
+ *  IT IS DERIVED FROM THE DATA, NOT ONLY FROM THE NUMBER, and that is the whole
+ *  point: a read that contradicts what the reader can see two inches below it
+ *  destroys more trust than a missing read ever would. Two score values are
+ *  ambiguous and both were rendering falsehoods on live records:
+ *
+ *  `gap: 0` means TWO OPPOSITE THINGS. SCORING.md defines it as "CZ incumbent
+ *  check not done", but the SPEC §4 de-rank rule ALSO sets it to 0 when a local
+ *  player IS found. Twelve live records — every de-ranked one — printed "local
+ *  competitors not yet checked" directly above the competitors that had been
+ *  found. The presence of a gap-check source is what separates the two, so the
+ *  read asks the sources, not the integer.
+ *
+ *  `proof: 0` reads "no funded example found abroad", which is a lie whenever
+ *  comps are listed under it — p-0008 printed it above two companies with
+ *  €10.2M and €6M Series A rounds on file. Where comps exist the read states
+ *  the count and lets "Proven abroad" speak; whether the score itself is right
+ *  is a MATCH judgment this function must not pre-empt. */
 export function scoreRead(p: Problem, dim: Dim): string {
   const n = p.comps?.length ?? 0;
-  if (dim === "proof" && n > 0) {
-    if (p.scores.proof >= 3) return `${n} funded companies, proven across markets`;
-    if (p.scores.proof === 2) return `${n} funded companies build this elsewhere`;
+  if (dim === "proof") {
+    if (n > 0 && p.scores.proof >= 3) return `${n} funded companies, proven across markets`;
+    if (n > 0 && p.scores.proof === 2) return `${n} funded companies build this elsewhere`;
+    if (n > 0 && p.scores.proof <= 1)
+      return `${n} comparable${n === 1 ? "" : "s"} on file — see Proven abroad`;
+  }
+  if (dim === "gap" && p.scores.gap === 0) {
+    const checked = p.sources.some((s) => s.type === "gap-check");
+    return checked
+      ? "local players already sell this — see Local competition"
+      : "the local market has not been checked";
   }
   return READS[dim][p.scores[dim]];
 }

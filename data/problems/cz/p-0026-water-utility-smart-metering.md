@@ -117,7 +117,7 @@ Who pays: the utilities themselves via documented public procurement — today a
 
 Existing non-solutions: the managed-service position is not empty — Softlink sells the CEM Smart metering-data platform with water-utility references (running Prague's remote readouts since 2016) [S6,S7], VODÁRENSKÁ AKCIOVÁ SPOLEČNOST operates metering as a service [S6,S7], Popron Systems sells SMG Water, and SUEZ and Techem serve the utility and housing tiers [S6].
 
-Solved elsewhere: no foreign comparable is on file for this record. The evidence here is domestic and points the other way — the managed-service position small utilities would buy is already held by Czech suppliers [S6,S7].
+Solved elsewhere: no foreign comparable is on file. The evidence here is domestic and points the other way — the managed-service position small utilities would buy is already held by Czech suppliers [S6,S7].
 
 ## Revisions
 

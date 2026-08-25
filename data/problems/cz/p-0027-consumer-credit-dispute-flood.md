@@ -119,7 +119,7 @@ Who pays: non-bank lenders and banks first — each incoming FA proceeding deman
 
 Existing non-solutions: manual legal departments, outsourced law firms billing per case, and the arbiter's static information pages [S4]. A 2026-08-13 market search found no Czech product for dispute-response operations, docket management against the FA, or settlement workflow — only information portals and services [S4].
 
-Solved elsewhere, weakly: no funded analog exists for consumer-credit dispute operations specifically; the nearest proven models are AI claims-operations companies in insurance (ClaimSorted, Avallon, Basepilot, Amera) and AI-native debt collection (Audun, Norway) [S3]. This record is carried by its documented demand — the first Czech mover would be productizing a workflow that provably exists at scale rather than importing a proven product.
+Solved elsewhere, weakly: no funded analog exists for consumer-credit dispute operations specifically; the nearest proven models are AI claims-operations companies in insurance (ClaimSorted, Avallon, Basepilot, Amera) and AI-native debt collection (Audun, Norway) [S3]. The documented demand is what carries this — the first Czech mover would be productizing a workflow that provably exists at scale rather than importing a proven product.
 
 Solved elsewhere: dispute handling is funded on both sides of the Atlantic. Casap (US) raised a $25M Series A to automate the bank payment-dispute lifecycle, ClaimSorted (UK) raised $13.3M serving twenty-plus insurers as a tech-enabled claims handler, and Audun (Oslo) is building AI-native collections out of YC [S3]. The Czech arbiter's caseload is the same shape of work, still handled by hand.
 

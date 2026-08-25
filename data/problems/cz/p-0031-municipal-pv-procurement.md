@@ -80,9 +80,9 @@ Who pays: municipalities, through procurement overhead and failed procedures on 
 
 Existing non-solutions — and why no open local field is claimed: the aggregation answer partially exists and is named rather than wished for. Brno pools its city districts through SAKO's "36 FVE" framework, kraje package their own buildings (Královéhradecký ran design-build packages 3 through 5 in this window), and RES+ explicitly funds joint multi-site projects [S4]. The supply side of installers and ESCOs is dense [S4]. What the evidence shows is that these channels do not reach the long tail: 53 buyers still tendered alone in one summer [S1].
 
-No foreign analog is on file and no buyer-side complaint is documented — the record is carried by documented money and the freshness of the wave. It exists in the register because ~€60M a quarter of duplicated small-lot procurement is a measured, recurring inefficiency [S1]; it will rise if a documented complaint (svazek complaints about PV procurement burden) or an aggregation-service analog appears.
+No foreign analog is on file and no buyer-side complaint is documented — the record is carried by documented money and the freshness of the wave. The case rests on ~€60M a quarter of duplicated small-lot procurement, a measured and recurring inefficiency [S1]; it will rise if a documented complaint (svazek complaints about PV procurement burden) or an aggregation-service analog appears.
 
-Solved elsewhere: iChoosr (Netherlands) runs the group-buying model at national scale — municipalities aggregate household demand into one tendered contract, and UK councils have run it for years as Solar Together. That is the aggregation this record's one-by-one municipal buying lacks.
+Solved elsewhere: iChoosr (Netherlands) runs the group-buying model at national scale — municipalities aggregate household demand into one tendered contract, and UK councils have run it for years as Solar Together. That is the aggregation Czech one-by-one municipal buying lacks.
 
 ## Revisions
 

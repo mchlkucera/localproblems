@@ -118,7 +118,7 @@ Who pays: firms leaving the market, first and on a clock, for customer notificat
 
 Existing non-solutions: licensing advisory, sold as a service. Finreg Partners stands behind three of the eleven licences, and ARROWS, Kopečný & Partners and AMS Europe write applications and policies on law-firm economics [S3]. A Czech-language search for a productised wind-down, asset-migration or compliance-operations offering returned only more advisory [S4].
 
-Solved elsewhere: nothing — this record carries no foreign comparable at all, and none was found. No funded company anywhere has been documented productising crypto wind-down or customer-asset migration. The MiCA tooling that does exist sells to firms that stay in business: MarketGuard, AMLBot, KYC-Chain, Sigma360 and CertiK cover onboarding, AML and transaction monitoring EU-wide, none of them Czech and none of them an exit product [S4]. This wedge is carried by a live deadline, not by a proven template.
+Solved elsewhere: nothing. No foreign comparable was found. No funded company anywhere has been documented productising crypto wind-down or customer-asset migration. The MiCA tooling that does exist sells to firms that stay in business: MarketGuard, AMLBot, KYC-Chain, Sigma360 and CertiK cover onboarding, AML and transaction monitoring EU-wide, none of them Czech and none of them an exit product [S4]. This wedge is carried by a live deadline, not by a proven template.
 
 ## Revisions
 

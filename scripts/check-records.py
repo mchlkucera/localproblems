@@ -43,6 +43,15 @@ JARGON = [
 VERDICTS = ["UNPROVEN", "FAINT", "SCATTERED", "LIKELY", "CONFIRMED", "VALIDATED",
             "STRONG", "PRIME", "THIN", "UNFUNDED", "MILD", "FORCING"]
 
+# The register talking about ITSELF. A builder does not care what "this record
+# originally judged" or what "would move this record" — that is our bookkeeping
+# leaking onto a public page, the same class of tell as the retired verdict
+# labels. Facts about the world stay; facts about our filing go to Revisions.
+SELF_REF = [
+    "this record", "the record's", "in the register because", "this ledger",
+    "urgency and rank", "should jump", "would move this", "Honest limits",
+]
+
 # Argument prose only (excludes First moves / Revisions). Calibrated to flag
 # genuine bloat rather than the house norm: the owner-approved exemplar p-0010
 # runs 529 words, so a 300 target would fail the standard it is meant to enforce
@@ -72,6 +81,12 @@ def check(path):
     fm, arg, firstmoves, revisions = split_record(text)
     pid = os.path.basename(path)[:6]
     errors, warns = [], []
+
+    # values the cross-field invariants below are asserted against
+    scores = {k: int(v) for k, v in re.findall(r"^  (proof|money|urgency|demand|gap): (\d+)", fm, re.M)}
+    comps_blob = "".join(re.findall(r"^\s+traction: .*$", fm, re.M))
+    has_gapcheck = "- type: gap-check" in fm
+    status = (re.search(r"^status: '?(\w+)", fm, re.M) or [None, ""])[1]
 
     # ---- STRUCTURE: the silent-failure class this file exists for ----------
     for lead in LEAD_INS:
@@ -107,7 +122,21 @@ def check(path):
     for v in VERDICTS:
         if re.search(r"\b" + v + r"\b", arg):
             warns.append(f"retired verdict label in rendered prose: '{v}'")
+    for r in SELF_REF:
+        if r.lower() in low:
+            warns.append(f"register self-reference in rendered prose: '{r}'")
 
+    # ---- CROSS-FIELD INVARIANTS -------------------------------------------
+    # The class of defect that shipped twice and was caught by a reader, not by
+    # us: a SCORE that contradicts the record's own EVIDENCE. Prose review does
+    # not catch these — both halves read fine alone — so they are asserted.
+    funded = re.search(r"(Series [A-Z]|seed|raised|€\d|\$\d)", comps_blob, re.I)
+    if status != "rejected" and scores.get("proof", 0) == 0 and funded:
+        errors.append("proof is 0 but a comp records a raise — the score contradicts "
+                      "the comps ledger on the same page")
+    if status != "rejected" and scores.get("gap", 0) == 0 and not has_gapcheck:
+        warns.append("gap is 0 with no gap-check source — 'not checked' and 'incumbent "
+                     "found' are indistinguishable here; add the check or state it")
     words = len(re.sub(r"\[S[\d,S]+\]", "", arg).split())
     if words > ARG_WORDS_MAX:
         warns.append(f"argument {words} words (target ≤{ARG_WORDS_MAX})")
