@@ -2,6 +2,9 @@
 id: p-0010
 region: cz
 title: Small Czech trucking firms still run on phones, e-mail and paper
+fix: 'A back office for small hauliers: turn each delivered load''s paperwork into a ready
+  invoice in Czech, and put the freight documents on an electronic footing before
+  authorities must accept them in July 2027.'
 category: mobility
 geo: CZ-national
 score: 7
@@ -185,7 +188,7 @@ sources:
     score.'
   date: '2026-05-15'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-25'
 ---
 
 Road freight is one of Czechia's biggest sectors — roughly 40,000 haulier firms, most with fewer than ten trucks [S2]. Their back office is manual: a dispatcher on the phone arranging loads, someone re-typing delivery notes and CMR paperwork, invoices and factoring chased by hand [S2]. Margins are thin and drivers scarce [S2], so the admin cost per truck is one these firms cannot hire their way out of. It is repetitive, document-heavy and in Czech — exactly the shape AI phone agents and document ingestion now handle [S1].
@@ -213,3 +216,5 @@ Solved elsewhere: four funded companies already build this back office for small
 2026-08-13 · regulation added — The eFTI Regulation was appended as this record's dated trigger [S3]; its substance now sits in The window above rather than here.
 
 2026-08-20 · evidence audit and gap re-check — Two blocks recorded on this date, merged here; the second answers the first. The audit found that the S6 note asserted facts appearing nowhere in the signal it cites (cz-ringil, data/signals/funded/2026-08-14.jsonl): a founding year of 2020, "800+ companies on platform", Plzeňský Prazdroj as a client (the signal names Škoda; "Prazdroj" returns zero hits across all 6,181 signals), and a product-surface verification that Ringil "sells no haulier back-office" — the signal carries no product breakdown at all [S6]. The note then concluded "gap 1 stands", which reverses the signal's own finding: cz-ringil flags Ringil as occupying a register niche ("p-0010 claims no CZ player — Ringil is evidence to the contrary") and marks it a de-rank candidate for this record. The note, the existing-non-solutions sentence and the First moves competition line were rewritten to what the signal actually supports, and gap was deliberately left at 1 and score at 7 — moving them is a MATCH judgment under SPEC §4, not an audit one — with the gap score resting on a withdrawn note and flagged as requiring re-judgment. That re-judgment was then made in the same pass, against Ringil's own site rather than against a signal summary, and the de-rank candidacy is not upheld. Ringil s.r.o. (IČ 09194673) sells four modules — TMS, Avizace, Timesloty, Yard management — under the headline "Systém pro kompletní řízení logistiky ve výrobních a prodejních firmách", i.e. to the shipper; its carrier page opens "Zveme do Ringilu všechny dopravce našich zákazníků. Máte přístup zdarma" and offers those carriers an RFQ inbox, one-click bidding, a record of that shipper's transports and a driver app [S8]. Nothing there is the small haulier's own back office — no dispatch automation across its own book, no POD/CMR ingestion into invoicing, no invoicing or factoring — and nothing there is sold to the haulier at all: Ringil belongs with the load boards this record already excludes, on the other side of the same trade. The wider sweep found Czech haulier-side software, all of it the legacy dispatch/TMS the body already discounts, and no AI-native Czech ops player [S8]. Gap stays 1 and score stays 7. The check that was missing has now been run and recorded with its queries; it did not find an absence, it failed to find a player, and that pass had no authority to convert the second into the first by raising a score.
+
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.

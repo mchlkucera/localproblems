@@ -2,6 +2,9 @@
 id: p-0024
 region: cz
 title: Czech building owners must plan costly renovations, with no way to compare them
+fix: 'Portfolio software for building owners: score every building, rank the renovation
+  measures by cost and payback, and turn the EU energy-performance rules into a dated
+  capital plan.'
 category: housing
 geo: CZ-national
 score: 6
@@ -115,7 +118,7 @@ Why now: portfolio owners cannot answer those questions with what is on the Czec
 
 The Czech implementing dates are still unset [S3], and the infringement procedure is pressure to set them. A buyer's deadline arrives the day the law publishes.
 
-Who pays: commercial and institutional building owners triaging retrofit capex. Municipal building stock — obligated early under EPBD's public-building provisions — is a procurement channel. The money side is documented in the EPC market: 11 public buyers awarded ~€58M of energy-performance contracting between June and August 2026, including three Plzeň-region hospitals in a single week [S4]. That is exactly the spend a portfolio-analytics layer front-ends — which buildings, in what order, at what capex — documented in adjacent tenders [S4].
+Who pays: commercial and institutional building owners deciding which renovations to fund first, and in what order. Municipal building stock — obligated early under EPBD's public-building provisions — is a procurement channel. The money side is documented in the EPC market: 11 public buyers awarded ~€58M of energy-performance contracting between June and August 2026, including three Plzeň-region hospitals in a single week [S4]. That is exactly the spend a portfolio-analytics layer front-ends — which buildings, in what order, at what capex — documented in adjacent tenders [S4].
 
 Existing non-solutions: energy specialists issuing PENB certificates one building at a time (PKV Build the scale player) [S2], and portfolio energy-management platforms that monitor consumption and report ESG but carry no renovation roadmap, measure prioritisation or capex modelling — Enmon (PKV) and ENERGOMETR (DEKSOFT) [S5]. The open position is the owner-side retrofit-planning product, not retrofit delivery [S2,S5] — and the distinction is monitoring versus retrofit planning, narrower than an empty field [S5].
 
@@ -124,7 +127,7 @@ Solved elsewhere: building-portfolio decarbonisation analytics is a well-funded 
 ## Revisions
 
 
-2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed.
+2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "triaging retrofit capex" now reads "deciding which renovations to fund first, and in what order". Scores, status, source notes and every [Sn] marker are untouched.
 2026-08-13 · money receipted — The EPC award wave was put on the ledger — 11 public buyers, ~€58M between June and August 2026 [S4] — carrying money to 1. The substance now sits in How big above rather than here.
 
 2026-08-20 · evidence audit — Removed the EPC supplier-side sentence: the four named companies and associations (ENESA, ČEZ ESCO, MVV, APES) return no hits anywhere in the signal corpus and appear in no source note on this record, and the maturity verdict attached to them had nothing behind it either. The clause that survives, that the unoccupied position is the owner-side analytics product, is the record's own gap check and is now cited to [S2]. Also removed from "Who pays": the claim that banks pricing green mortgages and sustainability-linked loans are a second buyer, since no green-mortgage receipt exists in the corpus.

@@ -3,6 +3,9 @@ id: p-0004
 region: cz
 title: Families caring for ~380,000 dependent Czechs must obtain and defend příspěvek na péči
   through an opaque, bureaucratic process
+fix: 'A guided service that gets a family through the Czech care allowance (příspěvek na
+  péči) — the application, the assessment visit and the appeal — for a flat or success
+  fee.'
 category: health
 geo: CZ-national
 score: 6
@@ -122,6 +125,17 @@ sources:
     receipt for the body''s "raised again" claim, which previously leaned on the S2 note.'
   date: '2026-01-01'
   signal: reg-prispevek-na-peci-2026
+- type: regulation
+  name: "VeKLEP — bill amending the benefit's two framework acts"
+  why: "MPs filed a bill amending both the Social Services Act 108/2006 (the příspěvek na péči law) and the disability-benefits act 329/2011 — the rules families navigate are in motion again."
+  url: https://odok.cz/portal/veklep/material/ALBSDS9BKZY8/
+  note: 'veklep-ALBSDS9BKZY8: MPs'' bill no. 125 (Juchelka, Pastuchová, filed 17 Mar 2026)
+    amending zákon č. 108/2006 Sb. — the act příspěvek na péči lives in — together with zákon
+    č. 329/2011 Sb. o dávkách pro osoby se zdravotním postižením. Draft with no dated
+    obligation: context receipt only, backs no score dimension.'
+  date: '2026-03-17'
+  signal: veklep-ALBSDS9BKZY8
+  dims: []
 created: '2026-08-13'
 updated: '2026-08-25'
 ---
@@ -130,7 +144,7 @@ Roughly 380,000 dependent persons in Czechia receive příspěvek na péči [S2]
 
 Why now: benefit levels keep rising — after the 2024-25 increases [S2], grades I and II rose again from 1 January 2026, adult grade I from 880 to 1,300 CZK monthly [S7] — increasing the money at stake per claim while the navigation layer remains nonexistent [S3]. Demographic aging steadily grows the claimant pool.
 
-Who pays: families themselves (success-fee or flat-fee claim assistance, subscription support and caregiver training), analogous to how Oma Care monetizes caregiver enablement in the US [S1]. Downstream, home-care providers and insurers are plausible channel partners since properly funded clients can afford services.
+Who pays: families themselves (success-fee or flat-fee help with the claim, subscription support and caregiver training), the way Oma Care charges US families for caregiver support and training [S1]. Downstream, home-care providers and insurers are plausible channel partners since properly funded clients can afford services.
 
 Existing non-solutions: static information portals (pece.cz, mpsv.gov.cz guides) [S3] and word-of-mouth from social workers. No Czech company files, tracks or optimizes claims for families [S3] — a finding a later market search confirmed and sharpened. Help exists, but as free social counselling rather than product: pece.cz, run by NN Životní pojišťovna, carries an entitlement calculator and a poradna, and registered odborné sociální poradenství services draft appeals for families [S6].
 
@@ -142,4 +156,4 @@ Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) form a validated US c
 
 2026-08-20 · evidence audit and title sweep — Two blocks recorded on this date, merged here. The fact check above is verified: the ČSÚ release of 2025-11-14 states "V prosinci 2024 pobíralo příspěvek na péči již 374 tisíc osob" and 41,3 mld. Kč paid out through the benefit in 2024, so both its figures check out against the primary source, which is now on the ledger as [S5]. Separately, the title claimed families have "no help beyond static info portals". The 2026-08-20 gap re-check found otherwise and the body says so: pece.cz carries an entitlement calculator and a poradna, and registered odborné sociální poradenství services draft appeals [S6]. What is absent is a product that files, tracks or optimizes a claim — which is what gap 2 records — not all help. The overstated clause is gone; the gap score is untouched.
 
-2026-08-25 · regulation added — The 2026 care-allowance raise entered the evidence ledger (zákon č. 360/2025 Sb.: grades I/II up from 1 Jan 2026) and now receipts the why-now claim directly [S7], replacing the second-hand S2 note as its source. Scores unchanged.
+2026-08-25 · regulation added — The 2026 care-allowance raise entered the evidence ledger (zákon č. 360/2025 Sb.: grades I/II up from 1 Jan 2026) and now receipts the why-now claim directly [S7], replacing the second-hand S2 note as its source. Scores unchanged. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "monetizes caregiver enablement" now reads "charges US families for caregiver support and training". Scores, status, source notes and every [Sn] marker are untouched by those passes. Third pass this date, merged here: the first VeKLEP harvest put MPs' bill 125 on the ledger — it amends both framework acts behind the benefit (108/2006 and 329/2011) [S8]. A draft with no dated obligation: context only, no score moved.

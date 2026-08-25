@@ -11,7 +11,7 @@ scores:
   urgency: 3
   demand: 0
   gap: 0
-status: candidate
+status: watching
 build:
   capital: funded
   first_revenue: year-plus
@@ -91,6 +91,57 @@ sources:
     one of the incumbents the wave is being bought from, alongside ICZ e-spis.'
   date: '2026-07-31'
   signal: ted-533101-2026
+- type: gap-check
+  name: "Attested eSSL supplier scan"
+  why: "The state publishes the roster of attested records systems, and four Czech suppliers are on it — GORDIC's GINIS, ICZ.DMS's e-spis, Seyfor's ELDAx and MIT Consulting's MIT ERMS — with a dozen more Czech systems not yet attested."
+  url: https://agenturacas.gov.cz/atestace/vydane-atesty/
+  note: 'Czech-language supplier scan 2026-08-25. The decisive instrument is the state''s own
+    register: the Czech Agency for Standardization (Česká agentura pro standardizaci) publishes
+    every issued eSSL attest at agenturacas.gov.cz/atestace/vydane-atesty. At this check FOUR
+    products from FOUR Czech suppliers hold one. Atest 1/2025 — GORDIC spol. s r.o., IČO
+    47903783, Erbenova 2108/4, Jihlava — GINIS v525, issued 25.11.2025, valid to 25.11.2027,
+    extended by declaration to v5.26 on 15.04.2026. Atest 2/2026 — ICZ.DMS a.s., IČO 06696805,
+    Na hřebenech II 1718/10, Praha 4 — e-spis v3, 07.05.2026 to 07.05.2028. Atest 3/2026 —
+    Seyfor, a. s., IČO 01572377, Drobného 555/49, Brno — ELDAx eSSL v6.0.0, 07.05.2026 to
+    07.05.2028, extended to v6.0.1 on 20.05.2026. Atest 4/2026 — MIT Consulting, s.r.o. — MIT
+    ERMS v3.5, 22.07.2026 to 22.07.2028. Every attest runs two years and attaches to a product
+    version, so re-attestation is a standing cost that concentrates supply further. The wider
+    Czech eSSL field, none of it on the issued-attest list at this check, runs to roughly a
+    dozen more products: T-MAPY spol. s r.o. (IČO 47451084) TESS Online, Triada Munis ERMS,
+    GEOVAP spol. s r.o. (IČO 15049248) DMS, VERA Radnice, Alis KEO4, MAGION, ELISA, TranSoft,
+    WESS, VISION, e-spis LITE, and eZOP from SoftHouse s.r.o. (vendor listing at tesso.cz). At
+    the bottom of the market OSS Alliance gives small obce an open-source records system free,
+    with two years of hosting, in cooperation with the Ministry of the Interior — a zero-price
+    competitor for the smallest originators. CONTRACTS-REGISTER INSTRUMENT —
+    data/lookup/cz-contract-parties.jsonl aggregated by IČO over 3,984 distinct suppliers,
+    counting the distinct public buyers each serves: within its single recent ingest window
+    GORDIC serves 3 distinct public buyers (two Hradec-region secondary schools and MČ Praha 20
+    - Horní Počernice), Seyfor 2 (město Krnov, Psychiatrická nemocnice v Kroměříži), GEOVAP 2
+    (statutární město Karviná, ŘSD s.p.), ICZ a.s. (IČO 25145444) 1 (Český statistický úřad)
+    and ICZ.HEA a.s. (IČO 07240091) 1 (Nemocnice Břeclav). Multi-buyer public suppliers are the
+    incumbent signature, not a startup one. The lookup is one ingest window rather than the
+    whole registr smluv, so those counts are floors, not totals. POSITIVE CONTROLS, two of
+    them. On the contracts instrument: GORDIC, the incumbent this file already named, does
+    surface as a multi-buyer public supplier — PASSED. On Czech-language search: the same
+    method run at Softlink, the incumbent named on p-0026, surfaced its 169/868 MHz metering
+    platform — PASSED. Corpus contrast: T-MAPY, MIT Consulting, ELDAx, Munis, Triada, GEOVAP,
+    VERA Radnice and KEO4 return ZERO hits across all 11,330 signals in data/register.db, while
+    GORDIC, GINIS and e-spis appear only because they win TED-scale tenders — the pipeline sees
+    tender winners and is blind to the rest of the supply side. gap was already 0 and stays 0;
+    status moves to watching under the SPEC §4 de-rank rule on the named Czech incumbents.
+    NOTED, NOT ACTED ON: several Czech sources in this scan (tyden.cz, munis.cz, eldax.cz)
+    report an odklad giving authorities more time to move onto attested systems, and describe
+    the hard line as 1 January 2027 rather than 31 December 2026. That touches the S1 deadline
+    and needs its own verification against the statute before anything on this file changes.'
+  date: '2026-08-25'
+  queries:
+    - "seznam atestovaných elektronických systémů spisové služby atest eSSL"
+    - "elektronická spisová služba atest 2026 dodavatel atestované řešení pro úřady"
+    - "spisová služba pro obce a příspěvkové organizace software dodavatelé přehled cena migrace"
+    - "kdo dodává atestovanou spisovou službu GINIS e-spis ELDAx MIT ERMS TESS Online porovnání"
+    - "český software pro dálkové odečty vodoměrů sběr dat z měřidel vodárny systém"
+  checked: [google-cz, ares, cz-saas-directories, own-funded-ledger]
+  expires: '2026-11-23'
 created: '2026-08-13'
 updated: '2026-08-25'
 ---
@@ -101,7 +152,7 @@ Why now: the wave the deadline predicts is already in the procurement record. In
 
 Who pays: every public-law originator facing 31 December 2026 — ministries, hospitals, universities, state enterprises — first for migration onto an attested system, then annually for support. Ten weeks of TED carried ~€17M, which annualises to roughly €90M of visible spend [S2]. Individual awards spread from ~€408k at Ostrava University to ~€1.1M at Lesy ČR [S5,S6], and the Interior Ministry bought multi-year support rather than a licence [S4]. Below TED's threshold the tail is unmeasured. Vendors pay too: attestation runs per product and per version [S1], a recurring cost that concentrates supply.
 
-Existing non-solutions: this field is not empty. GORDIC's GINIS and ICZ's e-spis hold attested products and are winning the wave [S3,S7]. The problem is narrower than a missing product: a statutory deadline meeting concentrated supply and tenders that keep failing to close. No buyer-side complaint is on file, and a count of bodies still running non-attested systems is the evidence that would settle it [S2].
+Existing non-solutions: the field is not empty and the state publishes the roster. Four products hold an attest — GORDIC's GINIS, ICZ.DMS's e-spis, Seyfor's ELDAx and MIT Consulting's MIT ERMS — issued between November 2025 and July 2026, each good for two years and tied to a product version [S8]. GINIS and e-spis are winning the wave [S3,S7]. Behind them sits a wider Czech field not yet on that list — T-MAPY's TESS Online, Triada's Munis, GEOVAP, VERA Radnice, Alis's KEO4 and others — and at the bottom OSS Alliance gives small towns an open-source system free with the ministry's blessing [S8]. The problem is narrower than a missing product: a statutory deadline meeting concentrated supply and tenders that keep failing to close. No buyer-side complaint is on file, and a count of bodies still running non-attested systems is the evidence that would settle it [S2].
 
 Solved elsewhere: one comparable, and it is the right shape. Documaster (Oslo) built the first records kernel certified against Norway's Noark archival standard, took NOK 100M from Summa Equity and has grown revenue more than fifteenfold since 2017 — a national certification regime turned into a product moat rather than a barrier to entry. That is the whole of the foreign evidence; attestation this strict is otherwise a Czech construction [S1].
 
@@ -109,4 +160,4 @@ Solved elsewhere: one comparable, and it is the right shape. Documaster (Oslo) b
 
 2026-08-24 · fact check — The supply-side ban was stated one notch too widely: §69e bans offering or supplying non-attested eSSL to public-law originators ("zákaz nabízet nebo dodávat veřejnoprávním původcům"), not from sale generally — verified live on the S1 commentary, and title and lead now say so [S1]. The procurement-wave arithmetic was re-counted mechanically against the signal corpus on this date: ~30 matching records, 19 distinct buyers, SÚRAO with four publications and Nemocnice Pardubického kraje with three, as stated [S2].
 
-2026-08-25 · board-brief rewrite — The body was rewritten to the builder-first template and the missing `Solved elsewhere:` lead-in was written: without it the Proven abroad section rendered as a bare comps ledger with no prose, and the body meanwhile claimed "no foreign analog is on file" while Documaster sat on that ledger. The paragraph now states what the one comparable proves — a national records-certification regime (Norway's Noark) turned into a product moat rather than a barrier — and keeps the honest limit that attestation this strict is otherwise a Czech construction. "How big" now carries arithmetic instead of a gesture: ~€17M across ten TED weeks annualises to roughly €90M of visible spend, with the individual awards (~€642k Interior support, ~€1.1M Lesy ČR, ~€408k Ostrava University) showing the spread and the sub-threshold tail named as unmeasured [S2,S4,S5,S6]. The open follow-up moved into the local-competition paragraph so it stops landing inside Proven abroad. Every source gained a public name and why line; scores, status and internal notes untouched. Flagged for MATCH, not changed: `scores.proof` is 0 while a funded foreign comparable (Documaster, NOK 100M from Summa Equity) sits on the comps ledger.
+2026-08-25 · board-brief rewrite, then market check (one entry per date, so the two merge) — The body was rewritten to the builder-first template and the missing `Solved elsewhere:` lead-in was written: without it the Proven abroad section rendered as a bare comps ledger with no prose, and the body meanwhile claimed "no foreign analog is on file" while Documaster sat on that ledger. The paragraph now states what the one comparable proves — a national records-certification regime (Norway's Noark) turned into a product moat rather than a barrier — and keeps the honest limit that attestation this strict is otherwise a Czech construction. "How big" now carries arithmetic instead of a gesture: ~€17M across ten TED weeks annualises to roughly €90M of visible spend, with the individual awards (~€642k Interior support, ~€1.1M Lesy ČR, ~€408k Ostrava University) showing the spread and the sub-threshold tail named as unmeasured [S2,S4,S5,S6]. The open follow-up moved into the local-competition paragraph so it stops landing inside Proven abroad. Every source gained a public name and why line; scores, status and internal notes untouched. Flagged for MATCH, not changed: `scores.proof` is 0 while a funded foreign comparable (Documaster, NOK 100M from Summa Equity) sits on the comps ledger. Later the same day, the market check — the supply side was checked properly for the first time, in Czech and against the state's own list of issued attests. Four Czech suppliers hold one — GORDIC (GINIS, atest 1/2025), ICZ.DMS (e-spis, 2/2026), Seyfor (ELDAx, 3/2026) and MIT Consulting (MIT ERMS, 4/2026) — each attest running two years and tied to a product version; a dozen further Czech systems are not on the list, and OSS Alliance gives the smallest obce an open-source one free [S8]. "Existing non-solutions" now names all four rather than two. `scores.gap` was already 0 and stays 0; `status` moves candidate → watching under the SPEC §4 de-rank rule, which is what naming incumbents has always implied here. `score` is unchanged at 5. The supplier side of the contracts register was used as a second instrument: aggregating `data/lookup/cz-contract-parties.jsonl` by IČO over 3,984 suppliers shows GORDIC serving three distinct public buyers in one ingest window, Seyfor and GEOVAP two each, ICZ and ICZ.HEA one each — multi-buyer public suppliers, the incumbent signature. Flagged for verification, NOT acted on: Czech trade coverage in this scan describes an odklad and puts the hard line at 1 January 2027 rather than 31 December 2026, which touches the S1 deadline and needs checking against the statute.

@@ -73,6 +73,19 @@ sources:
     De-rank rule applied: gap 0 with incumbent named, status watching.'
   date: '2026-08-14'
   signal: round-wultra
+- type: contract
+  name: "Registr smluv — EUDIW ICS platform signed with MONET+ (~€8.85M)"
+  why: "The state trust-services authority signed delivery, development and operation of the ICS system for the European Digital Identity Wallet — the state side is being built under contract, on the clock this record describes."
+  url: https://smlouvy.gov.cz/smlouva/38738584
+  note: 'hlidac-36404756: Správa státních služeb vytvářejících důvěru contracted MONET+, a.s.
+    (IČO 26217783) for "Dodání, rozvoj a provoz systému ICS pro EUDIW", 221,248,500 CZK
+    (~€8.85M), signed 10 Jul 2026 (registr smluv 38738584; 2026-08-25 retrospective harvest).
+    A second, distinct procurement beside the DIA client-app tender [S3]: the state wallet
+    stack is being built, and MONET+ takes a named supplier position in it. Context receipt;
+    money already 2 on the open DIA tender [S3], no score moved.'
+  date: '2026-07-10'
+  signal: hlidac-36404756
+  dims: []
 created: '2026-08-13'
 updated: '2026-08-25'
 ---
@@ -81,7 +94,7 @@ Czechia must offer an EU Digital Identity Wallet to citizens and businesses by t
 
 Why now: the wallet launch is months away and the acceptance obligation lands within the scoring horizon [S1,S2]. KYC-heavy businesses that rebuild onboarding around wallet-presented attestations early can cut verification cost; the rest will scramble against a legal obligation.
 
-Who pays: relying parties — banks and payment institutions first (strong-authentication obligations under PSD2 make them the clearest obligated acceptors), then telcos, utilities and e-commerce with age/identity checks [S1]. Product surfaces named in the signal: relying-party registration and integration SDKs, KYC-flow rebuilds, QES and attribute-attestation services [S1].
+Who pays: the businesses obliged to accept the wallet — banks and payment institutions first, since the EU payment-services rules (PSD2) already make them authenticate customers strongly, then telcos, utilities and online shops that must check age or identity [S1]. Product surfaces named in the signal: relying-party registration and integration SDKs, KYC-flow rebuilds, QES and attribute-attestation services [S1].
 
 The state's own spend is documented: DIA put the national wallet's client part out as an open ~€78M competition in July 2026 [S3], which both funds an SI/dev-shop opportunity today and confirms the 2027 relying-party clock.
 
@@ -92,7 +105,7 @@ Solved elsewhere: two funded European vendors already sell the acceptance layer 
 ## Revisions
 
 
-2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed.
+2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: the who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "relying parties" now reads "the businesses obliged to accept the wallet", and the bare "PSD2" is now "the EU payment-services rules (PSD2)". No `fix:` was authored here: the argument closes with the local position held by Wultra and names no product an entrant would build that Wultra does not already sell, so the field is left absent rather than filled with something vague — the template renders nothing when it is. Scores, status, source notes and every [Sn] marker are untouched by those passes. Third pass this date, merged here: the 2026-08-25 retrospective harvest added the signed ICS-platform contract — the state trust-services authority contracted MONET+ for ~€8.85M to build and run the EUDIW ICS system [S5], a second procurement beside the DIA client tender [S3]. Context receipt; no score moved.
 2026-08-13 · money receipted — DIA's ~€78M open competition for the national wallet's client part was put on the ledger [S3]; the state is spending seriously and on schedule. The substance now sits in How big above rather than here.
 
 2026-08-14 · de-rank — The gap check this record was waiting on ran against the funded-CZ sweep and found the niche taken [S4]. Wultra's wallet gateway is precisely the relying-party acceptance product for banks and KYC-bound businesses that the title claimed does not exist, sold from Prague with fresh Series A capital [S4]. De-rank rule applied: gap stays 0 — now as a checked score with a named incumbent rather than an unchecked one — and the record moves to watching. The acceptance obligation still lands on thousands of relying parties in 2027, so residual room exists downstream of Wultra (sector-specific integrations, non-bank verticals, SI delivery), but the register cannot claim the integration path is missing.

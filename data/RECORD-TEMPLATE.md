@@ -57,6 +57,7 @@ scorecard from `scores`, the comps ledger from `comps[]`, "What you need" from
 ## Frontmatter that drives the page
 
 ```yaml
+fix: '<one plain sentence: the product a builder would actually build>'   # OPTIONAL
 score: 7                      # MUST equal the sum of the five below
 scores:
   proof: 2                    # → "Validated abroad"   (0-3)
@@ -88,6 +89,26 @@ sources:
 `name`/`why` are the public face of a source; `note` is the internal receipt.
 Without `name`/`why` the page falls back to the signal's title/summary — readable,
 but write them.
+
+### `fix:` — the proposed product, in one sentence (optional)
+
+Rendered directly under the dek, labelled `WHAT TO BUILD`. It exists because a
+builder used to have to read three sections down to First moves before learning
+what the product actually is. Rules:
+
+- **One sentence, plainest words available.** Not a plan, not a pitch, no
+  adjectives. "A marketplace where vetted nurses and carers pick up open shifts
+  at care homes, and the home pays a fee for every shift filled."
+- **Compression, not invention.** The material is already in `## First moves`
+  and in `build.note` — say what those say, shorter.
+- **No jargon.** It is the second thing read after the dek, so the same rule
+  applies: a Czech or EU acronym gets replaced or glossed inline (`NZÚ` → "the
+  state renovation subsidy").
+- **OMIT IT where the record has no clear product answer** — typically where the
+  argument closes with a named local incumbent and does not say what an entrant
+  would build that the incumbent does not already sell. The page renders nothing
+  when the key is absent, and an absent line is better than a vague one. Four
+  live records are deliberately without it.
 
 ---
 

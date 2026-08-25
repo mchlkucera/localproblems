@@ -224,6 +224,15 @@ const ProblemSchema = z.looseObject({
   id: z.string().regex(/^p-\d{4}$/),
   region: z.string().regex(/^[a-z]{2}$/),
   title: z.string().min(1),
+  // `fix` — the proposed product in ONE plain sentence, rendered directly under
+  // the dek (owner, 2026-08-25: "a simple proposed fix mentioned under the
+  // subheading"). A FIRST-CLASS FIELD, not derived prose: the dek is compressed
+  // out of the who-pays paragraph, this is authored. OPTIONAL BY DESIGN — a
+  // record whose product answer is not yet clear omits it and the docket
+  // renders without the line, which is honest; a vague fix would be worse than
+  // none. Carried as a real column in scripts/db.py (`problems.fix`), so it is
+  // NOT looseObject overflow and cannot silently vanish on the DB read path.
+  fix: z.string().min(1).optional(),
   category: z.enum(CATEGORIES),
   geo: z.string().min(1),
   score: z.number().int().min(0).max(12),
@@ -334,7 +343,7 @@ function problemsFromDb(): Problem[] {
 
   const problems: Problem[] = [];
   for (const r of rows(
-    "SELECT region, id, slug, title, category, geo, status, score," +
+    "SELECT region, id, slug, title, fix, category, geo, status, score," +
     " s_proof, s_money, s_urgency, s_demand, s_gap," +
     " build_capital, build_first_revenue, build_builder, build_note," +
     " created, updated, body, extra_json, md_file FROM problems"
@@ -389,6 +398,10 @@ function problemsFromDb(): Problem[] {
       created: String(r.created),
       updated: String(r.updated),
     };
+    // `fix` is optional: NULL in the column means the key was absent from the
+    // frontmatter, and `put` keeps it absent rather than present-and-null —
+    // the JSONL loader would never produce `fix: null`, so neither may this one.
+    put(fm, "fix", r.fix === null ? null : String(r.fix));
     if (r.extra_json !== null) Object.assign(fm, JSON.parse(String(r.extra_json)));
 
     const parsed = ProblemSchema.safeParse(fm);

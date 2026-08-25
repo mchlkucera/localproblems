@@ -3,6 +3,9 @@ id: p-0002
 region: cz
 title: Hundreds of small Czech heat-pump and solar installation firms drown in quoting, heat-load
   calculation and NZÚ subsidy paperwork
+fix: 'One tool for small heat-pump and solar firms: size the system, price the job and
+  fill in the state renovation-subsidy forms from the same quote, instead of a
+  manufacturer''s sizing tool plus spreadsheets.'
 category: energy
 geo: CZ-national
 score: 5
@@ -116,7 +119,7 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-25'
 ---
 
 Hundreds of small Czech montážní firmy execute the tens of thousands of heat-pump and photovoltaic installations driven each year by Nová zelená úsporám [S1,S2]. The evidence on file shows them drowning in the surrounding paperwork: digital site survey, heat-load calculation, quote generation, subsidy application handling and install project tracking are done with spreadsheets, manufacturer configurators and manual NZÚ form-filling [S1].
@@ -141,3 +144,5 @@ Solved elsewhere: autarc in Germany is the funded, directly adjacent analog [S1]
 ## Revisions
 
 2026-08-20 · gap re-check and evidence audit — Two blocks recorded on this date, merged here. The absence claim was false: Czech-language search found four CZ vendors selling installer-facing software to heat-pump and FVE firms — Wue, RAYNET's photovoltaics vertical, AutoERP and Infina [S6] — so gap moved 2 → 0, score 7 → 5, status candidate → watching per the SPEC §4 de-rank rule. The record's proposed first product move, the NZÚ-paperwork wedge, is the part most clearly already shipped. Two things made the original check miss this. It cited a foreign page (ycombinator.com/companies/autarc) as the receipt for a Czech absence, which proves nothing about Czechia; and the search appears to have run in English, where the same re-check returned no Czech vendor at all while the Czech-language queries returned four. None of the four appears anywhere in this register's signal corpus — they are bootstrapped SMB software companies that no funding feed surfaces. The title carried the same disproved absence, "with no vertical software", and has been cut to the part that still stands, for the same reason: the title is the most-read line on the record and it was asserting what the ledger below it now refutes. What survives is the demand claim [S1] and the observation that the CZ tools are quoting/CRM-shaped rather than autarc-depth — heat-load calculation and digital site survey remain genuinely thin here, but that is a product-differentiation argument, not an absence. Cut in the same pass: the autarc funding-and-customer parenthetical and the Reonic Series A parenthetical in the fourth first move. Both figures live only in the comps ledger — Reonic returns no hits anywhere in the signal corpus, and yc-autarc carries neither the raise nor the customer count — and a comparable's traction line cannot back a body claim. The "Where it works" ledger still prints both.
+
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.

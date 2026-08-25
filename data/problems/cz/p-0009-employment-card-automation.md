@@ -3,6 +3,9 @@ id: p-0009
 region: cz
 title: Czech employers hiring foreign workers push zaměstnanecká karta applications through
   a notoriously slow paper process via manual relocation agencies and law firms
+fix: 'Software that files a Czech employee card — the work-and-residence permit for a
+  foreign hire — end to end for the employer: documents, submission and status tracking,
+  instead of a per-case agency fee.'
 category: legal-compliance
 geo: CZ-national
 score: 4
@@ -137,3 +140,5 @@ Solved elsewhere: the US YC cluster above [S1,S3]. Validation is US-only and imm
 ## Revisions
 
 2026-08-24 · evidence audit — Cut "labor shortage keeps hiring volumes up" from Why now: a trajectory claim with no second data point anywhere in the corpus — yc-gale documents employer dependence on foreign workers at a single point in time [S1], the same defect the 2026-08-20 audit removed from p-0007. The structural-dependence claim in the lead stands [S1,S2]. A fresh spot-check on this date (Czech query for foreigner-employment tracking software) returned only generic HR/asset registries (Aptien, plusPortal), consistent with the 2026-08-20 NOT FOUND verdict [S4]. Scores untouched.
+
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.

@@ -1,5 +1,6 @@
 // The record page — a board brief, not a dossier (owner rebuild, 2026-08-24).
-// docket (dek, facts, quiet meta) · a plain "Opportunity /12" scorecard (plain
+// docket (id, dek, the one-line proposed fix, facts, quiet meta) · a plain
+// "Opportunity /12" scorecard (plain
 // labels, plain reads, no verdict words, no rundown dialogs) · a builder funnel
 // of plain sections: the problem → proven abroad → local competition → how big
 // → why now → what you need → first moves → sources. Each scorecard cell links
@@ -171,7 +172,30 @@ export default async function Record({ params }: Params) {
 
       <article>
         <header className="docket">
+          {/* The record id is back on the DETAIL page (owner correction,
+              2026-08-25). The 2026-08-21 removal read "no ids in the frontend"
+              and stripped them everywhere; the owner meant the TABLE VIEW only.
+              The id is how a record is referred to out loud — "p-0033" — and
+              without it here the only place to read one was the URL bar. It
+              returns as reference furniture, NOT as a headline: quiet, in the
+              housekeeping meta line, never above or inside the <h1> and never
+              in the crumb, which is the placement that was objected to.
+              Uppercased so it reads as a reference code rather than a slug
+              fragment, and set in the dormant `.docket .id` grammar the
+              stylesheet has carried all along — mono 600 at --fs-meta with the
+              0.08em registry tracking. NO CSS WAS ADDED: web/shared.css is
+              byte-locked to skills/design-language/assets/style.css by
+              web/scripts/check-css.mjs, and the rules already existed. That is
+              also why the id sits BESIDE `.meta` rather than inside it: the
+              stylesheet's `.docket .idline` is a space-between flex and
+              `.docket .idline .meta` carries `margin-left:auto` — the pair was
+              authored to put the filing number at the left margin and the
+              housekeeping at the right, which is the line this restores. The
+              register and category tables stay id-free — that half of the
+              2026-08-21 change was right — and the ledger rows keep their
+              `id` anchors. */}
           <p className="idline">
+            <span className="id">{p.id.toUpperCase()}</span>
             <span className="meta">
               {"updated "}<time className="rel" dateTime={p.updated}>{p.updated}</time>
               {" · created "}<time className="rel" dateTime={p.created}>{p.created}</time>
@@ -180,6 +204,22 @@ export default async function Record({ params }: Params) {
           <h1>{p.title}</h1>
           {sections.dek && (
             <p className="dek" dangerouslySetInnerHTML={{ __html: repageLedgerLinks(annotateSourceRefs(renderInline(sections.dek), sourceRefs), signalHref) }} />
+          )}
+          {/* The proposed fix — one plain sentence naming the product, directly
+              under the dek (owner, 2026-08-25). Unlike the dek, which is
+              compressed out of the who-pays paragraph at build time, this is an
+              AUTHORED frontmatter field: `fix:` on the record, a real column in
+              the projection, a typed optional in ProblemSchema. Optional by
+              design — a record with no clear product answer omits it and this
+              renders nothing, which is honest; a vague fix would read worse
+              than none. It goes through the same inline pipeline as the dek so
+              an `[Sn]` marker or a ledger url inside it resolves rather than
+              printing as literal text. */}
+          {p.fix && (
+            <p className="fixline">
+              <span className="k">What to build</span>
+              <span dangerouslySetInnerHTML={{ __html: repageLedgerLinks(annotateSourceRefs(renderInline(p.fix), sourceRefs), signalHref) }} />
+            </p>
           )}
           <dl className="facts facts--rail">
             <div><dt>Category</dt><dd><a href={`/category/${p.category}`}>{categoryLabel(p.category)}</a></dd></div>

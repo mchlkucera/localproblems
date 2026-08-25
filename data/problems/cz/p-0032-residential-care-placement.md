@@ -3,6 +3,8 @@ id: p-0032
 region: cz
 title: Czech families place elderly relatives into care homes blind — every home runs its
   own queue, and nobody sells placement
+fix: 'A placement service for families: one live list of which care homes actually have a
+  bed, applications filed on the family''s behalf, paid for by the homes per move-in.'
 category: health
 geo: CZ-national
 score: 8
@@ -174,6 +176,33 @@ sources:
     - 'služba "umístíme" seniora do domova poradce za poplatek vyřídíme žádosti domov pro seniory'
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-23'
+- type: contract
+  name: "Registr smluv — municipal senior-home construction wave"
+  why: "Thirteen-plus municipal and regional senior-care construction contracts, amendments and grants landed between November 2025 and August 2026 — Prague's Bohnice pavilions alone at ~€10.8M — new beds being built one town at a time."
+  url: https://smlouvy.gov.cz/smlouva/38020781
+  note: 'hlidac-35713825: Praha signed ~€10.8M works for pavilions 3+4 of the Bohnice senior
+    home (May 2026). The 2026-08-25 retrospective harvest carries a wave behind it: Trutnov''s
+    R. Frimla expansion on its 3rd–6th amendment (~€4.8M; hlidac-34618133, -35453613, -35834233,
+    -35868497), Litomyšl ~€8.8M (hlidac-36361600), Domov Luna Havířov ~€13.8M (hlidac-35024473),
+    Domov ve Věži ~€4.1M (hlidac-35081745), Kralupy design documentation ~€1.8M (hlidac-36742246),
+    and South Bohemia covering Domov Třeboňsko''s ineligible costs ~€5.6M (hlidac-33836861).
+    Capacity-side context: backs no score point — money already rests on the concessions
+    [S8,S9] and stays 1 (adjacent capacity spend, not placement budget).'
+  date: '2026-05-14'
+  signal: hlidac-35713825
+  dims: []
+- type: regulation
+  name: "VeKLEP — social services act amendment in draft"
+  why: "MPs filed a bill amending the Social Services Act 108/2006 and the disability-benefits act, and the implementing decree 505/2006 is being updated — the rules of the market this record sits in are moving before the planned 2031 rewrite."
+  url: https://odok.cz/portal/veklep/material/ALBSDS9BKZY8/
+  note: 'veklep-ALBSDS9BKZY8: MPs'' bill no. 125 (Juchelka, Pastuchová, filed 17 Mar 2026)
+    amending zákon č. 108/2006 Sb. o sociálních službách and zákon č. 329/2011 Sb.; alongside
+    it veklep-KORNDSFK3SWC updates implementing decree 505/2006 Sb. (comments incorporated,
+    Mar 2026). Both drafts, no dated obligation: context receipts for the why-now, backing
+    no score dimension — the 2031 rewrite [S11] remains the dated trigger on file.'
+  date: '2026-03-17'
+  signal: veklep-ALBSDS9BKZY8
+  dims: []
 created: '2026-08-25'
 updated: '2026-08-25'
 ---
@@ -198,4 +227,4 @@ Solved elsewhere: A Place for Mom (US) raised $175M in growth equity at a valuat
 
 ## Revisions
 
-2026-08-25 · record created — Minted from the elder-care deep sweep (run 2026-08-24): demand from the MPSV yearbook queue statistics [S4] and capacity models [S5], money from the Brno and Praha 14 concessions [S8,S9] and the closed NPO call [S10], comparables verified against their funding announcements [S1,S2,S3]. The 80+ figures were recomputed from the primary ČSÚ workbook (Tab. 1, middle variant): 465,991 on 1 Jan 2023 → 690,376 on 1 Jan 2030, +48.2% [S7]. Unmet-application counts are stated as a multi-application pressure index throughout, never as persons waiting [S4].
+2026-08-25 · record created — Minted from the elder-care deep sweep (run 2026-08-24): demand from the MPSV yearbook queue statistics [S4] and capacity models [S5], money from the Brno and Praha 14 concessions [S8,S9] and the closed NPO call [S10], comparables verified against their funding announcements [S1,S2,S3]. The 80+ figures were recomputed from the primary ČSÚ workbook (Tab. 1, middle variant): 465,991 on 1 Jan 2023 → 690,376 on 1 Jan 2030, +48.2% [S7]. Unmet-application counts are stated as a multi-application pressure index throughout, never as persons waiting [S4]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched by that pass. Third pass this date, merged here: the 2026-08-25 retrospective harvest added the municipal construction wave — 13+ senior-care building contracts and grants Nov 2025–Aug 2026, led by Prague's Bohnice pavilions [S13] — and the pending legislative motion on the Social Services Act (MPs' bill 125 plus the decree 505/2006 update) [S14]. Both context; no score moved.

@@ -3,6 +3,8 @@ id: p-0033
 region: cz
 title: Czech care providers are short thousands of workers and fill shifts by overtime and
   word of mouth — no staffing marketplace serves care
+fix: 'A marketplace where vetted nurses and carers pick up open shifts at care homes, and
+  the home pays a fee for every shift filled.'
 category: health
 geo: CZ-national
 score: 6
@@ -138,4 +140,4 @@ Solved elsewhere: ShiftKey (US) raised $300M at a valuation above $2 billion let
 
 ## Revisions
 
-2026-08-25 · record created — Minted from the first records of the hiring ledger (July 2026 Labour Office aggregates [S4]) joined with the APSS staffing survey [S3] and the elder-care sweep's regulation and capacity evidence [S5,S6]. Hiring evidence backs demand and money, never proof; proof rests on the US and GB comparables alone [S1,S2] and stays at 1 with no DE/AT/PL/Nordics analog on file. Grason's possible healthcare vertical could not be confirmed and is recorded as unresolved rather than asserted either way [S8].
+2026-08-25 · record created — Minted from the first records of the hiring ledger (July 2026 Labour Office aggregates [S4]) joined with the APSS staffing survey [S3] and the elder-care sweep's regulation and capacity evidence [S5,S6]. Hiring evidence backs demand and money, never proof; proof rests on the US and GB comparables alone [S1,S2] and stays at 1 with no DE/AT/PL/Nordics analog on file. Grason's possible healthcare vertical could not be confirmed and is recorded as unresolved rather than asserted either way [S8]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.

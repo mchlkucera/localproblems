@@ -3,12 +3,15 @@ id: p-0011
 region: cz
 title: Czech home-care agencies burn scarce nurse time on phone-and-paper intake, scheduling
   and coordination
+fix: 'Czech-speaking voice intake for home-care agencies — the calls that book, move and
+  confirm visits answered automatically, on top of the scheduling system the agency
+  already runs.'
 category: health
 geo: CZ-national
-score: 4
+score: 5
 scores:
   proof: 1
-  money: 0
+  money: 1
   urgency: 1
   demand: 2
   gap: 0
@@ -129,6 +132,19 @@ sources:
   date: '2026-07-31'
   signal: mpsv-2026-07-health-care
   dims: [demand]
+- type: contract
+  name: "ÚZIS — KOMPAS home-care data layer (~€5.4M)"
+  why: "The state health-statistics institute signed a €5.4M partnership to build classification, recommended practices and cost models for home and community nursing care — public money entering exactly the data layer these agencies run on."
+  url: https://smlouvy.gov.cz/smlouva/38765500
+  note: 'hlidac-36430740: Ústav zdravotnických informací a statistiky signed a partnership
+    agreement implementing the KOMPAS project — classification, recommended practices and
+    cost models for home and community nursing care — worth ~€5.44M (registr smluv, 14 Jul
+    2026). Money 0→1: a relevant public contract now funds the domain''s data foundations;
+    held below 2 because it is state project money, not an open tender a builder can win
+    or agency purchasing budget.'
+  date: '2026-07-14'
+  signal: hlidac-36430740
+  dims: [money]
 created: '2026-08-13'
 updated: '2026-08-25'
 ---
@@ -137,7 +153,7 @@ Hundreds of Czech agentury domácí péče and pečovatelské služby — from V
 
 Why now: capacity is the binding constraint — the Labour Office logged 380 new general-nurse vacancies across 262 employers in July 2026 alone [S6] — and since 1 July 2026 an amendment lets pečovatelské services take on routine health-adjacent tasks, adding work per scarce nurse [S5]. AI-native operations layers for exactly this agency profile are funded repeatedly in the US — Sage Care (YC S24) and Cova (YC S26) [S1,S3].
 
-Who pays: the agencies. The pitch is capacity, not cost: an agency that automates intake and coordination can take on more reimbursed care with the same staff.
+Who pays: the agencies. The pitch is capacity, not cost: an agency that automates intake and coordination can take on more reimbursed care with the same staff. The state is meanwhile paying to standardize the domain's data: ÚZIS signed ~€5.4M for KOMPAS — classification, recommended practices and cost models for home nursing care [S7].
 
 Existing non-solutions — superseded. The original check found only the providers themselves and IRESOFT [S2], but it searched the wrong words: domestic vendors hold the operations layer [S4]. VeruApp plans each caregiver's day automatically from the client's digital record and carries a field mobile app; e-Sestřička covers domácí a paliativní péče across odbornosti 925, 720 and 926; the pecovatelska.cz system from Petr Zajíc software runs terénní sociální služby in more than 200 locations; and Ústecký kraj is putting the E-péče field app into 39 providers on EU money [S4]. Phone and paper are still widespread, but they are no longer the only option on the market.
 
@@ -147,4 +163,4 @@ Solved elsewhere: the US home-care AI-ops cluster above [S1,S3]. The model is pr
 
 2026-08-20 · gap re-check and evidence audit — Two blocks recorded on this date, merged here. De-ranked: the operations layer is occupied. The original absence check was run in the wrong language and concluded that Cygnus DP was the only tooling in the market. Searching Czech for the operations layer returns domestic vendors on the first page: VeruApp (automatic daily work planning per caregiver from the client's digital record, field mobile app, billing and statutory reporting), e-Sestřička (cloud system for domácí a paliativní péče, odbornosti 925/720/926; SESTŘIČKA.CZ s.r.o., IČO 05752779), pecovatelska.cz from Petr Zajíc software (terénní sociální služby under zák. 108/2006 Sb., 200+ deployments) and E-péče (Ústecký kraj, OP Spravedlivá transformace, 39 providers) [S4]. Per the SPEC §4 de-rank rule: gap 1 → 0, score 4 → 3, status candidate → watching. The title lost the clause "with only a legacy record-keeping system to help", which the re-check disproved, and the non-solutions and comparables paragraphs were rewritten so the body no longer asserts an absence its own score denies. The underlying problem — phone-and-paper coordination under a nurse shortage — is not withdrawn; what is withdrawn is the claim that nobody sells into it. Also removed in the same pass: the sentence "Larger charity networks (Charita ČR) offer multi-branch deals." Charita returns no hits anywhere in the signal corpus, and yc-sagecare supports only the generic phrase "charity providers", which the lead paragraph already carries — the named organisation and the multi-branch channel claim were both unbacked.
 
-2026-08-25 · evidence added — The July 2026 Labour Office hiring aggregate (380 new general-nurse vacancies, 262 employers) and the in-force social-services amendment 92/2026 Sb. entered the evidence below [S5,S6]. Demand 1 → 2: the staffing pressure the capacity argument rests on is now documented by a recurring state dataset rather than one signal's note. Score 3 → 4; gap 0 and status watching untouched — the de-rank of 2026-08-20 stands.
+2026-08-25 · evidence added — The July 2026 Labour Office hiring aggregate (380 new general-nurse vacancies, 262 employers) and the in-force social-services amendment 92/2026 Sb. entered the evidence below [S5,S6]. Demand 1 → 2: the staffing pressure the capacity argument rests on is now documented by a recurring state dataset rather than one signal's note. Score 3 → 4; gap 0 and status watching untouched — the de-rank of 2026-08-20 stands. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched by that pass. Third pass this date, merged here: the ÚZIS KOMPAS partnership (~€5.44M for home-care classification, recommended practices and cost models) entered the evidence from the 2026-08-25 retrospective harvest [S7]. Money 0 → 1 — a relevant public contract now funds the domain's data foundations — and score 4 → 5; gap 0 and status watching still stand.

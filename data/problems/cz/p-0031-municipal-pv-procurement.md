@@ -2,6 +2,8 @@
 id: p-0031
 region: cz
 title: Czech towns buy rooftop solar one by one, and overpay for it
+fix: 'An aggregator that pools many towns'' rooftop-solar projects into one fixed-price
+  contract, so the lots stop being too small for a supplier to bid on.'
 category: energy
 geo: CZ-national
 score: 3
@@ -85,5 +87,5 @@ Solved elsewhere: iChoosr (Netherlands) runs the group-buying model at national 
 ## Revisions
 
 
-2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed.
+2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.
 2026-08-20 · evidence audit — Removed SMO ČR from the next-evidence proposal. Neither "Svaz měst" nor "SMO ČR" returns any hit in the signal corpus, and the association appears in no source note here — a named institution proposed as a demand source with nothing on file to say it is one. The proposal still stands, without pre-naming who would file the complaint.

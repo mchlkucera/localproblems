@@ -200,7 +200,8 @@ Materiality filter (the ONLY normalize-time filter): drop only if
 One markdown file per problem: `p-NNNN-<slug>.md`. A problem is uniquely
 `<region>/<id>`; each region has its own p-NNNN namespace. Frontmatter:
 ```
-id, region, title, category (sector list above), geo, score (0-12),
+id, region, title, fix? (one plain sentence: the proposed product), category
+(sector list above), geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status: candidate | active | watching | stale | claimed | solved | rejected,
 build {capital, first_revenue, builder, note},
@@ -208,6 +209,14 @@ comps [{name, url, geo, since, traction, signal?: <evidence id>, markets?: [ISO2
 sources [{type, url, note, date, signal?: <evidence id>, dims?: [dimension..]}],
 created, updated
 ```
+
+`fix` — OPTIONAL, one plain sentence naming the product a builder would build,
+rendered under the dek as `WHAT TO BUILD`. Compression of `## First moves` and
+`build.note`, never invention; no Czech/EU acronym goes in ungloss. Where a
+record has no clear product answer — the argument closes with a named local
+incumbent and never says what an entrant would build instead — OMIT the key.
+The template renders nothing when it is absent, which is honest; a vague fix is
+worse than none.
 
 `build` — the buildability scorecard (REQUIRED on every record): who can build
 this, with what, how fast. Judged honestly from the record's own evidence, never

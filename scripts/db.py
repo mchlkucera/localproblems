@@ -84,7 +84,7 @@ import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
-SCHEMA_VERSION = "4"
+SCHEMA_VERSION = "5"   # 5: problems.fix (the one-sentence proposed product)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(ROOT, "data", "register.db")
@@ -410,6 +410,11 @@ CREATE VIEW IF NOT EXISTS buyer_activity AS
 
 # ===========================================================================
 # schema_version 4 — THE REGISTER. Additive: no table above is altered.
+# schema_version 5 (2026-08-25) adds ONE nullable column, problems.fix — the
+# record's one-sentence proposed product, rendered under the dek. The version
+# bump is not ceremony: a store built at 4 has no such column, so a build
+# against it would die on `no such column: fix` instead of on the gate's own
+# "rebuild the working store" message.
 #
 # These join DDL_PROJECTIONS, NOT DDL_HISTORY, and the reason is a property
 # rather than a preference: problems are deterministically rebuildable from
@@ -423,6 +428,7 @@ CREATE TABLE IF NOT EXISTS problems (
   id                  TEXT    NOT NULL,          -- 'p-0001'; IS the route param
   slug                TEXT    NOT NULL,          -- filename minus .md; read ORDER
   title               TEXT    NOT NULL,
+  fix                 TEXT,                      -- optional; NULL = key absent
   category            TEXT    NOT NULL,
   geo                 TEXT    NOT NULL,
   status              TEXT    NOT NULL,
@@ -1172,6 +1178,14 @@ def signals_digest(con):
 PROBLEM_KEYS = frozenset((
     "id", "region", "title", "category", "geo", "score", "scores", "status",
     "build", "comps", "sources", "created", "updated"))
+# Top-level problem keys that are OPTIONAL. They are real columns here and typed
+# optionals in web/lib/data.ts — they are NOT looseObject overflow — so they must
+# be excluded from the required-key check AND from `_overflow`, or every record
+# carrying one would both warn as "unknown" and get its value written twice
+# (column + extra_json). Kept as a second set rather than folded into
+# PROBLEM_KEYS because that set doubles as the missing-key list.
+#   fix — the one-sentence proposed product, rendered under the dek.
+PROBLEM_OPTIONAL_KEYS = frozenset(("fix",))
 SOURCE_KEYS = frozenset((
     "type", "url", "note", "date", "name", "why", "signal", "dims", "queries", "checked", "expires"))
 COMP_KEYS = frozenset(("name", "url", "geo", "since", "traction", "signal", "markets"))
@@ -1440,7 +1454,7 @@ def read_problems():
                     f"requires an UNQUOTED integer year (the site reads it as a number)")
 
         # ProblemSchema is z.looseObject as well — same pass-through, same silence.
-        extra = sorted(set(fm) - PROBLEM_KEYS)
+        extra = sorted(set(fm) - PROBLEM_KEYS - PROBLEM_OPTIONAL_KEYS)
         if extra:
             warnings.append(
                 f"{rel}: frontmatter carries unknown top-level key(s) {', '.join(extra)} — "
@@ -1522,12 +1536,14 @@ def insert_problems(con, records):
         sc = fm["scores"]
         b = fm["build"]
         prows.append((
-            region, pid, r["slug"], fm["title"], fm["category"], fm["geo"],
+            region, pid, r["slug"], fm["title"], fm.get("fix"),
+            fm["category"], fm["geo"],
             fm["status"], fm["score"],
             sc["proof"], sc["money"], sc["urgency"], sc["demand"], sc["gap"],
             b["capital"], b["first_revenue"], b["builder"], b["note"],
             fm["created"], fm["updated"], r["body"],
-            _overflow(fm, PROBLEM_KEYS), r["rel"], r["sha256"]))
+            _overflow(fm, PROBLEM_KEYS | PROBLEM_OPTIONAL_KEYS),
+            r["rel"], r["sha256"]))
 
         for i, s in enumerate(fm["sources"]):
             srows.append((
@@ -1546,12 +1562,12 @@ def insert_problems(con, records):
             drows.append((region, pid, position, dim, origin))
 
     _insert_named(con,
-                  "INSERT INTO problems (region, id, slug, title, category, geo, status,"
+                  "INSERT INTO problems (region, id, slug, title, fix, category, geo, status,"
                   " score, s_proof, s_money, s_urgency, s_demand, s_gap, build_capital,"
                   " build_first_revenue, build_builder, build_note, created, updated, body,"
                   " extra_json, md_file, md_sha256)"
-                  " VALUES (" + ",".join("?" * 23) + ")", prows,
-                  lambda r: f"{r[21]} ({r[0]}/{r[1]})")
+                  " VALUES (" + ",".join("?" * 24) + ")", prows,
+                  lambda r: f"{r[22]} ({r[0]}/{r[1]})")
     _insert_named(con,
                   "INSERT INTO problem_sources (region, problem_id, position, type, url,"
                   " note, date, name, why, signal_id, dims_json, queries_json, checked_json,"
@@ -1580,7 +1596,7 @@ def problems_digest(con):
     """
     h = hashlib.sha256()
     for label, sql in (
-        ("problems", "SELECT region, id, slug, title, category, geo, status, score,"
+        ("problems", "SELECT region, id, slug, title, fix, category, geo, status, score,"
                      " s_proof, s_money, s_urgency, s_demand, s_gap, build_capital,"
                      " build_first_revenue, build_builder, build_note, created, updated,"
                      " body, extra_json, md_file, md_sha256"

@@ -2,6 +2,9 @@
 id: p-0007
 region: cz
 title: Czech builders hire crews through Facebook, with no vetting
+fix: 'A marketplace for vetted building crews: the contractor hires a subcontractor whose
+  papers are already checked, and the compliance documents and the pay run are handled in
+  the same place.'
 category: housing
 geo: CZ-national
 score: 5
@@ -114,14 +117,14 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-20'
+updated: '2026-08-25'
 ---
 
 Czech construction (~400k employed) is subcontractor-driven and chronically short of labor [S1,S2]. General contractors source Ukrainian and Balkan crews informally — Facebook groups and brokers — with no vetting, document checking or compliance tooling [S3]; the same firms then run payroll for multi-site crews, agenturní zaměstnávání and A1/posted-worker compliance on generic legacy software (Vema, Pamica) or through external accountants [S2]. Two ends of one problem: finding compliant crews and paying them correctly.
 
 Why now: in Germany — a structurally similar subcontractor market — CoCrafter (YC W24) has 3,000+ SMB companies on its vetted GC-subcontractor marketplace, showing the informal sourcing layer can be productized [S1].
 
-Who pays: general contractors and mid-sized stavební firmy — the marketplace side monetizes matching and compliance document management; the payroll side is per-employee SaaS replacing accountant hours and compliance risk. Entry through either wedge lands in the same buyer.
+Who pays: general contractors and mid-sized construction firms — the marketplace side monetizes matching and compliance document management; the payroll side is per-employee SaaS replacing accountant hours and compliance risk. Entry through either wedge lands in the same buyer.
 
 Existing non-solutions: consumer home-services marketplaces (Wilio, Nejřemeslníci) that do not serve B2B crews [S3], site-diary and attendance tools (Stavario, PlanRadar) that stop short of pay and compliance, and generic payroll software [S2,S4]. Searches on 2026-08-13 found no Czech B2B subcontractor marketplace and no construction-vertical payroll product [S3].
 
@@ -130,3 +133,5 @@ Solved elsewhere: CoCrafter (DE) for sourcing [S1] and Hammr (US, YC W23) for co
 ## Revisions
 
 2026-08-20 · evidence audit and title sweep — Two blocks recorded on this date, merged here. The "Why now" trend sentence was removed: the claims that the labour shortage keeps worsening, that foreign-crew usage keeps rising, and that posted-worker compliance exposure grows with them. No signal in the corpus carries a trajectory for any of the three — yc-cocrafter and yc-hammr document a chronic shortage and informal Ukrainian/Balkan sourcing at a single point in time, with no second data point behind any of the three verbs. The lead-in now carries the German productization receipt, which is sourced. The title claimed "no vetting, compliance or construction-specific tooling". The first two stand — the 2026-08-20 gap check searched five surfaces and found no crew-vetting or construction payroll product [S5]. The third did not: Bildix is Czech construction-specific tooling, named on this record, and it simply does not do crew sourcing. Narrowed to what the check actually supports.
+
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "mid-sized stavební firmy" now reads "mid-sized construction firms". Scores, status, source notes and every [Sn] marker are untouched.

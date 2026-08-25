@@ -1,5 +1,18 @@
 /* ============================================================
-   localproblems.org · design system v1.13 · 2026-08-24
+   localproblems.org · design system v1.15 · 2026-08-25
+   v1.15 (owner: "there could be a simple proposed fix mentioned under
+   the subheading"): the record docket gains ONE line under the dek —
+   .docket .fixline, a mono registry label (`WHAT TO BUILD`, the .facts dt
+   voice) plus one ink serif sentence naming the product, opened by the
+   1px row hairline because it is a separate RECORDED row rather than a
+   continuation of the derived standfirst. It renders the new optional
+   `fix:` frontmatter field (a real column, problems.fix, schema_version
+   5 — not looseObject overflow), and renders nothing at all when the
+   field is absent. The docket's wide grid gains a fourth row and the
+   facts rail spans it. No colour, size, weight, rule weight, spacing
+   value, breakpoint or glyph was introduced.
+   v1.14 (owner: "find a better layout", "add number there to enable
+   quick scanning"): the scorecard re-laid as single-column ledger rows.
    v1.13 (same day, owner: "easier to scan, with links to read more"):
    each scorecard cell becomes a plain anchor to the record section that
    carries its evidence (Validated abroad → Proven abroad, Local
@@ -300,6 +313,33 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
 .docket h1 { font: 700 var(--fs-title)/1.2 var(--serif); margin: var(--sp-2) 0 var(--sp-5); max-width: 30ch; clear: none; }
 /* the dek: one serif standfirst sentence directly under the title (v1.4) */
 .docket .dek { font: 400 var(--fs-h2)/1.4 var(--serif); color: var(--ink-muted); max-width: 40ch; margin: 0 0 var(--sp-5); }
+/* the proposed fix (v1.15, owner 2026-08-25: "there could be a simple proposed
+   fix mentioned under the subheading"): ONE plain sentence naming the product,
+   directly under the dek, so a builder learns WHAT TO BUILD without reading
+   three sections down to First moves. It is an AUTHORED frontmatter field
+   (`fix:`), not derived prose the way the dek is compressed out of the
+   who-pays paragraph — and it is set in the house label-value grammar that
+   says so: the muted mono registry label `.facts dt` already uses, then the
+   sentence itself. INK, not muted, and serif: the dek is context, the fix is
+   the answer, so the answer is the darker of the two even though it is set
+   smaller — and it is a human sentence, never a recorded value, so voice one
+   applies. The 1px --rule above it is the row hairline doing its one job (a
+   separate recorded row of the docket, not a continuation of the standfirst),
+   the weight the facts rail already spends on exactly this. `fix:` is
+   optional: absent, NOTHING renders — no label, no placeholder, no orphan
+   rule. No colour, size, weight, rule weight, spacing value, breakpoint or
+   glyph is introduced. */
+.docket .fixline {
+  margin: var(--sp-5) 0; padding-top: var(--sp-4);
+  border-top: 1px solid var(--rule);
+  font: 400 var(--fs-body)/1.5 var(--serif); color: var(--ink);
+  max-width: var(--w-prose);
+}
+.docket .fixline .k {
+  font: 500 var(--fs-label)/1 var(--mono); text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--ink-muted);
+  margin-right: 0.75ch; white-space: nowrap;
+}
 /* the quiet meta line at the docket's bottom edge — housekeeping whispers (v1.4) */
 .docket .meta { margin: var(--sp-5) 0 0; font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
 .docket .meta time { font-size: inherit; }
@@ -324,15 +364,20 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   .docket {
     display: grid;
     grid-template-columns: minmax(0, 1fr) var(--w-rail);
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto auto 1fr;
     column-gap: var(--sp-7);
   }
-  .docket .idline { grid-column: 1; grid-row: 1; }
-  .docket h1      { grid-column: 1; grid-row: 2; }
-  .docket .dek    { grid-column: 1; grid-row: 3; margin-bottom: 0; }
+  .docket .idline  { grid-column: 1; grid-row: 1; }
+  .docket h1       { grid-column: 1; grid-row: 2; }
+  .docket .dek     { grid-column: 1; grid-row: 3; margin-bottom: 0; }
+  /* row 4 is the 1fr row (v1.15): the fix line parks the excess height when
+     the facts rail is taller, exactly as the dek row did before it existed —
+     and on a record with no `fix:` the row is simply empty, so idline/h1/dek
+     still never drift apart. */
+  .docket .fixline { grid-column: 1; grid-row: 4; margin-bottom: 0; }
   .docket .facts--rail {
     display: block;
-    grid-column: 2; grid-row: 1 / span 3;
+    grid-column: 2; grid-row: 1 / span 4;
     align-self: start;
   }
   .docket .facts--rail > div { padding: var(--sp-3) 0; border-bottom: 1px solid var(--rule); }

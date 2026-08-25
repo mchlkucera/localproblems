@@ -230,7 +230,13 @@ API="https://api.hlidacstatu.cz/api/v2/smlouvy/hledat"
 # score money 2+, at a volume the paging below actually covers. The existing
 # loop mechanics are untouched: the datumUzavreni window is appended per run,
 # pages are 25 items (`strana`, max 250), and the 3s sleep is the free-tier limit.
-QUERIES='firehose|cenaSDph:>20000000'
+QUERIES="${HLIDAC_QUERIES:-firehose|cenaSDph:>20000000}"
+# HLIDAC_QUERIES is a BACKFILL override, HLIDAC_PAGES' sibling (added
+# 2026-08-25 for the >100M retrospective): same 'key|query' lines, same
+# uniform-numeric-threshold law — never keywords. A bounded window is
+# expressed INSIDE the query half (e.g. 'bigdeep|cenaSDph:>100000000 AND
+# datumUzavreni:[* TO 2026-06-01]') because the loop below always appends
+# `AND datumUzavreni:[$SINCE TO *]`; SINCE then supplies the window start.
 
 # ── PAGING ── measured 2026-08-20 against three authenticated 200s ───────────
 # The API page is FIXED AT 25: `strana=1` and `strana=2` on a query whose `total`

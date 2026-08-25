@@ -3,6 +3,9 @@ id: p-0006
 region: cz
 title: Thousands of Czech investment intermediaries and advisors face growing ČNB/MiFID paperwork
   today and a directly applicable EU AML rulebook from July 2027
+fix: 'Compliance software for investment-advice firms covering the half nobody sells here
+  yet: client-suitability paperwork, tied-agent oversight and the reporting the Czech
+  central bank requires.'
 category: fintech
 geo: CZ-national
 score: 5
@@ -97,7 +100,7 @@ sources:
   checked: [google-cz, ares, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-08-25'
 ---
 
 Thousands of Czech vázaní zástupci, investiční zprostředkovatelé and advisory networks (Broker Consulting and Partners ecosystems plus independents) operate under ČNB supervision with steadily growing MiFID II paperwork — suitability, KYC, regulatory reporting [S1,S3]. The evidence on file shows this compliance run on Word templates and external consultants, not software [S1].
@@ -115,3 +118,5 @@ Solved elsewhere: Saturn (YC S24, London) sells a compliance operating system to
 2026-08-20 · de-rank and gap re-check — Two blocks recorded on this date, merged here; the de-rank was written down twice and is stated once. The absence claim was never checked against a Czech surface — the 2026-08-13 gap check cites a Y Combinator page for a London company as the receipt for a Czech absence, which proves nothing about Czechia. Re-run in Czech against google-cz, ARES and our own funded ledger, it fails: AML Proof, s.r.o. sells the AMLR-shaped product this record calls missing, to the buyer this record names, self-serve [S4]. Gap 1 → 0, score 6 → 5, status candidate → watching. Method control, run before the negative half was trusted: the same method was applied at Wultra (p-0017) and Softlink (p-0026) — the ledger grep returned round-wultra and cz-ringil, and a purely descriptive Czech query ("software platforma dálkové odečty vodoměrů vodárny Česko dodavatel") surfaced softlink.cz unprompted, so the method demonstrably produces positives. One sensitivity limit is recorded honestly: a narrow product-shaped Czech query for Wultra's wallet gateway did not surface Wultra, so a single query shape is not evidence of absence, and six were run here. The title clause "armed only with Word templates and consultants" was argued both ways inside the same block — left standing as receipted by [S1], which describes how firms operate rather than what they can buy, then cut because AML Proof is sold as software and the clause asserted what the ledger refutes. The title as it now stands does not carry the clause. What the AMLR deadline still does is land on every firm in the segment in July 2027 [S2], and the MiFID II suitability and reporting surface still has no Czech product on it [S4], so residual room exists downstream of AML Proof. What the register can no longer claim is that the segment has no Czech regtech SaaS.
 
 2026-08-24 · fact check — Cut "and, since 2025, DORA obligations" from the lead. DORA does not apply to investiční zprostředkovatelé: they operate under the MiFID II Article 3 national regime, which is excluded from DORA's scope (verified against Czech legal commentary on DORA's reach, 2026-08-24). The claim came from the yc-saturn harvest note ("DORA adds load from 2025") with nothing behind it — asserting an EU regulation onto a segment it exempts is the error class this register exists to avoid. MiFID II paperwork claims stand [S1,S3]; the AML Proof incumbent receipt re-verified live (amlproof.ai, HTTP 200) [S4]. Scores untouched.
+
+2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched.

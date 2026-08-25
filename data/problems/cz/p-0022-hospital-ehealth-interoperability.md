@@ -2,6 +2,9 @@
 id: p-0022
 region: cz
 title: Czech hospitals each buy the same data plumbing from scratch
+fix: 'One hospital integration layer built as a product and sold to every hospital group,
+  instead of each one commissioning the same connections between its clinical systems from
+  scratch.'
 category: health
 geo: CZ-national
 score: 5
@@ -119,8 +122,32 @@ sources:
     residual question is why 8+ buyers still procure bespoke multi-million integration builds
     despite these products — vendor-neutrality and coverage, not absence.'
   date: '2026-08-13'
+- type: contract
+  name: "Registr smluv — Motol/Homolka health-IT licences and support (~€11.7M)"
+  why: "Prague's merged mega-buyer signed a health-IT licence expansion and a support services deal on the same day — €11.7M of incumbent-stack spend from a single buyer in one August week."
+  url: https://smlouvy.gov.cz/smlouva/39006306
+  note: 'hlidac-36661862 + hlidac-36661866: FN Motol a Homolka signed a framework health-IT
+    software licence expansion (~€5.77M) and a health-IT support services contract (~€5.93M)
+    on 4 Aug 2026 (registr smluv 39006306, 39006310) — the largest hospital buyer in the
+    2026-08-25 retrospective harvest (46 contracts, incl. a ~€7.3M cybersecurity detection
+    framework already receipted on p-0008 via ted-373331-2026). Corroborates the per-hospital
+    incumbent-stack spend this record describes; backs no new score point — money already
+    rests on the open Plzeň tender [S2].'
+  date: '2026-08-04'
+  signal: hlidac-36661862
+  dims: []
+- type: regulation
+  name: "VeKLEP — e-health act amendment in draft"
+  why: "The Health Ministry is amending Act 325/2021 Coll., the national e-health law — the legal frame behind the missing national layer is itself in motion."
+  url: https://odok.cz/portal/veklep/material/ALBSDVLDLD32/
+  note: 'veklep-ALBSDVLDLD32: ministry bill amending zákon č. 325/2021 Sb. o elektronizaci
+    zdravotnictví, filed to VeKLEP 3 Jul 2026 (first VeKLEP harvest, 2026-08-25). Draft with
+    no dated obligation yet: context receipt for the why-now, backs no score dimension.'
+  date: '2026-07-03'
+  signal: veklep-ALBSDVLDLD32
+  dims: []
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-08-25'
 ---
 
 Between June and August 2026, four Czech regional hospital groups went to market separately for structurally the same thing: a layer that lets hospital systems talk to each other and to outside providers. Uherské Hradiště awarded ~€7.7M for an eHealth communication platform [S1]. The Plzeň hospital group opened a ~€5.8M competition for a hospital system with an enterprise service bus [S2]. Zlín awarded ~€2.8M, and FN Olomouc bought interoperability work at ~€0.7M [S3].
@@ -140,3 +167,5 @@ Solved elsewhere: the shared layer exists as a product in other markets — buil
 2026-08-20 · evidence audit — Four unbacked claims removed. NCEZ: the institution and the claim that it "sets standards but ships no tooling" both return no hits anywhere in the signal corpus or in any source note here. "StaproMedea" (a mangled compound) and "AMIS" appear nowhere in the register at all; the product names that are on file sit in this record's own gap-check note, so the clause now reads Stapro FONS/TransMISE and ICZ eMEDOCS and is cited to [S8] rather than to three TED tenders that name none of them. "Each is a bespoke SI project; none produces a reusable product" — the tender receipts show what was bought, not what the delivery produced. And "the products are mostly incumbent-ecosystem stacks rather than neutral layers" — the gap check names the products but does not characterise their architecture.
 
 2026-08-24 · fact check — The "€3-8M projects" range misdescribed its own receipts: the awards on this ledger are ~€7.7M, ~€5.8M, ~€2.8M and ~€0.7M [S1,S2,S3], so two of the four fall outside it. Body and build note now state the receipted span, €0.7-7.7M. The three TED values were re-verified live against the TED API on this date — 189.2M, 143.0M and 68.8M CZK — and the registr-smluv lookup corpus independently pairs STAPRO and ICZ.HEA with named hospital buyers, corroborating the incumbent picture [S5,S8].
+
+2026-08-25 · plain-language pass and evidence added — Two passes this date, merged here. First: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek; that pass touched no score, source note or [Sn] marker. Second, from the 2026-08-25 retrospective harvest: Motol/Homolka signed ~€11.7M of health-IT licences and support in one August week [S9], corroborating the incumbent-stack spend already argued from the amendment churn [S5], and the Health Ministry filed an amendment of the national e-health act 325/2021 Sb. to VeKLEP [S10]. Both are context receipts; no score moved.

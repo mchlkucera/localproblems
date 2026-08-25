@@ -2,6 +2,8 @@
 id: p-0027
 region: cz
 title: Complaints about Czech consumer loans have quadrupled, all handled by hand
+fix: 'Case software for lenders answering complaints at the Financial Arbitrator: pull the
+  loan file, draft the response, hold every deadline, and flag which cases to settle.'
 category: fintech
 geo: CZ-national
 score: 5
@@ -105,6 +107,17 @@ sources:
     - "Czech software lender-side complaint and dispute management financial arbiter consumer credit case workflow"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: regulation
+  name: "VeKLEP — consumer credit act revision in draft"
+  why: "The Finance Ministry is revising the Consumer Credit Act 257/2016 — the statute whose creditworthiness-assessment duties generate most of the arbiter's docket is itself being rewritten."
+  url: https://odok.cz/portal/veklep/material/KORNDDVFVG8B/
+  note: 'veklep-KORNDDVFVG8B: Finance Ministry draft amending zákon č. 257/2016 Sb. o
+    spotřebitelském úvěru, in VeKLEP since 14 Feb 2025 (first VeKLEP harvest, 2026-08-25).
+    Draft with no dated obligation on file: context receipt — the legal frame behind the
+    dispute flood is in motion — backing no score dimension.'
+  date: '2025-02-14'
+  signal: veklep-KORNDDVFVG8B
+  dims: []
 created: '2026-08-13'
 updated: '2026-08-25'
 ---
@@ -113,7 +126,7 @@ The Kancelář finančního arbitra — the out-of-court forum for consumer disp
 
 Why now: the growth is industrial, not organic. The arbiter's own reporting describes claims driven at mass scale, which means every consumer lender in the market now faces a professionalized adversary filing standardized claims, while the average proceeding takes 167 days and 83% of concluded cases end in settlement [S1].
 
-Who pays: non-bank lenders and banks first — each incoming FA proceeding demands document production, a legal position, and a settlement decision, and at 2026 volumes that is tens of thousands of case-handling cycles a year across the sector [S1], run today by legal departments and external advokáti by hand [S4]. The claimant side already has industrial tooling economics (standardized filings at scale) [S1]; the response side does not. The arbiter itself, drowning at 167 days per case [S1], is the third affected party and a plausible govtech buyer.
+Who pays: non-bank lenders and banks first — each new case at the Financial Arbitrator demands document production, a legal position and a settlement decision, and at 2026 volumes that is tens of thousands of case-handling cycles a year across the sector [S1], run today by in-house legal departments and outside law firms by hand [S4]. The claimant side already has industrial tooling economics (standardized filings at scale) [S1]; the response side does not. The arbiter itself, drowning at 167 days per case [S1], is the third affected party and a plausible govtech buyer.
 
 Existing non-solutions: manual legal departments, outsourced law firms billing per case, and the arbiter's static information pages [S4]. A 2026-08-13 market search found no Czech product for dispute-response operations, docket management against the FA, or settlement workflow — only information portals and services [S4].
 
@@ -124,5 +137,5 @@ Solved elsewhere: dispute handling is funded on both sides of the Atlantic. Casa
 ## Revisions
 
 
-2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed.
+2026-08-25 · rewrite — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "each incoming FA proceeding" now reads "each new case at the Financial Arbitrator", and "external advokáti" now reads "outside law firms". Scores, status, source notes and every [Sn] marker are untouched.
 2026-08-20 · evidence audit — Three legal-status claims removed, none of which the register ever checked. The arbiter's forum was described as mandatory: neither S1's note nor the underlying signal says so. The interest-voiding doctrine ("a failed assessment can void the credit contract's interest") is gone — the corpus records only that creditworthiness-assessment claims dominate the docket, nothing about the remedy. And "Free proceedings with no lawyer requirement remove any natural brake on volume": both procedural facts had no receipt. The caseload figures, the settlement rate and the proceeding length are unaffected; they are receipted [S1].
