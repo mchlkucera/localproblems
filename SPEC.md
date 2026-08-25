@@ -221,9 +221,25 @@ local buyer? does this matter here?* Then:
 - matches an existing problem → append to `sources[]`, update body if the picture
   changed, bump `updated`;
 - distinct problem → new file, next id. Never from a single tier-3-grade signal.
-- **De-rank rule (founder law):** re-check the gap on every touched problem; if a local
-  player now exists or has entered the market → `gap: 0`, add a gap-check source naming
-  the incumbent, status → `watching`.
+- **De-rank rule (founder law):** re-check the gap on every touched problem, and apply
+  the ESTABLISHED test in `SCORING.md` to whatever the check finds — existence alone
+  decides nothing.
+  - An **established** local player sells it → `gap: 0` (TAKEN), name it in `locals[]`
+    with the limb of the test it passes, add a gap-check source, status → `watching`.
+  - Local players exist but are **all early** → `gap: 1` (CONTESTED), name them in
+    `locals[]`, and **THE RECORD STAYS A CANDIDATE**. An early competitor does not close
+    a space; it is evidence the market is being made, and that is a reason to move, not
+    to stand down. Owner, 2026-08-25: "if it's just funded two guys who have a prototype
+    that's a signal that it's a good time to join."
+  - Nothing local found, on a check with recorded `queries[]` and a passing positive
+    control → `gap: 2` (OPEN).
+
+  The v1 rule read "if a local player now exists ... → gap: 0 ... status → watching",
+  with no maturity test at all. It is why a one-person operator selling a 3,000 CZK/month
+  tool de-ranked p-0008 — a record that scores 11/12 on the corrected ladder — to
+  `watching`, and why the register systematically understated its own best entries.
+  Status follows gap: `0` → `watching`, `1` and `2` → `candidate`, subject to the
+  freshness decay below.
 
 A gap-check source may record the `queries` run, the surfaces `checked`, and an `expires`
 date (`date + 90 days`). **Expiry is a display-only staleness flag: it never changes
