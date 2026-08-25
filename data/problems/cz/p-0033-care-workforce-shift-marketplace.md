@@ -7,13 +7,13 @@ fix: 'A marketplace where vetted nurses and carers pick up open shifts at care h
   the home pays a fee for every shift filled.'
 category: health
 geo: CZ-national
-score: 7
+score: 8
 scores:
   proof: 2
   money: 1
   urgency: 1
   demand: 2
-  gap: 1
+  gap: 2
 status: candidate
 build:
   capital: garage
@@ -42,23 +42,67 @@ locals:
   ico: '06884156'
   since: 2018
   competes: adjacent
-  maturity: early
-  evidence: 'It runs a shift-work marketplace grown out of hospitality staffing and sells
-    shifts in that segment; a healthcare or social-care vertical could not be confirmed on
-    its site, which loads client-side [S8]. On what is on file it serves a different segment
-    — the closest local shape, and the open question here. ARES registration 2018-02-23. No
-    limb of the established test is met by anything on file here: nothing names who has
-    bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage, and no state listing.'
+  maturity: established
+  evidence: 'It sells shifts in hospitality, retail and warehousing — the app grew out of
+    restaurant staffing, and its own live job feed returns gastronomy postings and nothing
+    else [S9]. The healthcare question left open here is now answered as far as public
+    evidence reaches: six independent routes — the marketing site, the company blog, the App
+    Store listing, trade coverage from 2020 and 2021, the trade register and the state
+    register — name restaurants, warehouses, logistics and supermarkets, and not one of them
+    names healthcare or social care [S9]. Established on named customers: Alza, Mall and
+    Albert are reported as users, and roughly 350 businesses and 4,500 workers were on the
+    platform by 2021 [S9]. ARES registration 2018-02-23.'
+- name: Flecto
+  url: https://www.info.flecto.cz/
+  ico: '10706674'
+  since: 2021
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells the exact shape this problem calls for, to a different industry:
+    workers book individual shifts at partner employers rather than take a job. The partners
+    it names are Continental, Aramark, Avian, Promens and DF Partner — manufacturing and
+    catering, with no hospital, care home or social-service employer among them [S9].
+    Established on named customers, per that partner list; ARES registration 2021-03-25.'
+- name: Shiftiary
+  url: https://shiftiary.com/
+  ico: '07772726'
+  since: 2019
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells shift planning to hospitals for the staff they already employ — the
+    rota, not the recruiting — and its founder puts it plainly: it helps doctors and nurses
+    plan their own duties and shifts [S9]. Established on named customers: FN Motol, ÚVN, FN
+    Hradec Králové and FN Bulovka appear on its site, and it reports planning for about fifty
+    facilities and three hundred departments in Czechia and Slovakia [S9]. ARES registration
+    2019-01-04.'
+- name: Dayswaps
+  url: https://dayswaps.com/
+  ico: '06649696'
+  since: 2017
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells shift-planning software and runs a healthcare page, and its open-shift
+    feature offers a spare shift to the employer''s own team rather than to anyone outside it
+    [S9]. Established on a public customer count: its site states more than 100 companies and
+    10,000+ employees across five countries [S9]. ARES registration 2017-12-04.'
 - name: Směny.cz
   url: https://www.smeny.cz/
   competes: adjacent
   maturity: early
   evidence: 'It sells internal shift planning to providers for staff they already employ
     [S8] — a rota tool, not a marketplace that brings workers in from outside. Nothing names
-    who has bought it, no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing, so
-    no limb of the established test is met.'
+    who has bought it, no published tally exists, no public buyer pairs with it in the state
+    contracts register, no round at Series stage and no state listing, so no limb of the
+    established test is met.'
+- name: Plánuj směny
+  url: https://planujsmeny.cz/
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells a rota tool where colleagues swap shifts with each other and claim
+    whatever is left over [S9] — the pool is the employer''s own payroll, so a shift with
+    nobody internal free stays empty. Nothing names who has bought it, no published tally
+    exists, no public buyer pairs with it in the state contracts register, no round at Series
+    stage and no state listing.'
 - name: Chytrá organizace
   url: https://www.chytraorganizace.cz/
   ico: '04728629'
@@ -66,19 +110,40 @@ locals:
   competes: adjacent
   maturity: early
   evidence: 'It sells internal shift planning to providers for staff they already employ
-    [S8] — a rota tool, not a marketplace; ARES registration 2016-01-18. No limb of the
-    established test is met by anything on file here: nothing names who has bought it, no
-    published tally exists, there is no pairing in data/lookup/cz-contract-parties.jsonl, no
-    round at Series stage, and no state listing.'
+    [S8] — a rota tool, not a marketplace; ARES registration 2016-01-18. Nothing names who
+    has bought it, no published tally exists, no public buyer pairs with it in the state
+    contracts register, no round at Series stage and no state listing.'
 - name: VeruApp
   url: https://www.veruapp.cz/
   competes: adjacent
   maturity: early
   evidence: 'It sells care-agency operations software — the incumbent named on p-0011 —
     which plans the staff a provider already employs rather than filling open shifts from
-    outside [S8]. Nothing names who has bought it, no published tally exists, there is no
-    pairing in data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state
+    outside [S8]. Nothing names who has bought it, no published tally exists, no public buyer
+    pairs with it in the state contracts register, no round at Series stage and no state
     listing, so no limb of the established test is met.'
+- name: sestrycz.eu
+  url: https://www.sestrycz.eu/
+  competes: adjacent
+  maturity: early
+  evidence: 'It is a staffing agency for healthcare: it offers nurses, practical nurses, care
+    workers and physiotherapists posts at hospitals and care operators, brokered by people
+    over the phone [S9]. A home cannot post tomorrow night''s shift on it and no per-shift
+    price is published — this is the agency arrangement a shift marketplace would displace,
+    not a version of one. Nothing names who has bought it, no published tally exists, no
+    public buyer pairs with it in the state contracts register, no round at Series stage and
+    no state listing.'
+- name: Přehlednější zdravotnictví (Medfair)
+  url: https://prehlednejsizdravotnictvi.cz/
+  ico: '08409200'
+  since: 2019
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells job advertising to healthcare employers, including posts advertised as
+    flexible — a board where a care operator posts a vacancy and waits, which is hiring
+    rather than covering a shift that starts tomorrow [S9]. ARES registration 2019-08-12.
+    Nothing names who has bought it, no published tally exists, no public buyer pairs with it
+    in the state contracts register, no round at Series stage and no state listing.'
 - name: Domelie
   url: https://www.domelie.cz/
   ico: '23027371'
@@ -87,8 +152,8 @@ locals:
   maturity: early
   evidence: 'It brokers household caregivers to families, selling to consumers rather than
     shifts to facilities [S8]. Domelie s.r.o. was registered 2025-03-05 in ARES, so the
-    three-year limb fails as well; no published tally exists, there is no pairing in
-    data/lookup/cz-contract-parties.jsonl, no round at Series stage and no state listing.'
+    three-year limb fails as well; no published tally exists, no public buyer pairs with it
+    in the state contracts register, no round at Series stage and no state listing.'
 sources:
 - type: arbitrage
   name: "ShiftKey"
@@ -177,6 +242,61 @@ sources:
     - '"zdravotní sestra" OR pečovatelka najdi směnu aplikace přivýdělek nemocnice domov seniorů platforma flexibilní směny'
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-23'
+- type: gap-check
+  name: "Who fills a Czech care shift — the second sweep, and the Grason answer"
+  why: "A wider Czech search in a care home's own words. It found a mature Czech shift
+    marketplace in factories and canteens, mature Czech rota software inside hospitals, and
+    agencies that place people into jobs — but nobody selling a care home the shift it needs
+    tomorrow night."
+  url: https://www.info.flecto.cz/
+  note: 'Second Czech-language sweep 2026-08-25, run because the first pass on this file was a
+    one-pass search and left Grason''s verticals unresolved. POSITIVE CONTROL PASSED, run
+    before any conclusion was drawn: query 2 below, aimed at Czech healthcare staffing supply
+    that is known to exist, returned sestrycz.eu ("Agentura práce pro zdravotníky") and
+    ProCare Medical on the first page, and query 5 returned Shiftiary — a bootstrapped Czech
+    healthcare rota vendor with FN Motol, ÚVN, FN Hradec Králové and FN Bulovka on its site
+    and ZERO hits anywhere in the signal corpus. The method therefore reaches exactly the
+    class of vendor a capital-and-tender ledger is blind to. NOT FOUND: no Czech operator
+    sells per-shift cover to care homes or hospitals from a pool of workers outside their own
+    payroll. What the sweep found instead, all recorded in locals[]: Flecto (IČO 10706674,
+    Olomouc, since 2021) runs the marketplace shape — workers book individual shifts — but its
+    named partners are Continental, Aramark, Avian, Promens and DF Partner, manufacturing and
+    catering, with no care employer among them; Shiftiary, Dayswaps (IČO 06649696, 100+
+    companies, 10,000+ employees, five countries), Směny.cz, Chytrá organizace and Plánuj
+    směny all plan the rota of staff the employer already has, and their open-shift features
+    offer the shift to that same payroll; sestrycz.eu and the classic agencies broker people
+    into posts by phone; Přehlednější zdravotnictví (Medfair s.r.o., IČO 08409200) sells job
+    advertising; Domelie sells household carers to families. GRASON RESOLVED. The earlier
+    check recorded that a healthcare vertical "could NOT be confirmed on its site, which loads
+    client-side" and left the claim open. Six routes were tried on this date and they agree:
+    (1) grason.cz and its sub-pages are a Nuxt single-page app that serves no content to a
+    plain fetch, confirming the earlier finding rather than resolving it; (2) blog.grason.cz
+    is server-rendered and its post list mentions no healthcare or social care; (3) the App
+    Store listing (Grason Solutions s.r.o., Praha) names no sector but gastro; (4) CzechCrunch
+    2020 and Euro.cz 2021 enumerate restaurants, shops, warehouses and logistics, and name
+    Alza, Mall, Albert, Plzeňský Prazdroj and tennis clubs as users at ~350 businesses and
+    ~4,500 workers, with Miton holding over 40% — no healthcare anywhere; (5) the
+    živnostenský rejstřík for IČO 06884156 shows one živnost volná whose obory are IT,
+    consulting, advertising and trade mediation, with no employment-agency and no health or
+    social-care activity; (6) ARES gives NACE 461, 620, 70220 and 731, no health or social
+    care code, and NRPZS status NEEXISTUJICI. Finally the app''s own public job feed was read
+    directly and every live posting on it is categorised Gastronomy. That is not proof Grason
+    has never placed a carer, and it is written down as what it is — six independent routes
+    and the company''s own feed, none of which puts Grason in care. IMPORTANT: gap moves 0 to
+    2 here on the strength of a controlled check, not on the not-found alone — every player
+    the sweep named sells something else, and the ledger says which.'
+  date: '2026-08-25'
+  queries:
+    - 'aplikace volné směny pro zdravotní sestry a pečovatelky přivýdělek domov pro seniory nemocnice Česko'
+    - 'personální agentura zdravotní sestry pečovatelky pronájem personálu domovy pro seniory Česká republika'
+    - '"na směnu" výpomoc pečovatel sestra aplikace obsazení směn sociální služby domov seniorů chybí personál řešení'
+    - 'sháníme pečovatelku na jednotlivé směny výpomoc agentura domov pro seniory obsazení služeb rychle Česko'
+    - 'česká platforma flexibilní práce ve zdravotnictví sestry si vyberou směnu nemocnice zaplatí za obsazenou směnu startup'
+    - 'burza směn zdravotníci aplikace kde si sestry berou volné směny v nemocnicích a domovech Česko 2026'
+    - 'Grason Solutions s.r.o. flexibilní směny obory gastro maloobchod výroba zdravotnictví rozšíření'
+    - 'Flecto platforma flexibilní zaměstnávání obory zdravotnictví sociální služby domovy seniorů směny'
+  checked: [google-cz, ares, zivnostensky-rejstrik, grason-public-job-feed, cz-contract-parties, own-funded-ledger]
+  expires: '2026-11-23'
 created: '2026-08-25'
 updated: '2026-08-25'
 ---
@@ -187,7 +307,7 @@ Why now: the demand side is structural — the ministry's models add roughly 34,
 
 Who pays: care providers pay per filled shift, out of the agency mark-up they already pay today. The July 2026 nurse postings alone carry an annualised wage floor of €10.8 million [S4] — a fraction of that flow, taken as a matching fee, is the business. Workers come for the flexibility premium; regional buyers show public money reaches care capacity too [S7].
 
-Existing non-solutions: Czech tooling plans the staff a provider already employs — Směny.cz, Chytrá organizace and VeruApp schedule internal shifts [S8]. Grason runs a shift marketplace grown out of hospitality, with no healthcare vertical visible on its site; OnSinch staffs event crews; Domelie, a 2025 registration, brokers household caregivers to families; classic agencies place full-time employees [S8]. Nobody matches vetted care workers to facility shifts on demand, and nothing in the field is old enough or big enough to have settled it [S8].
+Existing non-solutions: the Czech field is mature, and every part of it points somewhere else. Směny.cz, Chytrá organizace, Plánuj směny and VeruApp schedule the staff a provider already employs; Shiftiary does the same inside hospitals, planning for about fifty facilities and three hundred departments [S9]. Dayswaps sells that rota software to more than 100 companies across five countries [S9]. Flecto runs the marketplace shape — workers booking single shifts — but its named partners are Continental, Aramark and Promens, while Grason runs it for restaurants, warehouses and supermarkets [S9]. Neither names a healthcare or social-care buyer anywhere in public, and Grason's own live job feed carries gastronomy postings only [S9]. What care providers use instead is people: sestrycz.eu brokers nurses and carers into posts over the phone, Přehlednější zdravotnictví advertises vacancies, and Domelie sells household carers to families [S9]. Nobody sells a care home the shift it needs tomorrow night.
 
 Solved elsewhere: two markets, and both sellers are a decade in. ShiftKey has run since 2016, raised $300M at a valuation above $2 billion, and lets licensed professionals bid on per-diem shifts at more than 10,000 facilities, skilled nursing first [S1]. Florence has run since 2017 on a £28.5M Series B, matching shifts and bundling training for 90,000 care professionals and 2,000+ care organisations [S2]. Both monetize the spread agencies charge today. But it is America and Britain: nothing of the kind operates in Central Europe or anywhere near it [S1,S2].
 
@@ -196,4 +316,6 @@ Solved elsewhere: two markets, and both sellers are a decade in. ShiftKey has ru
 2026-08-25 · record created — Minted from the first records of the hiring ledger (July 2026 Labour Office aggregates [S4]) joined with the APSS staffing survey [S3] and the elder-care sweep's regulation and capacity evidence [S5,S6]. Hiring evidence backs demand and money, never proof; proof rests on the US and GB comparables alone [S1,S2] and stays at 1 with no DE/AT/PL/Nordics analog on file. Grason's possible healthcare vertical could not be confirmed and is recorded as unresolved rather than asserted either way [S8]. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker were untouched by that pass. Third pass this date, merged here: re-scored under the rewritten SCORING.md and its ESTABLISHED test. `scores.proof` 1 → 2. Both comparables pass the maturity test — ShiftKey selling since 2016 with $300M raised above a $2B valuation and 10,000+ facilities, Florence since 2017 with a £28.5M Series B, 90,000 care professionals and 2,000+ care organisations [S1,S2] — so the model is not unproven, which is what rung 1 asserts. The 1 was written on this file the day it was minted, reasoned as "no DE/AT/PL/Nordics analog is on file"; that is the rung 3 test, not the rung 1 test, and applying it a rung early cost a point. Rung 3 is still correctly out of reach: the United States and Britain are two markets, but neither is CEE-adjacent, so this lands on rung 2. `scores.gap` stays 1. The five Czech offerings [S8] found were lifted into a structured `locals[]` ledger and every one reads early — Domelie fails the three-year limb outright at a 2025 ARES registration, and Grason, Směny.cz, Chytrá organizace and VeruApp publish no customer count, pair with no public buyer in `data/lookup/cz-contract-parties.jsonl`, and carry no round or state listing. Early local players never de-rank, so gap does not fall to 0; and it does not rise to 2 either, because [S8] is a one-pass search that found players rather than none, and Grason's verticals are still unresolved. `score` 6 → 7. The non-solutions paragraph now notes how young the field is and the Proven-abroad paragraph states both sellers' trading ages, because under the new ladder maturity is what carries the score. Money, urgency and demand untouched; no source note edited and no [Sn] marker moved.
 
 THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fields under the owner's no-exclude ruling: `competes: direct|adjacent` answers whether a player sells THIS product to THIS buyer, and `maturity: established|early` keeps the SCORING.md established test unchanged and machine-checked. All five entries are `competes: adjacent`, and each evidence line now says what the player sells before saying what it lacks. Směny.cz, Chytrá organizace and VeruApp sell rota tools for staff a provider already employs; Domelie brokers household caregivers to consumers rather than shifts to facilities. Grason runs a genuine shift marketplace, but in hospitality, and its healthcare vertical could not be confirmed on a client-side site [S8] — that stays the open question on this file, and it now appears in the ledger as a difference of segment rather than as a claim about the firm's maturity, which is what `early` was doing before. `scores.gap` stays 1 and is FLAGGED: with nothing at `competes: direct`, rung 2 is arguable, and it is a MATCH judgment rather than a content pass. Scores, `status`, source notes and every existing [Sn] marker are untouched by this pass.
+
+FOURTH PASS THIS DATE, MERGED HERE: the local field was searched again properly and `scores.gap` 1 → 2, `score` 7 → 8. The earlier check was one pass of two queries and left Grason's verticals open, which is why the score sat at a rung the ledger could not support — rung 1 means locals sell this and are all early, and nothing on the ledger sold it. [S9] is a controlled check: eight Czech query shapes in a care home's own vocabulary, and the positive control was run and passed BEFORE any conclusion was drawn — a query aimed at Czech healthcare staffing supply known to exist returned sestrycz.eu and ProCare Medical on the first page, and another returned Shiftiary, a bootstrapped Czech healthcare rota vendor with FN Motol and ÚVN on its site and zero hits anywhere in the signal corpus. The method reaches the class of vendor a capital-and-tender ledger cannot see, so its negative is worth something. GRASON IS RESOLVED. Six independent routes were tried after the plain fetch failed — the server-rendered company blog, the App Store listing, trade coverage from 2020 and 2021, the trade register, the state register, and finally the app's own public job feed, whose live postings are all categorised Gastronomy. None of the six puts Grason in healthcare or social care; all six name restaurants, warehouses, logistics and supermarkets. The entry now says that in place of "could not be confirmed", and Grason moves `early` → `established` because the same sources produced the receipts the old line said did not exist: Alza, Mall and Albert reported as users, roughly 350 businesses and 4,500 workers by 2021. It stays `competes: adjacent`, so the maturity change moves nothing. SIX PLAYERS ADDED under the no-exclude rule, five of them new to the register: Flecto (IČO 10706674) runs the marketplace shape for manufacturing and catering; Shiftiary (IČO 07772726) and Dayswaps (IČO 06649696) sell hospital and multi-sector rota software and are both established on named customers; Plánuj směny is another rota tool; sestrycz.eu is the healthcare staffing agency the positive control surfaced; Přehlednější zdravotnictví (Medfair s.r.o., IČO 08409200) sells job advertising to care employers. Every one is `competes: adjacent` and every evidence line now leads with what it sells. The ledger holds no `competes: direct` entry, and that is the finding rather than a gap in it. The non-solutions paragraph was rewritten to match: the old line "nothing in the field is old enough or big enough to have settled it" was false the moment four established firms were named, and it now says the true thing instead — the field is mature and pointed elsewhere. Every evidence line also dropped the repository filename it used to print to the reader. Proof, money, urgency and demand untouched; no existing source note edited and no existing [Sn] marker moved — [S9] is appended, not inserted.
 

@@ -67,7 +67,7 @@ locals:
   since: 1991
   competes: direct
   maturity: established
-  evidence: '>= 2 distinct public buyers in data/lookup/cz-contract-parties.jsonl
+  evidence: 'two or more separate public bodies buy from it on the state contracts register
     (statutární město Karviná, Ředitelství silnic a dálnic s.p.) [S8]. Its DMS is not on the
     issued-attest list at this check, so it sells into the wave without the certification
     the four attested vendors hold. ARES registration 1991-02-26'

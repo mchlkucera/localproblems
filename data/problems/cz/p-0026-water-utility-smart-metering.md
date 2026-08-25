@@ -34,7 +34,7 @@ locals:
   since: 1993
   competes: direct
   maturity: established
-  evidence: 'named customers — data/lookup/cz-contract-parties.jsonl pairs it as supplier
+  evidence: 'named customers — the state contracts register pairs it as supplier
     with Vodovody a kanalizace Židlochovicko as buyer, the operates-metering-as-a-service
     relationship the scan asserted [S6,S7]; ARES registration 1993-12-01'
 - name: Popron Systems (SMG Water)

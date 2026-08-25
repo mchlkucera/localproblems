@@ -43,7 +43,7 @@ locals:
   since: 1990
   competes: direct
   maturity: established
-  evidence: '>= 2 distinct public buyers in data/lookup/cz-contract-parties.jsonl (MMN a.s.,
+  evidence: 'two or more separate public bodies buy from it on the state contracts register (MMN a.s.,
     Vsetínská nemocnice a.s.) AND named hospital customers — KNTB Zlín, FN u sv. Anny, FN
     Olomouc and Kroměříž hospital all sign STAPRO amendments in registr smluv [S5]. It sells
     FONS/TransMISE as an NCPeH-connected integration offering beside its hospital systems
@@ -54,7 +54,7 @@ locals:
   since: 1997
   competes: direct
   maturity: established
-  evidence: 'named customers — cz-contract-parties.jsonl pairs ICZ a.s. with Český
+  evidence: 'named customers — the state contracts register pairs ICZ a.s. with Český
     statistický úřad and ICZ.HEA a.s. (IČO 07240091) with Nemocnice Břeclav [S5]; eMEDOCS is
     also on the state NCPeH connection [S8]'
 - name: Medicalc (mEx)
