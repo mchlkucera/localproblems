@@ -5,10 +5,10 @@ title: Czech developers and builders face building-permit proceedings that typic
   six months to a year, through a still-dysfunctional state portal
 category: housing
 geo: CZ-national
-score: 4
+score: 5
 scores:
   proof: 1
-  money: 0
+  money: 1
   urgency: 1
   demand: 2
   gap: 0
@@ -147,6 +147,18 @@ sources:
   why: What the manual alternative costs today — the price ceiling a software product prices against.
   note: 'Published Czech inzenyrska cinnost price lists for a single family house cluster at 16,000-42,000 CZK per project (CESPRON 16,000 total; Pruvodce drevostavbou 42,000 incl. VAT from 1.1.2026). Pruvodka sells at 12,900 CZK per project, below the low end of human-delivered permit engineering.'
   date: '2026-08-25'
+- type: contract
+  name: "Registr smluv — building-permit portal upgrade (~€0.8M)"
+  why: "The ministry signed a contract to upgrade the digital building-procedure portal — the state is paying again for the system whose 2024 launch created much of this record's pain."
+  url: https://smlouvy.gov.cz/smlouva/39180478
+  note: 'hlidac-36829114: ministry contract for upgrading the digital building-procedure
+    portal (portál stavebníka / DSŘ), ~€0.81M, Aug 2026 (registr smluv 39180478; 2026-08-25
+    retrospective harvest). Money 0→1 on the p-0004 precedent: state spend on the system at
+    the centre of the problem is a relevant public contract — adjacent spend, held below 2
+    (not an open tender a navigation vendor can win, and no recurring spend receipted).'
+  date: '2026-08-19'
+  signal: hlidac-36829114
+  dims: [money]
 created: '2026-08-13'
 updated: '2026-08-25'
 ---
@@ -169,4 +181,4 @@ Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26)
 
 2026-08-24 · title sweep — The judgment left open above is now made: the "one of the OECD's slowest" framing in the title and lead is cut. Its only carrier, the yc-permitportal harvest note [S2], states no source of its own, and the record's own 2026-08-13 fact check traced the family of superlatives to the discontinued Doing Business index [S6]. Title and lead now state what the ČKAIT survey receipts: proceedings typically run six months to a year [S5]. Scores untouched; the DSŘ-dysfunction demand receipts [S2] stand.
 
-2026-08-25 · plain-language pass — The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "larger stavebníci" now reads "the larger firms that commission building work", and "offices preparing dokumentace" now reads "offices that draw up the design documents". No `fix:` was authored here: the argument closes with the local position held by Průvodka and names no product an entrant would build that Průvodka does not already sell, so the field is left absent rather than filled with something vague — the template renders nothing when it is. Scores, status, source notes and every [Sn] marker are untouched.
+2026-08-25 · plain-language pass — The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "larger stavebníci" now reads "the larger firms that commission building work", and "offices preparing dokumentace" now reads "offices that draw up the design documents". No `fix:` was authored here: the argument closes with the local position held by Průvodka and names no product an entrant would build that Průvodka does not already sell, so the field is left absent rather than filled with something vague — the template renders nothing when it is. Scores, status, source notes and every [Sn] marker are untouched by that pass. Second pass this date, merged here: the 2026-08-25 retrospective harvest added the ministry's ~€0.8M contract upgrading the building-procedure portal [S11]. Money 0 → 1 on the adjacent-spend precedent p-0004 already carries — the state demonstrably pays into the system at the centre of this record — and score 4 → 5; everything else stands.
