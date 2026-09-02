@@ -37,6 +37,9 @@ comps:
     accounting for metals and commodity importers'
 sources:
 - type: regulation
+  name: "CBAM Regulation (EU) 2023/956"
+  gist: "the law and its 2027 dates"
+  why: "Importers above 50 tonnes a year have been in the definitive regime since 1 January 2026 — certificates go on sale in February 2027 and the first declaration, covering 2026 imports, is due 30 September 2027."
   url: https://eur-lex.europa.eu/eli/reg/2023/956/oj
   note: 'reg-cbam-definitive: CBAM (Reg. 2023/956 as amended by 2025 Omnibus) — definitive
     regime from 1 Jan 2026; importers above 50 t/year need authorised CBAM declarant status;
@@ -45,6 +48,9 @@ sources:
   date: '2027-09-30'
   signal: reg-cbam-definitive
 - type: news
+  name: "EY — CBAM Omnibus alert"
+  gist: "the 50-tonne floor"
+  why: "The adopted Omnibus sets a 50-tonne floor that cuts the compliance burden for small-volume importers while preserving the regulation's environmental scope."
   url: https://www.ey.com/en_gl/technical/tax-alerts/eu-adopts-cbam-omnibus-regulation
   note: 'EY alert on adopted CBAM Omnibus: 50-ton de minimis exempts ~90% of importers while
     keeping ~99% of emissions in scope. Demand point: signal documents CFO-level cash-planning
@@ -52,21 +58,23 @@ sources:
     payment is deferred to 2027.'
   date: '2025-12-31'
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-09-02'
 ---
 
-Czech importers of iron and steel, aluminium, cement, fertilisers, hydrogen and electricity above 50 tonnes per year are in CBAM's definitive regime as of 1 January 2026: financial liability for embedded emissions is accruing on this year's imports even though certificates only go on sale in February 2027 and the first declaration (covering 2026) is due 30 September 2027 [S1]. For Czech metal fabrication, machinery and construction firms importing steel and aluminium inputs, this is a cost accruing before it can be settled [S1].
+Czech firms importing more than 50 tonnes a year of iron and steel, aluminium, cement, fertilisers, hydrogen or electricity have been inside the definitive regime of CBAM — the EU's carbon border levy on imported goods — since 1 January 2026 [S1]. Liability for embedded emissions (the carbon burned making those goods abroad) accrues on 2026 imports, certificates first go on sale in February 2027, and the first declaration is due 30 September 2027 [S1]. Metal fabrication, machinery and construction firms buying steel and aluminium inputs carry a cost they cannot yet settle [S1].
 
-Why now: the 50-tonne de minimis in the 2025 Omnibus is designed to cut the compliance burden for small-volume importers while preserving the regulation's environmental scope [S2], concentrating the obligation on the importers who remain. They need authorised declarant status before February 2027 to buy certificates at all [S1], embedded-emissions data from non-EU suppliers, and a view of the liability accruing at EU ETS-linked certificate prices [S1].
+Why now: the 50-tonne floor added by the 2025 Omnibus — the EU's simplification amendment — cuts small importers out and concentrates the obligation on those above it [S2]. Those firms need authorised declarant status before February 2027 to buy certificates at all [S1], embedded-emissions data out of non-EU suppliers, and a running view of liability at certificate prices pegged to the EU ETS — the EU's carbon market [S1].
 
-Who pays: the importing firms — declarant registration support, supplier emissions data collection, ERP plug-ins for embedded-emissions accounting, and hedging advisory for the certificate cost [S1]. The buyer is the CFO, and the trigger dates are fixed.
+Who pays: the importing firms — the finance director is the buyer, and the February 2027 certificate date is fixed. The work is declarant registration, supplier emissions collection, plug-ins into the ERP — the firm's accounting and stock system — that book embedded emissions, and hedging advice on the certificate cost [S1].
 
-Existing non-solutions: the Czech market has not been searched yet, so no open local field is claimed.
+Existing non-solutions: the Czech market has not been searched, so no open local field is claimed.
 
-Recommended follow-up: quantify the Czech population of above-threshold importers (customs data) and check whether CZ customs-software vendors are building CBAM modules.
+Recommended follow-up: count the Czech importers above the threshold in customs data, and check whether Czech customs-software vendors are building CBAM modules.
 
 ## Revisions
 
 2026-08-20 · evidence audit — Removed three unbacked assertions. From "Why now", the supplier-behaviour clause "who are often unable or unwilling to provide it": "unable or unwilling" returns zero hits corpus-wide, and reg-cbam-definitive lists supplier emissions data collection as a market while saying nothing about supplier conduct. From "Existing non-solutions", the whole sentence claiming that Big Four and customs consultancies serve the largest importers, and that the transitional-period reporting firms did does not prepare them for the financial mechanics of the definitive regime — no corpus receipt names a Big Four or customs consultancy serving CZ importers, and nothing documents what Czech firms did during the transitional period. The paragraph now states only what the record can back: no CZ gap check was run, so gap scores 0.
 
 2026-08-24 · rejected — Removed from the register per the owner's quality mandate. One regulation signal is the entire evidence base; the second source is a URL copied from that signal's own notes, and the 9,324-signal corpus holds no Czech tender, contract or complaint touching CBAM. Two receipts failed verification against the fetched EY alert [S2]: it contains neither the "~90% of importers / ~99% of emissions" figures attributed to it (rewritten to what it does say) nor any documented CFO-level cash-planning pressure (clause cut; demand 1 → 0, score 3 → 2). What remains is an EU deadline an LLM reproduces from memory, not a confirmed Czech problem.
+
+2026-09-02 · plain-language pass — Glossed five terms at first use: CBAM, embedded emissions, the 2025 Omnibus, EU ETS and ERP; CFO replaced with finance director. Argument reshaped from 226 to 254 words, every date, tonnage and threshold kept and the long opening sentence split so each half carries [S1]. Both sources gained a public name, gist and why line. No score, status or source note touched, and no marker deleted or renumbered.

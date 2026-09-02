@@ -38,6 +38,9 @@ comps:
   markets: [DE, JP]
 sources:
 - type: regulation
+  name: "EU Battery Regulation (2023/1542)"
+  gist: "the 18 Feb 2027 cutover"
+  why: "From 18 February 2027 every electric-vehicle, light-transport and larger industrial battery sold in the EU must carry a digital passport read from a QR code, and the duty falls on whoever places it on the market."
   url: https://single-market-economy.ec.europa.eu/single-market/digital-product-passport/batteries_en
   note: 'reg-battery-passport: EU Battery Regulation (2023/1542) — from 18 Feb 2027 every
     EV, light-transport and >2 kWh industrial battery placed on the EU market must carry a
@@ -46,27 +49,32 @@ sources:
   date: '2027-02-18'
   signal: reg-battery-passport
 - type: news
+  name: "Switzerland Global Enterprise — battery passport briefing"
+  gist: "the template for later passports"
+  why: "Reads the battery passport as the EU's first mandatory product passport and the model for the ones that follow, so the data pipeline built for batteries carries over to them."
   url: https://www.s-ge.com/export/en/articles/spotlight/introduction-eu-battery-passport-february-2027
   note: Battery passport is the first mandatory DPP and the template for ESPR product passports
     — whoever builds the data-collection pipeline for batteries is positioned for the passport
     wave that follows.
   date: '2026-08-13'
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-09-02'
 ---
 
-From 18 February 2027, every EV battery, light-means-of-transport battery and industrial battery over 2 kWh placed on the EU market must carry a digital battery passport accessible by QR code [S1] — carbon footprint, materials provenance, state-of-health data and more, maintained over the battery's life. The obligation falls on whoever places the battery on the market, which in Czechia means the automotive supply chain: Škoda Auto's EV programme, battery and module plants, industrial-battery importers, e-bike and scooter brands [S1].
+From 18 February 2027 every electric-vehicle battery, light-transport battery and industrial battery over 2 kWh sold in the EU must carry a digital passport read from a QR code [S1] — carbon footprint, materials provenance and state-of-health data, kept current for the battery's life. The duty falls on whoever places the battery on the market: in Czechia, Škoda Auto's electric programme, battery and module plants, industrial-battery importers, e-bike and scooter brands [S1].
 
-Why now: the date is hard, there is no transition period [S1], and the passport requires supply-chain data collection that mid-sized firms have not built — upstream suppliers must feed data they have never systematically produced. Eighteen months is short for a data pipeline that crosses company boundaries.
+Why now: the date is hard, with no transition period [S1]. Upstream suppliers must report carbon and materials data they have never systematically produced, and the pipeline crosses company boundaries — eighteen months to build it.
 
-Who pays: battery-placing manufacturers and importers buying DPP SaaS, data-collection integration and identity/QR infrastructure [S1]. The strategic kicker: the battery passport is the EU's first mandatory digital product passport and the template for the ESPR passports that follow for other product groups [S1,S2] — battery-passport plumbing is a beachhead, not a niche.
+Who pays: carmakers, battery plants and importers — whoever places the battery on the market — buying passport software, the data collection behind it and the identity and code infrastructure it runs on [S1]. The battery passport is the EU's first mandatory digital product passport, and the template for the ones the ESPR — the EU's ecodesign law — brings to other product groups next [S1,S2]. The pipeline built for batteries carries over to those [S2].
 
-Existing non-solutions: European DPP startups exist; no CZ-localized offering or supply-chain onboarding service for the Czech tier-2/3 supplier base has been verified — the market has not been searched yet, so no open local field is claimed.
+Existing non-solutions: European passport vendors exist; nothing Czech-language, and no onboarding service for the tier-2 and tier-3 suppliers below the carmakers, has been found. The Czech market has not been searched, so no open field is claimed.
 
-The score rests on the deadline and its freshness alone. Next moves: a search for CZ DPP tooling, a demand statement from AutoSAP (the Czech automotive association), and identifying whether Škoda's own supplier mandates create a de-facto standard a product could implement against.
+Next moves: search for Czech passport tooling; ask AutoSAP (the Czech automotive association) for a demand statement; check whether Škoda's own supplier mandates already set a de-facto standard a product could implement against.
 
 ## Revisions
 
 2026-08-20 · evidence audit — Removed Minespider, which appears nowhere: not in the signal corpus, not in the comps ledger, not in any source note on this record. Removed the go-to-market claim that European DPP startups "sell enterprise-first", which has no support either. Circulor and Circularise also left the body — they are real comparables, but a comps entry cannot back a body claim, and the "Where it works" ledger already names both with their traction.
 
 2026-08-24 · rejected — Owner review. The record holds no Czech evidence at all: no tender, no demand receipt, no money, and the gap was never checked — proof, money, demand and gap all sit at 0. Its two sources are an EU regulation page and a foreign trade-promotion article; the deadline is real [S1], but everything here is knowable without this register, and the only Czech content is unreceipted speculation about who is affected. A register of receipted local problems cannot carry it. Rejected, not deleted — the trail stays.
+
+2026-09-02 · plain-language pass — Five trade terms replaced or glossed at first use: EV, DPP, SaaS, ESPR, tier-2/3. Argument 257 → 253 words, every receipt kept — the 18 Feb 2027 date, the 2 kWh threshold, Škoda Auto, AutoSAP. Cut the sentence stating what the score rests on: scoring talk belongs here, not in rendered prose. Added name, gist and why to both sources. No score, status or note touched; no marker deleted or renumbered.

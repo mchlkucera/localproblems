@@ -122,6 +122,7 @@ locals:
 sources:
 - type: arbitrage
   name: "Skalar"
+  gist: "the Munich €12M round"
   why: "Munich, €12M seed led by Headline — an AI-native tax and accounting firm where agents do the bookkeeping, payroll and tax grunt work so one professional serves 100+ clients."
   url: https://techfundingnews.com/skalar-raises-12m-headline-ai-accounting-firm/
   note: 'de-skalar: Skalar (Munich, Stocard founder) raised €12M seed (Headline, 14 Jul 2026)
@@ -132,6 +133,7 @@ sources:
   signal: de-skalar
 - type: gap-check
   name: "Czech accounting-automation scan (first pass)"
+  gist: "the superseded quick scan"
   why: "The early look at the Czech field, later superseded: it named Digitoo (invoice capture) and ÚOL (online accounting service) as the partial incumbents."
   url: https://techfundingnews.com/skalar-raises-12m-headline-ai-accounting-firm/
   note: 'Quick check 2026-08-13: CZ has Digitoo (invoice capture automation) and ÚOL (online
@@ -140,6 +142,7 @@ sources:
   date: '2026-08-13'
 - type: regulation
   name: "New Czech Accounting Act (draft)"
+  gist: "the law and its 2028 date"
   why: "Submitted to parliament in December 2025 with planned effect from 1 January 2028 — IFRS-aligned concepts that force rewrites across the Pohoda/Money/ABRA/Helios ecosystem. Not yet enacted, so the date can slip."
   url: https://www.ey.com/cs_cz/technical/tax/tax-alerts/2025/12/novy-zakon-o-ucetnictvi-a-zmenovy-zakon-miri-do-poslanecke-snemovny
   note: 'reg-accounting-act-cz: nový zákon o účetnictví submitted to the Chamber 12 Dec 2025,
@@ -150,6 +153,7 @@ sources:
   signal: reg-accounting-act-cz
 - type: arbitrage
   name: "Finto"
+  gist: "the second Munich round"
   why: "Munich, ~€2.9M seed from Lightspeed, Y Combinator and Gradient for AI agents automating enterprise accounting — the second funded Munich AI-accounting company inside a month."
   url: https://www.vestbee.com/insights/articles/top-european-funding-rounds-closed-in-july-2026
   note: 'round-finto: Finto (Munich) raised ~€2.9M seed (Jul 2026, Lightspeed + Y Combinator
@@ -161,6 +165,7 @@ sources:
   signal: round-finto
 - type: arbitrage
   name: "Billow AI Labs"
+  gist: "the category's newest entrant"
   why: "A YC Summer 2026 'AI-native accounting firm to replace the Big-4' — with Bluebook (Stockholm) and Combinely (London), the wedge is funded across the US, the Nordics and the UK."
   url: https://www.ycombinator.com/companies/billow-ai-labs
   note: 'yc-billow-ai-labs: Billow AI Labs (YC Summer 2026) — ''AI-native Accounting Firm
@@ -171,6 +176,7 @@ sources:
   signal: yc-billow-ai-labs
 - type: regulation
   name: "Jednotné měsíční hlášení zaměstnavatele (Act 323/2025)"
+  gist: "the monthly employer report"
   why: "Since 1 April 2026 every Czech employer files one monthly electronic report to ČSSZ in place of up to 25 forms — a live, recurring load on exactly the payroll capacity that is already short."
   url: https://www.cssz.gov.cz/kdo-podava-jmh-
   note: 'reg-cz-jmhz: Jednotné měsíční hlášení zaměstnavatele (zákon č. 323/2025 Sb.) — every
@@ -182,6 +188,7 @@ sources:
   signal: reg-cz-jmhz
 - type: subsidy
   name: "OP TAK — Inovační vouchery IV"
+  gist: "the rolling innovation voucher"
   why: "A rolling voucher scheme paying SMEs for knowledge services bought from research organisations, open until 30 April 2027 — co-funding for the agent stack."
   url: https://apiagentura.gov.cz/cs/radce/vsechny-vyzvy/
   note: 'dotace-optak-inovacni-vouchery-4: OP TAK Inovační vouchery IV — rolling voucher
@@ -193,6 +200,7 @@ sources:
   signal: dotace-optak-inovacni-vouchery-4
 - type: subsidy
   name: "OP TAK — Partnerství znalostního transferu IV"
+  gist: "the knowledge-transfer grant"
   why: "Funds joint knowledge-transfer projects that place research expertise inside an SME; applications close 21 September 2026."
   url: https://apiagentura.gov.cz/cs/radce/vsechny-vyzvy/
   note: 'dotace-optak-pzt-4: OP TAK Partnerství znalostního transferu IV — funds joint knowledge-transfer
@@ -202,6 +210,7 @@ sources:
   signal: dotace-optak-pzt-4
 - type: gap-check
   name: "Účtárna.ai and the Czech AI-accounting field"
+  gist: "the Czech field, occupied"
   why: "A Czech-language sweep finding the model already trading here: Účtárna.ai, E-Consulting's AI Accounting, Trivi and MyÚčto.cz all sell AI-assisted bookkeeping with licensed accountants behind it."
   url: https://www.uctarna.ai/
   note: 'Gap re-check 2026-08-20: OCCUPIED. The record claimed no Czech equivalent of the full-stack
@@ -233,29 +242,29 @@ sources:
   checked: [ares, google-cz, own-funded-ledger]
   expires: '2026-11-18'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Czechia has a structural accountant shortage, and the profession's operating environment is about to be rewritten. The new Accounting Act — in parliament since December 2025, planned for 1 January 2028 — brings IFRS-aligned concepts and functional-currency accounting that force software rewrites across the dominant Pohoda/Money/ABRA/Helios ecosystem and retraining for every accounting unit in the country [S3].
+Czech accountants are scarce, and their rulebook is being rewritten. The new Accounting Act reached parliament in December 2025 and is planned for 1 January 2028 [S3]. It brings in IFRS (international financial reporting standards) and functional-currency accounting, forcing rewrites across Pohoda, Money, ABRA and Helios — the software Czech firms keep their books on — and retraining for every accountant [S3].
 
-Why now: Germany showed what the shortage-plus-transition moment produces — twice in one month. Skalar (€12M, Headline) puts AI agents on the bookkeeping, payroll and tax grunt work so one professional serves 100+ clients [S1]; Finto raised from the same city weeks later [S4]. The constraint they attack, scarce licensed professionals, is the same here, and the 2028 re-platforming loosens client and accountant loyalty to incumbent workflows at once. Meanwhile the forcing function is no longer hypothetical: since 1 April 2026 every Czech employer files the Jednotné měsíční hlášení monthly [S6], a live recurring compliance clock that landed on exactly the payroll capacity that is already short.
+Why now: Munich funded this twice in one month. Skalar raised €12M from Headline for agents doing the bookkeeping, payroll and tax grunt work, so one professional serves 100+ clients [S1]. Finto followed weeks later, same city [S4]. The same scarcity is here, and the 2028 switch loosens client and accountant loyalty at once. One clock already runs: since 1 April 2026 every Czech employer files one monthly report to the social-security administration in place of up to 25 forms [S6].
 
-Who pays: SMBs that struggle to find an accountant at all, then larger firms facing the new Czech Accounting Act [S3]. The AI-first firm captures service fees; a second wedge sells transition tooling to existing accounting firms.
+Who pays: small firms that cannot find an accountant pay first, then larger ones pushed by the new Accounting Act [S3]. The AI-first firm charges service fees; a second wedge sells transition tooling to the accounting firms already here.
 
-Existing non-solutions: Digitoo automates invoice capture, ÚOL sells online accounting service delivery [S2], and the incumbent software vendors will ship compliance updates [S3]. The full-stack AI-first firm is not absent from Czechia either. Účtárna.ai runs bookkeeping, VAT, payroll and tax as a service, with licensed accountants reviewing AI-processed documents at published prices; E-Consulting states its technology posts up to 85% of transactions automatically; Trivi and MyÚčto.cz sell the tech-enabled variant [S9]. The Munich model already has a domestic operator, and not a new one: Trivi has sold it since 2008, Účtárna.ai's principal has been registered since 2012 [S9].
+Existing non-solutions: Digitoo automates invoice capture and ÚOL — an online bookkeeping service — sells the bookkeeping [S2]; the software vendors will ship compliance updates [S3]. The full-stack AI firm already trades here. Účtárna.ai keeps books, VAT, payroll and tax as a service, with licensed accountants checking what the AI posted, at published prices; E-Consulting says its technology posts up to 85% of transactions automatically; Trivi and MyÚčto.cz sell the same [S9]. None is new: Trivi since 2008, Účtárna.ai's principal since 2012 [S9].
 
-Two limits. The 2028 Accounting Act date is planned, not enacted [S3], so the live clock is JMHZ [S6]. And the demand case rests on the German parallel: no Czech figure is on file, and a chamber shortage statement is the next evidence to pull.
+Two limits. The 2028 date is planned, not enacted [S3], so the only clock actually running is the monthly employer report [S6]. And no Czech figure for the shortage exists: the demand case rests on the German parallel.
 
-Solved elsewhere: the AI-first accounting firm is a funded category across Europe, and a very young one. Skalar (Munich, €12M) and Finto (Germany, $3.4M) raised in 2026 and both started selling in 2025 [S1]; Bluebook (Sweden) and Combinely (UK, profitable out of YC) opened in 2024, and Billow AI Labs only came out of YC this summer [S4,S5]. None has traded three years. Abroad that is a market being proven right now, and a fair moment to join; here it is the wrong side of the trade, because the Czech seat is held by firms that have sold for a decade and more.
+Solved elsewhere: the AI-first accounting firm is funded across Europe, and very young. Skalar (Munich, €12M) and Finto (Germany, $3.4M) raised in 2026, both selling only since 2025 [S1]; Bluebook (Sweden) and Combinely (Britain, profitable) opened in 2024, and Billow AI Labs came out of Y Combinator this summer [S4,S5]. None has traded three years. Abroad that is a market being proven now, a fair moment to join; here the seat is already held by firms selling for a decade and more.
 
 ## First moves
 
-1. Call five payroll bureaus and accounting firms about the Jednotné měsíční hlášení — every employer files it monthly since 2026-04-01 [S6] — and write down what the filing actually costs them: this is the demand evidence the record itself lists as missing.
-2. Build the JMHZ agent as the wedge: automate the monthly ČSSZ report end-to-end for one payroll bureau before touching bookkeeping — it is the only live, recurring compliance clock here, and it replaced up to 25 separate forms [S6].
-3. Recruit one licensed Czech accountant as the founding professional: the Skalar model the record imports runs one professional per 100+ clients [S1], so the first hire is leverage, not headcount.
-4. Verify the untested switch assumption: pre-sell AI-first bookkeeping to ten long-tail SMBs that cannot find an accountant, and pull the Komora daňových poradců or chamber shortage statement the record names as next evidence.
-5. Co-fund the Czech agent stack with [OP TAK Inovační vouchery IV](/sources/tenders#dotace-optak-inovacni-vouchery-4) — rolling until 2027-04-30, small vouchers paying SMEs for research-organization services (allocation not published on the ledger listing) [S7]; the deeper build-out, [OP TAK Partnerství znalostního transferu IV](/sources/tenders#dotace-optak-pzt-4), closes 2026-09-21 [S8].
-6. Competition, checked 2026-08-20: the seat is taken. **Účtárna.ai** already runs the full-stack AI-first firm — bookkeeping, VAT, payroll, tax, licensed accountants over an AI document pipeline, published pricing; **E-Consulting AI Accounting** states it posts up to 85% of transactions automatically; **Trivi** and **MyÚčto.cz** sell the tech-enabled service; **Digitoo** holds invoice capture and **ÚOL** online service delivery [S2,S9]. An entrant here is displacing named domestic operators, not filling a void — price, niche or the 2028 transition itself is the wedge, and the new Accounting Act is still only planned for 2028-01-01 and can slip [S3].
+1. Call five payroll bureaus and accounting firms about the monthly employer report — every employer has filed it since 1 April 2026 [S6]. Write down what one filing costs them. That is the demand number nobody has.
+2. Automate that one report end-to-end for a single bureau before touching bookkeeping. It is the only recurring clock here, and it replaced up to 25 separate forms [S6].
+3. Hire one licensed Czech accountant as the founding professional. Skalar runs one professional per 100+ clients [S1], so the first hire buys leverage, not headcount.
+4. Pre-sell to ten small firms that cannot find an accountant, and pull the shortage statement from the Komora daňových poradců, the chamber of tax advisers. No Czech figure exists yet.
+5. Let public money carry part of the build. [OP TAK Inovační vouchery IV](/sources/tenders#dotace-optak-inovacni-vouchery-4) — the state's business-support programme — pays small firms for research-institute work, rolling until 30 April 2027, with no allocation published [S7]. The deeper route, [OP TAK Partnerství znalostního transferu IV](/sources/tenders#dotace-optak-pzt-4), closes 21 September 2026 [S8].
+6. Plan to displace, not to fill a void. **Účtárna.ai** already runs the whole thing — books, VAT, payroll, tax, licensed accountants over an AI document pipeline, published prices; **E-Consulting AI Accounting** says it posts up to 85% of transactions automatically; **Trivi** and **MyÚčto.cz** sell the tech-enabled service; **Digitoo** holds invoice capture and **ÚOL** the online bookkeeping [S2,S9]. Price, a niche, or the 2028 changeover is the wedge — and 2028 is still only planned, and can slip [S3].
 
 ## Revisions
 
@@ -267,3 +276,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 2026-08-20 · gap re-check and evidence audit — Two blocks recorded on this date, merged here. De-ranked: the AI-native accounting firm has a Czech operator. The prior gap check labelled itself "quick search only" and concluded no full-stack AI-first accounting or tax firm existed here. It does. Účtárna.ai sells exactly that model as a service — bookkeeping, VAT, payroll, tax optimization, a client portal, AI-processed documents reviewed by licensed accountants, published pricing, and a stated 300+ client firms; its named CEO resolves in ARES (IČO 88865835). E-Consulting AI Accounting states technology posts up to 85% of transactions automatically while the firm remains responsible for accuracy, and Trivi a.s. (IČO 28378440) and MyÚčto.cz run tech-enabled versions of the same service [S9]. Per the SPEC §4 de-rank rule: gap 1 → 0, score 7 → 6, status candidate → watching. The title's claim that the model "has no Czech equivalent" was removed for the same reason, and the non-solutions paragraph and first move 6 were rewritten so the body stops asserting an absence its own score denies. The scarcity and the 2028 re-platforming window are untouched — they are backed by [S3] and [S6] and remain the record's live content. Cut in the same pass: the count of Czech accounting firms in "Who pays", because no count of the profession exists anywhere in the signal corpus or in any source note here and the wedge stands without it; and the client-load baseline in the third first move, which lives only in the Skalar comps traction line, and a comparable's traction cannot back a body claim. The client figure the Skalar source note does carry is unchanged and still cited [S1]. No headcount for the Czech accounting profession has been reintroduced: the re-check looked and found none.
 
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
+
+2026-09-02 · plain-language pass — Glossed IFRS, ABRA and ÚOL at first use; replaced three acronyms with plain words — JMHZ became the monthly employer report [S6], ČSSZ the social-security administration, UK Britain. Argument tightened 447 to 385 words, every [Sn] marker, figure, date and named company kept. First moves rewritten verbs-first, the register-bookkeeping opener on move six gone. A gist added to all nine sources. No score, status, note or marker touched.

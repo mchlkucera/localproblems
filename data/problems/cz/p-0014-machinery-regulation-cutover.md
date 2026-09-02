@@ -30,6 +30,9 @@ comps:
   markets: [DE, CH]
 sources:
 - type: regulation
+  name: "Machinery Regulation (EU) 2023/1230"
+  gist: "the law and its 2027 cutover"
+  why: "Replaces the 2006 Machinery Directive on 20 January 2027 with no transition period — from that date a machine put on the market must meet the new rules, cybersecurity and digital instructions included."
   url: https://eur-lex.europa.eu/eli/reg/2023/1230/oj
   note: 'reg-machinery-2023-1230: Machinery Regulation (Reg. 2023/1230) replaces Directive
     2006/42/EC on 20 Jan 2027 with no transition period — machines placed on market from that
@@ -38,6 +41,9 @@ sources:
   date: '2027-01-20'
   signal: reg-machinery-2023-1230
 - type: news
+  name: "TÜV — new Machinery Regulation"
+  gist: "the cutover date, confirmed"
+  why: "A testing house's own briefing page on the new Regulation, read as an independent confirmation of the 20 January 2027 date."
   url: https://www.tuv.com/world/en/new-machinery-regulation-eu-2023-1230.html
   note: 'TÜV and Pilz confirmations of the hard-cutover date; demand point: the no-transition
     cutover plus the ''substantial modification'' rule (turning integrators and retrofitters
@@ -45,21 +51,23 @@ sources:
     is a core CZ export sector.'
   date: '2025-12-31'
 created: '2026-08-13'
-updated: '2026-08-24'
+updated: '2026-09-02'
 ---
 
-On 20 January 2027 the Machinery Regulation (2023/1230) replaces the Machinery Directive with a hard cutover: no transition period, so any machine placed on the market from that date must conform to the new regime — including requirements on cybersecurity of safety-related control systems, AI-enabled safety functions and digital instructions [S1]. The "substantial modification" rule additionally converts firms doing substantial modifications into manufacturers carrying full conformity duties [S1].
+On 20 January 2027 the Machinery Regulation (2023/1230) replaces the 2006 Machinery Directive — the safety rulebook every machine sold in the EU is built and documented against [S1]. Any machine placed on the market from that date — first supplied to a buyer in the EU — must conform to the Regulation, including its requirements on cybersecurity of safety-related control systems, AI-enabled safety functions and digital instructions [S1]. Its "substantial modification" rule — a rebuild deep enough that the machine counts as new — makes the integrator or retrofit shop the manufacturer, the party that must prove the machine meets the rules and sign for it [S1].
 
-Why now: the cutover is under 18 months away at record creation [S1].
+Why now: 20 January 2027 is one hard date with no transition period [S1].
 
-Who pays: machinery manufacturers, importers, and integrators and retrofit shops that need conformity gap audits, updated risk assessments (including the new cybersecurity annexes), and digital user-instruction tooling [S1]. These are recurring engineering-services and documentation-software purchases, not one-off legal advice.
+Who pays: machinery makers, importers, and the integrators and retrofit shops a rebuild turns into manufacturers [S1]. Each needs a conformity gap audit — a check of what the machine's file is missing — a risk assessment redone against the new cybersecurity annexes, and software that delivers the user instructions digitally [S1]. That is recurring engineering and documentation work, not one-off legal advice.
 
-Existing non-solutions: the Czech market has not been searched yet, so no open local field is claimed.
+Existing non-solutions: the Czech market has not been searched — no Czech vendor has been found, and none has been ruled out.
 
-Recommended follow-up: check Czech notified-body queue times and whether any CZ vendor offers digital-instructions/technical-file software localized to the new regulation — both would strengthen (or kill) the productizable angle.
+Recommended follow-up: check how long Czech notified bodies — the independent houses the state designates to certify machines — make a manufacturer wait, and whether any Czech vendor sells software for the Regulation's paperwork: the technical file and the digital instructions.
 
 ## Revisions
 
 2026-08-20 · evidence audit — Removed the entire competitive-landscape sentence: "TÜV/Pilz-style international certification houses serve the large manufacturers; the Czech SMB integrator tier relies on ad-hoc consultants." TÜV and Pilz appear in the corpus only as URL receipts for the cutover date inside the Machinery Regulation signal; "notified body" and "notifikovan" return no hits at all, and nothing anywhere characterises the Czech SMB integrator tier. The record was describing a market it states in the same paragraph that it never examined; what remains is that plain statement. Also removed, from "Why now", the claim that technical documentation and risk assessments prepared under the old Machinery Directive do not carry over automatically — the signal establishes only that machines placed on the market from the cutover date must conform to the Regulation, so the carry-over claim was an inference stated as fact.
 
 2026-08-24 · rejected — Removed from the register per the owner's quality mandate. One regulation signal is the entire evidence base; the second source is a URL copied from that signal's own notes, and the 9,324-signal corpus holds no Czech tender, contract or complaint touching Reg 2023/1230. Three citations failed verification against the fetched TÜV page: it carries no "documented pressure" (demand 1 → 0, score 3 → 2), no substantial-modification rule (re-cited to the regulation itself [S1]), and nothing about Czech industry — the "core Czech export sector" clause, true or not, had no receipt and is cut, as are "known bottleneck" and "underserved group". What remains is an EU deadline an LLM knows from memory, not a confirmed Czech problem.
+
+2026-09-02 · plain-language pass — Glossed at first use: Machinery Directive, placed on the market, substantial modification, conformity gap audit, notified body, technical file; "full conformity duties" replaced with plain words. Argument 166 → 248 words, every [S1] marker kept, "at record creation" and the productizable-angle clause cut. Added name, gist and why to both sources. No score, status, note or marker touched.

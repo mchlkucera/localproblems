@@ -77,6 +77,7 @@ locals:
 sources:
 - type: regulation
   name: "Czech transposition of the Pay Transparency Directive"
+  gist: "the 2027 law and 2028 reports"
   why: "Law-firm analysis of the MPSV draft: effective 1 Jan 2027, most duties from 1 Jan 2028, and pay-gap reports for employers with 150+ staff first due 30 April 2028. Czechia missed the June 2026 transposition deadline."
   url: https://iuslaboris.com/insights/czechia-charts-its-own-course-on-pay-transparency-directive-transposition/
   note: 'reg-pay-transparency-cz: EU Pay Transparency Directive (2023/970); CZ missed the
@@ -87,6 +88,7 @@ sources:
   signal: reg-pay-transparency-cz
 - type: arbitrage
   name: "Figures"
+  gist: "the €6.67M French template"
   why: "French compensation-benchmarking and EU pay-transparency tooling sold across Europe — with PayAnalytics and Syndio, the template for what this product looks like when it works."
   url: https://figures.hr/
   note: Figures (FR) sells compensation-benchmarking and EU pay-transparency compliance tooling
@@ -95,6 +97,7 @@ sources:
   date: '2026-08-13'
 - type: news
   name: "Vema and Pamica — the installed Czech payroll base"
+  gist: "the installed payroll base"
   why: "Names the legacy payroll systems Czech employers actually run on. It records that they exist; it says nothing about whether they analyse pay gaps."
   url: https://www.ycombinator.com/companies/hammr
   note: 'yc-hammr: the CZ absence check inside this signal names the installed Czech payroll
@@ -106,6 +109,7 @@ sources:
   dims: []
 - type: news
   name: "TED — OKbase HR system support"
+  gist: "the ministry's OKbase award"
   why: "A Foreign Ministry award for support of the Czech OKbase HR system — a receipt that it is in production use here, and nothing more."
   url: https://ted.europa.eu/en/notice/-/detail/474940-2026
   note: 'ted-474940-2026: Ministry of Foreign Affairs award for "OKbase HR system support"
@@ -117,6 +121,7 @@ sources:
   dims: []
 - type: gap-check
   name: "Czech pay-equity tooling scan"
+  gist: "the Czech pay-equity sweep"
   why: "Czech pay-equity products already exist: TREXIMA's Manažer odměňování at 79,000 CZK a year with a gender pay-gap report, Nakladatelství FORUM's equal-pay app at 8,499 CZK a year, and the labour ministry's free Logib audit."
   url: https://www.manazerodmenovani.cz/
   note: 'Czech-language pay-equity scan 2026-08-25. The Czech position is NOT open. Commercial
@@ -168,6 +173,7 @@ sources:
   expires: '2026-11-23'
 - type: regulation
   name: "VeKLEP — unified monthly employer reporting rules amended"
+  gist: "the second reporting regime"
   why: "A second reporting regime is landing on the same payroll data: the decree implementing unified monthly employer reporting (417/2025 Sb.) is already being amended, with comments closed in July 2026."
   url: https://odok.cz/portal/veklep/material/KORNDWGLMTLV/
   note: 'veklep-KORNDWGLMTLV: draft regulation amending nařízení č. 417/2025 Sb., which
@@ -179,23 +185,24 @@ sources:
   signal: veklep-KORNDWGLMTLV
   dims: []
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-The EU Pay Transparency Directive lands in Czechia on a compressed and unusually prescriptive schedule: the transposition deadline passed in June 2026 with the Czech law still in draft, which converts parliamentary delay into infringement pressure and leaves employers with a shorter runway to a 1 January 2027 effective date [S1]. From then, pay ranges must appear in hiring, salary-history questions are banned, and pay-setting criteria must be transparent; from 2028, employers with 150+ employees owe pay-gap reports, with the first due 30 April 2028 [S1].
+Czechia missed the 7 June 2026 deadline to transpose the EU Pay Transparency Directive; the law is still in draft, effective 1 January 2027 [S1]. From then: pay ranges in job ads, no salary-history questions, published pay criteria. From 2028 employers with 150+ employees owe pay-gap reports, the first due 30 April 2028 [S1].
 
-Why now: the iuslaboris analysis notes the Czech draft goes beyond the directive into mandatory pay-system design [S1] — meaning compliance is not a policy memo but a restructuring of job architecture and compensation data. Companies that wait for the final law will compress a year of data work into months.
+Why now: the Czech draft goes beyond the directive and mandates pay-system design [S1] — job grades and pay data get rebuilt, not documented. Wait for the final text and a year of that work compresses into months.
 
-Who pays: initially the 150+-employee reporting tier (thousands of Czech employers, HR departments with no pay-equity analytics), then effectively every employer adjusting hiring practice [S1]. Buyers split between HRIS/payroll vendors needing modules, and standalone audit/analytics tools plus consulting.
+Who pays: employers with 150 or more staff first — thousands of Czech firms whose personnel departments have never run a pay-equity analysis — then every employer that hires [S1]. Two ways in: a standalone audit tool, or a module inside the payroll systems they already run.
 
-Existing non-solutions: the Czech field is taken at both ends. TREXIMA sells Manažer odměňování at 79,000 CZK a year — analytical job evaluation, wage benchmarking and a gender pay-gap report — and runs the state earnings survey the benchmarks come from; Nakladatelství FORUM sells an equal-pay web app at 8,499 CZK a year that groups staff by job value and tracks the pay ratio; Sloneek markets pay bands and gender pay analysis inside its HR system [S5]. Underneath them the labour ministry and the inspectorate give the Logib audit away free and inspect with it [S5]. Vema and OKbase remain the installed payroll base [S3,S4]. What nobody sells is the finished filing — quartile bands, mean and median gaps on variable pay, the joint assessment — straight off a payroll export [S5].
+Existing non-solutions: TREXIMA sells Manažer odměňování at 79,000 CZK a year — job evaluation, wage benchmarking, a gender pay-gap report — and runs the state earnings survey behind those benchmarks; Nakladatelství FORUM (a publisher) sells an equal-pay web app at 8,499 CZK a year, grouping staff by job value and tracking the pay ratio; Sloneek markets pay bands and gender pay analysis inside its personnel software [S5]. The labour ministry and its inspectorate give Logib away free and inspect with it [S5]. Vema and OKbase are the installed payroll base [S3,S4]. Nobody sells the finished filing — quartile bands, mean and median gaps on variable pay, the joint assessment — off a payroll export [S5].
 
-What is still missing is demand. No Czech employer survey, chamber statement or documented complaint about pay-gap reporting is on file — only the statute and its dates [S1]. Whether employers buy before the first report falls due on 30 April 2028 or scramble after it is the open question, and an HR-association survey or a komora statement is the evidence that would settle it [S1].
+Demand is the missing piece: no Czech employer survey, chamber statement or documented complaint about pay-gap reporting is on file, only the statute and its dates [S1]. Whether employers buy before 30 April 2028 or scramble after is the open question [S1].
 
-Solved elsewhere: pay-equity analytics is a proven European category. Figures (France) raised €6.67M and benchmarks more than 1,200 EU companies; PayAnalytics (Iceland) was acquired by beqom and is used in over 75 countries; Syndio (US) has raised $83M and serves more than 200 enterprises [S2]. All three sell the analysis the directive forces on Czech employers, and none of them sells it here.
+Solved elsewhere: Figures (France) raised €6.67M and benchmarks 1,200+ EU companies; PayAnalytics (Iceland) was acquired by beqom and is used in 75+ countries; Syndio (US) raised $83M and serves 200+ enterprises [S2]. All three sell the analysis the directive forces on Czech employers; none sells it here.
 
 ## Revisions
 
 
 2026-08-25 · rewrite, then market check (one entry per date, so the two merge) — Added the missing “Solved elsewhere” paragraph so the Proven-abroad section renders its argument rather than a bare comps ledger; no score, source note or citation target changed. Later the same day, the market check — the Czech market was searched in Czech for the first time and it is not open: TREXIMA sells Manažer odměňování at 79,000 CZK a year with a gender pay-gap report and analytical job evaluation, Nakladatelství FORUM sells an equal-pay web app at 8,499 CZK a year, Sloneek markets pay bands and gender pay analysis in its HR system, and MPSV with the labour inspectorate gives the Logib audit away free while inspecting with it [S5]. `scores.gap` was already 0 and stays 0 — a search cannot raise it — but `status` moves candidate → watching under the SPEC §4 de-rank rule, and the two paragraphs that asserted the Czech market had not been searched have been rewritten to what was found. `score` is unchanged at 4. Two method notes for the next check. First, the register already held its own disproof: `round-sloneek` (2026-06-30) sits in the corpus naming EU pay-transparency transposition as the demand driver for Czech HR vendors, while the body said nobody had looked. Second, TREXIMA and Nakladatelství FORUM return zero hits across all 11,330 signals — neither raised, neither sells through public tender — so only Czech-language search could find them. Positive control: the same method run at Vema surfaced it alongside eight other Czech payroll vendors, so the method works here. Third pass this date, merged here: the first VeKLEP harvest added the amendment of the unified-monthly-employer-reporting decree (417/2025 Sb.) as a context receipt [S6] — a different obligation pulling structured reporting out of the same payroll systems. No score moved. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries Sloneek, TREXIMA and Nakladatelství FORUM [S5]. Sloneek passes the established test on its June 2026 Series A and seven years of trading, so `scores.gap` stays 0 and the de-rank above holds on a machine-checkable receipt. TREXIMA is recorded as early, and the reason is a receipt gap rather than a judgment about the company: TREXIMA, spol. s r.o. has traded since 1991 and plainly is not an early business, but its own 'Naši klienti' panel is empty, there is no public contract for IČO 44004508 in cz-contract-parties.jsonl, no round and no certification — so no limb of the test is citable, and the ledger records what can be proved. Nakladatelství FORUM is early because the product is new even though the publisher is not: it is sold explicitly against rules taking effect on 1 January 2027. The free MPSV/SÚIP Logib tool is not in `locals[]` — it is a state programme rather than a vendor — and stays named in the body. `scores.proof` 1 → 3: PayAnalytics (Iceland, and therefore Nordic and CEE-adjacent under SCORING.md) and Syndio (US) both pass the established test in two markets, while Figures cites no limb the test reads. `score` 4 → 6. Fifth pass this date, merged here: `locals[]` converted from `status:` to `competes:` + `maturity:`, and **TREXIMA is re-examined and moves from early to established**. The pass above recorded it as early and said plainly that this was a receipt gap rather than a judgment about a 35-year-old company; re-run honestly under the split, the test passes on both limbs. First limb: TREXIMA, spol. s r.o. is ARES-dated 19 November 1991, so ">= 3 years selling" is met many times over. Second limb, named customers: TREXIMA runs the state ISPV earnings survey for the labour ministry [S5] — MPSV is a named public customer, and the benchmark data that survey produces is the same data Manažer odměňování sells back to employers. Which limbs it still fails is worth stating, because "established" is a test and not a compliment: its own 'Naši klienti' panel is empty, cz-contract-parties.jsonl carries no contract for IČO 44004508, and there is no round at any stage. One citable limb is what the test asks for and the ISPV mandate is it. `competes: direct`: analytical job evaluation, twice-yearly wage benchmarking and an explicit Gender Pay Gap report are sold to Czech employers, which is this record's product and this record's buyer — and the fact that it stops short of the directive's prescribed filing is a feature gap inside the same product, not a different segment. Sloneek and Nakladatelství FORUM convert to `competes: direct` with maturities unchanged. `scores.gap` stays 0 and `score` stays 6: the field was already taken on Sloneek, and TREXIMA now confirms it on a second, independent receipt rather than moving the number. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed. Also reworded in the Nakladatelství FORUM entry: "cannot have been on sale for three years" is a rubric sentence, and the fact behind it is simply that the product launched in 2026.
 2026-08-20 · evidence audit — Three unbacked claims removed from "Existing non-solutions", plus one from the title. The capability claim that Czech payroll systems "record pay but do not analyze equal-value job categories or gaps" has nothing behind it: no signal or note characterises what Vema or OKbase do. Their existence is receipted, so it stays, now cited to two sources appended for the purpose [S3,S4]. "Big-four consultancies will serve enterprise" and "the mid-market has nothing local" are both gone — no big-four claim exists anywhere in the corpus, and the absence claim contradicted this record's own note that no CZ gap check was run. The title carried the same absence, "— with no local tooling", and has been rewritten to the regulatory facts, which are receipted [S1].
+2026-09-02 · plain-language pass — Three trade terms cleared at first use: HR and HRIS replaced with plain words, Nakladatelství FORUM glossed as a publisher. Argument cut from 435 to 342 words, every figure, date, price, named company and [Sn] marker kept. A gist added to all six sources. No score, status, note or marker touched.

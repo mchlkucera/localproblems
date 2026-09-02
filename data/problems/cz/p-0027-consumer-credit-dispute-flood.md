@@ -137,6 +137,7 @@ locals:
 sources:
 - type: complaint
   name: "Financial arbiter — 2025 annual report"
+  gist: "the 12,050-filing year"
   why: "The caseload receipt: 2,660 new proceedings in 2023, 5,683 in 2024, 12,050 in 2025 and 8,200 more filed by May 2026, with consumer credit at ~92% of the running docket and proceedings averaging 167 days."
   url: https://finarbitr.gov.cz/cs/informace-pro-verejnost/aktuality/vyrocni-zprava-financniho-arbitra-za-rok-2025-425.html
   note: 'fa-spotrebitelske-uvery: the financial arbiter''s 2025 annual report documents 12,050
@@ -149,6 +150,7 @@ sources:
   signal: fa-spotrebitelske-uvery
 - type: complaint
   name: "MPO — consumer policy progress report"
+  gist: "the ministry's five-year tally"
   why: "A second official count: ~18,700 financial-arbiter filings between 2020 and mid-2025, inside 45,000+ out-of-court dispute filings across sectors. The caseload is structural, not a one-year spike."
   url: https://mpo.gov.cz/assets/cz/ochrana-spotrebitele/aktualni-informace/2026/3/Zprava-o-prubeznem-plneni-Strategie-spotrebitelske-politiky-2025.pdf
   note: 'mpo-adr-vyuziti: MPO''s consumer-policy progress report tabulates ~18,700 financial-arbiter
@@ -160,6 +162,7 @@ sources:
   signal: mpo-adr-vyuziti
 - type: arbitrage
   name: "ClaimSorted"
+  gist: "the nearest funded model"
   why: "A YC-backed London company productising claims processing for insurers — with Audun's AI debt collection in Norway, the nearest funded model to lender-side dispute operations, and still one vertical away."
   url: https://www.ycombinator.com/companies/claimsorted
   note: 'yc-claimsorted: ClaimSorted (YC S24, London) productizes claims processing for insurers;
@@ -170,6 +173,7 @@ sources:
   date: '2026-08-13'
 - type: gap-check
   name: "Czech dispute-tooling scan (first pass)"
+  gist: "the first Czech search"
   why: "Searches returned the arbiter's own information pages, consumer advisories and law firms handling cases by hand — no Czech product for lender-side dispute response was found."
   url: https://finarbitr.gov.cz/cs/informace-pro-verejnost/caste-otazky.html
   note: 'Gap check 2026-08-13: searches return only the arbiter''s own information pages,
@@ -179,6 +183,7 @@ sources:
   date: '2026-08-13'
 - type: gap-check
   name: "aCompliance and the Czech respondent-side field"
+  gist: "the aCompliance finding"
   why: "A deeper Czech sweep: receivables platforms point the other way, law-practice case management carries no arbiter docket, and aCompliance handles arbiter disputes as a service rather than a product."
   url: https://www.acompliance.cz/klienti/nebankovni-poskytovatele-uveru/
   note: 'Gap re-check 2026-08-20: NOT FOUND, score unchanged. Looked for a Czech product on
@@ -205,6 +210,7 @@ sources:
   expires: '2026-11-18'
 - type: regulation
   name: "VeKLEP — consumer credit act revision in draft"
+  gist: "the credit act being rewritten"
   why: "The Finance Ministry is revising the Consumer Credit Act 257/2016 — the statute whose creditworthiness-assessment duties generate most of the arbiter's docket is itself being rewritten."
   url: https://odok.cz/portal/veklep/material/KORNDDVFVG8B/
   note: 'veklep-KORNDDVFVG8B: Finance Ministry draft amending zákon č. 257/2016 Sb. o
@@ -216,6 +222,7 @@ sources:
   dims: []
 - type: gap-check
   name: "Czech dispute tooling, searched again in a lender's words"
+  gist: "the ten-vendor sweep"
   why: "A wider Czech sweep of the supply side. It surfaced a dense field of Czech law-office
     software — Praetor, Evolio, Advokátní spis, E-OFFICE Advokát, ISAK — and none of it, and
     nothing else Czech, handles a case at the Financial Arbitrator."
@@ -256,25 +263,25 @@ sources:
   checked: [google-cz, ares, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-The Kancelář finančního arbitra — the out-of-court forum for consumer disputes with banks and non-bank lenders — is absorbing a caseload explosion: 2,660 new proceedings in 2023, 5,683 in 2024, 12,050 in 2025, and 8,200 already filed by the time the 2025 annual report was published in May 2026, projecting toward ~20,000 for the year [S1]. Roughly 92% of all running proceedings are consumer-credit disputes, dominated by claims that lenders failed to properly assess creditworthiness (úvěruschopnost) [S1].
+The Kancelář finančního arbitra — the out-of-court forum for consumer disputes with banks and lenders — took 2,660 new cases in 2023, 5,683 in 2024, 12,050 in 2025 and 8,200 more by May 2026, on track for about 20,000 [S1]. Consumer credit is 92% of the running caseload, mostly claims the lender never checked the borrower could repay (úvěruschopnost) [S1].
 
-Why now: the growth is industrial, not organic. The arbiter's own reporting describes claims driven at mass scale, which means every consumer lender in the market now faces a professionalized adversary filing standardized claims, while the average proceeding takes 167 days and 83% of concluded cases end in settlement [S1].
+Why now: the arbiter reports claims filed at mass scale — a claims industry, not one-off grievances — while lenders answer one at a time [S1]. Cases average 167 days; 83% of those concluded settle [S1].
 
-Who pays: non-bank lenders and banks first — each new case at the Financial Arbitrator demands document production, a legal position and a settlement decision, and at 2026 volumes that is tens of thousands of case-handling cycles a year across the sector [S1], run today by in-house legal departments and outside law firms by hand [S4]. The claimant side already has industrial tooling economics (standardized filings at scale) [S1]; the response side does not. The arbiter itself, drowning at 167 days per case [S1], is the third affected party and a plausible govtech buyer.
+Who pays: non-bank lenders and banks, who must produce documents, take a legal position and decide whether to settle on every case the arbiter opens [S1]. At 2026 volumes that is tens of thousands of cases a year, answered by hand by in-house legal teams and outside law firms [S1,S4]. The arbiter, at 167 days a case, is a third buyer [S1].
 
-Existing non-solutions: people, billed by the hour. In-house legal departments and outside law firms work each case by hand [S4]. aCompliance will take the job off a lender altogether, marketing the handling of complaints and out-of-court disputes at the Financial Arbitrator to non-bank lenders — a firm doing the work, not software a lender runs itself [S5]. The Czech software points elsewhere: ePohledávky.cz, Barrister and Evolio automate the creditor pursuing the debtor, and SingleCase, Praetor, Advokátní spis, E-OFFICE Advokát, ISAK and Aptien are general matter tooling with no arbiter docket in them [S7]. Nobody sells the responding side a way to run this [S7].
+Existing non-solutions: people, billed by the hour [S4]. aCompliance takes the job off the lender, handling complaints and arbiter disputes for non-bank lenders as a service rather than software [S5]. Czech software points elsewhere: ePohledávky.cz, Barrister and Evolio chase debtors for creditors, while SingleCase, Praetor, Advokátní spis, E-OFFICE Advokát, ISAK and Aptien sell general law-office tooling — files, deadlines, billing — with nothing for an arbiter case [S7]. Nobody sells the defending side a product [S7].
 
-Solved elsewhere: dispute handling is funded on both sides of the Atlantic, but only one of the three sellers has been at it long enough to prove anything. Casap has automated the bank payment-dispute lifecycle since 2023 and raised a $25M Series A at a $105M valuation [S3]. ClaimSorted opened in London in 2024 and handles claims for twenty-plus insurers on $13.3M; Audun is four people in Oslo building AI-native collections out of YC [S3]. So the proven model is Casap's, one vertical away in payments — nobody anywhere has been documented productising consumer-credit dispute response itself. The Czech arbiter's caseload is the same shape of work, still handled by hand, and the documented volume carries the case here more than the foreign template does.
+Solved elsewhere: Casap has automated the bank payment-dispute cycle since 2023 on a $25M Series A at a $105M valuation — the one seller old enough to prove the model [S3]. ClaimSorted, London 2024, handles claims for twenty-plus insurers on $13.3M; Audun is four people in Oslo building AI debt collection [S3]. All three sit one vertical away; nobody is recorded building consumer-credit dispute response [S3].
 
 ## First moves
 
-1. Sell first to the non-bank lenders carrying the docket. Consumer-credit disputes are about 92% of everything running at the Financial Arbitrator, and new filings went 2,660 in 2023, 5,683 in 2024 and 12,050 in 2025, with 8,200 more filed by May 2026 [S1]. Every one of those cases is answered by hand today, by in-house legal departments and outside law firms [S4].
-2. Build the docket, not another case-management system. Three things were searched for in Czech and found in no product sold here: a deadline clock running against each arbiter proceeding, a response pack assembled from the loan file, and a settlement recommendation [S7]. Start with the settlement recommendation — 83% of concluded cases end in settlement, so that is the decision a lender actually makes [S1].
-3. Open the first conversation with the trend line, not the market. The claimant side files standardised claims at mass scale while the response is hand-built [S1]; the year is projecting toward roughly 20,000 filings and the average proceeding runs 167 days [S1].
-4. Named competition: aCompliance already sells this exact job — outsourced handling of complaints and arbiter disputes for non-bank lenders — but as a firm doing the work rather than software a lender runs, and it has traded since 2014 [S5,S7]. Ten Czech vendors turned up in that search and not one of them carries a financial-arbiter docket; the closest is Praetor from Wolters Kluwer ČR, the widest-selling case-management system in Czech law firms [S7]. Either could add the docket. Neither has.
+1. Sell to non-bank lenders first — they carry about 92% of the arbiter's caseload [S1]. Every case is answered by hand today, in-house or by outside law firms [S4]. Shadow one lender for a week, count the lawyer hours a case burns, and price against that.
+2. Build the settlement call first. 83% of concluded cases settle, so that is the decision a lender actually makes [S1]. Then add the deadline clock on each proceeding and the response pack assembled from the loan file: nothing sold in Czech does any of the three [S7].
+3. Open with the trend line. Filings ran 2,660 in 2023, 5,683 in 2024 and 12,050 in 2025, with 8,200 more by May 2026 and the average case at 167 days [S1].
+4. Watch the two who could move in. aCompliance sells this exact job today, but as a firm doing the work, and it has traded since 2014 [S5]. Praetor, from Wolters Kluwer's Czech arm, is the widest-selling case-management system in Czech law firms and one product decision away [S7]. Ten Czech vendors turned up in that sweep and not one handles a case at the arbiter [S7].
 
 ## Revisions
 
@@ -290,3 +297,5 @@ FIFTH PASS THIS DATE, MERGED HERE: the local field was searched properly and `sc
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 10 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
 
 FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 7; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the non-bank lenders carrying 92% of the docket as the first buyer [S1], a settlement recommendation as the first thing to build because 83% of cases settle [S1,S7], the filing trend as the opening fact [S1], and aCompliance and Praetor named as the two that could turn [S5,S7]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.
+
+2026-09-02 · plain-language pass — Three trade terms glossed at first use: E-OFFICE Advokát and ISAK now sit inside a plain description of what law-office software does, and Wolters Kluwer ČR reads as Wolters Kluwer's Czech arm. Argument cut from 450 words to 300, every figure, named firm and [Sn] marker kept. A gist added to all seven sources. First moves rewritten verbs-first. No score, status, note or marker touched.

@@ -79,6 +79,7 @@ locals:
 sources:
 - type: tender
   name: "TED — Ivančice water association smart metering (~€1.2M)"
+  gist: "the open €1.2M tender"
   why: "A municipal water association opened a competition for smart metering across its network in summer 2026."
   url: https://ted.europa.eu/en/notice/-/detail/430180-2026
   note: 'ted-430180-2026: Svazek vodovodů a kanalizací Ivančice — OPEN competition ~€1.2M
@@ -88,6 +89,7 @@ sources:
   signal: ted-430180-2026
 - type: tender
   name: "TED — VaK Kroměříž smart metering (~€1.3M)"
+  gist: "three buys in ten weeks"
   why: "Kroměříž built network smart metering and Bruntál tendered a water data dispatch in the same ten weeks; the signed Kroměříž contract runs ~21.4M CZK."
   url: https://ted.europa.eu/en/notice/-/detail/372049-2026
   note: 'ted-372049-2026: VaK Kroměříž awarded ~€1.3M to build water-network smart metering
@@ -98,6 +100,7 @@ sources:
   signal: ted-372049-2026
 - type: contract
   name: "Registr smluv — VaK Židlochovicko (~8.4M CZK)"
+  gist: "supply plus operation, same day"
   why: "One utility signed two contracts the same day — meters and readers, then system operation and support — the supply-plus-managed-operation split this record is about."
   url: https://smlouvy.gov.cz/smlouva/39041762
   note: 'hlidac-39041762: VaK Židlochovicko signed two contracts on 30 Jul 2026 — meter/reader
@@ -108,6 +111,7 @@ sources:
   signal: hlidac-39041762
 - type: contract
   name: "Registr smluv — VaK Břeclav / SUEZ framework"
+  gist: "the fifth utility's framework"
   why: "A fifth utility with a live smart-metering relationship, running remote-readout devices and support off a supplier framework."
   url: https://smlouvy.gov.cz/smlouva/38219601
   note: 'hlidac-38219601: VaK Břeclav signed amendment No. 1 to a framework contract with
@@ -117,6 +121,7 @@ sources:
   signal: hlidac-38219601
 - type: contract
   name: "Registr smluv — VaK Pardubice / Popron licence"
+  gist: "buyers six and seven"
   why: "A sixth utility amending its Smart Metering licence, and the town of Most adding a Smart Metering service from its incumbent operator — seven distinct buyers, each contracting alone."
   url: https://smlouvy.gov.cz/smlouva/38618416
   note: 'hlidac-38618416: VaK Pardubice amended its Smart Metering licence agreement with
@@ -128,6 +133,7 @@ sources:
   signal: hlidac-38618416
 - type: gap-check
   name: "Softlink CEM Smart and the Czech metering-service field"
+  gist: "the incumbents, named"
   why: "Names who already sells this here: Softlink's metering-data platform with water-utility references, VODÁRENSKÁ AKCIOVÁ SPOLEČNOST operating metering as a service, Popron's SMG Water, and SUEZ and Techem."
   url: https://www.softlink.cz/reseni/cem-smart/
   note: 'Gap check 2026-08-13: the managed-service position is NOT empty — Softlink (CZ) sells
@@ -138,6 +144,7 @@ sources:
   date: '2026-08-13'
 - type: gap-check
   name: "Softlink — water utilities served"
+  gist: "Prague meters read since 2016"
   why: "Softlink's own segment page, taken live: it states CEM Smart has read Pražské vodovody a kanalizace meters remotely since 2016 at roughly a million transactions a day."
   url: https://www.softlink.cz/nase-sluzby-vyuzivaji/vodarenske-spolecnosti
   note: 'Incumbent re-verify 2026-08-24: the S6 product URL (/reseni/cem-smart/) now returns
@@ -151,6 +158,7 @@ sources:
   date: '2026-08-24'
 - type: contract
   name: "Benešov — 112-sensor remote-reading pilot"
+  gist: "the €5,987 village pilot"
   why: "A small utility association pilots remote water-meter reading with 2 antennas and 112 sensors — one more utility solving telemetry alone, at pilot scale."
   url: https://smlouvy.gov.cz/smlouva/38735844
   note: 'hlidac-36402144: Společná voda d.s.o., Benešov, €5,987 pilot, Jul 2026. One of ~15
@@ -164,6 +172,7 @@ sources:
   dims: []
 - type: gap-check
   name: "Czech water-metering supply — coverage recorded"
+  gist: "the Czech supplier sweep"
   why: "The earlier checks named the incumbents but never wrote down what was searched. This one does, and it widens the picture: VAS sells remote meter reading as a published service, ČEVAK runs eMR Fusion 2.0, and AQUA SERVIS, VODÁRNA PLZEŇ, OVAK and KAPKA vodoměry all operate the same thing."
   note: 'Coverage receipt 2026-08-25. [S6] and [S7] named real incumbents but recorded no
     queries, so gap 0 rested on a check whose reach nobody could judge; this entry supplies the
@@ -186,18 +195,18 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Czech water supply is run by hundreds of VaK companies and municipal svazky, most of them small [S2], and they are digitizing metering the only way they know: one infrastructure tender at a time. Three buyers did exactly that inside a single ten-week window. Kroměříž awarded about €1.3M for network smart metering and Bruntál tendered a water data dispatch [S2]. The Ivančice association opened a competition of about €1.2M for the same thing [S1]. Each is procuring hardware, telemetry, a data platform and integration as its own bespoke project.
+Czech water supply runs on hundreds of municipal utilities and water associations — the VaK companies and svazky, most of them small [S2]. Each digitizes metering one infrastructure tender at a time. Three bought inside ten weeks of 2026: Kroměříž about €1.3M for network smart metering, Bruntál a water data dispatch [S2], Ivančice a €1.2M competition [S1] — each buying its own hardware, radio links, platform and integration.
 
-Why now: a svazek with three employees cannot run a data platform; each project embeds years of operational dependence on whichever integrator won.
+Why now: these associations cannot staff a data platform, and buy one anyway — Benešov's Společná voda paid €5,987 in July 2026 for a 112-sensor pilot, one of about fifteen small municipal meter orders on file [S8]. Each buy embeds years of dependence on whichever integrator won.
 
-Who pays: the utilities themselves via documented public procurement — today an integrator/dev-shop market in which each small utility contracts supply, licences and operation separately (seven distinct buyers documented by August 2026) [S3,S5].
+Who pays: the utilities themselves, out of public budgets and on the public record. Seven buyers contracted supply, licences and operation separately by August 2026; Židlochovicko alone signed 8.4M CZK across two contracts in one day [S3,S5].
 
-Existing non-solutions: the managed-service position is not empty, and the firms holding it are not new. Softlink has sold since 2003, and its CEM Smart platform has read Pražské vodovody a kanalizace meters remotely since 2016 at around a million transactions a day [S6,S7]. VODÁRENSKÁ AKCIOVÁ SPOLEČNOST, trading since 1993, operates metering as a service and runs Židlochovicko's system [S6,S7]. Popron Systems licenses SMG Water to VaK Pardubice, and Severočeské vodovody a kanalizace sold Most its Smart Metering service [S5]; SUEZ Water CZ holds VaK Břeclav's readout framework [S4]; Techem serves the housing tier [S6].
+Existing non-solutions: the managed-service position is taken, and not by newcomers. Softlink has sold since 2003; its CEM Smart platform — remote meter reading as a service — has read Pražské vodovody a kanalizace meters since 2016, about a million transactions a day [S6,S7]. VODÁRENSKÁ AKCIOVÁ SPOLEČNOST, trading since 1993, runs Židlochovicko's metering as a service [S6,S7]. Popron Systems licenses SMG Water — its metering platform — to VaK Pardubice; Severočeské vodovody a kanalizace sold the town of Most a Smart Metering service [S5]. SUEZ Water CZ supplies VaK Břeclav's remote-readout devices — a framework amended June 2026 [S4]. Techem sells submetering to apartment buildings, not to utilities [S6].
 
-Solved elsewhere: no foreign comparable is on file at all, so there is no proven model to import here. The evidence is domestic and points the other way — the managed-service position small utilities would buy is already held by Czech suppliers that have sold for two and three decades [S6,S7].
+Solved elsewhere: no foreign comparable is on file, so there is nothing to import. The domestic evidence runs the other way: Czech suppliers selling for two and three decades already hold the position a small utility would buy [S6,S7].
 
 ## Revisions
 
@@ -213,3 +222,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 2026-08-24 · gap re-check — The S6 receipt URL died in a softlink.cz restructure (404); the incumbent did not. Re-verified live: Softlink still lists water utilities as a served segment and states CEM Smart has read Pražské vodovody a kanalizace meters remotely since 2016, ~1M transactions a day [S7]. The registr-smluv lookup corpus independently pairs VODÁRENSKÁ AKCIOVÁ SPOLEČNOST as supplier with VaK Židlochovicko as buyer, corroborating the operates-as-a-service claim [S7]. Nothing rescored; the de-rank stands on a live receipt again.
 
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
+
+2026-09-02 · plain-language pass — Glossed three trade terms at first use — CEM Smart, SMG Water and SUEZ Water CZ — and put plain words beside VaK and svazky; telemetry replaced outright. Argument went 291 to 299 words as the glosses landed; every figure, date and named company kept, and the window sentence now cites the Benešov pilot [S8], previously uncited. A gist added to all nine sources. No score, status, note or marker touched.

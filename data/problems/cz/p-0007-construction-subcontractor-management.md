@@ -142,7 +142,8 @@ locals:
 sources:
 - type: arbitrage
   name: "CoCrafter"
-  why: "Munich B2B marketplace matching general contractors with vetted subcontractors, foreign-crew sourcing and compliance documents included — 3,000+ German SMB construction firms on it."
+  gist: "the German crew marketplace"
+  why: "Munich marketplace matching general contractors with vetted subcontractors, foreign-crew sourcing and compliance documents included — 3,000+ small and mid-sized German construction firms on it."
   url: https://www.ycombinator.com/companies/cocrafter
   note: 'yc-cocrafter: CoCrafter (YC W24, Munich) — B2B marketplace matching GCs with vetted
     subcontractors incl. foreign-crew sourcing and compliance docs; 3,000+ German SMB companies
@@ -151,7 +152,8 @@ sources:
   signal: yc-cocrafter
 - type: arbitrage
   name: "Hammr"
-  why: "'Rippling for construction' (YC W23) — construction-specific payroll, HR and compliance, which is the second half of this problem, funded in the US."
+  gist: "the US construction payroll"
+  why: "Payroll, staff records and compliance built specifically for construction firms (YC W23) — the second half of this problem, funded in the US."
   url: https://www.ycombinator.com/companies/hammr
   note: 'yc-hammr: Hammr (YC W23, US) — construction-specific payroll, HR and compliance (''Rippling
     for construction''). No CZ construction-vertical payroll/compliance product found; only
@@ -160,6 +162,7 @@ sources:
   signal: yc-hammr
 - type: gap-check
   name: "First Czech market scan"
+  gist: "the first Czech sweep"
   why: "Czech construction-tech lists showing only consumer marketplaces and generic payroll, plus the documented informal sourcing of Ukrainian and Balkan crews through Facebook groups and brokers."
   url: https://www.ycombinator.com/companies/cocrafter
   note: 'Absence checks 2026-08-13: Tracxn CZ construction-tech lists and searches show no
@@ -169,6 +172,7 @@ sources:
   date: '2026-08-13'
 - type: arbitrage
   name: "conmeet"
+  gist: "the Munich €6M seed"
   why: "Munich, €6M seed in August 2026 for an AI operations system covering procurement to invoicing at 10–500-employee trades and construction firms — German money on construction back-office software."
   url: https://tech.eu/2026/08/05/conmeet-raises-eur6m-to-power-construction-businesses-with-ai/
   note: 'de-conmeet: conmeet (Munich) raised €6M seed (5 Aug 2026) for an AI-native ops OS
@@ -179,6 +183,7 @@ sources:
   signal: de-conmeet
 - type: gap-check
   name: "Bildix and the Czech near-misses"
+  gist: "the Czech near-misses"
   why: "Bildix runs a contractor's whole internal operation but does no crew sourcing, vetting or payroll; NejStav and ePoptávka are lead generation, and PlanRadar tenders only to subcontractors already on a live project."
   url: https://bildix.app/
   note: 'Gap re-check 2026-08-20: looked for (a) a Czech B2B marketplace matching general
@@ -211,6 +216,7 @@ sources:
   expires: '2026-11-18'
 - type: gap-check
   name: "Market scan — a control first, then the two wedges"
+  gist: "the controlled Czech sweep"
   why: "A Czech query in a builder's own words returned a dozen small Czech site-diary and attendance vendors, which is proof the method sees this kind of firm — and then found no crew marketplace and no construction payroll behind the same method."
   url: https://stavario.com/cs/
   note: 'Gap check 2026-08-25, run because the 2026-08-20 sweep recorded no positive control and
@@ -251,21 +257,23 @@ sources:
   checked: [ares, google-cz, own-funded-ledger]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Czech construction (~400k employed) is subcontractor-driven and chronically short of labor [S1,S2]. General contractors source Ukrainian and Balkan crews informally — Facebook groups and brokers — with no vetting, document checking or compliance tooling [S3]; the same firms then run payroll for multi-site crews, agenturní zaměstnávání and A1/posted-worker compliance on generic legacy software (Vema, Pamica) or through external accountants [S2]. Two ends of one problem: finding compliant crews and paying them correctly.
+Czech construction employs about 400,000 people, runs on subcontracting and is short of labour [S1,S2]. Contractors find Ukrainian and Balkan crews in Facebook groups and through brokers; nobody's papers get checked [S3]. Those firms then pay crews across sites, hire through staffing agencies and file A1 certificates (proof of which country insures a worker sent abroad) on general payroll software — Vema, Pamica — or at an accountant [S2]. Two ends of one problem: finding crews with papers in order, and paying them.
 
-Why now: in Germany — a structurally similar subcontractor market — CoCrafter (YC W24) has 3,000+ SMB companies on its vetted GC-subcontractor marketplace, showing the informal sourcing layer can be productized [S1].
+Why now: Germany subcontracts the same way, and CoCrafter (Munich, YC W24) already has 3,000+ small and mid-sized German construction firms on a marketplace matching contractors with vetted crews [S1].
 
-Who pays: general contractors and mid-sized construction firms — the marketplace side monetizes matching and compliance document management; the payroll side is per-employee SaaS replacing accountant hours and compliance risk. Entry through either wedge lands in the same buyer.
+Who pays: general contractors and mid-sized construction firms, charged per crew hired and per worker paid. The marketplace side earns on the match and the document check; the payroll side is a monthly fee per worker.
 
-Existing non-solutions: consumer home-services marketplaces (Wilio, Nejřemeslníci) that do not serve B2B crews [S3], site-diary and attendance tools (Stavario, PlanRadar) that stop short of pay and compliance, and generic payroll software [S2,S4]. Request portals such as NejStav and ePoptávka sell leads and check nobody's papers [S6]. The one thing that does deliver a crew with its documents in order is a licensed staffing agency, which leases the workers and keeps them on its own payroll [S6]. Searches on 2026-08-13 found no Czech B2B subcontractor marketplace and no construction-vertical payroll product [S3], and a controlled Czech-language sweep on 2026-08-25 — one that surfaced seven small Czech site-diary vendors before it was trusted — found neither of them either [S6].
+Existing non-solutions: Wilio and Nejřemeslníci are consumer marketplaces — a household posts a job, tradesmen bid [S3]. Stavario and PlanRadar keep the site diary and attendance, not pay or papers; wages run on general payroll software [S2,S4]. NejStav and ePoptávka sell leads and check nobody's documents [S6]. Only a licensed staffing agency delivers a crew with papers in order — by leasing out workers on its own payroll [S6]. No Czech marketplace matches contractors with vetted crews, and no payroll product is built for construction [S3,S6].
 
-Solved elsewhere: CoCrafter (DE) for sourcing [S1] and Hammr (US, YC W23) for construction payroll/HR [S2]. Each facet of the merged problem is validated in only one market so far.
+Solved elsewhere: CoCrafter (Germany) sells the sourcing half [S1]; Hammr (US, YC W23) the paying half — construction payroll, staff records and compliance [S2]. conmeet, also Munich, raised €6M in August 2026 for construction back-office software — same buyer, neither wedge [S4]. Each half is proven in one market only.
 
 ## Revisions
 
 2026-08-20 · evidence audit and title sweep — Two blocks recorded on this date, merged here. The "Why now" trend sentence was removed: the claims that the labour shortage keeps worsening, that foreign-crew usage keeps rising, and that posted-worker compliance exposure grows with them. No signal in the corpus carries a trajectory for any of the three — yc-cocrafter and yc-hammr document a chronic shortage and informal Ukrainian/Balkan sourcing at a single point in time, with no second data point behind any of the three verbs. The lead-in now carries the German productization receipt, which is sourced. The title claimed "no vetting, compliance or construction-specific tooling". The first two stand — the 2026-08-20 gap check searched five surfaces and found no crew-vetting or construction payroll product [S5]. The third did not: Bildix is Czech construction-specific tooling, named on this record, and it simply does not do crew sourcing. Narrowed to what the check actually supports.
 
 2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "mid-sized stavební firmy" now reads "mid-sized construction firms". Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Both dimensions were re-derived and both held. `scores.proof` stays 2: on the comps ledger only Lumber passes the established test — CoCrafter, Hammr and conmeet are all three years old or younger with no limb the test reads — so rung 2, one established foreign player. Rung 3 is not claimed even though established players sit in two markets, because the two halves of this merged problem (crew sourcing and construction payroll) are different products, each proven once. That is a place where the ladder does not fit a merged record cleanly, and it is flagged here rather than forced into a number. No `locals[]` key: the 2026-08-20 check found neither a Czech GC-to-crew marketplace nor a construction-vertical payroll product, and the near-misses it named — Bildix, NejStav, ePoptávka, PlanRadar, Stavario, Vema — sell different products, so none belongs in a ledger the gap ladder reads. `scores.gap` stays 1 rather than rising to 2 because that check recorded no positive control, and rung 2 requires one. `score` unchanged at 5. Fifth pass this date, merged here: **this record gains a `locals[]` ledger for the first time and `scores.gap` moves 1 → 2, `score` 5 → 6.** Both halves of the pass above are reversed, and for the same reason. It withheld the ledger because Bildix, NejStav, ePoptávka, PlanRadar, Stavario, Vema and Pamica "sell different products" — but selling a different product is what `competes: adjacent` is FOR, and leaving a real firm off the page to keep the ladder tidy is the false absence the split was written to stop. Nine entries now, every one adjacent: **Stavario** (Vím o všem s.r.o., IČO 06935338, ARES-dated 2018, 5,900+ construction firms — established), **Bildix** (CVF Group s.r.o., IČO 06681506, 2017 — early, nothing published about who runs on it), **Nejřemeslníci.cz** (since 2009, 33,937 registered tradesmen and firms — established), **Wilio** (Slovak-founded; wilio.cz no longer resolves and wilio.com is a parked domain-sales page, so its Czech presence is unverified — early), **PlanRadar** (Vienna, since 2013, 200,000+ users in 75+ countries — established), **Vema** (Seyfor, a. s., IČO 01572377 — established), **PAMICA** (STORMWARE s.r.o., IČO 25313142, ARES-dated 1996 but publishing no tally of who runs it, so early on its receipts rather than on its age), **NejStav.cz** (AAA poptávka, s.r.o., IČO 07342250 — established) and **ANOKU** (IČO 06297196 — a licensed staffing agency, early), which is on the ledger as the representative of the trade that actually delivers a crew with papers today [S6]. It also said `scores.gap` stays 1 for want of a positive control, which was the right call then and is answered now. The control was run first and passed hard: a descriptive Czech query naming no vendor returned seven bootstrapped Czech site-diary and attendance vendors, the exact class the funded-and-tendered corpus cannot see — four of the nine ledger entries return zero hits in it. Five further query shapes then found no marketplace matching contractors with vetted crews and no construction payroll product; what they returned instead was the state's own qualification lists for public tendering, lead portals, and staffing agencies [S6]. Rung 1 says locals sell this and are all early; nobody here sells this, so rung 2 is the honest rung and the page says so above a ledger of nine firms explaining what each one does sell. What the ladder still cannot express, unchanged from the pass above: this is one record carrying two products, crew sourcing and construction payroll, and both gap and proof have to answer for both at once. The non-solutions paragraph gains the portals, the agencies and the new check [S6]; no source note was edited and no [Sn] marker moved. Same pass, prose hygiene: ledger lines that talked about this file rather than about the market were reworded — they render under each entry on the public page, where a reader has no idea a register exists. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed.
+
+2026-09-02 · plain-language pass — Three trade terms gone from the prose at first use: SMB and GC replaced with plain words, HR spelled out, and the A1 certificate glossed where it is named. Argument 290 → 285 words, every [Sn] marker, figure and named firm kept; the dek is now a standalone sentence and conmeet's €6M seed is named where the comparables are [S4]. A gist added to all six sources. No score, status, note or marker touched.

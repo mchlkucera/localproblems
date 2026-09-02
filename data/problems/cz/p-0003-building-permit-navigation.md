@@ -68,6 +68,7 @@ locals:
 sources:
 - type: arbitrage
   name: "PermitPortal"
+  gist: "the closest US template"
   why: "AI pre-construction operating system for US developers (YC F24) — entitlements, zoning intelligence and permit navigation, the closest template abroad."
   url: https://www.ycombinator.com/companies/permitportal
   note: 'yc-permitportal: PermitPortal (YC F24) — AI OS for pre-construction: entitlements,
@@ -77,6 +78,7 @@ sources:
   signal: yc-permitportal
 - type: complaint
   name: "Portál stavebníka — the digitalization fiasco"
+  gist: "the July 2024 portal launch"
   why: "The July 2024 launch of the digitalized permitting system, and trade-press reporting a year on that it had stabilized but still faced complications."
   url: https://www.ycombinator.com/companies/permitportal
   note: Signal documents the July 2024 DSŘ digitalization fiasco (portál stavebníka) and archiweb
@@ -85,6 +87,7 @@ sources:
   date: '2026-08-13'
 - type: gap-check
   name: "First Czech market scan"
+  gist: "the superseded first sweep"
   why: "An early sweep that returned only news about the broken state portal and US tools — superseded by the two Czech players found later."
   url: https://www.ycombinator.com/companies/permitportal
   note: 'Absence check 2026-08-13: searches return only news about the broken state system
@@ -92,6 +95,7 @@ sources:
   date: '2026-08-13'
 - type: arbitrage
   name: "Autositu"
+  gist: "the fourth US entrant"
   why: "A two-person YC W26 team selling an AI plan-review workspace — the fourth US company on the permitting problem inside two years."
   url: https://www.ycombinator.com/companies/autositu
   note: 'yc-autositu: Autositu (YC W26) — AI-native workspace for development plan reviews;
@@ -101,6 +105,7 @@ sources:
   signal: yc-autositu
 - type: complaint
   name: "ČKAIT survey — how long a permit takes"
+  gist: "six months to a year"
   why: "A survey of roughly 1,100 authorised engineers: most Czech permit proceedings, related engineering work included, run six months to a year."
   url: https://zpravy.ckait.cz/vydani/2024-01/delka-povolovani-staveb-v-cr-nikoliv-roky-ale-mesice-ukazal-pruzkum-inzenyrske-komory/
   note: 'ČKAIT survey published in Z+i 2024-01 (n≈1,100): typical Czech building-permit
@@ -112,6 +117,7 @@ sources:
   date: '2024-01-31'
 - type: news
   name: "World Bank — Doing Business discontinued"
+  gist: "the retired index"
   why: "The 2021 statement retiring the index behind this record's original 'slowest in the OECD' framing, after an investigation into data irregularities."
   url: https://www.worldbank.org/en/news/statement/2021/09/16/world-bank-group-to-discontinue-doing-business-report
   note: 'World Bank Group statement, 16 Sep 2021 — the Doing Business report is DISCONTINUED
@@ -125,6 +131,7 @@ sources:
   dims: []
 - type: gap-check
   name: "Průvodka and Efektivia"
+  gist: "the two Czech players"
   why: "Průvodka sells AI permit preparation to projektanti and stavebníci at 12,900 CZK a project or 29,900 CZK a month; Efektivia sells the mirror-image triage tool to the building authorities."
   url: https://pruvodka.cz/o-nas
   note: 'Gap re-check 2026-08-20: looked for a Czech product automating permit preparation
@@ -154,23 +161,27 @@ sources:
 - type: news
   url: https://csu.gov.cz/plk/vydana-stavebni-povoleni-a-orientacni-hodnota-staveb-v-plzenskem-kraji-v-roce-2025
   name: 'CSU: building permits issued, 2025'
+  gist: "61,613 permits in 2025"
   why: The national permit count and its value — the population any permit-preparation product is sold against. 61,613 permits in 2025, down 14.5% on 2024.
   note: 'CSU preliminary full-year 2025: 61,613 stavebnich povoleni nationally (-10,453 / -14.5% vs 2024); orientacni hodnota 503.3bn CZK (-13.3%). CSU has announced orientacni hodnota will be discontinued and replaced by pocet povolenych zameru, so any series built on the value terminates.'
   date: '2026-02-18'
 - type: news
   url: https://www.ckait.cz/o-nas
   name: 'CKAIT: authorised engineers and technicians'
+  gist: "36,300 professional buyers"
   why: Sizes the professional buyer side — the projektanti who prepare permit documentation and would buy the tooling.
   note: 'CKAIT states "vice jak 32 tisic autorizovanych inzenyru a techniku"; the architects chamber CKA separately records 4,288 authorised architects as of 1 Jan 2026. Combined addressable professional population approximately 36,300.'
   date: '2026-01-01'
 - type: news
   url: https://www.cespron.cz/ceny-inzenyrskych-cinnosti/
   name: 'Published price lists for permit engineering'
+  gist: "16,000–42,000 CZK by hand"
   why: What the manual alternative costs today — the price ceiling a software product prices against.
   note: 'Published Czech inzenyrska cinnost price lists for a single family house cluster at 16,000-42,000 CZK per project (CESPRON 16,000 total; Pruvodce drevostavbou 42,000 incl. VAT from 1.1.2026). Pruvodka sells at 12,900 CZK per project, below the low end of human-delivered permit engineering.'
   date: '2026-08-25'
 - type: contract
   name: "Registr smluv — building-permit portal upgrade (~€0.8M)"
+  gist: "the ministry's portal upgrade"
   why: "The ministry signed a contract to upgrade the digital building-procedure portal — the state is paying again for the system whose 2024 launch created much of this record's pain."
   url: https://smlouvy.gov.cz/smlouva/39180478
   note: 'hlidac-36829114: ministry contract for upgrading the digital building-procedure
@@ -182,25 +193,25 @@ sources:
   signal: hlidac-36829114
   dims: [money]
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Czech stavebníci — from housing developers to firms building industrial capacity — face permit proceedings that typically run six months to a year, related inženýrská činnost included [S5]. The July 2024 launch of the digitalized permitting system (DSŘ / portál stavebníka) made things acutely worse [S2]: a year on, trade press (archiweb) describes the system as stabilized "but still facing complications." Both applicants and úřady lost throughput during the transition to the new stavební zákon procedures [S2].
+Czech building-permit proceedings typically run six months to a year, related engineering work included [S5]. The July 2024 launch of the state's digital permitting portal (portál stavebníka) made it worse: a year on, the trade press (archiweb) called the system stabilized "but still facing complications" [S2]. Applicants and building offices both lost throughput moving to the new building act [S2].
 
-Why now: the new building act changed procedures, the state portal remains unreliable [S2], and every month of permitting delay carries direct financing cost for developers. The pain is documented in national press rather than inferred.
+Why now: in August 2026 the ministry signed a contract worth about €0.8M to upgrade that same portal [S11] — two years on, the state is still buying its own fix, and a proceeding still runs six months to a year [S5].
 
-Who pays: developers and the larger firms that commission building work, for whom shaving months off permit preparation is worth meaningful fees; the architecture and engineering offices that draw up the design documents; potentially municipalities buying triage tooling, though the private side is the realistic first buyer. The volume is documented: 61,613 building permits were issued in 2025 [S8], and roughly 36,300 authorised engineers and architects prepare the documentation behind them [S9]. Manual permit engineering for a single family house is published at 16,000–42,000 CZK a project [S10]. Průvodka undercuts that at 12,900 CZK [S7], so even a tenth of the annual permit flow at that price is on the order of €3M a year — a floor, and one that assumes the tool sells only per permit rather than by subscription.
+Who pays: developers who commission building work, and the engineering and architecture offices that draw up their design documents. About 36,300 authorised engineers and architects do that work [S9]; 61,613 permits were issued in 2025 [S8]. By hand on a single family house it is published at 16,000–42,000 CZK a project [S10]; Průvodka undercuts that at 12,900 CZK [S7]. A tenth of the annual permit flow at that price is about €3M a year — a floor, and only if it sells per permit [S7,S8].
 
-Existing non-solutions: the state's own portál stavebníka (the source of much of the pain), law firms and inženýring service providers who navigate permits manually per project. Czech software for permit preparation does exist [S3]: **Průvodka** sells it to projektanti and stavebníci — upload the dokumentace, AI checks it and recommends which dotčené orgány and správci sítí (ČEZ, GasNet, vodárny, CETIN) to approach, the žádosti go out by datová schránka, and the service tracks each 30/60/90-day lhůta and issues the doklad o fikci souhlasu when one lapses, at 12,900 CZK per project or 29,900 CZK a month on the Studio plan [S7]. On the authority side of the same counter, **Efektivia** sells AI document triage into Czech municipal offices, live at MČ Brno-střed and MěÚ Neratovice [S7]. Both are young and unfunded: neither publishes a launch year or a customer list, and neither appears in any funding feed [S7].
+Existing non-solutions: the state portal itself [S2], then law firms and permit-engineering offices working case by case [S10]. Czech software for permit preparation does exist [S3]: **Průvodka** sells designers and building owners the whole run of an application — drawings checked, requests routed to the consulted authorities and network operators (ČEZ, GasNet, CETIN), every statutory deadline tracked — at 12,900 CZK a project or 29,900 CZK a month [S7]. **Efektivia** sells AI document triage to the building offices on the other side of the counter, live at Brno-střed town hall and Neratovice [S7]. Neither publishes a launch year, a customer or a funding round [S7].
 
-Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26) show a funded US cluster around AI permit/zoning navigation [S1]. All analogs are US-based [S1,S4] and permitting is jurisdiction-specific; with the local field contested rather than closed [S7], the documented demand is what remains.
+Solved elsewhere: PermitPortal (Y Combinator, autumn 2024), Permitify (winter 2025) and Verdant (summer 2026) make a funded US cluster around AI permit and zoning navigation [S1]; the two-person Autositu made it four inside two years [S4]. All four are American, and permitting rules are national — none of them arrives here on its own [S1,S4].
 
 ## First moves
 
-1. Sell to the engineering offices, not to one-off builders. Roughly 36,300 authorised engineers and architects prepare the documentation behind Czech permits [S9], and published price lists put their manual work on a single family house at 16,000–42,000 CZK a project [S10]. They run the same procedure dozens of times a year, so an hour saved turns into margin the same month.
-2. Build the deadline clock first. Every proceeding turns on the 30/60/90-day windows in which the consulted authorities and utility operators must answer, and on the certificate that consent has lapsed into approval when one of them misses [S7]. Track that across an office's whole book of projects: Průvodka prices it per project, and its monthly plan takes five new projects — a month's work for one busy office [S7].
-3. Open the first sales conversation with the engineers' own chamber. Asked of about 1,100 authorised engineers, most permit proceedings, related engineering work included, run six months to a year [S5]. Then the second fact: the ministry signed a contract worth about €0.8M in August 2026 to upgrade the state permitting portal [S11], two years after the July 2024 launch that made things worse [S2]. Nobody in that room expects the state to fix this for them.
-4. Price under the human, not under the software. Manual permit engineering for one house is published at 16,000–42,000 CZK [S10] and Průvodka already sits below it at 12,900 CZK a project [S7]. 61,613 permits were issued in 2025, down 14.5% on the year [S8] — take share, do not wait for growth.
+1. Sell to the engineering offices, not to one-off builders. Roughly 36,300 authorised engineers and architects prepare the documentation behind Czech permits [S9], and published price lists put their work by hand on a single family house at 16,000–42,000 CZK a project [S10]. They run the same procedure dozens of times a year, so an hour saved is margin the same month.
+2. Build the deadline clock first. Every proceeding turns on the 30/60/90-day windows the consulted authorities and network operators must answer in, and on the certificate that consent has lapsed into approval when one of them misses [S7]. Track that across an office's whole book: Průvodka prices per project, and its monthly plan takes five [S7].
+3. Open with the chamber of authorised engineers. Asked of about 1,100 of them, most proceedings run six months to a year [S5]. Then the second fact: the ministry signed a contract worth about €0.8M in August 2026 to upgrade the state portal [S11], two years after the July 2024 launch that made things worse [S2]. Nobody in that room expects the state to fix this for them.
+4. Price under the human, not under the software. Permit engineering by hand on one house is published at 16,000–42,000 CZK [S10]; Průvodka already sits below it at 12,900 CZK a project [S7]. 61,613 permits were issued in 2025, down 14.5% on the year [S8] — take share, do not wait for growth.
 
 ## Revisions
 
@@ -213,3 +224,5 @@ Solved elsewhere: PermitPortal (YC F24), Permitify (YC W25) and Verdant (YC S26)
 2026-08-24 · title sweep — The judgment left open above is now made: the "one of the OECD's slowest" framing in the title and lead is cut. Its only carrier, the yc-permitportal harvest note [S2], states no source of its own, and the record's own 2026-08-13 fact check traced the family of superlatives to the discontinued Doing Business index [S6]. Title and lead now state what the ČKAIT survey receipts: proceedings typically run six months to a year [S5]. Scores untouched; the DSŘ-dysfunction demand receipts [S2] stand.
 
 2026-08-25 · plain-language pass — The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "larger stavebníci" now reads "the larger firms that commission building work", and "offices preparing dokumentace" now reads "offices that draw up the design documents". No `fix:` was authored here: the argument closes with the local position held by Průvodka and names no product an entrant would build that Průvodka does not already sell, so the field is left absent rather than filled with something vague — the template renders nothing when it is. Scores, status, source notes and every [Sn] marker are untouched by that pass. Second pass this date, merged here: the 2026-08-25 retrospective harvest added the ministry's ~€0.8M contract upgrading the building-procedure portal [S11]. Money 0 → 1 on the adjacent-spend precedent p-0004 already carries — the state demonstrably pays into the system at the centre of this record — and score 4 → 5; everything else stands. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries Průvodka, marked early: live and priced, but unfunded, with no launch year published and no ARES match for the trade name, so no limb of the established test is on file [S7]. An early local player does not close a space: `scores.gap` 0 → 1. Efektivia is deliberately NOT in `locals[]` — it sells AI triage to the building authority, the other side of the counter, and `locals[]` is the ledger of players selling this record's own product to its own buyer, which is what the gap ladder reads; it stays named in the body. `scores.proof` 1 → 2: PermitFlow and GreenLite both pass the established test, but both are American, so rung 3's 'two markets, one CEE-adjacent' is not met. `score` 5 → 7. Fifth pass this date, merged here: `locals[]` converted from `status:` to `competes:` + `maturity:`, and **Efektivia is restored to the ledger** as `competes: adjacent`, reversing the exclusion recorded in the pass above. The reason given there for leaving it out — that it sells to the building authority rather than to this record's buyer — is now precisely what the ledger is able to say, and it is what a builder needs to know rather than grounds for dropping the name. Průvodka converts to `competes: direct` and stays early, so `scores.gap` stays 1: the only direct player on file is still an unfunded one. Two corrections while restoring. The pass above said no ARES match exists for Efektivia's trade name; that was wrong. ARES resolves **AI Efektivia s.r.o., IČO 19760680, Brno, incorporated 25 September 2023**, which also supplies the `since` year the entry had been missing. With that year and the two offices it names — MČ Brno-střed and MěÚ Neratovice [S7] — Efektivia passes both limbs of the established test, so it is recorded `adjacent` + `established`; the entry states the September 2023 incorporation date plainly, because three years is met on this register's year clock and not yet on the calendar. The same ARES claim was re-checked for **Průvodka** in this pass and it holds — no company resolves under that trade name. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed. Also cut from the Efektivia entry: the note that an earlier pass wrongly claimed no ARES match for the trade name. The correction is real and it is recorded in the pass above, which is where it belongs; the ledger line is for the market, not for our own errata. Same pass: `## First moves` written for the first time. The template reserves the section for records scoring 7 or more and this one has scored 7 since the re-score recorded above, but it had none. Four moves, each grounded in a receipt already on this ledger — the professional population and the published price of doing the work by hand [S9,S10], the statutory answer windows and Průvodka's five-project monthly plan [S7], the ČKAIT survey and the ministry's portal-upgrade contract [S5,S11], and the 2025 permit count [S8]. No new claim was introduced and no score moved. The absent `fix:` stands: the moves say who to sell to and what to build first, which is a route into a contested field, not a product Průvodka does not already sell.
+
+2026-09-02 · plain-language pass — Eighteen Czech and trade terms glossed or replaced at first use, among them stavebníci, inženýrská činnost, DSŘ, úřady, stavební zákon, dokumentace, MČ and MěÚ; ČEZ and CETIN now carry appositives. Argument 438 → 346 words, every [Sn] marker, figure, price and named company kept, and the August 2026 portal contract [S11] added to Why now. First moves rewritten verbs-first. A gist added to all eleven sources. No score, status, note or marker touched.

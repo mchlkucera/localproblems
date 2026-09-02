@@ -143,6 +143,7 @@ locals:
 sources:
 - type: arbitrage
   name: "ShiftKey"
+  gist: "the $2B US marketplace"
   why: "The US proof at scale: licensed health workers bid on per-diem shifts at 10,000+ facilities, $300M raised at a valuation above $2 billion."
   url: https://news.crunchbase.com/health-wellness-biotech/employment-shiftkey-fundraise/
   note: 'ShiftKey (Dallas, founded 2016) raised $300M led by Lorient Capital at >$2B valuation,
@@ -151,6 +152,7 @@ sources:
   date: '2023-01-11'
 - type: arbitrage
   name: "Florence"
+  gist: "the UK care-home version"
   why: "The UK version for exactly this buyer: care homes fill shifts directly from 90,000 vetted professionals, cutting out agency mark-ups, with training bundled in."
   url: https://www.florence.co.uk/resources/blog/series-b
   note: 'Florence (London, founded 2017 by an NHS doctor) raised £28.5M ($35M) Series B led by
@@ -160,6 +162,7 @@ sources:
   date: '2022-06-01'
 - type: complaint
   name: "APSS ČR — the staffing-shortage survey"
+  gist: "the 3,000-worker shortfall"
   why: "More than 3,000 workers are missing in Czech social services and over half of 625 surveyed facilities report shortage — and the gap deepened between 2023 and 2025."
   url: https://www.apsscr.cz/asociace/aktuality/nedostatek-pracovniku-v-socialnich-sluzbach-se-mezi-lety-2023-a-2025-prohloubil
   note: 'APSS ČR survey run 14–26 Jan 2025, 625 facilities responding. Verbatim: "Aktuálně v
@@ -170,6 +173,7 @@ sources:
   dims: [demand]
 - type: hiring
   name: "Labour Office — July 2026 nurse hiring wave"
+  gist: "380 nurse vacancies in a month"
   why: "262 employers posted 380 new general-nurse vacancies through the Labour Office in one month, an annualised wage floor of €10.8 million — the shortage, measured monthly."
   url: https://data.mpsv.cz/od/soubory/volna-mista-prirustek/
   note: 'mpsv-2026-07-health-care: 380 new general-nurse vacancies across 262 employers (651
@@ -182,6 +186,7 @@ sources:
   dims: [demand, money]
 - type: statistic
   name: "MPSV/ÚZIS long-term-care prediction"
+  gist: "34,700 more beds by 2035"
   why: "Roughly 34,700 new long-term-care beds are needed by 2035 — every one of them staffed, in a sector already 3,000 workers short."
   url: https://mpsv.gov.cz/predikce-potreb-dlouhodobe-pece-cesko-ceka-jeden-z-nejvetsich-ukolu-pristich-desetileti
   note: 'civic-mpsv-ltc-predikce-2035: MPSV/ÚZIS models, published 2025-11-14 — residential
@@ -192,6 +197,7 @@ sources:
   dims: [demand]
 - type: regulation
   name: "Social services amendment 92/2026 Sb."
+  gist: "what a carer may now do"
   why: "Since 1 July 2026 care services may take on routine health-adjacent tasks — widening what a qualified flexible worker may legally cover per shift."
   url: https://e-sbirka.gov.cz/sb/2026/92
   note: 'reg-soc-sluzby-92-2026: zákon č. 92/2026 Sb., main provisions in force 1 Jul 2026 —
@@ -202,6 +208,7 @@ sources:
   signal: reg-soc-sluzby-92-2026
 - type: tender
   name: "Královéhradecký kraj — personal-assistance development (€2.19M)"
+  gist: "the €2.19M regional tender"
   why: "A region is paying €2.19 million to develop personal-assistance capacity — public money already flows into getting more care hours delivered."
   url: https://ted.europa.eu/en/notice/-/detail/14888-2026
   note: 'ted-14888-2026: Královéhradecký kraj tender, 2026-01-12, €2,189,774, development of
@@ -210,6 +217,7 @@ sources:
   date: '2026-01-12'
 - type: gap-check
   name: "Market scan — who fills a care shift"
+  gist: "the first Czech sweep"
   why: "Czech searches found scheduling software for staff a provider already employs, a hospitality-born gig app, an events crew platform and classic agencies — no marketplace matching vetted care workers to facility shifts."
   url: https://www.grason.cz/
   note: 'Checked 2026-08-25: two Czech-language searches for care/nursing shift marketplaces.
@@ -230,6 +238,7 @@ sources:
   expires: '2026-11-23'
 - type: gap-check
   name: "Who fills a Czech care shift — the second sweep, and the Grason answer"
+  gist: "the eight-query Czech sweep"
   why: "A wider Czech search in a care home's own words. It found a mature Czech shift
     marketplace in factories and canteens, mature Czech rota software inside hospitals, and
     agencies that place people into jobs — but nobody selling a care home the shift it needs
@@ -284,25 +293,25 @@ sources:
   checked: [google-cz, ares, zivnostensky-rejstrik, company-job-feed, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
 created: '2026-08-25'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Czech social services are short more than 3,000 workers, and over half of 625 surveyed facilities report unfilled positions [S3]. In July 2026 alone, 262 employers posted 380 new general-nurse vacancies through the Labour Office [S4]. Providers cover the holes with overtime, agency mark-ups and word of mouth; every shift that stays empty is care not delivered.
+Czech social services are short more than 3,000 workers, and over half of 625 surveyed facilities report unfilled posts [S3]. In July 2026 alone, 262 employers posted 380 new general-nurse vacancies through the Labour Office [S4]. Providers cover the holes with overtime, agency staff and word of mouth.
 
-Why now: the demand side is structural — the ministry's models add roughly 34,700 long-term-care beds by 2035, each needing staff [S5]. Since 1 July 2026, care services may legally take on routine health-adjacent tasks such as medication help, widening what a qualified flexible worker can cover in a shift [S6]. And regions are already paying to develop care capacity outright [S7].
+Why now: the ministry's models add roughly 34,700 long-term-care beds by 2035, every one needing staff [S5]. Since 1 July 2026 care services may legally handle routine health tasks such as help with medication, widening what a qualified flexible worker may cover in a shift [S6]. One regional government, Královéhradecký kraj, is paying €2.19M to expand personal-assistance capacity [S7].
 
-Who pays: care providers pay per filled shift, out of the agency mark-up they already pay today. The July 2026 nurse postings alone carry an annualised wage floor of €10.8 million [S4] — a fraction of that flow, taken as a matching fee, is the business. Workers come for the flexibility premium; regional buyers show public money reaches care capacity too [S7].
+Who pays: care providers pay per filled shift, out of money already going to staffing agencies. The July 2026 nurse postings alone carry an annualised wage floor of €10.8 million [S4]; a matching fee on a fraction of that flow is the business. Workers come for shifts they choose.
 
-Existing non-solutions: the Czech field is mature, and every part of it points somewhere else. Směny.cz, Chytrá organizace, Plánuj směny and VeruApp schedule the staff a provider already employs; Shiftiary does the same inside hospitals, planning for about fifty facilities and three hundred departments [S9]. Dayswaps sells that rota software to more than 100 companies across five countries [S9]. Flecto runs the marketplace shape — workers booking single shifts — but its named partners are Continental, Aramark and Promens, while Grason runs it for restaurants, warehouses and supermarkets [S9]. Neither names a healthcare or social-care buyer anywhere in public, and Grason's own live job feed carries gastronomy postings only [S9]. What care providers use instead is people: sestrycz.eu brokers nurses and carers into posts over the phone, Přehlednější zdravotnictví advertises vacancies, and Domelie sells household carers to families [S9]. Nobody sells a care home the shift it needs tomorrow night.
+Existing non-solutions: the Czech field is mature and points elsewhere. Směny.cz, Chytrá organizace, Plánuj směny and VeruApp schedule staff a provider already employs; Shiftiary does it inside hospitals, across about fifty facilities and three hundred departments; Dayswaps sells the same to more than 100 companies in five countries [S9]. Flecto runs the marketplace shape — workers booking single shifts — for Continental, Aramark and Promens; Grason runs it for restaurants, warehouses and supermarkets, and its own live job feed carries gastronomy postings only [S9]. Neither names a health or social-care buyer in public [S9]. Providers fall back on people: sestrycz.eu brokers nurses and carers into posts by phone, Přehlednější zdravotnictví advertises vacancies, and Domelie sells household carers to families [S9]. Nobody sells a care home the shift it needs tomorrow night.
 
-Solved elsewhere: two markets, and both sellers are a decade in. ShiftKey has run since 2016, raised $300M at a valuation above $2 billion, and lets licensed professionals bid on per-diem shifts at more than 10,000 facilities, skilled nursing first [S1]. Florence has run since 2017 on a £28.5M Series B, matching shifts and bundling training for 90,000 care professionals and 2,000+ care organisations [S2]. Both monetize the spread agencies charge today. But it is America and Britain: nothing of the kind operates in Central Europe or anywhere near it [S1,S2].
+Solved elsewhere: two markets, both sellers a decade in. ShiftKey has run since 2016 on $300M raised at a valuation above $2 billion, with licensed professionals bidding on single shifts at more than 10,000 facilities, skilled nursing first [S1]. Florence has run since 2017 on a £28.5M Series B, matching shifts and bundling training for 90,000 care professionals and 2,000+ care organisations [S2]. Both make their money on the margin an agency takes today. Nothing of the kind operates in Central Europe [S1,S2].
 
 ## First moves
 
-1. Sell first to the care homes already paying an agency to do this badly. More than 3,000 workers are missing from Czech social services and over half of 625 surveyed facilities report unfilled positions [S3]; what a home uses today is sestrycz.eu and agencies like it, brokering people into posts over the phone, with no per-shift price published anywhere [S9]. The fee comes out of the mark-up the home already pays.
-2. Build the worker side first, in one region. A shift only sells if someone qualified will take it, and two facts widen who that can be: since 1 July 2026 care services may legally cover routine health-adjacent tasks such as help with medication [S6], and 262 employers posted 380 new general-nurse vacancies through the Labour Office in July 2026 alone, an annualised wage floor of €10.8M chasing staff who mostly already have a job [S4].
-3. Open the first conversation with the number that is not a cycle. The ministry's own models add roughly 34,700 long-term-care beds by 2035 [S5], every one of them to be staffed, in a sector already short more than 3,000 people [S3]. The shortage a home has this month is the smallest it will be.
-4. Named competition, and the one to watch: Flecto has run exactly this shape since 2021 — workers booking individual shifts at partner employers — with Continental, Aramark, Avian, Promens and DF Partner named and no care employer among them [S9]. Grason runs it for restaurants, warehouses and supermarkets, at roughly 350 businesses and 4,500 workers, and its own live job feed carries gastronomy postings only [S9]. Either could open a care vertical; neither has.
+1. Sell first to homes already paying an agency. More than 3,000 workers are missing from Czech social services, and over half of 625 surveyed facilities report unfilled posts [S3]. What a home uses today is sestrycz.eu and agencies like it, brokering people into posts by phone, with no per-shift price published anywhere [S9]. Your fee comes out of what the home already pays.
+2. Build the worker side first, in one region. A shift only sells if someone qualified takes it, and two facts widen who that can be. Since 1 July 2026 care services may legally cover routine health tasks such as help with medication [S6]. And 262 employers posted 380 new general-nurse vacancies through the Labour Office in July 2026 alone — an annualised €10.8M chasing staff who mostly already have a job [S4].
+3. Open with the number that is not a cycle. The ministry's models add roughly 34,700 long-term-care beds by 2035 [S5], every one to be staffed, in a sector already short more than 3,000 people [S3]. The shortage a home has this month is the smallest it will be.
+4. Watch Flecto and Grason. Flecto has run this exact shape since 2021 — workers booking single shifts at partner employers — for Continental, Aramark and Promens, with no care employer among them [S9]. Grason runs it for restaurants, warehouses and supermarkets, at roughly 350 businesses and 4,500 workers, and its own live job feed carries gastronomy postings only [S9]. Either could move into care; neither has.
 
 ## Revisions
 
@@ -316,3 +325,5 @@ FOURTH PASS THIS DATE, MERGED HERE: the local field was searched again properly 
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 11 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
 
 FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 8; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the care homes already paying agency mark-ups as the first buyer [S3,S9], the worker side built first on the widened scope of practice [S4,S6], the 34,700 beds by 2035 as the opening fact [S3,S5], and Flecto and Grason named as the marketplaces that could open a care vertical [S9]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.
+
+2026-09-02 · plain-language pass — Five trade terms glossed or replaced at first use: per-diem shifts, agency mark-up, rota software, care vertical, flexibility premium. Avian and DF Partner were cut from the First moves list and stay in the Flecto ledger entry. Argument 421 → 370 words, every [Sn] marker, figure and named company kept. First moves rewritten verbs-first. A gist added beside all nine sources. No score, status, source note or marker touched.

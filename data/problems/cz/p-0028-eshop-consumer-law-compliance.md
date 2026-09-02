@@ -100,6 +100,7 @@ locals:
 sources:
 - type: complaint
   name: "ČOI — 2025 distance-selling inspection results"
+  gist: "the 85% violation baseline"
   why: "751 e-shop inspections, violations in 639 of them, 2,399 individual breaches and ~13.0M CZK in fines — the Czech compliance baseline, itemised by failure type."
   url: https://www.sos-msk.cz/z-751-kontrol-e-shopu-porusilo-zakon-85-z-nich-padly-pokuty-za-temer-13-milionu-korun/
   note: 'coi-eshopy-2025: ČOI''s 2025 distance-selling results — 751 e-shop inspections, violations
@@ -113,6 +114,7 @@ sources:
   signal: coi-eshopy-2025
 - type: regulation
   name: "Empowering Consumers for the Green Transition — Directive (EU) 2024/825"
+  gist: "the green-claims ban and its date"
   why: "From 27 September 2026 generic green claims, unverified sustainability labels and unsubstantiated durability promises are blacklisted, and ČOI enforces it through the consumer-protection act."
   url: https://eur-lex.europa.eu/eli/dir/2024/825/oj/eng
   note: 'reg-green-claims-ecgt: Empowering Consumers for the Green Transition Directive (2024/825)
@@ -126,6 +128,7 @@ sources:
   signal: reg-green-claims-ecgt
 - type: complaint
   name: "MPO — consumer disputes over goods and warranties"
+  gist: "the 18,000 consumer disputes"
   why: "~18,000 out-of-court dispute filings with ČOI between 2020 and mid-2025 — the consumer-side receipt that the violations inspectors find correspond to real-world harm."
   url: https://mpo.gov.cz/assets/cz/ochrana-spotrebitele/aktualni-informace/2026/3/Zprava-o-prubeznem-plneni-Strategie-spotrebitelske-politiky-2025.pdf
   note: 'mpo-adr-vyuziti: MPO''s consumer-policy report tabulates ~18,000 ČOI out-of-court
@@ -137,6 +140,7 @@ sources:
   signal: mpo-adr-vyuziti
 - type: arbitrage
   name: "Trusted Shops and IT-Recht Kanzlei"
+  gist: "the two German templates"
   why: "Two durable German businesses built on productised e-commerce legal compliance — certification with buyer protection, and subscription legal texts kept current for tens of thousands of shops."
   url: https://www.trustedshops.com/
   note: 'Named analogs: Trusted Shops (Cologne) built a durable DE/EU business productizing
@@ -148,6 +152,7 @@ sources:
   date: '2026-08-13'
 - type: gap-check
   name: "Czech e-shop compliance scan (first pass)"
+  gist: "the first Czech field scan"
   why: "The early look at the Czech field: supply was legal services priced per audit — Právo e-shopů, eLegal, AZ LEGAL — with Shoptet's merchant base treated as a distribution channel."
   url: https://www.pravoeshopu.cz/pravni-audit-eshopu
   note: 'Gap check 2026-08-13: the CZ supply side is legal services priced per audit — Právo
@@ -159,6 +164,7 @@ sources:
   date: '2026-08-13'
 - type: complaint
   name: "MPO — ČOI enforcement capacity"
+  gist: "the shrinking inspectorate"
   why: "Inspections fell from ~29,000 in 2018 to ~20,000 in 2023 on an inflation-eroded budget with staff down 9% — the reason enforcement went risk-targeted, and hit rates rose."
   url: https://mpo.gov.cz/assets/cz/ochrana-spotrebitele/aktualni-informace/2026/3/Zprava-o-prubeznem-plneni-Strategie-spotrebitelske-politiky-2025.pdf
   note: 'mpo-dozor-kapacita: the same MPO progress report (p.24-25) documents ČOI inspections
@@ -171,6 +177,7 @@ sources:
   signal: mpo-dozor-kapacita
 - type: subsidy
   name: "OP TAK — Technologie pro MAS II"
+  gist: "the 50% software grant"
   why: "50% co-funding for software and IT at rural SMEs, 540M CZK allocated, applications 1 Sep 2026 to 1 Sep 2027 — a channel to halve the price for merchants outside the big cities."
   url: https://apiagentura.gov.cz/cs/podporovane-aktivity-optak/technologie-pro-mas-optak/technologie-pro-mas-clld-vyzva-ii/
   note: 'dotace-optak-technologie-mas-2: OP TAK Technologie pro MAS II funds new machinery,
@@ -183,6 +190,7 @@ sources:
   signal: dotace-optak-technologie-mas-2
 - type: gap-check
   name: "Hlídač Slev and Pravoid"
+  gist: "the Czech products already selling"
   why: "The Czech-language sweep that found productised compliance already selling on Shoptet: Hlídač Slev on discount labelling with ČOI-exportable price history, and Pravoid on generated legal texts with legislative alerts."
   url: https://doplnky.shoptet.cz/hlidac-slev
   note: 'Gap re-check 2026-08-20: OCCUPIED. Looked for a Czech productized (not per-audit)
@@ -215,6 +223,7 @@ sources:
   expires: '2026-11-18'
 - type: complaint
   name: "ČOI — Q2/2026 e-shop inspection results"
+  gist: "the 91% quarter"
   why: "103 inspections, violations in 94 of them, 414 breaches and 4.88M CZK of fines in a single quarter — the 2025 baseline has not moved."
   url: https://www.itbiz.cz/ceska-obchodni-inspekce-uskutecnila-ve-druhem-ctvrtleti-103-kontrol-internetovych-obchodu-poruseni-predpisu-zjistila-v-94-kontrolach/
   note: 'ČOI Q2/2026 e-shop results (release carried 12 Aug 2026): 103 inspections 1 Apr-30
@@ -226,6 +235,7 @@ sources:
   date: '2026-08-12'
 - type: gap-check
   name: "Slevy správně — the add-on marketplace sweep"
+  gist: "the 606-add-on sweep"
   why: "A pass over 606 Shoptet and Upgates add-ons. It found a second discount-labelling product at 200 Kč a month, and confirmed nothing in either marketplace covers green claims, information duties or order buttons."
   url: https://doplnky.shoptet.cz/slevy-spravne
   note: 'Mechanical re-check 2026-08-24 against the add-on lookup corpus (data/lookup/cz-eshop-addons.jsonl,
@@ -244,27 +254,27 @@ sources:
   checked: [eshop-addon-marketplaces]
   expires: '2026-11-22'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-The Czech trade inspection walked the checkout flows of 751 e-shops in 2025 and found 639 breaking the law — 2,399 violations, from missing complaint-handling and pre-contractual information to non-compliant order buttons [S1]. That 85% is the baseline, not a tail: targeted inspections in Q2 2026 found violations in 94 of 103 shops [S9].
+ČOI — the Czech trade inspection authority — walked the checkout flows of 751 e-shops in 2025 and found 639 breaking the law: 2,399 violations, from missing complaint-handling and pre-contractual information to non-compliant order buttons [S1]. That 85% is the baseline, not a tail — targeted inspections in Q2 2026 found violations in 94 of 103 shops [S9].
 
-Why now: the obligation stack keeps growing. From 27 September 2026 the green-claims rules blacklist generic environmental claims, unverified sustainability labels and unsubstantiated durability promises, enforced by ČOI [S2] — every shop using "eko" or a climate-neutral badge must substantiate it or strip it. The inspectorate is shrinking meanwhile, from ~29,000 inspections a year to ~20,000 on a flat budget [S6], so it targets — and targeted sweeps run at 90%.
+Why now: from 27 September 2026 the green-claims rules blacklist generic environmental claims, unverified sustainability labels and unsubstantiated durability promises, and ČOI enforces them [S2]. Every shop running an "eko" or climate-neutral badge must substantiate it or strip it. Its own inspections fell from ~29,000 a year to ~20,000 on a flat budget [S6], so it targets rather than samples.
 
-Who pays: the merchants, because the alternative is a fine and inspectors now aim at the shops with the worst odds. Shoptet alone hosts around 30,000 of them [S5]. Czech compliance add-ons price at 19 to 200 CZK a month [S8,S10]; the German subscriptions this copies run €9.90–24.90. Thirty thousand merchants, a €12 monthly bundle over the duties nobody has productised, one in ten buying: about €430,000 a year, against ~13.0M CZK of ČOI fines in 2025 [S1].
+Who pays: the merchants, because the alternative is a fine and inspectors now target the worst shops. Shoptet, a platform merchants rent their storefront from, hosts about 30,000 [S5]. Czech compliance add-ons charge 19 to 200 CZK a month [S8,S10]; the German subscriptions this copies run €9.90–24.90. Thirty thousand merchants, a €12 bundle over the uncovered duties, one in ten buying: about €430,000 a year, against ~13.0M CZK of ČOI fines in 2025 [S1].
 
-Existing non-solutions: law firms sell one-off audits at law-firm prices — Právo e-shopů, eLegal, AZ LEGAL [S5]. The discount-labelling slot is taken twice over, but by newcomers. Hlídač Slev and Slevy správně both rewrite reference prices for the 30-day rule and keep three years of ČOI-exportable history, at ~19 CZK and a flat 200 Kč a month [S8,S10]; Pravoid sells generated terms and privacy policies with alerts when the law moves [S8]. The company behind Hlídač Slev and the proprietor behind Pravoid are both 2025 entries in the business register, and neither publishes a customer count [S8]. Nobody covers the rest of ČOI's map — green claims, information duties, order buttons [S8,S10].
+Existing non-solutions: Právo e-shopů, eLegal and AZ LEGAL — three law firms — sell one-off audits per engagement [S5]. Discount labelling is taken twice: Hlídač Slev and Slevy správně both rewrite reference prices for the 30-day lowest-price rule and keep three years of ČOI-exportable history, at ~19 CZK and a flat 200 Kč a month [S8,S10]. Pravoid generates terms and privacy policies, with alerts when the law moves [S8]; its proprietor and Hlídač Slev's vendor both registered in 2025, and neither publishes a customer count [S8]. Nobody covers the rest of ČOI's map: green claims, information duties, order buttons [S8,S10].
 
-Solved elsewhere: Germany productised exactly this under harsher pressure, and three firms have lasted decades on it. Trusted Shops has sold since 1999 and carries certification with buyer protection across 17,000+ European shops, Zalando and Obi among them, in eleven markets including Austria and Poland. IT-Recht Kanzlei has sold subscription legal texts since 2004, from €9.90 a month, with plugins for the major shop platforms. Händlerbund, trading since 2008, counts 30,000 members and some 92,000 digital presences [S4]. All three grew on merchants' fear of a warning letter; here the fear comes from the regulator instead — same merchant, same checklist. None of the three carries a fresh round [S4], which is what two decades of paying customers looks like rather than a gap in the evidence.
+Solved elsewhere: three German firms have lasted decades on this. Trusted Shops has sold certification with buyer protection since 1999 to 17,000+ European shops, Zalando and Obi among them, across eleven markets including Austria and Poland. IT-Recht Kanzlei has sold subscription legal texts since 2004, from €9.90 a month, with plugins for the major shop platforms. Händlerbund, trading since 2008, counts 30,000 members and some 92,000 digital presences [S4]. All three grew on fear of a warning letter; here the regulator supplies it. None carries a fresh funding round [S4] — two decades of paying customers is the receipt.
 
 ## First moves
 
-1. Crawl the Czech e-shop long tail for green-claims language — "eko", "šetrné k přírodě", climate-neutral badges — and build the list of exposed merchants: directive 2024/825 blacklists unsubstantiated versions of exactly these claims from 2026-09-27 [S2].
-2. Cold-pitch the flagged merchants before 2026-09-27 with a claim-by-claim fix report, priced at the German subscription points listed under Proven abroad — conversion doubles as the test of the riskiest assumption, that merchants pay before they are fined (ignoring the risk is the majority position at 85–91% violation rates) [S1,S9].
-3. Extend the scanner to ČOI's four documented failure buckets — missing pre-contractual information (488 breaches in 2025), missing complaint-handling information (363), unfair commercial practices (318), non-compliant order buttons (107) — the checklistable core of the 2,399 recorded violations [S1].
-4. Ship into the Shoptet app store, but not as the first compliance add-on there: the discount-labelling slot is already contested — Hlídač Slev at ~19 CZK/month per 1,000 products, its five public ratings middling with reviewers citing support and export-accuracy problems [S8], and Slevy správně at a flat 200 Kč/month on both Shoptet and Upgates [S10]. One integration still reaches tens of thousands of obligated shops [S5], and the catalogue carries no legal-compliance category to compete inside [S8,S10].
-5. Soften the price objection for the rural long tail: merchants based in MAS territories — outside Prague and cities over 25,000 inhabitants — can co-fund software purchases at 50% (grants up to 1.49M CZK) from [OP TAK Technologie pro MAS II](/sources/tenders#dotace-optak-technologie-mas-2), €22M allocated, applications 2026-09-01 to 2027-09-01 [S7].
-6. Competition, checked 2026-08-20 and 2026-08-24: **Právo e-shopů, eLegal and AZ LEGAL** sell one-off právní audity that go stale by the next legislative wave [S5], and three Czech products already hold pieces of the monitoring layer — **Hlídač Slev** and **Slevy správně** on discount labelling, **Pravoid** on legal texts with e-Sbírka alerts [S8,S10]. All three are young: the companies behind Hlídač Slev and Pravoid were both registered during 2025 [S8], so this is a race rather than an entrenchment. The wedge is no longer "continuous monitoring versus the audit price" but coverage: the ČOI buckets none of them touches — pre-contractual and complaint-handling information, order buttons, and the green claims blacklisted from 27 Sep 2026 [S1,S2,S8,S10].
+1. Crawl Czech e-shops for green-claims language — "eko", "šetrné k přírodě", climate-neutral badges. That list is your prospect list: from 27 September 2026 the directive blacklists unsubstantiated versions of exactly those claims [S2].
+2. Pitch those merchants before 27 September 2026 with a claim-by-claim fix report, priced at the German subscription points listed under Proven abroad. Whether a merchant buys before the fine arrives is the assumption everything here rests on — at 85–91% violation rates, ignoring the risk is what most of them already do [S1,S9].
+3. Extend the scanner to the four failures ČOI writes up most: missing pre-contractual information (488 breaches in 2025), missing complaint-handling information (363), unfair commercial practices (318), non-compliant order buttons (107) [S1]. Those four are 1,276 of the 2,399 recorded violations, and each one is a checklist item.
+4. Ship into the Shoptet add-on store, and expect company. Hlídač Slev sells there at ~19 CZK a month per 1,000 products, on five middling public ratings, with reviewers citing support and export accuracy [S8]; Slevy správně sells at a flat 200 Kč a month on Shoptet and Upgates [S10]. One integration still reaches tens of thousands of obligated shops [S5], and the catalogue has no legal-compliance category yet [S8,S10].
+5. Let public money halve the price outside the cities: shops in MAS areas — the state's rural local-action-group territories, outside Prague and towns over 25,000 people — get software co-funded at 50%, grants up to 1.49M CZK, from [OP TAK Technologie pro MAS II](/sources/tenders#dotace-optak-technologie-mas-2) — the state's business-support programme — €22M allocated, applications 2026-09-01 to 2027-09-01 [S7].
+6. Aim at the duties nobody sells. **Právo e-shopů, eLegal and AZ LEGAL** leave a shop compliant only until the next legislative wave [S5], and the three Czech products each cover one duty — **Hlídač Slev** and **Slevy správně** on discount labelling, **Pravoid** on legal texts with alerts from e-Sbírka, the state law gazette [S8,S10]. Both those vendors registered during 2025 [S8], so this is a race, not an entrenchment. The open ground is coverage: pre-contractual and complaint-handling information, order buttons, and the green claims blacklisted from 27 September 2026 [S1,S2,S8,S10].
 
 ## Revisions
 
@@ -280,3 +290,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 
 
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
+
+2026-09-02 · plain-language pass — Trade terms glossed at first use in the rendered prose: ČOI as the Czech trade inspection authority, Shoptet as a platform merchants rent their storefront from, MAS as the state's rural local-action-group territories, OP TAK Technologie pro MAS II as the state's business-support programme [S7], and e-Sbírka as the state law gazette [S8]. The argument tightened from 441 words to 390 with every [Sn] marker, figure, price and named company kept, First moves rewritten in the plain house voice, and a short gist added beside all ten sources' public why lines. No score, status, ledger entry or source note touched.

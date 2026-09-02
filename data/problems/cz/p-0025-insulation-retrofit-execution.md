@@ -102,6 +102,7 @@ locals:
 sources:
 - type: arbitrage
   name: "VARM"
+  gist: "the Berlin €17.5M round"
   why: "Berlin, €17.5M Series A in June 2026 — trains career-changers as certified installers, insulates a family home in one day at a fixed ~€5k price and runs the whole operation on software."
   url: https://tech.eu/2026/06/23/berlins-varm-bags-eur175m-to-scale-insulation-across-europe/
   note: 'de-varm: VARM (Berlin) raised €17.5M Series A (ABN AMRO Sustainable Impact Fund,
@@ -112,6 +113,7 @@ sources:
   signal: de-varm
 - type: subsidy
   name: "Nová zelená úsporám"
+  gist: "the standing renovation subsidy"
   why: "The standing Czech subsidy programme that co-pays insulation alongside heat pumps and photovoltaics — it pre-validates household demand and funds part of every ticket."
   url: https://novazelenausporam.cz/
   note: Nová zelená úsporám funds zateplení (insulation) alongside heat pumps/PV — the standing
@@ -120,6 +122,7 @@ sources:
   date: '2026-08-13'
 - type: gap-check
   name: "Czech insulation-trade scan (first pass)"
+  gist: "the first Czech sweep"
   why: "The early look at the Czech field: Woltair proved the vertical-installer model here for heat pumps and photovoltaics but does not do insulation, which stays a long tail of small firms."
   url: https://tech.eu/2026/06/23/berlins-varm-bags-eur175m-to-scale-insulation-across-europe/
   note: 'Quick check 2026-08-13: Woltair proved the CZ vertical-installer model for heat pumps/PV
@@ -128,6 +131,7 @@ sources:
   date: '2026-08-13'
 - type: arbitrage
   name: "dsb Deutsche Sanierungsberatung"
+  gist: "the demand-side €10M round"
   why: "Berlin, €10M Series A in July 2026 — packages renovation consulting, subsidy applications and contractor delivery for homeowners. The demand-side half of the model, funded a month after VARM."
   url: https://www.vestbee.com/insights/articles/top-european-funding-rounds-closed-in-july-2026
   note: 'round-dsb-sanierung: dsb Deutsche Sanierungsberatung (Berlin) raised €10M Series
@@ -140,6 +144,7 @@ sources:
   signal: round-dsb-sanierung
 - type: regulation
   name: "EPBD recast — Commission infringement notice"
+  gist: "the overdue EU directive"
   why: "Transposition overdue since May 2026 and infringement opened against Czechia on 15 July 2026; residential renovation trajectories dated 2030 and 2033 put a legal driver behind household insulation."
   url: https://energy.ec.europa.eu/news/commission-calls-eu-countries-transpose-reinforced-rules-energy-performance-buildings-2026-07-15_en
   note: 'reg-epbd-recast: EPBD recast (2024/1275) — transposition overdue since May 2026,
@@ -150,6 +155,7 @@ sources:
   signal: reg-epbd-recast
 - type: gap-check
   name: "Czech insulation supply — a second, deeper sweep"
+  gist: "the deeper Czech sweep"
   why: "Looked for a scaled tech-enabled insulation consolidator and found the long tail instead: regional directories, individual applicators, CIUR's manufacturer-partner network, and dotacenarenovace.cz — a 25-year construction firm with a subsidy desk."
   url: https://dotacenarenovace.cz/
   note: 'Gap re-check 2026-08-20: looked for a Czech tech-enabled insulation consolidator —
@@ -185,6 +191,7 @@ sources:
   expires: '2026-11-18'
 - type: gap-check
   name: "The long tail, named — and the firm that is not in it"
+  gist: "the 30,100-building incumbent"
   why: "Putting names to the installers turned up one that is not long-tail at all: a Polná firm that has been insulating Czech roofs and lofts with its own crews for thirty years, on a claimed 30,100+ buildings."
   url: https://www.magmarelax.cz/
   note: 'Gap check 2026-08-25, run to put NAMES on the direct competition this record has always
@@ -225,20 +232,20 @@ sources:
   checked: [ares, google-cz]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Insulating a Czech family home means finding one of thousands of small zateplení firms, waiting for a quote, and hoping the NZÚ subsidy paperwork gets handled. The trade is a fragmented long tail of small regional firms [S3,S6] — with one exception: IP Polná has insulated a claimed 30,000+ Czech buildings with its own crews over thirty years [S7]. Meanwhile the subsidy program that co-pays the work — Nová zelená úsporám — runs continuously, pre-validating household demand [S2].
+Insulating a Czech family home means picking one of thousands of small regional firms [S3,S6], waiting for a quote, and hoping the subsidy paperwork gets filed. One is not like the rest: IP Polná (own crews, thirty years) has insulated a claimed 30,000+ Czech buildings [S7]. The subsidy that co-pays the work runs continuously, pre-validating household demand [S2].
 
-Why now: VARM in Berlin just raised €17.5M for the answer: train career-changers into certified insulation installers, standardize the job to one day at a fixed ~€5k price, and run the whole operation on software [S1]. It is Woltair's Czech playbook — vertical integration of a subsidized energy trade — applied to a trade Woltair skipped [S3]. The model attacks labor supply rather than selling software to firms that are too small to buy it [S1].
+Why now: VARM (Berlin) raised €17.5M in June 2026 to train career-changers as certified installers, standardize the job to one day at a fixed ~€5k price, and run the operation on software [S1]. That is Woltair's Czech playbook — vertical integration of a subsidized energy trade — applied to the trade Woltair skipped [S3]. It attacks labor supply rather than selling software to firms too small to buy it [S1].
 
-Who pays: homeowners, part-funded by the state renovation subsidy Nová zelená úsporám [S2], and later the apartment-owner associations and housing cooperatives that run multi-unit buildings. The fixed-price, one-day product is the wedge [S1]; subsidy handling in-house removes the paperwork objection that suppresses demand today.
+Who pays: homeowners, part-funded by the state renovation subsidy Nová zelená úsporám [S2], and later the apartment-owner associations and housing cooperatives that run multi-unit buildings. The fixed-price one-day job is the wedge [S1]; handling the subsidy in-house removes the paperwork objection.
 
-EPBD gives the same work a dated regulatory driver: transposition is overdue, the Commission opened infringement against CZ in July 2026, and residential MEPS trajectories (2030/2033) mean household insulation stops being optional [S5]. [EPBD pressure](/problem/cz/p-0024) is upstream demand for the same work: as renovation obligations firm up [S5], execution capacity becomes the bottleneck this model builds.
+EPBD — the EU buildings-energy directive — is the legal driver behind the same work: Czech transposition is overdue, the Commission opened infringement in July 2026, and minimum-efficiency trajectories for homes are dated 2030 and 2033 [S5]. [EPBD pressure](/problem/cz/p-0024) is upstream demand [S5]; execution capacity is the bottleneck.
 
-Existing non-solutions: taken at the top, fragmented underneath. IP Polná sells the blown-in half of the job nationally with its own crews and subsidy help — everything VARM sells bar the fixed price and the software — and never touches the facade [S7]. Facades go to specialists like ZOFI: subsidy filed under power of attorney, five cities, every house priced on survey [S7]. Under both is the long tail — Fouknuto and hundreds like it, one crew, one region, a free quote [S6,S7] — and contractors for whom insulation is a side line. Nobody sells the whole envelope at one fixed price, and Woltair still does not sell insulation at all [S3].
+Existing non-solutions: taken at the top, fragmented underneath. IP Polná sells the blown-in half nationally with subsidy help — everything VARM sells bar the fixed price and the software — but never the facade [S7]. Facades go to regional specialists: ZOFI (five cities) files the subsidy under power of attorney and prices every house on survey [S7]. Below them is the long tail — Fouknuto and hundreds like it, one crew, one region, a free quote [S6,S7]. Nobody sells the whole envelope at one fixed price, and Woltair still sells no insulation [S3].
 
-Solved elsewhere: Berlin funded the second half of the model within a month of the first — dsb Deutsche Sanierungsberatung (€10M Series A) packages renovation consulting, subsidy applications and contractor delivery for homeowners, the demand-side navigation wedge to VARM's supply-side installer wedge [S4]. VARM has been installing since 2023 across seven German sites, and Enter has sold homeowner audits and delivery since 2020 on €40M raised; dsb only opened in 2024 [S1,S4]. It is all one country. The full stack — find the homeowner, handle the subsidy, deliver the retrofit at a fixed price — is proven next door and nowhere else yet.
+Solved elsewhere: Berlin funded the demand side a month after the supply side — dsb Deutsche Sanierungsberatung (€10M Series A) packages consulting, subsidy applications and contractor delivery for homeowners [S4]. VARM has installed since 2023 across seven German sites, Enter has sold homeowner audits and delivery since 2020 on €40M raised, and dsb opened only in 2024 [S1,S4]. All one country: find the homeowner, handle the subsidy, deliver at a fixed price — proven next door, nowhere else yet.
 
 ## Revisions
 
@@ -256,3 +263,5 @@ Same date, later pass: **`scores.gap` 1 → 0 and `score` 6 → 5**, and the led
 
 
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 5 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
+
+2026-09-02 · plain-language pass — Four terms glossed at first use: EPBD, VARM, ZOFI, IP Polná. Three were replaced with plain English instead — NZÚ, MEPS and zateplení. The argument was tightened from 467 to 389 words with all 16 [Sn] marker groups, every figure, date and named firm kept, and a gist added beside all seven sources. No score, status, note or marker touched.

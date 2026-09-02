@@ -68,6 +68,7 @@ locals:
 sources:
 - type: arbitrage
   name: "A Place for Mom"
+  gist: "the $175M US template"
   why: "The US template: a senior-care referral marketplace paid by providers per move-in, funded at $175M growth equity and valued above $1 billion."
   url: https://www.businesswire.com/news/home/20220123005094/en/A-Place-for-Mom-Raises-%24175M-in-Growth-Equity-Funding
   note: 'A Place for Mom raised $175M growth equity led by Insight Partners with General Atlantic
@@ -77,6 +78,7 @@ sources:
   date: '2022-01-23'
 - type: arbitrage
   name: "Lottie"
+  gist: "the British occupancy-data marketplace"
   why: "The UK version, five years in: a care-home marketplace for families plus occupancy software that gives providers real-time bed availability — the data layer Czechia lacks."
   url: https://www.prnewswire.com/news-releases/lottie-raises-21m-series-a-led-by-accel-to-confront-the-social-care-crisis-and-elevate-the-standard-of-later-living-301949817.html
   note: 'Lottie raised $21M (£16.35M) Series A led by Accel with General Catalyst and Kindred
@@ -87,6 +89,7 @@ sources:
   date: '2023-10-09'
 - type: arbitrage
   name: "pflege.de"
+  gist: "the German platform, bought outright"
   why: "The German later-life care platform — VC-funded, ~10 million visitors a year, and bought outright by care-products group Paul Hartmann."
   url: https://www.pflegemarkt.com/2021/01/07/pflege-de-wird-uebernommen-von-paul-hartmann/
   note: 'pflege.de (web care LBJ GmbH, Hamburg, founded 2011) was acquired 100% by Paul Hartmann
@@ -98,6 +101,7 @@ sources:
   date: '2021-01-07'
 - type: statistic
   name: "MPSV yearbook — unmet care-home applications"
+  gist: "the 2024 unmet-application counts"
   why: "70,209 applications for domovy pro seniory and 37,849 for domovy se zvláštním režimem sat unsatisfied at the end of 2024 — a queue-pressure index inflated by families applying to many homes at once, never a headcount."
   url: https://mpsv.gov.cz/statisticka-rocenka-z-oblasti-prace-a-socialnich-veci-archiv
   note: 'civic-mpsv-rocenka-neuspokojene-2024: Statistická ročenka 2024, workbook 5_Socialni
@@ -110,6 +114,7 @@ sources:
   dims: [demand]
 - type: statistic
   name: "MPSV/ÚZIS long-term-care prediction"
+  gist: "the 34,700 new beds by 2035"
   why: "The ministry's own models call for roughly 34,700 new long-term-care beds by 2035 — the queue problem gets structurally worse before it gets better."
   url: https://mpsv.gov.cz/predikce-potreb-dlouhodobe-pece-cesko-ceka-jeden-z-nejvetsich-ukolu-pristich-desetileti
   note: 'civic-mpsv-ltc-predikce-2035: MPSV/ÚZIS predictive models published 2025-11-14 project
@@ -121,6 +126,7 @@ sources:
   dims: [demand]
 - type: complaint
   name: "Ombudsman — unregistered senior homes"
+  gist: "the illegal-homes warning"
   why: "The deputy ombudsman warns families against live illegal care homes in three towns — the overflow from full registered capacity, documented by the state's own inspector."
   url: https://www.ochrance.cz/aktualne/dalsi_nelegalni_domovy_mohou_ohrozovat_dustojnost_i_bezpeci_senioru-_nesverujte_jim_sve_blizke_varuje_zastupce_ombudsmana/
   note: 'ombud-nelegalni-domovy: 2026-06-23, unregistered facilities operating in Mutěnice,
@@ -132,6 +138,7 @@ sources:
   dims: [demand]
 - type: statistic
   name: "ČSÚ projection — the 80+ cohort"
+  gist: "the 80+ cohort to 2030"
   why: "466,000 people aged 80+ on 1 January 2023 become 690,000 by 1 January 2030 — a 48% rise in seven years, in the middle variant of the state's own projection."
   url: https://csu.gov.cz/produkty/projekce-obyvatelstva-ceske-republiky-2023-2100
   note: 'Recomputed 2026-08-25 from the primary workbook rather than quoted: Tab. 1 Střední
@@ -142,6 +149,7 @@ sources:
   dims: []
 - type: tender
   name: "TED — Brno Kociánka care-home concession (~5.17 bn CZK)"
+  gist: "the 5.2bn CZK Brno concession"
   why: "Brno is procuring construction of a retirement home as a concession worth about 5.2 billion CZK — capacity money at a scale the register rarely sees."
   url: https://ted.europa.eu/en/notice/-/detail/754888-2025
   note: 'ted-754888-2025: Statutární město Brno, concession Kociánka, retirement home construction,
@@ -151,6 +159,7 @@ sources:
   signal: ted-754888-2025
 - type: tender
   name: "TED — Praha 14 senior-home concession (~4.37 bn CZK)"
+  gist: "the 4.4bn CZK Praha 14 concession"
   why: "Praha 14 tendered a senior-home construction concession worth about 4.4 billion CZK in April 2026 — the second ten-figure capacity concession in six months."
   url: https://ted.europa.eu/en/notice/-/detail/244129-2026
   note: 'ted-244129-2026: Městská část Praha 14, concession for construction of a home for
@@ -161,6 +170,7 @@ sources:
   signal: ted-244129-2026
 - type: subsidy
   name: "NPO call 31_24_138 — residential care modernization (1 bn CZK)"
+  gist: "the closed 1bn CZK call"
   why: "The National Recovery Plan put a billion crowns into modernizing residential care for seniors — the second call of a series, now closed."
   url: https://mpsv.gov.cz/vyzva-c.-31_24_138-modernizace-a-rozvoj-pobytovych-sluzeb-socialni-pece-ii
   note: 'dotace-npo-31-24-138-pobytove-sluzby: call announced 2024-11-15, applications closed
@@ -171,6 +181,7 @@ sources:
   signal: dotace-npo-31-24-138-pobytove-sluzby
 - type: regulation
   name: "New social services act planned for 2031"
+  gist: "the 2031 rewrite of the rules"
   why: "MPSV is to draft a wholly new social services act by Q3 2028, with per-client funding from January 2031 — the market's rules are set to be rewritten."
   url: https://nrzp.cz/2026/03/02/informace-c-13-2026-uvahy-o-novem-zakone-o-socialnich-sluzbach/
   note: 'reg-soc-sluzby-novy-zakon-2031: legislative plan reported by NRZP ČR (informace
@@ -181,6 +192,7 @@ sources:
   signal: reg-soc-sluzby-novy-zakon-2031
 - type: gap-check
   name: "Market scan — who places a Czech family"
+  gist: "the Czech placement-market sweep"
   why: "Czech searches found comparison directories only — SrovnejPéči.cz (1,500+ facilities, inquiries forwarded, no vacancy data), můjdůchod.cz, one regional database — and no service that files applications, tracks queues or finds a bed."
   url: https://srovnejpeci.cz/
   note: 'Checked 2026-08-25: three Czech-language searches for placement services returned
@@ -202,6 +214,7 @@ sources:
   expires: '2026-11-23'
 - type: contract
   name: "Registr smluv — municipal senior-home construction wave"
+  gist: "the municipal building wave"
   why: "Thirteen-plus municipal and regional senior-care construction contracts, amendments and grants landed between November 2025 and August 2026 — Prague's Bohnice pavilions alone at ~€10.8M — new beds being built one town at a time."
   url: https://smlouvy.gov.cz/smlouva/38020781
   note: 'hlidac-35713825: Praha signed ~€10.8M works for pavilions 3+4 of the Bohnice senior
@@ -217,6 +230,7 @@ sources:
   dims: []
 - type: regulation
   name: "VeKLEP — social services act amendment in draft"
+  gist: "the amendment already in draft"
   why: "MPs filed a bill amending the Social Services Act 108/2006 and the disability-benefits act, and the implementing decree 505/2006 is being updated — the rules of the market this record sits in are moving before the planned 2031 rewrite."
   url: https://odok.cz/portal/veklep/material/ALBSDS9BKZY8/
   note: 'veklep-ALBSDS9BKZY8: MPs'' bill no. 125 (Juchelka, Pastuchová, filed 17 Mar 2026)
@@ -228,26 +242,26 @@ sources:
   signal: veklep-ALBSDS9BKZY8
   dims: []
 created: '2026-08-25'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Placing a parent into a Czech care home means applying blind. Each domov pro seniory or domov se zvláštním režimem runs its own application and its own queue; no shared view of vacancies exists. Homes held 70,209 and 37,849 pending applications at the end of 2024 — a pressure index inflated by families applying to many homes at once, not a count of waiting people [S4]. Desperate families end up in unregistered homes the ombudsman warns against [S6].
+Placing a parent in a Czech care home means applying blind: each home runs its own application and its own queue, and no shared view of vacancies exists. Homes held 70,209 and 37,849 pending applications at end-2024: a pressure index inflated by families applying to many homes at once, not a headcount [S4]. Some families end up in the unregistered homes the ombudsman warns against [S6].
 
-Why now: the 80+ population grows from 466,000 to 690,000 between 2023 and 2030 [S7], and the ministry's own models call for roughly 34,700 new long-term-care beds by 2035 [S5]. The state is building — Brno and Praha 14 tendered care-home concessions worth 5.2 and 4.4 billion CZK [S8,S9], a 1 bn CZK modernization call just closed [S10] — and a new social-services act with per-client funding is planned for 2031 [S11].
+Why now: the 80+ population goes from 466,000 (2023) to 690,000 (2030) [S7], and the labour ministry's models call for 34,700 more long-term-care beds by 2035 [S5]. The state is building: Brno and Praha 14 tendered care-home concessions worth 5.2 and 4.4 billion CZK [S8,S9]; a 1 bn CZK modernization call just closed [S10]. A new social-services act with per-client funding is due in 2031 [S11].
 
-Who pays: private care homes and assisted-living operators pay per qualified move-in — the provider-paid referral model A Place for Mom runs at national scale in the US [S1]. Families pay flat fees for guided placement — shortlisting, filing, queue tracking. Both sides buy the same missing thing: knowing where a bed is.
+Who pays: private care homes and assisted-living operators pay per qualified move-in — the referral model A Place for Mom runs nationwide in the US [S1]. Families pay a flat fee for guided placement: a shortlist, applications filed, queues tracked.
 
-Existing non-solutions: directories exist, placement does not. The field is not empty so much as thinly held, and everything in it is young. SrovnejPéči.cz launched in 2024, compares more than 1,500 registered facilities and forwards inquiries, but carries no vacancy data and places nobody [S12]. Můjdůchod.cz is a database; regional lists like Středočeský kraj's SENIOR portal cover one region each; free social counselling helps with forms [S12]. No Czech service files applications, tracks queues or finds an available bed for a family [S12].
+Existing non-solutions: directories exist, placement does not. SrovnejPéči.cz launched in 2024, compares 1,500+ registered facilities and forwards inquiries, but carries no vacancy data and places nobody [S12]. Můjdůchod.cz is a static database; SENIOR (Středočeský kraj's vacancy list) covers one region; free social counselling helps with forms [S12]. No Czech service files applications, tracks queues or finds a family a bed [S12].
 
-Solved elsewhere: three markets, three sellers, none of them new. A Place for Mom has run provider-paid senior-care referral in the United States since 2000 and raised $175M in growth equity at a valuation above $1 billion [S1]. Lottie has sold in Britain since 2021 — a family-facing marketplace plus occupancy software tracking real-time bed availability for providers, on a $21M Series A led by Accel and 500,000 monthly users [S2]. pflege.de has run the German later-life platform since 2011 at around ten million visitors a year, and was bought outright by care-products group Paul Hartmann [S3]. Germany is next door, and the model has been working there for fifteen years.
+Solved elsewhere: three markets, three sellers, none new. A Place for Mom has run provider-paid referral in the US since 2000, on $175M growth equity above a $1 billion valuation [S1]. Lottie has sold in Britain since 2021: a family marketplace plus occupancy software with real-time bed availability, on a $21M Series A led by Accel and 500,000 monthly users [S2]. pflege.de has run in Germany since 2011 at ~10 million visitors a year; Paul Hartmann bought it outright [S3]. Germany is next door and fifteen years ahead.
 
 ## First moves
 
-1. Build the list nobody has: start from the MPSV register of providers, then phone every DS and DZR in one pilot kraj and record how long its queue is and when beds are expected to open. That list is the product.
-2. Sell to families first: one flat fee for guided placement — a shortlist, applications filed, queues tracked — in the pilot region. Open every conversation with the yearbook's fact: 70,209 pending applications [S4].
-3. Then sign private homes with beds to fill: a referral fee per move-in — the A Place for Mom model [S1] — plus the occupancy tools Lottie proved homes will pay for [S2].
-4. Watch the successor to the closed 1 bn CZK modernization call [S10] on the [tenders ledger](/signals/tenders#dotace-npo-31-24-138-pobytove-sluzby): every bed it funds is new inventory for you.
-5. Named competition: SrovnejPéči.cz [S12] — two years old, owns the directory position, could add vacancy data. Move before it does.
+1. Build the list nobody has: start from the provider register kept by MPSV — the labour and social affairs ministry — then phone every domov pro seniory and domov se zvláštním režimem (the ordinary and the dementia care homes) in one region and record how long its queue is and when beds come free. That list is the product.
+2. Sell families a flat fee for guided placement in that one region: a shortlist, applications filed, queues tracked. Open every conversation with the yearbook's number, 70,209 pending applications [S4].
+3. Sign private homes with beds to fill: a referral fee per move-in, the A Place for Mom model [S1], plus the occupancy tools Lottie proved homes will pay for [S2].
+4. Watch for the successor to the closed 1 bn CZK modernization call [S10] on the [tenders ledger](/signals/tenders#dotace-npo-31-24-138-pobytove-sluzby): every bed it funds is new inventory.
+5. Move before SrovnejPéči.cz does [S12]. It is two years old, it owns the directory position, and it can bolt on vacancy data whenever it decides to.
 
 ## Revisions
 
@@ -257,3 +271,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 
 
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 3 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
+
+2026-09-02 · plain-language pass — The p-0010 retrofit run, applied here. GLOSSES: the SENIOR portal is now named as Středočeský kraj's own vacancy list at first use; MPSV is glossed in First moves as the labour and social affairs ministry; the two registered home types moved out of the opener and into First moves, where they are said in full — domov pro seniory and domov se zvláštním režimem, glossed as the ordinary and the dementia care homes — which retires the bare DS and DZR abbreviations the old First moves used. TIGHTENING: the argument went from 396 to 321 words with every [Sn] marker, figure, date, price and named company kept. What was cut was framing, not evidence: "the field is not empty so much as thinly held, and everything in it is young" (the sentences under it already say so, with dates), "both sides buy the same missing thing: knowing where a bed is" (the `fix:` line renders that four lines above), and the doubled geography in Proven abroad. The multi-application caveat on the 70,209 and 37,849 counts [S4] survives verbatim as the pressure-index reading this record has always required, and the Why-now block's three-marker sentence was split in two, so no rendered sentence now carries three citation markers. FIRST MOVES: rewritten verbs-first — Build, Sell, Sign, Watch, Move — move 3 lost its "Then", and move 5 no longer opens on the noun "Named competition:" but on the instruction, with SrovnejPéči.cz's two-year age and directory position behind it. SOURCES: a gist was added to all 14 entries, so each row renders as NAME · gist · date with its `why` sentence behind the more toggle; every entry already carried `name:` and `why:`, so none was written or changed. `score`, `scores`, `status`, `created`, `id`, `region`, `category`, `geo`, `fix:`, the `comps[]` and `locals[]` ledgers and every `sources[].note` are untouched. No [Sn] marker in the rendered body was moved, dropped or renumbered, and the only marker this pass wrote is the [S4] on the sentence above, inside this entry. `updated:` moved to 2026-09-02.

@@ -102,7 +102,8 @@ locals:
 sources:
 - type: arbitrage
   name: "Sage Care"
-  why: "AI intake and CRM for US home-care agencies (YC S24), claiming over 100 minutes saved per intake — exactly the operations layer this record is about."
+  gist: "the closest US template"
+  why: "AI intake and client records for US home-care agencies (YC S24), claiming over 100 minutes saved per intake — exactly the operations layer this record is about."
   url: https://www.ycombinator.com/companies/sagecare
   note: 'yc-sagecare: Sage Care (YC S24) automates home-care agency operations with AI — intake,
     communication, scheduling busywork; Cova (S26, AI-native home care agency) shows the model
@@ -111,6 +112,7 @@ sources:
   signal: yc-sagecare
 - type: gap-check
   name: "First Czech market scan"
+  gist: "the first market sweep"
   why: "An early sweep that returned only care providers and IRESOFT's Cygnus DP, and documented hundreds of agencies running on phone and paper under a chronic nurse shortage."
   url: https://www.ycombinator.com/companies/sagecare
   note: 'Absence check 2026-08-13: CZ searches return only care providers themselves and IRESOFT
@@ -120,6 +122,7 @@ sources:
   date: '2026-08-13'
 - type: arbitrage
   name: "TakeCareOS"
+  gist: "the third US entrant"
   why: "YC Spring 2026, with six agencies of 200+ employees running operations on it — a third US company on care operations inside two years."
   url: https://www.ycombinator.com/companies/takecareos
   note: 'yc-takecareos: TakeCareOS (YC Spring 2026) — AI-native operating system for long-term
@@ -129,6 +132,7 @@ sources:
   signal: yc-takecareos
 - type: gap-check
   name: "VeruApp and three Czech rivals"
+  gist: "the four Czech incumbents"
   why: "VeruApp builds each caregiver's day automatically from the client's digital record; e-Sestřička, the pecovatelska.cz system (200+ deployments) and the publicly funded E-péče sell into the same agencies."
   url: https://veruapp.cz/
   note: 'Gap re-check 2026-08-20: OCCUPIED. The record claimed Cygnus DP was the only thing helping
@@ -160,6 +164,7 @@ sources:
   expires: '2026-11-18'
 - type: regulation
   name: "Social services amendment 92/2026 Sb."
+  gist: "the law widening care tasks"
   why: "Since 1 July 2026 pečovatelské services may take on routine health-adjacent tasks — the agencies this record covers absorb more work per scarce nurse."
   url: https://e-sbirka.gov.cz/sb/2026/92
   note: 'reg-soc-sluzby-92-2026: zákon č. 92/2026 Sb., main provisions in force 1 Jul 2026 —
@@ -171,6 +176,7 @@ sources:
   signal: reg-soc-sluzby-92-2026
 - type: hiring
   name: "Labour Office — July 2026 nurse hiring wave"
+  gist: "the 380-vacancy hiring month"
   why: "262 employers posted 380 new general-nurse vacancies in one month — the shortage this record's capacity argument rests on, now measured monthly by a state dataset."
   url: https://data.mpsv.cz/od/soubory/volna-mista-prirustek/
   note: 'mpsv-2026-07-health-care: 380 new general-nurse vacancies across 262 employers (651
@@ -183,6 +189,7 @@ sources:
   dims: [demand]
 - type: contract
   name: "ÚZIS — KOMPAS home-care data layer (~€5.4M)"
+  gist: "the €5.4M state data contract"
   why: "The state health-statistics institute signed a €5.4M partnership to build classification, recommended practices and cost models for home and community nursing care — public money entering exactly the data layer these agencies run on."
   url: https://smlouvy.gov.cz/smlouva/38765500
   note: 'hlidac-36430740: Ústav zdravotnických informací a statistiky signed a partnership
@@ -195,21 +202,23 @@ sources:
   signal: hlidac-36430740
   dims: [money]
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Hundreds of Czech agentury domácí péče and pečovatelské služby — from Včelka to charity providers — coordinate care visits by phone and paper, with Cygnus DP (IRESOFT) serving as documentation and billing record-keeping rather than operations automation [S1,S2]. Under a chronic nurse shortage, every hour of intake calls, client onboarding and schedule juggling is an hour of clinical capacity lost; admin time savings convert directly into more clients served [S1]. The tooling gap, however, is narrower than it first appears: Czech vendors already sell planning, field recording and coordination into exactly these agencies [S4].
+Hundreds of Czech home-care agencies — agentury domácí péče and pečovatelské služby, from Včelka to charity providers — book, move and confirm visits by phone and paper [S1,S2]. Under a chronic nurse shortage, time on intake calls is clinical capacity lost [S1]. Czech vendors already sell that coordination layer [S4].
 
-Why now: capacity is the binding constraint — the Labour Office logged 380 new general-nurse vacancies across 262 employers in July 2026 alone [S6] — and since 1 July 2026 an amendment lets pečovatelské services take on routine health-adjacent tasks, adding work per scarce nurse [S5]. AI-native operations layers for exactly this agency profile are funded repeatedly in the US — Sage Care (YC S24) and Cova (YC S26) [S1,S3].
+Why now: the Labour Office logged 380 new general-nurse vacancies across 262 employers in July 2026 alone [S6]. Since 1 July 2026, amendment 92/2026 Sb. lets care services take on routine health-adjacent tasks — medication, stoma and urine bags — adding work per scarce nurse [S5]. Three US care-operations firms were funded in two years: Sage Care (YC S24), Cova (S26), TakeCareOS (Spring 2026) [S1,S3].
 
-Who pays: the agencies. The pitch is capacity, not cost: an agency that automates intake and coordination can take on more reimbursed care with the same staff. The state is meanwhile paying to standardize the domain's data: ÚZIS signed ~€5.4M for KOMPAS — classification, recommended practices and cost models for home nursing care [S7].
+Who pays: the agencies buy capacity, not savings — automated intake and coordination lets the same nurses carry more reimbursed care. The state's health-statistics institute (ÚZIS) signed ~€5.4M for KOMPAS — classification, recommended practices and cost models for home nursing care [S7].
 
-Existing non-solutions — superseded. The original check found only the providers themselves and IRESOFT [S2], but it searched the wrong words: domestic vendors hold the operations layer [S4]. VeruApp plans each caregiver's day automatically from the client's digital record and carries a field mobile app; e-Sestřička covers domácí a paliativní péče across odbornosti 925, 720 and 926; the pecovatelska.cz system from Petr Zajíc software runs terénní sociální služby in more than 200 locations; and Ústecký kraj is putting the E-péče field app into 39 providers on EU money [S4]. Phone and paper are still widespread, but they are no longer the only option on the market.
+Existing non-solutions: Cygnus DP (IRESOFT) records and bills care already given, but does not answer the phone or rebuild a cancelled day [S2]. The layer above it is taken [S4]. VeruApp plans each caregiver's day from the client's digital record; e-Sestřička covers home and palliative care on nursing billing codes 925, 720 and 926; pecovatelska.cz (Petr Zajíc software) runs community social-care services at 200+ sites; and Ústecký kraj is putting the E-péče field app into 39 providers on EU money [S4].
 
-Solved elsewhere: the US home-care AI-ops cluster above is the newest layer [S1,S3]. The settled players are older and elsewhere: Birdie in Britain and AlayaCare in Canada have sold care-agency operations software for over a decade, and the ledger below carries both. Neither sells in continental Europe, so the model is proven — but not yet in a market that shares Czechia's reimbursement rules. What a domestic entrant would own is narrower than first written — not the operations layer as such, which is occupied [S4], but the AI-native slice of it: voice intake in Czech, and displacing or integrating with incumbents that already hold the scheduling and records seat.
+Solved elsewhere: Birdie (Britain) and AlayaCare (Canada) have sold care-agency operations software for over a decade, and neither sells in continental Europe. The model is proven, but never under Czechia's reimbursement rules. The US cluster above them is newer and AI-native [S1,S3]. The opening is not the occupied operations layer [S4] but Czech-language voice intake above whoever holds the scheduling and records seat.
 
 ## Revisions
 
 2026-08-20 · gap re-check and evidence audit — Two blocks recorded on this date, merged here. De-ranked: the operations layer is occupied. The original absence check was run in the wrong language and concluded that Cygnus DP was the only tooling in the market. Searching Czech for the operations layer returns domestic vendors on the first page: VeruApp (automatic daily work planning per caregiver from the client's digital record, field mobile app, billing and statutory reporting), e-Sestřička (cloud system for domácí a paliativní péče, odbornosti 925/720/926; SESTŘIČKA.CZ s.r.o., IČO 05752779), pecovatelska.cz from Petr Zajíc software (terénní sociální služby under zák. 108/2006 Sb., 200+ deployments) and E-péče (Ústecký kraj, OP Spravedlivá transformace, 39 providers) [S4]. Per the SPEC §4 de-rank rule: gap 1 → 0, score 4 → 3, status candidate → watching. The title lost the clause "with only a legacy record-keeping system to help", which the re-check disproved, and the non-solutions and comparables paragraphs were rewritten so the body no longer asserts an absence its own score denies. The underlying problem — phone-and-paper coordination under a nurse shortage — is not withdrawn; what is withdrawn is the claim that nobody sells into it. Also removed in the same pass: the sentence "Larger charity networks (Charita ČR) offer multi-branch deals." Charita returns no hits anywhere in the signal corpus, and yc-sagecare supports only the generic phrase "charity providers", which the lead paragraph already carries — the named organisation and the multi-branch channel claim were both unbacked.
 
 2026-08-25 · evidence added — The July 2026 Labour Office hiring aggregate (380 new general-nurse vacancies, 262 employers) and the in-force social-services amendment 92/2026 Sb. entered the evidence below [S5,S6]. Demand 1 → 2: the staffing pressure the capacity argument rests on is now documented by a recurring state dataset rather than one signal's note. Score 3 → 4; gap 0 and status watching untouched — the de-rank of 2026-08-20 stands. Same date, separate pass: added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched by that pass. Third pass this date, merged here: the ÚZIS KOMPAS partnership (~€5.44M for home-care classification, recommended practices and cost models) entered the evidence from the 2026-08-25 retrospective harvest [S7]. Money 0 → 1 — a relevant public contract now funds the domain's data foundations — and score 4 → 5; gap 0 and status watching still stand. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries IRESOFT, e-Sestřička, pecovatelska.cz, VeruApp and E-péče [S4]. Three pass the established test — IRESOFT on two distinct public buyers for IČO 26297850 in data/lookup/cz-contract-parties.jsonl, e-Sestřička on a named reference list, pecovatelska.cz on more than 200 deployments since 1998 — so `scores.gap` stays 0 and the 2026-08-20 de-rank now rests on receipts a machine can re-check. VeruApp and E-péče are early. `scores.proof` 1 → 2: Birdie and AlayaCare both pass the established test, but Britain, Canada, the US and Australia are none of them CEE-adjacent, so rung 3 is not met — and the body no longer says the model is proven in the US only, which its own ledger contradicted. `score` 5 → 6. Fifth pass this date, merged here: `locals[]` converted from `status:` to `competes:` + `maturity:`, and two entries change column under the split. **IRESOFT (Cygnus DP)** becomes `competes: adjacent`: this record's own lead says Cygnus DP serves as documentation and billing record-keeping rather than operations automation [S1,S2], and what this record proposes is Czech voice intake on top of whatever system the agency already runs — so IRESOFT holds the records seat, not this one. It stays established on its two distinct public buyers. **E-péče** becomes `competes: adjacent` as well: it is a publicly funded Ústecký-kraj project putting a field app into 39 providers on EU money, a grant programme rather than a vendor selling to this record's buyer. e-Sestřička, pecovatelska.cz and VeruApp are `competes: direct` — each sells the planning, field-recording and coordination layer into these agencies — with maturities unchanged. `scores.gap` stays 0: e-Sestřička and pecovatelska.cz are both direct and established, so the 2026-08-20 finding still rests on receipts a machine can re-check even after IRESOFT moves out of the direct column. No player was ever excluded from this ledger. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed. Also cut from the IRESOFT entry: the phrase naming what "this record is about" — the entry now simply says what Cygnus DP does and does not do.
+
+2026-09-02 · plain-language pass — Eight trade terms glossed or replaced at first use: agentury domácí péče, pečovatelské služby, Cygnus DP [S2], odbornosti (now nursing billing codes), domácí a paliativní péče, terénní sociální služby [S4], ÚZIS [S7], AI-ops. Argument tightened from 433 words to 300, keeping every figure, date, name and [Sn] marker. A gist added to all seven sources. The lead-in restored to the literal "Existing non-solutions:", which had been swallowing prose. No score, status, note or marker touched.

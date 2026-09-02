@@ -94,6 +94,7 @@ locals:
 sources:
 - type: regulation
   name: "Act No. 264/2025 Coll. (new cybersecurity act)"
+  gist: "the law and its deadlines"
   why: "The Czech NIS2 transposition, effective 1 Nov 2025 — registration was due end-2025, security measures fall due within one year of registration, and fines reach 2% of global turnover or CZK 250m."
   url: https://www.zakonyprolidi.cz/cs/2025-264
   note: 'reg-nis2-cz-zkb: Act No. 264/2025 Coll. (NIS2 transposition), effective 1 Nov 2025;
@@ -104,6 +105,7 @@ sources:
   signal: reg-nis2-cz-zkb
 - type: complaint
   name: "SME UNION — the deadlines are running"
+  gist: "the 6,000-firm alarm"
   why: "The business association's alarm: 6,000+ firms affected across energy, manufacturing, food, logistics and digital services — and many SMEs still unaware they are in scope."
   url: https://www.sme-union.cz/zakon-o-kyberneticke-bezpecnosti-plati-lhuty-bezi/
   note: 'SME UNION: 6,000+ firms affected across energy, manufacturing, food, logistics, digital
@@ -112,6 +114,7 @@ sources:
   date: '2026-12-31'
 - type: tender
   name: "TED — Motol & Homolka award (~€6.1M)"
+  gist: "the €6.1M hospital award"
   why: "Prague's biggest hospitals bought cyber threat detection and response for ~€6.1M in June 2026 — the top of the public buying wave, with smaller hospital awards in the same window."
   url: https://ted.europa.eu/en/notice/-/detail/373331-2026
   note: 'ted-373331-2026: FN Motol + Homolka awarded ~€6.1M for cyber threat detection & response
@@ -121,6 +124,7 @@ sources:
   signal: ted-373331-2026
 - type: tender
   name: "TED — Prague SIEM award (~€5.3M)"
+  gist: "the €5.3M city award"
   why: "The city of Prague bought a SIEM across the city hall, city police and districts — two security awards from one buyer in six weeks."
   url: https://ted.europa.eu/en/notice/-/detail/472636-2026
   note: 'ted-472636-2026: Hl. m. Praha awarded ~€5.3M for a SIEM across MHMP, city police
@@ -131,6 +135,7 @@ sources:
   signal: ted-472636-2026
 - type: regulation
   name: "Act No. 266/2025 Coll. (critical infrastructure)"
+  gist: "the parallel resilience law"
   why: "The CER transposition puts a parallel physical-resilience compliance stack on an overlapping entity set — designations from July 2026, resilience plans and incident reporting through 2027."
   url: https://rowan.legal/aktualne/cr-novy-zakon-o-kriticke-infrastrukture-je-ucinny/
   note: 'reg-cer-zakon-266: zákon č. 266/2025 Sb. (CER transposition) — critical-entity designations
@@ -141,6 +146,7 @@ sources:
   signal: reg-cer-zakon-266
 - type: contract
   name: "Registr smluv — Český Brod (~9M CZK)"
+  gist: "the 9M CZK small town"
   why: "A town of 7,000 signed ~9M CZK for municipal cyber security — one of 341 cyber contracts in the contract registry since June 2026."
   url: https://smlouvy.gov.cz/smlouva/39084314
   note: 'hlidac-39084314: město Český Brod (~7k inhabitants) signed ''Kybernetická bezpečnost
@@ -152,6 +158,7 @@ sources:
   signal: hlidac-39084314
 - type: contract
   name: "Registr smluv — Lexnova 'NIS 2 package' (~91k CZK)"
+  gist: "the 91k CZK package"
   why: "A care home bought a productised NIS2 package off the shelf, with a repeat order weeks later — the smallest obligated tier pays ~91k CZK a time for packaged compliance."
   url: https://smlouvy.gov.cz/smlouva/38911766
   note: 'hlidac-38911766: Domov pro seniory Napajedla ordered an ''NIS 2 package — cyber security''
@@ -164,6 +171,7 @@ sources:
   signal: hlidac-38911766
 - type: subsidy
   name: "Registr smluv — Boskovice grant application (~121k CZK)"
+  gist: "the paid grant application"
   why: "Towns pay consultants just to write their IROP cyber-security subsidy applications — a queue forms before the compliance work even starts."
   url: https://smlouvy.gov.cz/smlouva/38438158
   note: 'hlidac-38438158: Boskovice paid enovation to write its IROP 21-27 call No. 120 ''Cyber
@@ -175,6 +183,7 @@ sources:
   signal: hlidac-38438158
 - type: subsidy
   name: "IROP call 120 — Kybernetická bezpečnost II"
+  gist: "the €99.6M subsidy pot"
   why: "2.44bn CZK (~€99.6M) at a 50% support rate for municipalities, regions and hospitals regulated under Act 264/2025. Applications 30 Apr – 17 Dec 2026."
   url: https://irop.gov.cz/cs/vyzvy-2021-2027/vyzvy/120vyzvairop
   note: 'dotace-irop-120-kyberbezpecnost: IROP 21-27 call No. 120 ''Kybernetická bezpečnost
@@ -185,6 +194,7 @@ sources:
   signal: dotace-irop-120-kyberbezpecnost
 - type: subsidy
   name: "HORIZON — ECCC cybersecurity calls (€56.2M)"
+  gist: "the €56.2M builder money"
   why: "EU money for building security tooling itself — consortia, Czech firms eligible, deadline 15 Sep 2026. Funds the vendors, not the obligated buyers."
   url: https://cybersecurity-centre.europa.eu/funding-opportunities/calls-proposals/cybersecurity-horizon-cl3-2026-02-cs-eccc_en
   note: 'dotace-horizon-eccc-cyber-2026: HORIZON-CL3-2026-02-CS-ECCC — €56.2M across
@@ -196,6 +206,7 @@ sources:
   signal: dotace-horizon-eccc-cyber-2026
 - type: round
   name: "Secfix"
+  gist: "the Berlin €10.2M round"
   why: "Berlin, €10.2M Series A (Feb 2026) for AI-driven security-compliance automation for SMEs — the closest funded template for a productised NIS2 offer."
   url: https://www.vestbee.com/insights/articles/top-european-funding-rounds-closed-in-february-2026
   note: 'round-secfix: Berlin''s Secfix raised €10.2M Series A (Feb 2026) for AI-driven
@@ -205,6 +216,7 @@ sources:
   signal: round-secfix
 - type: round
   name: "Copla"
+  gist: "the Vilnius €6M round"
   why: "Vilnius, €6M Series A (Feb 2026) for real-time compliance monitoring — a second funded compliance-automation player next door, covering NIS2, DORA and ISO 27001."
   url: https://www.vestbee.com/insights/articles/top-cee-funding-rounds-closed-in-february-2026
   note: 'round-copla: Vilnius'' Copla raised €6M Series A (Feb 2026) for real-time compliance-monitoring
@@ -215,6 +227,7 @@ sources:
   signal: round-copla
 - type: statistic
   name: "NÚKIB — registration tally"
+  gist: "the 4,825 registration count"
   why: "The regulator's own count: 4,825 of ~6,000 expected entities had reported a regulated service by 8 Feb 2026 — verifying the 6,000 figure, with over a thousand obligated organisations not yet even registered."
   url: https://nukib.gov.cz/cs/infoservis/aktuality/2372-ohlaseni-podle-noveho-zakona-o-kyberneticke-bezpecnosti-provedlo-pres-4800-organizaci/
   note: 'Research 2026-08-24: NÚKIB news item reports 4,825 organisations had reported a
@@ -226,6 +239,7 @@ sources:
   date: '2026-02-08'
 - type: statistic
   name: "Reglyze — NIS2 tooling price survey"
+  gist: "the per-firm price band"
   why: "Named annual prices for NIS2 compliance software: Reglyze from €490/yr, Secfix ~€500 a month, Vanta and Drata ~$7,500 a year, OneTrust $30k+ — what a per-firm product can realistically charge."
   url: https://reglyze.com/en/best-nis2-compliance-software
   note: 'Research 2026-08-24: vendor comparison (Reglyze — itself a vendor, prices for
@@ -236,6 +250,7 @@ sources:
   date: '2026-08-24'
 - type: statistic
   name: "Mordor Intelligence — Europe cybersecurity"
+  gist: "the $70B market size"
   why: "Sizes European cybersecurity spend at ~$69.8 billion in 2026, growing ~10.6% a year to ~$115.7 billion by 2031 — with NIS2 and DORA named as the anchor drivers."
   url: https://www.mordorintelligence.com/industry-reports/europe-cybersecurity-market
   note: 'Research 2026-08-24: Mordor Intelligence values the Europe cybersecurity market at
@@ -245,6 +260,7 @@ sources:
   date: '2026-08-24'
 - type: gap-check
   name: "Czech NIS2 vendor scan"
+  gist: "the Czech vendor sweep"
   why: "Czech products now sell the obligation directly to the mid-market — NIS2 Průvodce at 3,000 CZK a month, Compligen at 29,900 CZK once, NIS2 Doku from 4,900 CZK — so the field is no longer only consultancies."
   url: https://nis2pruvodce.cz/
   note: 'Czech-language vendor scan 2026-08-25. The productised Czech field is NOT empty and is
@@ -298,27 +314,27 @@ sources:
   checked: [google-cz, ares, cz-saas-directories, own-funded-ledger, eshop-addon-marketplaces]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Act No. 264/2025 Coll., the Czech NIS2 transposition, pulls roughly 6,000 firms and municipalities — energy, manufacturing, food, logistics, digital services — into a regulated cybersecurity regime [S1,S2]. NÚKIB counted 4,825 registered of ~6,000 expected by February 2026 [S13]; many SMEs do not know they are in scope [S2]. Security measures fall due within a year of registration — rolling deadlines through H1 2027, fines to 2% of global turnover or CZK 250m [S1] — and the typical obligated SME or town has nobody to do the work.
+Act No. 264/2025 Coll., the Czech transposition of the EU's NIS2 security directive, puts roughly 6,000 firms and municipalities under a cybersecurity regime: energy, manufacturing, food, logistics, digital services [S1,S2]. NÚKIB (the national cyber agency) had 4,825 registered by February 2026, over a thousand short [S13]; many small firms do not know they are in scope [S2]. Measures fall due a year after registration — deadlines through H1 2027, fines to 2% of global turnover or CZK 250m [S1]. Most of the 6,000 have nobody to do the work.
 
-Existing non-solutions: consultancies and MSPs are no longer the whole field [S2]. Czech products now sell the obligation itself. NIS2 Průvodce covers both regimes — asset register, risk catalogue, supplier questionnaires, NÚKIB incident forms — at 3,000 CZK a month, built by one person; Compligen generates the lower-regime documentation for 29,900 CZK once, with a page aimed at towns; NIS2 Doku sells the same pack from 4,900 CZK; ICZ's Risk*Guide serves the large end [S16]. Lexnova Energy's ~91k CZK "NIS 2 package" still sells off the shelf below them [S7]. Every one of these sellers is younger than the obligation itself, which took effect in November 2025 [S1] — solo operators and one-off document packs rather than settled vendors [S16].
+Existing non-solutions: consultancies are no longer alone — four Czech products now sell the obligation itself: NIS2 Průvodce at 3,000 CZK a month, built by one person; Compligen at 29,900 CZK once, aimed at towns; NIS2 Doku from 4,900 CZK; Lexnova Energy's ~91k CZK package, ordered twice by care providers in weeks [S2,S7,S16]. All four are younger than the obligation, in force since November 2025 — they sell the paperwork, not the work [S1,S16]. Only ICZ (a systems house trading since 1997) works the enterprise end, and sells a project [S16].
 
-Why now: the one-year clocks are running [S1]; NÚKIB warns the unregistered that proceedings worsen with delay [S13]; Act No. 266/2025 (CER) stacks parallel physical-resilience duties on overlapping entities [S5]; and the IROP subsidy window closes 17 December 2026 [S9].
+Why now: the one-year clocks are running, and NÚKIB counts delay against the unregistered [S1,S13]. Act No. 266/2025 adds CER — the EU's critical-entity law — with physical-resilience duties on the same entities from 17 July 2026 [S5]. IROP (the EU regional-development programme) stops taking applications on 17 December 2026 [S9].
 
-Who pays: the roughly 6,000 regulated entities themselves — compelled by law, not persuaded [S1,S13]. Public buyers alone placed ~77 cyber-security awards worth ~€33M in June–August 2026 [S7]. The receipts below run from Prague's biggest hospitals [S3,S4] down to a town of 7,000 people [S6]. Behind the awards sits a ~€99.6M IROP subsidy pot [S9], and towns pay consultants just to enter it [S8]. Compliance tooling sells at €500–6,000 per firm a year [S14], and the smallest Czech buyers already pay ~€3,700 for an off-the-shelf package [S7]. A €3,000-a-year product bought by a quarter of the 6,000 is ~€4.5M a year — a conservative floor before the implementation services where the €33M sits [S14]. The backdrop is European cybersecurity spend of ~$70 billion in 2026, growing ~11% a year on NIS2 and DORA [S15].
+Who pays: the roughly 6,000 regulated entities themselves — compelled by law, not persuaded [S1,S13]. Public buyers placed ~77 cyber-security awards worth ~€33M in June–August 2026 [S7]. Awards run from ~€6.1M at Motol and Homolka [S3] to ~9M CZK at Český Brod, a town of 7,000 [S6]; Prague bought city-wide monitoring for ~€5.3M [S4]. A ~€99.6M subsidy pot sits behind them [S9]; towns pay ~121k CZK for the application alone [S8]. Tooling sells at €500–6,000 per firm a year [S14]: a quarter of the 6,000 at €3,000 is ~€4.5M a year, before the implementation the €33M buys. European cybersecurity spend runs ~$70 billion in 2026, up ~11% a year [S15].
 
-Solved elsewhere: Secfix (Berlin, €10.2M Series A) sells compliance automation to hundreds of SMBs across 15+ European countries [S11]; Copla (Vilnius, €6M Series A) covers NIS2, DORA and ISO 27001 [S12] — small teams already package exactly this obligation, neither of them found operating in Czechia.
+Solved elsewhere: Secfix (Berlin, €10.2M Series A) sells compliance automation to hundreds of small firms in 15+ European countries [S11]. Copla (Vilnius, €6M Series A) automates the same compliance next door [S12]. Neither sells in Czechia.
 
 ## First moves
 
-1. Sell to the buyers already paying: small towns and social-care institutions. A care home bought a ~91k CZK "NIS 2 package" off the shelf and ordered again weeks later; Týn nad Vltavou paid just to find out whether the law applies to it [S7]. Český Brod signed ~9M CZK, and 341 cyber contracts sit in the registry since June [S6].
-2. First product: a fixed-price gap analysis — where one town or institution stands against Act 264/2025 and Vyhláška 409/2025, and what it must do within its one-year deadline [S1]. A fixed-price package is what the smallest obligated buyers demonstrably choose [S7].
-3. Let subsidies pay for it: [IROP 120 Kybernetická bezpečnost II](/sources/tenders#dotace-irop-120-kyberbezpecnost) has ~€99.6M for municipalities, regions and hospitals, applications open to 17 December 2026 [S9]. Towns already pay consultants just to write the applications [S8] — so write the application, then do the work it funds. To fund building the tool itself: [HORIZON-CL3-2026-02-CS-ECCC](/sources/tenders#dotace-horizon-eccc-cyber-2026) (€56.2M, deadline 15 September 2026) [S10].
-4. The opening is the work, not the paperwork: NIS2 Průvodce (3,000 CZK a month), Compligen (29,900 CZK once) and NIS2 Doku (4,900 CZK once) already sell the documents [S16]. None of them sells the implementation itself — and implementation is what the ~€33M of public awards actually buys [S7].
-5. Second sale to the same buyer: the CER law puts physical-resilience duties on many of the same organisations through 2027 [S5]. Every NIS2 customer will need that too.
-6. Competition on file: NIS2 Průvodce, Compligen, NIS2 Doku and ICZ Risk*Guide sell the compliance product [S16]; Lexnova Energy sells repeat packages, Institut kybernetické bezpečnosti sells scope analysis, and enovation writes the subsidy applications [S7,S8]; consultancies and MSPs sit behind them. Abroad, Secfix [S11] and Copla [S12] prove the model at Series A scale.
+1. Sell to the buyers already paying: small towns and social-care homes. A care home bought Lexnova's ~91k CZK package off the shelf, then ordered again weeks later; Týn nad Vltavou paid just to find out whether the law applied to it [S7]. Český Brod, 7,000 people, signed ~9M CZK, and 341 cyber contracts have landed in the state contracts register since June [S6].
+2. Start with a fixed-price readiness check: where one town or institution stands against Act 264/2025 and Vyhláška 409/2025 — the decree setting out the security measures — and what it owes before its one-year deadline runs out [S1]. Fixed price is what the smallest obliged buyers demonstrably choose [S7].
+3. Let the state pay for it. [IROP 120 Kybernetická bezpečnost II](/sources/tenders#dotace-irop-120-kyberbezpecnost) — the cyber call — holds ~€99.6M at a 50% rate for municipalities, regions and hospitals, open until 17 December 2026 [S9]. Towns already pay consultants to write those applications [S8]: write the application, then do the work it funds. To fund the tool itself, [HORIZON-CL3-2026-02-CS-ECCC](/sources/tenders#dotace-horizon-eccc-cyber-2026) (€56.2M) closes 15 September 2026 [S10].
+4. Sell the doing, not the documents. NIS2 Průvodce (3,000 CZK a month), Compligen (29,900 CZK once) and NIS2 Doku (4,900 CZK) already sell the paperwork [S16]. None of them implements anything, and implementation is what the ~€33M of public awards buys [S7].
+5. Come back for the second law. Act No. 266/2025 puts physical-resilience duties on many of the same organisations through 2027 [S5]. Every NIS2 customer will need that too.
+6. Know who else is in the room. NIS2 Průvodce, Compligen, NIS2 Doku and ICZ Risk*Guide sell the compliance product [S16]; Lexnova Energy sells repeat packages, Institut kybernetické bezpečnosti sells scope analysis, and enovation writes the subsidy applications [S7,S8]. Abroad, Secfix [S11] and Copla [S12] do it at Series A scale.
 
 ## Revisions
 
@@ -329,3 +345,5 @@ Solved elsewhere: Secfix (Berlin, €10.2M Series A) sells compliance automation
 2026-08-24 · board-brief rewrite — The body was rewritten to the builder-first template (problem → proven abroad → local competition → how big → why now), cutting the argument from 440 to ~335 words with no claim added beyond its source. Market research joined the record: NÚKIB's own registration tally (4,825 of ~6,000 expected, Feb 2026) [S13], per-firm NIS2 tooling prices (Reglyze from €490/yr, Secfix ~€500/mo, Vanta/Drata ~$7,500/yr) [S14], and the ~$70bn 2026 European cybersecurity market with NIS2/DORA as named drivers [S15] — grounding a bottom-up floor of ~€4.5M/yr for a productised Czech offer (6,000 entities × €3,000/yr × 25%). Every source gained a public name and why line; internal notes, scores and status untouched.
 
 2026-08-25 · market check — The Czech field was searched in Czech for the first time and it is not empty: four named products sell NIS2 compliance to the obligated mid-market, from a one-person SaaS at 3,000 CZK a month to a documentation pack at 4,900 CZK, plus ICZ's Risk*Guide at the enterprise end [S16]. `scores.gap` was already 0 and stays 0 — nothing here can raise it — but `status` moves candidate → watching under the SPEC §4 de-rank rule, and "Existing non-solutions" and First moves 4 and 6 now name the incumbents instead of asking for the survey that has now been run. `score` is unchanged at 7. Method note for the next check: none of the four products appears anywhere in the 11,330-signal corpus — none raised and none sells through public tender — so only Czech-language search could find them. Positive control: the same method run at Wultra (the incumbent named on p-0017) surfaced it, so the negatives in this pass are worth something. Flagged, NOT changed: `scores.proof` is 0 while Secfix (€10.2M Series A) and Copla (€6M Series A) sit on the comps ledger — the recommended value is 3 (funded analogs in two markets, one of them CEE-adjacent), and `scripts/check-records.py` already reports the contradiction as an error. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries NIS2 Průvodce, Compligen, NIS2 Doku and Lexnova Energy, all four early [S16,S7]. NIS2 Průvodce is one person — Ondřej Šitler, IČO 88635783, not VAT-registered — selling against an obligation that only took effect in November 2025; Compligen publishes no IČO and carries a Q3 2026 roadmap; NIS2 Doku is a one-off document pack; Lexnova Energy s.r.o. was incorporated in January 2025 and its sibling Lexnova Services in July 2026. None has three years of selling behind it, so none closes the space: `scores.gap` 0 → 1. The de-rank recorded above was therefore too harsh — it read 'a Czech product exists' as 'the space is taken', which is the v1 test the rewrite retires. ICZ Risk*Guide is deliberately not in `locals[]`, and it is the one entry the ladder cannot represent: ICZ a.s. has traded since 1997 and is plainly not an early company, but the register holds no limb receipt for Risk*Guide and ICZ sells at the enterprise end rather than to the SME and municipal tier this record's buyers occupy — listing it would either force gap 0 on a segment it does not serve or label a 1997 systems house early. It stays named in the body. `scores.proof` 0 → 3, resolving the contradiction flagged above: Secfix (Berlin) and Copla (Vilnius) both pass the established test, in two markets, both CEE-adjacent. `score` 7 → 11. Fifth pass this date, merged here: `locals[]` converted from `status:` to `competes:` + `maturity:`, and **ICZ Risk\*Guide is restored to the ledger** as `competes: adjacent` + `maturity: established`. It is the entry the pass above called the one the ladder could not represent, and the split resolves exactly that bind. ICZ a.s. (IČO 25145444) has traded since July 1997 and is named as a public supplier in this register's own contract signals — Digitální a informační agentura, the police presidium and Správa informačních technologií města Plzně — so it is established on a limb anyone can check, while `competes: adjacent` records that it does not sell this record's product to this record's buyer. Two corrections come with the restoration. First, the claim above that ICZ does not serve the municipal tier was wrong: the Risk\*Guide page names obce and kraje among its buyers. The real distinction is how it is bought — a modular ISMS and risk-assessment platform put in over a one-to-three-month implementation with a 24/7 advisory service attached, rather than the fixed-price product the long tail of obligated entities buys off a web page. Second, Risk\*Guide is now sold by **ICZ.Services a.s. (IČO 22183809)**, a group company incorporated in October 2024, which is why the entry carries the parent's IČO and year rather than the seller's. The four Czech NIS2 products convert to `competes: direct`, all still early. `scores.gap` stays 1 — an adjacent player never moves it — and `score` stays 11. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed.
+
+2026-09-02 · plain-language pass — NIS2, NÚKIB, CER, IROP and ICZ glossed at first use; SME, SMB, MSP, SIEM and DORA replaced with ordinary words. Argument 424 → 376 words with every [Sn] marker, price, date and company kept, and five figures added from sources already on file: ~€6.1M Motol/Homolka [S3], ~€5.3M Prague [S4], ~121k CZK per subsidy application [S8], over a thousand entities still unregistered [S13], ICZ trading since 1997 [S16]. Corrected while tightening: "every one of these sellers is younger than the obligation itself" had swept in ICZ — the claim now names the four Czech products it is actually true of [S1,S16]. Lexnova keeps its price, repeat order and buyer type; only the quoted product name moved to the ledger and source name. First moves rewritten verbs-first with every marker and both tender links kept; a gist added beside all 16 sources. No score, status, note: field, locals[] entry or [Sn] marker touched.

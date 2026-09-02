@@ -115,6 +115,7 @@ locals:
 sources:
 - type: regulation
   name: "ČNB — end of the MiCA transition period"
+  gist: "the 1 July 2026 cutoff"
   why: "The central bank's warning: from 1 July 2026 only licensed firms may serve clients, everyone else must cease and transfer customer crypto and funds. Fines can exceed CZK 100M."
   url: https://www.cnb.cz/cs/cnb-news/aktuality/Upozorneni-Ceske-narodni-banky-Konec-prechodneho-obdobi-podle-narizeni-MiCA-k1.7.2026/
   note: 'reg-mica-casp-cz: ČNB warning — the MiCA grandfathering period in Czechia ended 1
@@ -126,6 +127,7 @@ sources:
   signal: reg-mica-casp-cz
 - type: news
   name: "ČNB — eleven crypto licences granted"
+  gist: "11 licences from 251 filings"
   why: "The regulator's own tally: 251 applications assessed, 204 filed inside the transitional period, 11 permissions granted. The licensed set is two orders of magnitude smaller than the affected one."
   url: https://www.cnb.cz/cs/cnb-news/tiskove-zpravy/MiCA-CNB-udelila-kryptolicenci-11-subjektum/
   note: 'ČNB press release: 11 CASP licences granted — against a former population of hundreds
@@ -135,6 +137,7 @@ sources:
   date: '2026-08-13'
 - type: gap-check
   name: "Finreg Partners and the Czech licensing-advisory field"
+  gist: "the licensing-advisory field"
   why: "Names who already sells into this: Finreg Partners (behind three of the eleven licences), ARROWS, Kopečný & Partners and AMS Europe — all selling applications and policies as services."
   url: https://zpravy.kurzy.cz/864080-finreg-partners-jako-prvni-v-cesku-stoji-za-tremi-licencemi-mica/
   note: 'Gap check 2026-08-13: the supply side is licensing advisory — Finreg Partners (behind
@@ -145,6 +148,7 @@ sources:
   date: '2026-08-13'
 - type: gap-check
   name: "kryptoregulace.cz and the Czech MiCA supply side"
+  gist: "the Czech supply-side sweep"
   why: "A deeper Czech sweep for wind-down and compliance-operations products. Everything Czech it found is advisory; the product-shaped answers — MarketGuard, AMLBot, Sigma360 — are all foreign."
   url: https://www.kryptoregulace.cz/
   note: 'Gap re-check 2026-08-20: NOT FOUND, score unchanged. Looked for a Czech product for
@@ -175,6 +179,7 @@ sources:
   expires: '2026-11-18'
 - type: statistic
   name: "ČNB — 2025 supervision report, crypto"
+  gist: "the 30,000-subject population"
   why: "The regulator's own count of the pre-MiCA population: roughly 30,000 subjects held the free virtual-asset trade licence, about 5,000 of them companies — but only 188 kept the right to trade through the transitional period."
   url: https://www.cnb.cz/export/sites/cnb/cs/dohled-financni-trh/.galleries/souhrnne_informace_fin_trhy/zpravy_o_vykonu_dohledu/download/dnft_2025_cz.pdf
   note: 'Research 2026-08-25: ČNB Zpráva o výkonu dohledu nad finančním trhem 2025 (published
@@ -188,6 +193,7 @@ sources:
   date: '2026-06-17'
 - type: statistic
   name: "Stuchlíková & Partners — what a CASP licence takes"
+  gist: "€50–150k capital, 3–6 months"
   why: "A Czech law firm's own page on the licence: initial capital of €50,000–150,000, one to two months of preparation and a three-to-six-month central-bank process. It publishes no fee, and neither does anyone else in this market."
   url: https://www.stuchlikova.com/en/specialization/cnb-licenses/crypto-asset-service-provider-mica/
   note: 'Research 2026-08-25: the Stuchlíková & Partners CASP page states initial capital of
@@ -200,6 +206,7 @@ sources:
   date: '2026-08-25'
 - type: gap-check
   name: "Who sells the way out — Czech supply, searched again"
+  gist: "the one wind-down seller"
   why: "A wider Czech sweep for anyone selling the exit rather than the licence. Every Czech
     service menu it read sells getting licensed, and one law firm has started offering to
     prepare an orderly departure from the market."
@@ -244,18 +251,18 @@ sources:
   checked: [google-cz, ares, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Czechia let crypto services run on a plain trade licence, and roughly 30,000 subjects registered for one [S5]. That regime ended on 1 July 2026: only CASP-licensed firms may serve clients, and ČNB has licensed eleven [S1,S2]. Everyone else must stop and move customer crypto-assets and funds to a licensed provider or to the customer's own custody [S1] — an orderly wind-down most small providers have never run.
+Czechia let crypto services run on a plain trade licence: roughly 30,000 subjects registered [S5]. MiCA, the EU crypto rulebook, ended that on 1 July 2026 — only holders of a CASP licence (crypto-asset service provider) may serve clients, and ČNB (the Czech National Bank) has granted eleven [S1,S2]. The rest must stop and move customer coins and cash to a licensed provider or the customer's own wallet [S1] — a wind-down most have never run.
 
-Why now: the cliff is behind us, not ahead. Trading unlicensed now risks fines above CZK 100M [S1], and the gate is narrow by count: ČNB assessed 251 applications and granted 11 [S2,S4]. Most applications never reached substantive review — 171 of 184 first-instance proceedings closed in 2025 were terminated on procedural defects [S5]. What is left of 2026 sorts the survivors into three bins: migrate into a licensed structure, wind down cleanly, or drift into illegality.
+Why now: the deadline is behind us, not ahead. Trading unlicensed now risks fines above CZK 100M [S1]. ČNB assessed 251 applications and granted 11 [S2,S4]; of the 184 first-instance proceedings closed in 2025, 171 were terminated on procedural defects [S5].
 
-Who pays: firms leaving the market, first and on a clock, for customer notification, asset-transfer mechanics, records and tax closure done defensibly. The population is smaller than the trade register suggests, and it is countable: 188 subjects kept the right to trade through the transitional period, and eleven came out licensed [S5,S2]. That is roughly 175 exits, each a one-off. The eleven licensees need the opposite, something recurring — safeguarding of client assets, DORA resilience, MiCA-grade AML and reporting [S1,S3]. No Czech firm publishes a price for either job [S6], so no revenue figure is claimed here. The third buyer is the licensed incumbent, acquiring orphaned customer books.
+Who pays: the firms leaving the market, on a clock, for customer notices, asset transfers, and records and tax closed defensibly. 188 subjects kept the right to trade through the transitional period; eleven came out licensed [S5,S2] — roughly 175 one-off exits. The eleven need the opposite, recurring work: safeguarding client assets, DORA (the EU's financial IT-resilience rules) and AML (anti-money-laundering) reporting at MiCA standard [S1,S3]. No Czech firm publishes a price for either job [S6], so no revenue figure is claimed. A third buyer: licensed incumbents acquiring orphaned customer books.
 
-Existing non-solutions: licensing advisory, sold as a service. Finreg Partners stands behind three of the eleven licences, and ARROWS, Kopečný & Partners, AMS Europe, Key2Law and PROFI Poradenství write applications and policies on law-firm economics [S3,S7]. Their published service menus sell getting licensed, not getting out [S7]. One firm has turned: since June 2026 SCHEJBAL&PARTNERS has told departing providers to prepare a wind-down plan, set out the four duties it involves and offered to walk them through it [S7]. That offer is weeks old and billed by the hour. Nothing on this market is packaged, priced or repeatable [S6,S7].
+Existing non-solutions: licensing advisory. Finreg Partners stands behind three of the eleven licences; ARROWS, Kopečný & Partners, AMS Europe, Key2Law and PROFI Poradenství sell the same job — licence applications and compliance policies, on law-firm economics [S3,S7]. Their menus cover getting licensed, not getting out [S7]. One exception: since June 2026 SCHEJBAL&PARTNERS has told departing providers to prepare a wind-down plan, named its four duties and offered to guide them through [S7] — weeks old, billed by the hour. Nothing here is packaged, priced or repeatable [S6,S7].
 
-Solved elsewhere: nothing. No foreign comparable of any maturity is on file — not an established seller, not a funded prototype, nothing. No company anywhere has been documented productising crypto wind-down or customer-asset migration. The MiCA tooling that does exist sells to firms that stay in business: MarketGuard, AMLBot, KYC-Chain, Sigma360 and CertiK cover onboarding, AML and transaction monitoring EU-wide, none of them Czech and none of them an exit product [S4]. This wedge is carried by a live deadline, not by a proven template.
+Solved elsewhere: nothing. No foreign comparable is on file at any maturity, and nobody anywhere is documented selling crypto wind-down or customer-asset migration as a product. The MiCA tooling that exists sells to firms staying in business: MarketGuard, AMLBot, KYC-Chain (identity checks at sign-up), Sigma360 and CertiK cover onboarding, AML and transaction monitoring EU-wide — none Czech, none an exit product [S4]. This wedge rides a live deadline, not a proven template.
 
 ## Revisions
 
@@ -271,3 +278,5 @@ FOURTH PASS THIS DATE, MERGED HERE: the local field was searched properly, and t
 
 
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 9 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
+
+2026-09-02 · plain-language pass — Six trade terms glossed at first use: CASP and ČNB where the 1 July 2026 duty is stated [S1,S2], then MiCA, DORA, AML and KYC. Caps-styled law-firm names ARROWS, AMS Europe and PROFI Poradenství now sit in a clause saying what they sell [S3,S7]. Argument cut from 436 to 364 words, every marker and figure kept; the restated three-outcomes sentence went. A gist added beside all seven sources. No score, status, note or marker touched.

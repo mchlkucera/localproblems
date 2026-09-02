@@ -100,6 +100,7 @@ locals:
 sources:
 - type: tender
   name: "TED — Uherské Hradiště eHealth platform (~€7.7M)"
+  gist: "the €7.7M Uherské Hradiště award"
   why: "A regional hospital bought a platform for provider-to-provider communication and data sharing in August 2026 — the largest single award in this wave."
   url: https://ted.europa.eu/en/notice/-/detail/549134-2026
   note: 'ted-549134-2026: Uherskohradišťská nemocnice awarded ~€7.7M to create an eHealth
@@ -108,6 +109,7 @@ sources:
   signal: ted-549134-2026
 - type: tender
   name: "TED — Plzeň hospital group, NIS with ESB (~€5.8M)"
+  gist: "the open €5.8M Plzeň tender"
   why: "The Plzeň region's hospital group ran an open competition for a hospital information system with an enterprise service bus and integrations."
   url: https://ted.europa.eu/en/notice/-/detail/476712-2026
   note: 'ted-476712-2026: Nemocnice Plzeňského kraje group tendering NIS + ESB + integrations,
@@ -116,6 +118,7 @@ sources:
   signal: ted-476712-2026
 - type: tender
   name: "TED — Zlín KNTB hospital system (~€2.8M)"
+  gist: "the €2.8M Zlín award"
   why: "Zlín's regional hospital bought a hospital information system with integration scope; FN Olomouc bought eHealth interoperability (~€0.7M) in the same weeks."
   url: https://ted.europa.eu/en/notice/-/detail/443904-2026
   note: 'ted-443904-2026: Krajská nemocnice T. Bati (Zlín) awarded ~€2.8M for a hospital information
@@ -125,6 +128,7 @@ sources:
   signal: ted-443904-2026
 - type: contract
   name: "Registr smluv — Karlovy Vary hospital (~70.9M CZK)"
+  gist: "the 70.9M CZK Karlovy Vary contract"
   why: "The regional hospital signed for hospital-system delivery and support, alongside a wave of psychiatric-hospital system contracts in the same weeks."
   url: https://smlouvy.gov.cz/smlouva/38551596
   note: 'hlidac-38551596: Karlovarská krajská nemocnice signed ~70.9M CZK for NIS delivery
@@ -136,6 +140,7 @@ sources:
   signal: hlidac-38551596
 - type: contract
   name: "Registr smluv — STAPRO amendment churn"
+  gist: "the incumbent's amendment churn"
   why: "Price-increase amendments signed the same day, extended works deadlines and an integration platform on its eighth amendment — what buying integration from the incumbent costs after signature."
   url: https://smlouvy.gov.cz/smlouva/38419070
   note: 'hlidac-38419070: KNTB Zlín signed STAPRO NIS-service amendments No. 1 and No. 2 the
@@ -151,6 +156,7 @@ sources:
   - demand
 - type: complaint
   name: "NKÚ — digitalisation of Czech healthcare"
+  gist: "the state audit's six-year delay"
   why: "The state audit office finds health-data sharing and eŽádanka six years late and legally required registries still missing — the national layer hospitals are waiting for does not exist."
   url: https://www.zdravotnickydenik.cz/2026/01/digitalizace-ceskeho-zdravotnictvi-nku/
   note: 'nku-ehealth-delay: NKÚ''s II. summary digitalization report (Jan 2026) documents
@@ -163,6 +169,7 @@ sources:
   signal: nku-ehealth-delay
 - type: regulation
   name: "European Health Data Space — Regulation (EU) 2025/327"
+  gist: "the law and its 2029 deadline"
   why: "Sets the legal end state: cross-border patient summaries and ePrescription from 2029, imaging and discharge data from 2031, with conformity duties landing on the Czech hospital-system vendors."
   url: https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en
   note: 'reg-ehds: EHDS Regulation (EU) 2025/327 in force since Mar 2025; implementing acts
@@ -174,6 +181,7 @@ sources:
   signal: reg-ehds
 - type: gap-check
   name: "Czech hospital integration products"
+  gist: "the six named Czech vendors"
   why: "A sweep of the Czech field naming what already exists — Medicalc mEx, PHYSTER, Stapro FONS/TransMISE, ICZ eMEDOCS, AutoCont's ESB ACIB and M.I.T. Consulting's hospital bus."
   url: https://www.zdravotnickydenik.cz/2026/01/medicalc-meni-fungovani-nemocnic-jan-kupka/
   note: 'Gap check 2026-08-13: CZ integration-platform products DO exist — Medicalc mEx, PHYSTER
@@ -185,6 +193,7 @@ sources:
   date: '2026-08-13'
 - type: contract
   name: "Registr smluv — Motol/Homolka health-IT licences and support (~€11.7M)"
+  gist: "the €11.7M Prague mega-buyer"
   why: "Prague's merged mega-buyer signed a health-IT licence expansion and a support services deal on the same day — €11.7M of incumbent-stack spend from a single buyer in one August week."
   url: https://smlouvy.gov.cz/smlouva/39006306
   note: 'hlidac-36661862 + hlidac-36661866: FN Motol a Homolka signed a framework health-IT
@@ -199,6 +208,7 @@ sources:
   dims: []
 - type: regulation
   name: "VeKLEP — e-health act amendment in draft"
+  gist: "the e-health act in redraft"
   why: "The Health Ministry is amending Act 325/2021 Coll., the national e-health law — the legal frame behind the missing national layer is itself in motion."
   url: https://odok.cz/portal/veklep/material/ALBSDVLDLD32/
   note: 'veklep-ALBSDVLDLD32: ministry bill amending zákon č. 325/2021 Sb. o elektronizaci
@@ -209,6 +219,7 @@ sources:
   dims: []
 - type: gap-check
   name: "Czech hospital integration supply — coverage recorded"
+  gist: "the Czech-language supply sweep"
   why: "The 2026-08-13 sweep named the Czech integration vendors but never wrote down what was searched. This one does, and it surfaces one more: OR-CZ, which sells IS integration to hospitals alongside Stapro, ICZ, Medicalc, PHYSTER and AutoCont."
   note: 'Coverage receipt 2026-08-25. The [S8] scan named real incumbents but recorded no
     queries, so gap 0 rested on a check whose reach nobody could judge; this entry supplies
@@ -231,25 +242,27 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Between June and August 2026, four Czech regional hospital groups went to market separately for structurally the same thing: a layer that lets hospital systems talk to each other and to outside providers. Uherské Hradiště awarded ~€7.7M for an eHealth communication platform [S1]. The Plzeň hospital group opened a ~€5.8M competition for a hospital system with an enterprise service bus [S2]. Zlín awarded ~€2.8M, and FN Olomouc bought interoperability work at ~€0.7M [S3].
+Between June and August 2026, four Czech regional hospital groups went to market separately for the same layer: one that lets hospital systems talk to each other and to outside providers. Uherské Hradiště awarded ~€7.7M for an eHealth platform [S1]. Plzeň's hospital group opened a ~€5.8M competition for a hospital system with an enterprise service bus — the switchboard routing messages between clinical systems [S2]. Zlín awarded ~€2.8M; Olomouc's university hospital bought interoperability work at ~€0.7M [S3].
 
-Why now: the European Health Data Space makes structured, exchangeable health records a legal end state — cross-border patient summaries from 2029, imaging and discharge data from 2031 [S7]. Czech hospitals are spending toward it now, one hospital at a time [S4]. The national layer they would otherwise wait for is six years late: health-data sharing and eŽádanka have slipped from 2020 to 2026 at the earliest, and registries required by law are still missing [S6].
+Why now: the European Health Data Space makes exchangeable health records a legal end state — cross-border patient summaries from 2029, imaging and discharge data from 2031 [S7]. Czech hospitals are spending toward it now, one at a time [S4]. The national layer they would otherwise wait for is six years late: health-data sharing and electronic referrals slipped from 2020 to 2026 at the earliest, and registries required by law are still missing [S6].
 
-Who pays: hospital groups and the regions that own them — today through integration tenders, which is where the money already is. Four TED awards alone carried ~€17M in ten weeks [S1,S2]. The contract registry adds the same summer's Karlovy Vary hospital at ~70.9M CZK and a psychiatric-hospital wave behind it, making eight or more distinct public buyers re-solving one problem in a single season [S4]. Projects run €0.7M to €7.7M each [S1,S3]. A product that converted even a third of that spend into licences would be a multi-million-euro annual line, and these buyers renew rather than finish.
+Who pays: hospital groups and the regions that own them, through integration tenders. Four awards in the EU tenders journal carried ~€17M in ten weeks [S1,S2]. The state contracts register adds Karlovy Vary hospital at ~70.9M CZK and a psychiatric-hospital wave behind it — eight or more public buyers re-solving one problem in a single summer [S4]. Projects run €0.7M to €7.7M each [S1,S3]. A third of that spend converted to licences is a multi-million-euro annual line, and these buyers renew rather than finish.
 
-Existing non-solutions: the field is not empty, and the vendors in it are old. Stapro has sold hospital systems here since 1990 and signs amendments with four named hospitals in the contract registry [S5]; ICZ (eMEDOCS), Medicalc, PHYSTER, AutoCont's ESB ACIB and M.I.T. Consulting all sell integration products connected to the state's national eHealth contact point [S8]. What the contract registry shows about buying that from an incumbent is less flattering: two service amendments repriced upward on the same day, works deadlines extended, one integration platform on its eighth amendment [S5].
+Existing non-solutions: the field is not empty, and the vendors in it are old. Stapro has sold hospital systems here since 1990 and signs amendments with four named hospitals in the state contracts register [S5]. ICZ (eMEDOCS), Medicalc, PHYSTER, M.I.T. Consulting and AutoCont's ACIB service bus all sell integration wired into the national eHealth contact point — the state gateway carrying patient data between providers [S8]. What buying that from an incumbent costs: two service amendments repriced upward on the same day, works deadlines extended, one integration platform on its eighth amendment [S5].
 
-Solved elsewhere: the shared layer exists as a product in other markets — built once, sold many times, by sellers long past proving it. Redox (Madison, selling since 2014, $95M raised) moves data between 450+ US provider organisations and hundreds of applications through one API platform. Better has sold from Ljubljana since 1989 and runs an openEHR platform under 500+ hospitals across 15 countries — NHS trusts in Britain, Karolinska in Sweden, Basel in Switzerland, and Slovenia at home. Better is the closer template: it grew out of a decades-old systems-integration business, which is the position Czech vendors already occupy [S8]. Neither was cheap to build.
+Solved elsewhere: the shared layer sells as a product in bigger markets — built once, sold many times. Redox (Madison, since 2014, $95M raised) moves data between 450+ US provider organisations and hundreds of applications through one API platform. Better has sold from Ljubljana since 1989: 500+ hospitals in 15 countries on its openEHR platform, including trusts in Britain's National Health Service, Karolinska in Sweden and Basel in Switzerland. Better is the closer template — it grew out of a decades-old systems-integration business, the position Czech vendors already occupy [S8]. Neither was cheap to build.
 
 ## First moves
 
-1. Sell into the one procedure that is open rather than already awarded: the Plzeň region's hospital group ran an open competition for a hospital system with an enterprise service bus and integrations, worth about €5.8M [S2]. An open procedure is the only door in this market an entrant can walk through without displacing a signed incumbent contract first.
-2. Build the connectors, not another hospital system. The buyers' own specifications ask for the same thing every time — a service bus inside the integration layer, exchanging HL7 and DASTA messages [S11]. Six Czech vendors already sell a connection to the national eHealth contact point, each inside its own stack [S8], and eight or more public buyers still commissioned bespoke integration builds in a single summer anyway [S4].
-3. Open the first conversation with the incumbent's own paperwork. At KNTB Zlín two STAPRO service amendments were repriced upward on the same day, FN u sv. Anny extended a works deadline, and Kroměříž hospital's integration platform reached its eighth amendment inside a month [S5]. Then hand the buyer the date: cross-border patient summaries and ePrescription become a legal end state in 2029, imaging and discharge data in 2031 [S7].
-4. Named competition, and it is the whole difficulty here: STAPRO (selling since 1990), ICZ, Medicalc, PHYSTER, AutoCont and M.I.T. Consulting each sell an eHealth-connected integration product today, with OR-CZ selling hospital integration beside them [S8,S11]. This is an occupied field. Two things would open it — who wins the Plzeň competition [S2], and the European implementing acts due March 2027, which put conformity duties on every one of those vendors [S7].
+1. Bid Plzeň. Its hospital group is running an open competition — about €5.8M for a hospital system with a service bus and integrations [S2]. Every other contract here is already signed, so this is the one door that displaces nobody.
+2. Build connectors, not another hospital system. Buyers write the same specification every time: a service bus inside the integration layer, exchanging HL7 and DASTA messages — the two health-data formats Czech hospitals run on [S11]. Six Czech vendors already sell a connection to the national eHealth contact point, each locked inside its own stack [S8]. Eight or more public buyers paid for bespoke builds anyway, in one summer [S4].
+3. Open with the incumbent's own paperwork. Zlín's regional hospital signed two Stapro service amendments, both price increases, on the same day; St Anne's in Brno extended a works deadline; Kroměříž hospital's integration platform reached its eighth amendment inside a month [S5]. Then hand the buyer the date: cross-border patient summaries and ePrescription in 2029, imaging and discharge data in 2031 [S7].
+4. Price the fight honestly. Stapro (selling since 1990), ICZ, Medicalc, PHYSTER, AutoCont, M.I.T. Consulting and OR-CZ each sell hospital integration today — seven named vendors in one field [S8,S11]. Two things could open it: who wins Plzeň [S2], and the European implementing acts due March 2027, which put conformity duties on every one of those vendors [S7].
+
+## Revisions
 
 P26-08-25 · citation corrected — The OR-CZ ledger entry cited [S9], the Motol/Homolka licence contracts, which do not name OR-CZ. The receipt is [S11], the coverage gap-check that found it: "OR-CZ (orcz.cz/integrace), a Czech vendor selling information-system integration to hospitals that [S8] did not name". A wrong marker is worse than none — it sends a reader to a source that does not carry the claim, which is the failure the [Sn] system exists to prevent. Corrected in place; no marker renumbered.
 
@@ -269,3 +282,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass. NOTED AND NOT ACTED ON: the OR-CZ line carries an [S9] marker that resolves to the Motol/Homolka contract rather than to the coverage check that found OR-CZ, which is [S11]. It is left exactly as found — markers resolve by position and moving one is a renumbering, not a wording fix.
 
 FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 8; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the open Plzeň competition as the one procedure an entrant can enter without displacing a signed contract [S2], connectors built against the HL7 and DASTA specifications the buyers keep writing [S11], the STAPRO amendment churn as the opening fact [S5], and the six incumbents named as what makes this hard [S8]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.
+
+2026-09-02 · plain-language pass — Restored the missing Revisions heading; without it every entry below rendered publicly under First moves. Glossed or replaced nine trade terms: FN, TED, ESB, ACIB, NHS, DASTA, KNTB, STAPRO, OR-CZ. Argument 444 → 423 words, every marker, figure and named vendor kept. First moves rewritten verbs-first, the incumbents restated as seven named sellers [S8,S11]. A gist added to all 11 sources. No score, status, note or marker touched.

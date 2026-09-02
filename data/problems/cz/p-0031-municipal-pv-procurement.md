@@ -104,6 +104,7 @@ locals:
 sources:
 - type: tender
   name: "TED — South Moravia rooftop PV (~€1.0M), and the wave around it"
+  gist: "the €60M summer tender wave"
   why: "One of ~80 photovoltaic procurement records from 53 distinct public buyers (~€60M) between June and August 2026 — most lots €120k to €1M, each tendered as bespoke design-build."
   url: https://ted.europa.eu/en/notice/-/detail/450591-2026
   note: 'ted-450591-2026: Jihomoravský kraj — OPEN ~€1.0M (~24M CZK) competition for PV plants
@@ -115,6 +116,7 @@ sources:
   signal: ted-450591-2026
 - type: tender
   name: "TED — Špindlerův Mlýn, the same tender published three times"
+  gist: "three re-runs in ten weeks"
   why: "One town republished an identical wastewater-plant PV tender three times in ten weeks, and Hrabová and Nymburk re-ran their own lots — the transaction-cost receipt for fragmentation."
   url: https://ted.europa.eu/en/notice/-/detail/427895-2026
   note: 'ted-427895-2026: Town of Špindlerův Mlýn published the same WWTP-building PV tender
@@ -125,6 +127,7 @@ sources:
   signal: ted-427895-2026
 - type: contract
   name: "Registr smluv — Jindřichův Hradec municipal PV (~2.5M CZK)"
+  gist: "the 2.5M CZK town contract"
   why: "The layer below the TED threshold: a town bundling build and ongoing servicing for photovoltaics on one municipal building."
   url: https://smlouvy.gov.cz/smlouva/38371366
   note: 'hlidac-38371366: Jindřichův Hradec signed a ~2.5M CZK works-and-service contract
@@ -134,6 +137,7 @@ sources:
   signal: hlidac-38371366
 - type: gap-check
   name: "Brno's '36 FVE' framework and the aggregation channels"
+  gist: "the channels that already pool"
   why: "The aggregation answer partly exists and is named here: Brno pools its districts through SAKO, kraje package their own buildings, and RES+ explicitly funds joint multi-site municipal projects."
   url: https://zakazky.sako.cz/contract_display_128.html
   note: 'Gap check 2026-08-13: aggregation mechanisms already exist — Brno runs a "36 FVE"
@@ -145,6 +149,7 @@ sources:
   date: '2026-08-13'
 - type: arbitrage
   name: "iChoosr"
+  gist: "the Dutch group-buying operator"
   why: "The Dutch operator of exactly this model: municipalities pool demand into one tendered contract, run as Solar Together by more than 200 UK councils."
   url: https://ichoosr.com/
   note: 'Comps receipt written 2026-08-25, because iChoosr sat on the comps ledger with no
@@ -161,6 +166,7 @@ sources:
   date: '2026-08-25'
 - type: gap-check
   name: "Czech municipal-solar supply — who, if anyone, sells pooled procurement"
+  gist: "the Czech supply-side sweep"
   why: "The first Czech-language sweep of the supply side. It found turnkey installers pitching towns one at a time, and SMS ČR pooling energy PURCHASES for 200+ member obce since 2013 — but no operator selling pooled solar procurement to towns that have no framework of their own."
   note: 'Czech-language supply-side sweep 2026-08-25, run because the 2026-08-13 check on this
     file recorded no queries at all and gap therefore rested on coverage nobody could judge.
@@ -197,6 +203,7 @@ sources:
   expires: '2026-11-23'
 - type: gap-check
   name: "Who would a town without a framework hire — the third sweep"
+  gist: "the third sweep, reconciled"
   why: "A wider Czech sweep, and it settles the contradiction between the two earlier ones.
     The aggregation operator exists and pools electricity and gas for hundreds of obce; the
     photovoltaic version of it is sold by nobody."
@@ -237,27 +244,27 @@ sources:
   checked: [google-cz, ares, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Between June and August 2026, 53 distinct Czech public buyers went to market for rooftop photovoltaics — towns, regional governments, school and hospital organisations, a zoo, wastewater plants — generating ~80 TED records worth roughly €60M [S1]. Almost every lot is a bespoke design-build tender for a standard product: panels on a public roof, sized €120k to €1M, with its own documentation, its own evaluation, its own contract administration [S1].
+Between June and August 2026, 53 Czech public buyers — towns, regions, schools, hospitals, a zoo, wastewater plants — ran about 80 separate rooftop-solar tenders worth roughly €60M [S1]. Almost every lot is a bespoke design-build tender for a standard product: panels on a public roof, €120k to €1M, each with its own documentation, evaluation and contract [S1].
 
-Why now: subsidy programs (RES+ under the Modernizační fond) keep pushing municipal PV money out on fixed call deadlines [S4], so the tenders keep coming — and the fragmentation cost is documented in the procurement record itself. Špindlerův Mlýn published the same WWTP PV tender three times in ten weeks; Hrabová and Nymburk re-ran identical lots [S2]. Small lots struggle to attract bidders at all [S2], while every re-run burns administrative months against subsidy clocks.
+Why now: RES+ (the state's renewable-energy subsidy line, from the Modernizační fond) pays municipal solar money out on fixed call deadlines, so the tenders keep coming [S4]. Špindlerův Mlýn published the same wastewater-plant solar tender three times in ten weeks; Hrabová and Nymburk re-ran identical lots [S2]. Small lots struggle to attract bidders, and every re-run burns months against a subsidy clock [S2].
 
-Who pays: municipalities, through procurement overhead and failed procedures on lots too small to interest efficient suppliers [S2]; the state, through subsidy administration of hundreds of micro-projects; and ultimately the energy transition's schedule. A standardized, aggregated route — fixed-price design-build against a catalogue specification, or dynamic purchasing across many municipalities — is what the fragmentation implies.
+Who pays: municipalities pay in procurement overhead and failed procedures on lots too small to interest an efficient supplier [S2]. The state pays again, administering subsidies for hundreds of micro-projects.
 
-Existing non-solutions: towns do get pooled, but nobody sells the pooling. Brno pools its city districts through SAKO's "36 FVE" framework, kraje package their own buildings, and RES+ permits a joint project across up to three neighbouring municipalities [S4,S6]. Each is a buyer aggregating for itself, or a subsidy rule. What is actually sold is turnkey design-build, pitched to towns one at a time — iKomunita, ADS Energy and Enado sell into a single town, and Grantex sells the paperwork [S7]. The pooling operator exists: eCENTRE pools hundreds of obce into one energy auction, including the SMS ČR one — but it pools electricity and gas, not solar arrays [S6,S7]. None of it reaches the long tail: 53 buyers still tendered alone in one summer [S1].
+Existing non-solutions: towns do get pooled, but nobody sells the pooling. Brno pools its city districts through one framework for 36 photovoltaic plants ("36 FVE"), run by SAKO — the city's waste company; regions package their own buildings; RES+ permits a joint project across up to three neighbouring municipalities [S4,S6]. Each is a buyer aggregating for itself, or a subsidy rule. iKomunita, ADS Energy and Enado each sell one town a turnkey installation (design, panels, battery); Grantex sells the subsidy paperwork [S7]. eCENTRE pools hundreds of towns into one electricity and gas auction, including the purchase run for SMS ČR — the small-municipalities association — but sells no solar procurement [S6,S7]. 53 buyers still tendered alone in one summer [S1].
 
-No buyer-side complaint is documented, so the case rests on ~€60M a quarter of duplicated small-lot procurement — a measured, recurring inefficiency [S1]. No company sells a town without its own framework a way to pool its roof project with anyone else's [S6,S7]. A documented complaint from the municipal side is still missing.
+No buyer-side complaint is documented, so the case rests on ~€60M a quarter of duplicated small-lot procurement [S1]. No company sells that pooling to a town without a framework of its own [S6,S7].
 
-Solved elsewhere: iChoosr has run the group-buying model from the Netherlands since 2008 — demand pooled into one tendered contract, with more than 200 UK councils running it as Solar Together [S5]. Its own site lists ten operating countries, Poland, Germany and Austria among them, though with no participant figures for any [S5]. One proven operator, in Western Europe, doing precisely what Czech one-by-one municipal buying does not.
+Solved elsewhere: iChoosr has pooled demand into single tendered contracts from the Netherlands since 2008, and more than 200 British councils run it as Solar Together [S5]. Its site lists ten operating countries — Poland, Germany and Austria among them — with no participant figures for any [S5].
 
 ## First moves
 
-1. Sell first to the towns whose tenders have already failed. Špindlerův Mlýn published the same wastewater-plant solar tender three times in ten weeks, and Hrabová and Nymburk re-ran identical lots [S2]. Each has a subsidy clock running and a lot too small to interest an efficient supplier — the cheapest first customers in the wave.
-2. Build the pooled tender, not an installation business: one catalogue specification, one fixed price per installed kilowatt, many towns' roofs inside a single procedure — the model iChoosr has run from the Netherlands since 2008 and more than 200 UK councils buy as Solar Together [S5]. No new law is needed. The RES+ rules already permit a joint project spanning up to three neighbouring municipalities, and the společenství obcí created by the 2024 amendment to the municipalities act may act as a central purchasing body for its members, through a framework agreement or a dynamic purchasing system [S7].
-3. Open the first conversation with the size of the duplication. Between June and August 2026, 53 distinct public buyers ran about 80 separate photovoltaic procurements worth roughly €60M, most lots between €120k and €1M, each carrying its own documentation, its own evaluation and its own contract administration [S1].
-4. Named competition: eCENTRE is the aggregation operator this problem is shaped like. It pools municipalities, households and firms into one negotiated contract, is the machinery behind the SMS ČR joint purchase, names Ostrava, Svitavy and Frýdlant nad Ostravicí as customers and has run aggregated buying since 2006 — but what it pools is electricity and gas, and its own site offers no photovoltaic procurement of any kind [S7]. It is one product decision away. Move first.
+1. Sell first to the towns whose tenders have already failed. Špindlerův Mlýn published the same wastewater-plant solar tender three times in ten weeks; Hrabová and Nymburk re-ran identical lots [S2]. Each has a subsidy clock running and a lot too small to interest a supplier. They are the cheapest first customers in the wave.
+2. Build the pooled tender, not an installation business. One catalogue specification, one fixed price per installed kilowatt, many towns' roofs inside a single procedure — the model iChoosr has run from the Netherlands since 2008 and more than 200 British councils buy as Solar Together [S5]. No new law is needed. RES+ already permits a joint project spanning up to three neighbouring municipalities, and the společenství obcí — municipal unions created by the 2024 amendment to the municipalities act — may buy centrally for their members, through a framework agreement or a dynamic purchasing system (a standing list of pre-qualified suppliers) [S7].
+3. Open the first conversation with the size of the duplication. Between June and August 2026, 53 public buyers ran about 80 separate rooftop-solar procurements worth roughly €60M, most lots between €120k and €1M, each carrying its own documentation, its own evaluation and its own contract administration [S1].
+4. Watch eCENTRE, and move first. It pools municipalities, households and firms into one negotiated contract, runs the SMS ČR joint purchase, names Ostrava, Svitavy and Frýdlant nad Ostravicí as customers, and has aggregated buying since 2006 [S7]. What it pools is electricity and gas, and its site offers no solar procurement at all [S7]. It is one product decision away.
 
 ## Revisions
 
@@ -273,3 +280,5 @@ FOURTH PASS THIS DATE, MERGED HERE: the two contradictory checks on this file we
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
 
 FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 7; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the towns whose lots have already failed to close as the first customers [S2], a pooled tender run on the two vehicles that already exist in Czech law [S5,S7], the 53 buyers and ~80 duplicate procurements as the opening fact [S1], and eCENTRE named as the aggregation operator one commodity away [S7]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.
+
+2026-09-02 · plain-language pass — Glossed at first use: SAKO as Brno's waste company, "36 FVE" as its 36-plant framework [S4], SMS ČR as the small-municipalities association [S6], RES+ as the state's renewable-energy subsidy line. TED, WWTP, PV, obce, kraje and UK replaced with plain words. Argument cut 448 to 352 words, every [Sn] marker, figure and company kept. First moves rewritten verbs-first; a gist added to all seven sources. No score, status, note: field or marker touched.

@@ -22,7 +22,7 @@ build:
   builder: small-team
   note: 'Software plus attorney coordination on the Gale model needs a dev and an
     immigration-domain partner rather than any certification, and employers already
-    paying per-case agency fees can convert within an SMB pilot cycle.'
+    paying per-case agency fees can convert within a small-business pilot cycle.'
 comps:
 - name: Gale
   url: https://galevisa.com/
@@ -123,6 +123,7 @@ locals:
 sources:
 - type: arbitrage
   name: "Gale"
+  gist: "the $2.7M US template"
   why: "A $2.7M-seed US company automating the corporate work-visa pipeline — application prep, compliance, HR integration — by coordinating independent attorneys rather than replacing them."
   url: https://www.ycombinator.com/companies/gale
   note: 'yc-gale: Gale (YC W25) automates the corporate work-visa pipeline — application prep,
@@ -132,6 +133,7 @@ sources:
   signal: yc-gale
 - type: gap-check
   name: "First Czech market scan"
+  gist: "the first Czech sweep"
   why: "An early sweep that surfaced ministry pages, law firms and static form-filling guides, and documented the employee-card process as slow, paper-based and handled manually at high fees."
   url: https://www.ycombinator.com/companies/gale
   note: 'Absence check 2026-08-13: searches surface ministry pages, law firms (ARROWS) and
@@ -142,6 +144,7 @@ sources:
   date: '2026-08-13'
 - type: arbitrage
   name: "LegalOS"
+  gist: "the AI-native law firm"
   why: "'The AI-Native Immigration Law Firm' (YC W26) — a service firm rather than a software vendor, which is the form factor that fits a paper-based process best."
   url: https://www.ycombinator.com/companies/legalos
   note: 'yc-legalos: LegalOS (YC W26) — ''The AI-Native Immigration Law Firm'', an AI-first
@@ -151,6 +154,7 @@ sources:
   signal: yc-legalos
 - type: gap-check
   name: "Market scan — Czech immigration providers"
+  gist: "the six-agency sweep"
   why: "Six searches and an ARES sweep found a dense manual market — Spring Walk, Foreigners, ReloCzech, Expat Support, Principio, DMPF — with no portal, dashboard or tracking, and no software vendor among them."
   url: https://www.zamestnaneckekarty.cz/zamestnanecke-karty
   note: 'Gap re-check 2026-08-20: looked for the specific thing this record claims missing — a
@@ -183,17 +187,20 @@ sources:
 - type: news
   url: https://mv.gov.cz/migrace/clanek/vyrocni-zpravy-o-situaci-v-oblasti-migrace-a-integrace.aspx
   name: 'Interior Ministry migration report 2024'
+  gist: "the 82,000-proceeding count"
   why: The transaction volume this product would automate — new applications, extensions and employer changes, counted by the ministry that decides them.
   note: 'MV CR OAMP annual report for 2024 (published 30 Jul 2025): 14,287 new employee-card applications filed at embassies, 12,843 granted; 44,869 employment-purpose extension applications; 22,793 employer/position-change notifications. Total employer-facing proceedings approximately 82,000 for the year. The same report records 3,518 formal complaints of administrative inaction, upheld in 40.6% of cases.'
   date: '2025-07-30'
 - type: regulation
   url: https://www.zakonyprolidi.cz/cs/2019-220
   name: 'Government Decree 220/2019: employee-card quotas'
+  gist: "the 45,300 quota ceiling"
   why: The hard ceiling on annual volume — and evidence the constraint is processing capacity rather than quota.
   note: 'Narizeni vlady 220/2019 Sb., in force version effective 1 Jul 2026, sets a maximum of approximately 45,300 employee-card applications a year across listed embassies (Priloha 2: 44,820; Priloha 3: 480). Utilisation is far below the ceiling for most countries - Ukraine drew about 10% of its 11,000 capacity in 2024 - so quota is not the binding constraint except for India and Kazakhstan.'
   date: '2026-07-01'
 - type: gap-check
   name: "Market scan — the same question, an in-domain control"
+  gist: "the in-domain control check"
   why: "A Czech query written the way an employer would ask surfaced the agencies — including one this record had missed — and no software: the method finds providers in this market when they are there, and there is no product among them."
   url: https://workking.cz/sluzby/vyrizeni-zamestnanecke-karty/
   note: 'Gap check 2026-08-25, run because the rung-2 claim needed a control INSIDE this market:
@@ -223,28 +230,32 @@ sources:
   checked: [ares, google-cz]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Czech employers structurally depend on foreign workers — Ukraine, Philippines, India — channeled through government kvóty programs [S1,S2]. The zaměstnanecká karta pipeline is notoriously slow and paper-based [S1]; employers outsource it to relocation agencies and law firms that work manually at high fees, with no software layer for application preparation, status tracking or ongoing compliance (permit renewals, reporting duties) [S2].
+Czech employers hire from Ukraine, the Philippines and India through government quota programmes [S1,S2]. The employee card — the work and residence permit each foreign hire needs — is slow and paper-based [S1]. Agencies and law firms file it by hand; no software prepares the application, tracks it, or watches renewals and reporting deadlines [S2].
 
-Why now: the US shows the model being replicated rapidly — Gale (YC W25) automates the corporate visa pipeline, with Mayflower (YC F25) and LegalOS (YC W26) extending the cluster within a year [S1]. The playbook of software coordinating independent attorneys transfers to the Czech advokát market structure.
+Why now: Gale (YC W25) automates the corporate visa pipeline; Mayflower (YC F25) and LegalOS (YC W26) followed inside a year [S1]. Their model — software coordinating independent attorneys, not replacing them — fits Czechia, where this work sits with law firms [S1,S3].
 
-Who pays: employers with recurring foreign-hiring volume (manufacturing, logistics, healthcare, IT) who currently pay per-case agency fees; agencies themselves are a secondary buyer for tooling that raises their case throughput. The volume is large and documented: about 82,000 employee-card proceedings ran in 2024 — 14,287 new applications, 44,869 extensions and 22,793 employer changes [S5] — against an annual quota ceiling of roughly 45,300 that most countries never reach [S6]. What cannot be sized from public sources is the price: nine Czech relocation agencies and law firms were checked and not one publishes a per-case fee, so any revenue assumption here has no public receipt behind it and must come from a vendor conversation. The state fee alone is 1,000 CZK at an embassy [S5].
+Who pays: employers who hire abroad every year — manufacturing, logistics, healthcare, IT — and pay an agency per case today [S2]. Agencies are the second buyer.
 
-Existing non-solutions: ministry information pages, permit.cz (static form-filling guides), classic law firms (e.g. ARROWS) and manual relocation agencies [S2]. A 2026-08-13 search found no automation platform [S2], and a 2026-08-20 follow-up held that finding against a market that is dense but entirely manual: zamestnaneckekarty.cz turns out to be the law firm Spring Walk with no portal or tracking of any kind, Foreigners, ReloCzech, Expat Support, Principio and DMPF sell serviced immigration agendas, and ARES lists nine "Relocation" and fifteen "Expat" companies without a software vendor among them [S4]. A fresh Czech-language search on 2026-08-25 added one more agency, Workking, and again returned no product: what an employer can buy here is somebody else's staff doing the filing [S7].
+The interior ministry counted about 82,000 employee-card proceedings in 2024: 14,287 new applications, 44,869 extensions, 22,793 employer changes [S5]. The quota ceiling is roughly 45,300 a year, and most countries never reach it [S6]. None of nine Czech providers publishes a per-case fee [S4,S7]; pricing needs a vendor conversation. The state fee alone is 1,000 CZK at an embassy [S5].
 
-Solved elsewhere: the US cluster above is the newest layer [S1,S3], but the proof sits closer to home. Localyze in Germany and Jobbatical in Estonia have sold employer-side immigration case handling across Europe for years — the ledger below carries both. What does not transfer is the procedure itself, which is national; the Czech process's paper-heaviness is exactly what makes an automation layer valuable.
+Existing non-solutions: zamestnaneckekarty.cz, the top Czech result, is the law firm Spring Walk — no portal, no tracking [S4]. Foreigners.cz, ReloCzech, Expat Support, Principio, DMPF Expat Assistant and Workking sell the same agenda by the case — people, not a portal [S4,S7]. The state business register lists nine "Relocation" and fifteen "Expat" companies, all service, tax or consulting firms [S4]. Ministry pages, permit.cz guides and law firms such as ARROWS round out the field — everyone here sells staff, not software [S2].
+
+Solved elsewhere: Localyze (Germany, ten European markets) and Jobbatical (Estonia, clients including N26 and Personio) have sold employer-side immigration case handling for years, both funded at Series A or later. Gale and LegalOS are the newest layer, both US, both two years old [S1,S3]. The procedure is national and paper-bound, which is the local builder's moat.
 
 ## First moves
 
-1. Sell to employers with recurring volume, and lead with the renewals. Of roughly 82,000 employee-card proceedings in 2024, 44,869 were extensions and 22,793 were employer or position changes; only 14,287 were new applications filed at embassies [S5]. Extensions and changes repeat, run to deadlines and happen inside Czechia — and they are what an HR team is already tracking on a spreadsheet.
-2. Build the expiry watch before the filing. Principio already sells expiry monitoring as a service — a person watching the dates [S4] — and that is the lowest-risk piece to automate: no submission, no liability for a filing, just the calendar the employer is losing. Nothing local sells it as a product, and the only self-service tracking found for this process sits inside Deel, a foreign employer-of-record platform [S4].
-3. Open with the interior ministry's own count. In 2024 it recorded 3,518 formal complaints that these proceedings were sitting untouched, and upheld 40.6% of them [S5]. The employer's real cost is not the agency fee, it is the hire who does not start — so ask how many of last year's starts slipped, and who found out first.
-4. Sell the agencies second, and go in knowing the price is not published. Spring Walk runs the cards from a Brno and Prague practice of over fifty people, and Workking advertises that it takes the cases most competitors will not, staffing agencies included [S4,S7] — throughput is their margin. Not one Czech provider publishes a per-case fee [S4,S7], so the number has to come out of a vendor conversation rather than a web page; the state fee alone is 1,000 CZK at an embassy [S5].
+1. Lead with renewals, not new hires. Of about 82,000 employee-card proceedings in 2024, 44,869 were extensions and 22,793 were employer or position changes; only 14,287 were new applications filed at embassies [S5]. Extensions repeat, run to deadlines and happen inside Czechia — and somebody in the company is already tracking them on a spreadsheet.
+2. Build the expiry watch before the filing. Principio sells expiry monitoring as a service — a person watching dates [S4]. Automating that carries no filing and no liability, and nothing local sells it as a product: the only self-service tracking of this process sits inside Deel, a foreign employer-of-record platform [S4].
+3. Open the sales call with the ministry's own count. In 2024 it recorded 3,518 complaints that these proceedings were sitting untouched, and upheld 40.6% [S5]. Ask how many of last year's starts slipped, and who found out first. The cost is not the agency fee, it is the hire who does not start.
+4. Sell the agencies second. Spring Walk runs the cards from a Brno and Prague practice of over fifty people; Workking takes the cases most rivals refuse, staffing agencies included [S4,S7]. Throughput is their margin. Go in knowing no Czech provider publishes a per-case fee [S4,S7] — the state fee alone is 1,000 CZK at an embassy [S5].
 
 ## Revisions
 
 2026-08-24 · evidence audit — Cut "labor shortage keeps hiring volumes up" from Why now: a trajectory claim with no second data point anywhere in the corpus — yc-gale documents employer dependence on foreign workers at a single point in time [S1], the same defect the 2026-08-20 audit removed from p-0007. The structural-dependence claim in the lead stands [S1,S2]. A fresh spot-check on this date (Czech query for foreigner-employment tracking software) returned only generic HR/asset registries (Aptien, plusPortal), consistent with the 2026-08-20 NOT FOUND verdict [S4]. Scores untouched.
 
 2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `scores.proof` 1 → 3: Localyze (Germany) and Jobbatical (Estonia) both pass the established test in two CEE-adjacent markets, while Gale and LegalOS are two years old. The 'Solved elsewhere' paragraph asserted that validation was US-only, which contradicted this record's own comps ledger, and it now names the two European players instead. `scores.gap` stays 1: the 2026-08-20 scan found a dense but entirely manual market — Spring Walk, Foreigners, ReloCzech, Expat Support, Principio, DMPF [S4] — and six commercial providers selling the outcome by hand are the weak incumbents of rung 1, not the empty field of rung 2. No `locals[]` key, because those are service firms rather than product vendors and the ledger the gap ladder reads is a ledger of products. `score` 4 → 6. Fifth pass this date, merged here: **this record gains a `locals[]` ledger for the first time**, reversing the decision recorded above to omit one. That decision was that the six providers found on 2026-08-20 are service firms rather than product vendors and the gap ladder reads a ledger of products. Under the split, "a service firm rather than a product vendor" is one of the things `competes: adjacent` exists to say, and naming them is the point. Six entries, all adjacent and all early: **Spring Walk** (zamestnaneckekarty.cz is run by Spring Walk vízová kancelář s.r.o., IČO 11740108, ARES-dated August 2021), **Foreigners.cz**, **ReloCzech**, **Expat Support** (IČO 45148830, ARES-dated May 1992), **Principio** (ARES resolves one Brno company under the trade name, Principio s.r.o., IČO 07600330) and **DMPF Expat Assistant** (DMPF Consulting s.r.o., IČO 19765851, October 2023) [S4]. Every evidence line says what the firm actually sells — a serviced agenda billed per case, with no portal, dashboard or status tracking — because that missing layer is exactly what this record proposes to build. Foreigners.cz and ReloCzech carry a URL and no IČO on purpose: the Foreigners.cz group resolves in ARES as several separate Brno companies and none could be attributed to the site, and no company resolves under the ReloCzech trade name, so neither IČO was guessed. ARROWS stays in the body as a general law firm rather than an immigration provider. `scores.gap` stays 1 and `score` stays 6: adjacent players never move the score. FLAGGED FOR MATCH, NOT CHANGED HERE: with every named local now labelled adjacent and no direct player on the ledger, the new ladder reads this record at rung 2 rather than rung 1, and the 2026-08-20 check does carry queries[], checked[] and a passing positive control — the only thing that can raise a gap score. Making that move is a scoring judgment under SPEC §4 and was not made in a schema-conversion pass. Sixth pass this date, merged here: that flag is now answered, and `scores.gap` moves 1 → 2, `score` 6 → 7. Rung 1 means locals sell this and are all early; nobody on this ledger sells this at all — six service firms and no product — so rung 1 was describing a record other than this one. Rung 2 costs a check with a passing positive control, and the 2026-08-20 control was Softlink CEM Smart and Ringil: real Czech incumbents, but in metering and logistics, which proves the method works and proves nothing about this market. So the check was run again with the control INSIDE this market [S7]. A descriptive Czech query written the way an employer would ask — no vendor name in it — put zamestnaneckekarty.cz at the top, and surfaced **Workking** (Workking s.r.o., IČO 09553231, ARES-dated September 2020), a Prague and Brno agency the earlier sweep missed, which does the cards by hand and advertises that it will do them for staffing agencies too. It is now the seventh entry on the ledger, adjacent and early. The method therefore finds Czech providers in this domain when they are there; a second query shape, in the words an employer would use for the software itself, returned ministry pages, an HR magazine and another firm filing reports by hand. No Czech product prepares the application, tracks its status or watches permit expiries. The non-solutions paragraph now says so and carries the new receipt [S7]. What the ladder still cannot say: rung 2 renders as an open field, and the field is not empty — it is full of people selling the outcome by hand at a price this record's buyer already pays. The ledger's adjacent half is where that fact lives, and it is the reason the entries are worth reading before the score. Noted and not scored: the same sweep surfaced a register of verified employers under the new foreigner act, without a dated receipt this pass could stand behind. No source note was edited and no [Sn] marker moved. Same pass, prose hygiene: ledger lines that talked about this file rather than about the market were reworded — they render under each entry on the public page, where a reader has no idea a register exists. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed. Kept deliberately in the Principio and DMPF entries: the statement that no product site was reachable, so the identification rests on the company name alone. That is a caveat about the world a reader can act on, not bookkeeping. Same pass: `## First moves` written for the first time, which the template requires of a record scoring 7 and which the sixth pass above did not add when it moved the score there. Four moves off receipts already on the record — the ministry's 2024 proceeding counts and its inaction complaints [S5], Principio's expiry monitoring and Deel as the only self-service tracking found [S4], Spring Walk and Workking on the agency side [S4,S7], and the state fee [S5]. The unpublished per-case price is stated as a move rather than hidden: it is already the honest limit in "Who pays". No new claim was introduced and no score moved.
+
+2026-09-02 · plain-language pass — Seven terms glossed or replaced: employee card, kvóty, advokát, ARROWS [S2], DMPF and ARES, now the state business register [S4], HR as somebody in the company, and SMB in the build note. Argument tightened 413 → 323 words, every [Sn] marker, figure and named company kept. First moves rewritten in the plain house voice; a gist added to all seven sources. No score, status, note or marker touched.

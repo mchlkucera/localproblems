@@ -59,6 +59,7 @@ locals:
 sources:
 - type: regulation
   name: "eIDAS 2.0 — Regulation (EU) 2024/1183"
+  gist: "the law and its 2027 clock"
   why: "The law behind the deadline: Czechia must offer an EU Digital Identity Wallet by the end of 2026, and regulated sectors must accept it within 36 months of the implementing acts — during 2027."
   url: https://eur-lex.europa.eu/eli/reg/2024/1183/oj
   note: 'reg-eidas2-eudi-wallet: eIDAS 2.0 (Reg. 2024/1183) — Czechia must offer at least
@@ -69,6 +70,7 @@ sources:
   signal: reg-eidas2-eudi-wallet
 - type: news
   name: "European Commission — EU Digital Identity Wallet"
+  gist: "the end-2026 launch date"
   why: "The Commission's own programme page: every Member State offers at least one wallet, launching at the end of 2026, with Czechia building on eDoklady."
   url: https://ec.europa.eu/digital-building-blocks/sites/display/EUDIGITALIDENTITYWALLET/EU+Digital+Identity+Wallet+Home
   note: Commission EUDI page confirms each Member State will offer at least one wallet by
@@ -76,6 +78,7 @@ sources:
   date: '2025-12-31'
 - type: tender
   name: "TED — DIA wallet client tender (~€78M)"
+  gist: "the €78M state tender"
   why: "The Digital and Information Agency put the Czech wallet's client application out to open competition in July 2026 — the largest open Czech IT tender in the window, and proof the state is building on schedule."
   url: https://ted.europa.eu/en/notice/-/detail/453265-2026
   note: 'ted-453265-2026: DIA tendered the client part of the Czech EUDI Wallet (''KLIENTSKÁ
@@ -86,6 +89,7 @@ sources:
   signal: ted-453265-2026
 - type: gap-check
   name: "Wultra Digital ID Wallet Gateway"
+  gist: "the Prague gateway vendor"
   why: "Prague-based, €6.8M Series A in June 2026 — sells banks and regulated firms one gateway for accepting and verifying EUDI wallet credentials, which is exactly the integration this record is about."
   url: https://www.wultra.com/products/digital-identity-wallet-gateway
   note: 'Gap check 2026-08-14 (round-wultra flag): OCCUPIED. Wultra (Prague, EUR 6.8M Series
@@ -99,6 +103,7 @@ sources:
   signal: round-wultra
 - type: contract
   name: "Registr smluv — EUDIW ICS platform signed with MONET+ (~€8.85M)"
+  gist: "the €8.85M state contract"
   why: "The state trust-services authority signed delivery, development and operation of the ICS system for the European Digital Identity Wallet — the state side is being built under contract, on the clock this record describes."
   url: https://smlouvy.gov.cz/smlouva/38738584
   note: 'hlidac-36404756: Správa státních služeb vytvářejících důvěru contracted MONET+, a.s.
@@ -112,6 +117,7 @@ sources:
   dims: []
 - type: gap-check
   name: "Czech EUDI acceptance scan"
+  gist: "the Czech acceptance sweep"
   why: "A Czech-language sweep of who sells wallet acceptance to Czech businesses: Bank iD offers an EUDIW tile and an EUDIW CONNECTOR beside Wultra's gateway, and MONET+, Software602 and Aisa International are positioning on the same obligation."
   url: https://bankid.cz/eudiw/
   note: 'Czech-language gap check 2026-08-25, run because the 2026-08-14 check on this record
@@ -149,20 +155,20 @@ sources:
   checked: [google-cz, ares, own-funded-ledger]
   expires: '2026-11-23'
 created: '2026-08-13'
-updated: '2026-08-25'
+updated: '2026-09-02'
 ---
 
-Czechia must offer an EU Digital Identity Wallet to citizens and businesses by the end of 2026 [S1,S2], and within 36 months of the December 2024 implementing acts — i.e. during 2027 — banks, telcos, large platforms and other regulated businesses must accept it wherever strong user authentication is required [S1]. The state's deadline creates the private sector's problem: every Czech relying party needs wallet-acceptance flows, and the regulation's own scope names banks, utilities, e-shops with KYC obligations and municipalities among them [S1].
+Czechia must offer an EU Digital Identity Wallet — a phone app holding state-issued identity documents — by the end of 2026 [S1,S2]. Within 36 months of the December 2024 implementing acts, so during 2027, regulated businesses must accept it wherever a customer proves who they are [S1]. Each must build a flow that receives and verifies what the wallet presents [S1].
 
-Why now: the wallet launch is months away and the acceptance obligation lands within the scoring horizon [S1,S2]. Businesses that rebuild onboarding around wallet-presented attestations early can cut verification cost; the rest will scramble against a legal deadline.
+Why now: the wallet launches at the end of 2026; the duty to accept it lands during 2027 [S1,S2]. Early movers cut verification cost; the rest meet a legal deadline unready.
 
-Who pays: the businesses obliged to accept the wallet — banks and payment institutions first, since the EU payment-services rules (PSD2) already make them authenticate customers strongly, then telcos, utilities and online shops that must check age or identity [S1]. Product surfaces named in the signal: relying-party registration and integration SDKs, KYC-flow rebuilds, QES and attribute-attestation services [S1].
+Who pays: the businesses obliged to accept the wallet — banks and payment institutions first, already bound by the EU payment-services rules (PSD2) to verify who a customer is, then telcos, utilities, large platforms, e-shops with identity-check duties and municipalities [S1]. They buy registration as an accepting party, integration kits, rebuilt sign-up checks and qualified electronic signatures [S1].
 
-The state's own spend is documented: DIA put the national wallet's client part out as an open ~€78M competition in July 2026 [S3], which both funds an SI/dev-shop opportunity today and confirms the 2027 relying-party clock.
+The Digital and Information Agency put the wallet's client app out to open competition at about €78M in July 2026 [S3]. The state trust-services authority signed 221M CZK (~€8.85M) with MONET+ — a Czech cryptography firm — for the wallet's core state system [S5]. How many businesses the acceptance duty covers is not published.
 
-Existing non-solutions and the incumbents: eDoklady is the state wallet precursor, not an integration product [S2]. The relying-party integration niche itself is occupied twice over. Bank iD has connected Czech businesses to bank-issued identity since 2021 — five million people use it, and the state's own portals run on it — and now sells the wallet leg of the same product: an EUDIW tile connecting a firm through the existing Bank iD structure, an EUDIW CONNECTOR for firms wanting more than identity, and help with the compulsory first registration [S6]. Beside it, Wultra (Prague) sells the Digital ID Wallet Gateway — accept and verify wallet attestations (OIDC4VCI, SD-JWT per the ARF) through one gateway instead of integrating dozens of national wallets — and raised a €6.8M Series A in June 2026 on the eIDAS2/EUDI acceptance wave [S4]. MONET+, Software602 and Aisa are positioning on the same obligation [S6].
+Existing non-solutions: eDoklady is the state's wallet forerunner, not a product a business buys [S2]. Bank iD has connected Czech businesses to bank-issued identity since 2021: more than 5.3 million people use it, and the land registry, the public-administration, tax and social-security portals run on it [S6]. It now sells the wallet leg: a connector into that same structure, for identity and other attributes, plus the compulsory first registration [S6]. Wultra (Prague) sells one gateway for verifying credentials from every national wallet, and raised a €6.8M Series A in June 2026 [S4]. MONET+, Software602 and Aisa International are positioning on the same duty [S6].
 
-Solved elsewhere: two funded European vendors already build the acceptance layer — Lissi (Germany) makes EUDI-wallet connectivity for banks, and Gataca (Spain) runs wallet transactions at volume. Neither is settled: the obligation they build for has not landed yet, so this is a market being proven now rather than one already proven — a good moment to join, and a thin basis for betting a company. The Czech position is not open either — Bank iD and Wultra both sell a relying-party path today [S4,S6].
+Solved elsewhere: two funded European vendors sell wallet acceptance. Lissi (Germany) makes wallet connectivity for banks, won the 2025 German wallet challenge and raised a €3.5M seed. Gataca (Spain) ran over 750,000 wallet transactions in 2025 and advised the European Commission. The duty they build for has not landed yet: the model is being proven now, not proven. The Czech position is taken too — Bank iD and Wultra both sell an acceptance path today [S4,S6].
 
 ## Revisions
 
@@ -173,3 +179,5 @@ Solved elsewhere: two funded European vendors already build the acceptance layer
 2026-08-14 · de-rank — The gap check this record was waiting on ran against the funded-CZ sweep and found the niche taken [S4]. Wultra's wallet gateway is precisely the relying-party acceptance product for banks and KYC-bound businesses that the title claimed does not exist, sold from Prague with fresh Series A capital [S4]. De-rank rule applied: gap stays 0 — now as a checked score with a named incumbent rather than an unchecked one — and the record moves to watching. The acceptance obligation still lands on thousands of relying parties in 2027, so residual room exists downstream of Wultra (sector-specific integrations, non-bank verticals, SI delivery), but the register cannot claim the integration path is missing.
 
 2026-08-20 · evidence audit and title sweep — Two blocks recorded on this date, merged here. Removed the absence claim attributed to the reg-eidas2 signal — that banks, utilities, e-shops with KYC obligations and municipalities "currently have no integration path beyond following eDoklady's evolution". The signal says those parties need wallet-acceptance flows; it never says a path is missing, and the record's own gap check [S4] shows Wultra selling exactly that path. The who-list itself is supported and stays, now cited to [S1]. Also removed: both mentions of Bankovní identita, a name that returns no hits anywhere in the signal corpus and appears in no source note on this record, so neither the "solves domestic identity" clause nor the quasi-incumbent claim had anything behind it. The title still asserted that relying parties "have no integration path" — the very claim removed from the body in the same pass — and that clause is now gone too. A retraction that leaves the claim standing in the most-read line on the page is not a retraction.
+
+2026-09-02 · plain-language pass — Six acronyms replaced with plain words at first use — KYC, QES, DIA, SI, EUDIW, EUDI — plus glosses on the wallet and MONET+; OIDC4VCI, SD-JWT and ARF are gone from the body. Argument 448 to 385 words, markers 12 to 14: the 221M CZK state contract [S5] is now cited in the body, with Lissi's and Gataca's figures. Gists added to all six sources. No score, status, note or marker touched.
