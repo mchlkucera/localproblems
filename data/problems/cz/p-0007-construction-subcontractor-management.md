@@ -256,11 +256,21 @@ sources:
     - "platforma ověření spolehlivosti subdodavatele stavebnictví kontrola dokladů pojištění stavební firmy software compliance"
   checked: [ares, google-cz, own-funded-ledger]
   expires: '2026-11-23'
+- type: hiring
+  url: https://data.mpsv.cz/web/data/otevrena-data
+  note: 'mpsv-2026-08-manual-trades: August 2026 MPSV open-data aggregate — 2,313
+    building-construction and maintenance vacancies (6,866 seats, 1,629 employers). The first
+    Czech receipt behind the lead''s labour-shortage clause, which until now cited only foreign
+    comparables. Caveat: MPSV counts employee vacancies, not the subcontracted crews the
+    marketplace matches — cited as demand context, not as a crew count.'
+  date: '2026-08-31'
+  signal: mpsv-2026-08-manual-trades
+  dims: [demand]
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
-Czech construction employs about 400,000 people, runs on subcontracting and is short of labour [S1,S2]. Contractors find Ukrainian and Balkan crews in Facebook groups and through brokers; nobody's papers get checked [S3]. Those firms then pay crews across sites, hire through staffing agencies and file A1 certificates (proof of which country insures a worker sent abroad) on general payroll software — Vema, Pamica — or at an accountant [S2]. Two ends of one problem: finding crews with papers in order, and paying them.
+Czech construction employs about 400,000 people, runs on subcontracting and is short of labour — 2,313 open building-trade vacancies at 1,629 employers in August 2026 alone [S1,S2,S7]. Contractors find Ukrainian and Balkan crews in Facebook groups and through brokers; nobody's papers get checked [S3]. Those firms then pay crews across sites, hire through staffing agencies and file A1 certificates (proof of which country insures a worker sent abroad) on general payroll software — Vema, Pamica — or at an accountant [S2]. Two ends of one problem: finding crews with papers in order, and paying them.
 
 Why now: Germany subcontracts the same way, and CoCrafter (Munich, YC W24) already has 3,000+ small and mid-sized German construction firms on a marketplace matching contractors with vetted crews [S1].
 

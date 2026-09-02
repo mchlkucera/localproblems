@@ -292,8 +292,19 @@ sources:
     - 'Flecto platforma flexibilní zaměstnávání obory zdravotnictví sociální služby domovy seniorů směny'
   checked: [google-cz, ares, zivnostensky-rejstrik, company-job-feed, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
+- type: hiring
+  url: https://data.mpsv.cz/web/data/otevrena-data
+  note: 'mpsv-2026-08-health-care: August 2026 MPSV open-data aggregate — 316 direct-care
+    vacancies in residential care (528 seats, 222 employers), the second consecutive monthly
+    aggregate after July [S4]. Cited on COUNTS only: the aggregate EUR figure is excluded
+    because one constituent row (mpsv-2026-08-21919461) mis-parses a monthly salary through
+    the hourly branch and inflates the total ~21% (flagged 2026-09-03 for extractor re-check).
+    Residential care is this record''s buyer; dims demand only, money deliberately not claimed.'
+  date: '2026-08-31'
+  signal: mpsv-2026-08-health-care
+  dims: [demand]
 created: '2026-08-25'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Czech social services are short more than 3,000 workers, and over half of 625 surveyed facilities report unfilled posts [S3]. In July 2026 alone, 262 employers posted 380 new general-nurse vacancies through the Labour Office [S4]. Providers cover the holes with overtime, agency staff and word of mouth.

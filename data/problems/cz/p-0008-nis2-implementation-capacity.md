@@ -313,11 +313,64 @@ sources:
     - "české řešení pro zabezpečení mobilního bankovnictví silná autentizace podpisy v mobilu dodavatel"
   checked: [google-cz, ares, cz-saas-directories, own-funded-ledger, eshop-addon-marketplaces]
   expires: '2026-11-23'
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/557060-2026
+  note: 'ted-557060-2026: ČEZ Distribuce, a. s. tendered "Nástroj pro bezpečnostní monitoring
+    technologické sítě" (a security-monitoring tool for its technology network), ~€1.82M
+    (45.5M CZK), published 12 Aug 2026 — an energy-sector essential entity (energy is named in
+    this record''s scope) buying exactly the security-measures category Act 264/2025 requires.
+    Adds a new named buyer to the buying wave; money and urgency dimensions already at ceiling,
+    so no score moves.'
+  date: '2026-08-12'
+  signal: ted-557060-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/569596-2026
+  note: 'ted-569596-2026: ČESKÁ TELEVIZE tendered network-security-monitoring equipment plus
+    cyber-threat detection and response for its technology network, ~€930k, published 18 Aug
+    2026 with a near-term deadline flagged — a major Czech public institution buying the same
+    tooling category as the rest of the wave. Adds a new named buyer; money and urgency already
+    at ceiling.'
+  date: '2026-08-18'
+  signal: ted-569596-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/587584-2026
+  note: 'ted-587584-2026: Mendelova univerzita v Brně re-tendered ("opakované řízení") for an
+    outsourced cybersecurity manager (manažer kybernetické bezpečnosti — the role Act 264/2025
+    requires obligated entities to designate), published 26 Aug 2026, no value disclosed. Direct
+    evidence for this record''s own claim that most of the 6,000 have nobody to do the work: an
+    obligated public institution going back to market for the mandated role.'
+  date: '2026-08-26'
+  signal: ted-587584-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/590734-2026
+  note: 'ted-590734-2026: Státní zdravotní ústav (the National Institute of Public Health)
+    tendered an endpoint-security system at EPP/EDR/XDR level, ~€216k (5.4M CZK), published
+    27 Aug 2026 — another health-sector essential entity buying security-measures tooling, a
+    named institution not previously on this record. Money and urgency already at ceiling.'
+  date: '2026-08-27'
+  signal: ted-590734-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/595810-2026
+  note: 'ted-595810-2026: Nemocnice Milosrdných bratří tendered a security software package
+    under "Zvýšení kyberbezpečnosti v NMB" (raising the hospital''s cybersecurity), ~€3.36M
+    (83.9M CZK), published 28 Aug 2026 — one of the largest single hospital awards on file
+    alongside Motol, Homolka and Hustopeče [S3]. Adds scale to the buying wave; money and
+    urgency already at ceiling.'
+  date: '2026-08-28'
+  signal: ted-595810-2026
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/600605-2026
+  note: 'ted-600605-2026: NAKIT (the state IT agency) opened a framework for ArcSight SIEM
+    platform services, ~€11.6M, published 1 Sep 2026 — the largest single cyber figure in the
+    2026-09-02 harvest and a new named public buyer in the buying wave. Money and urgency
+    already at ceiling; no score moves.'
+  date: '2026-09-01'
+  signal: ted-600605-2026
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
-Act No. 264/2025 Coll., the Czech transposition of the EU's NIS2 security directive, puts roughly 6,000 firms and municipalities under a cybersecurity regime: energy, manufacturing, food, logistics, digital services [S1,S2]. NÚKIB (the national cyber agency) had 4,825 registered by February 2026, over a thousand short [S13]; many small firms do not know they are in scope [S2]. Measures fall due a year after registration — deadlines through H1 2027, fines to 2% of global turnover or CZK 250m [S1]. Most of the 6,000 have nobody to do the work.
+Act No. 264/2025 Coll., the Czech transposition of the EU's NIS2 security directive, puts roughly 6,000 firms and municipalities under a cybersecurity regime: energy, manufacturing, food, logistics, digital services [S1,S2]. NÚKIB (the national cyber agency) had 4,825 registered by February 2026, over a thousand short [S13]; many small firms do not know they are in scope [S2]. Measures fall due a year after registration — deadlines through H1 2027, fines to 2% of global turnover or CZK 250m [S1]. Most of the 6,000 have nobody to do the work — Mendel University re-tendered in August 2026 after its first attempt to hire an outsourced security manager [S19].
 
 Existing non-solutions: consultancies are no longer alone — four Czech products now sell the obligation itself: NIS2 Průvodce at 3,000 CZK a month, built by one person; Compligen at 29,900 CZK once, aimed at towns; NIS2 Doku from 4,900 CZK; Lexnova Energy's ~91k CZK package, ordered twice by care providers in weeks [S2,S7,S16]. All four are younger than the obligation, in force since November 2025 — they sell the paperwork, not the work [S1,S16]. Only ICZ (a systems house trading since 1997) works the enterprise end, and sells a project [S16].
 

@@ -154,8 +154,15 @@ sources:
     - "Wultra Digital Identity Wallet Gateway banky přijímání EUDI peněženky Praha"
   checked: [google-cz, ares, own-funded-ledger]
   expires: '2026-11-23'
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/36243132
+  note: 'hlidac-36243132: DIA contracted NAKIT for operational support of the NIA national
+    identity information system, ~€5.43M — the state keeps funding the identity stack the
+    wallet plugs into, context beside the MONET+ EUDIW ICS build [S5]. No score moves.'
+  date: '2026-08-28'
+  signal: hlidac-36243132
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Czechia must offer an EU Digital Identity Wallet — a phone app holding state-issued identity documents — by the end of 2026 [S1,S2]. Within 36 months of the December 2024 implementing acts, so during 2027, regulated businesses must accept it wherever a customer proves who they are [S1]. Each must build a flow that receives and verifies what the wallet presents [S1].

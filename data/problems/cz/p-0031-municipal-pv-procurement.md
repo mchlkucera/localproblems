@@ -243,8 +243,39 @@ sources:
     - 'centrální zadavatel pro obce společné zadávání veřejné zakázky fotovoltaické elektrárny kraj svazek obcí rámcová dohoda 2026'
   checked: [google-cz, ares, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
+- type: tender
+  name: "TED — Špindlerův Mlýn, still not built two months later"
+  gist: "the saga continues into August"
+  why: "The same wastewater-plant PV project that republished three times in June now needs its
+    own building modified before the solar can go on — a fourth procurement action on one site,
+    ten weeks turned two months."
+  url: https://ted.europa.eu/en/notice/-/detail/568275-2026
+  note: 'ted-568275-2026: Město Špindlerův Mlýn tendered construction work to modify its WWTP
+    building so it can host the FVE plant (17 Aug 2026) — the same site as the triple-republished
+    tender in [S2], still generating separate procurement actions two months on. No contract
+    value published. Corroborates the procurement-friction claim already on file; does not move
+    a score.'
+  date: '2026-08-17'
+  signal: ted-568275-2026
+  dims: []
+- type: tender
+  name: "TED — Jince re-tenders its own solar, one day later"
+  gist: "a second named town's repeat tender"
+  why: "A second named town joins Špindlerův Mlýn, Hrabová and Nymburk in the repeat-tender
+    pattern: Jince's own notice is titled 'opakované zadání' — re-issued tendering — one day
+    after its first attempt."
+  url: https://ted.europa.eu/en/notice/-/detail/591378-2026
+  note: 'ted-591378-2026: Městys Jince re-issued its own municipal-building FVE tender
+    ("opakované zadání", ~EUR 760k, 27 Aug 2026), one day after the first attempt on the same
+    buildings (ted-589208-2026, same buyer, ~EUR 680k, 26 Aug 2026 — not separately linked, same
+    underlying fact). A second named town in the repeat-tender pattern documented in [S2] for
+    Špindlerův Mlýn/Hrabová/Nymburk. Corroborates the procurement-friction claim already on file;
+    does not move a score.'
+  date: '2026-08-27'
+  signal: ted-591378-2026
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Between June and August 2026, 53 Czech public buyers — towns, regions, schools, hospitals, a zoo, wastewater plants — ran about 80 separate rooftop-solar tenders worth roughly €60M [S1]. Almost every lot is a bespoke design-build tender for a standard product: panels on a public roof, €120k to €1M, each with its own documentation, evaluation and contract [S1].

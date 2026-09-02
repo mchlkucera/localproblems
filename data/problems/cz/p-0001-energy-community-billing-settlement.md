@@ -282,8 +282,23 @@ sources:
   date: '2026-06-26'
   signal: hlidac-36312136
   dims: []
+- type: tender
+  name: "TED — Elektroenergetické datové centrum, a new IT system (~€70M)"
+  gist: "the data hub itself is being rebuilt"
+  why: "EDC — the national electricity data hub every vendor here integrates with — tendered
+    roughly €70M for a new IT system in August 2026. The notice names no function, so this is
+    recorded as infrastructure context, not as a competing product."
+  url: https://ted.europa.eu/en/notice/-/detail/587970-2026
+  note: 'ted-587970-2026: Elektroenergetické datové centrum, a.s. [21020264] — the entity behind
+    EDC — tendered design and implementation of a new IT system and related services, ~EUR 70M
+    (~1.75bn CZK), published 26 Aug 2026. The notice gives no functional detail, so this is
+    recorded as scale-of-investment context for the infrastructure this record''s vendors sit on
+    top of, not as evidence of a competing feature. Backs no score point.'
+  date: '2026-08-26'
+  signal: ted-587970-2026
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Czech energy communities have shared electricity through EDC (the national electricity data hub) since August 2024, under Lex OZE II (the law that legalised it), but run member administration, allocation keys and settlement by hand [S1]. Hospodářské noviny reports up to half the value of shared electricity lost to bad allocation and settlement [S2].

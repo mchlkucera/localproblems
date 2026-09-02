@@ -164,8 +164,16 @@ sources:
     - "Czech software for heat pump and solar installers quoting subsidy paperwork field service"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: arbitrage
+  url: https://www.ycombinator.com/companies/jasmine-energy
+  note: 'yc-jasmine-energy: YC-funded US company selling AI-drafted solar incentive claims —
+    the subsidy-filing half of this record''s thesis (the NZÚ paperwork), funded in a second
+    market. YC listing carries no founding year or traction, so it lands as an arbitrage
+    source only, per the 2026-08-20 revision''s rule — no comps entry without receipts.'
+  date: '2022-08-15'
+  signal: yc-jasmine-energy
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Hundreds of small Czech installation firms fit the tens of thousands of heat pumps and solar arrays paid for each year by NZÚ — Nová zelená úsporám, the state home-renovation subsidy [S1,S2]. They run site survey, heat-load calculation, quoting, subsidy applications and project tracking on spreadsheets, manufacturer sizing tools and hand-filled NZÚ forms [S1].

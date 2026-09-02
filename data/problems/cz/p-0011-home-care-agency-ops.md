@@ -201,8 +201,16 @@ sources:
   date: '2026-07-14'
   signal: hlidac-36430740
   dims: [money]
+- type: arbitrage
+  url: https://www.ycombinator.com/companies/evergrove
+  note: 'yc-evergrove: YC-funded (13 Aug 2026) US company selling voice agents for care
+    coordination — exactly the Czech-language voice-intake wedge this record names above the
+    occupied scheduling layer, proven in the US payer setting. Listing carries no founding
+    year or traction, so arbitrage source only, no comps entry.'
+  date: '2026-08-13'
+  signal: yc-evergrove
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Hundreds of Czech home-care agencies — agentury domácí péče and pečovatelské služby, from Včelka to charity providers — book, move and confirm visits by phone and paper [S1,S2]. Under a chronic nurse shortage, time on intake calls is clinical capacity lost [S1]. Czech vendors already sell that coordination layer [S4].

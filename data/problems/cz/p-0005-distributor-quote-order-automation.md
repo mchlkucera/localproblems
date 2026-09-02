@@ -131,8 +131,17 @@ sources:
     - "česká firma AI agent pro obchodní oddělení zpracování poptávek nabídek distributor výrobce ERP integrace"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: arbitrage
+  url: https://www.ycombinator.com/companies/asakana
+  note: 'yc-asakana: YC-funded (31 Aug 2026) US company doing AI order entry from e-mail and
+    text into ERP for food distributors — this record''s exact product shape, freshly funded
+    abroad. Documents that the cluster is live; does NOT reopen the local field (Apertia Tech
+    already sells this in CZ). Listing carries no founding year or traction, so arbitrage
+    source only, no comps entry.'
+  date: '2026-08-31'
+  signal: yc-asakana
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Quote requests (RFQs) and orders reach Czech wholesalers and manufacturing suppliers as e-mail, PDF and Excel; staff re-type them into Pohoda, Helios and ABRA — the ERP packages (accounting and stock software) they run on [S1]. Re-typing is slow, error-prone, and caps how many quotes a desk turns around [S1].

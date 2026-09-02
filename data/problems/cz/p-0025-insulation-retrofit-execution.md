@@ -231,8 +231,16 @@ sources:
     - "IP Polná MAGMARELAX foukaná izolace vlastní montážní týmy počet zateplených domů firma historie"
   checked: [ares, google-cz]
   expires: '2026-11-23'
+- type: arbitrage
+  url: https://www.ycombinator.com/companies/craftwork
+  note: 'yc-craftwork: YC-funded US digital-native home-painting franchise — the verticalised,
+    software-run home trade this record''s thesis rests on, funded in a second market and a
+    second trade. The CZ version differs by the subsidy leg, which Craftwork lacks. Listing
+    carries no founding year or traction, so arbitrage source only, no comps entry.'
+  date: '2023-07-17'
+  signal: yc-craftwork
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Insulating a Czech family home means picking one of thousands of small regional firms [S3,S6], waiting for a quote, and hoping the subsidy paperwork gets filed. One is not like the rest: IP Polná (own crews, thirty years) has insulated a claimed 30,000+ Czech buildings [S7]. The subsidy that co-pays the work runs continuously, pre-validating household demand [S2].

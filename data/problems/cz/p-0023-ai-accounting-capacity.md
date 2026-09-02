@@ -241,8 +241,18 @@ sources:
     - "účetní software pro firmy automatizace účetnictví Česko"
   checked: [ares, google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: hiring
+  url: https://data.mpsv.cz/web/data/otevrena-data
+  note: 'mpsv-2026-08-back-office: August 2026 MPSV open-data aggregate — 540 admin/clerical/
+    finance-support vacancies (791 seats, 416 employers). Weak, deliberately narrow receipt:
+    it evidences back-office and administrative hiring an AI pipeline displaces, NOT the
+    accountant shortage itself (headline CZ-ISCO is general administrative workers, and the
+    record still lacks an accountant-specific figure). dims demand only.'
+  date: '2026-08-31'
+  signal: mpsv-2026-08-back-office
+  dims: [demand]
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Czech accountants are scarce, and their rulebook is being rewritten. The new Accounting Act reached parliament in December 2025 and is planned for 1 January 2028 [S3]. It brings in IFRS (international financial reporting standards) and functional-currency accounting, forcing rewrites across Pohoda, Money, ABRA and Helios — the software Czech firms keep their books on — and retraining for every accountant [S3].

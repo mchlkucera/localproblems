@@ -241,8 +241,80 @@ sources:
     - "integrační platforma pro nemocnice český dodavatel propojení nemocničních systémů eHealth sběrnice"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-23'
+- type: tender
+  name: "TED — Petrohrad psychiatric hospital eHealth system (~€206K)"
+  gist: "the Petrohrad eHealth award"
+  why: "A psychiatric hospital tendered its own eHealth medical information system — another
+    named buyer procuring bespoke software rather than a shared layer."
+  url: https://ted.europa.eu/en/notice/-/detail/589279-2026
+  note: 'ted-589279-2026: Psychiatrická léčebna Petrohrad tendered an eHealth medical
+    information system, ~€206K (5,158,000 CZK), Aug 2026 — no supplier named. Republished
+    2026-08-31 at the same value as ted-597290-2026, not separately cited.'
+  date: '2026-08-26'
+  signal: ted-589279-2026
+- type: tender
+  name: "TED — Mladá Boleslav hospital NIS modernization, STAPRO (~€2.9M)"
+  gist: "the €2.9M Mladá Boleslav award"
+  why: "The incumbent STAPRO won another hospital's NIS modernization outright — one more
+    named buyer paying for a bespoke build rather than a shared product."
+  url: https://ted.europa.eu/en/notice/-/detail/592268-2026
+  note: 'ted-592268-2026: Oblastní nemocnice Mladá Boleslav awarded STAPRO [S5] ~€2.9M
+    (72.4M CZK) to modernize and develop its hospital information system (NIS), Aug 2026.
+    Republished the next day at a marginally revised value as ted-596098-2026, not
+    separately cited.'
+  date: '2026-08-27'
+  signal: ted-592268-2026
+- type: tender
+  name: "TED — Revmatologický ústav eHealth and interoperability re-tender, STAPRO (~€1.11M)"
+  gist: "the repeat €1.11M Prague award"
+  why: "A repeat award for 'eHealth and interoperability' work, won again by the incumbent
+    STAPRO — as direct a match to this record's own words as a tender gets."
+  url: https://ted.europa.eu/en/notice/-/detail/598479-2026
+  note: 'ted-598479-2026: Revmatologický ústav v Praze re-tendered "eHealth a
+    interoperabilita" — repeat award — to STAPRO [S5], ~€1.11M (27.76M CZK), Aug 2026.
+    Matches the amendment-churn pattern [S5] already documents: the same hospital paying
+    the same incumbent again for the same kind of work.'
+  date: '2026-08-31'
+  signal: ted-598479-2026
+- type: tender
+  name: "TED — Náchod hospital PACS and eHealth platform, OR-CZ (~€293K)"
+  gist: "OR-CZ's second named buyer"
+  why: "OR-CZ, this record's seventh named incumbent, won a system explicitly built for
+    exchanging data between providers, patients and information systems — a second named
+    public buyer for it beyond Šternberk."
+  url: https://ted.europa.eu/en/notice/-/detail/599893-2026
+  note: 'ted-599893-2026: Oblastní nemocnice Náchod awarded OR-CZ [S11] a PACS imaging
+    system as part of an eHealth platform "for communication, exchange and sharing of
+    information between healthcare providers, patients and information systems," ~€293K,
+    second re-announcement of the same notice, Sep 2026.'
+  date: '2026-09-01'
+  signal: ted-599893-2026
+- type: regulation
+  name: "EU Commission — HealthData@EU technical framework (draft)"
+  gist: "the HealthData@EU implementing step"
+  why: "A more granular EU regulatory step inside the same EHDS obligation already on file,
+    setting the technical rules for cross-border secondary use of health data."
+  url: https://ec.europa.eu/info/law/better-regulation/have-your-say/initiatives/16155
+  note: 'echys-16155: European Commission initiative (have-your-say/consultation stage,
+    not yet adopted), 1 Sep 2026, setting the technical and functional framework for
+    HealthData@EU — cross-border secondary-use infrastructure under EHDS [S7] — plus an
+    IT tool for enforcement transparency among national health data bodies. Draft, no new
+    dated deadline: backs no score dimension.'
+  date: '2026-09-01'
+  signal: echys-16155
+  dims: []
+- type: tender
+  name: "TED — Masaryk Memorial Cancer Institute eHealth package (~€3M)"
+  gist: "the €3M Masaryk Institute award"
+  why: "A major Czech cancer hospital tendered its own eHealth software package — another
+    named buyer solving this alone, at meaningful scale."
+  url: https://ted.europa.eu/en/notice/-/detail/604583-2026
+  note: 'ted-604583-2026: Masarykův onkologický ústav tendered an eHealth medical software
+    package, ~€3M (75M CZK), Sep 2026 — no supplier named.'
+  date: '2026-09-02'
+  signal: ted-604583-2026
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Between June and August 2026, four Czech regional hospital groups went to market separately for the same layer: one that lets hospital systems talk to each other and to outside providers. Uherské Hradiště awarded ~€7.7M for an eHealth platform [S1]. Plzeň's hospital group opened a ~€5.8M competition for a hospital system with an enterprise service bus — the switchboard routing messages between clinical systems [S2]. Zlín awarded ~€2.8M; Olomouc's university hospital bought interoperability work at ~€0.7M [S3].
