@@ -19,6 +19,7 @@ export const TITLES: Record<EvidenceType, string> = {
   tenders: "Tenders — public money on record",
   demand: "Demand — documented complaints and unmet needs",
   hiring: "Hiring — salaries committed to the work",
+  asks: "Asks — problems stated by their owners",
 };
 
 // One serif paragraph per ledger: what this evidence is, and why it counts.
@@ -33,13 +34,15 @@ const DESCRIPTIONS: Record<EvidenceType, string> = {
     "Documented complaints and unmet needs — audit findings, ombudsman inventories, petitions with counts, live shortage data. They prove the pain is real before any market exists. Bottom-up evidence is noisy, so the ledger admits pain language only, never engagement metrics.",
   hiring:
     "Vacancies aggregated by theme and employer — the salary bill a market is already paying to do the work by hand. A posting is direct evidence that a task is real, recurring and unautomated: somebody costed it and hired for it. Postings are aggregated because a single vacancy is immaterial and reposting is endemic; one is recorded alone only when the posting itself is the evidence.",
+  asks:
+    "Problems stated outright by the institutions that own them. A ministry, a hospital or a city publicly names a problem it wants solved and invites solutions — before any procurement money is attached, which is why an ask is evidence and not yet a tender. The record is the statement and who made it; prizes, team counts and winners are engagement, not pain, and are never scored.",
 };
 
 const SOURCE_LABELS: Record<string, string> = {
   ted: "TED", hlidac: "CZ procurement", yc: "Y Combinator", round: "Rounds",
   "reg-scan": "Regulations", "arb-scan": "Market scan", feed: "Feed",
   "demand-scan": "Demand scan", suggest: "Google Suggest", reddit: "Reddit",
-  mpsv: "MPSV vacancies",
+  mpsv: "MPSV vacancies", tacr: "TA ČR needs", hackathon: "Hackathon challenge",
 };
 
 /** The native `title` is the reveal — never a tooltip component — and it may

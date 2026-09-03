@@ -163,3 +163,17 @@ together. Most factual errors this register shipped were not wrong facts — the
 were a number and a sentence written by different passes with nothing comparing
 them. After you move any score, re-read the prose beneath it and fix the words to
 match the evidence. **Never the reverse.**
+
+---
+
+## 11. A direct ask is demand, never money
+
+An `ask` source — a signal from the `asks` ledger: a TA ČR research need, an
+owner-set hackathon challenge — is a receipt that a named institution HAS the
+problem. It cites **demand** and nothing else: rung 1 on its own, rung 2 when it
+recurs or joins other documented demand. It never cites **money** — a prize is
+not a budget, and a research need's budget arrives later, through the tender,
+which lands in `tenders` and cites money there. And it says nothing about
+**gap**: that the owner wants it solved is not evidence that no vendor sells it.
+Gap still needs its check (§4, §5). `TYPE_TO_DIM` in `web/lib/scorecard.ts` and
+`scripts/db.py` encodes the first half; the checker still owns the second.

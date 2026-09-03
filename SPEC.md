@@ -11,12 +11,13 @@ in v2.*
 
 The age of AI makes solvers abundant and well-stated problems scarce. **localproblems.org
 is an open, evidence-backed register of problems worth solving, per region.** It
-intersects four streams:
+intersects five streams:
 
 1. **Arbitrage** — proven abroad, absent locally (companies founded/funded elsewhere with no local player)
 2. **Top-down** — where governments put money: tenders, grants, regulation with compliance deadlines
 3. **Bottom-up** — what people demonstrably complain about and want
 4. **Capital** — where investors put money (confirmation only, never discovery)
+5. **Direct asks** — a named institution states a problem it wants solved: research needs, market consultations, owner-set hackathon challenges (evidence before money)
 
 Every claim carries a source. If someone local already solves a problem, it gets
 de-ranked. Output: a ranked public register + a weekly newsletter draft.
@@ -86,6 +87,7 @@ data/signals/
   tenders/<run-date>.jsonl      # tenders, grants, public contracts (ted, hlidac)
   demand/<run-date>.jsonl       # bottom-up documented complaints & unmet needs (demand-scan)
   hiring/<run-date>.jsonl       # employers staffing a dated need (mpsv) — REGISTERED, no records yet
+  asks/<run-date>.jsonl         # direct asks from problem owners (tacr, hackathon) — REGISTERED, no records yet
   seen.txt                      # one canonical id per line, sorted — the dedup index
 
 data/raw/<run-date>/            # raw fetched payloads; gitignored, pruned at 28 days
@@ -301,13 +303,13 @@ Discipline keeps it exactly as simple as a static generator:
 | `/problem/[region]/[id]` | one rundown page for **every** problem: docket (id · title · dek · facts · quiet meta line) · scorecard band · The problem (prose) · The window (why now, deadline receipts) · How big (money receipts) · Who builds this (build block) · Where it works (comps ledger) · First moves (score >= 7) · Revisions (`ol.revisions` — the record's audit trail as a quiet ledger at the foot: row hairline, indented content, mono date-and-tag reference line, muted serif prose; design-language v1.9) · sources ledger (S1…Sn, each linking its evidence record) · provenance footer. Score rundown dialogs embed the referenced source records (external links only, close cross). The crumb's category links to its category page. |
 | `/category/[slug]` | one page per category (all 12, SSG; slug = category id): the register table filtered to the category, same filter nav with the current category marked; empty categories render the house empty-category string. |
 | `/about` | brief static page: the vision, the evidence streams (with live counts, derived — a stream at zero counts still lists), and the register's rules — sourced claims, no estimates, printed corrections, de-ranking. |
-| `/signals/[type]` | the evidence ledgers (funded · regulation · tenders · demand · hiring): recent records per type, anchor per id — the provenance target. **A registered type with no records renders an empty ledger rather than 404ing** — which is why `hiring` is already routed at zero records: a pending feed is a registered fact, and `/sources` shows it as `PENDING`. The route list and the nav are derived from `EVIDENCE_TYPES`, so both track the code automatically; this table is the copy that can go stale. |
+| `/signals/[type]` | the evidence ledgers (funded · regulation · tenders · demand · hiring · asks): recent records per type, anchor per id — the provenance target. **A registered type with no records renders an empty ledger rather than 404ing** — which is why `hiring` is already routed at zero records: a pending feed is a registered fact, and `/sources` shows it as `PENDING`. The route list and the nav are derived from `EVIDENCE_TYPES`, so both track the code automatically; this table is the copy that can go stale. |
 | `/sources` | the feeds page: the registry (`data/feeds.json`) — what we ingest from, what we are allowed to ingest from, and what a healthy fetch looks like — beside the observed health ledger (`data/feed_health.json`). Reads committed data only, never the working store, so the site stays a pure function of `data/`. |
 | 404 | house string: "Record not found. Either it never existed, or it was solved so thoroughly it disappeared." |
 
 The problem register and the evidence ledgers are two clearly separated surfaces: site
-nav reads `Problems` then `Signals: Funded · Regulation · Tenders · Demand · Hiring`, with
-the feeds page at `/sources`. The nav list is generated from `EVIDENCE_TYPES`, never
+nav reads `Problems` then `Signals: Funded · Regulation · Tenders · Demand · Hiring · Asks`,
+with the feeds page at `/sources`. The nav list is generated from `EVIDENCE_TYPES`, never
 hand-maintained. **`/sources/[type]` and `/signals/[type]` swapped meanings in
 v3** — the ledgers moved to `/signals/`, matching `data/signals/`, and `/sources` was
 freed for the feeds it is named after.

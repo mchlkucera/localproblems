@@ -92,6 +92,13 @@ Evidence types and their feeds:
   `hiring` is a separate type rather than part of `demand` for the same
   reason stated above: it is high-volume, and folding it in would let one
   feed dominate that ledger.
+- `asks` — direct asks from problem owners: a named institution states a
+  problem it wants solved before money is attached: tacr (TA ČR research
+  needs, scripts/fetch_tacr.sh) and hackathon (owner-set challenge statements
+  from six organizer sites, scripts/fetch_hackathons.sh). NOT student-picked
+  hackathon topics, NOT petitions. REGISTERED 2026-09-03, no records yet.
+  The record is the statement and who made it; prizes, team counts and
+  winners are never recorded, for the engagement-is-not-pain reason above.
 - `bootstrapped` — RESERVED (indie-hacker/revenue signals); create only when a
   fetchable source exists
 
@@ -116,6 +123,10 @@ id          canonical <prefix>-<nativeid>; v1 ids grandfathered unchanged.
             slug of the call, e.g. dotace-npo-31-24-138-pobytove-sluzby)
             · veklep- (the ODok material PID, e.g. veklep-KORNDVKKWEK9 —
             native id, case preserved)
+            · tacr- (the TA ČR need id, the TT code, lowercased)
+            · hack- (sha1-8 of site + "|" + challenge title — the six pages
+            are re-read every run, so the id must come from the statement,
+            not from the run)
 source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan |
             demand-scan | suggest | reddit | feed | mpsv | coi | sukl | nen |
             smlouvy | dotace (dotace-scan agent harvests of grant/subsidy
@@ -123,7 +134,12 @@ source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan |
             dotace API stays `hlidac` — provenance, not topic) | veklep
             (the legislative e-library via the Hlídač dataset mirror — a new
             PUBLISHER, the ODok portal, not merely a new script, which is
-            what earns it a value where ec-hys and nku did not take one)
+            what earns it a value where ec-hys and nku did not take one) |
+            tacr (TA ČR's own needs feed — a new PUBLISHER, the agency that
+            runs the BETA programmes) | hackathon (the organizers' own event
+            pages — a new PUBLISHER, the hospital, city or ministry that set
+            the challenge; the ledger is `asks`, and the owner is the
+            `entity_native` receipt, not the source value)
             THIS LIST IS AN ENUM IN web/lib/data.ts (SignalSchema.source) AND
             A LEDGER LINE CARRYING AN UNLISTED VALUE RED-BUILDS THE SITE.
             Widen the enum in a commit BEFORE the first record lands, never in

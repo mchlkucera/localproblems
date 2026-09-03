@@ -1294,11 +1294,12 @@ DIMS = ("proof", "money", "urgency", "demand", "gap")
 # and is ported as-is: five records carry a demand-resolving `news` source while
 # scoring demand 0, which is a CONTENT contradiction for the owner to rule on,
 # not a licence for this port to quietly disagree with the page.
+# `ask` (an `asks`-ledger signal) is DEMAND only, never money — MATCH.md §11.
 TYPE_TO_DIM = {
     "arbitrage": "proof",
     "tender": "money", "contract": "money", "subsidy": "money",
     "regulation": "urgency",
-    "complaint": "demand", "news": "demand",
+    "complaint": "demand", "news": "demand", "ask": "demand",
     "gap-check": "gap",
 }
 

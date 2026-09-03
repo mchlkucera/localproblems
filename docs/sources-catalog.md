@@ -200,3 +200,54 @@ Mar 2026) — the one demand channel institutional sources can't see: live consu
   "cross-source" cluster single-source; cap any one feed's share of the demand ledger.
   A `demand_score` with a source-diversity multiplier lives in that project's
   `src/analyze.py` — candidate for a future SCORING.md revision.
+
+## Wave-4 additions (2026-09-03) — direct asks from problem owners
+
+The sixth evidence type, `asks` (design: `docs/superpowers/specs/2026-09-03-asks-ledger-design.md`).
+An ask is a named institution publicly stating a problem it wants solved, before any
+procurement money is attached. The record is the statement and who made it; prizes,
+team counts and winners are never recorded. Everything below was probed live on 2026-09-03.
+
+**Admitted — two feeds, both `planned` until the fetchers land:**
+
+- **TA ČR BETA2/BETA3 research needs** — `scripts/fetch_tacr.sh`, source `tacr`, id
+  `tacr-<TT need id, lowercased>`. The only standing government problem bank in CZ: a
+  ministry states a research need (TT-coded), TA ČR posts it with a supplier-consultation
+  date, and a tender follows months later through NEN/TED. Feeds:
+  `tacr.gov.cz/kategorie/beta3/feed/` (7 items, 4 with a TT-coded need) and
+  `…/beta2/feed/` (10 items); category HTML has no pagination. Measured rate ~4 needs in
+  14 months, and RVVI cut BETA3's budget in June 2026 — low volume is structural, not a
+  fetch defect. Posts without a need (budget notices, outages) are dropped and counted.
+- **Owner-set hackathon challenges** — `scripts/fetch_hackathons.sh`, source `hackathon`,
+  id `hack-<sha1-8 of site|title>`. Six organizer sites whose challenges are set by a
+  hospital, a city or a ministry — all plain HTML, HTTP 200 with a browser User-Agent,
+  no auth, no ToS restriction found:
+  `hackjakbrno.cz` (FN Brno, FNUSA, MOÚ, JINAG — 15 challenge boxes) ·
+  `rakathon.cz` (FN Motol, MOÚ, FN Ostrava — 4 named challenges) ·
+  `hackathon.upol.cz` (Olomoucký kraj + město Olomouc — "letošní témata", a 3.6 MB page) ·
+  `idea13.cz` (MČ Praha 13 — 4 "Výzva č. N") ·
+  `aimtechackathon.cz/hackathon` (City of Plzeň, Ottobock, NGOs — 5 challenges) ·
+  `nakopniprahu.cz` (MHMP + OICT — 3 areas with sub-topics).
+  About 35–45 statements per full pass; the pages are re-read every run and the ids are
+  stable, so steady state is near zero new per run. Garant and contact lines are cut at
+  the fetcher — the pages name people, and the ledger is public.
+
+**Researched and NOT admitted to `asks`:**
+
+- **Hackathon aggregators** — Devpost, Devfolio, HackTrack EU, lu.ma, MLH, hackathon.com,
+  hackmania.cz. All fetchable, but between them they list ~5–15 CZ events a year and carry
+  NO owner problem statements — an event title and a date, never the challenge. A pointer
+  feed to pages we already read directly.
+- **#hackujstát** — the state's own hackathon, but the topics are picked by the student
+  teams, not stated by a ministry. Student-picked is the opposite of owner-set.
+- **Petitions** — petice.com (7-day signature velocity is measurable) and e-petice.cz
+  (the addressee is named). A petition is the public asking the institution, not the
+  institution stating its problem; it stays `demand` evidence, where petitions already live.
+
+**Documented follow-up, not built:**
+
+- **NEN předběžné tržní konzultace** (preliminary market consultations) — the formal step
+  between a stated need and a tender, and the natural third `asks` feed. The listing name
+  filter `nen.nipez.cz/verejne-zakazky/p:vz:nazev=konzultace` returns 45 rows, but whether
+  the bulk ISVZ files the NEN fetcher reads carry the procedure kind is UNVERIFIED, so
+  nothing is built on it yet.

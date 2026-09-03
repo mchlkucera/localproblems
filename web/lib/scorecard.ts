@@ -229,11 +229,13 @@ export function criterion(p: Problem, dim: Dim): string {
 
 // ---- source refs per dimension (docs/archive/05 §4 rules) ----------------
 
+// `ask` (an `asks`-ledger signal) is DEMAND only, never money: a prize is not a
+// budget, and a research need's budget arrives later as a tender (MATCH.md §11).
 const TYPE_TO_DIM: Record<string, Dim> = {
   arbitrage: "proof",
   tender: "money", contract: "money", subsidy: "money",
   regulation: "urgency",
-  complaint: "demand", news: "demand",
+  complaint: "demand", news: "demand", ask: "demand",
   "gap-check": "gap",
 };
 

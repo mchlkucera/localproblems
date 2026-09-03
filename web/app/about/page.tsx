@@ -26,16 +26,19 @@ export default function About() {
 
       <h2>Where the signals come from</h2>
       <p>
-        Five streams of public evidence feed the register, collected weekly and kept
+        Six streams of public evidence feed the register, collected weekly and kept
         region-blind: <a href="/signals/funded">funded</a> — companies founded and financed
         elsewhere, the proof a model works; <a href="/signals/regulation">regulation</a> —
         obligations with dates, the reason a market appears on schedule;{" "}
         <a href="/signals/tenders">tenders</a> — public money actually moving, from EU notices
         to below-threshold contracts and open subsidy calls;{" "}
         <a href="/signals/demand">demand</a> — documented complaints and unmet needs, from
-        audit findings and ombudsman inventories to petitions and live shortage data; and{" "}
+        audit findings and ombudsman inventories to petitions and live shortage data;{" "}
         <a href="/signals/hiring">hiring</a> — vacancies aggregated into the salary bill a
-        market already pays to have the work done by hand. Currently{" "}
+        market already pays to have the work done by hand; and{" "}
+        <a href="/signals/asks">asks</a> — problems stated outright by the institutions that
+        own them: ministry research needs and hospital- or city-set hackathon challenges.
+        Currently{" "}
         {s.signalCount.toLocaleString("en-US").replace(/,/g, " ")} signals on file
         {s.byType.hiring === 0 && ", none of them yet from hiring"}.
       </p>

@@ -116,6 +116,82 @@
       }
     },
     {
+      "key": "tacr",
+      "name": "TA ČR — research needs (BETA2/BETA3)",
+      "yields": "One ministry research need per record — the need id, the ministry, the stated problem and its supplier-consultation date; the only standing government problem bank in CZ.",
+      "role": "feed",
+      "signal_source": "tacr",
+      "id_prefixes": [
+        "tacr"
+      ],
+      "evidence_type": "asks",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://tacr.gov.cz/kategorie/beta3/feed/",
+      "script": null,
+      "status": "planned",
+      "blocker": "Fetcher scripts/fetch_tacr.sh lands in the next commit; `script` stays null until the file exists on disk (AC-F2 refuses an orphan link). Set it, and flip to active, with the first record.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "Public agency news feed on TA ČR's own site; statutory publication of research needs, no auth.",
+        "checked": "2026-09-03"
+      },
+      "contract": {
+        "parse": "jsonl",
+        "required_fields": [
+          "need_id",
+          "title",
+          "link"
+        ],
+        "expected_yield": {
+          "min": 3,
+          "max": 60,
+          "basis": "MEASURED 2026-09-03: beta3 RSS 7 items of which 4 carry a TT-coded need; beta2 RSS 10 items; category HTML has no pagination. Low volume by nature — BETA3's budget was cut by RVVI in June 2026, so the ceiling is structural."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "hackathon",
+      "name": "Hackathon challenges — owner-set",
+      "yields": "One challenge statement per record from six Czech hackathons whose challenges are set by a hospital, a city or a ministry (Hack jak Brno, Rakathon, Hackathon Olomouckého kraje, IDEA13, AimtecHackathon, Nakopni Prahu); the record is the statement and its owner, never the prize or the winners.",
+      "role": "feed",
+      "signal_source": "hackathon",
+      "id_prefixes": [
+        "hack"
+      ],
+      "evidence_type": "asks",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://www.hackjakbrno.cz/",
+      "script": null,
+      "status": "planned",
+      "blocker": "Fetcher scripts/fetch_hackathons.sh lands in the next commit; `script` stays null until the file exists on disk (AC-F2 refuses an orphan link). Set it, and flip to active, with the first record.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "Organizers' public event pages, plain HTML, no auth, no ToS restriction found on any of the six sites.",
+        "checked": "2026-09-03"
+      },
+      "contract": {
+        "parse": "jsonl",
+        "required_fields": [
+          "site",
+          "owner",
+          "page_url",
+          "title",
+          "text"
+        ],
+        "expected_yield": {
+          "min": 15,
+          "max": 120,
+          "basis": "MEASURED 2026-09-03: hackjakbrno 15 challenge boxes, rakathon 4, idea13 4, aimtec 5, nakopniprahu 3 areas with sub-topics, upol 'letošní témata' ≥2 — about 35–45 per full pass; the six pages are re-read every run and ids are stable, so steady state is near zero new per run."
+        },
+        "allow_missing": false
+      }
+    },
+    {
       "key": "cc-cz",
       "name": "CzechCrunch RSS",
       "yields": "CZ startup funding rounds, launches and acquisitions as they are reported.",

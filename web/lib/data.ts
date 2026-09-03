@@ -67,7 +67,7 @@ export const CATEGORIES = [
   "retail-services", "b2b", "legal-compliance", "education", "environment", "other",
 ] as const;
 
-export const EVIDENCE_TYPES = ["funded", "regulation", "tenders", "demand", "hiring"] as const;
+export const EVIDENCE_TYPES = ["funded", "regulation", "tenders", "demand", "hiring", "asks"] as const;
 export type EvidenceType = (typeof EVIDENCE_TYPES)[number];
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "ISO date required");
@@ -116,7 +116,15 @@ const SignalSchema = z.strictObject({
   //                             CONVENTIONS.md test ec-hys/nku fail and this
   //                             passes. Widened 2026-08-25, before the first
   //                             `veklep` ledger line.
-  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv", "coi", "sukl", "nen", "smlouvy", "dotace", "veklep"]),
+  //   `tacr` `hackathon`      — the `asks` ledger: scripts/fetch_tacr.sh and
+  //                             scripts/fetch_hackathons.sh. Both are new
+  //                             PUBLISHERS — TA ČR's own needs feed, and the
+  //                             hackathon organizers' own event sites — not new
+  //                             scripts over a provenance the corpus already
+  //                             carries, so both pass the same test `veklep`
+  //                             did. Widened 2026-09-03, BEFORE the first
+  //                             `asks` ledger line.
+  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv", "coi", "sukl", "nen", "smlouvy", "dotace", "veklep", "tacr", "hackathon"]),
   url: z.string().url(),
   date: isoDate,
   title: z.string().min(1),
