@@ -29,8 +29,11 @@ with sub-topics).
 ## Where it sits in the doctrine
 
 - **Evidence type, not voice.** SPEC §1 gains a fifth stream, *Direct asks*. The
-  ledger answers "what is this evidence", the `entity_native` receipt answers
-  "who asked". One field, one meaning (MATCH.md §0).
+  ledger answers "what is this evidence", the record's `notes: owner: …`
+  receipt (and its title) answers "who asked". One field, one meaning
+  (MATCH.md §0). Found while landing: `entity_native` is a STAGING field the
+  append allowlist drops, so the owner rides on `notes`, the one allowlisted
+  free-text receipt, exactly as ted carries its counterparties.
 - **Scoring.** On a problem record an `ask` source cites the DEMAND dimension
   (`TYPE_TO_DIM` in `web/lib/scorecard.ts` and `scripts/db.py`, both). It never
   moves MONEY: a 50k CZK hackathon prize is not a budget for the problem, and a

@@ -86,8 +86,8 @@ data/signals/
   regulation/<run-date>.jsonl   # regulatory triggers with dates
   tenders/<run-date>.jsonl      # tenders, grants, public contracts (ted, hlidac)
   demand/<run-date>.jsonl       # bottom-up documented complaints & unmet needs (demand-scan)
-  hiring/<run-date>.jsonl       # employers staffing a dated need (mpsv) — REGISTERED, no records yet
-  asks/<run-date>.jsonl         # direct asks from problem owners (tacr, hackathon) — REGISTERED, no records yet
+  hiring/<run-date>.jsonl       # employers staffing a dated need (mpsv) — live since 2026-08-24
+  asks/<run-date>.jsonl         # direct asks from problem owners (tacr, hackathon) — live since 2026-09-03
   seen.txt                      # one canonical id per line, sorted — the dedup index
 
 data/raw/<run-date>/            # raw fetched payloads; gitignored, pruned at 28 days

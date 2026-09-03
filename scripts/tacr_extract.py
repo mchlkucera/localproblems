@@ -403,6 +403,29 @@ def read_sources(rss_paths, html_paths, out_path, need_re=None):
 # the normalize.py extractor
 # --------------------------------------------------------------------------
 
+# A consultation post opens with logistics — the date, the room, who may attend —
+# and states the NEED only further down, after one of these labels. MEASURED
+# 2026-09-03 on the live payload: the first grader read a card built from
+# body[:200] and saw a meeting notice, not a problem, and graded every need as
+# "one organisation buying something for itself". The problem statement is the
+# evidence; the logistics are not.
+GOAL_RE = re.compile(
+    r"(?:Cílem\s+(?:výzkumné\s+potřeby|projektu)[^:]{0,80}:\s*"
+    r"|Předmětem\s+(?:této\s+)?výzkumné\s+potřeby\s+(?:je|bude)\s*:?\s*)"
+    r"(.{40,}?)"
+    r"(?=\s+Podle zákona o zadávání|\s+Předmětem konzultace|\s+Registrace|$)",
+    re.S,
+)
+
+
+def need_goal(body, limit=320):
+    """The stated goal of the need, or '' when the post never states one."""
+    m = GOAL_RE.search(body or "")
+    if not m:
+        return ""
+    return collapse(m.group(1))[:limit].rstrip(" ,;:")
+
+
 def extract_tacr(item, payload_key, today):
     """One need -> one asks record. Shape is extract_nku's."""
     nid = collapse(item.get("need_id")).upper()
@@ -412,6 +435,7 @@ def extract_tacr(item, payload_key, today):
         return None
     ministry = collapse(item.get("ministry")) or FALLBACK_ENTITY
     body = collapse(item.get("body"))
+    goal = need_goal(body)
     # The consultation date is a real date the world imposes — score_urgency's
     # job, on the same reasoning ec-hys uses for a feedback deadline.
     cdate = (item.get("consultation_date") or "")[:10]
@@ -427,8 +451,13 @@ def extract_tacr(item, payload_key, today):
         "money_eur": None,
         "money_note": "",
         "urgency_date": cdate or None,
-        "quote_parts": [p for p in (title, body[:200]) if p],
-        "excerpt": collapse(f"{title} — {ministry}: {body}")[:400],
+        # The goal paragraph when the post states one; the body's opening
+        # (logistics) only when it does not — a cancellation notice, say.
+        "quote_parts": [p for p in (title, (goal or body)[:200]) if p],
+        "excerpt": collapse(f"{title} — {ministry}: {goal or body}")[:400],
+        # WHO ASKED survives to the ledger on `notes` (the allowlisted receipt);
+        # `entity_native` is dropped at append. Same shape as hack_extract.
+        "notes": f"owner: {ministry}; need {nid}",
     }
 
 

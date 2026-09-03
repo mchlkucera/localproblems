@@ -2054,9 +2054,27 @@ def cmd_fetchlog(args):
     con = connect()
     ensure_history(con)
     rows = []
+    not_run = []
     for r in results:
         if not r.get("feed_key"):
             log("db: skipping a contract result with no feed_key")
+            continue
+        # A FEED THAT DID NOT RUN IS NOT A FEED THAT FAILED. normalize.py
+        # evaluates every active feed's contract over a raw dir, so a SCOPED run
+        # (`fetch_all.sh <dir> tacr hackathon`, or an attended agent harvest)
+        # yields a "no fetch receipt and no payload" result for every feed nobody
+        # asked to run. MEASURED 2026-09-03: logging those turned 12 LIVE feeds
+        # BROKEN in one health export, on a run that never touched them — and
+        # run 2026-08-25T0746 had already done the same to 10. A fetch_log row
+        # asserts a fetch happened; a feed that was never dispatched leaves no
+        # row, and its state then moves by CADENCE (STALE when it stops running
+        # for 3x its cadence), which is the honest reading of "did not run".
+        # The structural test comes first; the error string is a belt.
+        if (r.get("parse_method") == "none" and r.get("http_status") is None
+                and r.get("raw_path") is None and not r.get("items_fetched")
+                and not r.get("ok")
+                and str(r.get("error") or "").startswith("no fetch receipt and no payload")):
+            not_run.append(r["feed_key"])
             continue
         rec = dict(r)
         rec["run_id"] = rec.get("run_id") or run_id
@@ -2070,6 +2088,8 @@ def cmd_fetchlog(args):
     total = con.execute("SELECT COUNT(*) FROM fetch_log").fetchone()[0]
     con.close()
     print(f"fetchlog OK  run_id={run_id}  +{len(rows)} rows  (fetch_log now {total})")
+    if not_run:
+        print(f"  not logged (did not run this scoped run, not a failure): {', '.join(sorted(not_run))}")
     return 0
 
 

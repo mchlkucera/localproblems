@@ -218,6 +218,16 @@ def extraction_checks(tmp):
         yield "extract_tacr: sector/money_eur None, money_note ''", rec["sector"] is None and rec["money_eur"] is None and rec["money_note"] == ""
         yield "extract_tacr: excerpt <= 400 and quote_parts non-empty", len(rec["excerpt"]) <= 400 and len(rec["quote_parts"]) == 2
         yield "extract_tacr: no email/phone anywhere in the record", not has_contact(rec)
+        # The card the grader reads is the excerpt. It must carry the NEED, not
+        # the meeting logistics that open every consultation post.
+        yield "extract_tacr: excerpt quotes the stated goal, not the logistics", (
+            "ověřit, zda lze historická drážní vozidla" in rec["excerpt"]
+            and "Setkání proběhne" not in rec["excerpt"])
+        yield "extract_tacr: quote_parts[1] is the goal sentence", rec["quote_parts"][1].startswith("ověřit, zda lze")
+        # The owner must reach the ledger: entity_native is dropped by the
+        # append allowlist, `notes` is not.
+        yield "extract_tacr: notes carries the owner and the need code", rec.get("notes") == "owner: Ministerstvo dopravy; need TTMD0001"
+    yield "need_goal: '' when the post states no goal", tacr_extract.need_goal("Omlouváme se, konzultace se neuskuteční.") == ""
     rec2 = tacr_extract.extract_tacr(dict(a, ministry=""), "tacr", today)
     yield "extract_tacr: unknown ministry falls back to TA ČR", rec2["entity_native"] == tacr_extract.FALLBACK_ENTITY
     yield "extract_tacr: refuses a row without need_id/title/link", tacr_extract.extract_tacr({"title": "x", "link": "y"}, "tacr", today) is None

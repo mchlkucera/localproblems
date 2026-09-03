@@ -438,6 +438,11 @@ def extract_hack(item, payload_key, today):
         "urgency_date": (item.get("event_date") or "").strip() or None,
         "quote_parts": [p for p in (title, quote) if p],
         "excerpt": collapse(f"{title} — {owner}: {text}")[:400],
+        # WHO ASKED is the fact this ledger exists for, and `entity_native` is a
+        # staging field the allowlist drops before append. `notes` is the one
+        # allowlisted free-text receipt (ted carries its counterparties there),
+        # so the owner rides on it and survives to the ledger.
+        "notes": f"owner: {owner}",
     }
 
 

@@ -179,6 +179,10 @@ def case_extract_shape():
         return False, f"date {rec['date']} urgency {rec['urgency_date']}"
     if rec["quote_parts"][0] != item["title"] or len(rec["excerpt"]) > 400:
         return False, "quote_parts[0] must be the title; excerpt ≤ 400"
+    # The owner must reach the ledger: entity_native is dropped by the append
+    # allowlist, `notes` is the allowlisted receipt that carries it.
+    if rec.get("notes") != f"owner: {item['owner']}":
+        return False, "notes must carry 'owner: <owner>'"
     if rec["sector"] is not None or rec["money_eur"] is not None or rec["money_note"] != "":
         return False, "sector/money must be None/None/'' — a prize is not a budget"
     return True, f"{rec['id']} · {rec['entity_native']} · urgency {rec['urgency_date']}"

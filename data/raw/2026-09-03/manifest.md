@@ -1512,3 +1512,12 @@ rates were used in one run (dotace-scan 24.215 CZK/EUR, demand/reg-scan 24.5).
 p-0035 post-build fix: Intrakoop (founded 1959) removed from comps[] because
 CompSchema floors `since` at 1980 — it stays as arbitrage source S16; proof 3
 rests on Vivecti (DE), Vamstar (GB) and Trulla (US).
+
+## asks run — 2026-09-03 (session localproblems-80, private raw dir /tmp/claude-501/asks-run/2026-09-03)
+
+First run of the two `asks` feeds. Fetched and staged in a private raw dir because this directory held the weekly harvest's staged.jsonl at the time; completed into data/signals/asks/2026-09-03.jsonl with `--complete --allow-incomplete`. 48 staged: pass A by 4 session subagents; the 15 tacr cards were rebuilt to quote the need's stated goal and re-graded by two independent graders (lower grade per field); pass B by 2 subagents over the 32 material survivors. 16 immaterial (scale <= 1, money 0, urgency 0: one body's own study or an undated niche challenge) left staged, never appended.
+
+| run_id | feed_key | result | http | bytes | items | ms | started_at | raw_path | error |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-09-03T1805 | tacr | ok | 200 | 264232 | 15 | 3340 | 2026-09-03T18:05:58Z | /tmp/claude-501/asks-run/2026-09-03 |  |
+| 2026-09-03T1808 | hackathon | ok | 200 | 4982327 | 33 | 26587 | 2026-09-03T18:08:08Z | /tmp/claude-501/asks-run/2026-09-03 |  |

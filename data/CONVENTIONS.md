@@ -81,7 +81,7 @@ Evidence types and their feeds:
   need PAIN LANGUAGE (complaints, failures, workarounds) — engagement metrics
   never justify a record, and no single feed may dominate the ledger.
 - `hiring` — employers committing their own budget to a dated, specific need:
-  mpsv (MPSV/ÚP `volna-mista` open data). REGISTERED, no records yet.
+  mpsv (MPSV/ÚP `volna-mista` open data). Live since 2026-08-24.
   Recorded as AGGREGATES (by theme, or by theme × IČO), never one row per
   vacancy: a single posting scores `money` 1 and is filtered out of
   existence by materiality, so a per-posting feed would fetch thousands of
@@ -96,7 +96,9 @@ Evidence types and their feeds:
   problem it wants solved before money is attached: tacr (TA ČR research
   needs, scripts/fetch_tacr.sh) and hackathon (owner-set challenge statements
   from six organizer sites, scripts/fetch_hackathons.sh). NOT student-picked
-  hackathon topics, NOT petitions. REGISTERED 2026-09-03, no records yet.
+  hackathon topics, NOT petitions. Registered and first records landed
+  2026-09-03 (32 of 48 staged survived materiality: 30 challenges, 2 needs —
+  a ministry's one-off study of its own process is scale 0 and drops).
   The record is the statement and who made it; prizes, team counts and
   winners are never recorded, for the engagement-is-not-pain reason above.
 - `bootstrapped` — RESERVED (indie-hacker/revenue signals); create only when a
@@ -139,7 +141,10 @@ source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan |
             runs the BETA programmes) | hackathon (the organizers' own event
             pages — a new PUBLISHER, the hospital, city or ministry that set
             the challenge; the ledger is `asks`, and the owner is the
-            `entity_native` receipt, not the source value)
+            record's `notes: owner: …` receipt and its title, never the
+            source value — `entity_native` is a staging field the append
+            allowlist drops, so the owner rides on the one allowlisted
+            free-text receipt, as ted's counterparties do)
             THIS LIST IS AN ENUM IN web/lib/data.ts (SignalSchema.source) AND
             A LEDGER LINE CARRYING AN UNLISTED VALUE RED-BUILDS THE SITE.
             Widen the enum in a commit BEFORE the first record lands, never in
