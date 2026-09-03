@@ -232,11 +232,30 @@ sources:
     - "\"Rodinný průvodce\" poradna pečující rodiny příspěvek na péči odvolání sociální poradenství"
   checked: [ares, google-cz]
   expires: '2026-11-23'
+- type: complaint
+  name: "European Commission — 2026 Country Report for Czechia"
+  gist: "100,000 carers held back"
+  why: "Around 100,000 Czech informal carers, mostly women, report being unable to work full-time because of care duties, and only 8.3 percent of public long-term-care spending goes to home care against an EU average of 28.8 percent."
+  url: https://economy-finance.ec.europa.eu/document/download/3f5af374-4872-4b57-ac99-8507c5420083_en?filename=CZ_SWD_2026_203_1_EN_autre_document_travail_service_part1_v3.pdf
+  note: 'ecsem-cz2026-ltc-mix: Commission Staff Working Document SWD(2026) 203 final, 2026
+    Country Report — Czechia, 3 June 2026 (main text and Annex), the spending-mix and access
+    half of the long-term-care picture. 2022 figures: residential 60.2% against EU 46.2%, home
+    care 8.3% against EU 28.8%; 16.2% of over-65s with severe difficulties receive home care
+    against EU 28.6%; 63% of working-age people with disabilities do not use field services for
+    reasons of capacity, inflexibility and cost rather than preference; ~100,000 informal carers
+    constrained at work. Cited here for the informal-carer finding, which is the first
+    non-arbitrage receipt on this record for the claim that families deliver the care the
+    allowance funds — until now that sentence rested on [S1], a US comparable. Distinct from
+    civic-mpsv-ltc-predikce-2035, the bed-count half. Runner-up considered and rejected: p-0011,
+    whose buyer is the home-care agency, where this is about the family that gets no service.'
+  date: '2026-06-03'
+  signal: ecsem-cz2026-ltc-mix
+  dims: [demand]
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
-Roughly 380,000 dependent Czechs draw the state care allowance, příspěvek na péči [S2]. Families deliver most of the care it funds, unpaid [S1]. Winning it at the right level takes an application, a home assessment that sets the dependency grade (hodnocení stupně závislosti) and usually an appeal — bureaucratic and opaque [S3]. Get it wrong and the family gives the care anyway, for less state money.
+Roughly 380,000 dependent Czechs draw the state care allowance, příspěvek na péči [S2]. Families deliver most of the care it funds, unpaid: around 100,000 Czech informal carers, mostly women, report being unable to work full-time because of care duties, and only 8.3 percent of public long-term-care spending goes to home care against an EU average of 28.8 percent [S10]. Winning it at the right level takes an application, a home assessment that sets the dependency grade (hodnocení stupně závislosti) and usually an appeal — bureaucratic and opaque [S3]. Get it wrong and the family gives the care anyway, for less state money.
 
 Why now: the money riding on each claim keeps rising. The allowance went up in 2024-25 [S2], and grades I and II rose again on 1 January 2026 — an adult at grade I from 880 to 1,300 CZK a month [S7]. Nobody has built the layer that carries a family through it [S3].
 

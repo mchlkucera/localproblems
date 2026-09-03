@@ -142,8 +142,33 @@ sources:
     - "software renovační pas dekarbonizační plán budov portfolio CRREM analýza opatření úspor Česko"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
+- type: arbitrage
+  name: "aedifion"
+  gist: "the €17M controls layer"
+  why: "Cologne's aedifion raised a €17M Series B for the cloud layer that sits on a building's existing control system and tunes heating, ventilation and cooling — the building-automation half the directive forces — reporting close to 500 buildings and over 5.8 million square metres under management."
+  url: https://tech.eu/2025/06/24/aedifion-secures-eur17m-in-series-b-round/
+  note: 'de-aedifion: EUR 17M oversubscribed Series B led by Eurazeo with World Fund, Drees
+    und Sommer, BitStone Capital, Phoenix Contact Innovation Ventures, MOMENI Ventures, Bauwens
+    Capital and LARTIS, reported 2025-06-24; ~500 buildings and 5.8M m2 across Europe, Britain
+    and the United States. Cited as the ADJACENT European layer, not as proof of this record''s
+    product: aedifion optimises how a building runs, where this record ranks which building to
+    renovate and in what order. What makes it worth carrying is the Czech check attached to it,
+    run 2026-09-03 on google-cz, ares and the own funded ledger: BUILDSYS a.s. (IČO 27690253,
+    since 2006) integrates building-management systems, HGS a.s. sells the FLOWBOX energy
+    orchestration software and Novatec EAS does commercial-building energy management, with
+    Schneider Electric and Trane selling the international products here — and the EU-taxonomy
+    and ESG reporting layer is served by consultancies such as PwC Czech Republic rather than by
+    a building-operations product. No Czech vendor was found joining continuous cloud
+    optimisation to taxonomy-grade reporting. Those three Czech names are NOT on this record''s
+    ledger and are flagged for a content pass to adjudicate into locals[]; on the reading here
+    each sells integration or monitoring rather than the renovation ranking this record names,
+    so none is expected to move gap. dims empty: it is neither proof of this product nor a gap
+    finding this pass is entitled to score.'
+  date: '2025-06-24'
+  signal: de-aedifion
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 The recast Energy Performance of Buildings Directive obliges member states to force building-automation retrofits, renovation passports, zero-emission new builds and solar-readiness [S3]. Czechia, like all 27 member states, missed the 29 May 2026 transposition deadline and drew a Commission infringement procedure on 15 July 2026 [S3]. The implementing law arrives compressed, and with it the owner's question: which buildings need automated controls, which need insulation, in what order, at what cost.
@@ -152,7 +177,7 @@ Why now: the Czech implementing dates are unset [S3], and the infringement proce
 
 Who pays: commercial and institutional building owners deciding which renovations to fund first, and in what order. Municipal building stock, obligated early under the directive's public-building rules, is the procurement channel. Eleven public buyers awarded about €58M of energy-performance contracting — retrofit work repaid out of the energy it saves — between June and August 2026, three Plzeň-region hospitals among them in a single week [S4]. That is the spend a ranking product sits in front of [S4]. Those tenders buy the delivery, not the ranking.
 
-Existing non-solutions: energy specialists issue energy-performance certificates one building at a time, and PKV Build — a Czech energy consultancy — does that at scale [S2]. Enmon (PKV Build) and ENERGOMETR (DEKSOFT) monitor consumption and report sustainability across a portfolio, with no renovation roadmap, no ranking of measures and no cost modelling [S5]. Nobody sells the owner's plan: which building, which measure, in what order, as distinct from doing the work [S2,S5]. That line — monitoring versus planning — is narrower than an empty field [S5].
+Existing non-solutions: energy specialists issue energy-performance certificates one building at a time, and PKV Build — a Czech energy consultancy — does that at scale [S2]. Enmon (PKV Build) and ENERGOMETR (DEKSOFT) monitor consumption and report sustainability across a portfolio, with no renovation roadmap, no ranking of measures and no cost modelling [S5]. Nobody sells the owner's plan: which building, which measure, in what order, as distinct from doing the work [S2,S5]. That line — monitoring versus planning — is narrower than an empty field [S5]. Beside it sits the controls layer the directive forces: BUILDSYS integrates building-management systems, HGS (a Czech energy-software vendor) sells the FLOWBOX orchestration platform and Novatec EAS (energy management for commercial buildings) works the same ground, while Cologne's aedifion raised €17M for the cloud optimisation layer above the same equipment, across close to 500 buildings [S6].
 
 Solved elsewhere: three European sellers are past prototype. Predium (Munich, since 2021) raised a €13M Series A and counts Colliers and Baloise as customers; Fuchs & Eule (Berlin, since 2021) raised €10M on 10,000 building analyses; Deepki (Paris, since 2014) monitors €4 trillion of assets in 80 countries after a €150M Series C [S1]. Germany next door, France one market over — each selling the owner-side layer Czech owners lack.
 

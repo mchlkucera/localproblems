@@ -303,6 +303,20 @@ sources:
   date: '2026-08-31'
   signal: mpsv-2026-08-health-care
   dims: [demand]
+- type: regulation
+  url: https://eur-lex.europa.eu/eli/dir/2024/2831/oj
+  name: Directive (EU) 2024/2831 on platform work
+  gist: presumption of employment, Dec 2026
+  why: The EU platform-work directive must be transposed by 2 December 2026 and presumes an employment relationship wherever a platform directs and controls the work — it dates the worker-status precondition this record's build note names, and it runs against a marketplace that would direct carers' shifts.
+  note: 'Directive (EU) 2024/2831 of 23 October 2024 on improving working conditions in platform
+    work: in force 1 December 2024, transposition deadline 2 December 2026, art. 5 legal
+    presumption of employment where facts indicate control and direction. Filed 2026-09-03 after
+    the who-pays audit found build.note''s "clean worker-status answer" precondition carried no
+    source and no date. Context receipt (dims empty): it does not lift urgency for a builder, it
+    dates a risk the model must be designed around. Not a de-rank; gap untouched.'
+  date: '2024-12-01'
+  signal: none
+  dims: []
 created: '2026-08-25'
 updated: '2026-09-03'
 ---
@@ -313,7 +327,7 @@ Why now: the ministry's models add roughly 34,700 long-term-care beds by 2035, e
 
 Who pays: care providers pay per filled shift, out of money already going to staffing agencies. The July 2026 nurse postings alone carry an annualised wage floor of €10.8 million [S4]; a matching fee on a fraction of that flow is the business. Workers come for shifts they choose.
 
-Existing non-solutions: the Czech field is mature and points elsewhere. Směny.cz, Chytrá organizace, Plánuj směny and VeruApp schedule staff a provider already employs; Shiftiary does it inside hospitals, across about fifty facilities and three hundred departments; Dayswaps sells the same to more than 100 companies in five countries [S9]. Flecto runs the marketplace shape — workers booking single shifts — for Continental, Aramark and Promens; Grason runs it for restaurants, warehouses and supermarkets, and its own live job feed carries gastronomy postings only [S9]. Neither names a health or social-care buyer in public [S9]. Providers fall back on people: sestrycz.eu brokers nurses and carers into posts by phone, Přehlednější zdravotnictví advertises vacancies, and Domelie sells household carers to families [S9]. Nobody sells a care home the shift it needs tomorrow night.
+Existing non-solutions: the Czech field is mature and points elsewhere. Směny.cz, Chytrá organizace, Plánuj směny and VeruApp schedule staff a provider already employs; Shiftiary does it inside hospitals, across about fifty facilities and three hundred departments; Dayswaps sells the same to more than 100 companies in five countries [S9]. Flecto runs the marketplace shape — workers booking single shifts — for Continental, Aramark and Promens; Grason runs it for restaurants, warehouses and supermarkets, and its own live job feed carries gastronomy postings only [S9]. Neither names a health or social-care buyer in public [S9]. Providers fall back on people: sestrycz.eu brokers nurses and carers into posts by phone, Přehlednější zdravotnictví advertises vacancies, and Domelie sells household carers to families [S9]. Nobody sells a care home the shift it needs tomorrow night. Whoever does must decide who employs the carer first: the EU platform-work directive, due in Czech law by 2 December 2026, presumes employment wherever a platform directs the work [S11].
 
 Solved elsewhere: two markets, both sellers a decade in. ShiftKey has run since 2016 on $300M raised at a valuation above $2 billion, with licensed professionals bidding on single shifts at more than 10,000 facilities, skilled nursing first [S1]. Florence has run since 2017 on a £28.5M Series B, matching shifts and bundling training for 90,000 care professionals and 2,000+ care organisations [S2]. Both make their money on the margin an agency takes today. Nothing of the kind operates in Central Europe [S1,S2].
 
@@ -338,3 +352,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 11 `locals[].evidence` lines were rewri
 FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 8; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the care homes already paying agency mark-ups as the first buyer [S3,S9], the worker side built first on the widened scope of practice [S4,S6], the 34,700 beds by 2035 as the opening fact [S3,S5], and Flecto and Grason named as the marketplaces that could open a care vertical [S9]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.
 
 2026-09-02 · plain-language pass — Five trade terms glossed or replaced at first use: per-diem shifts, agency mark-up, rota software, care vertical, flexibility premium. Avian and DF Partner were cut from the First moves list and stay in the Flecto ledger entry. Argument 421 → 370 words, every [Sn] marker, figure and named company kept. First moves rewritten verbs-first. A gist added beside all nine sources. No score, status, source note or marker touched.
+
+2026-09-03 · regulation added — The build note's precondition of a clean worker-status answer had no source and no date; the who-pays audit of this date named the instrument. Directive (EU) 2024/2831 on platform work, transposition due 2 December 2026, presumes employment where a platform directs the work, so the non-solutions paragraph now says so [S11]. Filed as context, not urgency; no score, status, gap or existing marker moved.

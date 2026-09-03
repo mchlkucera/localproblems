@@ -209,6 +209,23 @@ sources:
     year or traction, so arbitrage source only, no comps entry.'
   date: '2026-08-13'
   signal: yc-evergrove
+- type: subsidy
+  name: "OPZ+ call 112 — autism-spectrum social services (100M CZK)"
+  gist: "100M CZK to these providers"
+  why: "The labour ministry opened 100 million CZK for services supporting people with autism spectrum disorder, applications from non-governmental organisations and registered social-service providers open until 23 November 2026."
+  url: https://www.esfcr.cz/vyzva-112-opz-plus
+  note: 'dotace-opz-112-pas: OP Zaměstnanost plus call 112, allocation 100,000,000 CZK
+    (~EUR 4.13M at 24.215 CZK/EUR, the daily rate printed on opd3.opd.cz on 2026-09-03),
+    applications 2026-09-02 to 2026-11-23; receipted from the esfcr.cz call page and the MMR
+    open data agreeing. Cited for the buyer, not for the service line: the eligible-applicant
+    class the call names — NNO and poskytovatelé sociálních služeb — is this record''s buyer,
+    and the money is delivery capacity, which is what the intake wedge frees. It is NOT money
+    for this product; nothing in the call pays for software, so money stays where the KOMPAS
+    contract [S7] left it. Runner-up considered and rejected: p-0033, which already carries an
+    equivalent care-capacity receipt in the Královéhradecký personal-assistance tender.'
+  date: '2026-11-23'
+  signal: dotace-opz-112-pas
+  dims: [money]
 created: '2026-08-13'
 updated: '2026-09-03'
 ---
@@ -217,7 +234,7 @@ Hundreds of Czech home-care agencies — agentury domácí péče and pečovatel
 
 Why now: the Labour Office logged 380 new general-nurse vacancies across 262 employers in July 2026 alone [S6]. Since 1 July 2026, amendment 92/2026 Sb. lets care services take on routine health-adjacent tasks — medication, stoma and urine bags — adding work per scarce nurse [S5]. Three US care-operations firms were funded in two years: Sage Care (YC S24), Cova (S26), TakeCareOS (Spring 2026) [S1,S3].
 
-Who pays: the agencies buy capacity, not savings — automated intake and coordination lets the same nurses carry more reimbursed care. The state's health-statistics institute (ÚZIS) signed ~€5.4M for KOMPAS — classification, recommended practices and cost models for home nursing care [S7].
+Who pays: the agencies buy capacity, not savings — automated intake and coordination lets the same nurses carry more reimbursed care. The state's health-statistics institute (ÚZIS) signed ~€5.4M for KOMPAS — classification, recommended practices and cost models for home nursing care [S7]. Delivery money keeps arriving at the same providers: the labour ministry opened 100M CZK for autism-spectrum services to this buyer class, closing 23 November 2026 [S9].
 
 Existing non-solutions: Cygnus DP (IRESOFT) records and bills care already given, but does not answer the phone or rebuild a cancelled day [S2]. The layer above it is taken [S4]. VeruApp plans each caregiver's day from the client's digital record; e-Sestřička covers home and palliative care on nursing billing codes 925, 720 and 926; pecovatelska.cz (Petr Zajíc software) runs community social-care services at 200+ sites; and Ústecký kraj is putting the E-péče field app into 39 providers on EU money [S4].
 

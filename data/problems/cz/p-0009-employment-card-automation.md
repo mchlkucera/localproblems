@@ -229,8 +229,31 @@ sources:
     - "HR software evidence cizinců hlídání platnosti povolení k pobytu zaměstnanecké karty upozornění zaměstnavatel systém"
   checked: [ares, google-cz]
   expires: '2026-11-23'
+- type: regulation
+  name: "Zákon 18/2004 novela — assessing non-EU qualifications"
+  gist: "a second file per hire, 2028"
+  why: "From 1 January 2028 Czechia is to get its first route for assessing a professional qualification earned outside the EU — today a diploma is recognised but that is often not enough to enter a regulated profession, so every third-country hire into one carries a second dossier alongside the employee card."
+  url: https://odok.gov.cz/portal/services/download/attachment/KORNDXANW6BC/
+  note: 'reg-uznavani-kvalifikace-treti-zeme-2028: education ministry draft amending act 18/2004,
+    důvodová zpráva attachment cited (no Závěrečná zpráva RIA is attached); the draft is the one
+    the scripted feed holds as veklep-KORNDXAMWBJD. Authorised 2026-08-25, in comment procedure;
+    effective date read verbatim from the article-by-article part ("Účinnost je navrhována na
+    1. ledna 2028") and matching the legislative plan (to government by 12.2026, effect 01.28).
+    It is the first full revision of the act since 2004 and cures the breach the Court of Justice
+    found in C-75/22 Commission v Czech Republic (articles 3(1)(g),(h), 7(3) and 51(1) of directive
+    2005/36). Other limbs: activities involving the exercise of public authority put expressly out
+    of scope, paper applications for the European Professional Card abolished, and assessment by a
+    public-law employer removed as unused. Why it is on THIS record: the duty-holder is the same
+    employer, the same hire and the same document-handling agenda the employee card creates — the
+    second file a third-country hire into a regulated profession needs. The Commission separately
+    counts 365 regulated professions in Czechia, second in the EU (ecsem-cz2026-admin-burden,
+    linked at p-0003), which sizes how often that second file is required. Filed as context: 2028
+    is beyond the 18-month deadline window, so it moves no score.'
+  date: '2028-01-01'
+  signal: reg-uznavani-kvalifikace-treti-zeme-2028
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
 Czech employers hire from Ukraine, the Philippines and India through government quota programmes [S1,S2]. The employee card — the work and residence permit each foreign hire needs — is slow and paper-based [S1]. Agencies and law firms file it by hand; no software prepares the application, tracks it, or watches renewals and reporting deadlines [S2].
@@ -239,7 +262,7 @@ Why now: Gale (YC W25) automates the corporate visa pipeline; Mayflower (YC F25)
 
 Who pays: employers who hire abroad every year — manufacturing, logistics, healthcare, IT — and pay an agency per case today [S2]. Agencies are the second buyer.
 
-The interior ministry counted about 82,000 employee-card proceedings in 2024: 14,287 new applications, 44,869 extensions, 22,793 employer changes [S5]. The quota ceiling is roughly 45,300 a year, and most countries never reach it [S6]. None of nine Czech providers publishes a per-case fee [S4,S7]; pricing needs a vendor conversation. The state fee alone is 1,000 CZK at an embassy [S5].
+The interior ministry counted about 82,000 employee-card proceedings in 2024: 14,287 new applications, 44,869 extensions, 22,793 employer changes [S5]. The quota ceiling is roughly 45,300 a year, and most countries never reach it [S6]. None of nine Czech providers publishes a per-case fee [S4,S7]; pricing needs a vendor conversation. The state fee alone is 1,000 CZK at an embassy [S5]. From 1 January 2028 the same hire may need a second dossier: Czechia is to gain its first route for assessing a qualification earned outside the EU, because recognising the diploma is often not enough to enter a regulated profession [S8].
 
 Existing non-solutions: zamestnaneckekarty.cz, the top Czech result, is the law firm Spring Walk — no portal, no tracking [S4]. Foreigners.cz, ReloCzech, Expat Support, Principio, DMPF Expat Assistant and Workking sell the same agenda by the case — people, not a portal [S4,S7]. The state business register lists nine "Relocation" and fifteen "Expat" companies, all service, tax or consulting firms [S4]. Ministry pages, permit.cz guides and law firms such as ARROWS round out the field — everyone here sells staff, not software [S2].
 

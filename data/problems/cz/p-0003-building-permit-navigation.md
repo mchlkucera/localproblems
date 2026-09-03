@@ -192,13 +192,45 @@ sources:
   date: '2026-08-19'
   signal: hlidac-36829114
   dims: [money]
+- type: complaint
+  name: "European Commission — 2026 Country Report for Czechia"
+  gist: "four packages, no faster permits"
+  why: "The Commission's own measure of the Czech compliance load: more than 1,800 obligations from 171 legal acts, 71 percent of firms calling regulation a barrier to investment in 2025 against 57 percent in 2024, four debureaucratisation packages since 2022 with little measured effect on permitting speed, and urban-plan updates in large cities that can take over a decade."
+  url: https://economy-finance.ec.europa.eu/document/download/3f5af374-4872-4b57-ac99-8507c5420083_en?filename=CZ_SWD_2026_203_1_EN_autre_document_travail_service_part1_v3.pdf
+  note: 'ecsem-cz2026-admin-burden: Commission Staff Working Document SWD(2026) 203 final,
+    2026 Country Report — Czechia, 3 June 2026. Cited for the two limbs that are about this
+    record and nothing else: four debureaucratisation packages since 2022 with little measured
+    effect on permitting speed, and an urban-plan update in a large city taking over a decade.
+    The headline burden figures (>1,800 obligations from 171 acts; 71% of firms in 2025 against
+    57% in 2024, EIB investment survey) are the surrounding measure and are cited as that.
+    Backs demand, which already sits at its ceiling here — filed as the EU-level receipt behind
+    a claim the record previously carried only from national trade press. Runner-up considered
+    and rejected: p-0006, whose buyer is the investment intermediary, not a permit applicant.'
+  date: '2026-06-03'
+  signal: ecsem-cz2026-admin-burden
+  dims: [demand]
+- type: complaint
+  name: "Ombudsman — Q2 2026 report to the Chamber of Deputies"
+  gist: "192 building complaints"
+  why: "The public defender of rights took 2,509 complaints in the second quarter of 2026, 132 more than the same quarter a year earlier, and building matters were the third-largest agenda at 192."
+  url: https://www.ochrance.cz/dokument/zpravy_pro_poslaneckou_snemovnu_2026/2026-ii-q.pdf
+  note: 'ombud-q2-2026: quarterly report to the Chamber of Deputies, file number
+    KVOP-40911/2026/S — 2,509 complaints, up 132 year on year, 79.8% inside the mandate;
+    social security 523, health administration 205, building matters 192. Only the
+    building-matters count is cited on this record. The report does not break that figure
+    down by proceeding type, so no claim is made about which stage of a permit the complaints
+    concern. A standing quarterly series (ombud-q1-2026 recorded 2,341), so it is a repeatable
+    index rather than a one-off. Backs demand, already at its ceiling.'
+  date: '2026-06-30'
+  signal: ombud-q2-2026
+  dims: [demand]
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
-Czech building-permit proceedings typically run six months to a year, related engineering work included [S5]. The July 2024 launch of the state's digital permitting portal (portál stavebníka) made it worse: a year on, the trade press (archiweb) called the system stabilized "but still facing complications" [S2]. Applicants and building offices both lost throughput moving to the new building act [S2].
+Czech building-permit proceedings typically run six months to a year, related engineering work included [S5]. The July 2024 launch of the state's digital permitting portal (portál stavebníka) made it worse: a year on, the trade press (archiweb) called the system stabilized "but still facing complications" [S2]. Applicants and building offices both lost throughput moving to the new building act [S2]. Building matters were the third-largest complaint agenda at the public defender of rights in the second quarter of 2026, at 192 in three months [S13].
 
-Why now: in August 2026 the ministry signed a contract worth about €0.8M to upgrade that same portal [S11] — two years on, the state is still buying its own fix, and a proceeding still runs six months to a year [S5].
+Why now: in August 2026 the ministry signed a contract worth about €0.8M to upgrade that same portal [S11] — two years on, the state is still buying its own fix, and a proceeding still runs six months to a year [S5]. Four debureaucratisation packages since 2022 have had little measured effect on permitting speed, and in a large city an urban-plan update can still take over a decade [S12].
 
 Who pays: developers who commission building work, and the engineering and architecture offices that draw up their design documents. About 36,300 authorised engineers and architects do that work [S9]; 61,613 permits were issued in 2025 [S8]. By hand on a single family house it is published at 16,000–42,000 CZK a project [S10]; Průvodka undercuts that at 12,900 CZK [S7]. A tenth of the annual permit flow at that price is about €3M a year — a floor, and only if it sells per permit [S7,S8].
 

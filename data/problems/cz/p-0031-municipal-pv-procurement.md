@@ -274,6 +274,30 @@ sources:
   date: '2026-08-27'
   signal: ted-591378-2026
   dims: []
+- type: regulation
+  name: "Zákon o obcích novela — společenství obcí as a shared-services platform"
+  gist: "the buying vehicle, deepened"
+  why: "The interior ministry's bill widens the společenství obcí — the municipal union this record's pooled tender would run through — into a shared-services platform with state-budget support behind it, proposed to take effect on 1 January 2027."
+  url: https://odok.gov.cz/portal/services/download/attachment/KORNDWGFEZO3/
+  note: 'reg-obce-spolecenstvi-sdilene-agendy: Závěrečná zpráva RIA to the interior ministry
+    bill amending act 128/2000 (obce), the draft the scripted feed holds as
+    veklep-ALBSDRFEKCIO; the RIA attachment is cited rather than the material page. Authorised
+    2026-02-19, government-approved package dated 2026-07-30, proposed effective 01/2027, ex-post
+    RIA after five years. Substance used here: the společenství obcí is deepened into a platform
+    for pooling agendas a small municipality cannot run alone, with state-budget support, plus a
+    new register of voluntary municipal associations (3–5m CZK to build, ~1.2m CZK a year to run)
+    and a public register of mayors. RIA facts: 6,254 municipalities averaging 1,710 inhabitants
+    against an OECD average of 10,250 and an EU average of 5,960; median 442; 96% under 5,000;
+    average area 13 km2 against an OECD 234; public-administration costs 63.1bn CZK in 2022; a
+    TAČR DEA analysis (TL01000463) puts peak relative efficiency at 10,000–50,000 inhabitants and
+    the společenství formed so far average 21,700, inside that band. This dates and strengthens
+    the buying vehicle First moves step 2 already names off [S7]; it is a change to the pooling
+    instrument, not a compliance duty on the buyer, so it is filed as context and moves no score.
+    Runner-up considered and rejected: p-0029, whose product is the attested records system, not
+    joint procurement.'
+  date: '2027-01-01'
+  signal: reg-obce-spolecenstvi-sdilene-agendy
+  dims: []
 created: '2026-08-13'
 updated: '2026-09-03'
 ---
@@ -293,7 +317,7 @@ Solved elsewhere: iChoosr has pooled demand into single tendered contracts from 
 ## First moves
 
 1. Sell first to the towns whose tenders have already failed. Špindlerův Mlýn published the same wastewater-plant solar tender three times in ten weeks; Hrabová and Nymburk re-ran identical lots [S2]. Each has a subsidy clock running and a lot too small to interest a supplier. They are the cheapest first customers in the wave.
-2. Build the pooled tender, not an installation business. One catalogue specification, one fixed price per installed kilowatt, many towns' roofs inside a single procedure — the model iChoosr has run from the Netherlands since 2008 and more than 200 British councils buy as Solar Together [S5]. No new law is needed. RES+ already permits a joint project spanning up to three neighbouring municipalities, and the společenství obcí — municipal unions created by the 2024 amendment to the municipalities act — may buy centrally for their members, through a framework agreement or a dynamic purchasing system (a standing list of pre-qualified suppliers) [S7].
+2. Build the pooled tender, not an installation business. One catalogue specification, one fixed price per installed kilowatt, many towns' roofs inside a single procedure — the model iChoosr has run from the Netherlands since 2008 and more than 200 British councils buy as Solar Together [S5]. No new law is needed. RES+ already permits a joint project spanning up to three neighbouring municipalities, and the společenství obcí — municipal unions created by the 2024 amendment to the municipalities act — may buy centrally for their members, through a framework agreement or a dynamic purchasing system (a standing list of pre-qualified suppliers) [S7]. That vehicle is about to get stronger: a further amendment, proposed to take effect on 1 January 2027, turns the společenství into a shared-services platform with state-budget support, in a country of 6,254 municipalities averaging 1,710 inhabitants against an average of 10,250 across the OECD — the club of developed economies [S10].
 3. Open the first conversation with the size of the duplication. Between June and August 2026, 53 public buyers ran about 80 separate rooftop-solar procurements worth roughly €60M, most lots between €120k and €1M, each carrying its own documentation, its own evaluation and its own contract administration [S1].
 4. Watch eCENTRE, and move first. It pools municipalities, households and firms into one negotiated contract, runs the SMS ČR joint purchase, names Ostrava, Svitavy and Frýdlant nad Ostravicí as customers, and has aggregated buying since 2006 [S7]. What it pools is electricity and gas, and its site offers no solar procurement at all [S7]. It is one product decision away.
 

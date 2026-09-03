@@ -169,11 +169,31 @@ sources:
     - 'AI Act povinnosti české firmy srpen 2026 nástroj software'
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-23'
+- type: regulation
+  name: "Plán legislativních prací vlády 2026 — annex 1"
+  gist: "the government's own late list"
+  why: "The government's own legislative plan flags 21 of its bills for EU infringement exposure — the AI act adaptation among them, planned to take effect in July 2026, a date already past."
+  url: https://vlada.gov.cz/assets/media-centrum/dulezite-dokumenty/1234_2026_priloha_c-_1.pdf
+  note: 'reg-plan2026-eu-infringement: annex 1 to government resolution 175 of 23 March 2026,
+    the legislative plan for the rest of 2026. 21 of 112 tasks carry an infringement footnote;
+    16 read "Předložení návrhu v daném termínu je spojeno s hrozbou zahájení řízení", 5 read
+    "Implementační lhůta u předpisu EU nebyla dodržena", and one — the capital-market act
+    transposing directive 2022/2381, unrelated to this record — already has proceedings open
+    with a real prospect of an Article 260(3) TFEU sanction. Cited here for one row: MPO-1, the
+    AI act adaptation, planned effective 07.2026 and footnoted for infringement risk. That is
+    the government''s own dated admission behind this record''s claim that the bill is late,
+    which until now rested on the VeKLEP material page [S1] and a law-firm note [S2]. Context
+    receipt: it does not move urgency, which the in-force transparency tier already sets at its
+    deadline ceiling [S3]. Runner-ups on the same plan and deliberately not linked: MPO-2 Data
+    Act and MPO-7 CRA, which belong to p-0021 and p-0016, both rejected records.'
+  date: '2026-03-23'
+  signal: reg-plan2026-eu-infringement
+  dims: []
 created: '2026-08-25'
-updated: '2026-09-02'
+updated: '2026-09-03'
 ---
 
-Since 2 August 2026 the EU AI Act's transparency rules bind every Czech firm putting AI in front of customers: a chatbot must say it is a machine, AI-made content must be labelled [S3]. The industry ministry's bill naming its enforcer has awaited the government since June 2026 [S1,S2], and Czechia missed the EU deadline for designating national AI authorities [S4].
+Since 2 August 2026 the EU AI Act's transparency rules bind every Czech firm putting AI in front of customers: a chatbot must say it is a machine, AI-made content must be labelled [S3]. The industry ministry's bill naming its enforcer has awaited the government since June 2026 [S1,S2], and Czechia missed the EU deadline for designating national AI authorities [S4]. The government's own legislative plan had the bill taking effect in July 2026 and flags it, with twenty other files, for EU infringement exposure [S8].
 
 Why now: the draft gives general oversight to ČTÚ (the telecoms regulator), financial firms to ČNB (the central bank) and sensitive high-risk systems to ÚOOÚ (the data-protection office), with turnover-scaled fines and a sandbox at ČAS (the standards agency) [S2]. None of it operates yet. The Digital Omnibus pushed high-risk deadlines to December 2027 and August 2028 [S3], so transparency is the wave already here.
 
