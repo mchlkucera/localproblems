@@ -77,6 +77,11 @@ import coi_extract    # noqa: E402
 import nen_extract    # noqa: E402
 import sukl_extract   # noqa: E402
 from mpsv_extract import extract_mpsv  # noqa: E402
+# The two `asks` feeds (2026-09-03). Each owns a file for the nen reason: the
+# fetcher's payload reader, the MODE-A guards and the extractor share one module
+# so the self-test drives the same code the run does.
+import hack_extract   # noqa: E402
+import tacr_extract   # noqa: E402
 
 # A FIXED, STATED ASSUMPTION, not a live rate. Ingest must run with no network,
 # so money_eur derived from a CZK figure uses this constant and money_note says
@@ -142,6 +147,11 @@ FILE_FEED_TOKENS = [
     # writes) contains none of the tokens below, and no other fetcher writes a
     # filename containing `veklep`.
     ("veklep", "veklep"),
+    # The two `asks` payloads, `tacr-needs.jsonl` and `hack-challenges.jsonl`.
+    # Above the short generic tokens on the first-match-wins rule. Verified
+    # 2026-09-03: neither name contains nen / ted / yc / hys / ares / coi, and
+    # no other fetcher writes a filename containing `tacr` or `hack`.
+    ("tacr", "tacr"), ("hack", "hackathon"),
     ("nku", "nku"), ("sukl", "sukl"), ("mpsv", "mpsv"), ("ares", "ares"),
     ("coi", "coi"),
     ("hys", "ec-hys"),
@@ -1235,6 +1245,11 @@ EXTRACTORS = {
     "veklep": extract_veklep,
     "coi": coi_extract.extract_coi, "sukl": sukl_extract.extract_sukl,
     "mpsv": extract_mpsv,
+    # `asks` — direct asks from problem owners. Both stamp evidence_type "asks"
+    # and put the owner in entity_native; neither carries money, and urgency
+    # comes from the consultation / event date exactly as ec-hys reads its
+    # feedback deadline.
+    "tacr": tacr_extract.extract_tacr, "hackathon": hack_extract.extract_hack,
 }
 
 # Feeds that legitimately keep ZERO records from a healthy payload. `ares`,

@@ -128,9 +128,9 @@
       "cadence": "daily",
       "runner": "local",
       "url": "https://tacr.gov.cz/kategorie/beta3/feed/",
-      "script": null,
-      "status": "planned",
-      "blocker": "Fetcher scripts/fetch_tacr.sh lands in the next commit; `script` stays null until the file exists on disk (AC-F2 refuses an orphan link). Set it, and flip to active, with the first record.",
+      "script": "scripts/fetch_tacr.sh",
+      "status": "active",
+      "blocker": null,
       "last_known_good": null,
       "access": {
         "verdict": "allowed",
@@ -147,7 +147,7 @@
         "expected_yield": {
           "min": 3,
           "max": 60,
-          "basis": "MEASURED 2026-09-03: beta3 RSS 7 items of which 4 carry a TT-coded need; beta2 RSS 10 items; category HTML has no pagination. Low volume by nature — BETA3's budget was cut by RVVI in June 2026, so the ceiling is structural."
+          "basis": "MEASURED 2026-09-03 (scripts/fetch_tacr.sh, first run): beta3 RSS 7 posts + beta2 RSS 10 + category HTML 5+5 excerpts -> 24 need-coded candidates -> 15 unique needs (5 BETA3 TT-codes, 10 BETA2 TI-codes); 2 non-need posts dropped. No pagination anywhere, so this IS the whole public history — steady state is 0-2 new per run, and BETA3's budget was cut by RVVI in June 2026, so the ceiling is structural. Counts items_fetched."
         },
         "allow_missing": false
       }
@@ -165,9 +165,9 @@
       "cadence": "daily",
       "runner": "local",
       "url": "https://www.hackjakbrno.cz/",
-      "script": null,
-      "status": "planned",
-      "blocker": "Fetcher scripts/fetch_hackathons.sh lands in the next commit; `script` stays null until the file exists on disk (AC-F2 refuses an orphan link). Set it, and flip to active, with the first record.",
+      "script": "scripts/fetch_hackathons.sh",
+      "status": "active",
+      "blocker": null,
       "last_known_good": null,
       "access": {
         "verdict": "allowed",
@@ -186,7 +186,7 @@
         "expected_yield": {
           "min": 15,
           "max": 120,
-          "basis": "MEASURED 2026-09-03: hackjakbrno 15 challenge boxes, rakathon 4, idea13 4, aimtec 5, nakopniprahu 3 areas with sub-topics, upol 'letošní témata' ≥2 — about 35–45 per full pass; the six pages are re-read every run and ids are stable, so steady state is near zero new per run."
+          "basis": "MEASURED 2026-09-03 (scripts/fetch_hackathons.sh, first run, six pages, 4.98 MB): hackjakbrno 9 challenges (the 6 prize boxes in identical markup are dropped), rakathon 4, upol 5, idea13 4, aimtec 5, nakopniprahu 6 sub-topics -> 33 unique ids. The six pages are re-read every run and ids come from the statement, so steady state is near zero new per run; the range covers a full re-read (min 15 = any two sites down) and an edition where every site doubles its list. Counts items_fetched."
         },
         "allow_missing": false
       }
