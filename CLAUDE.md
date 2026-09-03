@@ -42,12 +42,15 @@ when someone runs a Vercel CLI deploy, and it must be a **prebuilt** one:
 
 ```
 cd web
-vercel build --prod              # runs the full prebuild gate locally
-vercel deploy --prebuilt --prod  # uploads .vercel/output only
+vercel build --prod                            # runs the full prebuild gate locally
+vercel deploy --prebuilt --prod --archive=tgz  # uploads .vercel/output only, as ONE archive
 ```
 
 Build locally and ship the output — the gate runs `check-css` against `../skills`
 and `db-gate` against `../data`, which only a local build can see. Deploying any
 other way is costly, not merely wrong: a root deploy pushes ~650 MB across
 thousands of files and burns the account's free-tier upload quota for 24 hours.
-`.vercelignore` documents both failure modes.
+`.vercelignore` documents both failure modes. `--archive=tgz` is not optional
+either: the free tier counts uploaded FILES (5,000 per 24 h, code
+`api-upload-free`), and a prebuilt output of ~220 pages is thousands of files,
+so a second deploy in one evening fails without it (measured 2026-09-03).

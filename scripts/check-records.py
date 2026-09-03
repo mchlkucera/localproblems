@@ -599,6 +599,26 @@ def check(path, year):
                           f"the {len(comps)} comp(s) passes the established test — the "
                           f"ladder puts early-only players at 1")
 
+    # -- ASK: a direct ask cites DEMAND and nothing else (MATCH.md §11) -------
+    # An `ask` source is a signal from the `asks` ledger: an owner stating a
+    # problem before money is attached. A prize is not a budget and a research
+    # need's budget arrives with the later tender, so the rule is "never money";
+    # TYPE_TO_DIM already routes an untagged ask to demand, and this is the
+    # check behind the prose for the tagged case (CLAUDE.md rule 2).
+    if live:
+        for s in sources:
+            if s.get("type") != "ask":
+                continue
+            dims = [d for d in (s.get("dims") or []) if isinstance(d, str)]
+            bad = sorted(set(dims) & {"money", "proof", "gap", "urgency"})
+            if bad:
+                errors.append(f"ask source {s.get('signal') or s.get('url')} cites "
+                              f"{', '.join(bad)} — a direct ask cites demand only "
+                              f"(MATCH.md §11); drop the tag or change the type")
+            if not s.get("signal"):
+                errors.append(f"ask source {s.get('url')} has no `signal:` — an ask is "
+                              f"a ledger record, cite its asks id")
+
     # -- GAP: keyed on BOTH fields, and the check is a receipt, never a score --
     # v1 rung 0 literally meant "check not done", so a de-ranked record and an
     # unchecked one rendered the same verdict above a printed list of

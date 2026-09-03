@@ -198,6 +198,13 @@ RAN=""; FAILED=""
 # associative arrays, no mapfile (§ hard constraints).
 while IFS=$'\t' read -r key status script allow_missing; do
   [ -n "${key:-}" ] || continue
+  # A SCOPED RUN WRITES NOTHING FOR WHAT IT DID NOT DISPATCH — deliberately not
+  # a `skipped` receipt: db.py health resets a feed's failure streak on ANY
+  # ok=1 row, and a skipped row is ok=1, so a receipt here would read a BROKEN
+  # feed back to LIVE without fetching it. No row means not dispatched; db.py
+  # fetchlog drops normalize's "did not run" result on the same reading. The
+  # case that must NOT look like this — a fetcher that died before its first
+  # manifest row — gets an `error` receipt below, from the dispatcher.
   wanted "$key" || continue
 
   if [ "$status" = "dead" ]; then
@@ -288,7 +295,17 @@ while IFS=$'\t' read -r key status script allow_missing; do
   esac
   rc=$?
   RAN="$RAN $key"
-  [ "$rc" -ne 0 ] && FAILED="$FAILED $key(rc=$rc)"
+  if [ "$rc" -ne 0 ]; then
+    FAILED="$FAILED $key(rc=$rc)"
+    # A FETCHER THAT DIED BEFORE ITS FIRST MANIFEST ROW (a missing jq exits 2 on
+    # the first line of every script here) leaves no receipt and no payload —
+    # indistinguishable from "not dispatched" unless the dispatcher says so.
+    # The receipt is written HERE, by the process that observed the exit code.
+    if ! grep -q "\"run_id\":\"$RUN_ID\",\"feed_key\":\"$key\"" "$OUTDIR/.fetch/receipts.jsonl" 2>/dev/null; then
+      mf "$key" error 000 0 0 0 "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "" \
+         "fetcher exited rc=$rc before writing a receipt"
+    fi
+  fi
 done <<EOF
 $(feed_table)
 EOF
