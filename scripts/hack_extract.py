@@ -11,6 +11,29 @@ procurement money exists. That statement and its owner are the record. Prizes,
 team counts and winners are never staged; see
 docs/superpowers/specs/2026-09-03-asks-ledger-design.md.
 
+WHAT IS REFUSED (owner decisions, 2026-09-03)
+=============================================
+Two rules, both enforced here and again in extract_hack(), never by prose:
+  no named owner           The owner is the institution the PAGE names as the
+                           challenge's setter — a "Zadavatel:" label on the box,
+                           an institution named in the paragraph, or the setters
+                           the page names once for all its challenges. There is
+                           no organizer-as-owner fallback: "the organizer when
+                           the page names none" is the definition of NOT
+                           owner-set. A challenge with no such name is counted
+                           and reported, not staged.
+  bare title, no statement A row must state a problem. Text that is the title,
+                           or shorter than MIN_STATEMENT characters after
+                           collapse (UPOL's bare topic lines), is a heading, not
+                           an ask. Counted and reported, not staged.
+Refusals travel on stderr from parse_site() because the fetcher's summary is a
+heredoc that calls nothing but parse_site(); parse_site_report() is the pure
+function behind it, for tests.
+
+The event date is context, not urgency: extract_hack() stages `urgency_date`
+None. The owner ruled that a hackathon date is not a deadline the world imposes
+on the problem; materiality for asks is decided by scale, in normalize.py.
+
 WHY ONE RULE TABLE AND NOT SIX PARSERS
 ======================================
 All six pages reduce to the same walk: bound the section, then read title /
@@ -26,14 +49,19 @@ MEASURED 2026-09-03 (browser-style UA; hackjakbrno 403s curl's default one):
                 heading "Zadavatel: <owner>" — the owner is explicit.
   rakathon      860 kB Squarespace. <h2>Výzvy</h2>, <h4>"Příklady výzev z
                 minulého ročníku…", 4 × <h3> whose paragraph PRECEDES the
-                heading in source order (grid layout). Hospitals appear only
-                as logos and one prose sentence, never per challenge.
+                heading in source order (grid layout). The hospitals that set
+                the challenges are named once, in prose — "v Praze (FN Motol a
+                Homolka…), v Brně (MOU…) a v Ostravě (Fakultní nemocnice
+                Ostrava…)" — never per challenge, so the owner is that list,
+                read from the page on every run (`setters`).
   upol          3.6 MB Elementor, base64 figma blobs inside span attributes.
                 Two "letošní témata k řešení:" headings: the first sits in a
                 container classed elementor-hidden-desktop/tablet/mobile and
                 holds last year's topic lines (bare heading spans, no
-                paragraph; "cena EnCLOD" prize badges; "Vlastní nápad" last);
-                the second, visible, says "Právě pro vás vymýšlíme nová témata".
+                paragraph — refused as "bare title, no statement"; "cena
+                EnCLOD" prize badges; "Vlastní nápad" last); the second,
+                visible, says "Právě pro vás vymýšlíme nová témata". The page
+                names Olomoucký kraj and Statutární město Olomouc as setters.
   idea13        171 kB WordPress/Elementor. 4 × <h3>"Výzva č. N: Title" + <p>.
   aimtec         69 kB. <p>"Do kterých výzev se hackeři v roce 2026 pustili?"
                 then promo__col blocks of <h3> + first non-empty <p>; the list
@@ -57,7 +85,8 @@ CLI (driven by scripts/fetch_hackathons.sh):
     hack_extract.py sites               -> "key<TAB>url" per site, from SITES
     hack_extract.py guard KEY FILE      -> exit 0 = page we contracted for,
                                            exit 3 = MODE-A refused (reason on stdout)
-    hack_extract.py parse KEY FILE      -> one JSON row per challenge on stdout
+    hack_extract.py parse KEY FILE      -> one JSON row per challenge on stdout,
+                                           refusals counted on stderr
 """
 
 import hashlib
@@ -70,27 +99,33 @@ import sys
 # the rule table — one row per site
 # --------------------------------------------------------------------------
 # Every regex captures its payload in a group named `v`. Fields:
-#   url / host / owner   page fetched, `site` staged, owner when the page names none
+#   url / host           page fetched, `site` staged
 #   marker               MODE-A contract: a 200 whose body lacks it is not this page
 #   start / end          the section; `end` is optional (to end of document)
 #   title / para         the challenge name and its text, in source order
 #   owner_label          an explicit per-challenge owner element (hackjakbrno)
+#   setters              (regex, name) pairs: the institutions the PAGE names
+#                        as the setters of ALL its challenges; a name counts
+#                        only when its regex matches the page, and the owner
+#                        is the comma-joined names — read per run, never a
+#                        constant (rakathon, upol, idea13, nakopniprahu)
 #   area                 a grouping heading prefixed to the title (nakopniprahu)
 #   para_before          the paragraph precedes its heading (rakathon)
 #   drop_title           titles that share the markup but are not challenges
 #   strip_title          an ordinal to remove so re-numbering keeps ids stable
 #   owner_hints          (regex, owner) tried on the block text, first wins
+#                        — an institution the paragraph itself names (aimtec)
 #   edition_re           a year in the section heading; else the event year
 #   prev_edition_re      the section is last year's — edition = event year − 1
 #   date_re              where the event date is; default = first date in <body>
-#   text_fallback_title  bare topic lines: text mirrors the title, never ""
+# Owner precedence per block: owner_label, then owner_hints, then setters.
+# A block that reaches the end of that list with nothing is refused.
 MONTHS = ("ledna|února|března|dubna|května|června|července|srpna|září|října|"
           "listopadu|prosince")
 
 SITES = {
     "hackjakbrno": dict(
         url="https://www.hackjakbrno.cz/", host="www.hackjakbrno.cz",
-        owner="Hack jak Brno (FN Brno, FNUSA, MOÚ, JINAG)",
         marker=r"<h\d[^>]*>\s*V[ýy]zvy\s*20\d\d",
         start=r"<h\d[^>]*>\s*V[ýy]zvy\s*20\d\d", end=r"Hlavn[ií] ceny",
         title=r"<h\d[^>]*elementor-icon-box-title[^>]*>(?P<v>.*?)</h\d>",
@@ -105,7 +140,6 @@ SITES = {
     ),
     "rakathon": dict(
         url="https://www.rakathon.cz/", host="www.rakathon.cz",
-        owner="Rakathon (FN Motol, MOÚ, FN Ostrava)",
         # idea13 carries an identical bare <h2>Výzvy</h2>; the Squarespace text
         # block wrapping it is what makes the body THIS page (self-test: a
         # misrouted idea13 page must be refused here).
@@ -114,16 +148,22 @@ SITES = {
         title=r"<h3[^>]*>(?P<v>.*?)</h3>",
         para=r"<p[^>]*>(?P<v>.*?)</p>",
         para_before=True,
-        owner_hints=(
-            (r"\bFN Motol\b", "FN Motol"),
+        # The page names the participating hospitals as the setters, once, in
+        # prose; the owner is that list (owner ruling 2026-09-03), and each
+        # name is kept only while the page still says it.
+        setters=(
+            (r"\bFN Motol\b|Fakultn[ií] nemocnic[ei] (?:v )?Motol", "FN Motol"),
             (r"Masaryk[ůu]v onkologick[ýy]|\bMO[UÚ]\b", "Masarykův onkologický ústav"),
-            (r"FN Ostrava|Fakultn[ií] nemocnice Ostrava", "FN Ostrava"),
+            (r"\bFN Ostrava\b|Fakultn[ií] nemocnic[ei] Ostrava", "FN Ostrava"),
         ),
         prev_edition_re=r"minul[ée]ho ro[čc]n[ií]ku|lo[ňn]sk[ée]ho ro[čc]n[ií]ku",
     ),
     "upol": dict(
         url="https://hackathon.upol.cz/", host="hackathon.upol.cz",
-        owner="Olomoucký kraj a město Olomouc",
+        setters=(
+            (r"Olomouck[ýy] kraj", "Olomoucký kraj"),
+            (r"(?:Statut[áa]rn[ií] )?m[ěe]sto Olomouc", "město Olomouc"),
+        ),
         marker=r"leto[šs]n[ií] t[ée]mata k [řr]e[šs]en[ií]",
         start=r"<h\d[^>]*>\s*leto[šs]n[ií] t[ée]mata k [řr]e[šs]en[ií]",
         end=r"p[řr]i [řr]e[šs]en[ií] projekt[ůu] podporujeme|leto[šs]n[ií] t[ée]mata k [řr]e[šs]en[ií]|T[řr][ií]denn[ií] hackathon",
@@ -135,11 +175,12 @@ SITES = {
         drop_title=r"^Vlastn[ií] n[áa]pad$|^cena EnCLOD$",
         strip_title=r"^cena EnCLOD\s*",
         prev_edition_re=r"elementor-hidden-desktop",
-        text_fallback_title=True,
     ),
     "idea13": dict(
         url="https://www.idea13.cz/", host="www.idea13.cz",
-        owner="MČ Praha 13",
+        # The institution, not the place: "obyvatelům Prahy 13" is where the
+        # ideas are for, "Ideathon pořádá MČ Praha 13" is who asks.
+        setters=((r"\bM[ČC] Praha 13\b|m[ěe]stsk[áa] [čc][áa]st Praha 13|[úÚ][řr]ad m[ěe]stsk[ée] [čc][áa]sti Praha 13", "MČ Praha 13"),),
         marker=r"V[ýy]zva\s*č\.\s*\d",
         start=r"<h2[^>]*>\s*V[ýy]zvy\s*</h2>", end=r"[ČC]ast[ée] dotazy",
         title=r"<h3[^>]*>(?P<v>.*?)</h3>",
@@ -148,7 +189,8 @@ SITES = {
     ),
     "aimtec": dict(
         url="https://www.aimtechackathon.cz/hackathon/", host="www.aimtechackathon.cz",
-        owner="AimtecHackathon (Plzeň)",
+        # No page-level setters: the organizer is a company and Plzeň is the
+        # venue. Only a paragraph that names an institution has an owner.
         marker=r"Do kter[ýy]ch v[ýy]zev se hacke[řr]i v roce 20\d\d pustili",
         start=r"Do kter[ýy]ch v[ýy]zev se hacke[řr]i v roce 20\d\d pustili",
         end=r"promo__col--green",
@@ -163,7 +205,10 @@ SITES = {
     ),
     "nakopniprahu": dict(
         url="https://www.nakopniprahu.cz/", host="www.nakopniprahu.cz",
-        owner="Hlavní město Praha (MHMP, OICT)",
+        setters=(
+            (r"Magistr[áa]t(?:u|em)? hlavn[ií]ho m[ěe]sta Prahy|Hlavn[ií] m[ěe]sto Praha|\bMHMP\b", "Hlavní město Praha (MHMP)"),
+            (r"\bOICT\b|Oper[áa]tor ICT", "OICT"),
+        ),
         marker=r"V[ÝY]ZVY NAKOPNI PRAHU\s*20\d\d",
         start=r"<h2[^>]*>\s*V[ÝY]ZVY NAKOPNI PRAHU\s*20\d\d", end=r"<h2[^>]*>\s*TIMELINE",
         area=r"<h3[^>]*points-item__title[^>]*>(?P<v>.*?)</h3>",
@@ -232,6 +277,20 @@ def cut_contacts(text):
     is still a name."""
     kept = [s for s in _SENTENCE.split(text or "") if s.strip() and not is_contact(s)]
     return collapse(" ".join(kept))
+
+
+# A statement shorter than this, after collapse, is a heading — UPOL's topic
+# lines run 41–86 chars and say what the topic is, not what the problem is.
+MIN_STATEMENT = 80
+
+NO_OWNER = "no named owner"
+BARE_TITLE = "bare title, no statement"
+
+
+def is_statement(text, title):
+    """True when `text` states a problem rather than restating the title."""
+    t = collapse(text)
+    return bool(t) and len(t) >= MIN_STATEMENT and t.casefold() != collapse(title).casefold()
 
 
 def cap(text, n):
@@ -343,18 +402,32 @@ def _edition(rule, body, start_at, first_title_at, ev):
     return year
 
 
-def _owner(rule, block):
+def page_setters(rule, body):
+    """The setters the page names, in rule order — each name only while its
+    regex matches the visible page. "" when the page names none of them."""
+    if not rule.get("setters"):
+        return ""
+    i = body.find("<body")
+    text = strip_tags(body[i if i >= 0 else 0:])
+    return ", ".join(name for rx, name in rule["setters"] if re.search(rx, text, re.I))
+
+
+def _owner(rule, block, setters):
+    """Label, then a hint in the block's own text, then the page's setters.
+    "" when none names an institution — there is no organizer fallback."""
     if block["owners"]:
         return " / ".join(dict.fromkeys(block["owners"]))
     for rx, owner in rule.get("owner_hints") or ():
         if re.search(rx, block["title"] + " " + " ".join(block["paras"])):
             return owner
-    return rule["owner"]
+    return setters
 
 
-def parse_site(key, body):
-    """The rows for one site's page, in page order. Empty when the section
-    holds no challenge (UPOL between editions) — the caller reports that."""
+def parse_site_report(key, body):
+    """(rows, drops) for one site's page, rows in page order. `drops` maps a
+    refusal reason (NO_OWNER, BARE_TITLE) to the titles refused for it. Empty
+    rows when the section holds no challenge (UPOL between editions) — the
+    caller reports that."""
     rule = SITES[key]
     start_at, sec = _section(rule, body)
     toks = _tokens(rule, sec)
@@ -389,16 +462,40 @@ def parse_site(key, body):
         first_at = re.search(rule["start"], body, re.S | re.I).end() + blocks[0]["at"]
     edition = _edition(rule, body, start_at, first_at, ev)
 
-    rows = []
+    setters = page_setters(rule, body)
+    rows, drops = [], {}
     for b in blocks:
         text = cap(cut_contacts(" ".join(b["paras"])), 1500)
         title = f"{b['area']} · {b['title']}" if b["area"] else b["title"]
-        if not text and rule.get("text_fallback_title"):
-            text = title
-        if not text:
+        owner = _owner(rule, b, setters)
+        if not owner:
+            drops.setdefault(NO_OWNER, []).append(title)
             continue
-        rows.append({"site": rule["host"], "owner": _owner(rule, b), "page_url": rule["url"],
+        if not is_statement(text, b["title"]) or not is_statement(text, title):
+            drops.setdefault(BARE_TITLE, []).append(title)
+            continue
+        rows.append({"site": rule["host"], "owner": owner, "page_url": rule["url"],
                      "title": title, "text": text, "event_date": ev, "edition": edition})
+    return rows, drops
+
+
+def report_drops(key, drops, out=None):
+    """One line per refusal reason, in the fetcher summary's own indent."""
+    out = out or sys.stderr
+    for reason, titles in drops.items():
+        shown = "; ".join(t[:60] for t in titles)
+        print(f"    {key:14s} refused {len(titles)}: {reason} — {shown}", file=out)
+
+
+def parse_site(key, body):
+    """The rows for one site's page, in page order. Refusals are counted and
+    reported on stderr (stdout is flushed first so the lines land in order
+    inside the fetcher's summary, which is the stdout of a heredoc that calls
+    nothing but this function)."""
+    rows, drops = parse_site_report(key, body)
+    if drops:
+        sys.stdout.flush()
+        report_drops(key, drops)
     return rows
 
 
@@ -411,8 +508,8 @@ def extract_hack(item, payload_key, today):
 
     `date` is first-seen: the page carries no publication date and the id is
     sha1(site|title), stable across runs, so seen.txt dedupes re-fetches.
-    `urgency_date` is the event date — the same reasoning as ec-hys: a real
-    date the world imposes, which is what keeps a money-0 record material.
+    `urgency_date` is None, always — see below. The two refusals parse_site
+    enforces are enforced here again: a payload row is a file anyone can edit.
     """
     site = collapse(item.get("site"))
     title = collapse(item.get("title"))
@@ -421,6 +518,8 @@ def extract_hack(item, payload_key, today):
     if not site or not title or not owner or not url:
         return None
     text = collapse(item.get("text"))
+    if not is_statement(text, title):
+        return None
     quote = text[:200]
     if len(text) > 200 and " " in quote:
         quote = quote[:quote.rfind(" ")]
@@ -432,17 +531,23 @@ def extract_hack(item, payload_key, today):
         "date": today.isoformat(),
         "title_native": title,
         "entity_native": owner,
+        # WHO ASKED is the fact this ledger exists for: a top-level, schema'd
+        # field, required on every asks record. `entity_native` stays for the
+        # extract_nku shape; `notes` keeps a copy until the orchestrator
+        # retires it.
+        "owner": owner,
         "sector": None,
         "money_eur": None,
         "money_note": "",
-        "urgency_date": (item.get("event_date") or "").strip() or None,
+        # EVENT DATE IS NOT URGENCY. The owner ruled (2026-09-03) that a
+        # hackathon date is not a deadline the world imposes on the problem —
+        # it is when the organizer meets, and it would otherwise let a scale-1
+        # topic line pass materiality on the calendar alone. The payload row
+        # keeps `event_date` as context; materiality for asks is decided by
+        # scale, in normalize.py.
+        "urgency_date": None,
         "quote_parts": [p for p in (title, quote) if p],
         "excerpt": collapse(f"{title} — {owner}: {text}")[:400],
-        # WHO ASKED is the fact this ledger exists for, and `entity_native` is a
-        # staging field the allowlist drops before append. `notes` is the one
-        # allowlisted free-text receipt (ted carries its counterparties there),
-        # so the owner rides on it and survives to the ledger.
-        "notes": f"owner: {owner}",
     }
 
 

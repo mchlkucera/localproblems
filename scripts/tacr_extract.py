@@ -45,9 +45,23 @@ still match.
 Ministerstva dopravy"; BETA2 posts write "resortu MD". The abbreviation table
 below is the fixed official one — a lookup, not a judgement — and anything it
 does not know is kept verbatim ("Energetický regulační úřad"). A post naming no
-resort gets "" and extract_tacr() falls back to TA ČR itself; it never decodes
-the ministry from the need code, because then the field would carry two
-provenances (MATCH.md §0).
+resort gets "" — it is never decoded from the need code, because then the
+field would carry two provenances (MATCH.md §0).
+
+THE OWNER IS THE MINISTRY, OR THERE IS NO RECORD (owner decision 2026-09-03)
+============================================================================
+The ministry is the `owner` — the fact this ledger exists for. TA ČR is the
+broker, not the asker, so "Technologická agentura ČR" is NOT an acceptable
+owner and there is no fallback to it. A need whose post names no resort (the
+live case: a cancellation notice) is not staged: read_sources() keeps it out
+of the payload and counts it under `no_owner` / `no_owner_titles`, and
+extract_tacr() refuses it again, because a payload row is a file anyone can
+edit.
+
+The consultation date is logistics, not urgency: extract_tacr() stages
+`urgency_date` None. The owner ruled that an event date is not a deadline the
+world imposes on the problem; materiality for asks is decided by scale, in
+normalize.py. `consultation_date` stays in the payload row as context.
 
 Signature and return shape of extract_tacr() are normalize.py's, not ours.
 """
@@ -63,7 +77,6 @@ DEFAULT_NEED_RE = r"\bT[IT][A-Z]{2,8}\d{3,4}\b"
 # What the RSS channel's own <link> must carry: the right site AND a BETA
 # category. A redirect to the whole-site feed would still be tacr.gov.cz.
 SOURCE_HOST = "tacr.gov.cz/kategorie/beta"
-FALLBACK_ENTITY = "Technologická agentura ČR"
 
 _CONTENT = "{http://purl.org/rss/1.0/modules/content/}encoded"
 _WS = re.compile(r"\s+")
@@ -376,7 +389,12 @@ def fold(rows):
 
 def read_sources(rss_paths, html_paths, out_path, need_re=None):
     """Every surface -> one tacr-needs.jsonl. Returns the counts the fetcher
-    prints; raises ContractViolation on a body that fails its guard."""
+    prints; raises ContractViolation on a body that fails its guard.
+
+    `needs` is what was WRITTEN. A need with no named ministry is split off
+    AFTER the fold (so the other surface's copy may still supply the resort)
+    and counted under `no_owner`, never written: `dropped` keeps its one
+    meaning, non-need posts."""
     rx = re.compile(need_re or DEFAULT_NEED_RE)
     rows, dropped = [], {}
     seen = {"rss": 0, "html": 0}
@@ -390,13 +408,17 @@ def read_sources(rss_paths, html_paths, out_path, need_re=None):
         rows += r
         seen["html"] += n
         dropped.update(d)
-    needs = fold(rows)
+    folded = fold(rows)
+    needs = [r for r in folded if r.get("ministry")]
+    no_owner = [r for r in folded if not r.get("ministry")]
     with open(out_path, "w", encoding="utf-8") as fh:
         for r in needs:
             fh.write(json.dumps(r, ensure_ascii=False) + "\n")
     return {"rss_seen": seen["rss"], "html_seen": seen["html"],
             "candidates": len(rows), "needs": len(needs),
-            "dropped": len(dropped), "dropped_titles": sorted(dropped.values())}
+            "dropped": len(dropped), "dropped_titles": sorted(dropped.values()),
+            "no_owner": len(no_owner),
+            "no_owner_titles": sorted(f"{r['need_id']} {r['title']}" for r in no_owner)}
 
 
 # --------------------------------------------------------------------------
@@ -427,18 +449,16 @@ def need_goal(body, limit=320):
 
 
 def extract_tacr(item, payload_key, today):
-    """One need -> one asks record. Shape is extract_nku's."""
+    """One need -> one asks record, or None when the row names no ministry.
+    Shape is extract_nku's, plus the top-level `owner`."""
     nid = collapse(item.get("need_id")).upper()
     title = collapse(item.get("title"))
     link = (item.get("link") or "").strip()
-    if not nid or not title or not link:
+    ministry = collapse(item.get("ministry"))
+    if not nid or not title or not link or not ministry:
         return None
-    ministry = collapse(item.get("ministry")) or FALLBACK_ENTITY
     body = collapse(item.get("body"))
     goal = need_goal(body)
-    # The consultation date is a real date the world imposes — score_urgency's
-    # job, on the same reasoning ec-hys uses for a feedback deadline.
-    cdate = (item.get("consultation_date") or "")[:10]
     return {
         "id": f"tacr-{nid.lower()}",
         "source": "tacr",
@@ -447,17 +467,23 @@ def extract_tacr(item, payload_key, today):
         "date": (item.get("date") or "") or today.isoformat(),
         "title_native": title,
         "entity_native": ministry,
+        # WHO ASKED, as a top-level schema'd field the ledger keeps. `notes`
+        # carries a copy until the orchestrator retires it.
+        "owner": ministry,
         "sector": None,
         "money_eur": None,
         "money_note": "",
-        "urgency_date": cdate or None,
+        # EVENT DATE IS NOT URGENCY. The owner ruled (2026-09-03) that a
+        # supplier-consultation date is logistics — when the ministry meets
+        # suppliers — not a deadline the world imposes on the problem, so it
+        # must not decide materiality. Scale decides, in normalize.py; the
+        # payload row keeps `consultation_date` as context.
+        "urgency_date": None,
         # The goal paragraph when the post states one; the body's opening
         # (logistics) only when it does not — a cancellation notice, say.
         "quote_parts": [p for p in (title, (goal or body)[:200]) if p],
         "excerpt": collapse(f"{title} — {ministry}: {goal or body}")[:400],
-        # WHO ASKED survives to the ledger on `notes` (the allowlisted receipt);
-        # `entity_native` is dropped at append. Same shape as hack_extract.
-        "notes": f"owner: {ministry}; need {nid}",
+        "notes": f"need {nid}",
     }
 
 

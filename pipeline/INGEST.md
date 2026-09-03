@@ -94,6 +94,8 @@ this loop, and it is the only step that needs you.
      sukl     scripts/fetch_sukl.sh    <rawdir>          (full snapshot;
                                                           takes no since-date)
      mpsv     scripts/fetch_mpsv.sh    <rawdir> [YYYY-MM]
+     tacr     scripts/fetch_tacr.sh    <rawdir>          (asks; RSS + HTML)
+     hackathon scripts/fetch_hackathons.sh <rawdir>      (asks; six pages)
      ---- role: enrichment. ZERO signals; never in a feed total ----------
      ares     scripts/fetch_ares.sh    <rawdir>
      shoptet  scripts/fetch_shoptet.sh <rawdir>
@@ -219,6 +221,14 @@ this loop, and it is the only step that needs you.
        the PAIN LANGUAGE bar — record
        only complaints, failures, workarounds; engagement metrics never
        justify a record, and neither feed may dominate the demand ledger.
+       For the two `asks` feeds (hackathon, tacr) the admission bar is
+       `stated_need`, a SIBLING of `pain` with its own rubric sentence
+       (scripts/model_pass.py RUBRIC): does the owner name a concrete need
+       a builder could start on — not a theme, an open call for ideas, a
+       bare topic line or a vendor's pitch. Not `pain`: an ask is not a
+       complaint, and grading it as one refused 29 of 39 real hospital and
+       city asks on 2026-09-03. Like `pain` it is transport-only, never
+       persisted, and a false verdict keeps the record staged.
        READ `_needs` ON EACH STAGED RECORD RATHER THAN THIS PARAGRAPH.
        It is derived from the same rule --complete refuses on, so a record
        filled to exactly its `_needs` is accepted by construction. That was
@@ -236,7 +246,11 @@ this loop, and it is the only step that needs you.
        manifest as pending. Losing freshness is recoverable; writing vibes
        into an append-only canonical ledger is not.
    3c. MATERIALITY DROP (script, the ONLY normalize-time filter): drop
-       ONLY if money <= 1 AND scale <= 1 AND urgency == 0. Everything else
+       ONLY if money <= 1 AND scale <= 1 AND urgency == 0. For `asks` the
+       scale bar is one rung lower — drop only at scale 0 — because a named
+       owner stating a niche problem is the material fact, and one body's
+       own internal need is not a market (owner, 2026-09-03; the rule lives
+       in normalize.is_material, keyed on evidence_type). Everything else
        is kept — hundreds of records is correct, not a failure. For any
        aggregating feed, AGGREGATE BEFORE THIS FILTER: a per-item feed
        whose items each score money 1 is filtered out of existence while

@@ -86,7 +86,10 @@ import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
-SCHEMA_VERSION = "8"   # 8: problem_sources.gist (the few-word public ledger
+SCHEMA_VERSION = "9"   # 9: signals.owner — who stated the problem; REQUIRED on
+#                          every `asks` line, forbidden on every other, gated at
+#                          insert by check_owner() (owner, 2026-09-03)
+#                       8: problem_sources.gist (the few-word public ledger
 #                          label beside name/why — owner, 2026-08-25)
 #                       7: problem_locals.competes + .maturity replace .status;
 #                          url nullable against an ico (the ARES fallback)
@@ -315,6 +318,15 @@ CREATE TABLE IF NOT EXISTS signals (
   jsonl_file       TEXT NOT NULL,
   jsonl_line       INTEGER NOT NULL,
   raw              TEXT NOT NULL,
+  -- WHO STATED THE PROBLEM (schema_version 9; owner, 2026-09-03). The
+  -- institution named as the setter of an `asks` record — the one fact that
+  -- ledger exists to carry, and for its first day it rode inside `notes` as
+  -- "owner: …" prose that no validator read and no page rendered. A REAL
+  -- column rather than a VIRTUAL projection like `title` below, because it is
+  -- GATED, not merely browsed: check_owner() refuses an `asks` line without it
+  -- and any other line with it, so NULL here means exactly "not an ask" — one
+  -- column, one meaning — and "which hospitals asked?" is one SQL query.
+  owner            TEXT,
   -- BROWSABLE PROJECTIONS of the fields buried in `raw` (owner, 2026-08-24: the
   -- signals table showed one wall of JSON in a SQL client — you could not read a
   -- title or sort by money). VIRTUAL, not STORED: they compute from `raw` on
@@ -1167,6 +1179,42 @@ def ledger_files():
     return out
 
 
+def check_owner(rec, rel, n, typ):
+    """THE OWNER GATE. `owner` — who stated the problem — is REQUIRED on every
+    `asks` line and FORBIDDEN on every other ledger (data/CONVENTIONS.md, record
+    schema). Returns the value to project, or None.
+
+    HERE, AND NOT IN web/scripts/db-gate.mjs, deliberately. This is the one
+    place every ledger line is already read and judged one record at a time —
+    "record has no id", "duplicate signal id" — and a SystemExit here is
+    already a red build: db-gate.mjs step 1 runs `rebuild`, and its own failure
+    message says "read db.py's output above: it names the offending ledger
+    line". db-gate.mjs only counts lines and hashes files against the tree; it
+    never parses a record, and teaching it to would be a second validator that
+    could disagree with this one. scripts/check-records.py is the wrong place
+    for the other reason: it validates problems, not signals. Both write paths
+    call this — `rebuild` and `upsert` — so INGEST cannot project a line the
+    build would then refuse.
+
+    An empty or non-string owner is refused on the `asks` side for the reason
+    `quote` refuses an empty string: it is the shape that looks present and
+    says nothing, and SignalSchema's min(1) would red-build it anyway."""
+    v = rec.get("owner")
+    if typ == "asks":
+        if not isinstance(v, str) or not v.strip():
+            raise SystemExit(
+                f"db: {rel}:{n}: `asks` record '{rec.get('id')}' has no `owner` "
+                f"(or an empty one) — who stated the problem is the fact this ledger "
+                f"exists to carry (data/CONVENTIONS.md, record schema). Add `owner` to the line.")
+        return v
+    if v is not None:
+        raise SystemExit(
+            f"db: {rel}:{n}: `{typ}` record '{rec.get('id')}' carries `owner` — the field "
+            f"is defined only on the `asks` ledger and must be absent elsewhere "
+            f"(data/CONVENTIONS.md, record schema).")
+    return None
+
+
 def insert_records(con, path, rel, typ, seen_ids):
     """Insert every record of one ledger file. Returns (lines_read, rows_written)."""
     lines = 0
@@ -1184,13 +1232,14 @@ def insert_records(con, path, rel, typ, seen_ids):
             )
         seen_ids[sid] = f"{rel}:{n}"
         ename, ico, domain = derive_entity_keys(rec)
+        owner = check_owner(rec, rel, n, typ)
         rows.append((sid, rec.get("source"), typ, rec.get("date"),
-                     ename, ico, domain, None, rel, n, raw))
+                     ename, ico, domain, None, rel, n, raw, owner))
         prows.extend(party_rows(sid, rec))
     con.executemany(
         "INSERT INTO signals (id, source, type, date, entity_name_norm, entity_ico,"
-        " entity_domain, dup_of, jsonl_file, jsonl_line, raw)"
-        " VALUES (?,?,?,?,?,?,?,?,?,?,?)", rows)
+        " entity_domain, dup_of, jsonl_file, jsonl_line, raw, owner)"
+        " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", rows)
     if prows:
         con.executemany(
             "INSERT INTO signal_parties (signal_id, position, role, name, name_norm,"
@@ -1233,7 +1282,7 @@ def signals_digest(con):
     h = hashlib.sha256()
     for row in con.execute(
         "SELECT id, source, type, date, entity_name_norm, entity_ico,"
-        " entity_domain, dup_of, jsonl_file, jsonl_line, raw"
+        " entity_domain, dup_of, jsonl_file, jsonl_line, raw, owner"
         " FROM signals ORDER BY id"
     ):
         h.update(row_bytes(row))
@@ -1987,17 +2036,18 @@ def cmd_upsert(args):
         if not sid:
             raise SystemExit(f"db: {rel}:{n}: record has no id")
         ename, ico, domain = derive_entity_keys(rec)
+        owner = check_owner(rec, rel, n, typ)
         con.execute(
             "INSERT INTO signals (id, source, type, date, entity_name_norm, entity_ico,"
-            " entity_domain, dup_of, jsonl_file, jsonl_line, raw)"
-            " VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+            " entity_domain, dup_of, jsonl_file, jsonl_line, raw, owner)"
+            " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
             " ON CONFLICT(id) DO UPDATE SET source=excluded.source, type=excluded.type,"
             " date=excluded.date, entity_name_norm=excluded.entity_name_norm,"
             " entity_ico=excluded.entity_ico, entity_domain=excluded.entity_domain,"
             " jsonl_file=excluded.jsonl_file, jsonl_line=excluded.jsonl_line,"
-            " raw=excluded.raw",
+            " raw=excluded.raw, owner=excluded.owner",
             (sid, rec.get("source"), typ, rec.get("date"), ename, ico, domain,
-             None, rel, n, raw))
+             None, rel, n, raw, owner))
         # DELETE-then-INSERT, not an upsert: the party LIST is what changed, and
         # a record whose parties shrank from three to one would otherwise keep
         # the stale third row forever. The signals row is a fixed set of columns

@@ -176,6 +176,8 @@ if [ -n "$RSS_FILES$HTML_FILES" ]; then
     echo "    extracted: rss $(jf .rss_seen) + html $(jf .html_seen) posts -> $(jf .candidates) need-coded," \
          "$N unique after dedupe on need_id; $DROPPED non-need post(s) dropped"
     jf '.dropped_titles[] | "      dropped: " + .'
+    NO_OWNER="$(jf .no_owner)"; [ "${NO_OWNER:-0}" = "0" ] || echo "    $NO_OWNER need(s) naming no ministry — not written (no owner, no ask)"
+    jf '.no_owner_titles[]? | "      no owner: " + .'
   else
     echo "    extract failed: $summary"; ERRS="$ERRS extract:python-failed"
   fi

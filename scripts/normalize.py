@@ -201,6 +201,13 @@ LEDGER_ALLOWLIST = (
     "id", "source", "url", "date", "title", "sector", "geo_origin",
     "money_eur", "money_note", "summary", "scores", "notes",
     "quote", "http_status", "fetched_at", "extraction",
+    # `owner` — who stated the problem. REQUIRED on every `asks` record (the
+    # build gate checks the ledger), absent elsewhere. An institution's name,
+    # never a person's: the asks extractors cut contact lines before staging,
+    # and the content gate below still runs on it. Added 2026-09-03 when the
+    # owner was found riding on `notes` — a free-text field carrying a
+    # structured key, which is the one-field-two-meanings defect again.
+    "owner",
 )
 
 # The second layer. The allowlist governs FIELDS; this governs CONTENT, because
@@ -236,7 +243,7 @@ PHONE_RE = re.compile(
 # build on the next deploy, and the ledgers are append-only: there is no quiet
 # cleanup. Measured: 0 of 4,788 staged records currently carry an empty quote,
 # which is luck about this corpus, not a property of the code.
-OPTIONAL_RECEIPTS = ("quote", "http_status", "fetched_at", "extraction", "notes")
+OPTIONAL_RECEIPTS = ("quote", "http_status", "fetched_at", "extraction", "notes", "owner")
 
 
 def apply_allowlist(rec):
@@ -393,10 +400,23 @@ def score_urgency(event_date, today):
     return 1
 
 
-def is_material(scores):
-    """Drop only if money <= 1 AND scale <= 1 AND urgency == 0."""
+def is_material(scores, evidence_type=None):
+    """Drop only if money <= 1 AND scale <= 1 AND urgency == 0.
+
+    `asks` — direct asks from problem owners — read the scale bar one rung
+    lower: drop only at scale 0. OWNER RULING 2026-09-03: an owner-set ask at
+    niche scale ("a specialised trade, a handful of operators") is a real,
+    named institution stating a real problem, and that is the material fact;
+    only one body's own internal need (scale 0) is not a market. This replaced
+    the first cut, which let a hackathon's EVENT DATE score urgency 3 so that
+    dated challenges survived at any scale — a calendar entry standing in for
+    a deadline on the problem, one field carrying two meanings. The asks
+    extractors now stage `urgency_date: None`, and the bar sits here, once,
+    on the type — never on a per-feed exception in an extractor.
+    """
+    floor = 0 if evidence_type == "asks" else 1
     return not (scores.get("money", 0) <= 1
-                and scores.get("scale", 0) <= 1
+                and scores.get("scale", 0) <= floor
                 and scores.get("urgency", 0) == 0)
 
 
@@ -1314,8 +1334,19 @@ def model_debt(feed_key, rec):
     debt += missing_required(rec)
     if rec.get("urgency_pending"):
         debt.append("scores.urgency")
+    # The pain bar is the admission bar for the two feeds that carry consumer
+    # complaints AND — since 2026-09-03 — for the two `asks` feeds: an ask is
+    # admitted only when its text names something broken, slow, missing or
+    # costly (a stated problem), not a theme, an invitation or a topic line.
+    # Same field, same rubric sentence, same refusal path; never persisted.
     if feed_key in ("suggest", "reddit-new", "reddit-search"):
         debt.append("pain")  # transport-only admission bar; NEVER persisted
+    if feed_key in ("hackathon", "tacr"):
+        # The asks feeds' OWN admission bar, a sibling of `pain` with its own
+        # rubric sentence (scripts/model_pass.py RUBRIC): does the owner name a
+        # concrete need? Not `pain` — an ask is not a complaint, and grading it
+        # as one refused 29 of 39 real hospital and city asks on 2026-09-03.
+        debt.append("stated_need")  # transport-only; NEVER persisted
     return debt
 
 
@@ -2212,7 +2243,7 @@ def run_complete(args):
     by_file = {}
     id_dupes = []
     for r in records:
-        if not is_material(r["scores"]):
+        if not is_material(r["scores"], r.get("evidence_type")):
             dropped += 1
             continue
         if r["id"] in seen:

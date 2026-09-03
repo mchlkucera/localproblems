@@ -147,7 +147,7 @@
         "expected_yield": {
           "min": 3,
           "max": 60,
-          "basis": "MEASURED 2026-09-03 (scripts/fetch_tacr.sh, first run): beta3 RSS 7 posts + beta2 RSS 10 + category HTML 5+5 excerpts -> 24 need-coded candidates -> 15 unique needs (5 BETA3 TT-codes, 10 BETA2 TI-codes); 2 non-need posts dropped. No pagination anywhere, so this IS the whole public history — steady state is 0-2 new per run, and BETA3's budget was cut by RVVI in June 2026, so the ceiling is structural. Counts items_fetched."
+          "basis": "MEASURED 2026-09-03 (scripts/fetch_tacr.sh, first run): beta3 RSS 7 posts + beta2 RSS 10 + category HTML 5+5 excerpts -> 24 need-coded candidates -> 15 unique needs, of which 14 name a ministry and stage (5 BETA3 TT-codes, 9 BETA2 TI-codes); 1 cancellation notice names no resort and is counted, not written. No pagination anywhere, so this IS the whole public history — steady state is 0-2 new per run, and BETA3's budget was cut by RVVI in June 2026, so the ceiling is structural. Counts items_fetched."
         },
         "allow_missing": false
       }
@@ -186,7 +186,7 @@
         "expected_yield": {
           "min": 15,
           "max": 120,
-          "basis": "MEASURED 2026-09-03 (scripts/fetch_hackathons.sh, first run, six pages, 4.98 MB): hackjakbrno 9 challenges (the 6 prize boxes in identical markup are dropped), rakathon 4, upol 5, idea13 4, aimtec 5, nakopniprahu 6 sub-topics -> 33 unique ids. The six pages are re-read every run and ids come from the statement, so steady state is near zero new per run; the range covers a full re-read (min 15 = any two sites down) and an edition where every site doubles its list. Counts items_fetched."
+          "basis": "MEASURED 2026-09-03 (scripts/fetch_hackathons.sh, six pages, 4.98 MB): 33 challenge blocks parsed; under the owner's admission rules (owner named by the page, a stated problem) 25 stage — hackjakbrno 9, rakathon 4, idea13 4, aimtec 2, nakopniprahu 6, upol 0 (bare topic lines, refused). Pages are re-read every run and ids come from the statement, so steady state is near zero new per run; min 15 = any two sites down, max covers an edition where every site doubles its list. Counts items_fetched."
         },
         "allow_missing": false
       }

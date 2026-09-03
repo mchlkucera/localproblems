@@ -1521,3 +1521,13 @@ First run of the two `asks` feeds. Fetched and staged in a private raw dir becau
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-09-03T1805 | tacr | ok | 200 | 264232 | 15 | 3340 | 2026-09-03T18:05:58Z | /tmp/claude-501/asks-run/2026-09-03 |  |
 | 2026-09-03T1808 | hackathon | ok | 200 | 4982327 | 33 | 26587 | 2026-09-03T18:08:08Z | /tmp/claude-501/asks-run/2026-09-03 |  |
+
+### asks first run REWRITTEN under the owner's admission rules (same night, session localproblems-80)
+
+The 32 rows appended earlier tonight were retired from data/signals/asks/2026-09-03.jsonl and seen.txt (first cut kept as a file in the session scratchpad, ids listed below) and the run was repeated from a fresh fetch () under the rules the owner set after the critique: `owner` required and read from the page (no organizer fallback; Rakathon = the three hospitals the page names); a row must state a problem (no bare topic lines: 5 UPOL rows); an event or consultation date is not urgency; materiality for asks drops only at scale 0; and a new `stated_need` admission bar (scripts/model_pass.py RUBRIC) instead of the Reddit `pain` bar, which had refused 29 of 39 inconsistently. Pass A was graded three times: round 1 under `pain` (refused 29), round 2 under `stated_need` by three graders (12 hospital asks scored scale 0 as "one organisation"), round 3 by ONE grader after the asks scale rule was written into the rubric — round 3 stands. 39 staged -> 16 landed (11 challenges, 5 needs): 19 refused by the stated-need bar, 4 dropped at scale 0. Retired ids: hack-5d646892, hack-582e2346, hack-02917635, hack-cf9cd96f, hack-45597a87, hack-e9384233, hack-3a3e4c27, hack-9c4350df, hack-9249a038, hack-22a5dac4, hack-055f015b, hack-d4596b29, hack-759d66ad, hack-22dabb10, hack-36e05628, hack-72b8309a, hack-11bca729, hack-f8ecbbeb, hack-e3d48b98, hack-7dcd7aea, hack-de436281, hack-72133fa5, hack-c5c10e91, hack-20c85264, hack-0ad82a4b, hack-fe987c15, hack-33d5ed0b, hack-0ed2ef9d, hack-9e938f0f, hack-8420e8a8, tacr-ttxmsmt502, tacr-tieru0015
+
+
+| run_id | feed_key | result | http | bytes | items | ms | started_at | raw_path | error |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-09-03T1959 | tacr | ok | 200 | 264232 | 14 | 3651 | 2026-09-03T19:59:23Z | /tmp/claude-501/asks-run2/2026-09-03 |  |
+| 2026-09-03T1959 | hackathon | ok | 200 | 4982327 | 25 | 22404 | 2026-09-03T19:59:27Z | /tmp/claude-501/asks-run2/2026-09-03 | partial: upol:yield-zero |

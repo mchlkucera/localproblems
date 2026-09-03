@@ -11,7 +11,9 @@
 // it is also the reason the journal keeps its own loader rather than being
 // retired. Nothing here may "improve" what it reads.
 // In particular the loader reads `signals.raw` and the projected problem
-// columns and NOTHING ELSE: `data/errata.jsonl` is canonical and committed and
+// columns and NOTHING ELSE (`signals.owner`, schema 9, is selected beside `raw`
+// only to be checked AGAINST it — a witness, never a payload; lib/data.ts
+// says why): `data/errata.jsonl` is canonical and committed and
 // the web build has never read it, so picking it up here would silently gain
 // the site a correction ledger — a real improvement AND an instant parity
 // failure. Applying errata is a deliberate content change with its own diff.
@@ -26,7 +28,7 @@ import { join, resolve } from "node:path";
     Asserted on open: a stale v3 database must be a loud failure, not a page of
     missing records. THE DB WAS MEASURED 7+ COMMITS STALE while reporting
     success, so "it opened" is not evidence that it is current. */
-export const REQUIRED_SCHEMA_VERSION = "8";
+export const REQUIRED_SCHEMA_VERSION = "9";
 
 const DB_PATH = join(resolve(process.cwd(), ".."), "data", "register.db");
 

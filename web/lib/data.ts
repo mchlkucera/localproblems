@@ -143,6 +143,18 @@ const SignalSchema = z.strictObject({
     recurrence: z.number().int().min(0).max(3),
   }),
   notes: z.string().optional(),
+  // `owner` — WHO STATED THE PROBLEM: the institution named as the setter of
+  // an ask. REQUIRED on every `asks` record and absent everywhere else
+  // (data/CONVENTIONS.md, record schema; owner, 2026-09-03). Optional HERE
+  // because this schema does not know which ledger a line came from — `type`
+  // is the directory, stamped on after the parse — so the per-ledger rule is
+  // enforced where the type is known: scripts/db.py check_owner(), on both
+  // write paths, which red-builds through db-gate. Its own field and not a
+  // `notes: owner: …` prefix, for the §0 reason: `notes` is free text, and a
+  // structured fact riding inside it was read by no validator and rendered on
+  // no page (the asks critique, finding 1). min(1): an empty owner is the
+  // shape that looks present and says nothing.
+  owner: z.string().min(1).optional(),
   // ---- receipt fields (§7.2, §7.3). Optional; written by INGEST. -----------
   // `quote` is a CONTRACT WITH AN EXTERNAL CONSUMER: a flat string on the
   // signal, retrievable by signal id. Do not restructure it into an object,
@@ -656,13 +668,14 @@ function signalsFromJsonl(): Signal[] {
 
 function signalsFromDb(): Signal[] {
   // `raw` is the VERBATIM ledger line and it is the only signal payload this
-  // loader reads. Not the derived entity keys, not `dup_of`, and above all not
+  // loader reads (`owner` is selected beside it, but only to be checked against
+  // it — see below). Not the derived entity keys, not `dup_of`, and above all not
   // data/errata.jsonl — the corrections ledger is real, committed, and consumed
   // by db.py's money aggregates, but the web build has never rendered it.
   // Picking it up here would silently restate EUR 10000M on /signals/tenders as
   // something else: a genuine improvement, an instant parity failure, and a
   // content change nobody reviewed.
-  const rs = rows("SELECT id, type, jsonl_file, jsonl_line, raw FROM signals");
+  const rs = rows("SELECT id, type, jsonl_file, jsonl_line, raw, owner FROM signals");
 
   // Reproduces the JSONL walk exactly: EVIDENCE_TYPES order (the outer loop),
   // then filename (`readdirSync().sort()`), then line number. In JS, never as
@@ -685,6 +698,21 @@ function signalsFromDb(): Signal[] {
   for (const r of rs) {
     const parsed = SignalSchema.safeParse(JSON.parse(String(r.raw)));
     if (!parsed.success) fail(`${String(r.jsonl_file)}:${Number(r.jsonl_line)} (via register.db)`, parsed.error);
+    // `owner` IS a projected column (schema_version 9), and it is read back
+    // here — as a WITNESS, not as the value. The record is still built from
+    // `raw` alone, so parity with the journal cannot be moved by this read;
+    // what the read adds is a second copy of one fact, cut by db.py at write
+    // time, that must agree with the line it was cut from. A disagreement
+    // means the projection and the ledger have parted — the class of defect
+    // the seen.txt check below exists to catch — and it is a build failure,
+    // never a silent preference for one side.
+    const projected = r.owner === null ? undefined : String(r.owner);
+    if (projected !== parsed.data.owner)
+      throw new Error(
+        `${String(r.jsonl_file)}:${Number(r.jsonl_line)} (via register.db): signals.owner is ` +
+        `${JSON.stringify(projected)} but the ledger line carries ${JSON.stringify(parsed.data.owner)}.\n` +
+        "The working store disagrees with the journal it projects — rebuild it:  python3 scripts/db.py rebuild"
+      );
     signals.push({ ...parsed.data, type: String(r.type) as EvidenceType });
   }
   return signals;

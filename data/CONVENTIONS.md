@@ -97,10 +97,17 @@ Evidence types and their feeds:
   needs, scripts/fetch_tacr.sh) and hackathon (owner-set challenge statements
   from six organizer sites, scripts/fetch_hackathons.sh). NOT student-picked
   hackathon topics, NOT petitions. Registered and first records landed
-  2026-09-03 (32 of 48 staged survived materiality: 30 challenges, 2 needs —
-  a ministry's one-off study of its own process is scale 0 and drops).
-  The record is the statement and who made it; prizes, team counts and
-  winners are never recorded, for the engagement-is-not-pain reason above.
+  2026-09-03. The first cut (32 rows) was REWRITTEN the same night under
+  the owner's admission rules and is recorded in data/raw/2026-09-03/
+  manifest.md: an owner must be named by the page (no organizer fallback),
+  a row must state a problem (no bare topic lines), the `stated_need` bar
+  admits only a concrete need a builder could start on, and an event date
+  is not urgency. 39 staged -> 16 landed (11 challenges, 5 needs); 19
+  refused by the stated-need bar (themes, open calls, a vendor pitch,
+  ministries' own priority studies), 4 dropped at scale 0.
+  The record is the statement and who made it — `owner`, required on this
+  ledger and on no other; prizes, team counts and winners are never
+  recorded, for the engagement-is-not-pain reason above.
 - `bootstrapped` — RESERVED (indie-hacker/revenue signals); create only when a
   fetchable source exists
 
@@ -141,10 +148,11 @@ source      fetch provenance: ted | hlidac | yc | round | reg-scan | arb-scan |
             runs the BETA programmes) | hackathon (the organizers' own event
             pages — a new PUBLISHER, the hospital, city or ministry that set
             the challenge; the ledger is `asks`, and the owner is the
-            record's `notes: owner: …` receipt and its title, never the
-            source value — `entity_native` is a staging field the append
-            allowlist drops, so the owner rides on the one allowlisted
-            free-text receipt, as ted's counterparties do)
+            record's `owner` field, never the source value. For one day
+            (2026-09-03) it rode on `notes: owner: …`, because
+            `entity_native` is a staging field the append allowlist drops —
+            and that day proved the point: a fact inside free text reached
+            no validator and no page, so it is a first-class field now)
             THIS LIST IS AN ENUM IN web/lib/data.ts (SignalSchema.source) AND
             A LEDGER LINE CARRYING AN UNLISTED VALUE RED-BUILDS THE SITE.
             Widen the enum in a commit BEFORE the first record lands, never in
@@ -165,6 +173,14 @@ money_eur   number | null (best-effort EUR value) + money_note (how derived)
 summary     max 2 sentences, EN
 scores      objective, mechanical — see rubric below
 notes       optional free text: absence checks, transfer logic, quotes
+owner       who stated the problem: the institution named as the setter of an
+            ask. REQUIRED on every `asks` record, absent elsewhere. Its own
+            field, never a `notes: owner: …` prefix — one field, one meaning:
+            `notes` is free text, and a fact riding inside it was read by no
+            validator and rendered on no page. Gated in scripts/db.py
+            check_owner() on both write paths, so an `asks` line without it,
+            or any other line with it, red-builds the site. Rendered in the
+            ledger's Source cell as `{source label} · {owner}`.
 quote       optional — a VERBATIM snippet of the fetched payload (see below)
 http_status optional — integer; liveness of `url` at its last check
 fetched_at  optional — ISO timestamp of the payload this record came from
@@ -214,7 +230,12 @@ Objective scores (0–3 integers, set at normalize time, region-blind):
   (annual/continuous) · 3 structural (mandated forever)
 
 Materiality filter (the ONLY normalize-time filter): drop only if
-`money <= 1 AND scale <= 1 AND urgency == 0`. No region judgment at normalize.
+`money <= 1 AND scale <= 1 AND urgency == 0`; for `asks` the scale bar is
+`scale <= 0` — an owner-set ask at niche scale is material, one body's own
+internal need is not (owner, 2026-09-03). The asks extractors stage no
+`urgency_date`: a hackathon's event date or a consultation date is not a
+deadline on the problem, and letting it score urgency was one field carrying
+two meanings. No region judgment at normalize.
 
 ## Region layer — data/problems/<region>/
 

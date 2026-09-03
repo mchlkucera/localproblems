@@ -67,7 +67,7 @@ GEO_RE = re.compile(r"^([A-Z]{2}|EU)$")
 # and verified at ingest, and a model must never be able to invent one) and
 # never `money_eur` (pure arithmetic).
 PASS_A_FIELDS = ["sector", "geo_origin", "scores.scale", "scores.recurrence",
-                 "scores.urgency", "pain"]
+                 "scores.urgency", "pain", "stated_need"]
 PASS_B_FIELDS = ["title", "summary"]
 
 # Payload keys worth putting in front of the model. yc-oss ships HQ location and
@@ -118,10 +118,28 @@ pain (boolean) — ONLY when the item asks for it. true when the text is a
   COMPLAINT, a FAILURE or a WORKAROUND (something is broken, missing, refused
   or unusable). false for neutral curiosity, how-to questions, marketing and
   anything justified only by engagement.
+stated_need (boolean) — ONLY when the item asks for it. The item is an ASK: a
+  named institution (a hospital, a city, a ministry) publicly inviting
+  solutions. true when the owner names a CONCRETE need it cannot meet today —
+  a specific task done by hand, a slow, costly or unreliable process, a
+  capacity or a tool it lacks, a decision it cannot make well — even when
+  the text is phrased as a request rather than a complaint. false for a
+  theme or an area ("environment", "safety"), an open call for ideas, a bare
+  topic line, a wish with no stated task, or a vendor's product pitch dressed
+  as a challenge. The test is: could a builder start on Monday knowing what
+  the owner needs? If the text names the need, true.
 
 RULES
 - Score the NEED behind the signal, not the size or fame of the company naming it.
 - One organisation buying something for itself is scale 0, however expensive.
+- FOR AN ASK (an item carrying `stated_need_bar`), the owner is ONE INSTANCE OF
+  ITS KIND, and scale counts how many institutions of that kind share the
+  stated need: a hospital asking for structured reports, coded discharge
+  summaries or an internal knowledge assistant names a need most hospitals
+  have (2); a need shared by a specialised subset of them (1); a need that is
+  about THIS institution alone — its own building, its own brand, its own
+  staffing roster — (0). "Buying for itself" is scale 0 only in that last
+  sense. Do not read "one hospital posted it" as "one organisation only".
 - Do not inflate. "A whole sector" means most operators in that sector share it.
 - When two grades are defensible, choose the LOWER one.
 """
@@ -237,7 +255,7 @@ def eligible(recs, pass_):
             if not all(isinstance(sc.get(k), int)
                        for k in ("scale", "money", "urgency", "recurrence")):
                 continue          # pass A never completed for it
-            if not is_material(sc):
+            if not is_material(sc, r.get("evidence_type")):
                 continue          # dropped by materiality; pass B never runs
         if pending(r, pass_):
             out.append(r)
@@ -280,6 +298,8 @@ def card_for(rec, pass_, enrich):
         c["event_date_in_past"] = True
     if "pain" in pending(rec, pass_):
         c["pain_bar"] = "this item needs a pain verdict"
+    if "stated_need" in pending(rec, pass_):
+        c["stated_need_bar"] = "this item needs a stated-need verdict (an ask: does the owner name a concrete need?)"
     return c
 
 
@@ -298,6 +318,8 @@ def schema_for(pass_, fields):
             props["urgency"] = {"type": "integer", "enum": [0, 1, 2, 3]}
         if "pain" in fields:
             props["pain"] = {"type": "boolean"}
+        if "stated_need" in fields:
+            props["stated_need"] = {"type": "boolean"}
     else:
         props["title"] = {"type": "string"}
         props["summary"] = {"type": "string"}
@@ -425,12 +447,12 @@ def validate_a(item, fields):
                 w["geo_origin"] = v
             else:
                 e.append(f"geo_origin={v!r} not ISO2/EU")
-        elif f == "pain":
-            v = item.get("pain")
+        elif f in ("pain", "stated_need"):
+            v = item.get(f)
             if isinstance(v, bool):
-                w["pain"] = v
+                w[f] = v
             else:
-                e.append(f"pain={v!r} not a boolean")
+                e.append(f"{f}={v!r} not a boolean")
         else:
             key = f.split(".", 1)[1]
             v = item.get(key)
@@ -550,6 +572,17 @@ def cmd_apply(args):
                 rec["_model_refused"] = "pain bar: no complaint/failure/workaround"
                 report["pain_refused"].append(sid)
                 continue
+            # THE STATED-NEED BAR is the asks feeds' admission bar — a sibling
+            # of `pain`, not a reuse of it. Measured 2026-09-03: graded under the
+            # pain sentence ("a COMPLAINT, a FAILURE or a WORKAROUND"), 29 of 39
+            # owner-set asks were refused, inconsistently — an ask is by nature
+            # "something is missing", and a hospital asking for a tool is not a
+            # complaint. One word carrying two admission tests is the defect
+            # CLAUDE.md rule 1 names, so the bar got its own name and sentence.
+            if writes.pop("stated_need", None) is False:
+                rec["_model_refused"] = "stated-need bar: a theme, an invitation or a pitch, not a stated need"
+                report["pain_refused"].append(sid)
+                continue
             for k, v in writes.items():
                 if k.startswith("scores."):
                     rec.setdefault("scores", {})[k.split(".", 1)[1]] = v
@@ -561,7 +594,7 @@ def cmd_apply(args):
             # violated here; this value is the review flag, not a fault claim.
             rec["extraction"] = "llm-fallback"
             rec["_needs"] = [f for f in (rec.get("_needs") or [])
-                             if f not in writes and not (f == "pain")]
+                             if f not in writes and f not in ("pain", "stated_need")]
             filled += 1
         for sid in sorted(wanted - answered):
             report["unanswered"].append([b["name"], sid])
@@ -603,7 +636,7 @@ def cmd_status(args):
             complete += 1
         sc = r.get("scores") or {}
         if all(isinstance(sc.get(k), int) for k in ("scale", "money", "urgency", "recurrence")) \
-                and is_material(sc):
+                and is_material(sc, r.get("evidence_type")):
             material += 1
     print(f"staged: {len(recs)}   fully filled: {complete}   material survivors: {material}")
     for f, n in need.most_common():

@@ -120,6 +120,8 @@ money_eur   number|null + money_note (how derived)
 summary     ≤2 sentences, EN
 scores      {scale 0-3, money 0-3, urgency 0-3, recurrence 0-3}   ← objective, see below
 notes       optional free text: absence checks, transfer logic, quotes (kept from v1 bodies)
+owner       who stated the problem — the institution named as the setter of an ask.
+            REQUIRED on every `asks` record, absent elsewhere; gated in scripts/db.py
 
 quote       optional — a verbatim snippet from the fetched payload, flat string
 http_status optional — liveness of `url` at last check

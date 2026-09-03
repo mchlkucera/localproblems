@@ -1,6 +1,6 @@
 {
   "generated": "2026-09-03",
-  "run_id": "2026-09-03T1805",
+  "run_id": "2026-09-03T1959",
   "feeds": [
     {
       "key": "ted",
@@ -45,9 +45,9 @@
       "key": "tacr",
       "state": "LIVE",
       "last_success": "2026-09-03",
-      "items_last_run": 15,
-      "yield_7d": 15,
-      "signals_total": 2,
+      "items_last_run": 14,
+      "yield_7d": 29,
+      "signals_total": 5,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
       "days_since_last_signal": 0,
@@ -58,14 +58,14 @@
       "key": "hackathon",
       "state": "LIVE",
       "last_success": "2026-09-03",
-      "items_last_run": 33,
-      "yield_7d": 33,
-      "signals_total": 30,
+      "items_last_run": 25,
+      "yield_7d": 58,
+      "signals_total": 11,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
       "days_since_last_signal": 0,
       "parse_method": "structured",
-      "error": null
+      "error": "partial: upol:yield-zero"
     },
     {
       "key": "cc-cz",

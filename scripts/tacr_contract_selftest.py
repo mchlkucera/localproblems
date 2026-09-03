@@ -12,8 +12,15 @@ bodies through the SAME entry points fetch_tacr.sh uses (tacr_extract.guard_*,
 read_sources, extract_tacr) and checks what comes out.
 
 Fixtures are embedded miniatures of the live surfaces measured 2026-09-03 —
-one BETA3-style post, one BETA2-style post with a contact sentence, one
-non-need notice — so the test runs offline.
+one BETA3-style post, one BETA2-style post with a contact sentence, the live
+cancellation notice that carries a need code and NO resort, and one non-need
+notice — so the test runs offline.
+
+Owner decisions of 2026-09-03, each proved by a check that passed the old way
+and fails now: a need naming no ministry is counted (`no_owner`) and never
+written or extracted — there is no "Technologická agentura ČR" fallback and no
+such constant; every record carries a top-level `owner` equal to the ministry;
+`urgency_date` is None because a supplier-consultation date is logistics.
 
     python3 scripts/tacr_contract_selftest.py
 
@@ -39,7 +46,7 @@ REQUIRED_OUT = ("id", "source", "url", "date", "title", "sector", "geo_origin",
 MODEL_FIELDS = ("sector", "geo_origin", "title", "summary", "scores")
 MECHANICAL_KEYS = tuple(k for k in REQUIRED_OUT if k not in MODEL_FIELDS)
 # The extract_nku shape this extractor mirrors.
-SHAPE_KEYS = ("evidence_type", "title_native", "entity_native", "urgency_date",
+SHAPE_KEYS = ("evidence_type", "title_native", "entity_native", "owner", "urgency_date",
               "quote_parts", "excerpt")
 ID_RE = re.compile(r"^[a-z]{2,10}-[\w.-]+$")
 
@@ -84,6 +91,18 @@ NEED_TIRX = """<item>
 ]]></content:encoded>
 </item>"""
 
+# The live no-owner case (BETA3 feed, 2026-03-17): a need code, TA ČR's own
+# name, a withdrawn date — and no resort anywhere in the post.
+NEED_NO_RESORT = """<item>
+<title>Důležité sdělení ke konzultaci k možnostem řešení výzkumné potřeby: TTMPO0001 „Výzkum tuzemských surovinových zdrojů TITANU“</title>
+<link>https://tacr.gov.cz/konzultace-k-moznostem-reseni-vyzkumne-potreby-ttmpo0001-vyzkum-tuzemskych-surovinovych-zdroju-titanu/</link>
+<pubDate>Tue, 17 Mar 2026 06:36:00 +0000</pubDate>
+<content:encoded><![CDATA[
+<p class="wp-block-paragraph">Omlouváme se, ale plánovaná konzultace k výzkumné potřebě TTMPO0001 se dne 19. března 2026 od 10:00 hodin <em>z <strong>organizačních důvodů neuskuteční</strong></em>. Děkujeme registrovaným účastníkům za zájem. Prosím sledujte webové stránky Technologické agentury České republiky za účelem sdělení případného náhradního termínu konzultace.</p>
+<p class="has-small-font-size wp-block-paragraph"><em>Aktualizováno dne 17. 3. 2026</em></p>
+]]></content:encoded>
+</item>"""
+
 NON_NEED = """<item>
 <title>Plánovaná odstávka systému ISTA, SISTA a ISRB</title>
 <link>https://tacr.gov.cz/planovana-odstavka-systemu-ista-sista-a-isrb/</link>
@@ -92,7 +111,7 @@ NON_NEED = """<item>
 </item>"""
 
 GOOD_RSS = (RSS_HEAD.format(link="https://tacr.gov.cz/kategorie/beta3/")
-            + NEED_TTMD + NEED_TIRX + NON_NEED + RSS_TAIL).encode("utf-8")
+            + NEED_TTMD + NEED_TIRX + NEED_NO_RESORT + NON_NEED + RSS_TAIL).encode("utf-8")
 EMPTY_RSS = (RSS_HEAD.format(link="https://tacr.gov.cz/kategorie/beta3/") + RSS_TAIL).encode("utf-8")
 WRONG_SITE_RSS = (RSS_HEAD.format(link="https://example.org/blog/") + NEED_TTMD + RSS_TAIL).encode("utf-8")
 
@@ -147,7 +166,7 @@ def guard_cases(tmp):
     yield ("rss", "maintenance notice served as the feed", True, write(tmp, "rss-503.xml", MAINTENANCE_HTML))
     yield ("rss", "well-formed RSS, EMPTY channel", True, write(tmp, "rss-empty.xml", EMPTY_RSS))
     yield ("rss", "well-formed RSS from another site (redirect)", True, write(tmp, "rss-wrong.xml", WRONG_SITE_RSS))
-    yield ("rss", "THE GOOD BODY — two needs and one notice", False, write(tmp, "rss-good.xml", GOOD_RSS))
+    yield ("rss", "THE GOOD BODY — three need-coded posts and one notice", False, write(tmp, "rss-good.xml", GOOD_RSS))
     yield ("html", "login page served as the listing", True, write(tmp, "list-login.html", LOGIN_HTML))
     yield ("html", "maintenance notice served as the listing", True, write(tmp, "list-503.html", MAINTENANCE_HTML))
     yield ("html", "page chrome, no posts loop (empty category)", True, write(tmp, "list-empty.html", NOTHING_FOUND))
@@ -180,8 +199,12 @@ def extraction_checks(tmp):
 
     s = tacr_extract.read_sources([rss], [], out)
     rows = {r["need_id"]: r for r in map(__import__("json").loads, open(out, encoding="utf-8"))}
-    yield "rss: exactly two needs extracted", s["needs"] == 2 and len(rows) == 2
+    yield "rss: exactly two needs written (`needs` counts what was written)", s["needs"] == 2 and len(rows) == 2
     yield "rss: one non-need post dropped and counted", s["dropped"] == 1 and s["dropped_titles"] == ["Plánovaná odstávka systému ISTA, SISTA a ISRB"]
+    yield "rss: the need naming no resort is counted as no_owner, never written", (
+        s["candidates"] == 3 and s["no_owner"] == 1
+        and s["no_owner_titles"] == ["TTMPO0001 Výzkum tuzemských surovinových zdrojů TITANU"]
+        and "TTMPO0001" not in rows)
     yield "rss: ids are TTMD0001 and TIRXMSMT015 (TT and TI both kept)", set(rows) == {"TTMD0001", "TIRXMSMT015"}
     a, b = rows.get("TTMD0001", {}), rows.get("TIRXMSMT015", {})
     yield "TTMD0001: title is the need's name, prefix and code gone", a.get("title") == "Výzkum možností integrace ETCS do drážních vozidel"
@@ -203,7 +226,7 @@ def extraction_checks(tmp):
     yield "rss+html: both surfaces' non-need posts counted once each", s2["dropped"] == 2
 
     s3 = tacr_extract.read_sources([rss], [lst], out, need_re=r"\bTT[A-Z]{2,8}\d{3,4}\b")
-    yield "TACR_NEED_RE override to TT-only keeps 2 of 3", s3["needs"] == 2
+    yield "TACR_NEED_RE override to TT-only writes 2 (TTMD, TTMV) and still counts TTMPO0001 as no_owner", s3["needs"] == 2 and s3["no_owner"] == 1
 
     today = datetime.date(2026, 9, 3)
     rec = tacr_extract.extract_tacr(a, "tacr", today)
@@ -214,7 +237,9 @@ def extraction_checks(tmp):
         yield "extract_tacr: id 'tacr-ttmd0001' matches ^[a-z]{2,10}-[\\w.-]+$", rec["id"] == "tacr-ttmd0001" and bool(ID_RE.match(rec["id"]))
         yield "extract_tacr: source=tacr, evidence_type=asks", rec["source"] == "tacr" and rec["evidence_type"] == "asks"
         yield "extract_tacr: entity_native is the ministry", rec["entity_native"] == "Ministerstvo dopravy"
-        yield "extract_tacr: urgency_date is the consultation date", rec["urgency_date"] == "2025-09-26"
+        yield "extract_tacr: top-level owner is the ministry", rec["owner"] == "Ministerstvo dopravy"
+        yield "extract_tacr: urgency_date is None — a consultation date is logistics, not a deadline", (
+            a.get("consultation_date") == "2025-09-26" and rec["urgency_date"] is None)
         yield "extract_tacr: sector/money_eur None, money_note ''", rec["sector"] is None and rec["money_eur"] is None and rec["money_note"] == ""
         yield "extract_tacr: excerpt <= 400 and quote_parts non-empty", len(rec["excerpt"]) <= 400 and len(rec["quote_parts"]) == 2
         yield "extract_tacr: no email/phone anywhere in the record", not has_contact(rec)
@@ -226,10 +251,15 @@ def extraction_checks(tmp):
         yield "extract_tacr: quote_parts[1] is the goal sentence", rec["quote_parts"][1].startswith("ověřit, zda lze")
         # The owner must reach the ledger: entity_native is dropped by the
         # append allowlist, `notes` is not.
-        yield "extract_tacr: notes carries the owner and the need code", rec.get("notes") == "owner: Ministerstvo dopravy; need TTMD0001"
+        yield "extract_tacr: notes carries the owner and the need code", rec.get("notes") == "need TTMD0001" and rec.get("owner") == "Ministerstvo dopravy"
     yield "need_goal: '' when the post states no goal", tacr_extract.need_goal("Omlouváme se, konzultace se neuskuteční.") == ""
-    rec2 = tacr_extract.extract_tacr(dict(a, ministry=""), "tacr", today)
-    yield "extract_tacr: unknown ministry falls back to TA ČR", rec2["entity_native"] == tacr_extract.FALLBACK_ENTITY
+    yield "extract_tacr: a row naming no ministry is refused — no TA ČR fallback", tacr_extract.extract_tacr(dict(a, ministry=""), "tacr", today) is None
+    yield "extract_tacr: the fallback constant is gone", not hasattr(tacr_extract, "FALLBACK_ENTITY")
+    live_rows, _, _ = tacr_extract.parse_rss(rss, re.compile(tacr_extract.DEFAULT_NEED_RE))
+    no_resort = [r for r in live_rows if r["need_id"] == "TTMPO0001"]
+    yield "extract_tacr: the live cancellation notice (need code, no resort) is refused end to end", (
+        len(no_resort) == 1 and no_resort[0]["ministry"] == ""
+        and tacr_extract.extract_tacr(no_resort[0], "tacr", today) is None)
     yield "extract_tacr: refuses a row without need_id/title/link", tacr_extract.extract_tacr({"title": "x", "link": "y"}, "tacr", today) is None
 
 

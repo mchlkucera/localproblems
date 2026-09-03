@@ -119,6 +119,14 @@ export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
                 </td>
                 <td className="t-cat">
                   {s.source === "arb-scan" ? s.geo_origin : SOURCE_LABELS[s.source] ?? s.source}
+                  {/* who asked. The Source column names where a signal came
+                      from — the country for a market scan, the feed for the
+                      rest — and for an ask that is the institution that
+                      stated it, not the site it was read off. `owner` is set
+                      on every asks row and on no other (db.py gates both
+                      directions), so this renders on exactly one ledger: same
+                      cell, same voice, the house `·` separator, no new device. */}
+                  {s.owner && ` · ${s.owner}`}
                   {/* §7.3: the extraction value IS the review flag — an
                       llm-fallback row is marked on the ledger for review, never
                       silently trusted. `structured` is the default and earns no
