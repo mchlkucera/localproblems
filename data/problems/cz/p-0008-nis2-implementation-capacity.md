@@ -366,8 +366,54 @@ sources:
     already at ceiling; no score moves.'
   date: '2026-09-01'
   signal: ted-600605-2026
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38911766
+  name: "Lexnova — the packaged order"
+  gist: "about 91k CZK a package"
+  why: "A care home paid about 91,000 CZK for a packaged cyber-security compliance order, and a second order of the same package followed within weeks."
+  note: 'Price receipt drawn from the contract already on this ledger (hlidac-38911766, Domov
+    pro seniory Napajedla, NIS 2 package, ~91k CZK, Jun 2026; the repeat order is
+    hlidac-38723900, Zlín-region disability services, whose own url is not on this record).
+    One receipt, the price stated once. dims omitted: backs no score.'
+  date: '2026-06-22'
+  payer: 'Domov pro seniory Napajedla, in the smallest obligated tier'
+  amount_czk: 91000
+  unit: one-off
+  basis: signed-contract
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/39084314
+  name: "Český Brod — a town of 7,000 buys the whole job"
+  gist: "about 9M CZK for one town"
+  why: "A town of about 7,000 people signed roughly 9M CZK for municipal cyber security, the top end of what the smallest obligated buyers pay."
+  note: 'Price receipt drawn from the contract already on this ledger (hlidac-39084314,
+    Kybernetická bezpečnost města, ~9.0M CZK, 11 Aug 2026). No annual term stated, so one-off.
+    dims omitted: money already rests on the open tenders and this adds no point.'
+  date: '2026-08-11'
+  payer: 'Město Český Brod, a town of about 7,000 people'
+  amount_czk: 9000000
+  unit: one-off
+  basis: signed-contract
+- type: price
+  url: https://nis2pruvodce.cz/
+  name: "NIS2 Průvodce — the Czech subscription"
+  gist: "3,000 CZK a month"
+  why: "An obligated Czech company pays 3,000 CZK a month for the Czech compliance platform, one subscription per company number, after a seven-day free trial."
+  note: 'Price receipt lifted from the 2026-08-25 Czech vendor scan already on this ledger,
+    which read nis2pruvodce.cz: 7 days free, then 3,000 CZK/month per IČO, volume discounts
+    from the second IČO and 15% off annually. The seat here is the subscribing company, which
+    why states. Compligen (29,900 CZK one-off) and NIS2 Doku (from 4,900 CZK) sit in the same
+    note but their own urls are not on this record, so they are not written as receipts here.
+    dims omitted: backs no score.
+    Verified 2026-09-04: nis2pruvodce.cz still states 7 dní plný přístup zdarma, poté
+    3 000 Kč/měsíc za IČO, with volume slevy from the second IČO and 15% off on annual
+    payment.'
+  date: '2026-08-25'
+  payer: 'An obligated Czech company'
+  amount_czk: 3000
+  unit: per-seat-month
+  basis: list-price
 created: '2026-08-13'
-updated: '2026-09-03'
+updated: '2026-09-04'
 ---
 
 Act No. 264/2025 Coll., the Czech transposition of the EU's NIS2 security directive, puts roughly 6,000 firms and municipalities under a cybersecurity regime: energy, manufacturing, food, logistics, digital services [S1,S2]. NÚKIB (the national cyber agency) had 4,825 registered by February 2026, over a thousand short [S13]; many small firms do not know they are in scope [S2]. Measures fall due a year after registration — deadlines through H1 2027, fines to 2% of global turnover or CZK 250m [S1]. Most of the 6,000 have nobody to do the work — Mendel University re-tendered in August 2026 after its first attempt to hire an outsourced security manager [S19].
@@ -400,3 +446,5 @@ Solved elsewhere: Secfix (Berlin, €10.2M Series A) sells compliance automation
 2026-08-25 · market check — The Czech field was searched in Czech for the first time and it is not empty: four named products sell NIS2 compliance to the obligated mid-market, from a one-person SaaS at 3,000 CZK a month to a documentation pack at 4,900 CZK, plus ICZ's Risk*Guide at the enterprise end [S16]. `scores.gap` was already 0 and stays 0 — nothing here can raise it — but `status` moves candidate → watching under the SPEC §4 de-rank rule, and "Existing non-solutions" and First moves 4 and 6 now name the incumbents instead of asking for the survey that has now been run. `score` is unchanged at 7. Method note for the next check: none of the four products appears anywhere in the 11,330-signal corpus — none raised and none sells through public tender — so only Czech-language search could find them. Positive control: the same method run at Wultra (the incumbent named on p-0017) surfaced it, so the negatives in this pass are worth something. Flagged, NOT changed: `scores.proof` is 0 while Secfix (€10.2M Series A) and Copla (€6M Series A) sit on the comps ledger — the recommended value is 3 (funded analogs in two markets, one of them CEE-adjacent), and `scripts/check-records.py` already reports the contradiction as an error. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries NIS2 Průvodce, Compligen, NIS2 Doku and Lexnova Energy, all four early [S16,S7]. NIS2 Průvodce is one person — Ondřej Šitler, IČO 88635783, not VAT-registered — selling against an obligation that only took effect in November 2025; Compligen publishes no IČO and carries a Q3 2026 roadmap; NIS2 Doku is a one-off document pack; Lexnova Energy s.r.o. was incorporated in January 2025 and its sibling Lexnova Services in July 2026. None has three years of selling behind it, so none closes the space: `scores.gap` 0 → 1. The de-rank recorded above was therefore too harsh — it read 'a Czech product exists' as 'the space is taken', which is the v1 test the rewrite retires. ICZ Risk*Guide is deliberately not in `locals[]`, and it is the one entry the ladder cannot represent: ICZ a.s. has traded since 1997 and is plainly not an early company, but the register holds no limb receipt for Risk*Guide and ICZ sells at the enterprise end rather than to the SME and municipal tier this record's buyers occupy — listing it would either force gap 0 on a segment it does not serve or label a 1997 systems house early. It stays named in the body. `scores.proof` 0 → 3, resolving the contradiction flagged above: Secfix (Berlin) and Copla (Vilnius) both pass the established test, in two markets, both CEE-adjacent. `score` 7 → 11. Fifth pass this date, merged here: `locals[]` converted from `status:` to `competes:` + `maturity:`, and **ICZ Risk\*Guide is restored to the ledger** as `competes: adjacent` + `maturity: established`. It is the entry the pass above called the one the ladder could not represent, and the split resolves exactly that bind. ICZ a.s. (IČO 25145444) has traded since July 1997 and is named as a public supplier in this register's own contract signals — Digitální a informační agentura, the police presidium and Správa informačních technologií města Plzně — so it is established on a limb anyone can check, while `competes: adjacent` records that it does not sell this record's product to this record's buyer. Two corrections come with the restoration. First, the claim above that ICZ does not serve the municipal tier was wrong: the Risk\*Guide page names obce and kraje among its buyers. The real distinction is how it is bought — a modular ISMS and risk-assessment platform put in over a one-to-three-month implementation with a 24/7 advisory service attached, rather than the fixed-price product the long tail of obligated entities buys off a web page. Second, Risk\*Guide is now sold by **ICZ.Services a.s. (IČO 22183809)**, a group company incorporated in October 2024, which is why the entry carries the parent's IČO and year rather than the seller's. The four Czech NIS2 products convert to `competes: direct`, all still early. `scores.gap` stays 1 — an adjacent player never moves it — and `score` stays 11. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed.
 
 2026-09-02 · plain-language pass — NIS2, NÚKIB, CER, IROP and ICZ glossed at first use; SME, SMB, MSP, SIEM and DORA replaced with ordinary words. Argument 424 → 376 words with every [Sn] marker, price, date and company kept, and five figures added from sources already on file: ~€6.1M Motol/Homolka [S3], ~€5.3M Prague [S4], ~121k CZK per subsidy application [S8], over a thousand entities still unregistered [S13], ICZ trading since 1997 [S16]. Corrected while tightening: "every one of these sellers is younger than the obligation itself" had swept in ICZ — the claim now names the four Czech products it is actually true of [S1,S16]. Lexnova keeps its price, repeat order and buyer type; only the quoted product name moved to the ledger and source name. First moves rewritten verbs-first with every marker and both tender links kept; a gist added beside all 16 sources. No score, status, note: field, locals[] entry or [Sn] marker touched.
+
+2026-09-04 · price receipt — Three figures already on file are now recorded as prices: the packaged Lexnova order at about 91,000 CZK [S23], Český Brod at about 9M CZK [S24] and the NIS2 Průvodce subscription at 3,000 CZK a month per company [S25]. Compligen and NIS2 Doku are priced in the same scan, but their own pages are not on this ledger, so they stay in the note. No score, status, note, locals[] entry or marker touched.

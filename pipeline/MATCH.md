@@ -153,6 +153,11 @@ The reader is deciding what to build this quarter. Write for them:
   "receipted", "urgency and rank". The reader does not know or care that a pipeline
   exists.
 - Every numeric claim carries an `[Sn]`.
+- **"Who pays and how much" is answered by a price receipt** — a `type: price`
+  source naming the Czech buyer, the crown figure, the unit and the basis — or
+  it is not answered. MONEY alone never claims it: that ladder measures
+  proximity to a public budget, and "public money moving near this problem" is
+  not "this buyer pays this much for this" (owner, 2026-09-03).
 
 ---
 

@@ -81,6 +81,7 @@ from mpsv_extract import extract_mpsv  # noqa: E402
 # fetcher's payload reader, the MODE-A guards and the extractor share one module
 # so the self-test drives the same code the run does.
 import hack_extract   # noqa: E402
+import nen_ptk_extract  # noqa: E402
 import tacr_extract   # noqa: E402
 
 # A FIXED, STATED ASSUMPTION, not a live rate. Ingest must run with no network,
@@ -152,6 +153,11 @@ FILE_FEED_TOKENS = [
     # 2026-09-03: neither name contains nen / ted / yc / hys / ares / coi, and
     # no other fetcher writes a filename containing `tacr` or `hack`.
     ("tacr", "tacr"), ("hack", "hackathon"),
+    # `nenptk-consultations.jsonl` CONTAINS the string `nen`, so this token MUST
+    # sit above ("nen", "nen") or first-match-wins files every pre-tender
+    # consultation under the bulk NEN contract — a silent misattribution that
+    # would fail the wrong feed's yield check. Proven in the feed's selftest.
+    ("nenptk", "nen-ptk"),
     ("nku", "nku"), ("sukl", "sukl"), ("mpsv", "mpsv"), ("ares", "ares"),
     ("coi", "coi"),
     ("hys", "ec-hys"),
@@ -1270,6 +1276,7 @@ EXTRACTORS = {
     # comes from the consultation / event date exactly as ec-hys reads its
     # feedback deadline.
     "tacr": tacr_extract.extract_tacr, "hackathon": hack_extract.extract_hack,
+    "nen-ptk": nen_ptk_extract.extract_nen_ptk,
 }
 
 # Feeds that legitimately keep ZERO records from a healthy payload. `ares`,
@@ -1341,7 +1348,7 @@ def model_debt(feed_key, rec):
     # Same field, same rubric sentence, same refusal path; never persisted.
     if feed_key in ("suggest", "reddit-new", "reddit-search"):
         debt.append("pain")  # transport-only admission bar; NEVER persisted
-    if feed_key in ("hackathon", "tacr"):
+    if feed_key in ("hackathon", "tacr", "nen-ptk"):
         # The asks feeds' OWN admission bar, a sibling of `pain` with its own
         # rubric sentence (scripts/model_pass.py RUBRIC): does the owner name a
         # concrete need? Not `pain` — an ask is not a complaint, and grading it

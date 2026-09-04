@@ -50,6 +50,21 @@ vendors), written by `scripts/fetch_shoptet.sh` and `scripts/fetch_upgates.sh`,
 and its consumer is the `gap` check — it is what makes
 `checked: [eshop-addon-marketplaces]` a claim we can back.
 
+Since 2026-09-04 it also holds `ms21-public-projects.jsonl` (26,048 rows,
+22.9 MB, from the MMR open-data export of approved EU-fund projects, CC BY
+4.0): every PUBLIC-BODY beneficiary with its IČO, region, the money committed,
+and — where the applicant wrote one rather than a placeholder — the problem
+that project was funded to solve. **It is a lookup and not a feed, and the
+reason is the `smlouvy` reason**: 40,988 projects carrying real money would
+pass materiality and bury a 16,000-record ledger, so this tree holds it and
+`scripts/ms21_query.py` searches it. Its consumers are the `price` receipt
+(what a named Czech public buyer actually paid) and the `gap` check (who has
+already been funded to build this). Only 10,834 of the 26,048 rows carry a
+real `<PROBLEM>` statement — 7,885 say `-` and 7,329 say `nerelevantní` — and
+the placeholders are OMITTED rather than written into a field called
+`problem`, because an empty string in a problem field is the shape that looks
+present and says nothing.
+
 **Which date is `<run-date>`:** the date naming the `data/raw/<run-date>/` directory the
 records were completed from — never the wall clock. An attended completion routinely
 happens a day or more after the fetch, and naming the ledger from the clock would file one
@@ -95,7 +110,11 @@ Evidence types and their feeds:
 - `asks` — direct asks from problem owners: a named institution states a
   problem it wants solved before money is attached: tacr (TA ČR research
   needs, scripts/fetch_tacr.sh) and hackathon (owner-set challenge statements
-  from six organizer sites, scripts/fetch_hackathons.sh). NOT student-picked
+  from six organizer sites, scripts/fetch_hackathons.sh) and nen-ptk (the
+  state procurement portal's PRE-TENDER MARKET CONSULTATIONS — a public buyer
+  describing a need before it writes a specification, which is the earliest
+  point at which a buyer with budget says what it cannot do today,
+  scripts/fetch_nen_ptk.sh). NOT student-picked
   hackathon topics, NOT petitions. Registered and first records landed
   2026-09-03. The first cut (32 rows) was REWRITTEN the same night under
   the owner's admission rules and is recorded in data/raw/2026-09-03/
@@ -133,6 +152,7 @@ id          canonical <prefix>-<nativeid>; v1 ids grandfathered unchanged.
             · veklep- (the ODok material PID, e.g. veklep-KORNDVKKWEK9 —
             native id, case preserved)
             · tacr- (the TA ČR need id, the TT code, lowercased)
+            · nenptk- (the NEN contract code, e.g. nenptk-n006-26-p00000122)
             · hack- (sha1-8 of site + "|" + challenge title — the six pages
             are re-read every run, so the id must come from the statement,
             not from the run)
@@ -251,7 +271,9 @@ comps [{name, url, geo, since, traction, signal?: <evidence id>, markets?: [ISO2
 locals? [{name, url?, ico?, since, competes: direct|adjacent,
           maturity: established|early, evidence}],   (url? — one of url/ico)
 sources [{type, url, note, date, name?, gist?, why?, signal?: <evidence id>,
-          dims?: [dimension..]}],
+          dims?: [dimension..],
+          payer?, amount_czk?, unit?, basis?}],   (all four REQUIRED on type: price,
+                                                   forbidden on every other type)
 created, updated
 ```
 
@@ -262,6 +284,31 @@ optional (owner, 2026-08-25: "even the link explanations are too long"). `why`
 is the full plain sentence saying what the source is and why it is cited — with
 a `gist` present it moves behind the row's native "more" toggle; without one it
 renders in the open, exactly as before.
+
+`sources[].type: price` — the PRICE RECEIPT: what a named Czech buyer actually
+pays for THIS product or its manual equivalent (owner ruling, 2026-09-03;
+docs/who-pays-audit-2026-09-03.md). It exists because MONEY asks "is public
+budget nearby?" and never whose pocket the money leaves or whether it buys
+this — six of the eight rung-1 records wrote "adjacent" in their own notes, and
+every one of the corpus's fourteen Czech price points sat inside a gap-check,
+backing `gap`. The fix is a split, not a re-score: no new dimension, the
+12-point card stands. A price source carries five REQUIRED fields — `payer` (a
+named buyer or a sized segment), `amount_czk` (an unquoted, non-negative number
+of crowns; `0` is a real receipt where a free incumbent sets the price), `unit`
+(`per-seat-month` · `per-case` · `per-year` · `per-project` · `one-off` ·
+`per-hour`), `basis` (`list-price` · `signed-contract` · `tender-line` ·
+`buyer-interview` · `manual-equivalent`) and `date` — and a price source
+missing any of them FAILS the build (`scripts/check-records.py`, and zod in
+`web/lib/data.ts`); the same fields on any other type fail too, because they
+would render nothing. It renders under **How big** as one mono ledger line,
+`<payer> pays <amount> CZK <unit> · <basis> · <date>`, linked to the source; a
+record scoring ≥ 7 with no price receipt prints the house line `No Czech buyer
+has priced this yet.` A price receipt cites **money** only when tagged
+`dims: [money]` — a signed public contract can be both — and never proof, gap,
+urgency or demand; untagged it backs no score at all, which is the point: MONEY
+alone never claims "who pays and how much". `basis: manual-equivalent` is how an
+OPEN field gets priced at all — there is no incumbent page to read a price
+from, so the receipt is what the same job costs done by hand.
 
 `fix` — OPTIONAL, one plain sentence naming the product a builder would build,
 rendered under the dek as `WHAT TO BUILD`. Compression of `## First moves` and

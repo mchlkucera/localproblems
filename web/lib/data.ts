@@ -124,7 +124,7 @@ const SignalSchema = z.strictObject({
   //                             carries, so both pass the same test `veklep`
   //                             did. Widened 2026-09-03, BEFORE the first
   //                             `asks` ledger line.
-  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv", "coi", "sukl", "nen", "smlouvy", "dotace", "veklep", "tacr", "hackathon"]),
+  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv", "coi", "sukl", "nen", "smlouvy", "dotace", "veklep", "tacr", "hackathon", "nen-ptk"]),
   url: z.string().url(),
   date: isoDate,
   title: z.string().min(1),
@@ -208,6 +208,25 @@ export const GAP_CHECKED = [
 ] as const;
 export type GapChecked = (typeof GAP_CHECKED)[number];
 
+/** `sources[].unit` on a price receipt — what one amount buys. A closed enum:
+    the page renders each as an English phrase (format.ts PRICE_UNIT_LABELS)
+    and an unknown token is a build failure, never a raw slug on the page. */
+export const PRICE_UNITS = [
+  "per-seat-month", "per-case", "per-year", "per-project", "one-off", "per-hour",
+] as const;
+export type PriceUnit = (typeof PRICE_UNITS)[number];
+/** `sources[].basis` on a price receipt — where the figure comes from. A
+    receipt is worth what its basis is worth, so the basis prints beside it:
+    `list-price` (the vendor's published price) · `signed-contract` (a contract
+    on file) · `tender-line` (a line in a tender or its award) ·
+    `buyer-interview` (a named buyer said so, dated) · `manual-equivalent`
+    (what the same job costs done by hand — the only way an OPEN field, with no
+    incumbent page to read a price from, gets priced at all). */
+export const PRICE_BASES = [
+  "list-price", "signed-contract", "tender-line", "buyer-interview", "manual-equivalent",
+] as const;
+export type PriceBasis = (typeof PRICE_BASES)[number];
+
 // NOTE the deliberate contrast with SignalSchema seven lines above: this one is
 // z.looseObject, so extra keys on problem `sources[]` already pass untouched.
 // That is why the gap-check fields below "already work" — but "already passes"
@@ -242,8 +261,75 @@ const SourceSchema = z.looseObject({
   // compares against extractDate(), NEVER the wall clock (§8.2) — display-only,
   // it never moves `scores.gap` and never changes a total.
   expires: isoDate.optional(),
+  // PRICE RECEIPT FIELDS (owner ruling, 2026-09-03; docs/who-pays-audit-
+  // 2026-09-03.md). MONEY measures proximity to a public budget and was never
+  // an answer to "who pays and how much" — six of the eight records at rung 1
+  // wrote "adjacent" in their own notes. The answer is a SEPARATE receipt, not
+  // a re-score: a `type: price` source records what a named Czech buyer pays
+  // for THIS product or its manual equivalent. All four are REQUIRED on a
+  // price source and FORBIDDEN on any other type (the check below) — one
+  // field, one meaning. Deliberately NOT columns in scripts/db.py: they ride
+  // problem_sources.extra_json verbatim and are reassigned on the DB read
+  // path, so both loaders agree without a schema bump.
+  payer: z.string().min(1).optional(),
+  amount_czk: z.number().nonnegative().optional(),
+  unit: z.enum(PRICE_UNITS).optional(),
+  basis: z.enum(PRICE_BASES).optional(),
+}).check((ctx) => {
+  const s = ctx.value;
+  const fields = ["payer", "amount_czk", "unit", "basis"] as const;
+  if (s.type === "price") {
+    const missing = fields.filter((k) => s[k] === undefined);
+    if (missing.length) {
+      ctx.issues.push({
+        code: "custom",
+        message: `price source ${s.url} is missing ${missing.join(", ")} — a price receipt ` +
+          `names who pays, how much, per what and on what basis, or it is not a receipt`,
+        input: s,
+      });
+    }
+    // A price is not a budget. It cites money only when tagged, and never
+    // proof, gap, urgency or demand — those are other questions (MATCH.md §9).
+    const bad = (s.dims ?? []).filter((d) => d !== "money");
+    if (bad.length) {
+      ctx.issues.push({
+        code: "custom",
+        message: `price source ${s.url} cites ${bad.join(", ")} — a price receipt may carry ` +
+          `dims: [money] only`,
+        input: s,
+      });
+    }
+  } else {
+    const stray = fields.filter((k) => s[k] !== undefined);
+    if (stray.length) {
+      ctx.issues.push({
+        code: "custom",
+        message: `${s.type} source ${s.url} carries ${stray.join(", ")} — price fields render ` +
+          `only on a type: price source; change the type or drop them`,
+        input: s,
+      });
+    }
+  }
 });
 export type ProblemSource = z.infer<typeof SourceSchema>;
+
+/** A `type: price` source with its four receipt fields narrowed to present. */
+export type PriceReceipt = ProblemSource & {
+  payer: string; amount_czk: number; unit: PriceUnit; basis: PriceBasis;
+};
+
+/** The price receipts on a record, in S-number order, each with its 1-based
+ *  S-number. SourceSchema's check guarantees the four fields on every price
+ *  source, so the narrowing below never drops a row in practice; it is written
+ *  as a filter anyway because "undefined pays undefined CZK" is exactly the
+ *  class of rendered sentence the schema exists to prevent. */
+export function priceReceipts(p: Problem): { n: number; s: PriceReceipt }[] {
+  return p.sources
+    .map((s, i) => ({ n: i + 1, s }))
+    .filter((x): x is { n: number; s: PriceReceipt } =>
+      x.s.type === "price" && x.s.payer !== undefined && x.s.amount_czk !== undefined &&
+      x.s.unit !== undefined && x.s.basis !== undefined);
+}
 
 // Buildability scorecard — who can build this, with what, how fast (CONVENTIONS.md).
 // The stánek→továrna capital ladder: <€10k | €10–100k | €100k–1M | >€1M.
@@ -559,8 +645,10 @@ function problemsFromDb(): Problem[] {
         putJson(src, "queries", s.queries_json);
         putJson(src, "checked", s.checked_json);
         put(src, "expires", s.expires === null ? null : String(s.expires));
-        // SourceSchema is looseObject: any key the frontmatter carried that the
-        // schema does not name survives the round trip verbatim. NULL today.
+        // SourceSchema is looseObject: any key the frontmatter carried that db.py
+        // has no column for survives the round trip verbatim. Since 2026-09-03
+        // this is how the four price-receipt fields (payer, amount_czk, unit,
+        // basis) travel — typed above, validated by the check, stored here.
         if (s.extra_json !== null) Object.assign(src, JSON.parse(String(s.extra_json)));
         return src;
       }),

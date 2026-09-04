@@ -125,7 +125,7 @@
         "tacr"
       ],
       "evidence_type": "asks",
-      "cadence": "daily",
+      "cadence": "weekly",
       "runner": "local",
       "url": "https://tacr.gov.cz/kategorie/beta3/feed/",
       "script": "scripts/fetch_tacr.sh",
@@ -187,6 +187,44 @@
           "min": 15,
           "max": 120,
           "basis": "MEASURED 2026-09-03 (scripts/fetch_hackathons.sh, six pages, 4.98 MB): 33 challenge blocks parsed; under the owner's admission rules (owner named by the page, a stated problem) 25 stage — hackjakbrno 9, rakathon 4, idea13 4, aimtec 2, nakopniprahu 6, upol 0 (bare topic lines, refused). Pages are re-read every run and ids come from the statement, so steady state is near zero new per run; min 15 = any two sites down, max covers an edition where every site doubles its list. Counts items_fetched."
+        },
+        "allow_missing": false
+      }
+    },
+    {
+      "key": "nen-ptk",
+      "name": "NEN — předběžné tržní konzultace (pre-tender market consultations)",
+      "yields": "One pre-tender market consultation per record: a named public buyer describing a need BEFORE it writes a specification — the earliest point at which a buyer with budget states what it cannot do today. The state procurement portal's own P-series.",
+      "role": "feed",
+      "signal_source": "nen-ptk",
+      "id_prefixes": [
+        "nenptk"
+      ],
+      "evidence_type": "asks",
+      "cadence": "weekly",
+      "runner": "local",
+      "url": "https://nen.nipez.cz/verejne-zakazky/detail-zakazky/",
+      "script": "scripts/fetch_nen_ptk.sh",
+      "status": "active",
+      "blocker": null,
+      "last_known_good": null,
+      "access": {
+        "verdict": "allowed",
+        "basis": "The state's own procurement portal, server-rendered public detail pages, no auth. robots.txt disallows only /file* (documents, which this feed never fetches) and sets Crawl-delay: 10, which the fetcher obeys with a 10s sleep between requests.",
+        "checked": "2026-09-04"
+      },
+      "contract": {
+        "parse": "jsonl",
+        "required_fields": [
+          "kod",
+          "buyer",
+          "popis",
+          "url"
+        ],
+        "expected_yield": {
+          "min": 5,
+          "max": 60,
+          "basis": "MEASURED 2026-09-03/04 (scripts/fetch_nen_ptk.sh smoke run, NENPTK_MAX=25): 25 pages walked -> 22 detail pages, 3 404s, 0 refused by the MODE-A guard, 16 staged, 6 dropped as `Průzkum trhu` (a price check, not a consultation). The P-series is sequential per year and ran P00000001 (2026-01-09) to P00000205 (2026-09-02), so roughly 25 P-records a month of which about 80% are true consultations — about 20/month, same-day fresh. Counts items_fetched."
         },
         "allow_missing": false
       }
@@ -457,8 +495,8 @@
       "runner": "local",
       "url": "https://opendata.sukl.cz/soubory/MR/mr.zip",
       "script": "scripts/fetch_sukl.sh",
-      "status": "planned",
-      "blocker": "Wiring is LANDED (2026-08-21): fetch_all.sh argv case, normalize.py EXTRACTORS, and the `sukl` value in web/lib/data.ts SignalSchema.source. Stays `planned` until it lands a record. AT ACTIVATION, READ THIS: `sukl-` is claimed by BOTH this row and `demand-scan`, which wrote the 4 committed sukl- records. The same AC-F3 consequence as `coi` applies — remove `sukl` from demand-scan.id_prefixes in the SAME change that activates this row.",
+      "status": "active",
+      "blocker": null,
       "last_known_good": null,
       "access": {
         "verdict": "allowed",
@@ -566,7 +604,6 @@
         "chamber",
         "civic",
         "cnb",
-        "coi",
         "consult",
         "ctu",
         "ecsem",
@@ -577,7 +614,6 @@
         "ombud",
         "smo",
         "spcr",
-        "sukl",
         "uni"
       ],
       "evidence_type": "demand",
@@ -852,8 +888,8 @@
       "runner": "local",
       "url": "https://coi.gov.cz/userdata/files/dokumenty-ke-stazeni/open-data/sankce.csv",
       "script": "scripts/fetch_coi.sh",
-      "status": "planned",
-      "blocker": "Wiring is LANDED (2026-08-21): fetch_all.sh argv case, normalize.py FILE_FEED_TOKENS + EXTRACTORS, and the `coi` value in web/lib/data.ts SignalSchema.source. Stays `planned` until it lands a record, because status is INTENT and PENDING/LIVE in feed_health.json is the observed half. AT ACTIVATION, READ THIS: `coi-` is claimed by BOTH this row and `demand-scan`, which wrote the 3 committed coi- records by hand. While this row is `planned` only demand-scan is CAPABLE, so db.py attributes the prefix to it and AC-F3 stays at 0 ambiguous. Flipping this row to `active` without ALSO removing `coi` from demand-scan.id_prefixes makes two capable claimants and sends every coi- record to UNATTRIBUTED. Follow the `nku` precedent in this same file.",
+      "status": "active",
+      "blocker": null,
       "last_known_good": null,
       "access": {
         "verdict": "allowed",
@@ -891,7 +927,7 @@
       "url": "https://data.smlouvy.gov.cz/",
       "script": "scripts/fetch_smlouvy.sh",
       "status": "planned",
-      "blocker": "Wiring is LANDED (2026-08-21): fetch_all.sh declares the argv shape ($1 = SINCE ISO date, $2 = outdir — the ted/hlidac shape, NOT the outdir-first shape), normalize.py FILE_FEED_TOKENS maps `smlouvy` ahead of the generic tokens and EXTRACTORS maps it to extract_smlouvy, and web/lib/data.ts accepts `smlouvy` as a source. Stays `planned` until it lands a record. NOTE THE KNOWN OVERLAP, which is an operational choice and not a defect: this feed and `hlidac` read the SAME register, so a contract both see lands twice under two ids. Both ids embed the same registr-smluv idVerze and both records carry the same smlouvy.gov.cz/smlouva/<idVerze> url, so the url-keyed dedup pass in normalize.py collapses the second one — see DEDUP_KEYS there.",
+      "blocker": "PARKED AGAIN 2026-09-03 AFTER A MEASURED RUN, and this is the reason the earlier note could not have known. The fetcher works: 7 daily dumps, 25,587 contracts, 25,192 staged records. But it is a PER-ITEM feed and every item scores money 1 or 0, so it walks straight into the trap CONVENTIONS.md names for `hiring`: 'a per-item feed whose items each score money 1 is filtered out of existence while looking like it ran correctly'. Worse, scoring 25k records costs a full model pass to land a few hundred. It needs what mpsv, coi and sukl already have — AGGREGATION BEFORE MATERIALITY (by buyer, by CPV, by month), or a value threshold — and the >20M CZK slice of the same register is ALREADY covered by `hlidac`. Un-parking means writing smlouvy_reduce.py first, not flipping this word.",
       "last_known_good": null,
       "access": {
         "verdict": "allowed",

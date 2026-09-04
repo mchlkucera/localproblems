@@ -239,8 +239,26 @@ sources:
     carries no founding year or traction, so arbitrage source only, no comps entry.'
   date: '2023-07-17'
   signal: yc-craftwork
+- type: price
+  url: https://dotacenarenovace.cz/
+  name: "dotacenarenovace.cz — the subsidy desk fee"
+  gist: "10k CZK, then 40k"
+  why: "A Czech homeowner pays 10,000 CZK up front to have the state renovation subsidy handled and 40,000 CZK more once it is approved, so the deposit is the lower bound."
+  note: 'Price receipt lifted from the 2026-08-20 deeper sweep already on this ledger, which
+    read dotacenarenovace.cz: the NZÚ application handled for a 10k CZK deposit plus 40k on
+    approval, claimed 99% success. A two-part fee, so the amount recorded is the part paid
+    unconditionally and why states the rest. The German VARM figure on this record is foreign
+    and is not a Czech receipt. dims omitted: backs no score.
+    Verified 2026-09-04: dotacenarenovace.cz still states zálohu 10 000 Kč for the survey,
+    design, energy assessment and subsidy handling, with 40 000 Kč doplatíte až po
+    schválení dotace.'
+  date: '2026-08-20'
+  payer: 'A Czech homeowner renovating with the state subsidy'
+  amount_czk: 10000
+  unit: one-off
+  basis: list-price
 created: '2026-08-13'
-updated: '2026-09-03'
+updated: '2026-09-04'
 ---
 
 Insulating a Czech family home means picking one of thousands of small regional firms [S3,S6], waiting for a quote, and hoping the subsidy paperwork gets filed. One is not like the rest: IP Polná (own crews, thirty years) has insulated a claimed 30,000+ Czech buildings [S7]. The subsidy that co-pays the work runs continuously, pre-validating household demand [S2].
@@ -273,3 +291,5 @@ Same date, later pass: **`scores.gap` 1 → 0 and `score` 6 → 5**, and the led
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 5 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
 
 2026-09-02 · plain-language pass — Four terms glossed at first use: EPBD, VARM, ZOFI, IP Polná. Three were replaced with plain English instead — NZÚ, MEPS and zateplení. The argument was tightened from 467 to 389 words with all 16 [Sn] marker groups, every figure, date and named firm kept, and a gist added beside all seven sources. No score, status, note or marker touched.
+
+2026-09-04 · price receipt — The subsidy-desk fee already on file is now recorded as a price: 10,000 CZK on signing and 40,000 CZK on approval, paid by the homeowner [S9]. The German figure on this record is foreign and is not recorded as a Czech price. No score, status, note or marker touched.

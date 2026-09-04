@@ -297,8 +297,35 @@ sources:
   date: '2026-08-26'
   signal: ted-587970-2026
   dims: []
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38899662
+  name: "Dům seniorů Františkov — the sharing contract"
+  gist: "about 1.0M CZK by hand"
+  why: "A Liberec care home pays about 1.0M CZK on one contract to have its electricity sharing administered by hand."
+  note: 'Price receipt drawn from the contract already on this ledger (hlidac-38899662,
+    registr smluv, Smlouva o zajištění sdílení elektřiny č. 58, ~1.0M CZK). The register
+    entry states a contract value and no annual term, so the unit is one-off rather than
+    per-year. dims omitted deliberately: this backs no score and moves nothing.'
+  date: '2026-07-01'
+  payer: 'Dům seniorů Františkov, a Liberec care home'
+  amount_czk: 1000000
+  unit: one-off
+  basis: signed-contract
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38404378
+  name: "Nemocnice Pardubického kraje — the same service"
+  gist: "about 200k CZK"
+  why: "A regional hospital group pays about 200,000 CZK for the same electricity-sharing administration, done by hand."
+  note: 'Price receipt drawn from the contract already on this ledger (hlidac-38404378,
+    registr smluv, ~200k CZK vč. DPH, Jun 2026). No annual term is stated in the register
+    entry, so the unit is one-off. dims omitted: backs no score.'
+  date: '2026-06-16'
+  payer: 'Nemocnice Pardubického kraje, a regional hospital group'
+  amount_czk: 200000
+  unit: one-off
+  basis: signed-contract
 created: '2026-08-13'
-updated: '2026-09-03'
+updated: '2026-09-04'
 ---
 
 Czech energy communities have shared electricity through EDC (the national electricity data hub) since August 2024, under Lex OZE II (the law that legalised it), but run member administration, allocation keys and settlement by hand [S1]. Hospodářské noviny reports up to half the value of shared electricity lost to bad allocation and settlement [S2].
@@ -335,3 +362,5 @@ Solved elsewhere: Exnaton sells this to utilities across German-speaking Europe 
 2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "DSO-adjacent service firms" now reads "the service firms around the regional grid operators". Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. Local players moved out of gap-check prose into a structured `locals[]` ledger — Enerio, Softlink CEM, EnerCA, ENERGOMETR (DEKSOFT) and CANCOM, all five marked early [S13]. None passes the established test: Czech sharing over EDC opened only in 2024, so none has three years of selling behind it, and none publishes a customer, a public buyer, a round or a state listing — enerio.cz still runs placeholder testimonial names and empty counters. An early local player does not close a space, so `scores.gap` moves 0 → 1: contested, not taken. `scores.proof` holds at 3 — Exnaton, eFriends, OurPower and Pionierkraft all pass the test, across CH, AT and DE, two of them CEE-adjacent. `score` 8 → 9. The 2026-08-20 de-rank is not withdrawn; the five vendors are real and still named in the body. What changed is that a crowded young field is now scored as contested rather than closed. Fifth pass this date, merged here: the ledger's `status:` field was split into `competes:` (direct or adjacent) and `maturity:` (established or early), so it can now say the thing one field could not — that a real player nearby does not sell this record's product. All five vendors convert to `competes: direct` keeping the maturity they already carried: each sells community administration with allocation keys, member invoicing and EDC settlement to communities, which is this record's product to this record's buyer. **Delta Green** joins the ledger as `competes: adjacent`, reversing the 2026-08-14 decision above to keep it out: it sells spot-price supply and household flexibility aggregation and no sharing administration [S9], and under the split that is intelligence a builder needs rather than a name to drop. It publishes no launch year and neither of its rounds carries a stage letter, so it is early on the test's own terms. `scores.gap` stays 1 — an adjacent player never moves the score, and the direct field is still five young vendors. Deliberately NOT added, and the reasons are recorded so the next pass does not relitigate them: **EDC** is state data infrastructure rather than a vendor; **JMEA** is named in First moves #2 as a target customer, so filing it as competition would mislead the reader the ledger exists to inform; and **ASITIS** has no receipt on file beyond the fact that a 2026-08-13 search returned it [S3], with nothing recorded about what it sells. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed.
 
 2026-09-02 · plain-language pass — Glossed at first use: EDC, Lex OZE II, Softlink CEM, CANCOM. Replaced with plain words: DACH, ETH, RED II, CEE, SME, ASITIS and JMEA. Argument 336 → 299 words, every figure and named vendor kept, with two on-file receipts now cited in the body: the 1 September 2026 rule change [S12] and the ~200k CZK hospital contract [S10]. First moves rewritten verbs-first; a gist added to all 14 sources. No score, status, note or marker touched.
+
+2026-09-04 · price receipt — The two sharing-administration contracts already on file are now also recorded as prices: about 1.0M CZK at a Liberec care home [S16] and about 200,000 CZK at a Pardubice-region hospital group [S17]. Same urls, same dates and same figures as the contracts they come from. No score, status, note or marker touched.

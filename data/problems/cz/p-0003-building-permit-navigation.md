@@ -224,8 +224,45 @@ sources:
   date: '2026-06-30'
   signal: ombud-q2-2026
   dims: [demand]
+- type: price
+  url: https://www.cespron.cz/ceny-inzenyrskych-cinnosti/
+  name: "Permit engineering, done by a person"
+  gist: "from 16,000 CZK a project"
+  why: "The lower bound of the published Czech range for permit engineering on one family house: 16,000 to 42,000 CZK a project, paid to a person."
+  note: 'Price receipt drawn from the published price lists already on this ledger (CESPRON
+    16,000 CZK total; Průvodce dřevostavbou 42,000 CZK incl. VAT from 1.1.2026). A range, so
+    the lower bound is recorded and why says so. basis manual-equivalent: it is what the same
+    job costs done by hand, which is the reason that basis exists. dims omitted.
+    Verified 2026-09-04: the CESPRON price list at that url still itemises the standard
+    family-house permit and totals Celková cena standardního řízení 16 000,- Kč, so the
+    recorded lower bound holds; the 42,000 CZK upper end sits on the separate Průvodce
+    dřevostavbou list, which is not this url.'
+  date: '2026-08-25'
+  payer: 'A Czech family-house builder commissioning permit engineering'
+  amount_czk: 16000
+  unit: per-project
+  basis: manual-equivalent
+- type: price
+  url: https://pruvodka.cz/
+  name: "Průvodka — the Czech product"
+  gist: "12,900 CZK a project"
+  why: "Průvodka charges a designer or building owner 12,900 CZK a project to prepare and chase a permit, with a 29,900 CZK monthly studio tier above it."
+  note: 'Price receipt lifted from the 2026-08-20 gap re-check already on this ledger, which
+    read pruvodka.cz: 12,900 CZK per project one-off or 29,900 CZK/month (Studio, up to 5 new
+    projects), Stripe checkout, 14-day money-back. The monthly tier has no matching unit in
+    the price vocabulary, so the per-project price is the receipt and the tier is stated in
+    why. dims omitted: backs no score.
+    Verified 2026-09-04: pruvodka.cz now prices at 14 900 Kč za projekt and no longer
+    shows the 29,900 CZK Studio tier, so the recorded 12,900 CZK is what the page said on
+    2026-08-20 and the list price has since risen — pruvodka.cz has no Wayback snapshot,
+    so no archived page carries the older figure.'
+  date: '2026-08-20'
+  payer: 'A Czech designer or building owner preparing a permit'
+  amount_czk: 12900
+  unit: per-project
+  basis: list-price
 created: '2026-08-13'
-updated: '2026-09-03'
+updated: '2026-09-04'
 ---
 
 Czech building-permit proceedings typically run six months to a year, related engineering work included [S5]. The July 2024 launch of the state's digital permitting portal (portál stavebníka) made it worse: a year on, the trade press (archiweb) called the system stabilized "but still facing complications" [S2]. Applicants and building offices both lost throughput moving to the new building act [S2]. Building matters were the third-largest complaint agenda at the public defender of rights in the second quarter of 2026, at 192 in three months [S13].
@@ -258,3 +295,5 @@ Solved elsewhere: PermitPortal (Y Combinator, autumn 2024), Permitify (winter 20
 2026-08-25 · plain-language pass — The who-pays opening sentence, which IS the dek, was reworded out of insider shorthand a reader outside Czechia could not decode: "larger stavebníci" now reads "the larger firms that commission building work", and "offices preparing dokumentace" now reads "offices that draw up the design documents". No `fix:` was authored here: the argument closes with the local position held by Průvodka and names no product an entrant would build that Průvodka does not already sell, so the field is left absent rather than filled with something vague — the template renders nothing when it is. Scores, status, source notes and every [Sn] marker are untouched by that pass. Second pass this date, merged here: the 2026-08-25 retrospective harvest added the ministry's ~€0.8M contract upgrading the building-procedure portal [S11]. Money 0 → 1 on the adjacent-spend precedent p-0004 already carries — the state demonstrably pays into the system at the centre of this record — and score 4 → 5; everything else stands. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` carries Průvodka, marked early: live and priced, but unfunded, with no launch year published and no ARES match for the trade name, so no limb of the established test is on file [S7]. An early local player does not close a space: `scores.gap` 0 → 1. Efektivia is deliberately NOT in `locals[]` — it sells AI triage to the building authority, the other side of the counter, and `locals[]` is the ledger of players selling this record's own product to its own buyer, which is what the gap ladder reads; it stays named in the body. `scores.proof` 1 → 2: PermitFlow and GreenLite both pass the established test, but both are American, so rung 3's 'two markets, one CEE-adjacent' is not met. `score` 5 → 7. Fifth pass this date, merged here: `locals[]` converted from `status:` to `competes:` + `maturity:`, and **Efektivia is restored to the ledger** as `competes: adjacent`, reversing the exclusion recorded in the pass above. The reason given there for leaving it out — that it sells to the building authority rather than to this record's buyer — is now precisely what the ledger is able to say, and it is what a builder needs to know rather than grounds for dropping the name. Průvodka converts to `competes: direct` and stays early, so `scores.gap` stays 1: the only direct player on file is still an unfunded one. Two corrections while restoring. The pass above said no ARES match exists for Efektivia's trade name; that was wrong. ARES resolves **AI Efektivia s.r.o., IČO 19760680, Brno, incorporated 25 September 2023**, which also supplies the `since` year the entry had been missing. With that year and the two offices it names — MČ Brno-střed and MěÚ Neratovice [S7] — Efektivia passes both limbs of the established test, so it is recorded `adjacent` + `established`; the entry states the September 2023 incorporation date plainly, because three years is met on this register's year clock and not yet on the calendar. The same ARES claim was re-checked for **Průvodka** in this pass and it holds — no company resolves under that trade name. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed. Also cut from the Efektivia entry: the note that an earlier pass wrongly claimed no ARES match for the trade name. The correction is real and it is recorded in the pass above, which is where it belongs; the ledger line is for the market, not for our own errata. Same pass: `## First moves` written for the first time. The template reserves the section for records scoring 7 or more and this one has scored 7 since the re-score recorded above, but it had none. Four moves, each grounded in a receipt already on this ledger — the professional population and the published price of doing the work by hand [S9,S10], the statutory answer windows and Průvodka's five-project monthly plan [S7], the ČKAIT survey and the ministry's portal-upgrade contract [S5,S11], and the 2025 permit count [S8]. No new claim was introduced and no score moved. The absent `fix:` stands: the moves say who to sell to and what to build first, which is a route into a contested field, not a product Průvodka does not already sell.
 
 2026-09-02 · plain-language pass — Eighteen Czech and trade terms glossed or replaced at first use, among them stavebníci, inženýrská činnost, DSŘ, úřady, stavební zákon, dokumentace, MČ and MěÚ; ČEZ and CETIN now carry appositives. Argument 438 → 346 words, every [Sn] marker, figure, price and named company kept, and the August 2026 portal contract [S11] added to Why now. First moves rewritten verbs-first. A gist added to all eleven sources. No score, status, note or marker touched.
+
+2026-09-04 · price receipt — Two figures already on file are now recorded as prices: permit engineering by hand from 16,000 CZK a project, the lower bound of a 16,000 to 42,000 CZK range [S14], and Průvodka at 12,900 CZK a project [S15]. No score, status, note or marker touched.

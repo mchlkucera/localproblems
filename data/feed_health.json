@@ -1,6 +1,6 @@
 {
   "generated": "2026-09-03",
-  "run_id": "2026-09-03T1959",
+  "run_id": "2026-09-03T2112",
   "feeds": [
     {
       "key": "ted",
@@ -160,16 +160,16 @@
     },
     {
       "key": "sukl",
-      "state": "PENDING",
-      "last_success": null,
-      "items_last_run": null,
-      "yield_7d": 0,
-      "signals_total": 0,
+      "state": "LIVE",
+      "last_success": "2026-09-03",
+      "items_last_run": 15,
+      "yield_7d": 15,
+      "signals_total": 11,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": null,
-      "parse_method": null,
-      "error": null
+      "days_since_last_signal": 0,
+      "parse_method": "structured",
+      "error": "validity=2026-09-03 rows_in_file=83016 aggregates=15"
     },
     {
       "key": "ec-hys",
@@ -203,7 +203,7 @@
       "last_success": null,
       "items_last_run": null,
       "yield_7d": 0,
-      "signals_total": 115,
+      "signals_total": 108,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
       "days_since_last_signal": 0,
@@ -290,16 +290,16 @@
     },
     {
       "key": "coi",
-      "state": "PENDING",
-      "last_success": null,
-      "items_last_run": null,
-      "yield_7d": 0,
-      "signals_total": 0,
+      "state": "LIVE",
+      "last_success": "2026-09-03",
+      "items_last_run": 17,
+      "yield_7d": 17,
+      "signals_total": 12,
       "consecutive_failures": 0,
       "consecutive_zero_yield": 0,
-      "days_since_last_signal": null,
-      "parse_method": null,
-      "error": null
+      "days_since_last_signal": 0,
+      "parse_method": "structured",
+      "error": "coverage_end=2026-06-30 sankce_rows=176945 kontroly_rows=288962 aggregates=17 fresh=2 cached=0"
     },
     {
       "key": "smlouvy",

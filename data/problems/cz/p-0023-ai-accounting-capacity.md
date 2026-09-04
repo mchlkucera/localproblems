@@ -251,8 +251,24 @@ sources:
   date: '2026-08-31'
   signal: mpsv-2026-08-back-office
   dims: [demand]
+- type: price
+  url: https://www.uctarna.ai/
+  name: "Účtárna.ai — what a small firm pays"
+  gist: "from 5,000 CZK a month"
+  why: "The lower bound of what a small Czech firm pays for AI-assisted bookkeeping with licensed accountants behind it: from 5,000 CZK a month, plus 300 CZK per employee a month for payroll."
+  note: 'Price receipt lifted from the 2026-08-20 gap re-check already on this ledger, which
+    read uctarna.ai: bookkeeping and VAT from 5,000 CZK a month, payroll at 300 CZK per
+    employee per month. "From" is a lower bound and why says so; the seat is the client firm.
+    dims omitted: backs no score.
+    Verified 2026-09-04: uctarna.ai still prints od 5 000 Kč měsíčně for účetnictví a DPH
+    and 300 Kč měsíčně za zaměstnance for mzdy.'
+  date: '2026-08-20'
+  payer: 'A small Czech firm buying outsourced bookkeeping'
+  amount_czk: 5000
+  unit: per-seat-month
+  basis: list-price
 created: '2026-08-13'
-updated: '2026-09-03'
+updated: '2026-09-04'
 ---
 
 Czech accountants are scarce, and their rulebook is being rewritten. The new Accounting Act reached parliament in December 2025 and is planned for 1 January 2028 [S3]. It brings in IFRS (international financial reporting standards) and functional-currency accounting, forcing rewrites across Pohoda, Money, ABRA and Helios — the software Czech firms keep their books on — and retraining for every accountant [S3].
@@ -288,3 +304,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
 
 2026-09-02 · plain-language pass — Glossed IFRS, ABRA and ÚOL at first use; replaced three acronyms with plain words — JMHZ became the monthly employer report [S6], ČSSZ the social-security administration, UK Britain. Argument tightened 447 to 385 words, every [Sn] marker, figure, date and named company kept. First moves rewritten verbs-first, the register-bookkeeping opener on move six gone. A gist added to all nine sources. No score, status, note or marker touched.
+
+2026-09-04 · price receipt — The price already read in the 2026-08-20 sweep is now recorded as a price of its own: from 5,000 CZK a month, plus 300 CZK per employee [S11]. No score, status, note or marker touched.

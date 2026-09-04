@@ -194,8 +194,22 @@ sources:
     - "provozování dálkových odečtů vodoměrů jako služba pro vodárny český dodavatel smart metering platforma"
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-23'
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/39041762
+  name: "VaK Židlochovicko — meters, then the running of them"
+  gist: "about 8.4M CZK in one day"
+  why: "A small Czech water utility signed about 8.4M CZK in a single day: 4.8M for meters and readers, 3.6M for running the system."
+  note: 'Price receipt drawn from the two contracts already on this ledger (hlidac-39041762,
+    VaK Židlochovicko, 30 Jul 2026: meter and reader supply ~4.8M CZK plus system operation
+    and support ~3.6M CZK). The 8.4M total is the figure this file already states. No annual
+    term stated, so one-off. dims omitted: money already rests on the open Ivančice tender.'
+  date: '2026-07-30'
+  payer: 'VaK Židlochovicko, a small Czech water utility'
+  amount_czk: 8400000
+  unit: one-off
+  basis: signed-contract
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-04'
 ---
 
 Czech water supply runs on hundreds of municipal utilities and water associations — the VaK companies and svazky, most of them small [S2]. Each digitizes metering one infrastructure tender at a time. Three bought inside ten weeks of 2026: Kroměříž about €1.3M for network smart metering, Bruntál a water data dispatch [S2], Ivančice a €1.2M competition [S1] — each buying its own hardware, radio links, platform and integration.
@@ -224,3 +238,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
 
 2026-09-02 · plain-language pass — Glossed three trade terms at first use — CEM Smart, SMG Water and SUEZ Water CZ — and put plain words beside VaK and svazky; telemetry replaced outright. Argument went 291 to 299 words as the glosses landed; every figure, date and named company kept, and the window sentence now cites the Benešov pilot [S8], previously uncited. A gist added to all nine sources. No score, status, note or marker touched.
+
+2026-09-04 · price receipt — The two Židlochovicko contracts already on file are now also recorded as a price: about 8.4M CZK signed in one day, meters and readers plus the running of the system [S10]. No score, status, note or marker touched.

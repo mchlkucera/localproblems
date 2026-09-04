@@ -46,6 +46,7 @@ export RUN_ID
 #    ---- landed 2026-09-03, the `asks` ledger --------------------------------
 #    scripts/fetch_tacr.sh       $1 = OUTDIR            --   (RSS + category HTML)
 #    scripts/fetch_hackathons.sh $1 = OUTDIR            --   (six organizer pages)
+#    scripts/fetch_nen_ptk.sh    $1 = OUTDIR            --   (NEN pre-tender consultations)
 #    scripts/fetch_smlouvy.sh  $1 = SINCE (YYYY-MM-DD)  $2 = OUTDIR
 #    scripts/fetch_mpsv.sh     $1 = OUTDIR              $2 = optional YYYY-MM
 #    ---- landed 2026-08-25 ---------------------------------------------------
@@ -261,7 +262,8 @@ while IFS=$'\t' read -r key status script allow_missing; do
     sukl)             run_feed "$script" "$OUTDIR" ;;
     shoptet|upgates)  run_feed "$script" "$OUTDIR" ;;
     # ---- landed 2026-09-03 — the `asks` feeds, outdir is $1 ------------------
-    tacr|hackathon)   run_feed "$script" "$OUTDIR" ;;
+    tacr|hackathon|nen-ptk)
+                      run_feed "$script" "$OUTDIR" ;;
     # mpsv takes an OPTIONAL second argument, the target month. It is left
     # UNSET here on purpose: the fetcher's own default is "the most recent
     # COMPLETE month", which is the only correct choice for an unattended run —

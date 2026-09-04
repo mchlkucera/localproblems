@@ -1,5 +1,5 @@
 // House data formatting (design-language: data always looks like evidence).
-import type { GapChecked } from "./data";
+import type { GapChecked, PriceBasis, PriceUnit } from "./data";
 
 /** Compact euro figure: €41k / €1.3M / €78M. Null → em dash. */
 export function euro(v: number | null): string {
@@ -80,6 +80,37 @@ export const GAP_SURFACES: Record<GapChecked, string> = {
 export function gapSurface(token: string): string {
   return GAP_SURFACES[token as GapChecked] ?? token;
 }
+
+/** An exact Czech-crown figure, space-grouped, currency stated: `29 900 CZK`.
+    A price receipt is the exact figure a buyer pays, never a rounded sum, so it
+    takes the space-grouped form the design language reserves for exact figures
+    — not the compact €-first form `euro()` gives a tender's rounded value. The
+    group separator is U+00A0 so a figure never breaks across a line inside a
+    wrapped ledger row; it prints and photocopies as a space. */
+export function czk(v: number): string {
+  const [int, frac] = String(v).split(".");
+  const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return `${frac === undefined ? grouped : `${grouped}.${frac}`} CZK`;
+}
+
+/** The unit and basis of a price receipt, in English — the GAP_SURFACES rule:
+    the enum is storage, the reader is owed a phrase. Record<enum, string> makes
+    a new token a TypeScript error here rather than a raw slug on the page. */
+export const PRICE_UNIT_LABELS: Record<PriceUnit, string> = {
+  "per-seat-month": "per seat per month",
+  "per-case": "per case",
+  "per-year": "per year",
+  "per-project": "per project",
+  "one-off": "one-off",
+  "per-hour": "per hour",
+};
+export const PRICE_BASIS_LABELS: Record<PriceBasis, string> = {
+  "list-price": "list price",
+  "signed-contract": "signed contract",
+  "tender-line": "tender line",
+  "buyer-interview": "buyer interview",
+  "manual-equivalent": "manual equivalent",
+};
 
 /** Register locality display. Unknown codes render as recorded (mono truth). */
 export function localityLabel(geo: string): string {

@@ -251,3 +251,100 @@ team counts and winners are never recorded. Everything below was probed live on 
   filter `nen.nipez.cz/verejne-zakazky/p:vz:nazev=konzultace` returns 45 rows, but whether
   the bulk ISVZ files the NEN fetcher reads carry the procedure kind is UNVERIFIED, so
   nothing is built on it yet.
+
+## Wave-5 additions (2026-09-04) — MS2021+ approved projects, as a LOOKUP not a feed
+
+The first source admitted to answer the register's weakest question — **who paid how
+much, and what problem did that buyer say it solved** — and the first one admitted
+*without* a `data/feeds.json` row. Everything below was measured live on 2026-09-04.
+
+**What it is.** `https://ms21opendata.mssf.cz/SeznamOperaci_21_27.xml` — MMR's open-data
+export of every approved 2021-27 EU-cofinanced project in Czechia.
+`LICENCE="Creative Commons (CC BY 4.0)"`, `AUTOR="Ministerstvo pro místní rozvoj"`,
+default namespace `https://ms21xsd.mssf.cz/OpenData/v_1`. HTTP 200, **146,410,196 bytes**,
+**40,988 `<PRJ>` records**, ETag *and* Last-Modified both served, no auth, no page cap.
+Every project carries the beneficiary's own `<PROBLEM>` statement beside the approved
+money and the buyer's IČO — a pairing nothing else in this catalog offers.
+
+**WHY IT IS A LOOKUP AND NOT A FEED.** 40,988 projects each carrying real money would
+flood `data/signals/**` (16,237 records today) and nearly all of them would pass
+materiality. That is precisely the trap `smlouvy` is parked for, in the registry's own
+words: *"a PER-ITEM feed whose items each score money 1 or 0 … walks straight into the
+trap CONVENTIONS.md names for `hiring`"*, where the fix is aggregation before materiality.
+Here the fix is stronger — **do not make it evidence at all**. There is no natural
+aggregate that keeps the useful part (one buyer, one price, one problem statement), so
+aggregating would destroy the very thing worth having. It lands in `data/lookup/`
+(CONVENTIONS.md "Lookup layer": committed, never pruned, no evidence type, no date, no
+score, not walked by `db.py`, `web/lib/data.ts` or the build gate) and is *queried on
+demand* by the MATCH and SWEEP passes. **It gets no registry row, and that is the design,
+not an omission.**
+
+**What was built (four files, no edits to any shared file):**
+
+- `scripts/fetch_ms21.sh` — argv `$1 = outdir` (the nku/tacr shape). Conditional GET into
+  `data/raw/.cache/ms21/` sending BOTH validators (`--etag-compare` + `--time-cond` on the
+  cached body's Last-Modified mtime); the cache holds the **body**, not just the ETag, so a
+  304 can still rebuild the index. MODE-A guard before anything is promoted. Manifest row +
+  `.fetch/receipts.jsonl` in the `fetch_tacr.sh` shape — verified inert, since `normalize.py`
+  consults receipts as `receipts.get(feed_key)` per *registered* feed only.
+- `scripts/ms21_index.py` — stdlib, `iterparse` (never `ET.parse` — the file is 146 MB),
+  writes `data/lookup/ms21-public-projects.jsonl`: **26,048 rows, 24,030,188 bytes
+  (22.9 MB)**, built in 4.4 s. Contact-shaped text is cut with `normalize.py`'s EMAIL_RE /
+  PHONE_RE (copied, with the comment saying so).
+- `scripts/ms21_query.py` — `--keyword` (case- and diacritic-insensitive over
+  name+problem+goal+theme), `--region`, `--min-czk`, `--ico`, `--limit`, `--json`. Prints
+  the buyer, the money, the buyer's own problem statement, and a paste-ready citation.
+  Results are ordered by money, largest first.
+- `scripts/ms21_selftest.py` — 54 offline checks, all passing.
+
+**Four measurements that changed the design:**
+
+1. **`<PROBLEM>` is a non-answer on 58% of public rows.** It is present on all 40,988
+   records, but of the 26,048 public ones **7,885 say `-`, 7,328 say `nerelevantní`** and
+   one says `nerelevantní.` — 15,214 placeholders; only 10,834 carry a real statement. A placeholder is OMITTED
+   rather than written into a field called `problem` (the empty-`quote` rule), and the
+   query tool says so out loud on those rows.
+2. **Two money blocks, and they disagree.** Every `<PRJ>` carries two `<PF>` blocks
+   distinguished only by `<T>`; both are present on 100% of public rows and **the totals
+   differ on 553 of them**. The reader takes `T=1` and, with no `T=1` block, writes no
+   money at all rather than falling back.
+3. **`<S>` (own/private share) exists on only 510 of 26,048 public rows.** Public bodies
+   book their non-EU part under `CNV` instead. `own_czk` therefore means exactly "the `S`
+   element" and nothing else; the query tool shows `total − EU` separately and labels it
+   *(dopočet)*, because folding a subtraction into `own_czk` would be one field carrying
+   two questions.
+4. **5,070 rows report no actual start and no actual end.** Their citation gets an EMPTY
+   `date`, which fails `check-records.py` loudly — better than a substituted
+   export-publication date that would pass the build while claiming a commitment that
+   never happened on that day.
+
+**Which beneficiaries count as public — by `ZAD/HPF`, measured, 26,048 rows:** 331
+příspěvková organizace (16,237) · 801 obec (6,826) · 641 školská právnická osoba (742) ·
+804 kraj (628) · 601 veřejná vysoká škola (387) · 325 organizační složka státu (378) ·
+332 státní příspěvková organizace (309) · 771 dobrovolný svazek obcí (241) · 661 veřejná
+výzkumná instituce (126) · 301 státní podnik (90) · 811 městská část (50) · 352 státní
+organizace (24) · 382 státní fond (10).
+**Refused, each for a stated reason:** 100 (941) is *podnikající fyzická osoba* and the
+measured names are people ("Zdeněk Jaroš"); 141 o.p.s. (976) and 722 církevní právnická
+osoba (428) are contractors *for* public money, not the buyer of it; business forms
+(112/121/…) are the counterparty side; the `P01…P54` codes (24) are Polish partner bodies
+in Interreg — public, and not Czech. **One admitted form is mixed:** 641 is a legal form
+for *schools* whose founder may be a municipality, a private person or a diocese, so a
+record citing a 641 row must name the founder and must not call it "the state". Every row
+carries `legal_form` so the caller can see which one it got.
+
+**THE CITATION RULE — and the url is a constant on purpose.** A record cites a project as
+a `type: price` source: `url` = `https://ms21opendata.mssf.cz/SeznamOperaci_21_27.xml`
+(the whole dataset), the project `KOD` in `note`, `payer` = the beneficiary,
+`amount_czk` = `total_czk`, `unit: one-off`, `basis: signed-contract` (an approved
+MS2021+ operation is a signed grant agreement, not a list price and not a tender line),
+`date` = the project's actual start. **The same url on every project is BY DESIGN — this
+export has no per-project permalink — and it is the shape `coi`, `sukl` and `mpsv` already
+use**, which data/CONVENTIONS.md states outright: *"`coi` / `sukl` / `mpsv` emit whole
+aggregate families under one constant dataset url BY DESIGN. Merging on url alone would
+delete 504 real records."* The KOD in `note` is the identifying key. `ms21_query.py` prints
+this in the note of every citation it emits, so the next dedupe pass does not "fix" it.
+
+**Follow-up, not built:** `data/CONVENTIONS.md`'s "Lookup layer" paragraph still lists only
+the two e-shop files as the tree's contents; it needs a third line naming this one. Left to
+the owner because that file is shared.

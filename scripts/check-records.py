@@ -253,6 +253,22 @@ _CLAIMED_BUYERS = re.compile(r"(?i)(\d+)\s*(?:distinct\s+)?(?:public\s+)?"
 _BUYERS = None
 
 
+# THE PRICE RECEIPT (owner ruling, 2026-09-03; docs/who-pays-audit-2026-09-03.md).
+# MONEY measures proximity to a public budget, and the audit found six of the
+# eight rung-1 records writing "adjacent" in their own notes: the number never
+# carried the caveat. The fix is a SPLIT, not a re-score — a `type: price`
+# source records what a named Czech buyer pays for THIS product or its manual
+# equivalent, and it is a receipt only when it names all five of these.
+# Vocabulary mirrors web/lib/data.ts PRICE_UNITS / PRICE_BASES exactly.
+PRICE_FIELDS = ("payer", "amount_czk", "unit", "basis", "date")
+PRICE_UNITS = ("per-seat-month", "per-case", "per-year", "per-project", "one-off", "per-hour")
+PRICE_BASES = ("list-price", "signed-contract", "tender-line", "buyer-interview",
+               "manual-equivalent")
+# The First-moves threshold: a record worth a builder's quarter. The page prints
+# the house absence line below it when no price receipt is on file.
+PRICE_EXPECTED_FROM = 7
+
+
 def buyers_by_ico():
     """IČO -> {distinct public buyer IČO} from data/lookup/cz-contract-parties.jsonl.
 
@@ -618,6 +634,73 @@ def check(path, year):
             if not s.get("signal"):
                 errors.append(f"ask source {s.get('url')} has no `signal:` — an ask is "
                               f"a ledger record, cite its asks id")
+
+    # -- PRICE: the receipt for "who pays and how much" (owner, 2026-09-03) --
+    # MONEY is "is public budget nearby?" — a tender, a grant, a recurring line
+    # near the problem — and never asks whose pocket the money leaves or
+    # whether it buys this. A `type: price` source is the field that does. It
+    # is a receipt only when it names who pays, how much, per what and on what
+    # basis, dated, so a price source missing any of them FAILS the build; the
+    # same fields on any other type render nothing and fail too (one field,
+    # one meaning — CLAUDE.md rule 1). It cites money only when tagged
+    # `dims: [money]` and never another dimension: a price is not proof, is
+    # not demand, and says nothing about gap (MATCH.md §9). Rejected records
+    # are NOT exempt here — zod in web/lib/data.ts refuses a malformed price
+    # source on every record, so this reports what the build will fail on.
+    prices = [s for s in sources if s.get("type") == "price"]
+    for i, s in enumerate(sources, 1):
+        where = f"sources[{i}] ({s.get('url') or s.get('signal') or '?'})"
+        if s.get("type") == "price":
+            # `url` IS PART OF THE RECEIPT, and it is checked here because the
+            # two validators disagreed on 2026-09-04: this file accepted 17
+            # price sources that carried no url, `scripts/db.py rebuild`
+            # refused the first one, and only `npm run build` runs both — the
+            # exact split CONVENTIONS.md warns about. A price with no url is a
+            # number nobody can check, which is the one thing this register
+            # does not publish.
+            missing = [k for k in ("url",) + PRICE_FIELDS
+                       if s.get(k) is None or s.get(k) == ""]
+            if missing:
+                errors.append(f"price source {where} is missing {', '.join(missing)} — a "
+                              f"price receipt names who pays, how much, per what and on "
+                              f"what basis, dated, or it is not a receipt")
+            amt = s.get("amount_czk")
+            if amt is not None and (isinstance(amt, bool)
+                                    or not isinstance(amt, (int, float)) or amt < 0):
+                errors.append(f"price source {where} amount_czk is {amt!r} — an unquoted, "
+                              f"non-negative number of crowns (0 is a real receipt where "
+                              f"a free incumbent sets the price)")
+            unit = s.get("unit")
+            if unit is not None and unit not in PRICE_UNITS:
+                errors.append(f"price source {where} unit {unit!r} — one of "
+                              f"{', '.join(PRICE_UNITS)}")
+            basis = s.get("basis")
+            if basis is not None and basis not in PRICE_BASES:
+                errors.append(f"price source {where} basis {basis!r} — one of "
+                              f"{', '.join(PRICE_BASES)}")
+            d = s.get("date")
+            ds = d.isoformat() if hasattr(d, "isoformat") else d
+            if d is not None and (not isinstance(ds, str)
+                                  or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", ds)):
+                errors.append(f"price source {where} date {d!r} — an ISO YYYY-MM-DD string")
+            dims = [x for x in (s.get("dims") or []) if isinstance(x, str)]
+            bad = sorted(set(dims) - {"money"})
+            if bad:
+                errors.append(f"price source {where} cites {', '.join(bad)} — a price "
+                              f"receipt may carry dims: [money] only (MATCH.md §9)")
+        else:
+            stray = [k for k in PRICE_FIELDS[:-1] if k in s]
+            if stray:
+                errors.append(f"{s.get('type')} source {where} carries {', '.join(stray)} — "
+                              f"price fields render only on a type: price source; change "
+                              f"the type to price or drop them")
+    # WARNING-ONLY, permanently: the corpus predates the field, and these lines
+    # are its retrofit worklist, exactly as the gloss law's are. The page prints
+    # the house line in place of the ledger, which is honest.
+    if live and isinstance(total, int) and total >= PRICE_EXPECTED_FROM and not prices:
+        warns.append(f"score {total} with no type: price source — the page prints "
+                     f"'No Czech buyer has priced this yet.'; price the product or its "
+                     f"manual equivalent (CONVENTIONS.md, price receipts)")
 
     # -- GAP: keyed on BOTH fields, and the check is a receipt, never a score --
     # v1 rung 0 literally meant "check not done", so a de-ranked record and an

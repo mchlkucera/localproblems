@@ -313,8 +313,22 @@ sources:
     package, ~€3M (75M CZK), Sep 2026 — no supplier named.'
   date: '2026-09-02'
   signal: ted-604583-2026
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38419070
+  name: "KNTB Zlín — two price rises in one day"
+  gist: "about 2.8M CZK of amendments"
+  why: "A regional hospital signed two same-day price increases worth about 2.8M CZK on its hospital-system service contract, which is what buying integration from the vendor already inside costs."
+  note: 'Price receipt drawn from the contract already on this ledger (hlidac-38419070, KNTB
+    Zlín, STAPRO NIS-service amendments No. 1 and No. 2 signed the same day, both price
+    increases, ~2.8M CZK, Jun 2026). No annual term stated, so one-off. dims omitted: the
+    existing source keeps its demand tag and this receipt backs no score.'
+  date: '2026-06-17'
+  payer: 'Krajská nemocnice T. Bati, Zlín'
+  amount_czk: 2800000
+  unit: one-off
+  basis: signed-contract
 created: '2026-08-13'
-updated: '2026-09-03'
+updated: '2026-09-04'
 ---
 
 Between June and August 2026, four Czech regional hospital groups went to market separately for the same layer: one that lets hospital systems talk to each other and to outside providers. Uherské Hradiště awarded ~€7.7M for an eHealth platform [S1]. Plzeň's hospital group opened a ~€5.8M competition for a hospital system with an enterprise service bus — the switchboard routing messages between clinical systems [S2]. Zlín awarded ~€2.8M; Olomouc's university hospital bought interoperability work at ~€0.7M [S3].
@@ -356,3 +370,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewrit
 FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 8; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the open Plzeň competition as the one procedure an entrant can enter without displacing a signed contract [S2], connectors built against the HL7 and DASTA specifications the buyers keep writing [S11], the STAPRO amendment churn as the opening fact [S5], and the six incumbents named as what makes this hard [S8]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.
 
 2026-09-02 · plain-language pass — Restored the missing Revisions heading; without it every entry below rendered publicly under First moves. Glossed or replaced nine trade terms: FN, TED, ESB, ACIB, NHS, DASTA, KNTB, STAPRO, OR-CZ. Argument 444 → 423 words, every marker, figure and named vendor kept. First moves rewritten verbs-first, the incumbents restated as seven named sellers [S8,S11]. A gist added to all 11 sources. No score, status, note or marker touched.
+
+2026-09-04 · price receipt — The Zlín amendments already on file are now also recorded as a price: about 2.8M CZK of same-day price increases on one hospital's system-service contract [S18]. No score, status, note or marker touched.

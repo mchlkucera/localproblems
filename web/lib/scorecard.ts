@@ -45,7 +45,14 @@ export const SCORE_ROWS: { dim: Dim; label: string }[] = [
   { dim: "proof", label: "Validated abroad" },
   { dim: "gap", label: "Local opportunity" },
   { dim: "demand", label: "Demand signal" },
-  { dim: "money", label: "Money available" },
+  // "Money nearby", not "Money available" (owner ruling, 2026-09-03): the
+  // MONEY ladder measures proximity to a public budget — a tender, a grant, a
+  // recurring line near the problem — and never asked whose pocket it leaves
+  // or whether it buys this. What a Czech buyer actually pays is the PRICE
+  // RECEIPT ledger under How big, which this row links to. Same rungs, same
+  // numbers; only the words stopped over-claiming. Fits the 8.5rem label
+  // column, which clears VALIDATED ABROAD at sixteen characters.
+  { dim: "money", label: "Money nearby" },
   { dim: "urgency", label: "Why now" },
 ];
 
@@ -68,10 +75,13 @@ const READS: Record<Dim, string[]> = {
     "documented, not yet loud",
     "recurring, documented demand",
   ],
+  // Honest about PROXIMITY (2026-09-03): every rung is public money moving
+  // near the problem, and none is a buyer paying for this. The read must not
+  // say "funding attached to this" above a tender that buys something else.
   money: [
-    "no funding receipt on file",
-    "an adjacent grant or tender nearby",
-    "funding attached to this",
+    "no public money on file near this",
+    "public money moving near this problem",
+    "an open budget line for this or its neighbour",
   ],
   urgency: [
     "no dated trigger",
@@ -195,9 +205,9 @@ const CRITERIA: Record<Dim, string[]> = {
     "ESTABLISHED in 2+ markets, at least one CEE-adjacent",
   ],
   money: [
-    "no budget attached",
-    "relevant tender/grant exists",
-    "OPEN tender or grant ≥ ~5M CZK, or recurring annual spend",
+    "no public budget nearby",
+    "a relevant tender or grant exists near this problem",
+    "an OPEN tender or grant ≥ ~5M CZK for this or its neighbour, or recurring annual spend",
   ],
   urgency: [], // composed from the deadline + freshness sub-scores below
   demand: [
@@ -231,6 +241,11 @@ export function criterion(p: Problem, dim: Dim): string {
 
 // `ask` (an `asks`-ledger signal) is DEMAND only, never money: a prize is not a
 // budget, and a research need's budget arrives later as a tender (MATCH.md §11).
+// `price` is DELIBERATELY ABSENT: a price receipt is what a buyer pays, not a
+// public budget, so untagged it backs no score at all; it cites money only when
+// the author writes `dims: [money]` (a signed public contract can be both), and
+// scripts/check-records.py refuses any other dimension on it (MATCH.md §9).
+// scripts/db.py carries the same map and the same omission.
 const TYPE_TO_DIM: Record<string, Dim> = {
   arbitrage: "proof",
   tender: "money", contract: "money", subsidy: "money",

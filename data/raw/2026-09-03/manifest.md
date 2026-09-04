@@ -1531,3 +1531,15 @@ The 32 rows appended earlier tonight were retired from data/signals/asks/2026-09
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-09-03T1959 | tacr | ok | 200 | 264232 | 14 | 3651 | 2026-09-03T19:59:23Z | /tmp/claude-501/asks-run2/2026-09-03 |  |
 | 2026-09-03T1959 | hackathon | ok | 200 | 4982327 | 25 | 22404 | 2026-09-03T19:59:27Z | /tmp/claude-501/asks-run2/2026-09-03 | partial: upol:yield-zero |
+
+### parked feeds activated — sukl + coi (session localproblems-80)
+
+Three feeds had been fully wired since 2026-08-21 and had never produced a record. Run tonight from a private raw dir. SUKL: 15 aggregates over 83,016 supply-notification rows. COI: 17 aggregates over 176,945 final fines and 288,962 inspections. Both scored by ONE grader across all batches, 16 of 32 survived materiality, appended to the demand ledger. Their id prefixes moved from demand-scan.id_prefixes to their own registry rows in the same change (the AC-F3 instruction both blockers carried).
+
+SMLOUVY IS RE-PARKED, and the reason is now measured rather than assumed: the fetcher works (7 daily dumps, 25,587 contracts) but it is a PER-ITEM feed whose items each score money 0 or 1, so 25,192 staged records would cost a full model pass to land a few hundred, and the >20M CZK slice of the same register is already covered by `hlidac`. It needs aggregation before materiality — the rule CONVENTIONS.md states for `hiring` — which is a script that does not exist yet.
+
+| run_id | feed_key | result | http | bytes | items | ms | started_at | raw_path | error |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-09-03T2112 | sukl | ok | 200 | 1618666 | 15 | 3239 | 2026-09-03T21:12:22Z | /tmp/claude-501/parked/2026-09-03 | validity=2026-09-03 rows_in_file=83016 aggregates=15 |
+| 2026-09-03T2112 | coi | ok | 200 | 39676640 | 17 | 10603 | 2026-09-03T21:12:26Z | /tmp/claude-501/parked/2026-09-03 | coverage_end=2026-06-30 sankce_rows=176945 kontroly_rows=288962 aggregates=17 fresh=2 cached=0 |
+| 2026-09-03T2112 | smlouvy | ok | 200 | 34557957 | 25587 | 59781 | 2026-09-03T21:12:38Z | /tmp/claude-501/parked/2026-09-03 | coverage: capped at 7 day(s) (SMLOUVY_MAX_DAYS) |

@@ -64,7 +64,7 @@ scores:
   proof: 2                    # → "Validated abroad"   (0-3)
   gap: 1                      # → "Local opportunity"  (0-2) high = field open
   demand: 1                   # → "Demand signal"      (0-2)
-  money: 0                    # → "Money available"    (0-2)
+  money: 0                    # → "Money nearby"       (0-2) public budget near this — NOT who pays
   urgency: 3                  # → "Why now"            (0-3)
 build:
   capital: garage             # kiosk <€10k · garage €10–100k · funded €100k–1M · industrial >€1M
@@ -108,6 +108,36 @@ receipt. `gist` is the few-word label printed on the ledger row (NAME · gist ·
 date); `why` is the full sentence — behind the row's "more" toggle when a `gist`
 is present, in the open otherwise. Without `name`/`why` the page falls back to
 the signal's title/summary — readable, but write them.
+
+### `type: price` — the price receipt (who pays, and how much)
+
+`money` scores how near a **public budget** is; it never says who pays for this
+product or what they pay (owner ruling, 2026-09-03). That answer is a `price`
+source: what a named Czech buyer pays for THIS product or its manual
+equivalent. Five fields are REQUIRED and the build fails without any of them —
+`payer` (a named buyer or a sized segment), `amount_czk` (unquoted number; `0`
+is real where a free incumbent sets the price), `unit` (`per-seat-month` ·
+`per-case` · `per-year` · `per-project` · `one-off` · `per-hour`), `basis`
+(`list-price` · `signed-contract` · `tender-line` · `buyer-interview` ·
+`manual-equivalent`), `date`. The same fields on any other type also fail. It
+renders under **How big** as one ledger line, `<payer> pays <amount> CZK <unit>
+· <basis> · <date>`; a record scoring ≥ 7 without one prints `No Czech buyer
+has priced this yet.` It cites `money` only when tagged `dims: [money]`, never
+another dimension — untagged, it backs no score, which is the point.
+
+```yaml
+  - type: price
+    url: https://www.wue.cz/cenik
+    name: 'Wue'
+    gist: 'installer SaaS list price'
+    why: 'What a Czech installer pays today for the back office this record proposes.'
+    note: 'ceník read 2026-08-13; 650 Kč/seat/mo, heat-pump module +200 Kč'
+    date: '2026-08-13'
+    payer: 'Czech PV/heat-pump installers (2–20 seats)'
+    amount_czk: 650
+    unit: per-seat-month
+    basis: list-price
+```
 
 ### `fix:` — the proposed product, in one sentence (optional)
 

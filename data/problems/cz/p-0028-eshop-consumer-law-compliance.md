@@ -253,8 +253,41 @@ sources:
     - "obchodní podmínky právní texty přístupnost zelená tvrzení tlačítko objednávky doplněk"
   checked: [eshop-addon-marketplaces]
   expires: '2026-11-22'
+- type: price
+  url: https://doplnky.shoptet.cz/hlidac-slev
+  name: "Hlídač Slev — the discount-labelling add-on"
+  gist: "about 19 Kč a month"
+  why: "A Czech online shop pays about 19 CZK a month for every 1,000 products to keep its discount labelling legal and exportable for inspectors."
+  note: 'Price receipt lifted from the 2026-08-20 gap re-check already on this ledger, which
+    read the Shoptet listing: roughly 19 CZK per month per 1,000 products. The seat is a
+    1,000-product block, which payer and why both state. Pravoid at 199 CZK per document or
+    499 CZK for the bundle sits in the same note but its own url is not on this record, so it
+    is not written as a receipt here. dims omitted: backs no score.
+    Verified 2026-09-04: the Shoptet listing still states Za 1 000 produktů (včetně
+    variant) zaplatíte 19 Kč měsíčně, with 100 Kč of credit given free to try it.'
+  date: '2026-08-20'
+  payer: 'A Czech online shop, per 1,000 products'
+  amount_czk: 19
+  unit: per-seat-month
+  basis: list-price
+- type: price
+  url: https://doplnky.shoptet.cz/slevy-spravne
+  name: "Slevy správně — the flat-rate rival"
+  gist: "200 Kč a month, flat"
+  why: "A second Czech add-on charges an online shop 200 CZK a month flat, whatever the number of products, for the same discount-labelling duty."
+  note: 'Price receipt lifted from the 2026-08-24 add-on marketplace sweep already on this
+    ledger, which read the Shoptet listing for Slevy správně by Cenový automat s.r.o.:
+    200 Kč/month flat for unlimited products. Flat monthly, so the seat is the shop.
+    dims omitted: backs no score.
+    Verified 2026-09-04: the Shoptet listing still states Jednotná cena 200 Kč /m pro
+    neomezený počet produktů, billed alongside the Shoptet tarif.'
+  date: '2026-08-24'
+  payer: 'A Czech online shop, any number of products'
+  amount_czk: 200
+  unit: per-seat-month
+  basis: list-price
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-04'
 ---
 
 ČOI — the Czech trade inspection authority — walked the checkout flows of 751 e-shops in 2025 and found 639 breaking the law: 2,399 violations, from missing complaint-handling and pre-contractual information to non-compliant order buttons [S1]. That 85% is the baseline, not a tail — targeted inspections in Q2 2026 found violations in 94 of 103 shops [S9].
@@ -292,3 +325,5 @@ THE COMPETES/MATURITY SPLIT. `locals[].status` was replaced by two orthogonal fi
 THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewritten. Those lines RENDER — they are the note printed under every entry in the local-competition ledger — but they were written in the scoring vocabulary rather than in words a builder can use: "no limb of the established test is met", "no round at Series stage", bare ARES registration dates, and the repository path `data/lookup/cz-contract-parties.jsonl` printed to a reader who has no way to open it. Each line now leads with what the company actually sells and, where the receipts are thin, says what is unknown instead of which limb failed — "publishes no customer count and names no buyer, so how much it sells is unknown" rather than a verdict about our own test. Every date, IČO, customer count, price, funding figure and [Sn] marker was carried across unchanged, and the established test was re-run against the rewritten lines afterwards to confirm that not one maturity verdict moved. `score`, `scores`, `status`, `competes`, `maturity` and every `sources[].note` are untouched by this pass.
 
 2026-09-02 · plain-language pass — Trade terms glossed at first use in the rendered prose: ČOI as the Czech trade inspection authority, Shoptet as a platform merchants rent their storefront from, MAS as the state's rural local-action-group territories, OP TAK Technologie pro MAS II as the state's business-support programme [S7], and e-Sbírka as the state law gazette [S8]. The argument tightened from 441 words to 390 with every [Sn] marker, figure, price and named company kept, First moves rewritten in the plain house voice, and a short gist added beside all ten sources' public why lines. No score, status, ledger entry or source note touched.
+
+2026-09-04 · price receipt — The two discount-labelling add-ons already on file are now recorded as prices: about 19 CZK a month per 1,000 products [S11] and 200 CZK a month flat [S12]. The document prices of the third product stay in the note, its own page not being on this ledger. No score, status, ledger entry or source note touched.

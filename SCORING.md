@@ -81,10 +81,30 @@ PROOF (0-3)     is an established solution running elsewhere?
                 scoring proof <= 1 above their own funded comparables. One
                 fact, counted twice, in the wrong column.
 
-MONEY (0-2)     is budget attached?
+MONEY (0-2)     is public budget nearby?
                 0: none · 1: relevant tender/grant exists · 2: OPEN tender or
                 grant >= ~5M CZK, or recurring annual spend
                 verdicts   0 UNFUNDED · 1 NEARBY · 2 ATTACHED
+
+                THIS LADDER MEASURES PROXIMITY TO A PUBLIC BUDGET, NOT
+                WILLINGNESS TO PAY (owner, 2026-09-03; docs/who-pays-audit-
+                2026-09-03.md, "The register's honest weakness"). Every rung
+                is a fact about public money moving near the problem — a
+                tender, a grant, a recurring line — and none asks whose pocket
+                it leaves or whether it buys THIS product. Six of the eight
+                records at rung 1 wrote "adjacent" in their own notes; two at
+                rung 2 scored there on spend by a party who is not their
+                buyer. The number never carried the caveat, so the words now
+                do: the row reads "Money nearby" and its reads say "near".
+
+                THE RUNGS DID NOT MOVE, AND NO SIXTH DIMENSION WAS ADDED. By
+                rule #1 — one field, one meaning — the other question gets its
+                own field, not a re-score: a `type: price` source, the PRICE
+                RECEIPT, records what a named Czech buyer pays for this product
+                or its manual equivalent (payer · amount_czk · unit · basis ·
+                date; data/CONVENTIONS.md). It renders under How big as its own
+                ledger and cites money only when tagged `dims: [money]`. MONEY
+                alone never claims "who pays and how much".
 
 URGENCY (0-3)   why now?                     [deadline 0-2 + freshness 0-1]
                 deadline sub-score — 0: no regulatory trigger · 1: compliance

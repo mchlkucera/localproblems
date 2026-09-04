@@ -317,8 +317,25 @@ sources:
   date: '2024-12-01'
   signal: none
   dims: []
+- type: price
+  url: https://data.mpsv.cz/od/soubory/volna-mista-prirustek/
+  name: "The July 2026 nurse postings, priced as a wage bill"
+  gist: "about 271M CZK a year"
+  why: "The 262 Czech care employers advertising 651 nurse seats in one month carry an annual wage floor of about 271M CZK, which is what filling those shifts costs them today with nobody in between."
+  note: 'Price receipt derived from the hiring aggregate already on this ledger
+    (mpsv-2026-07-health-care): annualised wage floor EUR 10,838,685, converted at the fixed
+    25.0 CZK/EUR rate that signal''s own money_note states, giving 270,967,125 CZK.
+    Annualised is stated by the source, so the unit is per-year. basis manual-equivalent: it
+    is the buyers'' own wage bill for doing the work without a marketplace, not a fee anyone
+    charges, and no Czech agency per-shift rate is on file. dims omitted: the hiring source
+    already carries demand and money, and this receipt adds no point.'
+  date: '2026-07-31'
+  payer: 'The Czech care sector, across 262 employers advertising 651 nurse seats'
+  amount_czk: 270967125
+  unit: per-year
+  basis: manual-equivalent
 created: '2026-08-25'
-updated: '2026-09-03'
+updated: '2026-09-04'
 ---
 
 Czech social services are short more than 3,000 workers, and over half of 625 surveyed facilities report unfilled posts [S3]. In July 2026 alone, 262 employers posted 380 new general-nurse vacancies through the Labour Office [S4]. Providers cover the holes with overtime, agency staff and word of mouth.
@@ -354,3 +371,5 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 2026-09-02 · plain-language pass — Five trade terms glossed or replaced at first use: per-diem shifts, agency mark-up, rota software, care vertical, flexibility premium. Avian and DF Partner were cut from the First moves list and stay in the Flecto ledger entry. Argument 421 → 370 words, every [Sn] marker, figure and named company kept. First moves rewritten verbs-first. A gist added beside all nine sources. No score, status, source note or marker touched.
 
 2026-09-03 · regulation added — The build note's precondition of a clean worker-status answer had no source and no date; the who-pays audit of this date named the instrument. Directive (EU) 2024/2831 on platform work, transposition due 2 December 2026, presumes employment where a platform directs the work, so the non-solutions paragraph now says so [S11]. Filed as context, not urgency; no score, status, gap or existing marker moved.
+
+2026-09-04 · price receipt — The July 2026 nurse postings already on file are now also recorded as a price: an annual wage floor of about 271M CZK across 262 employers, converted from the euro figure at the rate that signal itself states [S12]. It is what the buyers pay to staff those shifts today, not a fee anyone charges. No score, status, gap or existing marker moved.

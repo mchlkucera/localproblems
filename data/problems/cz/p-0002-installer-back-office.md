@@ -172,8 +172,23 @@ sources:
     source only, per the 2026-08-20 revision''s rule — no comps entry without receipts.'
   date: '2022-08-15'
   signal: yc-jasmine-energy
+- type: price
+  url: https://wue.cz/
+  name: "Wue — the installer list price"
+  gist: "650 Kč a seat a month"
+  why: "A Czech solar and heat-pump installation firm pays 650 CZK per user a month for the back office this record describes, and 200 CZK more for the heat-pump module."
+  note: 'Price receipt lifted from the 2026-08-20 gap re-check already on this ledger, which
+    read wue.cz: priced per seat at 650 Kč/user/month plus 200 Kč for the TČ module. Recorded
+    at the base seat price, with the module stated in why. dims omitted: backs no score.
+    Verified 2026-09-04: wue.cz still prints 650 Kč Měsíčně at 1 uživatel with 200 Kč /
+    uživatel for the Rozšíření pro TČ heat-pump module.'
+  date: '2026-08-20'
+  payer: 'A Czech solar or heat-pump installation firm'
+  amount_czk: 650
+  unit: per-seat-month
+  basis: list-price
 created: '2026-08-13'
-updated: '2026-09-03'
+updated: '2026-09-04'
 ---
 
 Hundreds of small Czech installation firms fit the tens of thousands of heat pumps and solar arrays paid for each year by NZÚ — Nová zelená úsporám, the state home-renovation subsidy [S1,S2]. They run site survey, heat-load calculation, quoting, subsidy applications and project tracking on spreadsheets, manufacturer sizing tools and hand-filled NZÚ forms [S1].
@@ -202,3 +217,5 @@ Solved elsewhere: autarc in Germany is the funded analog [S1]. What it proves no
 2026-08-25 · plain-language pass — Added the new optional `fix:` frontmatter field — one plain sentence naming what a builder would actually build — which the page renders directly under the dek, so the product answer arrives before the scorecard rather than three sections down. Scores, status, source notes and every [Sn] marker are untouched. Fourth pass this date, merged here: re-scored under the rewritten SCORING.md, where PROOF and GAP both turn on whether a player is established or early rather than on whether one exists. `locals[]` now carries Wue, RAYNET, AutoERP (Apertia Tech) and Infina [S6]. RAYNET passes the established test — trading since 2004, with its photovoltaics vertical reported live at roughly 20 installer firms by its implementation partner — so `scores.gap` stays 0 and the 2026-08-20 de-rank now rests on a receipt a machine can re-check. The other three are early: Wue Technologies was incorporated in December 2022 and publishes nothing the test reads, and neither AutoERP nor Infina publishes a deployment figure. `scores.proof` 2 → 3: autarc and Reonic both pass the established test on the comps ledger, and Reonic sells the same stack across DACH, France and Italy, so the model is established in more than one market with a CEE-adjacent one among them. `score` 5 → 6. The retired rung 2 read 'funded analog in DE/AT/PL/Nordics + no CZ player found', which docked this record for the very Czech vendors named below it; that gap condition is gone from the proof ladder. Fifth pass this date, merged here: `locals[]` converted from `status:` to the orthogonal `competes:` + `maturity:` pair. All four entries are `competes: direct` — Wue, RAYNET's photovoltaics vertical, AutoERP and Infina each sell quoting, subsidy paperwork and installer CRM to Czech heat-pump and solar firms, which is this record's product and this record's buyer — and each keeps the maturity it already carried. `scores.gap` stays 0: RAYNET is direct and established, so the space is taken on exactly the receipt it was taken on before. No player was ever excluded from this ledger, so there is nothing to restore. Same date, ledger-language pass, merged here: every `locals[]` evidence line was rewritten for the builder it renders to. Those lines print under each entry on the public page, and they were still written in the vocabulary of the scoring rubric — "no limb of the established test is on file", "which is the limb it passes" — which tells a reader deciding what to build precisely nothing. Each line now states what the company sells and what is genuinely unknown about it ("names nobody who has bought it" rather than "no limb is met"), ARES dating is stated as plain trading history, and the contract lookup is named as the state contracts register rather than by its file path. Every date, IČO, price, customer count, funding figure and named buyer is carried across unchanged; no `sources[].note` was touched, no [Sn] marker moved and no score changed. Also cut from the RAYNET entry: the aside explaining which fallback year the scoring rule permits — a reader does not have a rule to fall back under.
 
 2026-09-02 · plain-language pass — NZÚ and RAYNET glossed at first use; FVE, PV, CRM and ERP replaced with plain words. Argument tightened 322 → 299 words, every [Sn] marker, figure, price and named company kept, plus two ledger receipts pulled into the body: RAYNET at about 20 installer firms and Wue's 200 Kč heat-pump module [S6]. First moves rewritten in the plain house voice. A gist added to all six sources. No score, status, note or marker touched.
+
+2026-09-04 · price receipt — The seat price already read in the 2026-08-20 sweep is now recorded as a price of its own: 650 CZK per user a month, 200 CZK more for the heat-pump module [S8]. No score, status, note or marker touched.

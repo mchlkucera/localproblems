@@ -1320,6 +1320,13 @@ PROBLEM_KEYS = frozenset((
 PROBLEM_OPTIONAL_KEYS = frozenset(("fix", "locals"))
 SOURCE_KEYS = frozenset((
     "type", "url", "note", "date", "name", "why", "gist", "signal", "dims", "queries", "checked", "expires"))
+# The price-receipt fields (`type: price`, owner 2026-09-03): typed optionals in
+# web/lib/data.ts, validated there and in scripts/check-records.py, and
+# DELIBERATELY not columns here — they ride problem_sources.extra_json verbatim
+# via `_overflow`, and data.ts reassigns them on the DB read path, so both
+# loaders agree without a schema bump. Excluded from the unknown-key warning
+# below ONLY; `_overflow` still carries them, which is the whole point.
+SOURCE_PRICE_KEYS = frozenset(("payer", "amount_czk", "unit", "basis"))
 COMP_KEYS = frozenset(("name", "url", "geo", "since", "traction", "signal", "markets"))
 LOCAL_KEYS = frozenset(("name", "url", "ico", "since", "competes", "maturity", "evidence"))
 LOCAL_COMPETES = ("direct", "adjacent")
@@ -1600,7 +1607,7 @@ def read_problems():
             # all three of those typos build green through `rebuild`, `audit` and
             # `npm run build`. This is the only place that holds both the record
             # and the key list, so it is the only place that can say so.
-            extra = sorted(set(s) - SOURCE_KEYS)
+            extra = sorted(set(s) - SOURCE_KEYS - SOURCE_PRICE_KEYS)
             if extra:
                 warnings.append(
                     f"{rel}: sources[{n}] carries unknown key(s) {', '.join(extra)} — "
@@ -2407,18 +2414,32 @@ def cmd_health(args):
             " parse_method, ok, error FROM fetch_log WHERE feed_key = ?"
             " ORDER BY started_at DESC, id DESC", (k,)).fetchall()
 
+        # A `skipped` ROW IS NOT A RUN, AND MUST MOVE NOTHING. INGEST.md §7.5:
+        # "A `skipped` run never contributes to any state transition." It is the
+        # EXPECTED-ABSENCE shape (§7.2 step 0) — a calendar-keyed 404 on a feed
+        # whose contract allows it, an ordering guard, a registry status that
+        # says do-not-fetch — and it is written with ok=1 so it cannot read as a
+        # failure. But ok=1 was ALSO what reset the failure streak and set
+        # `last_success`, so one expected absence healed a genuinely BROKEN feed
+        # back to LIVE and stamped a success date on a day nothing was fetched.
+        # Found 2026-09-03 while fixing the scoped-run side of the same seam.
+        # `parse_method = 'none'` is the marker: fetch_all.sh and every fetcher
+        # write it on exactly this path, and normalize fills a real value on
+        # every other one.
+        real = [r for r in rows if r[5] != "none"]
+
         consecutive_failures = 0
         consecutive_zero = 0
-        for r in rows:
+        for r in real:
             if r[6]:  # ok
                 break
             consecutive_failures += 1
-        for r in rows:
+        for r in real:
             if r[3] is None or r[3] > 0:
                 break
             consecutive_zero += 1
 
-        last_success = next((r[0][:10] for r in rows if r[6]), None)
+        last_success = next((r[0][:10] for r in real if r[6]), None)
         items_last_run = rows[0][3] if rows else None
         parse_method = rows[0][5] if rows else None
         error = next((r[7] for r in rows if r[7]), None)
