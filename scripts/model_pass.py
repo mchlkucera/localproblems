@@ -106,9 +106,15 @@ urgency (integer 0-3) — ONLY when the item asks for it:
   expired one-off event above 0 just because it was once imminent.
 sector — EXACTLY ONE of: fintech, health, housing, energy, mobility, govtech,
   retail-services, b2b, legal-compliance, education, environment, other.
-  Public buyers procuring IT or administration are govtech; generic business
-  services are b2b; construction and real estate are housing. Use `other` only
-  when no listed sector fits.
+  CLASSIFY THE OBJECT, NEVER THE BUYER'S IDENTITY (measured 2026-09-03: a
+  central bank's classroom air-conditioning was tagged fintech, the cyber
+  agency's passenger car landed in a cybersecurity screen, a care-home
+  construction notice was tagged health). A tender's sector is what is being
+  bought — HVAC, a car or a building is `other`/`housing` whoever the buyer is;
+  it is health only when the object is clinical, fintech only when the object
+  is a financial product or its regulation. Public buyers procuring IT or
+  administration are govtech; generic business services are b2b; construction
+  and real estate are housing. Use `other` only when no listed sector fits.
 geo_origin — where the signal comes FROM, never where it might be useful:
   an ISO-3166-1 alpha-2 code in CAPITALS (GB not UK), or EU for an EU-level
   signal. Resolve a city or region to its country. A tender's geo is its

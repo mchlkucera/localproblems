@@ -285,6 +285,26 @@ def theme_of(isco_code):
 HOURS_DEFAULT = 40.0
 _hours_defaulted = [0]   # counted, so the assumption is a number on the payload
 
+# PLAUSIBILITY GUARDS (2026-09-03). mpsv-2026-08-21919461-health-care carried
+# mesicniMzdaOd 28,500 under typMzdy `hod`: a monthly nurse salary the publisher
+# labelled hourly. The hourly branch did exactly what it says — 28,500 x 40 h x
+# 52 w = 59,280,000 CZK, EUR 2.37M for ONE seat — and that single row inflated
+# the August health-care aggregate by ~21% while every other row computed to a
+# plausible 22-63k CZK/month. Neither bound below is a guess about the true
+# wage: a floor outside its branch's plausible range is COUNTED AS UNPRICED
+# (return None), never reclassified into the other branch, and the count is
+# surfaced on the payload as `wage_type_implausible` next to `hours_defaulted`.
+# No Czech hourly floor exceeds 2,000 CZK/h (that is 320k CZK/month at full
+# time). The monthly floor is the subtler side: PART-TIME postings legitimately
+# carry 3,000-8,000 CZK/month (measured 2026-09-03: 82 July and 22 August rows
+# at 4,000-7,840, mostly 5,600 — a few hours a week, priced honestly), so the
+# bound must sit BELOW any real monthly wage and ABOVE any real hourly rate.
+# Hourly rates run 135-1,000 CZK; nothing paid per month is under 1,500 CZK.
+HOURLY_MAX_CZK = 2000.0
+MONTHLY_MIN_CZK = 1500.0
+_implausible = [0]
+_implausible_ids = []
+
 
 def annual_czk(rec):
     """Annualised wage FLOOR for one posting, in CZK, or None if unpriced.
@@ -306,8 +326,16 @@ def annual_czk(rec):
     if floor <= 0:
         return None
     if kind == "mesic":
+        if floor < MONTHLY_MIN_CZK:
+            _implausible[0] += 1
+            _implausible_ids.append((str(rec.get("profeseCzIsco.id") or "").split("/")[-1], kind, floor))
+            return None  # an hourly rate labelled monthly: unpriced, never reclassified
         per_seat = floor * 12
     elif kind == "hod":
+        if floor > HOURLY_MAX_CZK:
+            _implausible[0] += 1
+            _implausible_ids.append((str(rec.get("profeseCzIsco.id") or "").split("/")[-1], kind, floor))
+            return None  # a monthly salary labelled hourly: unpriced, never reclassified
         # pocetHodinTydne is NOT always present, and an hourly posting without it
         # cannot be annualised without an assumption. The assumption is a full
         # week, it is stated, and every use of it is COUNTED onto the payload as
@@ -617,6 +645,8 @@ def main():
         "change_rows": {k: change_rows.get(k, 0) for k in CHANGE_TYPES},
         "change_postings": {k: change_postings.get(k, 0) for k in CHANGE_TYPES},
         "hours_defaulted": _hours_defaulted[0],
+        "wage_type_implausible": _implausible[0],
+        "wage_type_implausible_rows": [{"isco": r, "typMzdy": k, "floor": f} for r, k, f in _implausible_ids],
         "hours_default": HOURS_DEFAULT,
         "employer_bar_eur": EMPLOYER_MIN_EUR,
         "employer_candidates": employer_candidates,

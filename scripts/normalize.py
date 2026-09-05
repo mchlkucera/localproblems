@@ -1153,6 +1153,13 @@ def extract_veklep(item, payload_key, today):
     pid = collapse(item.get("PID") or item.get("Id") or "")
     title = collapse(item.get("nazevMaterialu") or "")
     url = (item.get("url") or "").strip()
+    # CANONICAL HOST (measured 2026-09-03): odok.cz/portal/veklep/material/<PID>/
+    # now answers HTTP 302 to odok.gov.cz with the same path. The Hlídač mirror
+    # still hands out the old host, so the record would carry a redirecting url
+    # and every later liveness check would read a 302 where a 200 is expected.
+    # Rewrite the host only, path untouched; committed ledger lines keep the
+    # old host (append-only) and still resolve through the redirect.
+    url = re.sub(r"^https?://(?:www\.)?odok\.cz/", "https://odok.gov.cz/", url)
     if not pid or not title or not url:
         return None
     predkladatel = collapse(item.get("predkladatel") or "")
@@ -1719,6 +1726,72 @@ def screen_duplicates(records, ledger_idx, id_of=lambda r: r.get("id"),
     return kept, skipped, exempt
 
 
+REPUBLICATION_PREFIXES = ("ted", "hlidac", "nen", "smlouvy")
+
+
+def _repub_key(rec):
+    """Fingerprint for a re-notified procurement: the verbatim quote plus the value.
+
+    TED republishes the same tender under a NEW notice number (≥10 pairs seen on
+    2026-09-02: Obříství chateau, Dílny na stráni, Mladá Boleslav NIS, ČEZ
+    security monitoring …). The native id differs, the url differs, so neither
+    dedup axis can see it — but the quote is the buyer's own text and repeats
+    verbatim, and the value repeats to the crown. No key without both.
+    """
+    prefix = str(rec.get("id") or "").split("-", 1)[0]
+    if prefix not in REPUBLICATION_PREFIXES:
+        return None
+    q = collapse(str(rec.get("quote") or "")).lower()
+    m = rec.get("money_eur")
+    if len(q) < 40 or m in (None, 0, ""):
+        return None
+    return f"{q[:300]}|{m}"
+
+
+def flag_republications(staged, signals_dir):
+    """Mark, NEVER drop, tender records that re-notify a procurement already on file.
+
+    Why a flag and not a dedup: a re-issued tender is evidence in its own right —
+    p-0031 links two Jince notices a day apart precisely because the repeat IS
+    the failure pattern. So the record stays, its `notes` names the earlier id,
+    and the manifest lists the pair for MATCH to decide (dup vs distinct).
+    Returns [(new_id, [earlier ids], where)] — where is 'ledger' or 'batch'.
+    """
+    index = {}
+    tdir = os.path.join(signals_dir, "tenders")
+    if os.path.isdir(tdir):
+        for fn in sorted(os.listdir(tdir)):
+            if not fn.endswith(".jsonl"):
+                continue
+            with open(os.path.join(tdir, fn), encoding="utf-8") as fh:
+                for line in fh:
+                    try:
+                        r = json.loads(line)
+                    except ValueError:
+                        continue
+                    k = _repub_key(r)
+                    if k:
+                        index.setdefault(k, []).append(r["id"])
+    flagged, seen_batch = [], {}
+    for r in staged:
+        k = _repub_key(r)
+        if not k:
+            continue
+        earlier = [i for i in index.get(k, []) if i != r.get("id")]
+        where = "ledger"
+        if not earlier and k in seen_batch:
+            earlier, where = [seen_batch[k]], "batch"
+        seen_batch.setdefault(k, r.get("id"))
+        if not earlier:
+            continue
+        clause = (f"Republication candidate: same verbatim quote and value as "
+                  f"{', '.join(earlier)} — the same procurement re-notified under a new "
+                  f"id; kept as its own record, MATCH decides dup or distinct.")
+        r["notes"] = (f"{r['notes']} {clause}" if r.get("notes") else clause)
+        flagged.append((r.get("id"), earlier, where))
+    return flagged
+
+
 def report_duplicates(records_by_id, skipped, exempt, where):
     """Print every skip with BOTH ids and the URL, and every exemption."""
     if exempt:
@@ -2013,6 +2086,7 @@ def run_mechanical(args):
     by_id = {r.get("id"): r for r in staged}
     staged, dup_skipped, dup_exempt = screen_duplicates(staged, build_key_index(
         os.path.abspath(args.out_dir)))
+    republications = flag_republications(staged, os.path.abspath(args.out_dir))
 
     with open(os.path.join(raw_dir, "contract.json"), "w", encoding="utf-8") as fh:
         json.dump({"run_id": run_id,
@@ -2025,13 +2099,15 @@ def run_mechanical(args):
             fh.write(json.dumps(r, ensure_ascii=False) + "\n")
 
     write_manifest(raw_dir, run_id, today, results, staged, unmapped, dupes,
-                   quote_failures, gdpr_refused, dup_skipped, dup_exempt, by_id)
+                   quote_failures, gdpr_refused, dup_skipped, dup_exempt, by_id,
+                   republications=republications)
 
     print(f"normalize --mechanical-only  run_id={run_id}")
     print(f"  feeds with payloads : {len(by_feed)}   unmapped files: {len(unmapped)}")
     print(f"  staged records      : {len(staged)}   deduped against seen.txt: {dupes}")
     report_duplicates(by_id, dup_skipped, dup_exempt, "staging")
     print(f"  quote not verified  : {len(quote_failures)}")
+    print(f"  republication flags : {len(republications)}  (kept, noted, listed in manifest)")
     print(f"  contract failures   : {sum(1 for r in results if not r['ok'])}")
     print(f"  AC-GDPR1 refused    : {len(gdpr_refused)}")
     if gdpr_refused:
@@ -2048,7 +2124,7 @@ def run_mechanical(args):
 
 def write_manifest(raw_dir, run_id, today, results, staged, unmapped, dupes,
                    quote_failures, gdpr_refused=(), dup_skipped=(), dup_exempt=(),
-                   staged_by_id=None):
+                   staged_by_id=None, republications=()):
     L = []
     L.append(f"# Ingest run {run_id}\n")
     L.append(f"Run date: {today.isoformat()}  ·  mode: mechanical-only (no model, no secrets, no network)\n")
@@ -2105,6 +2181,18 @@ def write_manifest(raw_dir, run_id, today, results, staged, unmapped, dupes,
     # record that will never appear in a ledger, and the ONLY place that fact
     # survives is here — so it names both ids and the URL. A silent drop and a
     # silent duplicate are equally invisible.
+    L.append("\n## Republication candidates — same quote and value, new notice id\n\n")
+    if republications:
+        L.append(f"**{len(republications)} staged tender record(s) repeat the verbatim quote "
+                 f"and the value of a record already on file.** TED re-notifies the same "
+                 f"procurement under a new number and neither dedup axis can see it. They "
+                 f"are KEPT — a re-issued tender can be evidence (p-0031) — each carries the "
+                 f"earlier id in `notes`, and MATCH decides dup or distinct.\n\n")
+        L.append("| staged id | repeats | seen in |\n|---|---|---|\n")
+        for new_id, earlier, where in republications:
+            L.append(f"| `{new_id}` | {', '.join('`' + e + '`' for e in earlier)} | {where} |\n")
+    else:
+        L.append("No staged tender record repeats the quote and value of one already on file.\n")
     L.append("\n## Dedup by identity key — same resource, different id\n\n")
     if dup_skipped:
         L.append(f"**{len(dup_skipped)} staged record(s) name a resource the ledger "
