@@ -139,7 +139,7 @@ OUT="$OUTDIR/nenptk-consultations.jsonl"
 # violation. `nenptk` is the token to register; see the note at the bottom.
 RAWD="$OUTDIR/.fetch/nenptk"; mkdir -p "$RAWD"
 
-TOT_BYTES=0; TOT_MS=0; LAST_CODE=000; ERRS=""
+TOT_BYTES=0; TOT_MS=0; LAST_CODE=000; LAST_OK_CODE=000; ERRS=""
 PAGES=0; HITS=0; MISSES=0; MODEA=0; SUBJ_OK=0; SUBJ_FAIL=0
 TMPD="${TMPDIR:-/tmp}/nenptk.$$"; mkdir -p "$TMPD"
 cleanup() { [ -d "$TMPD" ] && find "$TMPD" -type f -delete 2>/dev/null; rmdir "$TMPD" 2>/dev/null; }
@@ -202,6 +202,15 @@ for year in $YEARS; do
                     -w '%{http_code} %{size_download} %{time_total} %{content_type}' \
                     "$BASE/$ref" 2>/dev/null || true)"
     LAST_CODE="$W_CODE"; TOT_MS=$((TOT_MS + W_MS)); PAGES=$((PAGES + 1))
+    # THE STATUS ON THE RECEIPT IS THE LAST GOOD PAGE'S, NOT THE LAST PAGE'S.
+    # This walk ENDS on 404 by design (five in a row is the stop condition),
+    # so "the last code seen" is 404 on every complete run — and normalize.py
+    # reads http_status off the receipt as the §7.2 transport check and
+    # refused a 131-consultation payload as "transport: HTTP 404" on
+    # 2026-09-05. The smoke run had hidden it: NENPTK_MAX=25 stopped on a
+    # 200. An `ok` row carries the code of the last page that parsed; the
+    # 404 count still travels in the summary line.
+    [ "$W_CODE" = "200" ] && LAST_OK_CODE="$W_CODE"
     n=$((n + 1))
 
     if [ "$W_CODE" = "404" ]; then
@@ -281,9 +290,9 @@ if [ "$N" -eq 0 ]; then
      "yield: zero consultations from $HITS detail page(s)${ERRS:+ —$ERRS}"
   exit 1
 elif [ -n "$ERRS" ]; then
-  mf nen-ptk ok "$LAST_CODE" "$TOT_BYTES" "$N" "$TOT_MS" "$STARTED" "$OUTDIR" "partial:$ERRS"
+  mf nen-ptk ok "$LAST_OK_CODE" "$TOT_BYTES" "$N" "$TOT_MS" "$STARTED" "$OUTDIR" "partial:$ERRS"
 else
-  mf nen-ptk ok "$LAST_CODE" "$TOT_BYTES" "$N" "$TOT_MS" "$STARTED" "$OUTDIR" ""
+  mf nen-ptk ok "$LAST_OK_CODE" "$TOT_BYTES" "$N" "$TOT_MS" "$STARTED" "$OUTDIR" ""
 fi
 echo "    wrote $OUT"
 exit 0

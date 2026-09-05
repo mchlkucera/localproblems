@@ -202,3 +202,11 @@ tree; `check-records.py --strict` result is recorded below; no web build and no 
 - `node web/scripts/lint-citations.mjs`: p-0037 markers 31, paras 7/7 cited, uncited-numeric 0.
 - Staged file parses: 6 rows, all `source: arb-scan`, `evidence_type: funded`.
 - Not run, by instruction: `npm --prefix web run build`, any commit, any append to `data/signals/**`, any edit to `seen.txt`.
+
+### nen-ptk first full run — 2026-09-04 (session localproblems-80; private raw dir /tmp/claude-501/ptk3/2026-09-04)
+
+211 pages walked (P00000001..P00000211), 180 detail pages, 31 404s (the designed stop), 0 refused by the MODE-A guard; 65 buyers resolved to IČO. 131 consultations staged after dropping 43 price checks (Průzkum trhu) and 6 bare titles. Scored by two graders (3 batches each) under the written asks scale rule and the stated_need bar: 5 refused as no stated need, 65 dropped at scale 0 (one body procuring for itself), 61 survived; pass B wrote 54 on the first round. Receipt http status corrected by hand from 404 to 200 (see the run manifest note) and the fetcher fixed to record the last GOOD page. Appended to data/signals/asks/2026-09-04.jsonl.
+
+| run_id | feed_key | result | http | bytes | items | ms | started_at | raw_path | error |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-09-05T0722 | nen-ptk | ok | 200 | 43892647 | 131 | 412022 | 2026-09-05T07:22:57Z | /tmp/claude-501/ptk3/2026-09-04 |  |
