@@ -4,6 +4,12 @@ region: cz
 title: Czech towns buy rooftop solar one by one, and overpay for it
 fix: 'An aggregator that pools many towns'' rooftop-solar projects into one fixed-price
   contract, so the lots stop being too small for a supplier to bid on.'
+price_search: 'Registr smluv full-text for "administrace zadávacího řízení" with "fotovoltaick"
+  — what a town pays a procurement administrator to run one rooftop-solar tender is the manual
+  equivalent of a pooling fee — and for "společný nákup energií" to see what SMS ČR members or
+  eCENTRE customers pay for pooled commodity buying; otherwise ask the town clerk (tajemník) of
+  Špindlerův Mlýn what its repeated tenders cost in administrator fees; the MS2021+ index under
+  "fotovoltaick" returns only installation grants.'
 category: energy
 geo: CZ-national
 score: 7

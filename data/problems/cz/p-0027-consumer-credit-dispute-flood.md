@@ -4,6 +4,12 @@ region: cz
 title: Complaints about Czech consumer loans have quadrupled, all handled by hand
 fix: 'Case software for lenders answering complaints at the Financial Arbitrator: pull the
   loan file, draft the response, hold every deadline, and flag which cases to settle.'
+price_search: 'No public buyer pays for this, so ask the head of legal or compliance at a
+  non-bank lender from the Czech National Bank''s register of consumer-credit providers what
+  outside counsel bills per financial-arbiter case, or ask a Czech law firm its fee for
+  "zastupování před finančním arbitrem" (representation before the arbiter); registr smluv
+  full-text for "Kancelář finančního arbitra" shows only what the arbiter itself pays for
+  case-handling software, and the MS2021+ index has nothing on it.'
 category: fintech
 geo: CZ-national
 score: 7

@@ -5,6 +5,12 @@ title: Czech building owners must plan costly renovations, with no way to compar
 fix: 'Portfolio software for building owners: score every building, rank the renovation
   measures by cost and payback, and turn the EU energy-performance rules into a dated
   capital plan.'
+price_search: 'Registr smluv full-text for "energetický management" or "energetický audit" —
+  what a kraj (region) or statutory city pays a consultancy to survey and rank its building
+  stock is the manual equivalent of the product; the MS2021+ index under "energetického
+  managementu" names the owners (Statutární město Liberec, Středočeský kraj) but funds only
+  their retrofit delivery, so ask the energy manager (energetický manažer) of either what the
+  portfolio triage behind those projects cost.'
 category: housing
 geo: CZ-national
 score: 7

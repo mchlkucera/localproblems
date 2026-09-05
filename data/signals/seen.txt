@@ -4,6 +4,7 @@ at-hydrogrid
 at-orderlion
 at-parastruct
 at-xund
+be-desotec
 bg-ebag
 bg-lamon
 bg-nitropack
@@ -157,7 +158,9 @@ cz-yieldigo
 cz-zerops
 de-1-cp
 de-aedifion
+de-aquabench
 de-arx-robotics
+de-caigos
 de-conmeet
 de-curevision
 de-custom-surgical
@@ -168,6 +171,7 @@ de-hallo-theo
 de-jupus
 de-metycle
 de-peter-park
+de-phoenics
 de-recyda
 de-resourcify
 de-skalar
@@ -179,6 +183,7 @@ de-vialytics
 de-vivecti-prospitalia
 de-vytal
 dk-amgros
+dk-envidan
 dk-festina
 dotace-amif-49-asistence-oamp
 dotace-amif-50-informace-cizincum-2
@@ -2507,6 +2512,7 @@ nl-avido-ai
 nl-bettercharge
 nl-codified-governance
 nl-haboo-money
+nl-haskoning-aquasuite
 nl-hexwise
 nl-humbrela
 nl-hyer-power

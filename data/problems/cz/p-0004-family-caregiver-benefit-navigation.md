@@ -6,6 +6,12 @@ title: Families caring for ~380,000 dependent Czechs must obtain and defend př�
 fix: 'A guided service that gets a family through the Czech care allowance (příspěvek na
   péči) — the application, the assessment visit and the appeal — for a flat or success
   fee.'
+price_search: 'The MS2021+ index under "neformální péče" (Moravskoslezský kraj and Statutární
+  město Brno are funded there for carer counselling — the same navigation done by hand, free,
+  on public money) and registr smluv full-text for "odborné sociální poradenství" for what a
+  town pays a counselling service per year; otherwise ask the head of a registered
+  social-counselling service such as Rodinný průvodce what one care-allowance appeal costs in
+  staff hours.'
 category: health
 geo: CZ-national
 score: 7

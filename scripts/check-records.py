@@ -697,10 +697,24 @@ def check(path, year):
     # WARNING-ONLY, permanently: the corpus predates the field, and these lines
     # are its retrofit worklist, exactly as the gloss law's are. The page prints
     # the house line in place of the ledger, which is honest.
-    if live and isinstance(total, int) and total >= PRICE_EXPECTED_FROM and not prices:
-        warns.append(f"score {total} with no type: price source — the page prints "
-                     f"'No Czech buyer has priced this yet.'; price the product or its "
-                     f"manual equivalent (CONVENTIONS.md, price receipts)")
+    hint = doc.get("price_search")
+    if hint is not None and not (isinstance(hint, str) and hint.strip()):
+        errors.append("price_search is present but empty — it is one sentence naming WHERE "
+                      "to look, or the key is absent")
+    # AN ESTIMATE OF WHERE, NEVER OF HOW MUCH (owner, 2026-09-04). A number in
+    # the hint is a price with no receipt, printed beside the line that says
+    # no receipt exists — the exact contradiction this file exists to catch.
+    # Years and act numbers pass; a crown figure (digits followed by CZK/Kč, or
+    # a thousands-grouped amount) does not.
+    if isinstance(hint, str) and re.search(
+            r"\d[\d\s.,]*\s?(?:CZK|Kč|EUR|€)|\b\d{1,3}(?:[ .]\d{3}){1,}\b", hint):
+        errors.append(f"price_search carries an amount — it names WHERE to look, never how "
+                      f"much; a figure belongs on a type: price source with a url, or nowhere")
+    if live and isinstance(total, int) and total >= PRICE_EXPECTED_FROM and not prices and not hint:
+        warns.append(f"score {total} with no type: price source and no price_search — the "
+                     f"page prints 'No Czech buyer has priced this yet.'; add a `type: price` "
+                     f"receipt, or say WHERE to look in `price_search:` (CONVENTIONS.md, "
+                     f"price receipts)")
 
     # -- GAP: keyed on BOTH fields, and the check is a receipt, never a score --
     # v1 rung 0 literally meant "check not done", so a de-ranked record and an

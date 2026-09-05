@@ -2,6 +2,12 @@
 id: p-0029
 region: cz
 title: Czech public bodies must replace their records systems by the end of 2026
+price_search: 'Registr smluv full-text for "elektronická spisová služba" — the Interior
+  Ministry''s support framework and Prague''s e-spis development contracts sit there with
+  licence and annual-support lines — and the MS2021+ index under "spisové služby" (Město
+  Pelhřimov is funded there to deploy one across the town and its organisations); otherwise ask
+  the IT head of a district town (obec s rozšířenou působností) what its migration and annual
+  support cost.'
 category: govtech
 geo: CZ-national
 score: 7

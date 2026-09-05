@@ -5,6 +5,12 @@ title: Czech hospitals write reports as free text, then pay people to read them 
 fix: 'Report templates inside the hospital system, so a radiology or oncology report is captured
   as data at the moment it is written and can be turned into insurer codes and registry entries
   for a coder to confirm rather than re-read.'
+price_search: 'Registr smluv full-text for "vykazování zdravotní péče" or "asistent vykazování"
+  (a hospital''s coding-assistant contract with STAPRO or ICZ once the free pilot ends) and the
+  MS2021+ index under "zdravotnická dokumentace" or "nemocniční informační systém" (Nemocnice
+  Břeclav and Nemocnice Blansko are funded there to modernise hospital-system documentation);
+  otherwise ask the coding-department head (vedoucí oddělení vykazování) of a regional hospital
+  what a coder-year costs.'
 category: health
 geo: CZ-national
 score: 10

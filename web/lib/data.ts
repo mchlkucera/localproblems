@@ -124,7 +124,7 @@ const SignalSchema = z.strictObject({
   //                             carries, so both pass the same test `veklep`
   //                             did. Widened 2026-09-03, BEFORE the first
   //                             `asks` ledger line.
-  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv", "coi", "sukl", "nen", "smlouvy", "dotace", "veklep", "tacr", "hackathon", "nen-ptk"]),
+  source: z.enum(["ted", "hlidac", "yc", "round", "reg-scan", "arb-scan", "feed", "demand-scan", "suggest", "reddit", "mpsv", "coi", "sukl", "nen", "smlouvy", "dotace", "veklep", "tacr", "hackathon", "nen-ptk", "edesky"]),
   url: z.string().url(),
   date: isoDate,
   title: z.string().min(1),
@@ -473,6 +473,15 @@ const ProblemSchema = z.looseObject({
   // none. Carried as a real column in scripts/db.py (`problems.fix`), so it is
   // NOT looseObject overflow and cannot silently vanish on the DB read path.
   fix: z.string().min(1).optional(),
+  // `price_search` — WHERE TO LOOK for the price when no Czech buyer has yet
+  // priced this (owner, 2026-09-04: "we don't need to answer where the money
+  // is where we don't know it; we can give an estimate of where to search").
+  // One sentence naming the surfaces and the keyword — a registr smluv
+  // query, an MS2021+ index keyword, a named buyer to ask. It is an
+  // ESTIMATE OF WHERE, never an estimate of HOW MUCH: a number belongs on a
+  // `type: price` source with a url, or nowhere. Renders beside the absence
+  // line only; absent when a price receipt exists.
+  price_search: z.string().min(1).optional(),
   category: z.enum(CATEGORIES),
   geo: z.string().min(1),
   score: z.number().int().min(0).max(12),

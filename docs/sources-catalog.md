@@ -348,3 +348,137 @@ this in the note of every citation it emits, so the next dedupe pass does not "f
 **Follow-up, not built:** `data/CONVENTIONS.md`'s "Lookup layer" paragraph still lists only
 the two e-shop files as the tree's contents; it needs a third line naming this one. Left to
 the owner because that file is shared.
+
+## Wave-5b additions (2026-09-05) — CityVizor invoices, as a LOOKUP not a feed
+
+The executed-spend counterpart of Wave-5: where MS2021+ says what a public buyer was
+*approved* to spend, CityVizor says what its accounting ledger *actually paid*, invoice
+line by invoice line, with the counterparty's IČO — below every tender threshold. Same
+shape as the ms21 lookup on purpose (`data/CONVENTIONS.md` "Lookup layer"). Everything
+below was measured live on 2026-09-05 and read against the server source
+(github.com/cityvizor/cityvizor, branch `staging`, AGPL-3.0; the data are published
+voluntarily by the bodies, the app is run by Otevřená města z.s.).
+
+**Verified endpoints and fields.** `GET https://cityvizor.cz/api/public/profiles` — 338
+profiles (`id`, `url` = page slug, `name`, `ico`, `status`, `type`, `parent`,
+`hasPayments`), **35 with payments, 26 of them `status: visible`**. `GET
+…/profiles/{id}/payments` — one row per ledger line: `profileId`, `year` (the BUDGET
+year), `paragraph`, `item` (rozpočtová položka), `event`, `incomeAmount`,
+`expenditureAmount`, `date`, `counterpartyId` (IČO), `counterpartyName`, `description`.
+`GET …/profiles/{id}/payments/months` — the distinct (year, month) pairs a body holds. No
+auth, no robots.txt, no rate-limit header, no licence statement beyond the app's AGPL.
+
+**The 10,000-row cap, and the honest way past it.** `server/src/routers/public/
+profile-payments.ts` clamps `limit` with `parseAndLimitNumber(req.query.limit, 10000)`,
+honours `offset`, `sort` (`date`/`-date`, which adds `date IS NOT NULL`), `dateFrom` (`>=`)
+and `dateTo` (`<`, **exclusive**) — and reads **no `year` and no `month` parameter at
+all**, which is why the 2026-09-04 probe saw them "silently ignored". There is no page
+token. The fetcher therefore walks each body through DISJOINT date windows — the whole
+range, then calendar years, then months, then days — splitting a window only when it comes
+back holding exactly 10,000 rows (a capped window is a truncated window by definition).
+Disjoint windows never overlap, so nothing is fetched twice and nothing is deduplicated
+away. Only a single DAY over the cap would need `offset` paging, where Postgres gives no
+stable order across pages; such windows are flagged `paged=1` and counted. **Measured run:
+72 calls, 93,177,726 bytes, 48 s of transfer, 62 windows accepted, 0 failures, 0 paged
+windows** — five bodies capped at the two-year range and split into years, two (Ostrava 37,
+Královéhradecký kraj 364) capped at 2025 and split into months. Every request carries
+`sort=date`, exactly what the site's own invoices page sends. Rows with a NULL date are
+unreachable through date windows and are not fetched — a dateless line could not carry a
+dated receipt anyway.
+
+**Which bodies — 26 walked, 25 with rows in the window.** `status: visible` AND
+`hasPayments`: Nové Město na Moravě, Černošice, Uherský Brod, Úvaly, Mariánské Lázně,
+Kroměříž, Brno-Medlánky, Moravská Třebová, Bystřice, Benešov, Lysá nad Labem, Karlovarský
+kraj, Středočeský kraj, Královéhradecký kraj, and Ostrava with eleven of its obvody
+(Moravská Ostrava a Přívoz, Hošťálkovice, Mariánské Hory a Hulváky, Martinov,
+Michálkovice, Plesná, Poruba, Slezská Ostrava, Svinov, Třebovice, Vítkovice). **Refused,
+each for a stated reason:** the 9 non-visible profiles with payments are six test profiles
+("Testicek", "aaaaa", "bbb", "Úvaly-test", "Ostrava-test", "test_po"), Kladno (not one
+dated month), Ostrava-Jih (`pending`, 2019–2020 only) and **Hlavní město Praha (`pending`,
+no IČO, ledger ends 2019)** — so the "profile 5 = Praha" of the 2026-09-04 note is not
+reachable as a citable page. Mariánské Lázně is walked but its ledger ends 2022, hence 25
+bodies with rows. Ostrava's parent profile is the magistrát alone (0 lines shared with
+Poruba in March 2024 — measured), so all twelve Ostrava profiles are needed. **The twelve
+Ostrava profiles carry no IČO** (34,919 rows, 43%): `body_ico` is omitted there, never
+invented, and the citation's `payer` is the profile name.
+
+**What was built (four files, no edits to any shared script):**
+
+- `scripts/fetch_cityvizor.sh` — argv `$1 = outdir` (the nku/tacr shape). Profiles list,
+  guarded; the window walk; raw JSON under `<outdir>/.fetch/cityvizor/<id>/`, a
+  `windows.tsv` of accepted windows (capped windows renamed `.capped`, kept as evidence,
+  never indexed); one manifest row + `.fetch/receipts.jsonl` for feed_key `cityvizor`
+  (inert to `normalize.py`, which reads receipts per registered feed only). A failed window
+  is an ERROR and the index is NOT rebuilt — a missing month would read as "bought nothing".
+  1 s sleep between calls; curl retries 429/5xx twice. No `rm`, bash 3.2, `LC_NUMERIC=C`.
+- `scripts/cityvizor_index.py` — stdlib. MODE-A guards for the profiles list and for every
+  payments response (the Angular shell as 200 text/html, an error object, and a reshaped
+  view all refused; an EMPTY ARRAY accepted — a month with no invoices is a real answer).
+  Writes `data/lookup/cityvizor-invoices.jsonl`: **80,286 rows, 30,149,595 bytes (28.75
+  MiB)**, sorted by (date, body, id), byte-stable across rebuilds.
+- `scripts/cityvizor_query.py` — `--keyword` (case- and diacritic-insensitive over
+  description + counterparty), `--body`, `--min-czk`, `--year` (budget year), `--ico`
+  (counterparty), `--limit`, `--json`. Money first; the footer prints total AND median,
+  because a ledger repeats (twelve instalments are twelve rows).
+- `scripts/cityvizor_selftest.py` — **84 offline checks, all passing.**
+
+**Five measurements that changed the design:**
+
+1. **Most of a ledger is not a price.** Over six 2024 samples (35,709 expenditure lines)
+   the rozpočtová položka classes were 51xx 29,034 · 61xx 2,293 · 53xx 1,087 · 52xx 1,015 ·
+   58xx 1,689 · 50xx 389. The index admits **504x + 51xx + 61xx** only: 5331 (příspěvek to
+   an own PBO), 52xx grants, 5011 payroll and 5362 taxes are money moved, not a thing
+   bought; 58xx is entirely "Ubytování uprchlíků" at the decree rate — a compensation, not
+   a negotiated price, and it is out so that `basis: signed-contract` never lands on a
+   decree rate. **504x is admitted on purpose: 5042 is where a software licence renewal is
+   booked** ("prodloužení licence ESET PROTECT", Středočeský kraj) — "51xx and 61xx" would
+   have silently dropped exactly the rows a software record wants. Run totals: 192,383
+   lines read; skipped income 20,794 · negative 7,406 · rounds-to-zero 34 · non-purchase
+   12,801 (53xx 6,146 · 52xx 3,509 · 54xx 1,031 · 50xx 793 · 58xx 774 · 63xx 375 …).
+2. **Two years does not fit under 30 MB, and the brief's fallback is not enough.** The
+   two-year range yields 151,348 purchase lines at 375 bytes each ≈ **54 MB**. So the
+   indexer keeps whole months, newest first, and drops the OLDEST month across ALL bodies
+   until the file fits: **kept 2025-07-01 … 2026-08-31 (14 months), ten months trimmed
+   (2024-09 … 2025-06)**. The fetcher prints the kept window and writes it into the
+   receipt; everything fetched stays under `.fetch/` for the run directory's 28 days, so a
+   wider index is a re-run of the indexer, not a re-fetch.
+3. **Identical lines are real.** 6,582 rows are byte-identical to another line of the same
+   body (one invoice split across two `event`s, two receipts of the same fee) — and the
+   site's own page shows them twice too. The public view exposes no row id, so `id` is
+   `cv-<profileId>-<sha1[:12]>` over the RAW source values, with `-2`, `-3` … on the second
+   and later identical lines. Content-hash dedupe would have deleted 6,582 payments.
+4. **Counterparty IČO is present on 99.4% of rows** — the field a price receipt most
+   needs is the one this source fills best. Contact-shaped text (8 lines) is cut with
+   `normalize.py`'s EMAIL_RE/PHONE_RE, copied with the comment saying so.
+5. **Bodies upload monthly, in arrears.** The latest line on 2026-09-05 is dated
+   2026-08-31; September is empty for every body. A run is never "current to today".
+
+**THE CITATION RULE — a url per body per month, on purpose.** A record cites a line as a
+`type: price` source: `url` = `https://cityvizor.cz/<slug>/faktury;rok=YYYY;mesic=M` (the
+body's invoice table for that month — Angular matrix params, the very link the site's own
+date picker builds in `client/…/date-picker.component.ts`), the row `id` in `note`,
+`payer` = the body, `amount_czk` = the line's expenditure in whole crowns, `unit: one-off`,
+`basis: signed-contract` (a ledger line is money paid under an order or contract already
+performed — not a list price, not a tender line), `date` = the booking date. **There is no
+per-invoice permalink anywhere on cityvizor.cz** — the public view has no invoice id — so
+every line of one body in one month shares a url, which is the constant-url shape `coi`,
+`sukl`, `mpsv` and `ms21` already use by design. Verified in a headless browser
+2026-09-05: `cityvizor.cz/nmnm/faktury;rok=2026;mesic=8` renders the month's table with
+date, §, #, IČO, counterparty, description and amount, matching the API rows. The query
+tool prints the ms21 subject-test warning on every hit: a paid invoice for X is a price
+for X only.
+
+**Three real hits for `software`** (341 lines across 18 bodies, 39,530,214 Kč in total,
+median 20,569 Kč): Ostrava paid SoftwareONE Czech Republic s.r.o. (IČO 24207519)
+**20,745,750 Kč** on 2026-01-23 for "podpora produktů Microsoft pro rok 2026" (položka
+5168); Ostrava paid the same SoftwareONE **3,265,693 Kč** on 2026-01-20 for "poskytování
+licencí a podpor k produktům Microsoft, pro rok 2026"; Středočeský kraj (IČO 70891095)
+paid ESET software spol. s r.o. (IČO 26467593) **1,924,506 Kč** on 2026-04-27 for
+"Prodloužení licence ESET PROTECT Elite 11.5.2026–11.5.2029". And one for the register's
+own vocabulary: `spisova sluzba` typed without diacritics finds Královéhradecký kraj paying
+Axians Czech Republic s.r.o. **48,352 Kč a month** for "hostovaná spisová služba".
+
+**Follow-ups, not built:** the twelve Ostrava profiles' missing IČO could be resolved from
+ARES by name, but that is an enrichment step with its own receipt, not a fetch; Praha
+would be the largest ledger in the country and is `pending` with data to 2019 — worth an
+email to cityvizor@otevrenamesta.cz asking whether the city still uploads.

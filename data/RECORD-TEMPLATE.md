@@ -139,6 +139,15 @@ another dimension — untagged, it backs no score, which is the point.
     basis: list-price
 ```
 
+### `price_search:` — where to look for the price (optional, one sentence)
+
+For a record that scores 7 or more and carries no `type: price` source: the
+surfaces and the keyword a builder should search — a registr smluv full-text
+query, an MS2021+ index keyword (`scripts/ms21_query.py`), a named vendor's
+price list, a named ROLE at a named institution to ask. It is an estimate of
+WHERE, never of HOW MUCH: a crown figure in it fails the build (owner,
+2026-09-04). Renders beside "No Czech buyer has priced this yet."
+
 ### `fix:` — the proposed product, in one sentence (optional)
 
 Rendered directly under the dek, labelled `WHAT TO BUILD`. It exists because a

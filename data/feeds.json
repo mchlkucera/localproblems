@@ -230,6 +230,45 @@
       }
     },
     {
+      "key": "edesky",
+      "name": "eDesky — municipal noticeboards, záměr documents (intention to acquire)",
+      "yields": "A municipality's legally required published intention to acquire, lease or commission — a named owner with budget, BEFORE any tender. Built and parked: see blocker.",
+      "role": "feed",
+      "signal_source": "edesky",
+      "id_prefixes": [
+        "edesky"
+      ],
+      "evidence_type": "asks",
+      "cadence": "daily",
+      "runner": "local",
+      "url": "https://edesky.cz/api",
+      "script": "scripts/fetch_edesky.sh",
+      "status": "planned",
+      "blocker": "TWO OWNER ACTIONS, neither of which a script may take. (1) TERMS: the VOP a registrant must accept (edesky.cz/vop, provider ADOL Monitor s.r.o., §VI) forbid passing data to third parties, publishing outputs in any way, or including them in products, with a 100,000 CZK penalty per breach — a public register is publication. §VI.4 allows it with the provider's PRIOR WRITTEN CONSENT: email info@edesky.cz and get it in writing before this row's access.verdict may say `allowed`. (2) KEY: human-only registration at https://edesky.cz/uzivatel/sign_up (an Anubis proof-of-work gate blocks scripts); the key is on https://edesky.cz/uzivatel/edit; store it with `sops-edit .env.enc` as EDESKY_API_KEY. The fetcher REFUSES to write into data/raw/ unless this row carries access.verdict: allowed (tested), and runs only unsandboxed through with-secrets, as fetch_hlidac.sh does. Also measured: the API echoes the key and the registrant's e-mail in <meta>; the guard redacts both before any body is stored.",
+      "last_known_good": null,
+      "access": {
+        "verdict": "conditional",
+        "basis": "VOP §VI forbids publication of outputs without the provider's prior written consent (§VI.4). Not yet requested. A private own-use measurement run is §VI.1 and permitted; nothing may reach data/signals/ until consent is on file.",
+        "checked": "2026-09-04"
+      },
+      "contract": {
+        "parse": "jsonl",
+        "required_fields": [
+          "id",
+          "title",
+          "municipality",
+          "url",
+          "text"
+        ],
+        "expected_yield": {
+          "min": 1,
+          "max": 400,
+          "basis": "UNMEASURED — blocked on the key. The API's own sample and the 6,346-desk count suggest tens of záměr documents a day, most of them property DISPOSALS (§39 of the municipalities act obliges publication of disposals, not acquisitions); the title rule keeps only acquisition intent, so the real yield is unknown until a run."
+        },
+        "allow_missing": false
+      }
+    },
+    {
       "key": "cc-cz",
       "name": "CzechCrunch RSS",
       "yields": "CZ startup funding rounds, launches and acquisitions as they are reported.",
@@ -649,6 +688,7 @@
       "id_prefixes": [
         "am",
         "at",
+        "be",
         "bg",
         "cz",
         "de",

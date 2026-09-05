@@ -5,6 +5,12 @@ title: Czech hospitals each buy their medicines alone, and the state keeps findi
 fix: 'A price comparison for hospital medicines, assembled from the hospitals'' own published
   purchasing notices, so a hospital pharmacy can see what its peers paid for the same molecule
   before it opens the next order.'
+price_search: 'Registr smluv full-text for "eCENTRE" with "léčiv" or "elektronická aukce" —
+  Městská nemocnice Ostrava''s coordinated-purchasing contract is what a hospital already pays
+  for pooled buying — and for "administrace dynamického nákupního systému" for what a hospital
+  pays an outside administrator per purchasing system; otherwise ask the head pharmacist or
+  procurement head of Fakultní nemocnice Olomouc what one medicine call costs in staff hours;
+  the MS2021+ index under "léčiv" returns only drug research.'
 category: health
 geo: CZ-national
 score: 9

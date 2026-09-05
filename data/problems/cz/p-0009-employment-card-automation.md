@@ -6,6 +6,12 @@ title: Czech employers hiring foreign workers push zaměstnanecká karta applica
 fix: 'Software that files a Czech employee card — the work-and-residence permit for a
   foreign hire — end to end for the employer: documents, submission and status tracking,
   instead of a per-case agency fee.'
+price_search: 'Registr smluv full-text for "zaměstnanecká karta" or "relokační služby" — a
+  public employer that hires abroad, a fakultní nemocnice (teaching hospital) or a university,
+  publishes its relocation-agency contract there with the per-case fee; otherwise ask the HR
+  director of a fakultní nemocnice or the head of a university''s welcome office what an agency
+  charges per card; the MS2021+ index under "cizinců" returns only state integration centres,
+  not the employer''s filing.'
 category: legal-compliance
 geo: CZ-national
 score: 7

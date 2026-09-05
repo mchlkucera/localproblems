@@ -65,6 +65,29 @@ the placeholders are OMITTED rather than written into a field called
 `problem`, because an empty string in a problem field is the shape that looks
 present and says nothing.
 
+Since 2026-09-05 it also holds `cityvizor-invoices.jsonl` (80,286 rows,
+30,149,595 bytes = 28.75 MiB, from CityVizor's public invoice API — the
+accounting ledgers 26 municipalities and regions publish voluntarily): one
+line per PURCHASE invoice line — rozpočtová položka 504x/51xx/61xx only;
+transfers, payroll, income lines and credit notes are counted and dropped —
+with the paying body, the counterparty's IČO (on 99.4% of rows), the amount,
+the booking date, the ledger's free-text description and the budget
+paragraph/item. It is the executed-spend counterpart of the ms21 file: what a
+named body ACTUALLY PAID a named counterparty for a thing, below every tender
+threshold. **It is a lookup and not a feed, for the ms21 reason squared**:
+the same 26 bodies book ~150,000 purchase lines in two years, every one
+carrying real money. It is also SHORTER than two years by measurement — two
+years is ~54 MB and the 30 MB ceiling is the stop rule for a committed,
+never-pruned tree — so `scripts/cityvizor_index.py` keeps whole months,
+newest first, and trims the oldest month across ALL bodies until the file
+fits: 2025-07-01 … 2026-08-31 today, ten months trimmed, the kept window
+printed by `scripts/fetch_cityvizor.sh` and written into its receipt. Its
+consumer is the `price` receipt, searched by `scripts/cityvizor_query.py`;
+the url a citation gets is the body's per-MONTH invoice page
+(`cityvizor.cz/<slug>/faktury;rok=Y;mesic=M`), shared by every line of that
+month because the public view exposes no invoice id — the constant-url shape
+again, with the row `id` in `note` as the identifying key.
+
 **Which date is `<run-date>`:** the date naming the `data/raw/<run-date>/` directory the
 records were completed from — never the wall clock. An attended completion routinely
 happens a day or more after the fetch, and naming the ledger from the clock would file one
@@ -276,6 +299,13 @@ sources [{type, url, note, date, name?, gist?, why?, signal?: <evidence id>,
                                                    forbidden on every other type)
 created, updated
 ```
+
+An UNPRICED record says where to look. `price_search:` on a problem record is
+one sentence naming the surfaces and the keyword — never an amount; the
+checker refuses a crown figure in it (owner, 2026-09-04: "we can give an
+estimate of where we think we should search for it"). The page prints it
+beside the absence line, and the line disappears the day a `type: price`
+receipt lands.
 
 `sources[].name` / `gist` / `why` — the public face of a source (`note` is the
 internal receipt and never renders). `name` is the display name the ledger row
