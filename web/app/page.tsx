@@ -2,7 +2,7 @@
 import { registerRows } from "../lib/data";
 import { categoryLabel, localityLabel, pad2 } from "../lib/format";
 import { CategoryNav } from "../lib/category-nav";
-import { CorrectionsLink, FooterHouseLine, Masthead, SiteNav, SortScript, Tally } from "../lib/chrome";
+import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, SortScript, Tally } from "../lib/chrome";
 
 export default function Register() {
   const rows = registerRows();
@@ -10,18 +10,12 @@ export default function Register() {
   return (
     <>
       <Masthead index />
-      <SiteNav current="/" />
-
-      <nav className="filters" aria-label="Regions">
-        {"Region: "}
-        <a href="/" aria-current="page">Czechia</a>
-        {[" Poland", " Slovakia", " Austria", " Germany"].map((r) => (
-          <span key={r}>
-            {" · "}
-            <span className="soon" title="Coming soon">{r.trim()}</span>
-          </span>
-        ))}
-      </nav>
+      {/* the region line rides inside the site nav's wrapper (v1.20): on a
+          phone the two share one scrolling strip, on the desk they are the
+          two lines they always were */}
+      <SiteNav current="/">
+        <RegionNav />
+      </SiteNav>
 
       <p>
         A register of local problems, compiled weekly from public sources — tenders,

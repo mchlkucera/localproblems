@@ -1,5 +1,85 @@
 /* ============================================================
-   localproblems.org · design system v1.18 · 2026-08-25
+   localproblems.org · design system v1.20 · 2026-09-04
+   v1.20 (owner, on v1.19's phone front page: "putting the menu in
+   the footer is not a good solution — find a better, simple but
+   modern one"; "the filtering is still taking up a lot of space"):
+   THE STRIP. On a phone the two chrome lines that wrapped into walls
+   — the site nav (with the region line, on the register) and the
+   category filter — each become ONE line that runs off the right
+   edge of the screen and scrolls sideways: white-space: nowrap +
+   overflow-x: auto, bleeding into the page gutter (negative inline
+   margin, matching padding) so the line is cut by the screen and not
+   by a box. The cut mid-word IS the affordance, as on every
+   newspaper's phone section strip: no fade, no arrow, no scrollbar
+   (scrollbar-width: none — a phone's overlay scrollbar is invisible
+   anyway). Everything stays where the desk has it: nav at the head,
+   filter over the register. The v1.19 body grid that sank the nav to
+   the foot is RETIRED and pruned, .sitenav--local with it; .sitenav is
+   now the WRAPPER that lets the site nav and the region line share one
+   strip (inline inside it on a phone, block lines on the desk), and
+   the category nav names itself .categories. The register's one-
+   sentence description drops to the muted --fs-data serif of the note
+   voice on a phone (.index-head ~ p): the problems are the page.
+   MEASURED at 375px: the first problem sat ~490px down at v1.18 and
+   ~330px at v1.19 with the nav gone from the head; now ~270px with the
+   nav back at the head. Scoped `screen and`; the photocopy wraps. No
+   colour, size, weight, rule weight, spacing value, breakpoint or
+   glyph. Markup: one wrapper div and one class.
+   v1.19 (owner: "on mobile you get greeted with this wall of text …
+   the problems are the focus"; "each section should be very easy to
+   scan and then to dive deeper"; "the 'more' under Sources is very
+   repetitive and ugly"): three moves, one round.
+   (a) THE PHONE FRONT PAGE — SUPERSEDED BY v1.20 the next day (the
+   owner: a menu in the footer is not the answer; the strip is). As
+   shipped for one day: below 56rem — the one narrow mode the
+   site already has — the cross-surface chrome leaves the head of the
+   page: the site nav (.sitenav) and the region line (.regions) drop
+   to the foot, between the content and the footer, by `order` on a
+   body grid. MEASURED: at 375px the register's first problem sat
+   ~490px down an 812px screen behind five identical mono lines (nav,
+   region, description, categories) a reader could not tell apart.
+   Now the masthead, the one-sentence description and the category
+   filter are the whole head and the first problem is on the first
+   screen. Nothing is hidden — a demotion in position, never in
+   visibility (the v1.9 doctrine) — and the markup is byte-identical
+   at every width (v1.8): the two navs gain a class naming what they
+   are, nothing else. The ledger pages keep their nav at the head
+   (.sitenav--local): there it is the ledger switcher, the page's own
+   control, not chrome. Scoped `screen and`; DOM order never moves,
+   so assistive tech and the photocopy keep the nav first.
+   (b) SCAN, THEN DIVE — the record page's section grammar. Every
+   evidence section now reads the same way: the prose first (the
+   argument), its ledger second (the receipts). Local competition
+   inverted this and is turned round, which retires the v1.17 seam
+   margin the inversion needed. Inside the prose, a section's FIRST
+   SENTENCE — and each first-moves step's — sets in the house 600 as
+   a run-in lead (strong.lead, split at build by splitLead with the
+   dek's 40-char floor; CSS cannot find a sentence): skim the
+   headings and the leads and you have read the findings; the rest
+   of each paragraph is their evidence. Inside the ledgers, a comp's
+   traction shows its first clause and a local player's evidence its
+   first sentence, and the rest folds behind the same native
+   disclosure the sources already used — the clause is the scan, the
+   fold is the dive.
+   (c) THE FOLD, GENERALISED. details.more leaves .sources and is the
+   one fold device for every ledger note; the repeated "more" summary
+   — seventeen identical words down one page — is gone. THE GIST IS
+   THE CONTROL: the sources gist, the comp's first clause, the local
+   player's first sentence each become the <summary>, in the voice
+   their ledger already gives that line (mono meta for a gist, the
+   italic note for a comp), wearing the house link grammar (rule
+   hairline underline, ink on hover, the 2px ink outline on focus). A
+   closed fold ends in the continuation mark " …" — the sign printed
+   text uses when it has been cut short, generated like the
+   th[aria-sort] arrow — and the photocopy prints every fold open
+   (::details-content { content-visibility: visible }, the mark
+   suppressed there). (d) One repair found on the way: a sources
+   row's ISO date broke at its own hyphens beside a long name on a
+   phone ("2026-" / "09-03"); a recorded date is one token and now
+   says so (white-space: nowrap, the .index .t-num rule's own value).
+   New on the sheet: one class (.lead) on a weight already spent
+   (600), one glyph (…). No colour, size, rule weight, spacing value
+   or breakpoint.
    v1.18 (owner: "even the link explanations are too long. Maybe we
    could have a few word explanation and see more on a toggle"): the
    sources ledger row gains an optional GIST — the clerk's few-word
@@ -248,6 +328,12 @@ p, ul.prose, ol.prose { max-width: var(--w-prose); margin-block: 0 var(--sp-4); 
 ol.prose { padding-left: var(--sp-6); }
 ol.prose li { margin-bottom: var(--sp-2); }
 ol.prose li::marker { font: 600 var(--fs-data)/1 var(--mono); }
+/* the run-in lead (v1.19): a section's first sentence — and each first-moves
+   step's — sets in the house 600, so a reader who skims the headings and the
+   openers has read the findings; the rest of the paragraph is their evidence.
+   Emitted at BUILD by splitLead (web/lib/sections.ts, the dek's 40-char floor),
+   never by CSS — ::first-line is a line, not a sentence. */
+.lead { font-weight: 600; }
 /* sections breathe from above: ~3× the exhale below the heading */
 h2 { font: 600 var(--fs-h2)/1.3 var(--serif); margin: var(--sp-7) 0 var(--sp-4); }
 a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px; }
@@ -693,30 +779,38 @@ ol.sources { list-style: none; margin: 0; padding: 0; }
 .sources .line { display: flex; align-items: baseline; gap: 0.75ch; font: 400 var(--fs-data)/1.5 var(--mono); }
 .sources .line > a, .sources .line > span:first-child { font: 600 0.9375rem/1.3 var(--serif); }
 .sources .line .leader { flex: 1; }
-.sources time { color: var(--ink-muted); }
+.sources time { color: var(--ink-muted); white-space: nowrap; }   /* one token: never "2026-" / "09-03" (v1.19) */
 .sources li time.urgent { color: var(--stamp); }   /* retained shim */
 .sources .why { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); max-width: var(--w-prose); }
-/* v1.18: the gist row + the "more" disclosure (owner: "even the link
-   explanations are too long — a few word explanation and see more on
-   a toggle"). The gist is the clerk's few-word label: it stays in the
-   line's mono voice and takes the date's muted ink, so the serif name
-   keeps the row. When a source carries one, its full why sentence
-   folds behind a native <details> — the only sanctioned fold, HTML
-   rather than script (NEVER 13) — summoned by a small mono "more" in
-   the house link grammar. The default triangle is suppressed (no
-   icons — NEVER 6), so the control states its own focus in ink, the
-   v1.6 pairing: hover = ink underline, focus = 2px ink outline.
-   Sources without a gist keep the open why line and no toggle. */
-.sources .gist { color: var(--ink-muted); }
-.sources details.more { margin: var(--sp-1) 0 0; }
-.sources details.more summary {
-  display: inline-block; list-style: none; cursor: pointer;
-  font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted);
+/* ---- the fold: details.more (v1.18 on sources; generalised v1.19) --
+   The one disclosure device on the site, HTML not script (NEVER 13):
+   a ledger note's short form is the <summary>, its long form folds
+   beneath. THE GIST IS THE CONTROL — there is no "more" word: a
+   sources row folds its why behind its authored gist, a comp its
+   traction behind the traction's first clause, a local player its
+   evidence behind the first sentence, each summary in the voice its
+   ledger already gives that line (set per ledger, below). The summary
+   wears the house link grammar (rule hairline underline, ink on
+   hover, the 2px ink outline on focus — the v1.6 pairing for any
+   control styled out of its default look); the default triangle is
+   suppressed (NEVER 6); a closed fold ends in the continuation mark
+   " …" — the sign printed text uses when it has been cut short,
+   generated like th[aria-sort]'s arrow. The photocopy prints every
+   fold open (see @media print). v1.18's repeated "more" summary —
+   seventeen identical words down one sources ledger — is retired. */
+details.more { margin: var(--sp-1) 0 0; }
+details.more > summary {
+  display: inline-block; list-style: none; cursor: pointer; max-width: var(--w-prose);
   text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px;
 }
-.sources details.more summary::-webkit-details-marker { display: none; }
-.sources details.more summary:hover { text-decoration-color: var(--ink); }
-.sources details.more summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary:hover { text-decoration-color: var(--ink); }
+details.more > summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+details.more:not([open]) > summary::after { content: " …"; }
+/* the sources gist — the clerk's few-word label — is the fold's summary, or
+   a plain line where a source carries a gist and no why */
+.sources .gist, .sources details.more > summary { font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
+.sources p.gist { margin: var(--sp-1) 0 0; max-width: var(--w-prose); }
 
 
 /* comps: solved elsewhere — same one-line ledger grammar */
@@ -736,6 +830,9 @@ ol.sources { list-style: none; margin: 0; padding: 0; }
 .comps .name { font: 600 0.9375rem/1.3 var(--serif); }
 .comps .ref { font-size: var(--fs-meta); color: var(--ink-muted); }
 .comps .note { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); font-style: italic; color: var(--ink-muted); max-width: var(--w-prose); }
+/* a comp's first clause, or a local player's first sentence, is the fold's
+   summary in the note's own voice (v1.19) — the note beneath continues it */
+.comps details.more > summary { font: 400 var(--fs-data)/1.5 var(--serif); font-style: italic; color: var(--ink-muted); }
 /* local competition, grouped (v1.16): the ledger holds firms that sell
    THIS and firms nearby that sell something else, and a reader must see
    which is which without reading four evidence lines. Each group is one
@@ -745,15 +842,10 @@ ol.sources { list-style: none; margin: 0; padding: 0; }
    is the air above the second label. Existing tokens, both of them. */
 .locals .crumb { margin: 0 0 var(--sp-2); }
 .locals + .locals .crumb { margin-top: var(--sp-6); }
-/* v1.17 (2026-08-25, owner): the one inverted seam left unguarded. The
-   house rhythm is one-way — p carries bottom margin only, ledgers none —
-   which holds everywhere prose precedes its ledger. Local competition is
-   the one section that inverts the order (locals ledger, THEN the
-   existing-non-solutions paragraph), so the paragraph seated directly on
-   the ledger's last hairline. One step of air below every .locals block;
-   between groups it collapses under the --sp-6 crumb gap above, so only
-   the ledger→prose seam changes. Existing token, no new device. */
-.locals { margin-block: 0 var(--sp-5); }
+/* v1.17's ledger→prose seam margin (`.locals { margin-block: 0 --sp-5 }`)
+   is RETIRED at v1.19: Local competition now reads prose first, ledger
+   second, like every other section, so the seam it guarded no longer
+   exists. Pruned, not left dormant — the v1.5.2 rule. */
 
 /* ---- record-page devices (v1.4; .correction retired v1.9) ------
    .absent: stated absence (no sized figure / no comparable on file).
@@ -1049,6 +1141,45 @@ ol.revisions { list-style: none; margin: 0; padding: 0; max-width: var(--w-prose
   .masthead .issue { margin-left: auto; }
 }
 
+/* ---- the phone chrome: the strip (v1.20; replaces the v1.19 sink) --
+   MEASURED FIRST. At 375px the register's first problem began ~490px
+   down an 812px screen, behind five lines of chrome set in one voice
+   — site nav, region line, description, category filter — that a
+   reader could not tell apart. v1.19 answered by sinking the nav to
+   the foot; the owner struck that ("not a good solution — simple but
+   modern") and the filter was still four lines.
+   THE STRIP. Below 56rem — the site's one narrow mode — the site nav
+   (with the region line, on the register) and the category filter
+   each become ONE line that runs off the right edge of the screen and
+   scrolls sideways. The line bleeds into the page gutter by the
+   gutter's own width, so it is cut by the screen and not by a box:
+   the cut mid-word is the affordance, exactly as on a newspaper's
+   phone section strip. No fade (NEVER 5), no arrow, no scrollbar —
+   on a phone it is an overlay that never shows anyway, and on a
+   narrow desk window it would be a bar under a line of text. The
+   navs keep their landmarks; a link scrolled out of view still takes
+   focus and scrolls itself in. overscroll-behavior stops a swipe at
+   the strip's end from chaining into the browser's own back gesture.
+   Inside .sitenav the two navs go inline and share the line, joined
+   by the house middot; the wrapper takes the .filters line's voice
+   and margins so the strip reads as the line it replaces.
+   The register's description drops one voice on a phone — the muted
+   --fs-data serif the note lines already speak — so the problems are
+   the loudest thing under the masthead. Scoped `screen and`: the
+   photocopy wraps every strip. Markup is identical at every width. */
+@media screen and (max-width: 56rem) {
+  .sitenav, .categories {
+    white-space: nowrap; overflow-x: auto; overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    margin-inline: calc(-1 * var(--sp-5)); padding-inline: var(--sp-5);   /* cut by the screen, not a box */
+  }
+  .sitenav::-webkit-scrollbar, .categories::-webkit-scrollbar { display: none; }
+  .sitenav { margin-block: var(--sp-3) var(--sp-5); font: 500 var(--fs-meta)/2 var(--mono); }
+  .sitenav > nav { display: inline; margin: 0; }
+  .sitenav > nav + nav::before { content: " · "; }
+  .index-head ~ p { font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); }
+}
+
 /* ---- footer ----------------------------------------------------- */
 footer { margin-top: var(--sp-8); border-top: 3px double var(--ink); padding-top: var(--sp-4); font: 400 var(--fs-meta)/1.7 var(--mono); color: var(--ink-muted); }
 /* footer dates seat in the line (v1.5): the global time rule's
@@ -1060,4 +1191,8 @@ footer time { font-size: inherit; }
   body { border-top-width: 2pt; max-width: none; }
   .index tbody tr:hover { background: none; }
   a { text-decoration: none; }
+  /* every fold prints open (v1.19): a gazette does not fold its evidence
+     away on paper; the continuation mark goes with the fold */
+  details.more::details-content { content-visibility: visible; }
+  details.more > summary::after { content: none; }
 }

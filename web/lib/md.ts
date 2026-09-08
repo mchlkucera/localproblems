@@ -3,6 +3,8 @@
 // [text](url) links (absolute or site-relative), bare URLs, and
 // ----separated CORRECTION paragraphs. No MDX, no plugins (SPEC.md §5).
 
+import { splitLead } from "./sections";
+
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -25,10 +27,26 @@ export const renderInline = (s: string): string => inline(s);
 
 const OL = /^\d+\.\s+/; // "N. " numbered step lines
 
-export function renderBody(body: string): string {
+/** The run-in lead (v1.19): a unit's first sentence wrapped as
+    `<strong class="lead">` so it sets in the house 600 — the scan line — with
+    the rest of the unit following in the normal weight. A one-sentence unit is
+    already its own scan line and is left alone. */
+function withLead(text: string): string {
+  const { lead, rest } = splitLead(text);
+  return rest ? `<strong class="lead">${inline(lead)}</strong> ${inline(rest)}` : inline(text);
+}
+
+/** `lead: true` (the record page's sections) sets the FIRST paragraph's opening
+    sentence, and each numbered step's, as the run-in lead — one scan line per
+    section, one per step (owner, 2026-09-03: "each section should be very easy
+    to scan and then to dive deeper"). Default off: derived views and chrome
+    prose read as before. */
+export function renderBody(body: string, opts: { lead?: boolean } = {}): string {
   const out: string[] = [];
   let list: string[] | null = null;
   let olist: string[] | null = null;
+  let led = !opts.lead;                       // the first paragraph's lead, once
+  const step = (l: string) => (opts.lead ? withLead(l.replace(OL, "")) : inline(l.replace(OL, "")));
   const flushList = () => {
     if (list) { out.push(`<ul class="prose">${list.join("")}</ul>`); list = null; }
     if (olist) { out.push(`<ol class="prose">${olist.join("")}</ol>`); olist = null; }
@@ -47,7 +65,7 @@ export function renderBody(body: string): string {
     if (lines.every((l) => OL.test(l))) {
       if (list) flushList();
       olist ??= [];
-      for (const l of lines) olist.push(`<li>${inline(l.replace(OL, ""))}</li>`);
+      for (const l of lines) olist.push(`<li>${step(l)}</li>`);
       continue;
     }
     flushList();
@@ -56,10 +74,14 @@ export function renderBody(body: string): string {
     for (const l of lines) {
       if (l === "---") continue;
       if (l.startsWith("- ")) { list ??= []; list.push(`<li>${inline(l.slice(2))}</li>`); }
-      else if (OL.test(l)) { olist ??= []; olist.push(`<li>${inline(l.replace(OL, ""))}</li>`); }
+      else if (OL.test(l)) { olist ??= []; olist.push(`<li>${step(l)}</li>`); }
       else para.push(l);
     }
-    if (para.length) out.push(`<p>${inline(para.join(" "))}</p>`);
+    if (para.length) {
+      const text = para.join(" ");
+      out.push(`<p>${led ? inline(text) : withLead(text)}</p>`);
+      led = true;
+    }
     flushList();
   }
   flushList();

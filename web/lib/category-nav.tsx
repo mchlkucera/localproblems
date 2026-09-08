@@ -8,7 +8,7 @@ import { categoryLabel, pad2 } from "./format";
 export function CategoryNav({ current }: { current?: string }) {
   const counts = categoryCounts();
   return (
-    <nav className="filters" aria-label="Categories">
+    <nav className="filters categories" aria-label="Categories">
       <a href="/" aria-current={current === undefined ? "page" : undefined}>
         All ({registerRows().length})
       </a>

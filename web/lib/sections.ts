@@ -56,12 +56,41 @@ export type Sections = {
     "cargo.one" would become "Cargo.one": the register names companies as they
     spell themselves, so a cosmetic helper must not overrule them. Skip when the
     first word is camelCase (iChoosr, eDoklady) or domain-shaped (cargo.one). */
-const capitalize = (s: string) => {
+export const capitalize = (s: string) => {
   if (!s) return s;
   const word = s.split(/\s/, 1)[0];
   if (/^[a-z]+[A-Z]/.test(word) || word.includes(".")) return s;
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
+
+/** The scan line of a paragraph or a ledger note (v1.19, owner: "each section
+    should be very easy to scan and then to dive deeper"): its first sentence —
+    or, in `clause` mode for a clerk's `;`-joined traction string, its first
+    clause — with the rest returned separately, so the page can set the lead in
+    the house 600 or fold the rest behind it. The dek's 40-char floor applies: a
+    punch opener absorbs what follows until it can stand alone. A boundary
+    inside [brackets] or (parens) never splits — a markdown link's text is one
+    unit — and a period after an initial or a stock abbreviation ("U.S.",
+    "Sb.", "e.g.") is not a boundary. Returns rest "" when nothing follows. */
+const ABBR = /(?:(?:^|[\s(])(?:[A-Za-z]|e\.g|i\.e|vs|cf|approx|No|Sb|St|Dr|Mr|Ms|Mrs|Inc|Ltd|Co|Corp|Jr|Sr|cca|tzv|resp|např|tj)|\.[A-Za-z])$/;
+export function splitLead(
+  s: string,
+  mode: "sentence" | "clause" = "sentence",
+  min = 40,
+): { lead: string; rest: string } {
+  let depth = 0;
+  for (let i = 0; i < s.length - 1; i++) {
+    const ch = s[i];
+    if (ch === "[" || ch === "(") depth++;
+    else if (ch === "]" || ch === ")") depth = Math.max(0, depth - 1);
+    else if (depth === 0 && s[i + 1] === " " && (ch === "." || (mode === "clause" && ch === ";"))) {
+      if (i + 1 < min) continue;
+      if (ch === "." && ABBR.test(s.slice(0, i))) continue;
+      return { lead: ch === "." ? s.slice(0, i + 1) : s.slice(0, i), rest: s.slice(i + 2).trim() };
+    }
+  }
+  return { lead: s, rest: "" };
+}
 
 /** First sentence of a paragraph: ends at the first ". " or the final ".". */
 export function splitFirstSentence(s: string): { first: string; rest: string } {

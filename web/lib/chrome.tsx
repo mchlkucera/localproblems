@@ -23,16 +23,48 @@ export const SIGNAL_NAV = EVIDENCE_TYPES.map(
 );
 
 /** The two surfaces, kept visibly distinct: the problem register, and the
-    signal ledgers it is distilled from. About lives in the masthead, not here. */
-export function SiteNav({ current }: { current?: string }) {
+    signal ledgers it is distilled from. About lives in the masthead, not here.
+
+    `.sitenav` is a WRAPPER (v1.20): on the desk it is transparent and the nav
+    inside it is the `.filters` line it always was; on a phone the wrapper is
+    the STRIP — one line that runs off the right edge of the screen and scrolls
+    sideways, the way a newspaper's section nav does on a phone. `children` is
+    the register's region line, which rides in the same wrapper so the two
+    share one strip on a phone and stay two lines on the desk. The v1.19
+    footer sink is retired (owner: "a menu in the footer is not a good
+    solution"). Markup identical at every width; the strip is CSS. */
+export function SiteNav({ current, children }: { current?: string; children?: React.ReactNode }) {
   return (
-    <nav className="filters">
-      <a href="/" aria-current={current === "/" ? "page" : undefined}>Problems</a>
-      {"  ·  Signals: "}
-      {SIGNAL_NAV.map(([href, label], i) => (
-        <span key={href}>
-          {i > 0 && " · "}
-          <a href={href} aria-current={current === href ? "page" : undefined}>{label}</a>
+    <div className="sitenav">
+      <nav className="filters" aria-label="Site">
+        <a href="/" aria-current={current === "/" ? "page" : undefined}>Problems</a>
+        {"  ·  Signals: "}
+        {SIGNAL_NAV.map(([href, label], i) => (
+          <span key={href}>
+            {i > 0 && " · "}
+            <a href={href} aria-current={current === href ? "page" : undefined}>{label}</a>
+          </span>
+        ))}
+      </nav>
+      {children}
+    </div>
+  );
+}
+
+/** The region line — the country selection of the register (owner, 2026-09-04:
+    the hierarchy is Problems / Country / Category, so every page that lists
+    problems carries it). Czechia is the live region and links to the register;
+    the rest are muted `.soon` spans with the native "Coming soon" title. Rides
+    inside the SiteNav wrapper so a phone folds it into the same strip. */
+export function RegionNav() {
+  return (
+    <nav className="filters" aria-label="Regions">
+      {"Region: "}
+      <a href="/" aria-current="page">Czechia</a>
+      {["Poland", "Slovakia", "Austria", "Germany"].map((r) => (
+        <span key={r}>
+          {" · "}
+          <span className="soon" title="Coming soon">{r}</span>
         </span>
       ))}
     </nav>

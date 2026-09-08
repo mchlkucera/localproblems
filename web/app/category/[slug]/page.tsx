@@ -2,9 +2,9 @@
 // category id, pre-generated (SPEC.md §5). Slug == category id (CONVENTIONS.md).
 import type { Metadata } from "next";
 import { CATEGORIES, categoryRows, extractDate } from "../../../lib/data";
-import { categoryLabel, localityLabel, pad2 } from "../../../lib/format";
+import { categoryLabel, countryName, localityLabel, pad2 } from "../../../lib/format";
 import { CategoryNav } from "../../../lib/category-nav";
-import { CorrectionsLink, FooterHouseLine, Masthead, SiteNav, SortScript, Tally } from "../../../lib/chrome";
+import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, SortScript, Tally } from "../../../lib/chrome";
 
 export const dynamicParams = false;
 
@@ -28,10 +28,17 @@ export default async function CategoryPage({ params }: Params) {
   return (
     <>
       <Masthead />
+      {/* Problems / Country / Category (owner, 2026-09-04) — the same hierarchy
+          the record page states; the country is plain text until it has a
+          route of its own. The region line rides in the nav wrapper as on the
+          register: a category page is a filtered register and carries the
+          same country selection. */}
       <nav className="crumb">
-        <a href="/">Problems</a> / {categoryLabel(slug)}
+        <a href="/">Problems</a> / {countryName("CZ")} / {categoryLabel(slug)}
       </nav>
-      <SiteNav current="/" />
+      <SiteNav current="/">
+        <RegionNav />
+      </SiteNav>
       <CategoryNav current={slug} />
 
       {rows.length === 0 ? (

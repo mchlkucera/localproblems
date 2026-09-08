@@ -10,13 +10,13 @@
 // the markdown/git, not shouted on the page.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { extractDate, getProblems, getSignal, localHref, signalHref, type Problem, type ProblemSource } from "../../../../lib/data";
+import { extractDate, getProblems, getSignal, localHref, priceReceipts, signalHref, type Problem, type ProblemSource } from "../../../../lib/data";
 import { annotateSourceRefs, renderBody, renderInline, repageLedgerLinks, type SourceRef } from "../../../../lib/md";
-import { splitBody } from "../../../../lib/sections";
-import { categoryLabel, countryName, euro, localityLong } from "../../../../lib/format";
+import { capitalize, splitBody, splitLead } from "../../../../lib/sections";
+import { PRICE_BASIS_LABELS, PRICE_UNIT_LABELS, categoryLabel, countryName, czk, euro, localityLong } from "../../../../lib/format";
 import { type Dim, MAX, SCORE_ROWS, dimRefs, scoreRead } from "../../../../lib/scorecard";
 import {
-  CorrectionsLink, FooterHouseLine, Masthead, RelDatesScript, SiteNav, Tally,
+  CorrectionsLink, FooterHouseLine, Masthead, RelDatesScript, Tally,
 } from "../../../../lib/chrome";
 import { EuropeMap } from "../../../../lib/geomap";
 
@@ -59,6 +59,24 @@ function sourceWhy(s: ProblemSource): string | null {
   if (s.why) return s.why;
   const sig = s.signal ? getSignal(s.signal) : undefined;
   return sig?.summary ?? null;
+}
+
+/** A ledger note as scan, then dive (v1.19, owner: "each section should be
+    very easy to scan and then to dive deeper"): its first clause (`clause` — a
+    comp's `;`-joined traction) or first sentence (`sentence` — a local player's
+    evidence) is the <summary> of a native fold, and the rest unfolds beneath
+    it, capitalised as the continuation it now is. A note one unit long renders
+    open, as before — there is nothing to fold. Same device as the sources gist:
+    the short form IS the control; no "more" word anywhere. HTML, not script. */
+function Note({ text, mode }: { text: string; mode: "sentence" | "clause" }) {
+  const { lead, rest } = splitLead(text, mode);
+  if (!rest) return <p className="note">{text}</p>;
+  return (
+    <details className="more">
+      <summary>{lead}</summary>
+      <p className="note">{capitalize(rest)}</p>
+    </details>
+  );
 }
 
 // ---- deadlines / relative time (deterministic against extractDate) --------
@@ -129,6 +147,10 @@ export default async function Record({ params }: Params) {
   if (!p) notFound();
 
   const refs = dimRefs(p);
+  const prices = priceReceipts(p);
+  // A price source tagged `dims: [money]` is in refs.money too; its price row
+  // below already states it, in full, so it is not printed twice in one ledger.
+  const moneyRows = refs.money.filter((n) => p.sources[n - 1].type !== "price");
   const sections = splitBody(p.body);
   const extract = extractDate();
   const comps = p.comps ?? [];
@@ -147,8 +169,11 @@ export default async function Record({ params }: Params) {
       quote: (sig as { quote?: string } | undefined)?.quote,
     };
   });
+  // `lead: true` — every section's first sentence, and every first-moves
+  // step's, sets as the run-in lead (v1.19): skim the headings and the leads
+  // and you have read the findings; the rest of each paragraph is the evidence.
   const body = (md: string) =>
-    repageLedgerLinks(annotateSourceRefs(renderBody(md), sourceRefs), signalHref);
+    repageLedgerLinks(annotateSourceRefs(renderBody(md, { lead: true }), sourceRefs), signalHref);
 
   // Nearest future deadline among the urgency receipts feeds the docket Window
   // fact and the "why now" relative line.
@@ -182,10 +207,16 @@ export default async function Record({ params }: Params) {
   return (
     <>
       <Masthead />
+      {/* Problems / Country / Category (owner, 2026-09-04): the register's
+          hierarchy stated in full. The country has no page of its own yet —
+          the register IS the Czechia register — so it is plain text until a
+          per-country route exists. The site nav is gone from the record page
+          (owner, same day): the crumb is the way back, and the nav's other
+          half — the signal ledgers — is reached through the sources it cites. */}
       <nav className="crumb">
-        <a href="/">Problems</a> / <a href={`/category/${p.category}`}>{categoryLabel(p.category)}</a>
+        <a href="/">Problems</a> / {countryName(p.region.toUpperCase())} /{" "}
+        <a href={`/category/${p.category}`}>{categoryLabel(p.category)}</a>
       </nav>
-      <SiteNav />
 
       <article>
         <header className="docket">
@@ -319,7 +350,7 @@ export default async function Record({ params }: Params) {
                       <span className="leader"></span>
                       {c.signal && <a className="ref" href={signalHref(c.signal, sig?.type ?? "funded")}>evidence&nbsp;→</a>}
                     </span>
-                    <p className="note">{c.traction}</p>
+                    <Note text={c.traction} mode="clause" />
                   </li>
                 );
               })}
@@ -339,8 +370,11 @@ export default async function Record({ params }: Params) {
             the comps `.entry` grammar verbatim — serif linked name, since year,
             evidence as the muted note line — with the established/early band as
             the quiet bordered `.pill` the Build row already spends on a closed
-            enum. The prose paragraph keeps rendering UNDERNEATH when a record
-            states one: the ledger says who, the prose says what that means.
+            enum. The prose paragraph renders FIRST and the ledger under it
+            (owner, 2026-09-03: "Local competition should first show text and
+            then the list") — every evidence section reads prose then ledger,
+            the prose the scan and the ledger the dive, and this one was the
+            inversion. The prose says what it means; the ledger says who.
 
             IT RENDERS IN TWO GROUPS, BECAUSE THE LEDGER HOLDS TWO KINDS OF ROW.
             `competes: direct` is a player selling THIS to THIS buyer;
@@ -360,6 +394,9 @@ export default async function Record({ params }: Params) {
         {(locals.length > 0 || sections.competition) && (
           <>
             <h2 id="local-competition">Local competition</h2>
+            {sections.competition && (
+              <div dangerouslySetInnerHTML={{ __html: body(sections.competition) }} />
+            )}
             {LOCAL_GROUPS.map(({ competes, heading }) => {
               const group = locals.filter((l) => l.competes === competes);
               if (group.length === 0) return null;
@@ -392,7 +429,7 @@ export default async function Record({ params }: Params) {
                             <span className="leader"></span>
                             <span className="pill">{l.maturity}</span>
                           </span>
-                          <p className="note">{l.evidence}</p>
+                          <Note text={l.evidence} mode="sentence" />
                         </li>
                       );
                     })}
@@ -400,17 +437,26 @@ export default async function Record({ params }: Params) {
                 </div>
               );
             })}
-            {sections.competition && (
-              <div dangerouslySetInnerHTML={{ __html: body(sections.competition) }} />
-            )}
           </>
         )}
 
         <h2 id="how-big">How big</h2>
         {sections.howbig && <div dangerouslySetInnerHTML={{ __html: body(sections.howbig) }} />}
-        {refs.money.length > 0 ? (
+        {/* One ledger under the prose, two kinds of row (owner ruling,
+            2026-09-03). The money receipts are PUBLIC MONEY MOVING NEAR THIS
+            PROBLEM — the tenders, grants and contracts the MONEY score reads,
+            with their recorded euro values. They were never an answer to "who
+            pays and how much": the who-pays audit found six of the eight
+            rung-1 records writing "adjacent" in their own notes. That answer
+            is the PRICE RECEIPT row — one mono line per `type: price` source,
+            after the money rows, in the same ruled grammar: who pays, the
+            exact crown figure, per what, on what basis, dated, linked to the
+            source. A price receipt IS a sized figure, so the "no sized
+            figure" line renders only when the ledger has no row of either
+            kind. */}
+        {moneyRows.length > 0 || prices.length > 0 ? (
           <ul className="comps">
-            {refs.money.map((n) => {
+            {moneyRows.map((n) => {
               const s = p.sources[n - 1];
               const sig = s.signal ? getSignal(s.signal) : undefined;
               const { label, url } = sourceName(s);
@@ -422,9 +468,32 @@ export default async function Record({ params }: Params) {
                 </li>
               );
             })}
+            {prices.map(({ n, s }) => {
+              const { url } = sourceName(s);
+              const line = `${s.payer} pays ${czk(s.amount_czk)} ${PRICE_UNIT_LABELS[s.unit]}`;
+              return (
+                <li key={`price-${n}`}>
+                  {url ? <a href={url}>{line}</a> : <span>{line}</span>}
+                  <span className="leader"></span>
+                  <span>{PRICE_BASIS_LABELS[s.basis]} · <time>{s.date}</time></span>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <p className="absent">No sized figure on file.</p>
+        )}
+        {prices.length === 0 && p.score >= 7 && (
+          /* The house absence line, in the ledger position, for a record worth
+             a builder's quarter (score >= 7, the First-moves threshold) that no
+             Czech buyer has yet priced. Stated, never estimated: the audit's
+             finding was that the register's open fields are exactly its
+             unpriced ones. */
+          <p className="absent">
+            No Czech buyer has priced this yet.
+            {/* the owner's estimate of WHERE to look — never of how much */}
+            {p.price_search && ` Where to look: ${p.price_search}`}
+          </p>
         )}
 
         <h2 id="why-now">Why now</h2>
@@ -501,26 +570,28 @@ export default async function Record({ params }: Params) {
               <li key={i} id={`s${i + 1}`}>
                 <span className="line">
                   {url ? <a href={url}>{label}</a> : <span>{label}</span>}
-                  {/* the gist: the clerk's few-word label (owner, 2026-08-25:
-                      "even the link explanations are too long — a few word
-                      explanation and see more on a toggle"). With it the row
-                      is one line — NAME · gist · date — and the full why
-                      sentence folds behind the native <details> below: HTML,
-                      not script (NEVER 13), a quiet mono "more" as the
-                      summary. Without a gist the row renders exactly as
-                      before — the open why line, no toggle. */}
-                  {s.gist && <span className="gist">· {s.gist}</span>}
                   <span className="leader"></span>
                   <time dateTime={s.date}>{s.date}</time>
                 </span>
-                {why && (s.gist ? (
+                {/* the gist — the clerk's few-word label (owner, 2026-08-25:
+                    "a few word explanation and see more on a toggle") — IS the
+                    fold's control (v1.19, owner: "the 'more' under Sources is
+                    very repetitive and ugly"): it is the <summary> of the
+                    native <details> holding the full why sentence, on its own
+                    line under the name, so no word repeats down the ledger and
+                    the short form opens in place into the long one. HTML, not
+                    script (NEVER 13). A why with no gist renders open, no fold;
+                    a gist with no why is a plain gist line. */}
+                {s.gist && why ? (
                   <details className="more">
-                    <summary>more</summary>
+                    <summary>{s.gist}</summary>
                     <p className="why">{why}</p>
                   </details>
-                ) : (
+                ) : s.gist ? (
+                  <p className="gist">{s.gist}</p>
+                ) : why ? (
                   <p className="why">{why}</p>
-                ))}
+                ) : null}
               </li>
             );
           })}
