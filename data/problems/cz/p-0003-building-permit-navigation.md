@@ -14,13 +14,14 @@ scores:
   demand: 2
   gap: 1
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Software over public permitting rules has no license gate, but CZ-specific stavební
-    zákon workflow content plus developer pilots need a dev-and-permitting-expert team and
-    a months-long sales cycle.'
+entry:
+  level: moderate
+  buyer: small-firms
+  permission: none
+  incumbents: adjacent
+  integration: national-system
+  money: bootstrap
+  why: 'Engineering offices buy directly and no licence is needed. The gate is plumbing: requests and statutory deadlines run through the state e-mailbox (datová schránka) and the state building portal, which an entrant has to build against.'
 comps:
 - name: PermitPortal
   url: https://permitportalapp.com/

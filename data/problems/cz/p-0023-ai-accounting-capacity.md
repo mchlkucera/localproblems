@@ -15,13 +15,14 @@ scores:
   demand: 0
   gap: 0
 status: watching
-build:
-  capital: funded
-  first_revenue: months
-  builder: funded-team
-  note: 'Every analog raised before scaling (Skalar €12M, Finto $3.4M, Bluebook $3M)
-    because the model puts licensed accountants on payroll next to an agent stack
-    — here one tuned to Pohoda/ABRA data and JMHZ filings — before fees compound.'
+entry:
+  level: hard
+  buyer: small-firms
+  permission: none
+  incumbents: direct
+  integration: national-system
+  money: outside-money
+  why: 'The gate is money: an AI-first accounting firm hires licensed accountants and files the monthly employer report into the state social-security system before the first client''s books close. Small firms buy without a tender, and no authorisation is needed to sell them bookkeeping.'
 comps:
 - name: Skalar
   url: https://skalar.de/

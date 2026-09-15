@@ -21,11 +21,14 @@ scores:
   demand: 0
   gap: 1
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Analytics SaaS over energy-certificate and portfolio data with no certification gate — a dev plus an energy-domain expert can pilot with a mid-size landlord; the real cost is B2B integration and sales effort.'
+entry:
+  level: hard
+  buyer: public
+  permission: none
+  incumbents: adjacent
+  integration: software
+  money: bootstrap
+  why: 'The owners with the retrofit money are public — hospitals, city districts and regions buying through tender — so the first sale runs through procurement. Nothing licences the work, and the ranking runs on consumption data and certificates the owner already holds.'
 comps:
 - name: 'Fuchs & Eule'
   url: https://fuchs-eule.de/

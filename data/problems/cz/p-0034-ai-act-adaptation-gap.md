@@ -15,14 +15,16 @@ scores:
   demand: 0
   gap: 1
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'A fixed-price audit of what AI a firm runs, and whether it tells customers, sells as
-    a service today; a product has to get past PwC''s tooling, cheap scanners like AIshield
-    and Czech-language modules like Brain. What none of them has yet is a Czech regulator
-    actually enforcing, and that is the opening.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: adjacent
+  integration: software
+  money: bootstrap
+  why: 'Small Czech firms buy the check themselves and no permission is needed to sell it; the
+      established neighbour, Seyfor, sells accounting and business software and publishes guidance
+      rather than a check of the AI tools a company runs.'
 comps:
 - name: Deeploy
   url: https://deeploy.ml/

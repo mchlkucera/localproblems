@@ -12,7 +12,11 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import { extractDate, getProblems, getSignal, localHref, priceReceipts, signalHref, type Problem, type ProblemSource } from "../../../../../lib/data";
 import { splitBody, splitLead, capitalize } from "../../../../../lib/sections";
-import { PRICE_BASIS_LABELS, PRICE_UNIT_LABELS, categoryLabel, countryName, czk, euro, localityLabel, localityLong } from "../../../../../lib/format";
+import {
+  ENTRY_BUYER_LABELS, ENTRY_INCUMBENT_LABELS, ENTRY_INTEGRATION_LABELS, ENTRY_LEVEL_LABELS,
+  ENTRY_MONEY_LABELS, ENTRY_PERMISSION_LABELS, PRICE_BASIS_LABELS, PRICE_UNIT_LABELS,
+  categoryLabel, countryName, czk, euro, localityLabel, localityLong,
+} from "../../../../../lib/format";
 import { MAX, SCORE_ROWS, dimRefs, scoreRead, type Dim } from "../../../../../lib/scorecard";
 import { cite, newCtx, peekParts, type CiteCtx } from "../../cite";
 import { Prose, inline, type ProseOpts } from "../../prose";
@@ -66,9 +70,6 @@ function futureDate(s: ProblemSource, extract: string): string | null {
   return sig && sig.date > extract ? sig.date : null;
 }
 
-const CAPITAL_RANGE: Record<string, string> = { kiosk: "<€10k", garage: "€10–100k", funded: "€100k–1M", industrial: ">€1M" };
-const FIRST_REVENUE: Record<string, string> = { weeks: "weeks", months: "months", "year-plus": "a year or more" };
-const TEAM_BAND: Record<string, string> = { solo: "1 person", "small-team": "2–5 people", "funded-team": "A funded team" };
 
 /** A ledger note as scan-then-dive: first sentence/clause, the rest folds. */
 function Note({ text, mode }: { text: string; mode: "sentence" | "clause" }) {
@@ -257,7 +258,7 @@ export default async function LabRecord({ params }: Params) {
     urgency: "#why-now",
   };
 
-  const build = p.build;
+  const entry = p.entry;
   const label = p.id.toUpperCase();
 
   // one row of the full list — used at the foot (with anchors) and in the drawer
@@ -404,13 +405,16 @@ export default async function LabRecord({ params }: Params) {
             )}
           </Section>
 
-          <Section id="what-you-need" title="What you need">
+          <Section id="difficulty-to-enter" title="Difficulty to enter">
             <dl className="ls-facts">
-              <div><dt>Capital</dt><dd>{CAPITAL_RANGE[build.capital]}</dd></div>
-              <div><dt>Team</dt><dd>{TEAM_BAND[build.builder]}</dd></div>
-              <div><dt>First revenue</dt><dd>In {FIRST_REVENUE[build.first_revenue]}</dd></div>
+              <div><dt>Level</dt><dd>{ENTRY_LEVEL_LABELS[entry.level]}</dd></div>
+              <div><dt>Who buys</dt><dd>{ENTRY_BUYER_LABELS[entry.buyer]}</dd></div>
+              <div><dt>Permission</dt><dd>{ENTRY_PERMISSION_LABELS[entry.permission]}</dd></div>
+              <div><dt>Already here</dt><dd>{ENTRY_INCUMBENT_LABELS[entry.incumbents]}</dd></div>
+              <div><dt>Plug into</dt><dd>{ENTRY_INTEGRATION_LABELS[entry.integration]}</dd></div>
+              <div><dt>Money</dt><dd>{ENTRY_MONEY_LABELS[entry.money]}</dd></div>
             </dl>
-            <p className="ls-p ls-p--quiet">{build.note}</p>
+            <p className="ls-p ls-p--quiet">{entry.why}</p>
           </Section>
 
           {movesNode && <Section id="first-moves" title="First moves">{movesNode}</Section>}
@@ -451,8 +455,7 @@ export default async function LabRecord({ params }: Params) {
             <div><dt>Category</dt><dd>{categoryLabel(p.category)}</dd></div>
             <div><dt>Locality</dt><dd>{localityLong(p.geo)}</dd></div>
             {windowFact && <div><dt>Window</dt><dd><time dateTime={windowFact} title={`by ${fmtDate(windowFact)}`}>{relativeOut(extract, windowFact)}</time></dd></div>}
-            <div><dt>Capital</dt><dd>{CAPITAL_RANGE[build.capital]}</dd></div>
-            <div><dt>Team</dt><dd>{TEAM_BAND[build.builder]}</dd></div>
+            <div><dt>Entry</dt><dd>{ENTRY_LEVEL_LABELS[entry.level]}</dd></div>
             <div><dt>Verified</dt><dd><time dateTime={p.updated}>{fmtDate(p.updated)}</time></dd></div>
           </dl>
 

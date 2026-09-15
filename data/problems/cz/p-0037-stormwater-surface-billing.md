@@ -13,11 +13,14 @@ scores:
   demand: 2
   gap: 2
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Orthophoto and cadastre segmentation plus a mail-and-verify workflow with owners, sold to sewer operators and to the cities that will suddenly owe the charge; the German firms that do this run 11 to 50 people.'
+entry:
+  level: hard
+  buyer: public
+  permission: none
+  incumbents: adjacent
+  integration: national-system
+  money: bootstrap
+  why: 'Both sides of the sale are public bodies — the town-owned sewer operators and the cities and road authorities that would owe the charge — so every sale runs through procurement; the mapping itself plugs into the state orthophoto and cadastre.'
 comps:
   - name: CAIGOS
     url: https://www.caigos.de/index.php/themen/datendienstleistungen/gesplittete-abwassergebuehr

@@ -14,13 +14,14 @@ scores:
   demand: 1
   gap: 0
 status: rejected
-build:
-  capital: garage
-  first_revenue: weeks
-  builder: small-team
-  note: 'The law is in force and ČOI is the designated supervisor, so audits and remediation
-    can sell to obligated e-shops now; a dev plus accessibility auditor shipping zákon č. 424/2023
-    mapping and a Shoptet-channel app needs integration effort, not capital.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: open
+  integration: software
+  money: bootstrap
+  why: 'An e-shop buys an audit on its own signature, nothing licences accessibility work, and the product ships as an app inside a shop platform such as Shoptet. No Czech seller of these audits is named, and no search has been run to find one.'
 comps:
 - name: AudioEye
   url: https://www.audioeye.com/

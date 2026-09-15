@@ -331,19 +331,44 @@ export function priceReceipts(p: Problem): { n: number; s: PriceReceipt }[] {
       x.s.unit !== undefined && x.s.basis !== undefined);
 }
 
-// Buildability scorecard — who can build this, with what, how fast (CONVENTIONS.md).
-// The stánek→továrna capital ladder: <€10k | €10–100k | €100k–1M | >€1M.
-export const CAPITAL_LADDER = ["kiosk", "garage", "funded", "industrial"] as const;
-export const FIRST_REVENUE = ["weeks", "months", "year-plus"] as const;
-export const BUILDER_PROFILES = ["solo", "small-team", "funded-team"] as const;
+// DIFFICULTY TO ENTER — the gates an entrant must pass before it can sell
+// (owner, 2026-09-15; CONVENTIONS.md, "`entry` — difficulty to enter"). It
+// REPLACES the `build` scorecard, whose capital ladder and team band the owner
+// struck out as "pretty arbitrary": a euro range and a headcount were a
+// prediction about a team nobody has met, where these five are facts about the
+// market the record already carries evidence for.
+//
+// `level` is DERIVED from the other five, and `incumbents` is DERIVED from
+// `locals[]` — both mechanically, both asserted in scripts/check-records.py,
+// which is where the derivation lives. This schema types the vocabulary; it
+// does not re-implement the rule, because a rule stated twice is a rule that
+// can disagree with itself.
+export const ENTRY_LEVELS = ["easy", "moderate", "hard", "very-hard"] as const;
+export const ENTRY_BUYERS = ["small-firms", "large-firms", "public"] as const;
+export const ENTRY_PERMISSIONS = ["none", "registration", "licence"] as const;
+export const ENTRY_INCUMBENTS = ["open", "adjacent", "direct"] as const;
+export const ENTRY_INTEGRATIONS = ["software", "national-system", "certified"] as const;
+export const ENTRY_MONEY = ["bootstrap", "outside-money"] as const;
+export type EntryLevel = (typeof ENTRY_LEVELS)[number];
+export type EntryBuyer = (typeof ENTRY_BUYERS)[number];
+export type EntryPermission = (typeof ENTRY_PERMISSIONS)[number];
+export type EntryIncumbents = (typeof ENTRY_INCUMBENTS)[number];
+export type EntryIntegration = (typeof ENTRY_INTEGRATIONS)[number];
+export type EntryMoney = (typeof ENTRY_MONEY)[number];
 
-const BuildSchema = z.object({
-  capital: z.enum(CAPITAL_LADDER),
-  first_revenue: z.enum(FIRST_REVENUE),
-  builder: z.enum(BUILDER_PROFILES),
-  note: z.string().min(1),
+const EntrySchema = z.object({
+  level: z.enum(ENTRY_LEVELS),
+  buyer: z.enum(ENTRY_BUYERS),
+  permission: z.enum(ENTRY_PERMISSIONS),
+  incumbents: z.enum(ENTRY_INCUMBENTS),
+  integration: z.enum(ENTRY_INTEGRATIONS),
+  money: z.enum(ENTRY_MONEY),
+  // One or two plain sentences naming the gate(s) that set the level. The cap
+  // is the section's, not a database limit: it renders as one `p.buildnote`
+  // under the ledger and a paragraph there is a different device.
+  why: z.string().min(1).max(320),
 });
-export type Build = z.infer<typeof BuildSchema>;
+export type Entry = z.infer<typeof EntrySchema>;
 
 // Foreign comparables — who runs this model elsewhere, with public traction on file.
 const CompSchema = z.object({
@@ -495,8 +520,10 @@ const ProblemSchema = z.looseObject({
   }),
   status: z.enum(STATUSES),
   // Required since the 2026-08 product upgrade — no record may skip the
-  // buildability scorecard or the comparables ledger (SPEC.md §4).
-  build: BuildSchema,
+  // difficulty-to-enter block or the comparables ledger (SPEC.md §4). Every
+  // key inside `entry` is required too, rejected records included: a gate with
+  // no value is the shape that looks present and says nothing.
+  entry: EntrySchema,
   comps: z.array(CompSchema),
   // `locals` — the local-incumbent ledger, rendered under "Local competition"
   // the way `comps` renders under "Proven abroad". OPTIONAL, and the two
@@ -609,7 +636,8 @@ function problemsFromDb(): Problem[] {
   for (const r of rows(
     "SELECT region, id, slug, title, solution, category, geo, status, score," +
     " s_proof, s_money, s_urgency, s_demand, s_gap," +
-    " build_capital, build_first_revenue, build_builder, build_note," +
+    " entry_level, entry_buyer, entry_permission, entry_incumbents," +
+    " entry_integration, entry_money, entry_why," +
     " created, updated, body, extra_json, md_file FROM problems"
   )) {
     const key = `${String(r.region)}/${String(r.id)}`;
@@ -627,9 +655,11 @@ function problemsFromDb(): Problem[] {
         demand: Number(r.s_demand), gap: Number(r.s_gap),
       },
       status: String(r.status),
-      build: {
-        capital: String(r.build_capital), first_revenue: String(r.build_first_revenue),
-        builder: String(r.build_builder), note: String(r.build_note),
+      entry: {
+        level: String(r.entry_level), buyer: String(r.entry_buyer),
+        permission: String(r.entry_permission), incumbents: String(r.entry_incumbents),
+        integration: String(r.entry_integration), money: String(r.entry_money),
+        why: String(r.entry_why),
       },
       comps: (compsFor.get(key) ?? []).map((c) => {
         const comp: Record<string, unknown> = {

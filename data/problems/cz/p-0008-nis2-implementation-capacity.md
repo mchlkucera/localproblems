@@ -13,14 +13,14 @@ scores:
   demand: 2
   gap: 1
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Ready-made packages already sell at ~91k CZK a time (Lexnova receipts), so a small
-    team can start as a service. The product demands Act 264/2025 and Vyhláška 409/2025
-    expertise, ISMS and audit basics, and patient public-sector sales — pilot-to-invoice
-    cycles with towns and hospitals run months.'
+entry:
+  level: hard
+  buyer: public
+  permission: none
+  incumbents: adjacent
+  integration: software
+  money: bootstrap
+  why: 'The buyers this record goes after are small towns and public care providers, so the first sale runs through public purchasing and its pace. Nothing licences the work, and the established neighbour is ICZ, a systems house selling security projects at the enterprise end.'
 comps:
 - name: Secfix
   url: https://www.secfix.com/

@@ -15,13 +15,14 @@ scores:
   demand: 2
   gap: 1
 status: candidate
-build:
-  capital: kiosk
-  first_revenue: weeks
-  builder: solo
-  note: 'The wedge is a checkout scanner plus subscription legal texts sold self-serve
-    at DE-proven price points (€9.90–24.90/mo); a solo builder with a partnered e-shop
-    lawyer ships it from a laptop and rides Shoptet for distribution.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: open
+  integration: software
+  money: bootstrap
+  why: 'Shops buy this themselves off the Shoptet add-on shelf, nothing licences a compliance scanner, and it runs as ordinary software. Every Czech seller found — Hlídač Slev, Slevy správně, Pravoid — has been trading under three years.'
 comps:
 - name: Trusted Shops
   url: https://www.trustedshops.com/

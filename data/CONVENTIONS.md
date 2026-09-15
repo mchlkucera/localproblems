@@ -289,7 +289,7 @@ id, region, title, solution (one plain sentence: the likely solution), category
 (sector list above), geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status: candidate | active | watching | stale | claimed | solved | rejected,
-build {capital, first_revenue, builder, note},
+entry {level, buyer, permission, incumbents, integration, money, why},
 comps [{name, url, geo, since, traction, signal?: <evidence id>, markets?: [ISO2..]}],
 locals? [{name, url?, ico?, since, competes: direct|adjacent,
           maturity: established|early, evidence}],   (url? — one of url/ico)
@@ -343,19 +343,89 @@ from, so the receipt is what the same job costs done by hand.
 `solution` — REQUIRED (was the optional `fix`, renamed 2026-09-10), one plain
 sentence stating what would likely solve the problem, ALWAYS rendered as `LIKELY
 SOLUTION` — never as a known answer. Compression of `## First moves`,
-`build.note` and the solved-elsewhere paragraph, never invention; no Czech/EU
+`entry.why` and the solved-elsewhere paragraph, never invention; no Czech/EU
 acronym goes in ungloss; no certainty words (check-records.py `OVERCLAIM`).
 Where a local incumbent already sells the answer, the sentence describes that
 product neutrally — whether the field is open is the gap score's job.
 
-`build` — the buildability scorecard (REQUIRED on every record): who can build
-this, with what, how fast. Judged honestly from the record's own evidence, never
-aspirationally:
-- `capital` — the stánek→továrna ladder: `kiosk` <€10k · `garage` €10–100k ·
-  `funded` €100k–1M · `industrial` >€1M
-- `first_revenue` — time to first paying customer: `weeks` · `months` · `year-plus`
-- `builder` — who it takes: `solo` · `small-team` (2–5) · `funded-team`
-- `note` — one sentence justifying the three calls
+`entry` — DIFFICULTY TO ENTER (REQUIRED on every record, rejected ones
+included; owner, 2026-09-15). It REPLACES `build` — the stánek→továrna capital
+ladder, the `first_revenue` guess and the `builder` team band are retired.
+Owner's words: *"get rid of the team predictions"*; *"CAPITAL €10–100k / TEAM
+2–5 people is pretty arbitrary, more abstract categories will be more
+truthful"*; *"include a clear difficulty to enter — e.g. app for truck people
+is easy, entering government healthcare is tough — should be in the index
+view"*. A euro band and a headcount were a prediction about a team nobody has
+met; these five gates are facts about the market the record already carries
+evidence for. Judged from the record's own evidence, never aspirationally:
+
+- `buyer` — who signs the FIRST contract. `small-firms`: SMEs, sole traders,
+  households, associations, small installers, privately run care homes.
+  `large-firms`: corporates, utilities, banks, insurers, lenders, private
+  hospital chains, big distributors. `public`: the state, ministries, agencies,
+  municipalities, public hospitals, VaK water utilities owned by towns —
+  anything bought under procurement law.
+- `permission` — what an entrant must be ALLOWED before selling. `none`: a
+  trade licence and nothing else. `registration`: a notification, registration
+  or certification obtainable in weeks and rarely refused (a data-protection
+  registration, ISO, a supplier qualification). `licence`: an authorisation
+  the law requires to SELL THE PRODUCT ITSELF, or a regulated profession's
+  monopoly covering the product's core act — placing agency workers under
+  zákon 435/2004, giving investment advice under a ČNB licence, the state
+  attest a records system must hold before a public body may buy it. **Hiring
+  or partnering with a lawyer, accountant or tax adviser as an ingredient of
+  the service is a product choice, not a gate — that is `none`** (owner
+  amendment, 2026-09-15; applied one way across every record).
+- `incumbents` — DERIVED from the `locals[]` ledger, no judgment: any local at
+  `competes: direct` AND `maturity: established` ⇒ `direct`; else any at
+  `competes: adjacent` AND `maturity: established` ⇒ `adjacent`; else (no
+  locals, or early players only) ⇒ `open`. **It does not move the level** —
+  see the level rule below.
+- `integration` — what the product must plug into to work at all. `software`: a
+  standalone app, SaaS or marketplace — **including one that reads or writes
+  the BUYER'S OWN accounting, ERP, dispatch, HR, records or clinical software**
+  (Pohoda, Helios, ABRA, Cygnus, a hospital's own system, a dispatcher's
+  planning tool). That is what every business tool does and it is not a gate.
+  `national-system`: the product cannot work without connecting to a STATE,
+  national or EU system (EDC — the national electricity data hub, the state
+  eHealth gateway, the EU deforestation information system, the cadastre and
+  its orthophoto, datová schránka filings, ISIR — the insolvency register,
+  eRecept) or without hardware or crews in the field (meters, radio readers,
+  insulation crews). `certified`: the product ITSELF must pass a certification
+  or audit before use (a medical device, a payment institution, e-ID wallet
+  acceptance, safety-critical or cybersecurity certification).
+- `money` — `bootstrap`: a solo builder or small team can reach the first
+  paying customer on their own money. `outside-money`: liquidity, hardware,
+  regulatory capital or a long public sales cycle means outside money before
+  the first sale. Override the default only with a reason in `why`.
+- `level` — DERIVED, and the checker asserts it (see below).
+- `why` — one or two plain sentences, house voice, ≤ 320 chars, naming the
+  gate(s) that set the level and, where the record's evidence gives one, the
+  concrete thing behind it. No certainty words (`check-records.py` `OVERCLAIM`,
+  the same regex `solution` is held to). For an `easy` record it says why the
+  door is open. It may mention an established player in one clause — that is
+  true and useful — but never as the reason for the level.
+
+**THE LEVEL RULE (mechanical, checker-enforced; amended 2026-09-15).** Weights:
+buyer `small-firms` 0 / `large-firms` 1 / `public` 2 · permission `none` 0 /
+`registration` 1 / `licence` 2 · integration `software` 0 / `national-system` 1
+/ `certified` 2 · money `bootstrap` 0 / `outside-money` 2.
+
+- max weight 0 → `easy` · max weight 1 → `moderate` · exactly one gate at 2 →
+  `hard` · two or more gates at 2 → `very-hard`
+
+**`incumbents` carries no weight, and that is the rule, not an omission: the
+`gap` score already prices established competition, and counting it here too
+priced one fact twice** (one field, one meaning — CLAUDE.md rule 1). The first
+pass under the unamended rule put 20 of 37 records at hard or very-hard and
+turned the owner's own canonical easy example, an app for trucking firms, into
+`hard`. Difficulty to enter means the DOORS: who buys, what permission, what
+you must plug into, and money.
+
+`level` must equal the derived value and `incumbents` must equal the value
+derived from `locals[]`. Both are ERRORs in
+`python3 scripts/check-records.py --strict`, which runs inside `npm run build`.
+The site never re-derives either: `web/` reads the stored value.
 
 `comps` — foreign comparables (REQUIRED; the "where it works" ledger): companies
 running the model elsewhere, with public verifiable traction. 2–4 entries per

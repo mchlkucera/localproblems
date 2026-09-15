@@ -15,13 +15,14 @@ scores:
   demand: 0
   gap: 0
 status: rejected
-build:
-  capital: funded
-  first_revenue: months
-  builder: small-team
-  note: 'Cross-company supply-chain data collection and DPP standards work sit above garage
-    scale, but the hard 18 Feb 2027 cutover pushes importers and tier-2/3 suppliers into deadline-driven
-    purchases a dev-plus-domain-expert team can serve with CZ onboarding.'
+entry:
+  level: hard
+  buyer: large-firms
+  permission: none
+  incumbents: open
+  integration: national-system
+  money: outside-money
+  why: 'Money goes in before the first sale: carbon, materials and battery-health data have to be gathered across several companies'' systems before one passport can be published, and the buyers are carmakers and battery plants.'
 comps:
 - name: Circulor
   url: https://www.circulor.com/

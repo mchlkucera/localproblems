@@ -16,13 +16,14 @@ scores:
   demand: 2
   gap: 0
 status: watching
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Czech-language intake and scheduling automation that coexists with Cygnus
-    DP is real integration work for a dev plus care-domain pair, and small agencies
-    buy on demonstrated capacity gains after a pilot, not self-serve.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: direct
+  integration: software
+  money: bootstrap
+  why: 'Home-care agencies sign for themselves, nothing licences voice intake, and it sits beside the records software the agency already runs, Cygnus DP. e-Sestřička and pecovatelska.cz have sold the coordination layer for years, so the field is held — the door is open.'
 comps:
 - name: Sage Care
   url: https://www.sagecare.ai/

@@ -171,8 +171,10 @@ legibly. Future regions get their own directory and p-NNNN namespace (a problem 
 id, region, title, category, geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status (candidate|active|watching|stale|claimed|solved|rejected),
-build {capital: kiosk|garage|funded|industrial, first_revenue: weeks|months|year-plus,
-       builder: solo|small-team|funded-team, note},
+entry {level: easy|moderate|hard|very-hard, buyer: small-firms|large-firms|public,
+       permission: none|registration|licence, incumbents: open|adjacent|direct,
+       integration: software|national-system|certified, money: bootstrap|outside-money,
+       why},
 comps[] {name, url, geo (ISO2), since, traction, signal?: <evidence-layer id>,
          markets?: [ISO2…] — countries the comparable verifiably operates/sells in
          beyond its HQ; recorded only when sourced},
@@ -181,8 +183,13 @@ sources[] {type, url, note, date, signal?: <evidence-layer id>, dims?,
 created, updated
 ```
 
-`build` (required) is the buildability scorecard — capital ladder, time to first
-revenue, builder profile — judged from the record's own evidence. `comps`
+`entry` (required, owner 2026-09-15) is DIFFICULTY TO ENTER — the gates an
+entrant must pass before it can sell: who buys, what permission, who is already
+here, what the product must plug into, and whether the first sale needs outside
+money. It replaced the `build` scorecard (capital ladder, team band, time to
+first revenue), which predicted a team nobody has met. `level` is derived from
+buyer + permission + integration + money, `incumbents` is derived from
+`locals[]`, and `scripts/check-records.py --strict` asserts both. `comps`
 (required) is the "where it works" ledger of foreign comparables with public
 verifiable traction; empty only where `proof` is 0 and no comparable exists.
 Full field semantics in `data/CONVENTIONS.md`.

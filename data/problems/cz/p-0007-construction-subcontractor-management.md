@@ -15,13 +15,14 @@ scores:
   demand: 1
   gap: 2
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'A vetted-crew matching wedge with compliance-document handling is a CoCrafter-shaped
-    small-team build, though two-sided liquidity and any payroll expansion press the top
-    of the garage band.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: adjacent
+  integration: software
+  money: bootstrap
+  why: 'General contractors hire crews themselves, matching a subcontractor firm needs no agency-employment licence, and the marketplace is ordinary software. Established neighbours fill the room — Stavario runs the site diary for 5,900+ firms — but none of that gates entry.'
 comps:
 - name: CoCrafter
   url: https://www.cocrafter.com/

@@ -16,13 +16,14 @@ scores:
   demand: 1
   gap: 0
 status: watching
-build:
-  capital: garage
-  first_revenue: weeks
-  builder: small-team
-  note: 'Per-seat SMB SaaS with no procurement gate — an NZÚ-paperwork wedge can sell consulting-led
-    within weeks, though heat-load calculation and workflow depth take a small team (autarc
-    started with 3 founders).'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: direct
+  integration: software
+  money: bootstrap
+  why: 'Small installation firms buy per seat out of their own money, no licence gates the work, and the tool is ordinary software. RAYNET has sold quoting and state-subsidy paperwork to Czech solar firms since 2004, so the room is crowded — but the door itself is open.'
 comps:
 - name: autarc
   url: https://www.autarc.energy/

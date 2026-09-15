@@ -15,13 +15,16 @@ scores:
   demand: 1
   gap: 0
 status: watching
-build:
-  capital: industrial
-  first_revenue: year-plus
-  builder: funded-team
-  note: 'Hospital-grade interoperability sold through €0.7-7.7M public tenders against entrenched
-    NIS ecosystems (Stapro, ICZ) — comparables took $95M (Redox) or decades of SI base (Better)
-    to reach product scale.'
+entry:
+  level: very-hard
+  buyer: public
+  permission: registration
+  incumbents: direct
+  integration: national-system
+  money: outside-money
+  why: 'Every sale is a public hospital tender of roughly 0.7 to 7.7 million euro, seven Czech
+      vendors led by STAPRO and ICZ already sell hospital integration wired into the state health
+      gateway, and bidding costs money long before a first payment arrives.'
 comps:
 - name: Redox
   url: https://www.redoxengine.com/

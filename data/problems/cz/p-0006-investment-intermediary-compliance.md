@@ -16,13 +16,17 @@ scores:
   demand: 1
   gap: 1
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'The vendor itself is unregulated — a dev plus a compliance lawyer can ship AMLR-ready
-    policy and KYC workflow SaaS, but intermediary-network sales cycles put first revenue
-    months out.'
+entry:
+  level: moderate
+  buyer: large-firms
+  permission: none
+  incumbents: adjacent
+  integration: software
+  money: bootstrap
+  why: 'The first buyers are the advice networks, where one compliance officer signs for hundreds
+      of tied agents, and the software vendor itself needs no authorisation from the central bank;
+      the established Czech neighbour, Resistant AI, sells fraud detection to banks rather than
+      this.'
 comps:
 - name: Saturn
   url: https://www.saturnos.com/

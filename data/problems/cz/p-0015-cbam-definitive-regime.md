@@ -15,14 +15,14 @@ scores:
   demand: 0
   gap: 0
 status: rejected
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Declarant registration support, supplier emissions collection and ERP plug-ins
-    are consulting-led software a customs or tax expert plus a dev can ship, and
-    CFO buyers move on the fixed Feb 2027 certificate date but still need a mid-market
-    sales cycle.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: open
+  integration: software
+  money: bootstrap
+  why: 'Importing firms buy directly, the authorised-declarant status the EU carbon border levy demands is the importer''s to hold rather than the seller''s, and the work books emissions and certificate cost inside the firm''s own accounting and stock system.'
 comps:
 - name: CBAMBOO
   url: https://www.cbamboo.com/

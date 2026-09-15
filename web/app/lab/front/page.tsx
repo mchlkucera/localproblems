@@ -19,7 +19,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "./front.css";
 import { extractDate, getSignal, registerRows, type Problem, type ProblemSource } from "../../../lib/data";
-import { categoryLabel, countryName, localityLabel } from "../../../lib/format";
+import {
+  ENTRY_BUYER_LABELS, ENTRY_INCUMBENT_LABELS, ENTRY_LEVEL_LABELS, ENTRY_PERMISSION_LABELS,
+  categoryLabel, countryName, localityLabel,
+} from "../../../lib/format";
 import { BANDS, dimRefs, MAX, SCORE_ROWS, scoreRead } from "../../../lib/scorecard";
 import { splitBody, splitLead } from "../../../lib/sections";
 import { CORRECTIONS_MAILTO } from "../../../lib/chrome";
@@ -40,9 +43,6 @@ const plain = (s: string) =>
     .trim();
 
 /** The record page's buildability vocabulary (CONVENTIONS.md capital ladder). */
-const CAPITAL: Record<string, string> = { kiosk: "<€10k", garage: "€10–100k", funded: "€100k–1M", industrial: ">€1M" };
-const REVENUE: Record<string, string> = { weeks: "weeks", months: "months", "year-plus": "a year or more" };
-const TEAM: Record<string, string> = { solo: "1 person", "small-team": "2–5 people", "funded-team": "a funded team" };
 
 const days = (from: string, to: string) => Math.round((Date.parse(to) - Date.parse(from)) / 86_400_000);
 
@@ -204,11 +204,12 @@ function Peek({ it, extract }: { it: Item; extract: string }) {
           ))}
         </ul>
 
-        <h3 className="lf-pk-h">What you need</h3>
+        <h3 className="lf-pk-h">Difficulty to enter</h3>
         <ul className="lf-props lf-props--plain">
-          <li><span className="lbl">Capital</span><span className="val">{CAPITAL[p.build.capital]}</span></li>
-          <li><span className="lbl">Team</span><span className="val">{TEAM[p.build.builder]}</span></li>
-          <li><span className="lbl">First revenue</span><span className="val">in {REVENUE[p.build.first_revenue]}</span></li>
+          <li><span className="lbl">Level</span><span className="val">{ENTRY_LEVEL_LABELS[p.entry.level]}</span></li>
+          <li><span className="lbl">Who buys</span><span className="val">{ENTRY_BUYER_LABELS[p.entry.buyer]}</span></li>
+          <li><span className="lbl">Permission</span><span className="val">{ENTRY_PERMISSION_LABELS[p.entry.permission]}</span></li>
+          <li><span className="lbl">Already here</span><span className="val">{ENTRY_INCUMBENT_LABELS[p.entry.incumbents]}</span></li>
         </ul>
       </div>
 

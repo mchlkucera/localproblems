@@ -19,11 +19,14 @@ scores:
   demand: 0
   gap: 0
 status: watching
-build:
-  capital: funded
-  first_revenue: year-plus
-  builder: funded-team
-  note: 'The state atest is a per-product, per-version certification gate and every buyer procures publicly — payroll runs through attestation and tender cycles before first revenue.'
+entry:
+  level: very-hard
+  buyer: public
+  permission: licence
+  incumbents: direct
+  integration: national-system
+  money: outside-money
+  why: 'Every buyer is a public body buying under tender, four Czech vendors already hold the state attest — the certificate a records system needs before it may be offered to one — and payroll runs through attestation and tender cycles before the first invoice.'
 comps:
 - name: Documaster
   url: https://www.documaster.com/

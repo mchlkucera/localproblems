@@ -15,11 +15,14 @@ scores:
   demand: 0
   gap: 1
 status: candidate
-build:
-  capital: kiosk
-  first_revenue: weeks
-  builder: small-team
-  note: 'Consulting-led wind-down execution sells immediately to hundreds of exposed firms under live ČNB enforcement — the cost is regulatory expertise and playbooks, not capital; a recurring compliance-ops product is a later, bigger build.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: adjacent
+  integration: software
+  money: bootstrap
+  why: 'The firms winding down buy for themselves, nothing has to be authorised before selling them the help, and the work is notices, transfers and records rather than a system to plug into. Finreg Partners sells the licence application next door, not the exit.'
 comps: []
 locals:
 - name: SCHEJBAL&PARTNERS

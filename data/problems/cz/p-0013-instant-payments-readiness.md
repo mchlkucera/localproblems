@@ -14,13 +14,14 @@ scores:
   demand: 0
   gap: 0
 status: rejected
-build:
-  capital: funded
-  first_revenue: year-plus
-  builder: funded-team
-  note: 'Selling 24/7 SEPA Instant rails, sanctions-screening rework and EPC-scheme
-    VoP to regulated banks and PSPs means certification, security reviews and bank
-    procurement cycles, so payroll runs long before first revenue.'
+entry:
+  level: very-hard
+  buyer: large-firms
+  permission: registration
+  incumbents: open
+  integration: certified
+  money: outside-money
+  why: 'The buyers are banks and payment institutions, which take a hosted service only after certification and security review, and the euro rails, round-the-clock screening and payee checking are built through their procurement cycles before anyone pays.'
 comps:
 - name: SurePay
   url: https://www.surepay.eu/

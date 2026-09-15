@@ -14,14 +14,14 @@ scores:
   demand: 0
   gap: 0
 status: rejected
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'DDS filing automation and supplier geolocation collection can lean on the
-    EU information system and public forest data rather than a proprietary satellite
-    stack, but mid-sized importers need onboarding pilots before the 30 Dec 2026
-    deadline converts to revenue.'
+entry:
+  level: moderate
+  buyer: small-firms
+  permission: none
+  incumbents: open
+  integration: national-system
+  money: bootstrap
+  why: 'Importers and processors buy this directly and no licence gates it, but the statement has to be filed into the European Union''s own deforestation information system, which is the plumbing an entrant builds against. No Czech vendor is named here, and none has been ruled out.'
 comps:
 - name: osapiens
   url: https://osapiens.com/

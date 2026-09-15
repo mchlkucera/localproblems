@@ -14,13 +14,14 @@ scores:
   demand: 0
   gap: 0
 status: watching
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'AI document extraction is commodity, but Pohoda/Helios/ABRA integrations and distributor
-    pilots take real build-and-sales effort — Mercura''s ~20-person seed-funded path shows
-    the garage shape.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: direct
+  integration: software
+  money: bootstrap
+  why: 'Distributors and suppliers sign for themselves, no licence gates the work, and writing an order into the buyer''s own Pohoda, Helios or ABRA accounting system is ordinary software plumbing. Apertia Tech and Dativery already sell it, so the field is crowded rather than closed.'
 comps:
 - name: Mercura
   url: https://www.mercura.ai/

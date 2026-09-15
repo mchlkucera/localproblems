@@ -86,7 +86,16 @@ import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
-SCHEMA_VERSION = "10"  # 10: problems.fix renamed problems.solution and made
+SCHEMA_VERSION = "11"  # 11: the four problems.build_* columns are DROPPED and
+#                          seven problems.entry_* columns replace them, all NOT
+#                          NULL — the capital ladder, the team band and the
+#                          time-to-first-revenue guess give way to the five
+#                          gates an entrant must pass plus the derived level
+#                          and its one-sentence reasoning (owner, 2026-09-15:
+#                          "get rid of the team predictions"; "CAPITAL €10–100k
+#                          / TEAM 2–5 people is pretty arbitrary, more abstract
+#                          categories will be more truthful")
+#                      10: problems.fix renamed problems.solution and made
 #                          NOT NULL — every record states its likely solution
 #                          (owner, 2026-09-10)
 #                       9: signals.owner — who stated the problem; REQUIRED on
@@ -460,10 +469,20 @@ CREATE TABLE IF NOT EXISTS problems (
   s_urgency           INTEGER NOT NULL,
   s_demand            INTEGER NOT NULL,
   s_gap               INTEGER NOT NULL,
-  build_capital       TEXT    NOT NULL,
-  build_first_revenue TEXT    NOT NULL,
-  build_builder       TEXT    NOT NULL,
-  build_note          TEXT    NOT NULL,
+  -- DIFFICULTY TO ENTER (v11). Seven columns, every one NOT NULL: `entry`
+  -- leaves nothing optional, on every record, rejected ones included. `level`
+  -- is DERIVED from the five gates and `incumbents` is DERIVED from locals[];
+  -- the derivations are asserted in scripts/check-records.py, which is the one
+  -- place that holds them. Stored rather than recomputed here because this
+  -- store is a PROJECTION of the markdown — a column that disagreed with the
+  -- file would be the loader improving on the journal, which it may never do.
+  entry_level         TEXT    NOT NULL,
+  entry_buyer         TEXT    NOT NULL,
+  entry_permission    TEXT    NOT NULL,
+  entry_incumbents    TEXT    NOT NULL,
+  entry_integration   TEXT    NOT NULL,
+  entry_money         TEXT    NOT NULL,
+  entry_why           TEXT    NOT NULL,
   created             TEXT    NOT NULL,
   updated             TEXT    NOT NULL,
   body                TEXT    NOT NULL,          -- markdown after frontmatter, .trim()ed
@@ -477,7 +496,15 @@ CREATE TABLE IF NOT EXISTS problems (
   CHECK (s_urgency BETWEEN 0 AND 3),
   CHECK (s_demand  BETWEEN 0 AND 2),
   CHECK (s_gap     BETWEEN 0 AND 2),
-  CHECK (status IN ('candidate','active','watching','stale','claimed','solved','rejected'))
+  CHECK (status IN ('candidate','active','watching','stale','claimed','solved','rejected')),
+  -- The entry vocabulary, asserted the way `status` is: a typo'd gate is a
+  -- refused row and a named one, never a slug that reaches the page.
+  CHECK (entry_level       IN ('easy','moderate','hard','very-hard')),
+  CHECK (entry_buyer       IN ('small-firms','large-firms','public')),
+  CHECK (entry_permission  IN ('none','registration','licence')),
+  CHECK (entry_incumbents  IN ('open','adjacent','direct')),
+  CHECK (entry_integration IN ('software','national-system','certified')),
+  CHECK (entry_money       IN ('bootstrap','outside-money'))
 );
 CREATE UNIQUE INDEX IF NOT EXISTS problems_slug ON problems(region, slug);
 CREATE INDEX IF NOT EXISTS problems_rank ON problems(status, score DESC, id);
@@ -1311,7 +1338,7 @@ def signals_digest(con):
 
 PROBLEM_KEYS = frozenset((
     "id", "region", "title", "solution", "category", "geo", "score", "scores", "status",
-    "build", "comps", "sources", "created", "updated"))
+    "entry", "comps", "sources", "created", "updated"))
 # Top-level problem keys that are OPTIONAL. They are real columns here and typed
 # optionals in web/lib/data.ts — they are NOT looseObject overflow — so they must
 # be excluded from the required-key check AND from `_overflow`, or every record
@@ -1320,7 +1347,9 @@ PROBLEM_KEYS = frozenset((
 # PROBLEM_KEYS because that set doubles as the missing-key list.
 #   locals — the local-incumbent ledger, projected into problem_locals.
 # (`fix` left this set at v10: renamed `solution` and REQUIRED — owner,
-# 2026-09-10: "make sure everyone has one".)
+# 2026-09-10: "make sure everyone has one". `entry` did NOT join it at v11:
+# difficulty to enter is required on every record and every gate inside it is
+# required too — owner, 2026-09-15.)
 PROBLEM_OPTIONAL_KEYS = frozenset(("locals",))
 SOURCE_KEYS = frozenset((
     "type", "url", "note", "date", "name", "why", "gist", "signal", "dims", "queries", "checked", "expires"))
@@ -1345,7 +1374,18 @@ LOCAL_RETIRED_KEYS = {
               "at schema 7 — one field was carrying both 'does it sell this' and "
               "'how old is it', so a mature ADJACENT firm had no honest spelling",
 }
-BUILD_KEYS = frozenset(("capital", "first_revenue", "builder", "note"))
+# The seven keys of `entry`, all required (v11). `level` and `incumbents` are
+# derived values the author writes down and check-records.py asserts; they are
+# stored, not recomputed, for the projection reason on the table above.
+ENTRY_KEYS = ("level", "buyer", "permission", "incumbents", "integration", "money", "why")
+ENTRY_VOCAB = {
+    "level": ("easy", "moderate", "hard", "very-hard"),
+    "buyer": ("small-firms", "large-firms", "public"),
+    "permission": ("none", "registration", "licence"),
+    "incumbents": ("open", "adjacent", "direct"),
+    "integration": ("software", "national-system", "certified"),
+    "money": ("bootstrap", "outside-money"),
+}
 SCORE_KEYS = frozenset(("proof", "money", "urgency", "demand", "gap"))
 
 DIMS = ("proof", "money", "urgency", "demand", "gap")
@@ -1617,6 +1657,30 @@ def read_problems():
                     f"{rel}: sources[{n}] carries unknown key(s) {', '.join(extra)} — "
                     f"z.looseObject PASSES them unvalidated and the site renders "
                     f"nothing for them. Misspelling of {', '.join(sorted(SOURCE_KEYS))}?")
+        # `entry` — every gate required, every value in vocabulary. The CHECK
+        # constraints on the table say the same thing, but they fire as
+        # "CHECK constraint failed" against an anonymous row; this names the
+        # file, the key and the enum, which is what an author can act on.
+        if not isinstance(fm["entry"], dict):
+            raise SystemExit(
+                f"db: {rel}: `entry` is {type(fm['entry']).__name__}, not a mapping — it is "
+                f"the difficulty-to-enter block (level, buyer, permission, incumbents, "
+                f"integration, money, why). data/RECORD-TEMPLATE.md")
+        for k in ENTRY_KEYS:
+            if k not in fm["entry"]:
+                raise SystemExit(
+                    f"db: {rel}: entry is missing `{k}` — all seven keys are required on "
+                    f"every record, rejected ones included (owner, 2026-09-15)")
+        for k, vocab in ENTRY_VOCAB.items():
+            if fm["entry"][k] not in vocab:
+                raise SystemExit(
+                    f"db: {rel}: entry.{k} is {fm['entry'][k]!r} — the enum is "
+                    f"{' | '.join(vocab)} (data/CONVENTIONS.md, difficulty to enter)")
+        if not (isinstance(fm["entry"]["why"], str) and fm["entry"]["why"].strip()):
+            raise SystemExit(
+                f"db: {rel}: entry.why is empty — one or two plain sentences naming the "
+                f"gate(s) that set the level, or the level is a number with no reasoning")
+
         for n, c in enumerate(fm["comps"], 1):
             for k in ("name", "url", "geo", "since", "traction"):
                 if k not in c:
@@ -1695,7 +1759,7 @@ def read_problems():
         # z.object STRIPS unknown keys on build / scores / comps, so an extra key
         # there never reaches the site and has no column here. Say so out loud
         # rather than dropping it the way zod does, silently.
-        for label, obj, known in (("build", fm["build"], BUILD_KEYS),
+        for label, obj, known in (("entry", fm["entry"], frozenset(ENTRY_KEYS)),
                                   ("scores", fm["scores"], SCORE_KEYS)):
             extra = sorted(set(obj) - known)
             if extra:
@@ -1780,13 +1844,14 @@ def insert_problems(con, records):
     for r in records:
         fm, region, pid = r["fm"], r["region"], r["fm"]["id"]
         sc = fm["scores"]
-        b = fm["build"]
+        e = fm["entry"]
         prows.append((
             region, pid, r["slug"], fm["title"], fm["solution"],
             fm["category"], fm["geo"],
             fm["status"], fm["score"],
             sc["proof"], sc["money"], sc["urgency"], sc["demand"], sc["gap"],
-            b["capital"], b["first_revenue"], b["builder"], b["note"],
+            e["level"], e["buyer"], e["permission"], e["incumbents"],
+            e["integration"], e["money"], e["why"],
             fm["created"], fm["updated"], r["body"],
             _overflow(fm, PROBLEM_KEYS | PROBLEM_OPTIONAL_KEYS),
             r["rel"], r["sha256"]))
@@ -1814,11 +1879,12 @@ def insert_problems(con, records):
 
     _insert_named(con,
                   "INSERT INTO problems (region, id, slug, title, solution, category, geo, status,"
-                  " score, s_proof, s_money, s_urgency, s_demand, s_gap, build_capital,"
-                  " build_first_revenue, build_builder, build_note, created, updated, body,"
+                  " score, s_proof, s_money, s_urgency, s_demand, s_gap, entry_level,"
+                  " entry_buyer, entry_permission, entry_incumbents, entry_integration,"
+                  " entry_money, entry_why, created, updated, body,"
                   " extra_json, md_file, md_sha256)"
-                  " VALUES (" + ",".join("?" * 24) + ")", prows,
-                  lambda r: f"{r[22]} ({r[0]}/{r[1]})")
+                  " VALUES (" + ",".join("?" * 27) + ")", prows,
+                  lambda r: f"{r[25]} ({r[0]}/{r[1]})")
     _insert_named(con,
                   "INSERT INTO problem_sources (region, problem_id, position, type, url,"
                   " note, date, name, why, gist, signal_id, dims_json, queries_json, checked_json,"
@@ -1853,8 +1919,9 @@ def problems_digest(con):
     h = hashlib.sha256()
     for label, sql in (
         ("problems", "SELECT region, id, slug, title, solution, category, geo, status, score,"
-                     " s_proof, s_money, s_urgency, s_demand, s_gap, build_capital,"
-                     " build_first_revenue, build_builder, build_note, created, updated,"
+                     " s_proof, s_money, s_urgency, s_demand, s_gap, entry_level,"
+                     " entry_buyer, entry_permission, entry_incumbents, entry_integration,"
+                     " entry_money, entry_why, created, updated,"
                      " body, extra_json, md_file, md_sha256"
                      " FROM problems ORDER BY region, id"),
         ("sources", "SELECT region, problem_id, position, type, url, note, date, name, why,"

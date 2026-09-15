@@ -1,5 +1,24 @@
 /* ============================================================
-   localproblems.org · design system v1.20 · 2026-09-04
+   localproblems.org · design system v1.21 · 2026-09-15
+   v1.21 (owner, 2026-09-15 — the entry contract: "include a clear
+   difficulty to enter … should be in the index view"): ONE CLASS,
+   ONE RULE. The register and category tables gain an Entry column
+   between Category and Score, and its cell is set in the register
+   label voice the Category cell already wears — uppercase mono at
+   --fs-label with the 0.06em registry tracking. .t-entry is its own
+   selector rather than a second class on .t-cat because the two are
+   different columns and a shared name would make a future change to
+   one silently change the other; the declarations are the existing
+   ones, copied, so nothing new enters the sheet. No colour, size,
+   weight, rule weight, spacing value, breakpoint or glyph. The
+   record page's "What you need" section is REPLACED by "Difficulty
+   to enter" in markup only: it reuses .buildfacts and .buildnote
+   unchanged, and the scorecard's sixth row keeps .dim--build, which
+   names its POSITION in the card (the row opened by the double
+   rule), not the retired field.
+   v1.20 (owner, on v1.19's phone front page: "putting the menu in
+   the footer is not a good solution — find a better, simple but
+   modern one"; "the filtering is still taking up a lot of space"):
    v1.20 (owner, on v1.19's phone front page: "putting the menu in
    the footer is not a good solution — find a better, simple but
    modern one"; "the filtering is still taking up a lot of space"):
@@ -431,6 +450,7 @@ table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1
   white-space: normal;
 }
 .index .t-cat { text-transform: uppercase; font-size: var(--fs-label); letter-spacing: 0.06em; }
+.index .t-entry { text-transform: uppercase; font-size: var(--fs-label); letter-spacing: 0.06em; }  /* v1.21 */
 .index .t-num, .index thead .t-num { text-align: left; white-space: nowrap; }  /* v2: every column left-aligns */
 .index .t-date { color: var(--ink-muted); }
 .index tr.is-solved .t-title { color: var(--ink-muted); }

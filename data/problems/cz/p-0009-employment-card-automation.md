@@ -22,13 +22,14 @@ scores:
   demand: 1
   gap: 2
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Software plus attorney coordination on the Gale model needs a dev and an
-    immigration-domain partner rather than any certification, and employers already
-    paying per-case agency fees can convert within a small-business pilot cycle.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: open
+  integration: software
+  money: bootstrap
+  why: 'Employers and the relocation agencies buy this directly out of the per-case fees they pay today, no regulator has to let an entrant in, the seven Czech providers all sell the work by hand rather than as software, and the filing itself is paper.'
 comps:
 - name: Gale
   url: https://galevisa.com/

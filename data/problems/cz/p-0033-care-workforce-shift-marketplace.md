@@ -15,13 +15,14 @@ scores:
   demand: 2
   gap: 2
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'A two-sided shift marketplace needs supply-side recruiting, qualification vetting
-    under zákon 108/2006 Sb. and an agency-employment (agenturní zaměstnávání) licence or a
-    clean worker-status answer before it scales; liquidity in one region comes before revenue.'
+entry:
+  level: hard
+  buyer: small-firms
+  permission: licence
+  incumbents: adjacent
+  integration: software
+  money: bootstrap
+  why: 'A care home buys shift cover out of the agency budget it already spends, but placing a worker on someone else''s shift needs an agency-employment licence under the employment act, and established shift marketplaces — Flecto, Grason — run next door in factories and canteens.'
 comps:
 - name: ShiftKey
   url: https://www.shiftkey.com/

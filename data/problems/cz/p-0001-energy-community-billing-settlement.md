@@ -16,13 +16,14 @@ scores:
   demand: 2
   gap: 1
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'EDC and DSO data integration plus member billing is real engineering, but the buyers
-    — communities already paying ~1M CZK for manual sharing administration — are reachable
-    without certification or enterprise procurement.'
+entry:
+  level: hard
+  buyer: public
+  permission: none
+  incumbents: open
+  integration: national-system
+  money: bootstrap
+  why: 'Every buyer on this record is a public body — a regional hospital, a municipal care home, a city energy community — so the first contract is a public purchase; the product also has to read and settle from EDC, the national electricity data hub.'
 comps:
 - name: Exnaton
   url: https://exnaton.com/

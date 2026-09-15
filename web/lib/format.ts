@@ -1,5 +1,8 @@
 // House data formatting (design-language: data always looks like evidence).
-import type { GapChecked, PriceBasis, PriceUnit } from "./data";
+import type {
+  Entry, EntryBuyer, EntryIncumbents, EntryIntegration, EntryLevel, EntryMoney,
+  EntryPermission, GapChecked, PriceBasis, PriceUnit,
+} from "./data";
 
 /** Compact euro figure: €41k / €1.3M / €78M. Null → em dash. */
 export function euro(v: number | null): string {
@@ -111,6 +114,85 @@ export const PRICE_BASIS_LABELS: Record<PriceBasis, string> = {
   "buyer-interview": "buyer interview",
   "manual-equivalent": "manual equivalent",
 };
+
+// ---- difficulty to enter (owner, 2026-09-15) ------------------------------
+// THE ONLY SPELLINGS THE SITE USES. The enum is storage; the reader is owed a
+// phrase — the same rule GAP_SURFACES and PRICE_UNIT_LABELS already state, and
+// Record<enum, string> makes a new token a TypeScript error here rather than a
+// raw slug on the page.
+
+export const ENTRY_LEVEL_LABELS: Record<EntryLevel, string> = {
+  easy: "Easy",
+  moderate: "Moderate",
+  hard: "Hard",
+  "very-hard": "Very hard",
+};
+export const ENTRY_BUYER_LABELS: Record<EntryBuyer, string> = {
+  "small-firms": "small firms",
+  "large-firms": "large firms",
+  public: "the public sector",
+};
+export const ENTRY_PERMISSION_LABELS: Record<EntryPermission, string> = {
+  none: "none needed",
+  registration: "a registration",
+  licence: "a licence",
+};
+export const ENTRY_INCUMBENT_LABELS: Record<EntryIncumbents, string> = {
+  open: "nobody established",
+  adjacent: "an established neighbour",
+  direct: "an established direct competitor",
+};
+export const ENTRY_INTEGRATION_LABELS: Record<EntryIntegration, string> = {
+  software: "plain software",
+  "national-system": "a national system or hardware",
+  certified: "a certified product",
+};
+export const ENTRY_MONEY_LABELS: Record<EntryMoney, string> = {
+  bootstrap: "bootstrappable",
+  "outside-money": "outside money before the first sale",
+};
+
+/** The level as a SORT KEY: 0 easy · 1 moderate · 2 hard · 3 very hard. The
+    register table's Entry cell carries it as `data-sort`, because the labels
+    sort alphabetically (Easy, Hard, Moderate, Very hard) and that order is
+    nonsense — SortScript reads `data-sort` before a cell's text for exactly
+    this case. */
+export function entryRank(level: EntryLevel): number {
+  return ENTRY_LEVELS_ORDER.indexOf(level);
+}
+const ENTRY_LEVELS_ORDER: EntryLevel[] = ["easy", "moderate", "hard", "very-hard"];
+
+/** The gates that SET the level and their weights, as the contract states them
+    (owner, 2026-09-15, as amended the same day): buyer 0/1/2 · permission
+    0/1/2 · integration 0/1/2 · money 0/2. `incumbents` is absent BY RULE — the
+    gap score already prices established competition, and weighing it here too
+    priced one fact twice.
+
+    Nothing in web/ derives `level`: the record carries it, scripts/check-
+    records.py asserts the derivation, and the pages read the stored value.
+    This table exists only to say WHICH gates set the level a record already
+    states. */
+const ENTRY_LEVEL_WEIGHTS = {
+  buyer: { "small-firms": 0, "large-firms": 1, public: 2 },
+  permission: { none: 0, registration: 1, licence: 2 },
+  integration: { software: 0, "national-system": 1, certified: 2 },
+  money: { bootstrap: 0, "outside-money": 2 },
+} as const;
+
+/** The gate(s) that set the level, in their human labels — the heaviest ones,
+    joined by the house middot. Derived, never authored, so the scorecard's one
+    line can never contradict the block it links to. */
+export function entryGates(e: Entry): string {
+  const weighed = [
+    { w: ENTRY_LEVEL_WEIGHTS.buyer[e.buyer], label: ENTRY_BUYER_LABELS[e.buyer] },
+    { w: ENTRY_LEVEL_WEIGHTS.permission[e.permission], label: ENTRY_PERMISSION_LABELS[e.permission] },
+    { w: ENTRY_LEVEL_WEIGHTS.integration[e.integration], label: ENTRY_INTEGRATION_LABELS[e.integration] },
+    { w: ENTRY_LEVEL_WEIGHTS.money[e.money], label: ENTRY_MONEY_LABELS[e.money] },
+  ];
+  const top = Math.max(...weighed.map((g) => g.w));
+  if (top === 0) return "no gate beyond a trade licence";
+  return weighed.filter((g) => g.w === top).map((g) => g.label).join(" · ");
+}
 
 /** Register locality display. Unknown codes render as recorded (mono truth). */
 export function localityLabel(geo: string): string {

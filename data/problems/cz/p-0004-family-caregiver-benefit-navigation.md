@@ -22,13 +22,14 @@ scores:
   demand: 1
   gap: 2
 status: candidate
-build:
-  capital: kiosk
-  first_revenue: weeks
-  builder: small-team
-  note: 'A guided claim-and-appeal tool over public MPSV rules is solo-dev cheap and families
-    pay flat or success fees immediately, but credible hodnocení stupně závislosti guidance
-    needs a social-benefits practitioner alongside the dev.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: adjacent
+  integration: software
+  money: bootstrap
+  why: 'Families pay the fee themselves, nothing licences the work, and the job is coaching and paperwork rather than a system to plug into. Free help sits alongside it — Rodinný průvodce writes appeals for nothing — but no door has to be opened first.'
 comps:
 - name: Oma Care
   url: https://www.omacare.com/

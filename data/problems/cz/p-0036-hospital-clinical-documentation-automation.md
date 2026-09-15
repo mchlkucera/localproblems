@@ -21,14 +21,14 @@ scores:
   demand: 2
   gap: 1
 status: candidate
-build:
-  capital: funded
-  first_revenue: year-plus
-  builder: small-team
-  note: 'Hospital-grade software wired into a hospital system and read by insurers, needing a
-    clinician co-founder and Czech medical-text models; Tiplu reached 80 German hospitals from a
-    2016 start through pilots, and the first Czech pilot is a cancer institute that has already
-    written the specification.'
+entry:
+  level: very-hard
+  buyer: public
+  permission: none
+  incumbents: adjacent
+  integration: software
+  money: outside-money
+  why: 'The buyers are public hospitals, so each sale is a tender on a grant timetable, and the first paying customer sits a year or more away behind a pilot, which means money raised before any invoice. The templates then live inside the hospital''s own system.'
 comps:
 - name: Jacobian (Smart Reporting)
   url: https://www.jacobian.com/

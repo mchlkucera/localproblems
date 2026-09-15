@@ -14,13 +14,16 @@ scores:
   demand: 0
   gap: 0
 status: rejected
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Conformity gap audits and digital-instructions tooling for SMB integrators
-    need a machine-safety engineer plus a dev but no notified-body status, and engagements
-    close within a normal B2B cycle as the 20 Jan 2027 hard cutover approaches.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: open
+  integration: software
+  money: bootstrap
+  why: 'Machine builders, importers and retrofit shops buy a file check directly, and an adviser
+      needs no state designation as a certification house to sell one; no Czech seller of this has
+      been found, though the Czech market has not been searched either.'
 comps:
 - name: IBF Solutions
   url: https://www.ibf-solutions.com/en

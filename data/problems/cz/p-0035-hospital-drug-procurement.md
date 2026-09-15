@@ -21,13 +21,14 @@ scores:
   demand: 2
   gap: 0
 status: watching
-build:
-  capital: garage
-  first_revenue: year-plus
-  builder: small-team
-  note: 'Public tender notices supply the raw material, so a small team can assemble a first
-    comparison cheaply; but the unit prices that would make it authoritative are contractually
-    withheld, and every buyer is a public hospital on a procurement clock.'
+entry:
+  level: very-hard
+  buyer: public
+  permission: none
+  incumbents: direct
+  integration: national-system
+  money: outside-money
+  why: 'Every buyer is a public hospital or region buying under procurement law, and eCENTRE has pooled that buying since 2006 and sells it to hospitals. The first fee is more than a year out on those clocks, so money goes in before any comes back.'
 comps:
 - name: Vamstar
   url: https://vamstar.io/

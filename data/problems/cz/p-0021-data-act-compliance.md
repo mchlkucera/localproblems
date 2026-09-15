@@ -14,13 +14,14 @@ scores:
   demand: 0
   gap: 0
 status: rejected
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'No certification gate and no productized comp found — legal-technical gap analyses
-    and data-access API work for mid-market OEMs is consulting-led engineering a dev-plus-lawyer
-    team can sell against the 12 Sep 2026 access-by-design wave.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: open
+  integration: software
+  money: bootstrap
+  why: 'Equipment makers and software vendors buy the review and the build themselves, no certificate is required to sell it, and the work lands in the firm''s own firmware, backend and contracts. No Czech seller of this is on file, and none has been ruled out.'
 comps: []
 sources:
 - type: regulation

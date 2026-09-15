@@ -20,11 +20,14 @@ scores:
   demand: 2
   gap: 2
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Respondent-side dispute-workflow software needs no licence — a dev plus a consumer-credit lawyer can pilot with one non-bank lender facing the ~20,000-filing wave and 167-day proceedings.'
+entry:
+  level: moderate
+  buyer: large-firms
+  permission: none
+  incumbents: open
+  integration: software
+  money: bootstrap
+  why: 'Banks and non-bank lenders sign the first contract, and software for the side answering a complaint needs no licence. Nobody established holds the position: none of the ten Czech vendors found handles a case at the Financial Arbitrator.'
 comps:
 - name: ClaimSorted
   url: https://www.claimsorted.com/

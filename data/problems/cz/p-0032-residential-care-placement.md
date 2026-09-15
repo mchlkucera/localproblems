@@ -21,13 +21,14 @@ scores:
   demand: 2
   gap: 1
 status: candidate
-build:
-  capital: kiosk
-  first_revenue: weeks
-  builder: small-team
-  note: 'A directory is cheap to build; the moat is live vacancy and queue data kept fresh
-    by phone-and-relationship work across hundreds of homes, plus a social-care practitioner
-    for credible guidance — operations discipline more than engineering.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: open
+  integration: software
+  money: bootstrap
+  why: 'Private care homes pay per move-in and families pay a fee, both without a tender; nothing licences placement, and the work is phone calls to homes rather than a system to plug into. The two Czech directories, SrovnejPéči.cz and Můjdůchod.cz, are each under three years old.'
 comps:
 - name: A Place for Mom
   url: https://www.aplaceformom.com/

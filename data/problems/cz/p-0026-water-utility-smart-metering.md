@@ -13,11 +13,16 @@ scores:
   demand: 0
   gap: 0
 status: watching
-build:
-  capital: funded
-  first_revenue: year-plus
-  builder: funded-team
-  note: 'Utility-grade metering, telemetry and data infrastructure sold to small public utilities through tenders against named incumbents — procurement cycles and integration depth put payroll well before revenue.'
+entry:
+  level: very-hard
+  buyer: public
+  permission: none
+  incumbents: direct
+  integration: national-system
+  money: outside-money
+  why: 'Small water companies buy through public tenders, five long-standing Czech sellers such as
+      Softlink and VODÁRENSKÁ AKCIOVÁ SPOLEČNOST already run metering as a service, and meters and
+      radio readers go in the ground before a first reading is billed.'
 comps: []
 locals:
 - name: Softlink (CEM Smart)

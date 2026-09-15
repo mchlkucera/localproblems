@@ -20,11 +20,14 @@ scores:
   demand: 0
   gap: 2
 status: candidate
-build:
-  capital: garage
-  first_revenue: year-plus
-  builder: small-team
-  note: 'An aggregation operator needs campaign ops, procurement-law expertise and a light platform rather than heavy capital, but municipal joint-purchasing decisions and ZZVZ frameworks run on public-sector clocks — the record''s own lots fail repeatedly.'
+entry:
+  level: very-hard
+  buyer: public
+  permission: none
+  incumbents: adjacent
+  integration: national-system
+  money: outside-money
+  why: 'Every buyer is a town, so each sale runs under procurement law, and the first fee is more than a year out on municipal joint-purchasing clocks, so money goes in before any comes back. eCENTRE and SMS ČR already pool energy buying for hundreds of towns.'
 comps:
 - name: iChoosr
   url: https://ichoosr.com/

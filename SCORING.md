@@ -158,6 +158,31 @@ GAP (0-2)       is the local field still open?
                 recorded queries[], checked[] and a passing positive control
                 can do that.
 
+DIFFICULTY TO ENTER IS NOT A SCORE (owner, 2026-09-15). The `entry` block on
+every record — level, buyer, permission, incumbents, integration, money, why —
+is FEASIBILITY, not opportunity: it never enters the 12 points, never moves a
+band, and is rendered apart from the scorecard. It replaced the `build`
+scorecard (capital ladder, team band, time to first revenue); the definitions
+live in data/CONVENTIONS.md.
+
+  `level` is DERIVED, not judged: buyer small-firms 0 / large-firms 1 /
+  public 2 · permission none 0 / registration 1 / licence 2 · integration
+  software 0 / national-system 1 / certified 2 · money bootstrap 0 /
+  outside-money 2. Max weight 0 -> easy · max 1 -> moderate · exactly one gate
+  at 2 -> hard · two or more at 2 -> very-hard.
+
+  `entry.incumbents` CARRIES NO WEIGHT, and that is this file's business:
+  GAP already prices established local competition, so weighing it again in
+  the level priced ONE FACT TWICE — the same one-field-two-meanings defect
+  this rubric has fixed at PROOF rung 2 and GAP rung 0. The gate stays on the
+  record (derived from locals[], asserted by the checker, rendered as the
+  ALREADY HERE row); it just does not set the level. Measured before the
+  amendment: 20 of 37 records came out hard or very-hard and the owner's own
+  canonical easy example, an app for trucking firms, came out hard.
+
+  `entry.incumbents` and `scores.gap` read the same ledger and must not
+  disagree about it — both turn on competes: direct + maturity: established.
+
 Verdict bands (total score → word):
 
                 10-12   PRIME

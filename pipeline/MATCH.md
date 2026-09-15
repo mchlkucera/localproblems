@@ -162,6 +162,38 @@ The reader is deciding what to build this quarter. Write for them:
 
 ---
 
+## 9a. Difficulty to enter is judged, not predicted (owner, 2026-09-15)
+
+`entry:` replaced the `build:` scorecard. The capital ladder, the team band and
+the time-to-first-revenue guess are gone — owner: *"get rid of the team
+predictions"*; *"CAPITAL €10–100k / TEAM 2–5 people is pretty arbitrary, more
+abstract categories will be more truthful"*. What the record states instead is
+the doors an entrant has to get through, which the evidence on the record can
+actually answer: **who buys · what permission · who is already here · what it
+must plug into · money**.
+
+- **Two of the seven keys are DERIVED and you do not get a vote.**
+  `incumbents` is read off `locals[]` (direct + established ⇒ `direct`; else
+  adjacent + established ⇒ `adjacent`; else `open`), and `level` is read off
+  the gate weights. `scripts/check-records.py --strict` fails the build on
+  either disagreement, so fix the ledger, never the value.
+- **`incumbents` does not move the level.** GAP already prices established
+  competition; weighing it here too is one fact in two places — §0, again.
+- **Reading the buyer's own ERP is `software`.** Pohoda, Helios, ABRA, Cygnus,
+  a hospital's own system: that is what every business tool does.
+  `national-system` means a STATE, national or EU system the product cannot
+  work without, or hardware and crews in the field.
+- **`permission: licence` is an authorisation to SELL THE PRODUCT**, or a
+  regulated profession's monopoly over its core act. Hiring a lawyer or a tax
+  adviser as an ingredient is a product choice, not a gate.
+- **`why` names the gates, in the same plain voice as `solution:`** — one or
+  two sentences, ≤ 320 chars, no certainty words (the same OVERCLAIM regex).
+  Where the level is `easy`, say why the door is open.
+
+Full definitions: `data/CONVENTIONS.md`, "difficulty to enter".
+
+---
+
 ## 10. Scores and prose are one artifact
 
 A score and the paragraph under it are read together, so they must be authored

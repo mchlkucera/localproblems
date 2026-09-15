@@ -50,8 +50,8 @@ Solved elsewhere: <the funded comparables abroad, what each proves>
 
 Everything else on the page is generated from **frontmatter**, not prose: the
 scorecard from `scores`, the comps ledger from `comps[]`, the local-competition
-ledger from `locals[]`, "What you need" from `build` + a comp's team size,
-Sources from `sources[]`.
+ledger from `locals[]`, "Difficulty to enter" from `entry`, Sources from
+`sources[]`.
 
 ---
 
@@ -66,17 +66,20 @@ scores:
   demand: 1                   # → "Demand signal"      (0-2)
   money: 0                    # → "Money nearby"       (0-2) public budget near this — NOT who pays
   urgency: 3                  # → "Why now"            (0-3)
-build:
-  capital: garage             # kiosk <€10k · garage €10–100k · funded €100k–1M · industrial >€1M
-  first_revenue: months       # weeks · months · year-plus
-  builder: small-team         # solo · small-team (2–5) · funded-team
-  note: '<one sentence: the skills this actually demands>'
+entry:                        # DIFFICULTY TO ENTER — required on EVERY record
+  level: hard                 # easy | moderate | hard | very-hard   (DERIVED, see below)
+  buyer: public               # small-firms | large-firms | public
+  permission: licence         # none | registration | licence
+  incumbents: adjacent        # open | adjacent | direct   (DERIVED from locals[])
+  integration: software       # software | national-system | certified
+  money: bootstrap            # bootstrap | outside-money
+  why: '<one or two plain sentences naming the gate(s) that set the level>'
 comps:
   - name: Hemut
     url: https://hemut.com/
     geo: US
     since: 2024
-    traction: '…3-person team…'   # a "N-person team" here is cited in "What you need"
+    traction: '…$10M Series A, 50+ utility customers…'   # PUBLIC and verifiable
 locals:                         # OPTIONAL — omit the key entirely, NEVER `locals: []`
   - name: GORDIC
     url: https://www.gordic.cz/ # optional IF `ico` is present (see below)
@@ -161,7 +164,7 @@ actually is. Renamed from `fix:` and made required on 2026-09-10. Rules:
   adjectives. "A marketplace where vetted nurses and carers pick up open shifts
   at care homes, and the home pays a fee for every shift filled."
 - **Compression, not invention.** The material is already in `## First moves`
-  and in `build.note` — say what those say, shorter.
+  and in `entry.why` — say what those say, shorter.
 - **No jargon.** It is the second thing read after the dek, so the same rule
   applies: a Czech or EU acronym gets replaced or glossed inline (`NZÚ` → "the
   state renovation subsidy").
@@ -175,6 +178,44 @@ actually is. Renamed from `fix:` and made required on 2026-09-10. Rules:
   answer is still open to an entrant is the gap score's question, never this
   field's (one field, one meaning). The old rule — omit the key where an
   incumbent holds the field — is retired with the rename.
+
+### `entry:` — difficulty to enter (required, owner 2026-09-15)
+
+It REPLACES `build:`. The capital ladder, the team band and the time-to-first-
+revenue guess are retired — owner: *"get rid of the team predictions"*, and
+*"CAPITAL €10–100k / TEAM 2–5 people is pretty arbitrary, more abstract
+categories will be more truthful"*. Every key is required, on every record,
+rejected ones included; `data/CONVENTIONS.md` carries the full gate
+definitions. What an author has to get right:
+
+- **Judge from the record's own evidence, never aspirationally.** The gates are
+  facts about the market, not a plan.
+- **`incumbents` is not a judgment.** It is read off `locals[]`: any local at
+  `competes: direct` AND `maturity: established` ⇒ `direct`; else any at
+  `competes: adjacent` AND `maturity: established` ⇒ `adjacent`; else `open`.
+  Change the ledger, not the value.
+- **`level` is not a judgment either.** Weights: buyer 0/1/2 · permission
+  0/1/2 · integration 0/1/2 · money 0/2. Max 0 → `easy` · max 1 → `moderate` ·
+  exactly one gate at 2 → `hard` · two or more at 2 → `very-hard`.
+  **`incumbents` carries no weight** — the `gap` score already prices
+  established competition, and counting it twice is one fact in two places
+  (amended 2026-09-15, after the first pass put 20 of 37 records at hard or
+  very-hard and made the owner's canonical easy example, an app for trucking
+  firms, come out `hard`).
+- **Reading the buyer's OWN software is `software`.** Pohoda, Helios, ABRA,
+  Cygnus, a hospital's own system, a dispatcher's planning tool — that is what
+  every business tool does. `national-system` is for a STATE, national or EU
+  system the product cannot work without (EDC, the state eHealth gateway,
+  ISIR, the cadastre, datová schránka, eRecept) or for hardware and crews in
+  the field.
+- **`permission: licence` is an authorisation to SELL THE PRODUCT**, or a
+  regulated profession's monopoly over its core act. Hiring a lawyer or an
+  accountant as an ingredient is a product choice → `none`.
+- **`why` names the gates, not an outcome.** One or two sentences, ≤ 320 chars,
+  plain words, every Czech/EU acronym glossed at first use, no certainty words
+  (the same `OVERCLAIM` regex `solution:` is held to). Both derivations and
+  every rule above are ERRORs in `scripts/check-records.py --strict`, which
+  runs inside `npm run build`.
 
 ### `locals:` — who already sells this HERE (optional, but required at `gap: 0`)
 

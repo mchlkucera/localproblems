@@ -3,7 +3,7 @@
 // "Opportunity /12" scorecard (plain
 // labels, plain reads, no verdict words, no rundown dialogs) · a builder funnel
 // of plain sections: the problem → proven abroad → local competition → how big
-// → why now → what you need → first moves → sources. Each scorecard cell links
+// → why now → difficulty to enter → first moves → sources. Each scorecard cell links
 // to the section carrying its evidence (v1.13, owner: "easier to scan, with
 // links to read more"). Sources render as a named link + one plain
 // line; the internal receipt (`note`) and the audit trail (revisions) stay in
@@ -13,7 +13,12 @@ import { notFound } from "next/navigation";
 import { extractDate, getProblems, getSignal, localHref, priceReceipts, signalHref, type Problem, type ProblemSource } from "../../../../lib/data";
 import { annotateSourceRefs, renderBody, renderInline, repageLedgerLinks, type SourceRef } from "../../../../lib/md";
 import { capitalize, splitBody, splitLead } from "../../../../lib/sections";
-import { PRICE_BASIS_LABELS, PRICE_UNIT_LABELS, categoryLabel, countryName, czk, euro, localityLong } from "../../../../lib/format";
+import {
+  ENTRY_BUYER_LABELS, ENTRY_INCUMBENT_LABELS, ENTRY_INTEGRATION_LABELS,
+  ENTRY_LEVEL_LABELS, ENTRY_MONEY_LABELS, ENTRY_PERMISSION_LABELS,
+  PRICE_BASIS_LABELS, PRICE_UNIT_LABELS, categoryLabel, countryName, czk, entryGates,
+  euro, localityLong,
+} from "../../../../lib/format";
 import { type Dim, MAX, SCORE_ROWS, dimRefs, scoreRead } from "../../../../lib/scorecard";
 import {
   CorrectionsLink, FooterHouseLine, Masthead, RelDatesScript, Tally,
@@ -105,22 +110,11 @@ function futureDate(s: ProblemSource, extract: string): string | null {
   return sig && sig.date > extract ? sig.date : null;
 }
 
-// ---- buildability vocabulary (CONVENTIONS.md capital ladder) -------------
-
-const CAPITAL_RANGE: Record<string, string> = {
-  kiosk: "<€10k", garage: "€10–100k", funded: "€100k–1M", industrial: ">€1M",
-};
-const FIRST_REVENUE: Record<string, string> = {
-  weeks: "weeks", months: "months", "year-plus": "a year or more",
-};
-function builderLabel(b: string): string {
-  const s = b.replace("-", " ");
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-/** The builder ladder as plain headcount (CONVENTIONS.md: small-team = 2–5). */
-const TEAM_BAND: Record<string, string> = {
-  solo: "1 person", "small-team": "2–5 people", "funded-team": "a funded team",
-};
+// The buildability vocabulary — CAPITAL_RANGE, FIRST_REVENUE, TEAM_BAND and
+// the team-size lookup into comps[].traction — is RETIRED (owner, 2026-09-15:
+// "get rid of the team predictions"; "CAPITAL €10–100k / TEAM 2–5 people is
+// pretty arbitrary"). What replaced it is `entry`, whose every label lives in
+// lib/format.ts with the rest of the house vocabulary.
 
 // ---- local competition: two groups, in this order -------------------------
 // DIRECT FIRST, because it is the group the score above the section is about —
@@ -182,7 +176,7 @@ export default async function Record({ params }: Params) {
     .filter((d): d is string => d !== null)
     .sort()[0];
 
-  const build = p.build;
+  const entry = p.entry;
 
   // Scorecard "read more" targets (owner, 2026-08-24): each cell links to the
   // section of the page carrying its evidence. Gap falls back to the sources
@@ -196,13 +190,6 @@ export default async function Record({ params }: Params) {
     money: "#how-big",
     urgency: "#why-now",
   };
-
-  // "What you need" — team intelligence from the comps: where a comp's
-  // traction string records its own headcount, that comp is the evidence and
-  // gets stated and linked; where none does, the build note alone carries it.
-  const teamComp = comps
-    .map((c) => ({ c, m: c.traction.match(/(\d+)[-\s]person team/i) }))
-    .find((x) => x.m !== null);
 
   return (
     <>
@@ -318,10 +305,18 @@ export default async function Record({ params }: Params) {
                 <span className="read">{scoreRead(p, dim)}</span>
               </a>
             ))}
-            <a className="dim dim--build" href="#what-you-need">
-              <span className="label">Build</span>
-              <span className="meter"><span className="pill">{builderLabel(build.builder)}</span></span>
-              <span className="read">{CAPITAL_RANGE[build.capital]} · first revenue in {FIRST_REVENUE[build.first_revenue]}</span>
+            {/* The sixth row is feasibility, not opportunity, and since
+                2026-09-15 it states the DIFFICULTY TO ENTER: the level in the
+                pill, and as its read the gate(s) that set it — derived from
+                the same five values the section below prints, so the line can
+                never contradict the block it links to. `dim--build` stays the
+                class: it names the row's POSITION in the card (the one opened
+                by the double rule), and renaming it would be a stylesheet
+                round for nothing. */}
+            <a className="dim dim--build" href="#difficulty-to-enter">
+              <span className="label">Entry</span>
+              <span className="meter"><span className="pill">{ENTRY_LEVEL_LABELS[entry.level]}</span></span>
+              <span className="read">{entryGates(entry)}</span>
             </a>
           </div>
         </section>
@@ -528,22 +523,26 @@ export default async function Record({ params }: Params) {
           <p className="whenline">{relativeOut(extract, windowFact)}.</p>
         )}
 
-        {/* What you need — the buy-in requirements, stated plainly (owner,
-            2026-08-24): the capital band as money, the team the comps prove
-            sufficient abroad (linked where a comp records its headcount),
-            time to first revenue, and the build note carrying what the
-            product actually demands. The scorecard Build cell lands here. */}
-        <h2 id="what-you-need">What you need</h2>
+        {/* Difficulty to enter — REPLACES "What you need" (owner, 2026-09-15:
+            "include a clear difficulty to enter — e.g. app for truck people is
+            easy, entering government healthcare is tough"). The capital band
+            and the team band are gone: a euro range and a headcount were a
+            prediction about a team nobody has met, where these five are facts
+            about the market the record already carries evidence for. The
+            derived LEVEL leads, the five gates follow in the same `.buildfacts`
+            grammar, and `entry.why` carries the reasoning as the `.buildnote`
+            sentence the build note used to. The scorecard Entry cell lands
+            here. */}
+        <h2 id="difficulty-to-enter">Difficulty to enter</h2>
         <ul className="buildfacts">
-          <li>CAPITAL<span className="leader"></span><span className="val">{CAPITAL_RANGE[build.capital]}</span></li>
-          <li>TEAM<span className="leader"></span>
-            <span className="val">{TEAM_BAND[build.builder]}{teamComp && (
-              <span className="range"> — <a href={teamComp.c.url}>{teamComp.c.name}</a> runs this with a {teamComp.m![1]}-person team</span>
-            )}</span>
-          </li>
-          <li>FIRST REVENUE<span className="leader"></span><span className="val">in {FIRST_REVENUE[build.first_revenue]}</span></li>
+          <li>LEVEL<span className="leader"></span><span className="val">{ENTRY_LEVEL_LABELS[entry.level]}</span></li>
+          <li>WHO BUYS<span className="leader"></span><span className="val">{ENTRY_BUYER_LABELS[entry.buyer]}</span></li>
+          <li>PERMISSION<span className="leader"></span><span className="val">{ENTRY_PERMISSION_LABELS[entry.permission]}</span></li>
+          <li>ALREADY HERE<span className="leader"></span><span className="val">{ENTRY_INCUMBENT_LABELS[entry.incumbents]}</span></li>
+          <li>PLUG INTO<span className="leader"></span><span className="val">{ENTRY_INTEGRATION_LABELS[entry.integration]}</span></li>
+          <li>MONEY<span className="leader"></span><span className="val">{ENTRY_MONEY_LABELS[entry.money]}</span></li>
         </ul>
-        <p className="buildnote">{build.note}</p>
+        <p className="buildnote">{entry.why}</p>
         {comps.length > 0 && (
           <p className="buildnote"><a href="#proven-abroad">See the teams doing it abroad →</a></p>
         )}

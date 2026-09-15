@@ -21,7 +21,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "./front.css";
 import { extractDate, getSignal, registerRows, type Problem, type ProblemSource } from "../../lib/data";
-import { categoryLabel, countryName, localityLabel, pad2 } from "../../lib/format";
+import { ENTRY_LEVEL_LABELS, categoryLabel, countryName, entryGates, localityLabel, pad2 } from "../../lib/format";
 import { compEstablished } from "./field";
 import { dimRefs, scoreRead } from "../../lib/scorecard";
 import { splitBody, splitLead } from "../../lib/sections";
@@ -42,9 +42,6 @@ const plain = (s: string) =>
     .replace(/\*\*([^*]+)\*\*/g, "$1")
     .replace(/\s+/g, " ")
     .trim();
-
-const CAPITAL: Record<string, string> = { kiosk: "<€10k", garage: "€10–100k", funded: "€100k–1M", industrial: ">€1M" };
-const REVENUE: Record<string, string> = { weeks: "weeks", months: "months", "year-plus": "a year or more" };
 
 const days = (from: string, to: string) => Math.round((Date.parse(to) - Date.parse(from)) / 86_400_000);
 
@@ -114,7 +111,7 @@ function countries(p: Problem): string {
 /** The glance ledger: the field strip (ticks) beside the scorecard's own reads. */
 function Glance({ st, extract }: { st: Story; extract: string }) {
   const { p } = st;
-  const b = p.build;
+  const e = p.entry;
   const year = Number(extract.slice(0, 4));
   const abroad = (p.comps ?? []).map((c) => ({ name: c.name, est: compEstablished(c.since, c.traction, year) }));
   const home = (p.locals ?? [])
@@ -130,7 +127,9 @@ function Glance({ st, extract }: { st: Story; extract: string }) {
       {st.window && (
         <div><dt>Window</dt><dd><time dateTime={st.window}>by {st.window}</time> · {out(extract, st.window)} out</dd></div>
       )}
-      {b && <div><dt>Build</dt><dd>{CAPITAL[b.capital]} · revenue in {REVENUE[b.first_revenue]}</dd></div>}
+      {/* Difficulty to enter replaced the capital/revenue Build line
+          (owner, 2026-09-15). */}
+      <div><dt>Entry</dt><dd>{ENTRY_LEVEL_LABELS[e.level]} · {entryGates(e)}</dd></div>
     </dl>
   );
 }

@@ -15,14 +15,14 @@ scores:
   demand: 1
   gap: 0
 status: candidate
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Hemut runs the same stack with a 3-person team, but Czech phone-agent quality
-    plus integrations with legacy transport-management systems (TMS — the dispatcher''s
-    planning software) and factoring providers demand a real build, and per-truck sales
-    to small firms run a pilot cycle measured in months.'
+entry:
+  level: easy
+  buyer: small-firms
+  permission: none
+  incumbents: direct
+  integration: software
+  money: bootstrap
+  why: 'Hauliers buy per truck out of their own money, no licence is needed, and the product reads documents and writes into the dispatcher''s own planning tool. TruckManager has sold this back office since 2007, so the field is contested — the door is not.'
 comps:
 - name: Hemut
   url: https://hemut.com/

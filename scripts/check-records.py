@@ -316,6 +316,186 @@ OVERCLAIM = re.compile(
     r"perfect\w*|always|never\b|solves?\b|the solution\b)")
 
 
+# ===========================================================================
+# DIFFICULTY TO ENTER — the `entry:` contract (owner, 2026-09-15)
+# ===========================================================================
+#
+# It replaces `build:` — capital / first_revenue / builder / note — which the
+# owner struck out in one sentence: "CAPITAL €10–100k / TEAM 2–5 people is
+# pretty arbitrary, more abstract categories will be more truthful". A euro
+# band and a headcount were a prediction about a team nobody has met. These
+# five gates are facts about the market the record already carries evidence
+# for: who signs the first contract, what an entrant must be ALLOWED before
+# selling, who is already here, what the product must plug into, and whether
+# the first sale can be reached on the builder's own money.
+#
+# TWO OF THE SEVEN KEYS ARE DERIVED, AND THAT IS WHY THIS FILE HOLDS THE RULE.
+# `incumbents` is read straight off the `locals[]` ledger and `level` is read
+# off the five gate weights, so both are checkable without judgment — and a
+# derived value an author writes by hand is a value that drifts from its source
+# the first time the ledger changes underneath it. The register has shipped
+# that defect three times (gap 0, proof 2, locals.status), which is the whole
+# reason CLAUDE.md rule 2 exists: a rule enforced by prose is not enforced.
+
+ENTRY_KEYS = ("level", "buyer", "permission", "incumbents", "integration", "money", "why")
+ENTRY_LEVELS = ("easy", "moderate", "hard", "very-hard")
+ENTRY_VOCAB = {
+    "buyer": ("small-firms", "large-firms", "public"),
+    "permission": ("none", "registration", "licence"),
+    "incumbents": ("open", "adjacent", "direct"),
+    "integration": ("software", "national-system", "certified"),
+    "money": ("bootstrap", "outside-money"),
+}
+# THE GATES THAT SET THE LEVEL — four of the five (amendment, 2026-09-15).
+# `money` is 0 or 2 and has no middle rung: outside money before the first sale
+# is a gate of the same order as a regulator's licence, and there is no half of
+# it.
+#
+# `incumbents` IS NOT HERE, AND ITS ABSENCE IS THE RULE, NOT AN OVERSIGHT.
+# Established competition is already priced by the `gap` score (0–2) on the
+# scorecard; weighing it here too priced one fact twice, and the measured cost
+# was that 20 of 37 records came out hard or very-hard and the owner's own
+# canonical easy example — an app for trucking firms — came out `hard`. One
+# fact, one place (CLAUDE.md rule 1). The gate stays on the record, still
+# derived from locals[], still asserted below, still rendered as the ALREADY
+# HERE row; it just does not move the level. Difficulty to enter means the
+# DOORS: who buys, what permission, what you must plug into, and money.
+ENTRY_LEVEL_GATES = {
+    "buyer": {"small-firms": 0, "large-firms": 1, "public": 2},
+    "permission": {"none": 0, "registration": 1, "licence": 2},
+    "integration": {"software": 0, "national-system": 1, "certified": 2},
+    "money": {"bootstrap": 0, "outside-money": 2},
+}
+# `why` renders as one `p.buildnote` sentence under the ledger. The cap is the
+# section's, not a storage limit: a paragraph there is a different device.
+ENTRY_WHY_MAX = 320
+
+
+def entry_level(entry):
+    """The level the four weighing gates derive. max 0 -> easy · max 1 ->
+    moderate · exactly one 2 -> hard · two or more 2s -> very-hard.
+    `incumbents` is not read: gap already prices competition."""
+    weights = [ENTRY_LEVEL_GATES[gate][entry[gate]] for gate in ENTRY_LEVEL_GATES]
+    twos = sum(1 for w in weights if w == 2)
+    if twos >= 2:
+        return "very-hard"
+    if twos == 1:
+        return "hard"
+    return "moderate" if max(weights) == 1 else "easy"
+
+
+def entry_incumbents(locals_):
+    """The `incumbents` value the locals[] ledger derives — no judgment.
+
+    A player only closes the field if it SELLS THIS and is ESTABLISHED, which is
+    the same asymmetry `gap` reads (SCORING.md): an adjacent player never takes
+    the space at any maturity, and an early one never closes it. So the ladder
+    is direct+established -> `direct`, else adjacent+established -> `adjacent`,
+    else `open` — including the case of no ledger at all, because nobody named
+    is nobody established.
+    """
+    if any(l.get("competes") == "direct" and l.get("maturity") == "established"
+           for l in locals_):
+        return "direct"
+    if any(l.get("competes") == "adjacent" and l.get("maturity") == "established"
+           for l in locals_):
+        return "adjacent"
+    return "open"
+
+
+def check_entry(doc, locals_):
+    """The `entry:` block, asserted. -> [error strings].
+
+    NOT exempt for rejected records, exactly like `solution:`: the block is
+    required on every record the owner ruled, and a rejected record still
+    answers "how hard would this have been to enter". The derivations are the
+    reason it is asserted rather than trusted.
+    """
+    errors = []
+    if "build" in doc:
+        errors.append(
+            "`build:` was replaced by `entry:` on 2026-09-15 — the capital ladder, the "
+            "team band and the time to first revenue are retired. Write the five gates "
+            "(buyer, permission, incumbents, integration, money) plus the derived `level` "
+            "and a `why`; data/RECORD-TEMPLATE.md has the block")
+    entry = doc.get("entry")
+    if not isinstance(entry, dict):
+        errors.append(
+            "no `entry:` — the difficulty-to-enter block is required on every record, "
+            "rejected ones included: level, buyer, permission, incumbents, integration, "
+            "money, why (data/CONVENTIONS.md, difficulty to enter)")
+        return errors
+    extra = sorted(set(entry) - set(ENTRY_KEYS))
+    if extra:
+        errors.append(f"entry carries unknown key(s) {', '.join(extra)} — the block is "
+                      f"exactly {', '.join(ENTRY_KEYS)}")
+    # THE GATES FIRST. A bad value here makes the level underivable, so the
+    # level check below runs only when all five read.
+    readable = True          # every gate present and in vocabulary
+    incumbents_ok = True
+    for gate, vocab in ENTRY_VOCAB.items():
+        ok = True
+        if gate not in entry:
+            errors.append(f"entry is missing `{gate}` — all five gates are required on "
+                          f"every record, and four of them derive the level")
+            ok = False
+        elif entry[gate] not in vocab:
+            errors.append(f"entry.{gate} is {entry[gate]!r} — the enum is "
+                          f"{' | '.join(vocab)} (data/CONVENTIONS.md, difficulty to enter)")
+            ok = False
+        if not ok:
+            if gate == "incumbents":
+                incumbents_ok = False
+            else:
+                readable = False
+
+    # INCUMBENTS IS NOT A JUDGMENT — it is read off the locals[] ledger, and a
+    # hand-written value that disagrees with the ledger is the record telling
+    # the reader one thing and its own evidence another.
+    if incumbents_ok:
+        want = entry_incumbents(locals_)
+        if entry["incumbents"] != want:
+            named = ", ".join(str(l.get("name")) for l in locals_[:3]) or "no locals[] ledger"
+            errors.append(
+                f"entry.incumbents is {entry['incumbents']!r} but locals[] derives "
+                f"{want!r} ({named}) — the rule is: any local at competes: direct AND "
+                f"maturity: established is `direct`; else any at competes: adjacent AND "
+                f"maturity: established is `adjacent`; else `open`. Fix the ledger or the "
+                f"value, never the value alone")
+
+    if "level" not in entry:
+        errors.append("entry is missing `level` — it is derived from buyer, permission, "
+                      "integration and money (max 0 easy · max 1 moderate · one gate at 2 "
+                      "hard · two or more 2s very-hard) and written down so the index can "
+                      "sort on it")
+    elif entry["level"] not in ENTRY_LEVELS:
+        errors.append(f"entry.level is {entry['level']!r} — the enum is "
+                      f"{' | '.join(ENTRY_LEVELS)}")
+    elif readable:
+        want = entry_level(entry)
+        if entry["level"] != want:
+            weights = ", ".join(f"{g} {ENTRY_LEVEL_GATES[g][entry[g]]}"
+                                for g in ENTRY_LEVEL_GATES)
+            errors.append(
+                f"entry.level is {entry['level']!r} but the gates derive {want!r} "
+                f"({weights}) — the level is not a judgment: max weight 0 is easy, max 1 "
+                f"moderate, exactly one gate at 2 hard, two or more at 2 very-hard. "
+                f"`incumbents` is NOT weighed — the gap score already prices competition")
+
+    why = entry.get("why")
+    if not isinstance(why, str) or not why.strip():
+        errors.append("no `entry.why:` — one or two plain sentences naming the gate(s) "
+                      "that set the level, or the level is a verdict with no reasoning")
+    else:
+        if len(why) > ENTRY_WHY_MAX:
+            errors.append(f"entry.why is {len(why)} chars (max {ENTRY_WHY_MAX}) — it is one "
+                          f"or two sentences under the ledger, not a paragraph")
+        for claim in OVERCLAIM.findall(why):
+            errors.append(f"entry.why claims certainty ('{claim}') — it names the gates a "
+                          f"builder would meet, it does not promise an outcome")
+    return errors
+
+
 def established(since, evidence, year, ico=None):
     """The established test, as one function. -> (bool, [limbs passed], [why not]).
 
@@ -440,6 +620,13 @@ def check(path, year):
         for claim in OVERCLAIM.findall(solution):
             errors.append(f"`solution:` claims certainty ('{claim}') — it is always shown as "
                           f"the LIKELY solution; describe the product, not the outcome")
+
+    # ---- difficulty to enter (owner, 2026-09-15) ---------------------------
+    # Required on every record, rejected ones included, and asserted rather
+    # than trusted: two of its seven keys are DERIVED — `incumbents` from the
+    # locals[] ledger, `level` from the five gate weights — and a derived value
+    # written by hand drifts from its source the first time the ledger moves.
+    errors.extend(check_entry(doc, locals_))
 
     # ---- citation integrity ------------------------------------------------
     n_sources = len(sources)

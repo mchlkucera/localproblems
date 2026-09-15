@@ -13,12 +13,14 @@ scores:
   demand: 0
   gap: 0
 status: watching
-build:
-  capital: funded
-  first_revenue: year-plus
-  builder: funded-team
-  note: 'Bank-grade eIDAS2 trust infrastructure with ARF/OIDC4VCI conformance and bank-length
-    sales cycles — Wultra needed a €6.8M Series A and Lissi a €3.5M seed to sell this wave.'
+entry:
+  level: very-hard
+  buyer: large-firms
+  permission: registration
+  incumbents: direct
+  integration: certified
+  money: outside-money
+  why: 'Wallet acceptance has to be conformance-tested before a bank may run it, and bank-length sales cycles mean outside money goes in before the first payment arrives. Bank iD has sold identity acceptance since 2021 and is used by more than five million Czechs.'
 comps:
 - name: Lissi
   url: https://www.lissi.id/

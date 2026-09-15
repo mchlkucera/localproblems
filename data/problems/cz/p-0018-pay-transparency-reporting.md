@@ -13,13 +13,14 @@ scores:
   demand: 0
   gap: 0
 status: watching
-build:
-  capital: garage
-  first_revenue: months
-  builder: small-team
-  note: 'Pay-gap analytics over payroll exports for the 150+-employee reporting tier is mid-market
-    SaaS with no certification gate — Figures started on a €1.7M seed, and the 2027/2028 CZ
-    deadlines set a pilot-led sales cycle.'
+entry:
+  level: moderate
+  buyer: large-firms
+  permission: none
+  incumbents: direct
+  integration: software
+  money: bootstrap
+  why: 'Employers with 150 or more staff sign the first contract, which is a personnel department rather than a sole trader, and the product reads a payroll export as ordinary software. No licence is needed. Sloneek and TREXIMA already sell pay-gap analysis here.'
 comps:
 - name: Figures
   url: https://figures.hr/

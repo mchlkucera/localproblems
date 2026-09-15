@@ -15,11 +15,14 @@ scores:
   demand: 0
   gap: 0
 status: candidate
-build:
-  capital: funded
-  first_revenue: months
-  builder: funded-team
-  note: 'Physical-ops model — installer training, crews and blowing equipment are payroll and capex before revenue, though each ~€5k fixed-price job pays out within the NZÚ-subsidized homeowner cycle once a crew is live.'
+entry:
+  level: hard
+  buyer: small-firms
+  permission: none
+  incumbents: direct
+  integration: national-system
+  money: outside-money
+  why: 'The gate is money: trained crews, blowing equipment and the state renovation subsidy handled in-house are paid for before the first fixed-price job. Homeowners sign directly and no licence is needed. IP Polná has insulated a claimed 30,100 buildings since 1997.'
 comps:
 - name: VARM
   url: https://www.varm.earth/
