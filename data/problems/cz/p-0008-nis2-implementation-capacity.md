@@ -2,6 +2,7 @@
 id: p-0008
 region: cz
 title: Six thousand Czech firms must meet new security rules, and most are not ready
+solution: 'A fixed-price service for the towns and care homes covered by the new Czech cybersecurity law: check what each one owes before its deadline, write the EU subsidy application where one applies, then do the security work itself rather than only the documents.'
 category: legal-compliance
 geo: CZ-national
 score: 11
@@ -448,3 +449,5 @@ Solved elsewhere: Secfix (Berlin, €10.2M Series A) sells compliance automation
 2026-09-02 · plain-language pass — NIS2, NÚKIB, CER, IROP and ICZ glossed at first use; SME, SMB, MSP, SIEM and DORA replaced with ordinary words. Argument 424 → 376 words with every [Sn] marker, price, date and company kept, and five figures added from sources already on file: ~€6.1M Motol/Homolka [S3], ~€5.3M Prague [S4], ~121k CZK per subsidy application [S8], over a thousand entities still unregistered [S13], ICZ trading since 1997 [S16]. Corrected while tightening: "every one of these sellers is younger than the obligation itself" had swept in ICZ — the claim now names the four Czech products it is actually true of [S1,S16]. Lexnova keeps its price, repeat order and buyer type; only the quoted product name moved to the ledger and source name. First moves rewritten verbs-first with every marker and both tender links kept; a gist added beside all 16 sources. No score, status, note: field, locals[] entry or [Sn] marker touched.
 
 2026-09-04 · price receipt — Three figures already on file are now recorded as prices: the packaged Lexnova order at about 91,000 CZK [S23], Český Brod at about 9M CZK [S24] and the NIS2 Průvodce subscription at 3,000 CZK a month per company [S25]. Compligen and NIS2 Doku are priced in the same scan, but their own pages are not on this ledger, so they stay in the note. No score, status, note, locals[] entry or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from First moves 1–4 and build.note. No claim, score or source changed.

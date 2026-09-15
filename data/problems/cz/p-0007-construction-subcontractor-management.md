@@ -2,7 +2,7 @@
 id: p-0007
 region: cz
 title: Czech builders hire crews through Facebook, with no vetting
-fix: 'A marketplace for vetted building crews: the contractor hires a subcontractor whose
+solution: 'A marketplace for vetted building crews: the contractor hires a subcontractor whose
   papers are already checked, and the compliance documents and the pay run are handled in
   the same place.'
 category: housing

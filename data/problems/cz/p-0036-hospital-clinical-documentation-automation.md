@@ -2,7 +2,7 @@
 id: p-0036
 region: cz
 title: Czech hospitals write reports as free text, then pay people to read them again
-fix: 'Report templates inside the hospital system, so a radiology or oncology report is captured
+solution: 'Report templates inside the hospital system, so a radiology or oncology report is captured
   as data at the moment it is written and can be turned into insurer codes and registry entries
   for a coder to confirm rather than re-read.'
 price_search: 'Registr smluv full-text for "vykazování zdravotní péče" or "asistent vykazování"

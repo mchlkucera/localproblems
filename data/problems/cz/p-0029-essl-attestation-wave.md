@@ -8,6 +8,7 @@ price_search: 'Registr smluv full-text for "elektronická spisová služba" — 
   Pelhřimov is funded there to deploy one across the town and its organisations); otherwise ask
   the IT head of a district town (obec s rozšířenou působností) what its migration and annual
   support cost.'
+solution: 'A migration service that moves a ministry, hospital or town hall off a records system without the state certificate onto a certified one before 1 January 2027, records and metadata intact.'
 category: govtech
 geo: CZ-national
 score: 7
@@ -283,3 +284,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewrit
 FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records scoring >= 7 and this file scores 7; it was simply missing, which cost the reader the most actionable thing on the page. Four moves, each drawn from evidence already on the record: the buyers whose tenders keep republishing as the first customers [S2], migration off the dozen unattested Czech systems as the first build [S8], the 1 January 2027 date and its 200,000 CZK fine as the opening fact [S9], and the unattested vendors themselves as a second, recurring buyer [S1,S8]. No new fact was introduced, no source note was edited and no [Sn] marker was moved.
 
 2026-09-02 · plain-language pass — Three trade terms glossed at first use: TED as the EU's public tender journal [S2], Lesy ČR as Czech State Forests, OSS Alliance as an open-source group; SÚRAO gained an appositive and NOK became plain Norwegian kroner. The argument went 442 to 367 words, First moves 286 to 183, with every [Sn] marker, figure, date and named vendor kept. A gist was added to all nine sources. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from First moves 2 and 5, the lead paragraph and the who-pays paragraph. No claim, score or source changed.

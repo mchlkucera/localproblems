@@ -3,7 +3,7 @@ id: p-0004
 region: cz
 title: Families caring for ~380,000 dependent Czechs must obtain and defend příspěvek na péči
   through an opaque, bureaucratic process
-fix: 'A guided service that gets a family through the Czech care allowance (příspěvek na
+solution: 'A guided service that gets a family through the Czech care allowance (příspěvek na
   péči) — the application, the assessment visit and the appeal — for a flat or success
   fee.'
 price_search: 'The MS2021+ index under "neformální péče" (Moravskoslezský kraj and Statutární

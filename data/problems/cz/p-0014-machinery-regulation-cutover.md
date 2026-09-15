@@ -3,6 +3,7 @@ id: p-0014
 region: cz
 title: Czech machinery manufacturers, importers and retrofitters face a hard cutover to the
   new Machinery Regulation on 20 Jan 2027 with no transition period
+solution: 'A check of what a machine''s technical file is missing under the EU machinery rules from 20 January 2027, plus software that delivers the user instructions digitally.'
 category: b2b
 geo: CZ-national
 score: 2
@@ -71,3 +72,5 @@ Recommended follow-up: check how long Czech notified bodies — the independent 
 2026-08-24 · rejected — Removed from the register per the owner's quality mandate. One regulation signal is the entire evidence base; the second source is a URL copied from that signal's own notes, and the 9,324-signal corpus holds no Czech tender, contract or complaint touching Reg 2023/1230. Three citations failed verification against the fetched TÜV page: it carries no "documented pressure" (demand 1 → 0, score 3 → 2), no substantial-modification rule (re-cited to the regulation itself [S1]), and nothing about Czech industry — the "core Czech export sector" clause, true or not, had no receipt and is cut, as are "known bottleneck" and "underserved group". What remains is an EU deadline an LLM knows from memory, not a confirmed Czech problem.
 
 2026-09-02 · plain-language pass — Glossed at first use: Machinery Directive, placed on the market, substantial modification, conformity gap audit, notified body, technical file; "full conformity duties" replaced with plain words. Argument 166 → 248 words, every [S1] marker kept, "at record creation" and the productizable-angle clause cut. Added name, gist and why to both sources. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from the who-pays paragraph and build.note. No claim, score or source changed.

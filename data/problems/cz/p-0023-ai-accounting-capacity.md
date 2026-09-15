@@ -2,7 +2,7 @@
 id: p-0023
 region: cz
 title: Czech accountants are scarce, and the rules change in 2028
-fix: 'An accounting firm run as an AI document pipeline with licensed accountants on top,
+solution: 'An accounting firm run as an AI document pipeline with licensed accountants on top,
   starting with the single monthly payroll report every Czech employer has had to file
   since April 2026.'
 category: b2b

@@ -145,10 +145,11 @@ The reader is deciding what to build this quarter. Write for them:
 
 - **Headline**: short, plain, no acronym where a word exists. Detail goes in the dek.
 - **Dek**: explain every acronym and Czech term in plain English on first use.
-- **`fix:`**: one sentence naming what you would actually build. **Omit it entirely**
-  when the argument closes with an incumbent and names nothing an entrant would
-  build that the incumbent does not already sell — the page renders nothing, which
-  is honest. A vague fix reads worse than none.
+- **`solution:`**: one sentence stating what would likely solve the problem —
+  REQUIRED on every record, and always shown as "Likely solution", so describe the
+  product and never claim the outcome ("will solve", "the only", "guarantees" fail
+  the build). Where an incumbent already sells the answer, describe that product
+  neutrally; whether the field is open is the gap score's job, not this line's.
 - Never write about the register itself. No "this record", "de-rank", "gap check",
   "receipted", "urgency and rank". The reader does not know or care that a pipeline
   exists.

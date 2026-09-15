@@ -58,7 +58,7 @@ Sources from `sources[]`.
 ## Frontmatter that drives the page
 
 ```yaml
-fix: '<one plain sentence: the product a builder would actually build>'   # OPTIONAL
+solution: '<one plain sentence: what would likely solve the problem>'   # REQUIRED
 score: 7                      # MUST equal the sum of the five below
 scores:
   proof: 2                    # → "Validated abroad"   (0-3)
@@ -148,11 +148,14 @@ price list, a named ROLE at a named institution to ask. It is an estimate of
 WHERE, never of HOW MUCH: a crown figure in it fails the build (owner,
 2026-09-04). Renders beside "No Czech buyer has priced this yet."
 
-### `fix:` — the proposed product, in one sentence (optional)
+### `solution:` — the likely solution, in one sentence (required)
 
-Rendered directly under the dek, labelled `WHAT TO BUILD`. It exists because a
-builder used to have to read three sections down to First moves before learning
-what the product actually is. Rules:
+Rendered directly under the dek, ALWAYS labelled `LIKELY SOLUTION` — on the
+record page and on every other surface that shows it. The register says what
+would probably solve the problem, never that it knows (owner, 2026-09-10: "don't
+try to make it like we know everything"). It exists because a builder used to
+have to read three sections down to First moves before learning what the product
+actually is. Renamed from `fix:` and made required on 2026-09-10. Rules:
 
 - **One sentence, plainest words available.** Not a plan, not a pitch, no
   adjectives. "A marketplace where vetted nurses and carers pick up open shifts
@@ -162,11 +165,16 @@ what the product actually is. Rules:
 - **No jargon.** It is the second thing read after the dek, so the same rule
   applies: a Czech or EU acronym gets replaced or glossed inline (`NZÚ` → "the
   state renovation subsidy").
-- **OMIT IT where the record has no clear product answer** — typically where the
-  argument closes with a named local incumbent and does not say what an entrant
-  would build that the incumbent does not already sell. The page renders nothing
-  when the key is absent, and an absent line is better than a vague one. Four
-  live records are deliberately without it.
+- **Describe the product, never the outcome.** No certainty the label disowns:
+  "will solve/fix/eliminate", "guarantees", "the only", "the answer", "best",
+  "clearly". `scripts/check-records.py` fails the build on these (`OVERCLAIM`).
+- **REQUIRED on every record, rejected ones included** — the build fails without
+  it. It answers "what would likely solve this problem?", which every record can
+  answer, even one whose argument closes with a named local incumbent: there the
+  likely solution is what that incumbent sells, stated neutrally. Whether the
+  answer is still open to an entrant is the gap score's question, never this
+  field's (one field, one meaning). The old rule — omit the key where an
+  incumbent holds the field — is retired with the rename.
 
 ### `locals:` — who already sells this HERE (optional, but required at `gap: 0`)
 

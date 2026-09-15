@@ -3,7 +3,7 @@ id: p-0033
 region: cz
 title: Czech care providers are short thousands of workers and fill shifts by overtime and
   word of mouth — no staffing marketplace serves care
-fix: 'A marketplace where vetted nurses and carers pick up open shifts at care homes, and
+solution: 'A marketplace where vetted nurses and carers pick up open shifts at care homes, and
   the home pays a fee for every shift filled.'
 category: health
 geo: CZ-national

@@ -3,7 +3,7 @@ id: p-0011
 region: cz
 title: Czech home-care agencies burn scarce nurse time on phone-and-paper intake, scheduling
   and coordination
-fix: 'Czech-speaking voice intake for home-care agencies — the calls that book, move and
+solution: 'Czech-speaking voice intake for home-care agencies — the calls that book, move and
   confirm visits answered automatically, on top of the scheduling system the agency
   already runs.'
 category: health

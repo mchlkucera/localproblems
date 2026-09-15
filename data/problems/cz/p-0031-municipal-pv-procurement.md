@@ -2,7 +2,7 @@
 id: p-0031
 region: cz
 title: Czech towns buy rooftop solar one by one, and overpay for it
-fix: 'An aggregator that pools many towns'' rooftop-solar projects into one fixed-price
+solution: 'An aggregator that pools many towns'' rooftop-solar projects into one fixed-price
   contract, so the lots stop being too small for a supplier to bid on.'
 price_search: 'Registr smluv full-text for "administrace zadávacího řízení" with "fotovoltaick"
   — what a town pays a procurement administrator to run one rooftop-solar tender is the manual

@@ -2,7 +2,7 @@
 id: p-0010
 region: cz
 title: Small Czech trucking firms still run on phones, e-mail and paper
-fix: 'A back office for small hauliers that reads the paperwork: the delivered load''s own
+solution: 'A back office for small hauliers that reads the paperwork: the delivered load''s own
   delivery note and CMR consignment note become the invoice, and those documents go onto
   the electronic footing authorities must accept from July 2027.'
 category: mobility

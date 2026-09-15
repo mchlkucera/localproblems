@@ -4,6 +4,7 @@ region: cz
 title: Czech automotive and industrial-battery firms must ship digital battery passports with
   every battery from 18 Feb 2027 — the EU's first mandatory digital product passport, with
   no transition period
+solution: 'Battery-passport software that gathers carbon, materials and battery-health data across a battery''s supply chain and publishes it behind the QR code on each battery.'
 category: b2b
 geo: CZ-national
 score: 3
@@ -78,3 +79,5 @@ Next moves: search for Czech passport tooling; ask AutoSAP (the Czech automotive
 2026-08-24 · rejected — Owner review. The record holds no Czech evidence at all: no tender, no demand receipt, no money, and the gap was never checked — proof, money, demand and gap all sit at 0. Its two sources are an EU regulation page and a foreign trade-promotion article; the deadline is real [S1], but everything here is knowable without this register, and the only Czech content is unreceipted speculation about who is affected. A register of receipted local problems cannot carry it. Rejected, not deleted — the trail stays.
 
 2026-09-02 · plain-language pass — Five trade terms replaced or glossed at first use: EV, DPP, SaaS, ESPR, tier-2/3. Argument 257 → 253 words, every receipt kept — the 18 Feb 2027 date, the 2 kWh threshold, Škoda Auto, AutoSAP. Cut the sentence stating what the score rests on: scoring talk belongs here, not in rendered prose. Added name, gist and why to both sources. No score, status or note touched; no marker deleted or renumbered.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from the lead paragraph, the who-pays paragraph and build.note. No claim, score or source changed.

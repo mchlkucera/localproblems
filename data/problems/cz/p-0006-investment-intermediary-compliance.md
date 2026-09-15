@@ -3,7 +3,7 @@ id: p-0006
 region: cz
 title: Thousands of Czech investment intermediaries and advisors face growing ČNB/MiFID paperwork
   today and a directly applicable EU AML rulebook from July 2027
-fix: 'Compliance software for investment-advice firms covering the half nobody sells here
+solution: 'Compliance software for investment-advice firms covering the half nobody sells here
   yet: client-suitability paperwork, tied-agent oversight and the reporting the Czech
   central bank requires.'
 category: fintech

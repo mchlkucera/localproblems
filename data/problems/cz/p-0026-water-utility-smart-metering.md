@@ -2,6 +2,7 @@
 id: p-0026
 region: cz
 title: Small Czech water utilities each buy smart metering alone
+solution: 'Remote water-meter reading run as a service for small water utilities: one supplier fits the meters and radio readers, runs the data platform and reports consumption back to the utility.'
 category: environment
 geo: CZ-national
 score: 3
@@ -240,3 +241,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewrit
 2026-09-02 · plain-language pass — Glossed three trade terms at first use — CEM Smart, SMG Water and SUEZ Water CZ — and put plain words beside VaK and svazky; telemetry replaced outright. Argument went 291 to 299 words as the glosses landed; every figure, date and named company kept, and the window sentence now cites the Benešov pilot [S8], previously uncited. A gist added to all nine sources. No score, status, note or marker touched.
 
 2026-09-04 · price receipt — The two Židlochovicko contracts already on file are now also recorded as a price: about 8.4M CZK signed in one day, meters and readers plus the running of the system [S10]. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from build.note, the existing non-solutions paragraph and locals[]. No claim, score or source changed.

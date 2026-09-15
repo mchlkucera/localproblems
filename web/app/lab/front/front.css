@@ -1,0 +1,298 @@
+/* /lab/front — the register as a calm list. Builds on ../tokens.css (the gray
+   ramp, the type scale, the 4px grid); everything here is scoped under .lf.
+   ONE accent, and it is spent on keyboard focus only: a ring has to be seen
+   against every gray on the page, and nothing else here needs a colour. */
+
+.lf {
+  --lf-max: 1120px;
+  --lf-bar-h: 48px;
+  --lf-fs-title: 15px;              /* the row title: one step over body, under the peek title */
+  --lf-hover: #f8f8f9;              /* between --l-bg-2 and --l-bg-3: a row lifts, it does not flash */
+  --lf-band: #f7f7f8;               /* group header band */
+  --lf-focus: #5e6ad2;              /* the one accent — focus rings only */
+  --lf-cols: 44px minmax(0, 1fr) 112px 140px;
+  --lf-areas: "score title cat due" ".  sol . peek";
+}
+.lf .sr {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.lf time { font: inherit; }
+.lf :focus-visible { outline: 2px solid var(--lf-focus); outline-offset: 2px; border-radius: var(--l-radius-sm); }
+
+/* ---- top bar ---------------------------------------------------------------- */
+.lf-bar {
+  position: sticky; top: 0; z-index: 20;
+  height: var(--lf-bar-h);
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: saturate(1.5) blur(10px); backdrop-filter: saturate(1.5) blur(10px);
+  border-bottom: 1px solid var(--l-line);
+}
+.lf-bar-in {
+  max-width: var(--lf-max); height: 100%; margin: 0 auto; padding: 0 var(--l-6);
+  display: flex; align-items: center; gap: var(--l-3);
+}
+.lf-brand { font-size: var(--l-fs-base); font-weight: 600; letter-spacing: -0.01em; color: var(--l-text-1); }
+.lf-crumb { font-size: var(--l-fs-md); color: var(--l-text-3); }
+.lf-crumb::before { content: "/"; margin-right: var(--l-3); color: var(--l-line-2); }
+.lf-nav { margin-left: auto; display: flex; gap: 2px; }
+.lf-nav a {
+  padding: 5px 10px; border-radius: var(--l-radius);
+  font-size: var(--l-fs-md); font-weight: 500; color: var(--l-text-3);
+}
+.lf-nav a:hover { color: var(--l-text-1); background: var(--l-bg-3); }
+.lf-nav a[aria-current="page"] { color: var(--l-text-1); }
+
+/* ---- page frame --------------------------------------------------------------- */
+.lf-wrap { max-width: var(--lf-max); margin: 0 auto; padding: 0 var(--l-6); }
+
+.lf-intro { padding: var(--l-8) 0 var(--l-6); }
+.lf-intro h1 {
+  font-size: var(--l-fs-2xl); line-height: 1.2; font-weight: 600; letter-spacing: -0.022em;
+  color: var(--l-text-1);
+}
+.lf .lf-lede {
+  margin-top: var(--l-3); max-width: 60ch;
+  font-size: var(--l-fs-lg); line-height: 1.55; color: var(--l-text-2);
+}
+.lf .lf-stats {
+  display: flex; flex-wrap: wrap; gap: var(--l-1) var(--l-5);
+  margin-top: var(--l-5);
+  font-size: var(--l-fs-md); color: var(--l-text-3);
+}
+.lf-stats b { font-weight: 600; color: var(--l-text-1); font-variant-numeric: tabular-nums; margin-right: 5px; }
+
+/* ---- toolbar: group-by + the one-line legend ------------------------------------ */
+.lf-tools {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--l-3) var(--l-5);
+  padding: var(--l-4) 0 var(--l-3);
+  border-top: 1px solid var(--l-line);
+}
+.lf-seg { display: flex; align-items: center; gap: var(--l-3); }
+.lf-seg-label { font-size: var(--l-fs-md); color: var(--l-text-3); }
+.lf-seg-track { display: inline-flex; padding: 2px; gap: 2px; border-radius: 8px; background: var(--l-bg-3); }
+.lf-seg-track a {
+  padding: 3px 10px; border-radius: var(--l-radius);
+  font-size: var(--l-fs-md); font-weight: 500; line-height: 20px; color: var(--l-text-3);
+}
+.lf-seg-track a:hover { color: var(--l-text-1); }
+.lf-seg-track a[aria-current="true"] {
+  color: var(--l-text-1); background: var(--l-bg);
+  box-shadow: 0 0 0 1px var(--l-line-2), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.lf-legend { font-size: var(--l-fs-md); color: var(--l-text-3); }
+
+/* ---- the list ------------------------------------------------------------------- */
+.lf-list--nocat { --lf-cols: 44px minmax(0, 1fr) 140px; --lf-areas: "score title due" ". sol peek"; }
+
+.lf-head, .lf-row { display: grid; grid-template-columns: var(--lf-cols); column-gap: var(--l-4); }
+.lf-head {
+  padding: var(--l-2) var(--l-3);
+  font-size: var(--l-fs-sm); font-weight: 500; color: var(--l-text-4);
+}
+
+.lf .lf-group-h {
+  position: sticky; top: var(--lf-bar-h); z-index: 5;
+  display: flex; align-items: baseline; gap: var(--l-2);
+  padding: 9px var(--l-3);
+  background: var(--lf-band);
+  border-top: 1px solid var(--l-line); border-bottom: 1px solid var(--l-line);
+  font-size: var(--l-fs-md); font-weight: 600; line-height: 18px; color: var(--l-text-1);
+}
+.lf-group-h .n { font-weight: 500; color: var(--l-text-3); font-variant-numeric: tabular-nums; }
+.lf-group + .lf-group { margin-top: var(--l-5); }
+
+.lf .lf-rows { list-style: none; padding: 0; }
+
+.lf-row {
+  position: relative; align-items: start;
+  grid-template-areas: var(--lf-areas); row-gap: var(--l-1);
+  padding: var(--l-4) var(--l-3) 18px;
+  border-bottom: 1px solid var(--l-line);
+  transition: background-color 80ms ease-out;
+}
+.lf-row:last-child { border-bottom: 0; }
+.lf-row:hover { background: var(--lf-hover); }
+/* the row is one target: the title link stretches over it */
+.lf-title a::after { content: ""; position: absolute; inset: 0; }
+.lf-title a:focus-visible { outline: none; }
+.lf-row:has(.lf-title a:focus-visible) { box-shadow: inset 0 0 0 2px var(--lf-focus); border-radius: var(--l-radius); }
+
+/* every cell on the first line shares the title's 22px line box, so the score,
+   the category and the date sit on the title's baseline */
+.lf-score, .lf-cat, .lf-due { font-size: var(--l-fs-md); line-height: 22px; font-variant-numeric: tabular-nums; }
+.lf-score { font-weight: 600; }
+.lf-score .of { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.lf-score.t1 { color: var(--l-text-1); }
+.lf-score.t2 { color: var(--l-text-2); }
+.lf-score.t3 { color: var(--l-text-3); }
+.lf-score.t4 { color: var(--l-text-4); }
+
+/* the title and the solution are grid items of the row, so the Preview
+   button can sit on the solution's first line, under the date */
+.lf-main { display: contents; }
+.lf-title { grid-area: title; min-width: 0; }
+.lf-sol { grid-area: sol; min-width: 0; }
+.lf-score { grid-area: score; }
+.lf-cat { grid-area: cat; }
+.lf-due { grid-area: due; }
+.lf-title, .lf .lf-sol { max-width: 44rem; }   /* one measure for both reading lines, in every grouping */
+.lf-title {
+  font-size: var(--lf-fs-title); line-height: 22px; font-weight: 500; letter-spacing: -0.008em;
+  color: var(--l-text-1); text-wrap: pretty;
+}
+.lf .lf-sol {
+  font-size: var(--l-fs-base); line-height: 21px; color: var(--l-text-2); text-wrap: pretty;
+}
+.lf-sol .k { font-weight: 500; color: var(--l-text-3); margin-right: 3px; }
+
+.lf-cat { color: var(--l-text-3); }
+.lf-due { color: var(--l-text-2); white-space: nowrap; }
+.lf-due .rel { margin-left: var(--l-2); color: var(--l-text-4); }
+
+/* ---- buttons -------------------------------------------------------------------- */
+.lf-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 26px; padding: 0 10px;
+  font: 500 var(--l-fs-sm)/1 var(--l-font); color: var(--l-text-2);
+  background: var(--l-bg); border: 1px solid var(--l-line-2); border-radius: var(--l-radius);
+  cursor: pointer; white-space: nowrap;
+}
+.lf-btn:hover { color: var(--l-text-1); background: var(--l-bg-2); border-color: #cfcfd4; }
+.lf-btn--primary { height: 32px; padding: 0 14px; font-size: var(--l-fs-md); color: #fff; background: var(--l-text-1); border-color: var(--l-text-1); }
+.lf-btn--primary:hover { color: #fff; background: #2c2d31; border-color: #2c2d31; }
+
+.lf-peek-btn { grid-area: peek; position: relative; z-index: 1; justify-self: start; height: 24px; margin-top: -1px; opacity: 0; transition: opacity 80ms ease-out; }
+.lf-row:hover .lf-peek-btn, .lf-row:focus-within .lf-peek-btn, .lf-peek-btn:focus-visible { opacity: 1; }
+@media (hover: none) { .lf-peek-btn { opacity: 1; } }
+
+/* ---- the peek: a native popover, floated at the right like Linear's ---------- */
+.lf-peek {
+  position: fixed; inset: 8px 8px 8px auto; margin: 0;
+  width: min(460px, calc(100vw - 16px)); height: auto; max-height: none;
+  padding: 0; border: 1px solid var(--l-line-2); border-radius: 10px;
+  background: var(--l-bg); color: var(--l-text-1); box-shadow: var(--l-shadow-pop);
+  font-family: var(--l-font); font-size: var(--l-fs-base); line-height: 1.5;
+  overflow: hidden;
+}
+.lf-peek:popover-open { display: flex; flex-direction: column; }
+.lf-peek::backdrop { background: transparent; }
+@media (prefers-reduced-motion: no-preference) {
+  .lf-peek { transition: opacity 140ms ease-out, translate 140ms ease-out, display 140ms allow-discrete, overlay 140ms allow-discrete; }
+  .lf-peek:popover-open { opacity: 1; translate: 0 0; }
+  @starting-style { .lf-peek:popover-open { opacity: 0; translate: 12px 0; } }
+}
+
+.lf-pk-bar {
+  display: flex; align-items: center; gap: var(--l-2); flex: none;
+  height: 48px; padding: 0 var(--l-3) 0 var(--l-5);
+  border-bottom: 1px solid var(--l-line);
+  font-size: var(--l-fs-sm); color: var(--l-text-3);
+}
+.lf-pk-bar .sep { color: var(--l-line-2); }
+.lf-pk-bar .id { font-variant-numeric: tabular-nums; }
+.lf-pk-close { margin-left: auto; }
+
+.lf-pk-body { flex: 1; overflow-y: auto; padding: var(--l-5) var(--l-5) var(--l-6); }
+.lf-pk-title { font-size: var(--l-fs-xl); line-height: 1.35; font-weight: 600; letter-spacing: -0.015em; text-wrap: pretty; }
+
+.lf-pk-sol {
+  margin-top: var(--l-4); padding: var(--l-3) 14px;
+  background: var(--l-bg-2); border: 1px solid var(--l-line); border-radius: 8px;
+}
+.lf-pk-sol .k { font-size: var(--l-fs-sm); font-weight: 500; color: var(--l-text-3); }
+.lf .lf-pk-sol .k + p { margin-top: 2px; font-size: var(--l-fs-base); line-height: 1.55; color: var(--l-text-1); }
+
+.lf-pk-prose { margin: var(--l-5) 0 0; }
+.lf-pk-prose dt { font-size: var(--l-fs-sm); font-weight: 500; color: var(--l-text-3); }
+.lf-pk-prose dd { margin: 2px 0 0; font-size: var(--l-fs-base); line-height: 1.55; color: var(--l-text-2); }
+.lf-pk-prose dd + dt { margin-top: var(--l-4); }
+
+.lf .lf-pk-h {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-top: var(--l-6); padding-bottom: var(--l-2);
+  border-bottom: 1px solid var(--l-line);
+  font-size: var(--l-fs-md); font-weight: 600; color: var(--l-text-1);
+}
+.lf-pk-h .num { font-variant-numeric: tabular-nums; }
+.lf-pk-h .of { color: var(--l-text-3); font-weight: 500; }
+
+/* the properties list — label · value · meter, Linear's issue sidebar */
+.lf .lf-props { list-style: none; padding: 0; }
+.lf-props li {
+  display: grid; grid-template-columns: 124px minmax(0, 1fr) auto; column-gap: var(--l-3);
+  padding: var(--l-2) 0; border-bottom: 1px solid var(--l-line);
+  font-size: var(--l-fs-md); line-height: 20px;
+}
+.lf-props li:last-child { border-bottom: 0; }
+.lf-props--plain li { grid-template-columns: 124px minmax(0, 1fr); }
+.lf-props .lbl { color: var(--l-text-3); }
+.lf-props .val { color: var(--l-text-1); }
+.lf-props .sub { display: block; color: var(--l-text-3); }
+.lf-meter { display: inline-flex; gap: 2px; margin-top: 8px; }
+.lf-meter i { display: block; width: 10px; height: 4px; border-radius: 1px; background: var(--l-line-2); }
+.lf-meter i.on { background: var(--l-text-1); }
+
+.lf-pk-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--l-3); flex: none;
+  padding: var(--l-3) var(--l-3) var(--l-3) var(--l-5);
+  border-top: 1px solid var(--l-line); background: var(--l-bg-2);
+  font-size: var(--l-fs-sm); color: var(--l-text-3);
+}
+
+/* ---- footer ----------------------------------------------------------------------- */
+.lf .lf-foot { margin-top: var(--l-8); padding: 0; border-top: 1px solid var(--l-line); font: inherit; color: inherit; }
+.lf-foot-in {
+  display: flex; justify-content: space-between; gap: var(--l-4);
+  padding-top: var(--l-5); padding-bottom: var(--l-7);
+  font-size: var(--l-fs-md); color: var(--l-text-3);
+}
+.lf-foot a:hover { color: var(--l-text-1); }
+
+/* ---- tablet: the category column goes, the meta stays on the title line ------- */
+@media (max-width: 960px) {
+  .lf, .lf-list--nocat { --lf-cols: 36px minmax(0, 1fr) 132px; --lf-areas: "score title due" ". sol peek"; }
+  .lf-cat, .lf-list:not(.lf-list--nocat) .lf-head span:nth-child(3) { display: none; }
+}
+
+/* ---- phone: one column, the meta moves under the two reading lines -------------- */
+@media (max-width: 720px) {
+  .lf-bar-in, .lf-wrap { padding: 0 var(--l-4); }
+  .lf-crumb { display: none; }
+  .lf-intro { padding: var(--l-6) 0 var(--l-5); }
+  .lf-intro h1 { font-size: 24px; }
+  .lf .lf-lede { font-size: 15px; }
+  .lf .lf-stats { gap: var(--l-1) var(--l-4); }
+  .lf-tools { gap: var(--l-2); }
+  .lf-legend { font-size: var(--l-fs-sm); }
+  .lf-head { display: none; }
+
+  .lf, .lf-list--nocat {
+    --lf-cols: auto auto minmax(0, 1fr) auto;
+    --lf-areas: "title title title title" "sol sol sol sol" "score cat due peek";
+  }
+  .lf-list--nocat { --lf-areas: "title title title title" "sol sol sol sol" "score due due peek"; }
+  .lf-row { column-gap: 0; row-gap: 0; padding: var(--l-4) 0; }
+  .lf .lf-sol { margin-top: var(--l-1); }
+  .lf-cat { display: block; }
+  .lf-score, .lf-cat, .lf-due { margin-top: var(--l-2); font-size: var(--l-fs-sm); line-height: 26px; }
+  .lf-score .of { position: static; width: auto; height: auto; clip: auto; overflow: visible; font-weight: 500; color: var(--l-text-4); }
+  .lf-cat::before, .lf-due:not(:empty)::before { content: "·"; margin: 0 var(--l-2); color: var(--l-text-4); }
+  .lf-due .rel { margin-left: var(--l-1); }
+  .lf-peek-btn { margin-top: var(--l-2); justify-self: end; align-self: center; opacity: 1; }
+  .lf .lf-group-h { margin: 0 calc(var(--l-4) * -1); padding: 9px var(--l-4); }
+
+  /* the peek becomes a bottom sheet */
+  .lf-peek { inset: auto 0 0 0; width: 100%; max-height: 88dvh; border-radius: 12px 12px 0 0; border-width: 1px 0 0; }
+  .lf-peek::backdrop { background: rgba(27, 28, 31, 0.24); }
+  @media (prefers-reduced-motion: no-preference) {
+    @starting-style { .lf-peek:popover-open { opacity: 0; translate: 0 24px; } }
+  }
+  .lf-pk-body { padding: var(--l-4) var(--l-4) var(--l-5); }
+  .lf-pk-bar { padding-left: var(--l-4); }
+  .lf-pk-foot { padding-left: var(--l-4); }
+  .lf-props li { grid-template-columns: 104px minmax(0, 1fr) auto; }
+  .lf-props--plain li { grid-template-columns: 104px minmax(0, 1fr); }
+  .lf-foot-in { flex-direction: column; gap: var(--l-2); }
+}

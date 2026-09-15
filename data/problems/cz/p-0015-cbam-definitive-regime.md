@@ -4,6 +4,7 @@ region: cz
 title: Czech importers of steel, aluminium and other CBAM goods have been accruing certificate
   liability since Jan 2026 and must hold authorised declarant status before certificate sales
   open in Feb 2027
+solution: 'Software backed by a customs adviser that registers an importer to buy certificates under the EU carbon border levy, collects emissions data from its foreign suppliers, and books the emissions and their certificate cost in its accounting system.'
 category: environment
 geo: CZ-national
 score: 2
@@ -78,3 +79,5 @@ Recommended follow-up: count the Czech importers above the threshold in customs 
 2026-08-24 · rejected — Removed from the register per the owner's quality mandate. One regulation signal is the entire evidence base; the second source is a URL copied from that signal's own notes, and the 9,324-signal corpus holds no Czech tender, contract or complaint touching CBAM. Two receipts failed verification against the fetched EY alert [S2]: it contains neither the "~90% of importers / ~99% of emissions" figures attributed to it (rewritten to what it does say) nor any documented CFO-level cash-planning pressure (clause cut; demand 1 → 0, score 3 → 2). What remains is an EU deadline an LLM reproduces from memory, not a confirmed Czech problem.
 
 2026-09-02 · plain-language pass — Glossed five terms at first use: CBAM, embedded emissions, the 2025 Omnibus, EU ETS and ERP; CFO replaced with finance director. Argument reshaped from 226 to 254 words, every date, tonnage and threshold kept and the long opening sentence split so each half carries [S1]. Both sources gained a public name, gist and why line. No score, status or source note touched, and no marker deleted or renumbered.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from build.note and the who-pays and why-now paragraphs. No claim, score or source changed.

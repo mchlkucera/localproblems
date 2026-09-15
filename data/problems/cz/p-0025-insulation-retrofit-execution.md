@@ -2,7 +2,7 @@
 id: p-0025
 region: cz
 title: Czech home insulation runs through one-man firms nobody can vet
-fix: 'The whole house at one fixed price — facade included, own trained crews, and the
+solution: 'The whole house at one fixed price — facade included, own trained crews, and the
   state renovation subsidy handled — where today the roof, the walls and the paperwork
   mean three firms and three quotes.'
 category: energy

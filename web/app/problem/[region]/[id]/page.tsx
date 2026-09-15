@@ -1,5 +1,5 @@
 // The record page — a board brief, not a dossier (owner rebuild, 2026-08-24).
-// docket (id, dek, the one-line proposed fix, facts, quiet meta) · a plain
+// docket (id, dek, the one-line likely solution, facts, quiet meta) · a plain
 // "Opportunity /12" scorecard (plain
 // labels, plain reads, no verdict words, no rundown dialogs) · a builder funnel
 // of plain sections: the problem → proven abroad → local competition → how big
@@ -271,22 +271,20 @@ export default async function Record({ params }: Params) {
           {sections.dek && (
             <p className="dek" dangerouslySetInnerHTML={{ __html: repageLedgerLinks(annotateSourceRefs(renderInline(sections.dek), sourceRefs), signalHref) }} />
           )}
-          {/* The proposed fix — one plain sentence naming the product, directly
-              under the dek (owner, 2026-08-25). Unlike the dek, which is
-              compressed out of the who-pays paragraph at build time, this is an
-              AUTHORED frontmatter field: `fix:` on the record, a real column in
-              the projection, a typed optional in ProblemSchema. Optional by
-              design — a record with no clear product answer omits it and this
-              renders nothing, which is honest; a vague fix would read worse
-              than none. It goes through the same inline pipeline as the dek so
-              an `[Sn]` marker or a ledger url inside it resolves rather than
-              printing as literal text. */}
-          {p.fix && (
-            <p className="fixline">
-              <span className="k">What to build</span>
-              <span dangerouslySetInnerHTML={{ __html: repageLedgerLinks(annotateSourceRefs(renderInline(p.fix), sourceRefs), signalHref) }} />
-            </p>
-          )}
+          {/* The likely solution — one plain sentence, directly under the dek.
+              An AUTHORED frontmatter field (`solution:`, required since
+              2026-09-10; it was the optional `fix:` from 2026-08-25), a NOT NULL
+              column in the projection. The label is fixed and ALWAYS "Likely
+              solution" (owner, 2026-09-10: "don't try to make it like we know
+              everything") — the register states what would probably solve the
+              problem, never that it knows. It goes through the same inline
+              pipeline as the dek so an `[Sn]` marker or a ledger url inside it
+              resolves rather than printing as literal text. The `.fixline`
+              class keeps its name: the stylesheet is checksum-locked. */}
+          <p className="fixline">
+            <span className="k">Likely solution</span>
+            <span dangerouslySetInnerHTML={{ __html: repageLedgerLinks(annotateSourceRefs(renderInline(p.solution), sourceRefs), signalHref) }} />
+          </p>
           <dl className="facts facts--rail">
             <div><dt>Category</dt><dd><a href={`/category/${p.category}`}>{categoryLabel(p.category)}</a></dd></div>
             <div><dt>Locality</dt><dd>{localityLong(p.geo)}</dd></div>

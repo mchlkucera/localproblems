@@ -3,6 +3,7 @@ id: p-0013
 region: cz
 title: Czech banks and payment institutions must receive instant euro payments by 9 Jan 2027
   and send them with Verification of Payee by 9 Jul 2027
+solution: 'A hosted service for smaller Czech banks and payment firms that connects them to instant euro payments, checks the payee''s name against the account number before money leaves, and screens transfers for sanctions around the clock.'
 category: fintech
 geo: CZ-national
 score: 2
@@ -72,3 +73,5 @@ Existing non-solutions: the large banks build it in house. For everyone smaller,
 2026-08-24 · rejected — Removed from the register per the owner's quality mandate. One regulation signal is the entire evidence base; the second source is a URL copied from that signal's own notes, and the 9,324-signal corpus holds no Czech tender, contract or complaint touching SEPA Instant readiness. The demand receipt failed verification: the cited Worldline post says nothing about smaller PSPs lacking capability — it omits implementation challenges entirely and notes CZ is fast-tracking payment innovation [S2] — so the capability sentence and title clause are cut, demand 1 → 0, score 3 → 2. What remains is an EU deadline restated from memory-grade material, not a confirmed Czech problem.
 
 2026-09-02 · plain-language pass — Five trade terms glossed or replaced at first use: Verification of Payee, IBAN, VoP, PSPs, ČBA. Argument 214 → 209 words, every date and [Sn] marker kept. The stray Recommended follow-up paragraph folded into Existing non-solutions, where it already rendered. A public name, gist and why added to both sources. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from the who-pays paragraph, build.note and the existing non-solutions paragraph. No claim, score or source changed.

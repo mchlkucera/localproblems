@@ -1,0 +1,108 @@
+/* The front page prototype — the register set as a newspaper.
+   Scoped under .front; spends only the house tokens (seven colours, the 4px
+   scale, the two families, the three rule weights). No new colour, size or
+   glyph. The column rule between stories is the 1px row hairline turned
+   upright: a boundary between two records, nothing more. */
+
+.front h2, .front h3 { margin: 0; }
+.front .story h2 a, .front .brief h3 a { color: var(--ink); text-decoration: none; }
+.front .story h2 a:hover, .front .brief h3 a:hover { text-decoration: underline 2px var(--ink); text-underline-offset: 0.15em; }
+
+/* kicker: the clerk's line above a headline — section, place, score */
+.front .kicker {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3);
+  margin: 0 0 var(--sp-2); max-width: none;
+  font: 600 var(--fs-label)/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);
+}
+.front .kicker .score { letter-spacing: 0; color: var(--ink); }
+
+.front .lede { font: 400 var(--fs-body)/1.5 var(--serif); margin: var(--sp-3) 0 0; }
+.front .fix { font: 400 var(--fs-body)/1.5 var(--serif); margin: var(--sp-3) 0 0; }
+.front .fix .k {
+  font: 600 var(--fs-label)/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+  margin-right: var(--sp-1);
+}
+
+/* glance: the scorecard's reads as a two-column ledger, label · value */
+.front .glance {
+  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: var(--sp-1) var(--sp-3);
+  margin: var(--sp-4) 0 0; padding-top: var(--sp-3); border-top: 1px solid var(--rule);
+  font: 400 var(--fs-meta)/1.45 var(--mono); color: var(--ink-muted);
+}
+.front .glance div { display: contents; }
+.front .glance dt { font-weight: 600; font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; padding-top: 1px; }
+.front .glance dd { margin: 0; color: var(--ink); }
+
+/* the field strip: one tick per company — the scorecard's wide-tick tally
+   geometry (6×10, 4px apart). Ink = established, muted = early. --rule is
+   deliberately not a tick colour: in the tally grammar it means an empty slot. */
+.front .ticks { display: inline-flex; gap: var(--sp-1); margin-right: var(--sp-2); vertical-align: -1px; }
+.front .ticks i { display: block; width: 6px; height: 10px; background: var(--ink-muted); }
+.front .ticks i.est { background: var(--ink); }
+.front .tickkey {
+  display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); max-width: none;
+  margin: var(--sp-4) 0 0; font: 400 var(--fs-meta)/1.4 var(--mono); color: var(--ink-muted);
+}
+.front .tickkey .ticks { margin-right: var(--sp-1); }
+
+/* above the fold: the lead story and the deadlines column */
+.front .above-fold {
+  display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  margin-top: var(--sp-6); padding-bottom: var(--sp-6);
+  border-bottom: 3px double var(--ink);
+}
+.front .story--lead { padding-right: var(--sp-6); }
+.front .story--lead h2 { font: 700 var(--fs-title)/1.15 var(--serif); max-width: 26ch; }
+.front .story--lead .lede { font-size: var(--fs-h2); line-height: 1.45; margin-top: var(--sp-4); }
+.front .story--lead .fix { font-size: 1.125rem; }
+.front .story--lead .glance { max-width: 40rem; }
+.front .story--lead .dek { font: 400 var(--fs-body)/1.5 var(--serif); color: var(--ink-muted); margin: var(--sp-3) 0 0; }
+
+.front .windows { border-left: 1px solid var(--rule); padding-left: var(--sp-5); }
+.front .windows h3 {
+  font: 600 var(--fs-label)/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+  padding-bottom: var(--sp-2); border-bottom: 1px solid var(--ink);
+}
+.front .windows ol { list-style: none; margin: 0; padding: 0; }
+.front .windows li { padding: var(--sp-2) 0; border-bottom: 1px solid var(--rule); }
+.front .windows time { font: 600 var(--fs-meta)/1.5 var(--mono); margin-right: var(--sp-3); }
+.front .windows .out { font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
+.front .windows li a {
+  display: block; font: 400 var(--fs-data)/1.4 var(--serif); color: var(--ink);
+  text-decoration: none;
+}
+.front .windows li a:hover { text-decoration: underline 2px var(--ink); }
+
+/* the top stories: three columns, upright hairlines between them */
+.front .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.front .grid .story { padding: var(--sp-5) var(--sp-5) var(--sp-6); border-bottom: 1px solid var(--rule); }
+.front .grid .story:nth-child(3n + 1) { padding-left: 0; }
+.front .grid .story:nth-child(3n) { padding-right: 0; }
+.front .grid .story:not(:nth-child(3n + 1)) { border-left: 1px solid var(--rule); }
+.front .grid .story h2 { font: 700 var(--fs-h2)/1.25 var(--serif); }
+
+/* in brief: the lower half of the register as newspaper briefs */
+.front .briefs { margin-top: var(--sp-7); }
+.front .briefs > h2 {
+  font: 600 var(--fs-label)/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+  padding: var(--sp-3) 0 var(--sp-2); border-top: 3px double var(--ink); border-bottom: 1px solid var(--ink);
+}
+.front .briefs .cols { columns: 3; column-gap: var(--sp-6); column-rule: 1px solid var(--rule); }
+.front .brief { break-inside: avoid; padding: var(--sp-4) 0; border-bottom: 1px solid var(--rule); }
+.front .brief h3 { font: 600 var(--fs-body)/1.3 var(--serif); }
+.front .brief .fix { font-size: var(--fs-data); color: var(--ink-muted); margin-top: var(--sp-2); }
+.front .brief .fix .k { color: var(--ink); }
+
+@media screen and (max-width: 56rem) {
+  .front .above-fold { grid-template-columns: minmax(0, 1fr); }
+  .front .story--lead { padding-right: 0; }
+  .front .windows { border-left: 0; padding-left: 0; margin-top: var(--sp-6); }
+  .front .grid { grid-template-columns: minmax(0, 1fr); }
+  .front .grid .story { padding-inline: 0; border-left: 0 !important; }
+  .front .briefs .cols { columns: 2; }
+}
+@media screen and (max-width: 40rem) {
+  .front .briefs .cols { columns: 1; }
+  .front .story--lead h2 { font-size: var(--fs-h2); }
+  .front .story--lead .lede, .front .story--lead .fix { font-size: var(--fs-body); }
+}

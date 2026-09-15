@@ -2,7 +2,7 @@
 id: p-0030
 region: cz
 title: Only eleven Czech crypto firms got licensed; the rest must wind down
-fix: 'A packaged wind-down for the crypto firms that did not get licensed: notify
+solution: 'A packaged wind-down for the crypto firms that did not get licensed: notify
   customers, move their coins and cash to a licensed provider, and close the records and
   the tax to a standard the regulator will accept.'
 category: fintech

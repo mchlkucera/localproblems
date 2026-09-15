@@ -306,6 +306,16 @@ def buyers_by_ico():
     return _BUYERS
 
 
+# Certainty a "Likely solution" may not claim (owner, 2026-09-10: "don't try to
+# make it like we know everything"). Outcome verbs and superlatives only — a
+# legal "must" describing an obligation is a fact, not an overclaim, so it is
+# deliberately absent.
+OVERCLAIM = re.compile(
+    r"(?i)\b(?:will (?:solve|fix|end|eliminate|remove|stop|save|cut|make)|guarantee\w*|"
+    r"the only\b|the answer\b|eliminat\w*|definitely|certainly|clearly|obviously|best\b|"
+    r"perfect\w*|always|never\b|solves?\b|the solution\b)")
+
+
 def established(since, evidence, year, ico=None):
     """The established test, as one function. -> (bool, [limbs passed], [why not]).
 
@@ -410,6 +420,26 @@ def check(path, year):
         s = sum(scores.values())
         if s != total:
             errors.append(f"score {total} != sum of dimensions {s}")
+
+    # ---- the likely solution (owner, 2026-09-10) ---------------------------
+    # "Make sure everyone has one" — REQUIRED on every record, rejected ones
+    # included, because it answers "what would likely solve this?", which every
+    # record can answer; whether that answer is still open to an entrant is the
+    # gap score's question, never this field's (one field, one meaning). And
+    # "don't try to make it like we know everything": the page always labels it
+    # "Likely solution", so the sentence may not claim certainty the label
+    # disowns. The word list was run over all 37 sentences when it was written
+    # and matched none — it catches drift, it does not police existing prose.
+    if "fix" in doc:
+        errors.append("`fix:` was renamed `solution:` on 2026-09-10 — rename the key")
+    solution = doc.get("solution")
+    if not isinstance(solution, str) or not solution.strip():
+        errors.append("no `solution:` — one plain sentence stating the likely solution is "
+                      "required on every record (RECORD-TEMPLATE.md)")
+    else:
+        for claim in OVERCLAIM.findall(solution):
+            errors.append(f"`solution:` claims certainty ('{claim}') — it is always shown as "
+                          f"the LIKELY solution; describe the product, not the outcome")
 
     # ---- citation integrity ------------------------------------------------
     n_sources = len(sources)

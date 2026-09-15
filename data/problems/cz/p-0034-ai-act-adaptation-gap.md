@@ -2,7 +2,7 @@
 id: p-0034
 region: cz
 title: Czech firms run live EU AI transparency duties with no national supervisor yet
-fix: 'A fixed-price check of every AI tool a small Czech company uses — does the chatbot
+solution: 'A fixed-price check of every AI tool a small Czech company uses — does the chatbot
   say it is a machine, is the AI-made content labelled — repeated each time the rules or the
   regulator move.'
 category: legal-compliance

@@ -2,7 +2,7 @@
 id: p-0022
 region: cz
 title: Czech hospitals each buy the same data plumbing from scratch
-fix: 'One hospital integration layer built as a product and sold to every hospital group,
+solution: 'One hospital integration layer built as a product and sold to every hospital group,
   instead of each one commissioning the same connections between its clinical systems from
   scratch.'
 category: health

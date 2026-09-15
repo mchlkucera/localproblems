@@ -4,7 +4,7 @@ region: cz
 title: Czech sewer operators must bill rainwater from surfaces nobody has measured
 category: environment
 geo: CZ-national
-fix: 'A service that maps every roof and paved surface draining into a public sewer from the state orthophoto and cadastre, sends each owner a pre-filled area statement, and hands the sewer operator a billing-ready file.'
+solution: 'A service that maps every roof and paved surface draining into a public sewer from the state orthophoto and cadastre, sends each owner a pre-filled area statement, and hands the sewer operator a billing-ready file.'
 score: 9
 scores:
   proof: 2

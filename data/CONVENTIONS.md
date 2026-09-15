@@ -285,7 +285,7 @@ two meanings. No region judgment at normalize.
 One markdown file per problem: `p-NNNN-<slug>.md`. A problem is uniquely
 `<region>/<id>`; each region has its own p-NNNN namespace. Frontmatter:
 ```
-id, region, title, fix? (one plain sentence: the proposed product), category
+id, region, title, solution (one plain sentence: the likely solution), category
 (sector list above), geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status: candidate | active | watching | stale | claimed | solved | rejected,
@@ -340,13 +340,13 @@ alone never claims "who pays and how much". `basis: manual-equivalent` is how an
 OPEN field gets priced at all — there is no incumbent page to read a price
 from, so the receipt is what the same job costs done by hand.
 
-`fix` — OPTIONAL, one plain sentence naming the product a builder would build,
-rendered under the dek as `WHAT TO BUILD`. Compression of `## First moves` and
-`build.note`, never invention; no Czech/EU acronym goes in ungloss. Where a
-record has no clear product answer — the argument closes with a named local
-incumbent and never says what an entrant would build instead — OMIT the key.
-The template renders nothing when it is absent, which is honest; a vague fix is
-worse than none.
+`solution` — REQUIRED (was the optional `fix`, renamed 2026-09-10), one plain
+sentence stating what would likely solve the problem, ALWAYS rendered as `LIKELY
+SOLUTION` — never as a known answer. Compression of `## First moves`,
+`build.note` and the solved-elsewhere paragraph, never invention; no Czech/EU
+acronym goes in ungloss; no certainty words (check-records.py `OVERCLAIM`).
+Where a local incumbent already sells the answer, the sentence describes that
+product neutrally — whether the field is open is the gap score's job.
 
 `build` — the buildability scorecard (REQUIRED on every record): who can build
 this, with what, how fast. Judged honestly from the record's own evidence, never

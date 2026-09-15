@@ -2,7 +2,7 @@
 id: p-0027
 region: cz
 title: Complaints about Czech consumer loans have quadrupled, all handled by hand
-fix: 'Case software for lenders answering complaints at the Financial Arbitrator: pull the
+solution: 'Case software for lenders answering complaints at the Financial Arbitrator: pull the
   loan file, draft the response, hold every deadline, and flag which cases to settle.'
 price_search: 'No public buyer pays for this, so ask the head of legal or compliance at a
   non-bank lender from the Czech National Bank''s register of consumer-credit providers what

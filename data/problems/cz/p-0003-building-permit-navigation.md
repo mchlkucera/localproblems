@@ -3,6 +3,7 @@ id: p-0003
 region: cz
 title: Czech developers and builders face building-permit proceedings that typically run
   six months to a year, through a still-dysfunctional state portal
+solution: 'Software for the engineering and architecture offices that prepare building permits: it checks the drawings, sends requests to the authorities and utility companies that must give an opinion, and tracks the deadline each one must answer by across all the office''s projects.'
 category: housing
 geo: CZ-national
 score: 7
@@ -297,3 +298,5 @@ Solved elsewhere: PermitPortal (Y Combinator, autumn 2024), Permitify (winter 20
 2026-09-02 · plain-language pass — Eighteen Czech and trade terms glossed or replaced at first use, among them stavebníci, inženýrská činnost, DSŘ, úřady, stavební zákon, dokumentace, MČ and MěÚ; ČEZ and CETIN now carry appositives. Argument 438 → 346 words, every [Sn] marker, figure, price and named company kept, and the August 2026 portal contract [S11] added to Why now. First moves rewritten verbs-first. A gist added to all eleven sources. No score, status, note or marker touched.
 
 2026-09-04 · price receipt — Two figures already on file are now recorded as prices: permit engineering by hand from 16,000 CZK a project, the lower bound of a 16,000 to 42,000 CZK range [S14], and Průvodka at 12,900 CZK a project [S15]. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from First moves 1–2, the Průvodka entry in locals[] and build.note. This reverses the deliberately absent `fix:` recorded on 2026-08-25. No claim, score or source changed.

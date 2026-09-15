@@ -3,7 +3,7 @@ id: p-0001
 region: cz
 title: Czech energy communities lose up to half the value of shared electricity to bad allocation
   and settlement
-fix: 'Settlement software for electricity-sharing communities: recompute each member''s
+solution: 'Settlement software for electricity-sharing communities: recompute each member''s
   share from the national electricity data hub, issue the monthly bills, and show in
   crowns what bad allocation was costing.'
 category: energy

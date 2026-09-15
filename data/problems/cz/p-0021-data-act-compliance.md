@@ -3,6 +3,7 @@ id: p-0021
 region: cz
 title: Czech device manufacturers must ship 'access by design' data APIs from Sep 2026 and
   every SaaS must abolish switching charges by Jan 2027 under the EU Data Act
+solution: 'A lawyer-and-engineer service that reviews what the EU Data Act asks of an equipment maker or cloud-software vendor, then builds it: user access to the device''s data, consent handling, contract rewrites, or an export and exit path for customers.'
 category: b2b
 geo: CZ-national
 score: 3
@@ -63,3 +64,5 @@ Next moves: search the Czech market for data-access tooling sold as a product. A
 2026-08-24 · rejected — Owner review. One regulation signal and one law-firm advisory carry the whole record; on every other dimension there is nothing Czech — no tender, no demand receipt, no money, gap never checked, no comparable on the ledger. The two compliance dates are real and correctly stated [S1,S2], and the title's own closing claim, that most affected firms "haven't started", was never receipted at all. A record whose entire content is an EU deadline plus scope framing does not meet the register's bar. Rejected, not deleted — the trail stays.
 
 2026-09-02 · plain-language pass — OEM, IoT and SP ČR replaced at first use: mid-sized Czech equipment makers, connected equipment, Svaz průmyslu a dopravy. AutoSAP named as the car-industry association. Argument 236 → 245 words, markers 7 → 8: Regulation 2023/2854, 12 September 2025 and the 20 January 2027 machinery cutover added to the body. Next moves rewritten verbs-first, the register self-reference gone. Name, gist and why added to both sources. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from the who-pays paragraph and build.note. No claim, score or source changed.

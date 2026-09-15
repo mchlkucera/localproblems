@@ -2,7 +2,7 @@
 id: p-0035
 region: cz
 title: Czech hospitals each buy their medicines alone, and the state keeps finding they overpay
-fix: 'A price comparison for hospital medicines, assembled from the hospitals'' own published
+solution: 'A price comparison for hospital medicines, assembled from the hospitals'' own published
   purchasing notices, so a hospital pharmacy can see what its peers paid for the same molecule
   before it opens the next order.'
 price_search: 'Registr smluv full-text for "eCENTRE" with "léčiv" or "elektronická aukce" —

@@ -3,6 +3,7 @@ id: p-0005
 region: cz
 title: Czech SMB distributors and manufacturing suppliers re-type inbound RFQs and orders
   from e-mail, PDF and Excel into their ERPs by hand
+solution: 'Software for wholesalers and suppliers that reads quote requests and orders arriving by e-mail, PDF or Excel, matches each line to the firm''s own item codes, and enters the order into its Pohoda, Helios or ABRA accounting and stock system.'
 category: b2b
 geo: CZ-national
 score: 3
@@ -163,3 +164,5 @@ Solved elsewhere: the product is funded in Germany and the US [S1,S3], but the c
 2026-08-24 · evidence audit — Cut from Why now: "German-owned distributors operating in CZ already know the category, easing sales." The clause is the harvest note's own sales speculation [S1] — no signal, receipt or source documents any CZ distributor's awareness of anything, and buyer awareness is not a checkable fact. The Apertia incumbent receipt was re-verified live on this date (apertia.ai/b2b-objednavky-agent, HTTP 200) [S4]. Scores untouched.
 
 2026-09-02 · plain-language pass — Glossed ERP, ABRA, RFQ and velkoobchod at first use; replaced SMB and ROI with plain words. Apertia's product line and its integration list are now separate sentences [S4]. Argument tightened 341 → 299 words, every [Sn] marker, figure and named company kept; Workist's €9M Series A added as the receipt behind "past seed". A gist now sits beside each of the four sources' why lines. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from the existing non-solutions paragraph, locals[], build.note and the solved-elsewhere paragraph. No claim, score or source changed.

@@ -3,6 +3,7 @@ id: p-0012
 region: cz
 title: Czech importers and processors of wood, coffee, rubber and soy must file geolocation-based
   due diligence statements by 30 Dec 2026
+solution: 'Software that collects plot coordinates from a firm''s suppliers, chases the supplier questionnaires and files the due diligence statement the EU deforestation law requires into the EU''s own information system.'
 category: environment
 geo: CZ-national
 score: 2
@@ -73,3 +74,5 @@ Existing non-solutions: the Czech field is unchecked — no local vendor is name
 2026-08-24 · rejected — Removed from the register per the owner's quality mandate. One regulation signal is the entire evidence base; the second source is a URL copied from that signal's own notes, and the 9,324-signal corpus holds no Czech tender, contract or complaint touching EUDR. The demand receipt failed verification — the cited EP release documents no industry pushback, framing the postponement as transition-smoothing [S2] — so demand 1 → 0, score 3 → 2. Cut in the same pass: the pushback sentence, and the lead's unreceipted harvest assertion that mid-sized importers have no traceability stack of any kind. What remains is an EU deadline restated, which an LLM reproduces from memory; it is not a confirmed Czech problem.
 
 2026-09-02 · plain-language pass — EUDR and DDS glossed at first use, celní deklaranti explained. Argument 208 to 221 words: the glosses cost more than the cuts saved, but the months-to-deadline arithmetic and the unverified-gap framing are gone, and Regulation 2023/1115 and the 11 December 2025 vote date are now in the prose [S1,S2]. The invented lead-in Recommended follow-up folded into Existing non-solutions. Name, gist and why added to both sources. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from build.note and the who-pays paragraph. No claim, score or source changed.

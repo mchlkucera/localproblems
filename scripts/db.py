@@ -86,7 +86,10 @@ import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
-SCHEMA_VERSION = "9"   # 9: signals.owner — who stated the problem; REQUIRED on
+SCHEMA_VERSION = "10"  # 10: problems.fix renamed problems.solution and made
+#                          NOT NULL — every record states its likely solution
+#                          (owner, 2026-09-10)
+#                       9: signals.owner — who stated the problem; REQUIRED on
 #                          every `asks` line, forbidden on every other, gated at
 #                          insert by check_owner() (owner, 2026-09-03)
 #                       8: problem_sources.gist (the few-word public ledger
@@ -447,7 +450,7 @@ CREATE TABLE IF NOT EXISTS problems (
   id                  TEXT    NOT NULL,          -- 'p-0001'; IS the route param
   slug                TEXT    NOT NULL,          -- filename minus .md; read ORDER
   title               TEXT    NOT NULL,
-  fix                 TEXT,                      -- optional; NULL = key absent
+  solution            TEXT    NOT NULL,          -- the likely solution, one sentence (v10)
   category            TEXT    NOT NULL,
   geo                 TEXT    NOT NULL,
   status              TEXT    NOT NULL,
@@ -1307,7 +1310,7 @@ def signals_digest(con):
 # port is wrong, not the page.
 
 PROBLEM_KEYS = frozenset((
-    "id", "region", "title", "category", "geo", "score", "scores", "status",
+    "id", "region", "title", "solution", "category", "geo", "score", "scores", "status",
     "build", "comps", "sources", "created", "updated"))
 # Top-level problem keys that are OPTIONAL. They are real columns here and typed
 # optionals in web/lib/data.ts — they are NOT looseObject overflow — so they must
@@ -1315,9 +1318,10 @@ PROBLEM_KEYS = frozenset((
 # carrying one would both warn as "unknown" and get its value written twice
 # (column + extra_json). Kept as a second set rather than folded into
 # PROBLEM_KEYS because that set doubles as the missing-key list.
-#   fix    — the one-sentence proposed product, rendered under the dek.
 #   locals — the local-incumbent ledger, projected into problem_locals.
-PROBLEM_OPTIONAL_KEYS = frozenset(("fix", "locals"))
+# (`fix` left this set at v10: renamed `solution` and REQUIRED — owner,
+# 2026-09-10: "make sure everyone has one".)
+PROBLEM_OPTIONAL_KEYS = frozenset(("locals",))
 SOURCE_KEYS = frozenset((
     "type", "url", "note", "date", "name", "why", "gist", "signal", "dims", "queries", "checked", "expires"))
 # The price-receipt fields (`type: price`, owner 2026-09-03): typed optionals in
@@ -1778,7 +1782,7 @@ def insert_problems(con, records):
         sc = fm["scores"]
         b = fm["build"]
         prows.append((
-            region, pid, r["slug"], fm["title"], fm.get("fix"),
+            region, pid, r["slug"], fm["title"], fm["solution"],
             fm["category"], fm["geo"],
             fm["status"], fm["score"],
             sc["proof"], sc["money"], sc["urgency"], sc["demand"], sc["gap"],
@@ -1809,7 +1813,7 @@ def insert_problems(con, records):
             drows.append((region, pid, position, dim, origin))
 
     _insert_named(con,
-                  "INSERT INTO problems (region, id, slug, title, fix, category, geo, status,"
+                  "INSERT INTO problems (region, id, slug, title, solution, category, geo, status,"
                   " score, s_proof, s_money, s_urgency, s_demand, s_gap, build_capital,"
                   " build_first_revenue, build_builder, build_note, created, updated, body,"
                   " extra_json, md_file, md_sha256)"
@@ -1848,7 +1852,7 @@ def problems_digest(con):
     """
     h = hashlib.sha256()
     for label, sql in (
-        ("problems", "SELECT region, id, slug, title, fix, category, geo, status, score,"
+        ("problems", "SELECT region, id, slug, title, solution, category, geo, status, score,"
                      " s_proof, s_money, s_urgency, s_demand, s_gap, build_capital,"
                      " build_first_revenue, build_builder, build_note, created, updated,"
                      " body, extra_json, md_file, md_sha256"

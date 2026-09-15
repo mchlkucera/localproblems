@@ -3,7 +3,7 @@ id: p-0002
 region: cz
 title: Hundreds of small Czech heat-pump and solar installation firms drown in quoting, heat-load
   calculation and NZÚ subsidy paperwork
-fix: 'One tool for small heat-pump and solar firms: size the system, price the job and
+solution: 'One tool for small heat-pump and solar firms: size the system, price the job and
   fill in the state renovation-subsidy forms from the same quote, instead of a
   manufacturer''s sizing tool plus spreadsheets.'
 category: energy

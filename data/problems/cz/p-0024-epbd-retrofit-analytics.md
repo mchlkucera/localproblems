@@ -2,7 +2,7 @@
 id: p-0024
 region: cz
 title: Czech building owners must plan costly renovations, with no way to compare them
-fix: 'Portfolio software for building owners: score every building, rank the renovation
+solution: 'Portfolio software for building owners: score every building, rank the renovation
   measures by cost and payback, and turn the EU energy-performance rules into a dated
   capital plan.'
 price_search: 'Registr smluv full-text for "energetický management" or "energetický audit" —

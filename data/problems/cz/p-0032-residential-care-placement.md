@@ -3,7 +3,7 @@ id: p-0032
 region: cz
 title: Czech families place elderly relatives into care homes blind — every home runs its
   own queue, and nobody sells placement
-fix: 'A placement service for families: one live list of which care homes actually have a
+solution: 'A placement service for families: one live list of which care homes actually have a
   bed, applications filed on the family''s behalf, paid for by the homes per move-in.'
 price_search: 'Ask the admissions director of a private care-home chain what a filled bed is
   worth per move-in and what it pays per lead today, and ask SrovnejPéči.cz for its

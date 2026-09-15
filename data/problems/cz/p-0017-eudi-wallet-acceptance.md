@@ -2,6 +2,7 @@
 id: p-0017
 region: cz
 title: Czech banks must accept the EU digital identity wallet from 2027
+solution: 'One connection through which a bank or other regulated business accepts the EU digital identity wallet: it handles the compulsory registration as an accepting party, receives what the customer''s wallet app presents, and verifies it whatever country issued it.'
 category: govtech
 geo: CZ-national
 score: 6
@@ -188,3 +189,5 @@ Solved elsewhere: two funded European vendors sell wallet acceptance. Lissi (Ger
 2026-08-20 · evidence audit and title sweep — Two blocks recorded on this date, merged here. Removed the absence claim attributed to the reg-eidas2 signal — that banks, utilities, e-shops with KYC obligations and municipalities "currently have no integration path beyond following eDoklady's evolution". The signal says those parties need wallet-acceptance flows; it never says a path is missing, and the record's own gap check [S4] shows Wultra selling exactly that path. The who-list itself is supported and stays, now cited to [S1]. Also removed: both mentions of Bankovní identita, a name that returns no hits anywhere in the signal corpus and appears in no source note on this record, so neither the "solves domestic identity" clause nor the quasi-incumbent claim had anything behind it. The title still asserted that relying parties "have no integration path" — the very claim removed from the body in the same pass — and that clause is now gone too. A retraction that leaves the claim standing in the most-read line on the page is not a retraction.
 
 2026-09-02 · plain-language pass — Six acronyms replaced with plain words at first use — KYC, QES, DIA, SI, EUDIW, EUDI — plus glosses on the wallet and MONET+; OIDC4VCI, SD-JWT and ARF are gone from the body. Argument 448 to 385 words, markers 12 to 14: the 221M CZK state contract [S5] is now cited in the body, with Lissi's and Gataca's figures. Gists added to all six sources. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from locals[], the who-pays paragraph and the solved-elsewhere paragraph. This reverses the deliberately absent `fix:` recorded on 2026-08-25. No claim, score or source changed.

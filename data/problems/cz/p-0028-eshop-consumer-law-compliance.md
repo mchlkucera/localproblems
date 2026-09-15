@@ -2,7 +2,7 @@
 id: p-0028
 region: cz
 title: Most inspected Czech e-shops break consumer law
-fix: 'A weekly scanner for Czech online shops that checks the checkout, the prices and the
+solution: 'A weekly scanner for Czech online shops that checks the checkout, the prices and the
   product claims against consumer law and hands the merchant a fix list — on subscription,
   not as a one-off legal audit.'
 category: retail-services

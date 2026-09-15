@@ -3,6 +3,7 @@ id: p-0020
 region: cz
 title: Czech e-shops and digital services must meet the European Accessibility Act (zákon
   č. 424/2023 Sb.), in force since June 2025
+solution: 'An audit, a fix list and ongoing monitoring that check a Czech e-shop against the law requiring shops to be usable by disabled customers, sold as an app inside Shoptet and similar shop platforms.'
 category: retail-services
 geo: CZ-national
 score: 4
@@ -74,3 +75,5 @@ Next moves: search the Czech market for accessibility tooling. Pull ČOI enforce
 2026-08-24 · fact check and rejected — The enforcement claim failed verification on every surface: the cited ČOI page carries no mystery shopping, no test purchases and no corrective-measure powers; ČOI's own published market-surveillance program for 2026 contains no accessibility project and no mention of zákon č. 424/2023; and no press receipt of accessibility inspections was found. The claim is deleted from the title, the lead, the window and the build note. The title also still asserted "most sites remain non-compliant" — the claim this record's own 2026-08-20 audit retracted from the body — and is gone with it. What remains receipted, an in-force law [S1] and one merchant FAQ [S2], is a compliance date, not a documented local problem. Rejected, not deleted — the trail stays. A mechanical sweep of the 606-add-on marketplace corpus on this date found no Czech accessibility add-on either, recorded here as coverage, not as proof of absence.
 
 2026-09-02 · plain-language pass — Glossed three terms at first use: the European Accessibility Act, ČOI (the Czech trade inspection) and micro-enterprises, and replaced the FAQ acronym with plain words. The argument moved from 154 to 178 words — glosses cost words; every receipt is kept and the 28 June 2025 date is now stated. Both sources gained a public name, gist and why. Next moves is rewritten verbs-first, its self-reference struck. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from the who-pays paragraph, build.note and the dek. No claim, score or source changed.

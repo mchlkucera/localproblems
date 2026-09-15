@@ -3,7 +3,7 @@ id: p-0009
 region: cz
 title: Czech employers hiring foreign workers push zaměstnanecká karta applications through
   a notoriously slow paper process via manual relocation agencies and law firms
-fix: 'Software that files a Czech employee card — the work-and-residence permit for a
+solution: 'Software that files a Czech employee card — the work-and-residence permit for a
   foreign hire — end to end for the employer: documents, submission and status tracking,
   instead of a per-case agency fee.'
 price_search: 'Registr smluv full-text for "zaměstnanecká karta" or "relokační služby" — a

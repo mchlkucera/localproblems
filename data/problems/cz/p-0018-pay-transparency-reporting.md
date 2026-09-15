@@ -2,6 +2,7 @@
 id: p-0018
 region: cz
 title: Czech employers must report their gender pay gap from 2027
+solution: 'Software that reads an employer''s payroll export, groups staff by the value of their work, and returns the pay-gap report the new law would require of employers with 150 or more staff, ready to file.'
 category: legal-compliance
 geo: CZ-national
 score: 6
@@ -226,3 +227,5 @@ Solved elsewhere: Figures (France) raised €6.67M and benchmarks 1,200+ EU comp
 2026-09-02 · plain-language pass — Three trade terms cleared at first use: HR and HRIS replaced with plain words, Nakladatelství FORUM glossed as a publisher. Argument cut from 435 to 342 words, every figure, date, price, named company and [Sn] marker kept. A gist added to all six sources. No score, status, note or marker touched.
 
 2026-09-04 · price receipt — The price already read in the 2026-08-25 sweep is now recorded as a price of its own: 79,000 CZK a year, or 55,000 for benchmarking alone [S7]. The 8,499 CZK rival stays in the note, its own page not being on this ledger. No score, status, note or marker touched.
+
+2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from build.note, the existing non-solutions paragraph, locals[] and the solved-elsewhere paragraph. No claim, score or source changed.
