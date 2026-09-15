@@ -2,7 +2,7 @@
 // category id, pre-generated (SPEC.md §5). Slug == category id (CONVENTIONS.md).
 import type { Metadata } from "next";
 import { CATEGORIES, categoryRows, extractDate } from "../../../lib/data";
-import { categoryLabel, countryName, localityLabel, pad2 } from "../../../lib/format";
+import { categoryLabel, countryName, pad2 } from "../../../lib/format";
 import { CategoryNav } from "../../../lib/category-nav";
 import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, SortScript, Tally } from "../../../lib/chrome";
 
@@ -51,7 +51,7 @@ export default async function CategoryPage({ params }: Params) {
           <caption>Sorted by score, descending</caption>
           <thead>
             <tr>
-              <th>Problem</th><th>Category</th><th>Locality</th>
+              <th>Problem</th><th>Category</th>
               {/* the build order is score desc — stated for AT even with JS off */}
               <th className="t-num" aria-sort="descending">Score</th><th className="t-num">Updated</th>
             </tr>
@@ -63,8 +63,7 @@ export default async function CategoryPage({ params }: Params) {
                 <tr key={p.id} className={p.status === "stale" || p.status === "solved" ? "is-solved" : undefined}>
                     <td className="t-title"><a href={href}>{p.title}</a></td>
                   <td className="t-cat">{categoryLabel(p.category)}</td>
-                  <td>{localityLabel(p.geo)}</td>
-                  <td className="t-num">
+                    <td className="t-num">
                     <span className="score">
                       <Tally s={p.score} />
                       <span className="num">{pad2(p.score)}/12</span>

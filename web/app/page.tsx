@@ -1,6 +1,6 @@
 // The problem register — distilled from the source ledgers.
 import { registerRows } from "../lib/data";
-import { categoryLabel, localityLabel, pad2 } from "../lib/format";
+import { categoryLabel, pad2 } from "../lib/format";
 import { CategoryNav } from "../lib/category-nav";
 import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, SortScript, Tally } from "../lib/chrome";
 
@@ -29,7 +29,7 @@ export default function Register() {
         <caption>Sorted by score, descending</caption>
         <thead>
           <tr>
-            <th>Problem</th><th>Category</th><th>Locality</th>
+            <th>Problem</th><th>Category</th>
             {/* the build order is score desc — stated for AT even with JS off */}
             <th className="t-num" aria-sort="descending">Score</th><th className="t-num">Updated</th>
           </tr>
@@ -41,7 +41,6 @@ export default function Register() {
               <tr key={p.id} className={p.status === "stale" || p.status === "solved" ? "is-solved" : undefined}>
                 <td className="t-title"><a href={href}>{p.title}</a></td>
                 <td className="t-cat">{categoryLabel(p.category)}</td>
-                <td>{localityLabel(p.geo)}</td>
                 <td className="t-num">
                   <span className="score">
                     <Tally s={p.score} />
