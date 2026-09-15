@@ -1,5 +1,31 @@
 /* ============================================================
-   localproblems.org · design system v1.21 · 2026-09-15
+   localproblems.org · design system v1.22 · 2026-09-15
+   v1.22 (owner, 2026-09-15, on v1.21's "Difficulty to enter"
+   shipped the same morning: "should be level — hard — and the
+   rest is explanatory, under it, bullet points, like First moves,
+   just a simple list"; the leader-dot ledger "looks different from
+   the rest of the page"): ONE SELECTOR WIDENED, NOTHING ADDED.
+   The section drops .buildfacts for the prose grammar the rest of
+   the funnel already wears — a run-in strong.lead paragraph, then
+   a plain bullet list — and that list is ul.prose, the class
+   renderBody has always emitted for a markdown bullet list but
+   which no record had yet exercised on a built page. Two of the
+   three .prose rules were written ol-scoped when only First moves
+   used them, so a ul fell back to the UA's 40px indent and lost
+   the --sp-2 step between items: `padding-left: var(--sp-6)` and
+   `li { margin-bottom: var(--sp-2) }` now name both lists. The
+   ::marker rule stays ol-only ON PURPOSE — it sets a marker in
+   mono because a NUMBER is a figure and figures are mono; a disc
+   is not a figure, and pushing it to --fs-data would shrink it for
+   no reason the content states. No colour, size, weight, rule
+   weight, spacing value, breakpoint or glyph enters the sheet, and
+   no existing page changes: nothing shipped a ul.prose before.
+   .buildfacts is left standing and unused — retiring a device is a
+   round of its own, and this is not it.
+   The scorecard's SIXTH ROW is gone from the record page markup
+   (owner, same day: the level is not part of the /12, and inside
+   the card it read as a sixth dimension). `.dim--build` and its
+   double rule stay in the sheet for the same reason — see above.
    v1.21 (owner, 2026-09-15 — the entry contract: "include a clear
    difficulty to enter … should be in the index view"): ONE CLASS,
    ONE RULE. The register and category tables gain an Entry column
@@ -343,9 +369,13 @@ body {
   border-top: 4px solid var(--ink);          /* the page begins */
 }
 p, ul.prose, ol.prose { max-width: var(--w-prose); margin-block: 0 var(--sp-4); }
-/* numbered steps (first moves): markers are figures, and figures are mono */
-ol.prose { padding-left: var(--sp-6); }
-ol.prose li { margin-bottom: var(--sp-2); }
+/* prose lists: numbered steps (first moves) and plain bullet lists (a record's
+   markdown bullets; Difficulty to enter's five gates). Both take the house
+   indent and the --sp-2 step between items (v1.22 — the two rules were written
+   ol-only when only First moves used them). Only the NUMBERED marker is mono:
+   a figure is a figure, and a disc is not one. */
+ul.prose, ol.prose { padding-left: var(--sp-6); }
+ul.prose li, ol.prose li { margin-bottom: var(--sp-2); }
 ol.prose li::marker { font: 600 var(--fs-data)/1 var(--mono); }
 /* the run-in lead (v1.19): a section's first sentence — and each first-moves
    step's — sets in the house 600, so a reader who skims the headings and the

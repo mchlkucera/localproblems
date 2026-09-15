@@ -16,7 +16,7 @@ import { capitalize, splitBody, splitLead } from "../../../../lib/sections";
 import {
   ENTRY_BUYER_LABELS, ENTRY_INCUMBENT_LABELS, ENTRY_INTEGRATION_LABELS,
   ENTRY_LEVEL_LABELS, ENTRY_MONEY_LABELS, ENTRY_PERMISSION_LABELS,
-  PRICE_BASIS_LABELS, PRICE_UNIT_LABELS, categoryLabel, countryName, czk, entryGates,
+  PRICE_BASIS_LABELS, PRICE_UNIT_LABELS, categoryLabel, countryName, czk,
   euro, localityLong,
 } from "../../../../lib/format";
 import { type Dim, MAX, SCORE_ROWS, dimRefs, scoreRead } from "../../../../lib/scorecard";
@@ -282,8 +282,14 @@ export default async function Record({ params }: Params) {
         {/* The scorecard: "how good is this opportunity, objectively?" in one
             plain card, before a line of prose. Plain labels, plain reads, tally
             pips (more is better on every row), zero rows muted. No verdict
-            words, no rundown dialogs — the receipts live in Sources. The Build
-            line sits apart: it is feasibility, not opportunity. */}
+            words, no rundown dialogs — the receipts live in Sources.
+
+            FIVE ROWS, AND ONLY FIVE (owner, 2026-09-15). The sixth row — the
+            old Build line, latterly the difficulty-to-enter Entry line — is
+            GONE: the level is not part of the /12, so inside the card it read
+            as a sixth dimension of a five-dimension score. Difficulty to enter
+            keeps its own section (`#difficulty-to-enter`) and its own index
+            column; it just no longer poses as a score. */}
         <section className="scorecard" aria-label="Opportunity scorecard">
           <div className="hd">
             <span className="t">Opportunity</span>
@@ -305,19 +311,6 @@ export default async function Record({ params }: Params) {
                 <span className="read">{scoreRead(p, dim)}</span>
               </a>
             ))}
-            {/* The sixth row is feasibility, not opportunity, and since
-                2026-09-15 it states the DIFFICULTY TO ENTER: the level in the
-                pill, and as its read the gate(s) that set it — derived from
-                the same five values the section below prints, so the line can
-                never contradict the block it links to. `dim--build` stays the
-                class: it names the row's POSITION in the card (the one opened
-                by the double rule), and renaming it would be a stylesheet
-                round for nothing. */}
-            <a className="dim dim--build" href="#difficulty-to-enter">
-              <span className="label">Entry</span>
-              <span className="meter"><span className="pill">{ENTRY_LEVEL_LABELS[entry.level]}</span></span>
-              <span className="read">{entryGates(entry)}</span>
-            </a>
           </div>
         </section>
 
@@ -528,21 +521,31 @@ export default async function Record({ params }: Params) {
             easy, entering government healthcare is tough"). The capital band
             and the team band are gone: a euro range and a headcount were a
             prediction about a team nobody has met, where these five are facts
-            about the market the record already carries evidence for. The
-            derived LEVEL leads, the five gates follow in the same `.buildfacts`
-            grammar, and `entry.why` carries the reasoning as the `.buildnote`
-            sentence the build note used to. The scorecard Entry cell lands
-            here. */}
+            about the market the record already carries evidence for.
+
+            IT IS SET AS PROSE, NOT AS A LEDGER (owner, 2026-09-15, on the
+            leader-dot version shipped the same morning: "should be level —
+            hard — and the rest is explanatory, under it, bullet points, like
+            First moves, just a simple list"; the `.buildfacts` table "looks
+            different from the rest of the page"). So the section reads the way
+            every other section of the funnel reads: the derived LEVEL as the
+            run-in `strong.lead` of one paragraph — the same grammar the problem
+            section's opener and each First-moves step already wear — with
+            `entry.why` following it in the same sentence flow, then the five
+            gates as a plain `ul.prose` list, each opened by its own run-in
+            label. A dot-leader ledger earns its keep where a reader compares a
+            column of recorded values down the page (sources, comps, the docket
+            facts); five closed-enum phrases read once are not that, and the
+            device was encoding nothing here. */}
         <h2 id="difficulty-to-enter">Difficulty to enter</h2>
-        <ul className="buildfacts">
-          <li>LEVEL<span className="leader"></span><span className="val">{ENTRY_LEVEL_LABELS[entry.level]}</span></li>
-          <li>WHO BUYS<span className="leader"></span><span className="val">{ENTRY_BUYER_LABELS[entry.buyer]}</span></li>
-          <li>PERMISSION<span className="leader"></span><span className="val">{ENTRY_PERMISSION_LABELS[entry.permission]}</span></li>
-          <li>ALREADY HERE<span className="leader"></span><span className="val">{ENTRY_INCUMBENT_LABELS[entry.incumbents]}</span></li>
-          <li>PLUG INTO<span className="leader"></span><span className="val">{ENTRY_INTEGRATION_LABELS[entry.integration]}</span></li>
-          <li>MONEY<span className="leader"></span><span className="val">{ENTRY_MONEY_LABELS[entry.money]}</span></li>
+        <p><strong className="lead">{ENTRY_LEVEL_LABELS[entry.level]}.</strong> {entry.why}</p>
+        <ul className="prose">
+          <li><strong className="lead">Permission</strong> — {ENTRY_PERMISSION_LABELS[entry.permission]}.</li>
+          <li><strong className="lead">Who buys</strong> — {ENTRY_BUYER_LABELS[entry.buyer]}.</li>
+          <li><strong className="lead">Plug into</strong> — {ENTRY_INTEGRATION_LABELS[entry.integration]}.</li>
+          <li><strong className="lead">Money</strong> — {ENTRY_MONEY_LABELS[entry.money]}.</li>
+          <li><strong className="lead">Already here</strong> — {ENTRY_INCUMBENT_LABELS[entry.incumbents]}.</li>
         </ul>
-        <p className="buildnote">{entry.why}</p>
         {comps.length > 0 && (
           <p className="buildnote"><a href="#proven-abroad">See the teams doing it abroad →</a></p>
         )}
