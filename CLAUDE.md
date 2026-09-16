@@ -9,7 +9,7 @@ A public register of Czech problems worth solving, distilled from public evidenc
 | author or edit a **problem record** | **`pipeline/MATCH.md`** — the judgment. Then `SCORING.md` and `data/RECORD-TEMPLATE.md` |
 | change a **score or a ladder** | `SCORING.md`, then `pipeline/MATCH.md` §0 and §1 |
 | add a **source or ingest script** | `pipeline/INGEST.md`, `docs/sources-catalog.md` |
-| change the **site** | `web/AGENTS.md`, and note `web/shared.css` is checksum-gated to `skills/design-language/assets/style.css` |
+| change the **site** | `skills/design-language/SKILL.md` (the modern design, adopted 2026-09-16), `web/AGENTS.md`, and `docs/modern-migration.md`, because a migration is in progress: the modern pages still live under `/lab/modern`, and the live routes are still gazette pages that load `web/shared.css`, which stays checksum-gated to `skills/design-language/assets/style.css` until the migration removes them |
 | change **architecture** | `SPEC.md` |
 
 ## The two rules that matter most
@@ -30,6 +30,12 @@ in the same change. It runs inside `prebuild`, so a contradiction fails the buil
 `npm --prefix web run build` runs all four: `check-css` · `db-gate` ·
 `lint-citations` · `check-records --strict`. Then `npm --prefix web run parity`
 proves the SQLite and JSONL loaders produce byte-identical HTML.
+
+`check-css` locks only the gazette stylesheet (`web/shared.css`) and never sees the
+modern CSS. The modern design migration (owner, 2026-09-16) replaces or removes it and
+adds fail-the-build checks (no `href="/lab/`, no `searchParams` in pages). Until that
+lands, don't edit either gazette stylesheet, and don't treat a green `check-css` as a
+design check. See `docs/modern-migration.md`.
 
 `data/signals/**` and `data/problems/**` are canonical and committed.
 `data/register.db` is a gitignored projection, rebuilt by the build. Never edit it

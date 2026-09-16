@@ -50,11 +50,26 @@ type Params = { params: Promise<{ region: string; id: string }> };
 const find = (region: string, id: string): Problem | undefined =>
   getProblems().find((p) => p.region === region && p.id === id && p.status !== "rejected");
 
+/** Markdown to one plain line for <meta>: no [Sn] markers, links reduced to
+    their words, no emphasis. */
+const metaText = (s: string) =>
+  s
+    .replace(/\s*\[S\d+(?:\s*,\s*S?\d+)*\](?!\()/g, "")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!enabled()) return { title: "Record not found" };
   const { region, id } = await params;
   const p = find(region, id);
-  return { title: p ? `${p.title} — lab` : "Record not found" };
+  if (!p) return { title: "Record not found" };
+  // the description is the record's own `brief`, its markers stripped;
+  // a record without one falls back to its suggested solution (audit B14)
+  const brief = (p as { brief?: string }).brief;
+  const description = metaText(typeof brief === "string" && brief.trim() ? brief : p.solution);
+  return { title: `${p.title} — localproblems.org`, description };
 }
 
 // ---- deadlines (deterministic against extractDate, never the wall clock) ---
@@ -76,9 +91,12 @@ function futureDate(s: ProblemSource, extract: string): string | null {
 }
 
 
-function Section({ id, title, count, children }: { id: string; title: string; count?: ReactNode; children: ReactNode }) {
+/** `alias`: an older anchor for the same section, so deep links written
+    against the live record page still land (audit B5: `#how-big` → Who pays). */
+function Section({ id, alias, title, count, children }: { id: string; alias?: string; title: string; count?: ReactNode; children: ReactNode }) {
   return (
     <section className="ls-sec" id={id} aria-labelledby={`${id}-h`}>
+      {alias && <span id={alias} className="ls-alias" aria-hidden="true" />}
       <h2 className="ls-h2" id={`${id}-h`}>
         {title}
         {count != null && <span className="ls-h2-count">{count}</span>}
@@ -261,18 +279,29 @@ export default async function LabRecord({ params }: Params) {
   // optional `brief` — ONE sentence on what is happening and why it is urgent
   // (owner: "3 bullets at most"), its [Sn] markers as the page's citation
   // pills — and `good_for`, one line on who it suits. The solution has its own
-  // box below, so the head carries two bullets at most. Read through a local
-  // structural type until lib/data.ts carries the fields. Built first: it is
-  // the first thing the page reads.
-  const headline = p as { brief?: string; good_for?: string };
+  // box below, so the head carries the story and "Good for" only. They follow
+  // the front page's card rules (DESIGN.md "Row card", "Labels"): the story a
+  // plain paragraph, "Good for" a meta label on its own line with the words
+  // under it — no bullets, no run-in label. Read through a local structural
+  // type until lib/data.ts carries the fields. Built first: it is the first
+  // thing the page reads.
+  const headline = p as { brief?: string; good_for?: string; draft_law?: string };
   const brief = typeof headline.brief === "string" && headline.brief.trim() ? headline.brief.trim() : null;
   const goodFor = typeof headline.good_for === "string" && headline.good_for.trim() ? headline.good_for.trim() : null;
   ctx.section = "Summary";
   const briefNode = brief ? inline(brief, ctx, opts, "brief") : null;
-  // after the run-in label "Good for:" the line reads on in lower case, as
-  // on the front page; an acronym ("EU …", "NIS2 …") keeps its capital
-  const runIn = (t: string) => (/^[A-Z](?:[a-z]|\s)/.test(t) ? t[0].toLowerCase() + t.slice(1) : t);
-  const goodForNode = goodFor ? inline(runIn(goodFor), ctx, opts, "goodfor") : null;
+  const goodForNode = goodFor ? inline(goodFor, ctx, opts, "goodfor") : null;
+  // `draft_law` (2026-09-16): the main pain depends on a law not passed yet.
+  // The head carries the "Draft law" badge with the record's line under it,
+  // its [Sn] as the usual source pill, and the one plain sentence.
+  const draftLaw = typeof headline.draft_law === "string" && headline.draft_law.trim() ? headline.draft_law.trim() : null;
+  // the line is a phrase ("…, still a draft [S1]"); it closes with a full
+  // stop before its marker so the plain sentence after it reads as a new one
+  const closeLine = (t: string) => {
+    const m = t.match(/^(.*?)(\s*\[S\d+(?:\s*,\s*S?\d+)*\])?$/)!;
+    return (/[.!?]$/.test(m[1]) ? m[1] : `${m[1]}.`) + (m[2] ?? "");
+  };
+  const draftLawNode = draftLaw ? inline(closeLine(draftLaw), ctx, opts, "draftlaw") : null;
 
   const problemNode = prose("The problem", sections.problem);
   // Built HERE, while ctx.section is still "The problem": the step pills
@@ -504,11 +533,13 @@ export default async function LabRecord({ params }: Params) {
   // "Close" is the owner's "under ~6 months": the only time Window is tinted.
   const windowSoon = windowFact ? daysAfter(windowFact, extract) < 183 : false;
 
-  // one row of the full list — it lives only in the drawer now
+  // one row of the full list — it lives only in the drawer now. Its id is the
+  // live record's `s1…sN`, the same index as `sources[]` (audit B5), so an
+  // old `#s12` link opens the drawer on that row (peek-hover.tsx).
   const ledgerRow = (s: LabSource) => {
     const where = [...new Set(ctx.cited.get(s.n) ?? [])];
     return (
-      <li key={s.n} className="ls-src">
+      <li key={s.n} id={`s${s.n}`} className="ls-src">
         <span className="ls-mono ls-mono--md" aria-hidden="true">{s.mono}</span>
         <div className="ls-src-body">
           <div className="ls-src-top">
@@ -557,11 +588,26 @@ export default async function LabRecord({ params }: Params) {
           {/* a long title is marked so a phone can wrap it `pretty` instead of
               `balance` — see .ls-h1--long in problem.css */}
           <h1 className={p.title.length > 120 ? "ls-h1 ls-h1--long" : "ls-h1"}>{p.title}</h1>
-          {(briefNode || goodForNode) && (
-            <ul className="ls-brief">
-              {briefNode && <li>{briefNode}</li>}
-              {goodForNode && <li><span className="ls-brief-k">Good for:</span> {goodForNode}</li>}
-            </ul>
+          {(briefNode || goodForNode || draftLawNode) && (
+            <div className="ls-brief">
+              {briefNode && <p className="ls-brief-story">{briefNode}</p>}
+              {goodForNode && (
+                <p className="ls-brief-item">
+                  <span className="ls-brief-k">Good for</span> <span className="ls-brief-v">{goodForNode}</span>
+                </p>
+              )}
+              {/* the badge stands where a label would, over its line: the
+                  same outlined gray pill as the front page's */}
+              {draftLawNode && (
+                <p className="ls-brief-item ls-draft">
+                  <span className="ls-badge">Draft law</span>{" "}
+                  <span className="ls-brief-v">
+                    {draftLawNode}{" "}
+                    <span className="ls-draft-note">Based on a law that is not passed yet, so this may change.</span>
+                  </span>
+                </p>
+              )}
+            </div>
           )}
           <dl className="ls-facts-row">
             <div><dt>Category</dt><dd>{categoryLabel(p.category)}</dd></div>
@@ -594,92 +640,10 @@ export default async function LabRecord({ params }: Params) {
           </dl>
         </header>
 
-        <main className="ls-main">
-          <Section id="problem" title="The problem">
-            {problemNode}
-            {processTodayFig && <div className="ls-fig">{processTodayFig}</div>}
-          </Section>
-
-          <aside className="ls-solution" aria-label="Suggested solution">
-            <p className="ls-solution-k">Suggested solution</p>
-            <p className="ls-solution-v">{solutionNode}</p>
-            {processAfterFig}
-          </aside>
-
-          <Section id="proven-abroad" title="Proven abroad" count={comps.length || undefined}>
-            {solvedNode}
-            {compMapFig && <div className="ls-fig">{compMapFig}</div>}
-            {comps.length > 0 ? (
-              <div className="ls-grp">
-                <div className="ls-grp-h">
-                  <p className="ls-grp-t">Abroad</p>
-                  <p className="ls-grp-n">{comps.length} {comps.length === 1 ? "company" : "companies"}</p>
-                </div>
-                <ul className="ls-ents">{compRows}</ul>
-              </div>
-            ) : <p className="ls-absent">No verified foreign comparable on file.</p>}
-          </Section>
-
-          {hasCompetition && (
-            <Section id="local-competition" title="Local competition" count={locals.length || undefined}>
-              {fieldFig && <div className="ls-fig ls-fig--head">{fieldFig}</div>}
-              {competitionNode}
-              {localGroups}
-            </Section>
-          )}
-
-          <Section id="who-pays" title="Who pays">
-            {whoPaysNode}
-            {moneyFig && <div className="ls-fig">{moneyFig}</div>}
-            {priceRows.length > 0 && (
-              <div className="ls-group">
-                <p className="ls-group-h">What buyers pay</p>
-                <ul className="ls-receipts">{priceRows}</ul>
-              </div>
-            )}
-            {moneyRowNodes.length > 0 && (
-              <details className="ls-group ls-more">
-                <summary className="ls-group-h">
-                  Public money nearby <span className="ls-count">{moneyRowNodes.length}</span>
-                </summary>
-                <ul className="ls-receipts">{moneyRowNodes}</ul>
-              </details>
-            )}
-            {priceRows.length === 0 && moneyRowNodes.length === 0 && (
-              <p className="ls-absent">No sized figure on file.</p>
-            )}
-            {prices.length === 0 && p.score >= 7 && (
-              <p className="ls-absent">
-                No Czech buyer has priced this yet.{p.price_search && ` Where to look: ${p.price_search}`}
-              </p>
-            )}
-          </Section>
-
-          <Section id="why-now" title="Why now">
-            {windowNode}
-            {p.scores.urgency > 0 && deadlineRows.length > 0 && (
-              <div className="ls-group">
-                <p className="ls-group-h">Dates on file</p>
-                <ul className="ls-receipts">{deadlineRows}</ul>
-              </div>
-            )}
-          </Section>
-
-          {/* A LEVEL DECIDED BY FOUR GATES — answer first, then what sets it,
-              then the gates with their weights, then the one gate that is
-              context only, then the record's own reasoning. */}
-          <Section id="difficulty-to-enter" title="Difficulty to enter">
-            <p className="ls-entry-level ls-level" data-level={entry.level}>{ENTRY_LEVEL_LABELS[entry.level]}</p>
-            <p className="ls-entry-why">{entryReason}</p>
-            <p className="ls-entry-note">
-              Already here: {ENTRY_INCUMBENT_LABELS[entry.incumbents]}. That counts under{" "}
-              {hasCompetition ? <a className="ls-link" href="#local-competition">Local competition</a> : "Local opportunity"}, not in this level.
-            </p>
-          </Section>
-
-          {movesNode && <Section id="first-moves" title="First moves">{movesNode}</Section>}
-        </main>
-
+        {/* THE RAIL BEFORE MAIN IN THE SOURCE (audit B13): a keyboard reaches
+            the scorecard right after the head, not after every section.
+            Grid areas keep it drawn in the right column; in one column
+            (problem.css ≤1080px) reading-flow puts it back after main. */}
         <aside className="ls-rail" aria-label="Opportunity and evidence">
           {/* the card carries the total's anchor: its tip hangs off the card's
               edge, level with the header, never over the rows */}
@@ -770,7 +734,7 @@ export default async function LabRecord({ params }: Params) {
                     <button
                       type="button"
                       className="ls-mixrow ls-tip-host"
-                      popoverTarget="ls-all"
+                      popoverTarget="sources"
                       aria-describedby={note ? tid : undefined}
                       style={{ anchorName: `--ls-t-ev-${type}` } as CSSProperties}
                     >
@@ -788,18 +752,107 @@ export default async function LabRecord({ params }: Params) {
                 );
               })}
             </ul>
-            <button type="button" className="ls-all-link" popoverTarget="ls-all">
+            <button type="button" className="ls-all-link" popoverTarget="sources">
               View all {sources.length} sources<span aria-hidden="true"> →</span>
             </button>
           </section>
         </aside>
+
+        <main className="ls-main">
+          <Section id="problem" title="The problem">
+            {problemNode}
+            {processTodayFig && <div className="ls-fig">{processTodayFig}</div>}
+          </Section>
+
+          <aside className="ls-solution" aria-label="Suggested solution">
+            <p className="ls-solution-k">Suggested solution</p>
+            <p className="ls-solution-v">{solutionNode}</p>
+            {processAfterFig}
+          </aside>
+
+          <Section id="proven-abroad" title="Proven abroad" count={comps.length || undefined}>
+            {solvedNode}
+            {compMapFig && <div className="ls-fig">{compMapFig}</div>}
+            {comps.length > 0 ? (
+              <div className="ls-grp">
+                <div className="ls-grp-h">
+                  <p className="ls-grp-t">Abroad</p>
+                  <p className="ls-grp-n">{comps.length} {comps.length === 1 ? "company" : "companies"}</p>
+                </div>
+                <ul className="ls-ents">{compRows}</ul>
+              </div>
+            ) : <p className="ls-absent">No verified foreign comparable on file.</p>}
+          </Section>
+
+          {hasCompetition && (
+            <Section id="local-competition" title="Local competition" count={locals.length || undefined}>
+              {fieldFig && <div className="ls-fig ls-fig--head">{fieldFig}</div>}
+              {competitionNode}
+              {localGroups}
+            </Section>
+          )}
+
+          <Section id="who-pays" alias="how-big" title="Who pays">
+            {whoPaysNode}
+            {moneyFig && <div className="ls-fig">{moneyFig}</div>}
+            {priceRows.length > 0 && (
+              <div className="ls-group">
+                <p className="ls-group-h">What buyers pay</p>
+                <ul className="ls-receipts">{priceRows}</ul>
+              </div>
+            )}
+            {moneyRowNodes.length > 0 && (
+              <details className="ls-group ls-more">
+                <summary className="ls-group-h">
+                  Public money nearby <span className="ls-count">{moneyRowNodes.length}</span>
+                </summary>
+                <ul className="ls-receipts">{moneyRowNodes}</ul>
+              </details>
+            )}
+            {priceRows.length === 0 && moneyRowNodes.length === 0 && (
+              <p className="ls-absent">No sized figure on file.</p>
+            )}
+            {prices.length === 0 && p.score >= 7 && (
+              <p className="ls-absent">
+                No Czech buyer has priced this yet.{p.price_search && ` Where to look: ${p.price_search}`}
+              </p>
+            )}
+          </Section>
+
+          <Section id="why-now" title="Why now">
+            {windowNode}
+            {p.scores.urgency > 0 && deadlineRows.length > 0 && (
+              <div className="ls-group">
+                <p className="ls-group-h">Dates on file</p>
+                <ul className="ls-receipts">{deadlineRows}</ul>
+              </div>
+            )}
+          </Section>
+
+          {/* A LEVEL DECIDED BY FOUR GATES — answer first, then what sets it,
+              then the gates with their weights, then the one gate that is
+              context only, then the record's own reasoning. */}
+          <Section id="difficulty-to-enter" title="Difficulty to enter">
+            <p className="ls-entry-level ls-level" data-level={entry.level}>{ENTRY_LEVEL_LABELS[entry.level]}</p>
+            <p className="ls-entry-why">{entryReason}</p>
+            <p className="ls-entry-note">
+              Already here: {ENTRY_INCUMBENT_LABELS[entry.incumbents]}. That counts under{" "}
+              {hasCompetition ? <a className="ls-link" href="#local-competition">Local competition</a> : "Local opportunity"}, not in this level.
+            </p>
+          </Section>
+
+          {movesNode && <Section id="first-moves" title="First moves">{movesNode}</Section>}
+        </main>
+
       </div>
 
-      {/* The one full list of sources, grouped by kind. */}
-      <div id="ls-all" popover="auto" className="ls-drawer" role="dialog" aria-labelledby="ls-all-h">
+      {/* The one full list of sources, grouped by kind. `id="sources"` is the
+          live record's anchor for its sources list (audit B5); a `#sources`
+          link opens the drawer (peek-hover.tsx). */}
+      <div id="sources" popover="auto" className="ls-drawer" role="dialog" aria-labelledby="sources-h">
         <div className="ls-drawer-hd">
-          <h2 id="ls-all-h" className="ls-drawer-t">Sources <span className="ls-count">{sources.length}</span></h2>
-          <button type="button" className="ls-x" popoverTarget="ls-all" popoverTargetAction="hide" aria-label="Close">×</button>
+          <h2 id="sources-h" className="ls-drawer-t">Sources <span className="ls-count">{sources.length}</span></h2>
+          <button type="button" className="ls-x" popoverTarget="sources" popoverTargetAction="hide" aria-label="Close">×</button>
         </div>
         <div className="ls-drawer-body">
           {typeGroups.map(({ t, list }) => (

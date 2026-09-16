@@ -19,6 +19,19 @@
   --lf-wash-l: 28px;
   --lf-wash-r: 16px;
 }
+/* CONTRAST (audit B13): every text gray passes WCAG AA, 4.5:1, wherever it
+   sits. tokens.css's --l-text-3 (#8a8c93) is 3.4:1 on white, so the modern
+   pages set their own, scoped here and never in the shared tokens file:
+   #6e7077 is the lightest gray of the same hue that still reads 4.5:1 on the
+   darkest ground meta text sits on (--l-bg-3 #f4f4f6: 4.50; the row wash
+   #f6f6f8: 4.58; white: 4.95). --l-text-4 (2.5:1) is for non-text only: dots,
+   rules, carets, bars. The old #8a8c93 survives as --lf-ring for drawn lines
+   (non-text needs 3:1; it is 3.4). `.lab.lf` outranks tokens.css's `.lab`
+   whatever order the two stylesheets load in. */
+.lab.lf {
+  --l-text-3: #6e7077;
+  --lf-ring: #8a8c93;
+}
 .lf time { font: inherit; }
 .lf a:focus-visible { outline: 2px solid var(--l-text-1); outline-offset: 2px; border-radius: var(--l-radius-sm); }
 
@@ -151,7 +164,7 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
    Nothing fades to or from `transparent` — some browsers interpolate that as
    black at zero alpha and flash dark on the way out (owner, 2026-09-16) — so a
    fill that appears on hover is always there, at fill-opacity 0 */
-.lf-venn-part circle { fill: var(--l-text-1); fill-opacity: 0; stroke: var(--l-text-3); stroke-width: 1.25; transition: stroke .15s ease-out, fill-opacity .15s ease-out; }
+.lf-venn-part circle { fill: var(--l-text-1); fill-opacity: 0; stroke: var(--lf-ring); stroke-width: 1.25; transition: stroke .15s ease-out, fill-opacity .15s ease-out; }
 .lf-venn-part[data-k="core"] path { stroke: var(--l-text-1); stroke-opacity: 0; stroke-width: 1.5; fill: var(--l-text-1); fill-opacity: 0.1; transition: fill-opacity .15s ease-out; }
 .lf-venn-hit { fill: transparent; stroke: none; }
 .lf-venn-part text { font: 500 12px var(--l-font); fill: var(--l-text-2); transition: fill .15s ease-out; }
@@ -204,7 +217,7 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf-by-opts::-webkit-scrollbar { display: none; }
 .lf-by a { font-weight: 500; color: var(--l-text-3); text-underline-offset: 6px; text-decoration-thickness: 1px; }
 .lf-by a:hover { color: var(--l-text-1); }
-.lf-by a[aria-current="true"] { color: var(--l-text-1); text-decoration-line: underline; }
+.lf-by a[aria-current="page"] { color: var(--l-text-1); text-decoration-line: underline; }
 
 /* ---- a group: the rail label beside its entries -------------------------------- */
 .lf-sec {
@@ -319,8 +332,10 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf-cat { display: inline-flex; align-items: center; gap: 5px; }
 .lf-m { display: inline-flex; align-items: center; gap: 5px; cursor: help; outline: none; border-radius: var(--l-radius-sm); transition: color .15s; }
 /* the category icons a step grayer than their label (owner, 2026-09-16: "make
-   them a tiny bit grayer"): #919399 sits between --l-text-3 (#8a8c93, 3.4:1)
-   and --l-text-4 (#a1a3a9, 2.5:1, too faint for a glyph); 3.07:1 on white */
+   them a tiny bit grayer"): #919399 sits between the old meta gray (#8a8c93,
+   3.4:1) and --l-text-4 (#a1a3a9, 2.5:1, too faint for a glyph); 3.07:1 on
+   white, above the 3:1 a non-text glyph needs. The label beside it is
+   --l-text-3, now #6e7077 (4.95:1) */
 .lf-glyph { flex: none; display: block; width: 14px; height: 14px; color: #919399; transition: color .15s; }
 
 /* the opportunity meter: twelve segments, the record's points filled in the
@@ -334,6 +349,23 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf-entry:hover .lf-meter > span:not(.on) { background: #e3e3e7; }
 .lf-m:is(:hover, :focus-visible) { color: var(--l-text-1); }
 .lf-m:is(:hover, :focus-visible) .lf-glyph { color: var(--l-text-2); }
+
+/* ---- badges: ONE, "Draft law" (owner, 2026-09-16) ------------------------------
+   Uncertainty, not urgency: a neutral outlined gray pill — no teal (in the
+   builder's favour), no warm hue (time pressure). 1px --l-line-2 outline,
+   4px radius, 18px tall; label 12px / 500 --l-text-2 (6.3:1 on white, AA).
+   It is a UI chip, not a fourth text style. It sits last on the meta line,
+   after the meter and the category, and opens a card like the meter's. No
+   fill, no motion beyond the tooltip's own entrance; focus or hover darkens
+   the outline gray to gray, instantly. */
+.lf-badge {
+  display: inline-flex; align-items: center; height: 18px; padding: 0 6px;
+  border: 1px solid var(--l-line-2); border-radius: var(--l-radius-sm);
+  font-size: var(--l-fs-sm); line-height: 16px; font-weight: 500; color: var(--l-text-2);
+  white-space: nowrap;
+}
+.lf-badge-host:is(:hover, :focus-visible) .lf-badge { border-color: var(--l-text-4); }
+.lf-badge-host:focus-visible { outline: 2px solid var(--l-text-1); outline-offset: 2px; }
 
 /* A TINY ENTRANCE (owner, 2026-09-16: "add a tiny animation to the tooltip"):
    every card — the meter's and the Venn's — rises 3px as it fades in, 140ms
@@ -376,6 +408,8 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf-opp-read { grid-column: 1 / -1; font-size: var(--l-fs-sm); line-height: 17px; color: var(--l-text-2); }
 .lf-opp-row.is-zero .lf-opp-l { color: var(--l-text-3); }
 .lf-m:is(:hover, :focus-visible) .lf-m-tip { display: block; }
+/* one card at a time: the item under the pointer wins over one still focused */
+.lf-meta:has(.lf-m:hover) .lf-m:not(:hover) .lf-m-tip { display: none; }
 /* touch screens have no hover: a tap focuses the part or item (tabindex), and
    its card stays until the reader taps elsewhere */
 @media (hover: none) {
@@ -412,19 +446,22 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 @media (max-width: 720px) {
   .lf { --lf-fs-title: 17px; --lf-lh-title: 24px; --lf-wash-l: 16px; }   /* inside the 20px gutter */
   .lf-bar-in, .lf-wrap { padding: 0 20px; }
-  /* the switcher stays, as flag + caret: the name would crowd the bar */
-  .lf-crumb::before { margin-right: var(--l-2); }
-  .lf-bar-in { gap: var(--l-2); }
+  /* the bar at 375, measured with its widest pair ("Problems" + "How it
+     works", when Signals is current): 6px around the switcher, links 6px
+     apart in padding with no extra gap */
+  .lf-crumb::before { margin-right: 6px; }
+  .lf-bar-in { gap: 6px; }
   /* the bar's switcher reads "CZ" + caret: "Czechia" would crowd the bar */
   .lf-cc-name { display: none; }
   .lf-cc-short { display: inline; }
   /* the menu hangs 12px from the screen's left edge: anchored under a button
      at x≈150, a 248px menu would run off a 375px screen */
   .lf-cc-menu--bar { position-area: none; inset: calc(var(--lf-bar-h) - 2px) auto auto 12px; margin: 0; }
-  /* brand + switcher + "Signals" + "How it works" fill 375px; the link to the
-     page you are already on is the one that goes */
-  .lf-nav a[aria-current="page"] { display: none; }
-  .lf-nav a { padding: 5px 7px; }
+  /* two links fit beside brand + switcher, not three: the bar marks the spare
+     one (the current page's, else "Problems") — see bar.tsx */
+  .lf-nav .lf-nav-spare { display: none; }
+  .lf-nav { gap: 0; }
+  .lf-nav a { padding: 5px 6px; }
   .lf-nav { margin-right: -10px; }
 
   .lf-intro { padding: 56px 0 72px; }   /* +24px before the list: a bit less than desktop */
@@ -444,14 +481,14 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
   .lf-foot-in { flex-direction: column; gap: var(--l-2); }
 }
 
-/* ---- small phones (320): the bar tightens so brand + three links still fit -------- */
+/* ---- small phones (320): the bar tightens so brand + two links still fit ---------- */
 @media (max-width: 359px) {
   .lf-bar-in, .lf-wrap { padding: 0 var(--l-4); }
   .lf-brand { font-size: var(--l-fs-md); }
   .lf-nav { margin-right: -5px; }
-  .lf-nav a { padding: 5px; font-size: var(--l-fs-sm); }
-  /* the switcher keeps its flag and caret; the "/" before it goes */
-  .lf-bar-in { gap: var(--l-1); }
+  .lf-nav a { padding: 5px 4px; font-size: var(--l-fs-sm); }
+  /* the switcher keeps "CZ" and its caret; the "/" before it goes */
+  .lf-bar-in { gap: 2px; }
   .lf-crumb::before { display: none; }
   .lf-cc-btn { margin-left: 0; padding: 4px; }
   .lf-by, .lf-by-opts { gap: var(--l-3); }

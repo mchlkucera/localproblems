@@ -612,6 +612,21 @@ const ProblemSchema = z.looseObject({
   // market: no numbers, no [Sn] markers, no certainty words (check-records.py).
   // Rides problems.extra_json, like `brief`.
   good_for: z.string().min(1).optional(),
+  // `draft_law` — THE "DRAFT LAW" BADGE (owner, 2026-09-16). OPTIONAL. Present
+  // ONLY when the record's MAIN pain or opportunity depends on a law that is
+  // not yet passed or published: a bill in parliament, a government draft, a
+  // planned law, or an EU directive not yet transposed where the pain depends
+  // on the Czech law. Never for a law already in force (however weakly
+  // enforced), never for a published, directly applicable EU regulation (a
+  // future application date is still released), and never where the pain
+  // exists today regardless of a pending bill. One field, one meaning: absent
+  // means "not a draft-law record", never "unchecked". The value is one plain
+  // line (≤ 12 words) naming the unpassed law and its status, carrying an
+  // [Sn] marker to the source showing that status; the page prints a "Draft
+  // law" badge with this line on hover. Marker resolution is below; the word
+  // cap, the regulation-type source rule and OVERCLAIM live in
+  // scripts/check-records.py. Rides problems.extra_json, like `brief`.
+  draft_law: z.string().min(1).optional(),
   // `price_search` — WHERE TO LOOK for the price when no Czech buyer has yet
   // priced this (owner, 2026-09-04: "we don't need to answer where the money
   // is where we don't know it; we can give an estimate of where to search").
@@ -668,6 +683,20 @@ const ProblemSchema = z.looseObject({
       ctx.issues.push({
         code: "custom",
         message: `brief cites ${dead.map((n) => `S${n}`).join(", ")} — ` +
+          `${p.sources.length} sources on file`,
+        input: p,
+      });
+    }
+  }
+  // The draft-law line's marker is the badge's receipt for the law's status;
+  // one pointing past sources[] would leave the badge unreceipted.
+  if (p.draft_law !== undefined) {
+    const nums = (p.draft_law.match(/\[S[\d,S]+\]/g) ?? []).flatMap((m) => (m.match(/\d+/g) ?? []).map(Number));
+    const dead = nums.filter((n) => n < 1 || n > p.sources.length);
+    if (dead.length) {
+      ctx.issues.push({
+        code: "custom",
+        message: `draft_law cites ${dead.map((n) => `S${n}`).join(", ")} — ` +
           `${p.sources.length} sources on file`,
         input: p,
       });

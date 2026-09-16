@@ -22,7 +22,11 @@ import { TopBar } from "../bar";
 import { CORRECTIONS_MAILTO } from "../../../../lib/chrome";
 import { Venn } from "./venn";
 
-export const metadata: Metadata = { title: "How it works (lab) — localproblems.org" };
+// the description is the page's own first line, verbatim (audit B14)
+export const metadata: Metadata = {
+  title: "How it works — localproblems.org",
+  description: "A register of meaningful problems to solve.",
+};
 
 /** A link to another site: "↗" after it, and words for screen readers. */
 function Out({ href, children }: { href: string; children: ReactNode }) {

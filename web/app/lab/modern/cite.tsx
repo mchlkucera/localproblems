@@ -9,9 +9,10 @@
 // NATIVE FIRST. The pill is a <button popovertarget>, the card a `popover=auto`
 // element positioned with CSS anchor positioning — so click/tap opens it,
 // Escape and an outside click close it, and focus returns to the pill, all
-// with no script. `peek-hover.tsx` only adds hover-intent and focus-to-open on
-// top. Every card links out to the source; the one full list of sources is
-// the rail's "View all" drawer.
+// with no script. `peek-hover.tsx` only adds hover-intent on top. Keyboard
+// focus alone never opens a card (audit B13): Tab onto a pill focuses it,
+// Enter or Space opens it. Every card links out to the source; the one full
+// list of sources is the rail's "View all" drawer (`#sources`).
 import type { CSSProperties, ReactNode } from "react";
 import { clip, type LabSource } from "./sources";
 

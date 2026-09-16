@@ -154,6 +154,22 @@ The reader is deciding what to build this quarter. Write for them:
 - **The card under a headline is exactly three items: story, Suggested, Good for.**
   Write it by the framing rules, each with a rejected and an approved example, in
   `data/RECORD-TEMPLATE.md` → "The headline block" → "The framing rules".
+  The corrections the owner makes most often, one line each (rule numbers there):
+  - **Who is in pain, and what they lose** (1): every headline names a concrete group and its sourced loss, preferring money lost or overpaid, time lost, money left on the table, fines, or documented anger; no sourced loss means the most honest headline, flagged, never an invented pain.
+  - **A signal is not a pain** (2): re-running tenders is evidence; say who it hurts and how.
+  - **The absence of a solution is not a pain** (3): "no list shows free beds" names the missing product.
+  - **A raw figure is not a pain** (4): "€58M awarded" as a headline is abstract; lead with the people.
+  - **Pain from the buyer's side** (5): the shop owner's fines, not the inspection rate.
+  - **Felt size** (12): "(which is A LOT of money)", sparingly, only on a sourced figure, never on an inference.
+  - **Say what a number means** (13): a projection becomes its consequence; an unsourced inference is marked in Revisions.
+  - **Explain the mechanism** (14): law → requirement → who does what → why hard → product; the product does the job, never "solves" the law.
+  - **One example is "can", not "does"** (17): one price list or contract is never the whole group.
+  - **Proof abroad is counted** (22): "as N companies already do in M other countries" / "in Germany", from comps that sell it.
+  - **Good for is specific when entry needs something** (25, 26): tenders, domain knowledge or a skill get named; the generic line is for open entry only.
+- **`draft_law:`** (optional): add it ONLY when the main pain depends on a law not yet
+  passed — never for a law in force, a published EU regulation, or a pain that exists
+  today anyway; one line (≤ 12 words) naming the law and its status, cited to a
+  `regulation` source. Gated in `check-records.py`; rules in `data/RECORD-TEMPLATE.md`.
 - **Dek**: explain every acronym and Czech term in plain English on first use.
 - **`solution:`**: one sentence stating what would likely solve the problem —
   REQUIRED on every record, and always shown as "Likely solution", so describe the

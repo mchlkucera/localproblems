@@ -62,6 +62,7 @@ title: '<plain, urgent headline — digits for numbers, ≤ 2 short sentences>' 
 brief: '<OPTIONAL — the story, ≤ 2 sentences and ≤ 40 words: who is stuck, doing what, what forces it NOW; every number/date cited [Sn]>'
 solution: '<one plain sentence: what would likely solve the problem; starts "Build " when brief is set>'   # REQUIRED
 good_for: '<one line, ≤ 15 words: the real entry requirement, or the space if anyone can enter>'   # OPTIONAL
+draft_law: '<OPTIONAL — ≤ 12 words: the unpassed law and its status [Sn]; ONLY when the main pain depends on it>'
 score: 7                      # MUST equal the sum of the five below
 scores:
   proof: 2                    # → "Validated abroad"   (0-3)
@@ -199,7 +200,7 @@ good_for: 'Cybersecurity people interested in grants and public-sector sales.'
 # p-0036
 title: 'Czech hospitals pay twice for every medical report. A 1.14bn CZK grant to change that closes in December.'
 brief: 'Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. The state pays hospitals to upgrade, but only until December [S8].'
-solution: 'Build report templates inside the hospital''s own software that pre-fill codes for staff to check, as companies already do abroad.'
+solution: 'Build report templates inside the hospital''s own software that pre-fill codes for staff to check, as 3 companies already do in Germany.'
 good_for: 'Health-tech builders patient with hospital tenders.'
 ```
 
@@ -217,72 +218,137 @@ no regex can tell abstract from concrete, so none is attempted.
 
 **Headline (`title`)**
 
-**The first test: every headline names a clear pain point.** Owner, 2026-09-16:
-*"Each heading should have a clear pain point."* Say WHO is hurting and HOW,
-in plain words: wasted time, lost money, fines, stuck cases, overpaying, a
-deadline they may miss. A volume ("82,000 cases") or a missing product ("no
-Czech software does X") is NOT a pain point on its own; it can sit beside the
-pain, never replace it. The pain must be real and sourced, like any other
-claim (rule 5): where a record's sources show nobody hurting, keep the most
-honest headline and flag the record, never invent a pain to pass this test.
-Judged, not gated: no regex can tell a pain from a fact.
+1. **The first test: every headline names a clear pain point, and who feels it.**
+   Owner, 2026-09-16: *"Each heading should have a clear pain point."* And,
+   strengthened the same day: *"Make sure each headline clearly explains some
+   pain of someone. Mostly find losing money/time, leaving money on the table.
+   It should be clear who is in pain or who is angry."*
+   - **Name WHO is in pain**: a concrete group the reader can picture (hospitals,
+     towns, families, small firms, lenders), never "the market" or "the system".
+   - **Name WHAT THEY LOSE**, in this order of preference: money lost or
+     overpaid; time lost (delay, manual effort); money left on the table (a
+     subsidy or payment they could get and don't); fines; or anger and
+     frustration that a source documents.
+   - **Every loss is sourced**, like any other claim (rule 10). Lost money needs
+     a source showing a cost, an overpayment, a fine or a missed payment; lost
+     time needs one showing a delay or manual effort; anger needs a source that
+     records it (complaints, appeals, protests), never the author's guess. One
+     example is "can" (rule 17).
+   - **Where a record's sources show nobody losing anything**, keep the most
+     honest headline and flag the record as having no sourced loss. Never invent
+     a pain, or an angry group, to pass this test.
+   Rules 2 to 4 name the three things that keep passing for a pain and are not
+   one; each is EVIDENCE, and it can sit beside the pain, never replace it. The
+   same test holds for the story. Judged, not gated: no regex can tell a pain
+   from a fact.
    - ✗ "Czechia handled 82,000 work-permit cases in 2024, and no Czech software tracks them" ("Why is that a problem? I don't see the pain point there.")
    - ✓ "Czech work permits for foreign staff get stuck, and agencies still do every file by hand"
-   - ✓ "Czech hospitals are overpaying for medicine"
+   - ✓ "Czech hospitals are overpaying for medicine" (money overpaid)
+   - ✓ "Czech building permits take way too long (6–12 months)" (time lost)
+   - ✓ "Czech towns buy solar panels one by one, and waste months doing it" (time lost)
+   - ✓ "Czech e-shops were fined 13M CZK last year for breaking consumer law" (fines)
    - ✓ "6,000 Czech towns and firms have months left to meet a new cybersecurity law"
-
-1. **Say plainly what is going on and why it matters now, in simple words.**
+2. **A signal is not a pain.** An observed behaviour or a statistic is how the
+   register SAW the problem. The headline says the hurt that behaviour causes,
+   and to whom.
+   - ✗ "Czech towns keep re-running their small solar-panel tenders" ("re-running tenders is a signal, not a problem/pain")
+   - ✓ "Czech towns tender their solar roofs one by one, and lose months when few firms bid"
+3. **The absence of a solution is not a pain.** "No list", "no software", "no
+   Czech product does X" describes the product that is missing, which is
+   `solution:`'s question. Say what people do without it, and what that costs
+   them.
+   - ✗ "no national list shows free beds" ("is not a pain, that's suggesting a solution")
+   - ✓ "families put their parent on list after list"
+4. **A raw figure is not a pain.** A spend, a count or a contract total as the
+   headline is abstract: the reader cannot tell who is hurt by it. Lead with the
+   people and what is pressing on them; the figure goes in the story or the dek,
+   where rule 13 says what it means.
+   - ✗ "Czech public bodies awarded €58M in energy-saving renovation contracts this summer" ("I don't understand")
+   - ✓ "Czech towns and hospitals face EU building-upgrade rules, and Czechia is already late"
+5. **Pain from the buyer's side.** Lead with what hurts the person who would pay
+   for the product, not with how the system around them behaves. For a shop
+   owner that is the fines, not the inspection rate.
+   - ✗ a headline led by how often the inspectors check e-shops (illustrative: the rate hurts nobody the reader can picture)
+   - ✓ "Czech e-shops were fined 13M CZK last year for breaking consumer law"
+6. **Say plainly what is going on and why it matters now, in simple words.**
    - ✗ "6,000 Czech organisations. One cyber deadline." ("sounds like a novel title, too abstract")
    - ✗ "…and since September they can grow much bigger" ("very abstract", "wtf")
    - ✓ "Czech hospitals are overpaying for medicine"
-2. **Use digits for numbers.** **(gate)** On a record with a brief, a spelled-out
+7. **Use digits for numbers.** **(gate)** On a record with a brief, a spelled-out
    cardinal (two to ninety, hundred, thousand, million, billion) fails. "one",
    "hundreds", "thousands" and "twice" pass because they are ordinary prose or
    vague amounts.
    - ✗ "Six thousand Czech firms must meet new security rules, and most are not ready"
    - ✓ "6,000 Czech towns and firms have months left to meet a new cybersecurity law"
-3. **Keep it short.** At most two short sentences. Use the second only when it
+8. **Keep it short.** At most two short sentences. Use the second only when it
    carries the urgency.
    - ✗ "Czech hospitals write reports as free text, then pay people to read them again" (the second half repeats the problem, and no urgency is given)
    - ✓ "Czech hospitals pay twice for every medical report. A 1.14bn CZK grant to change that closes in December."
-4. **Frame dates relative to today, honestly.** If most deadlines are 3 to 9 months
+9. **Frame dates relative to today, honestly.** If most deadlines are 3 to 9 months
    away, say "months left".
    - ✗ "…have one year to meet a new cybersecurity law"
    - ✓ "…have months left to meet a new cybersecurity law"
-5. **Make no claim a source doesn't back.** A headline carries no marker, so
-   check its figure against the body's cited sentence before it ships.
-   - ✗ "…and most are not ready" (no source counts who is ready)
-   - ✓ "6,000 Czech towns and firms" (the regulator's own count)
+10. **Make no claim a source doesn't back.** A headline carries no marker, so
+    check its figure against the body's cited sentence before it ships.
+    - ✗ "…and most are not ready" (no source counts who is ready)
+    - ✓ "6,000 Czech towns and firms" (the regulator's own count)
 
 **Story (`brief`)**
 
-6. **Tell it like a story:** who is stuck, doing what, and what forces it now.
-   Use simple language and no abstraction.
-   - ✗ "Most deadlines fall between late 2026 and mid-2027, fines reach 2% of turnover, and a university has re-tendered for a security manager" (a list of facts)
-   - ✗ "Grant: up to 28M CZK per hospital" ("abstract")
-   - ✓ "Doctors type reports as free text, then other staff re-read them by hand."
-7. **Say who a rule hits, and make the number felt in human terms.** A fine on a
-   percentage of turnover applies to firms, not to towns.
-   - ✗ "fines reach 2% of turnover" ("what fines, for whom?")
-   - ✓ "A firm that misses its deadline can be fined up to 2% of its turnover (which is A LOT of money)"
-8. **Don't be oddly specific.** Don't name a single town or institution, and
-   don't tell a one-off anecdote unless it IS the story. Cutting specifics is
-   the way to make a brief shorter.
-   - ✗ "The town of Týn nad Vltavou paid a consultant…" (too specific)
-   - ✗ "one small town paid…" ("how is it relevant?")
-   - ✓ "The state pays hospitals to upgrade, but only until December."
-9. **Use "most" or "many" only when a source says so.** No regex checks this.
-   The author has to find the receipt.
-   - ✗ "…and most have nobody who can do it" (no source counts them, so it was cut)
-   - ✓ "Many small firms don't even know the law covers them" (the business association's own words)
-10. **Don't assert a cause the evidence doesn't prove.** Put the two facts side
+11. **Tell it like a story:** who is stuck, doing what, and what forces it now.
+    Use simple language and no abstraction.
+    - ✗ "Most deadlines fall between late 2026 and mid-2027, fines reach 2% of turnover, and a university has re-tendered for a security manager" (a list of facts)
+    - ✗ "Grant: up to 28M CZK per hospital" ("abstract")
+    - ✓ "Doctors type reports as free text, then other staff re-read them by hand."
+12. **Say who a rule hits, and make the number felt in human terms.** A fine on a
+    percentage of turnover applies to firms, not to towns. Where the owner wants
+    the size felt, a plain human judgement in brackets does it: "(which is A LOT
+    of money)", "(which is way too much!)". Use it sparingly, at most once on a
+    card, only on a figure that carries its `[Sn]`, and never on an inference
+    (rule 13): a judgement stacked on a guess doubles the guess.
+    - ✗ "fines reach 2% of turnover" ("what fines, for whom?")
+    - ✓ "A firm that misses its deadline can be fined up to 2% of its turnover (which is A LOT of money)"
+    - ✓ "Measuring the surfaces of just one town has cost over 1M CZK (which is way too much!)"
+13. **Say what a number means.** A projection or a statistic on its own is
+    abstract. Translate it into its consequence for the people in the story,
+    and keep the number as the support. Where the consequence is an inference no
+    source states, write it as one ("so even more families will be searching")
+    and mark it as an inference in that date's `## Revisions` entry, with the
+    sources it rests on.
+    - ✗ "Czechs over 80 are projected to reach 690,000 by 2030" ("abstract — say what this means")
+    - ✓ "By 2030 Czechia will have 690,000 people over 80, nearly half more than in 2023, so even more families will be searching"
+14. **Explain the mechanism when a law creates the work.** A reader who is told
+    only that a law exists cannot see the pain or the product. Walk the chain:
+    the law → what it requires → who must do what → why that is hard → what the
+    product does about it. The story carries the middle links and `solution:`
+    the last. The product solves the JOB the law creates, never the law itself:
+    no service "solves" a charge on rainwater, but one can measure the surfaces
+    the charge is billed on.
+    - ✗ the earlier p-0037 card: "Owners of roads, railways and homes would start paying for rainwater drained into sewers from July 2027. Sewer operators would bill them, and it is only a draft." ("does not explain what's the pain or the solution… law charging for rainwater is not solved by a service?")
+    - ✓ p-0037's final card: "Each bill depends on the size of every roof and road, and today owners mostly fill that in themselves. Measuring the surfaces of just one town has cost over 1M CZK (which is way too much!)", then "Build a service that measures roofs and paving from aerial photos and gives sewer operators a ready billing file, as 2 companies already do in Germany."
+15. **Don't be oddly specific.** Don't name a single town or institution, and
+    don't tell a one-off anecdote unless it IS the story. Cutting specifics is
+    the way to make a brief shorter.
+    - ✗ "The town of Týn nad Vltavou paid a consultant…" (too specific)
+    - ✗ "one small town paid…" ("how is it relevant?")
+    - ✓ "The state pays hospitals to upgrade, but only until December."
+16. **Use "most" or "many" only when a source says so.** No regex checks this.
+    The author has to find the receipt.
+    - ✗ "…and most have nobody who can do it" (no source counts them, so it was cut)
+    - ✓ "Many small firms don't even know the law covers them" (the business association's own words)
+17. **One example is "can", not "does".** A figure drawn from one price list, one
+    contract or one buyer shows what CAN happen. Stated as "pay" or "does", it
+    claims the whole group; the headline and the story both hold to this.
+    - ✗ "Czech schools sharing electricity pay 3 times its price in admin fees" (illustrative: a figure from one price list, stated for every school)
+    - ✓ "Czech schools sharing electricity can pay 3 times its price in admin fees"
+18. **Don't assert a cause the evidence doesn't prove.** Put the two facts side
     by side and let the reader join them.
     - ✗ "Most of the 6,000 have nobody to do the work — Mendel University re-tendered…" (one re-tender offered as proof of the whole)
     - ✓ "Doctors type reports as free text, then other staff re-read them by hand."
-11. **At most 2 sentences and 40 words.** **(gate)** A line break also fails.
+19. **At most 2 sentences and 40 words.** **(gate)** A line break also fails.
     - ✗ "…by hand [S1,S3]. Coders lose hours to it [S3]. The state pays…" (three sentences; the checker's positive control)
     - ✓ the p-0008 brief above: two sentences, 39 words
-12. **Receipts and one meaning.** Every number, date or month carries `[Sn]` at
+20. **Receipts and one meaning.** Every number, date or month carries `[Sn]` at
     the end of the sentence it backs. **(gate)** A brief with a number and no
     marker at all fails, and so does a marker that doesn't resolve. Where each
     marker sits is judged. Don't talk about solutions ("suggest",
@@ -294,41 +360,66 @@ Judged, not gated: no regex can tell a pain from a fact.
 
 **Suggested (`solution`)**
 
-13. **Start with "Build".** **(gate)** On a record with a brief, the check reads
+21. **Start with "Build".** **(gate)** On a record with a brief, the check reads
     only the opener. Then name the plain business form (an agency, software, a
-    marketplace, a service), WHERE it lives or plugs in, and what it does.
+    marketplace, a service), WHERE it lives or plugs in, and what it does. Where
+    a law creates the work, it does the job the law creates (rule 14).
     - ✗ "build report templates" ("WHERE? missing explanation")
     - ✓ "Build report templates inside the hospital's own software that pre-fill codes for staff to check"
-14. **Point abroad in the plural.** Write "as companies already do abroad", not
-    the name of one foreign company. The names belong in the Proven abroad
-    ledger.
-    - ✗ "…, as Tiplu does in Germany" (illustrative; the owner asked of the plural form, "isn't better?")
-    - ✓ "…, as companies already do abroad."
-15. **No certainty words.** **(gate)** `OVERCLAIM`: "will solve", "the only",
+22. **Point abroad with a count and a place, never a name.** Owner, 2026-09-16:
+    fill "do abroad" with "X companies do in Y countries". X is the number of
+    `comps[]` that actually sell what this solution describes, or one of its
+    halves. Being on the ledger is not enough: read each comp's traction, its
+    source's `why` and `note`, and leave out any that sells something nearby
+    (p-0010's cargo.one books air cargo; it runs no trucking back office). Where
+    the ledger's words leave it unclear, read the comp's own product page and
+    record what it says in the Revisions entry (p-0024's Deepki reads as
+    monitoring on the ledger, and its own site sells capex planning). Y is
+    the number of countries those counted comps are BASED in (`geo`), never
+    their markets. With 2 or more countries, count them; with 1, name it; with
+    no comp that does it, drop the clause. No names: they belong in the Proven
+    abroad ledger. **(gate)** `check_solution_abroad`: "abroad" and "as in
+    <Country>" fail; a count above the comps on file, a country count above
+    their distinct `geo`s, or a named country no counted comp is based in fails.
+    The gate holds the ceiling, and the author still decides which comps count.
+    - ✗ "…, as companies already do abroad." (vague: how many, and where?)
+    - ✗ "…, as in Germany." (clipped; owner: "does not make sense")
+    - ✗ "…, as Tiplu does in Germany" (a name; the ledger carries the names)
+    - ✓ "…, as 3 companies already do in Germany."
+    - ✓ "…, as 2 companies already do in 2 other countries."
+    - ✓ "…, as 1 company already does in the Netherlands."
+23. **No certainty words.** **(gate)** `OVERCLAIM`: "will solve", "the only",
     "guarantees", "best" and similar.
     - ✗ "…software that will solve the double reading" (illustrative)
     - ✓ "Build a small security agency that writes their EU grant applications and does the security work."
-16. **Never a block of text that says almost nothing.**
+24. **Never a block of text that says almost nothing.**
     - ✗ "A fixed-price service for the towns and care homes covered by the new Czech cybersecurity law: check what each one owes before its deadline, write the EU subsidy application where one applies, then do the security work itself rather than only the documents." ("a block of text saying almost nothing")
     - ✓ "Build a small security agency that writes their EU grant applications and does the security work."
 
 **Good for (`good_for`)**
 
-17. **Name the real entry requirement plainly** when the evidence shows one:
+25. **Name the real entry requirement plainly** when the evidence shows one:
     the specific knowledge, interests, network or skills a builder must have to
-    enter.
+    enter. Read `entry:` first. A public buyer means selling through tenders; a
+    licence, a national system or the domain the product reads (energy data,
+    clinical codes, aerial mapping) is a skill or a door the person needs. When
+    any of those gates the record, a generic "Someone who'd like to work with X"
+    is too generic: name the need.
     - ✗ "procurement insiders patient with public hospitals" (a requirement stated as jargon: "this isn't simple language")
+    - ✗ "Someone who'd like to work with towns, hospitals and their buildings" ("too generic": the sale runs through public tenders and the product reads energy data)
     - ✓ "Someone with cybersecurity skills who's interested in grants and public-sector sales."
-18. **Never invent a requirement. When anyone could enter, name the space
-    instead**, so the reader knows what they are walking into.
+    - ✓ "Someone who understands building energy use and can sell to hospitals and towns through tenders."
+26. **Never invent a requirement. When anyone could enter, name the space
+    instead**, so the reader knows what they are walking into. The generic form
+    is ONLY for these records; rule 25 decides which records they are.
     - ✗ "people who know how hospitals buy medicines" (a requirement that isn't real: "the builder really must know this?")
     - ✓ "Someone who'd like to work with hospitals."
-19. **Plain words, short, no numbers.** **(gate)** At most 15 words, one line, no
+27. **Plain words, short, no numbers.** **(gate)** At most 15 words, one line, no
     digits or spelled magnitudes, no `[Sn]`, and no market claims ("lucrative",
     "growing", "underserved") or certainty words. A line that needs a citation
     has turned into a second brief without its receipt.
     - ✗ "Builders chasing a growing 1.14bn CZK market" (illustrative; it fails on the number and on "growing")
-20. **Start with the person.** **(gate)** The card prints "Good for" straight before
+28. **Start with the person.** **(gate)** The card prints "Good for" straight before
     this line, so its first word names WHO: Someone, People, Engineers, Developers…
     (`GOOD_FOR_PERSON_OPENERS` in `scripts/check-records.py`).
     - ✗ "Mapping and aerial-photo people who'd like to work with sewer operators." (reads "Good for mapping…" — owner: "Good for should always start with a person")
@@ -346,6 +437,51 @@ counts who lacks the people, so both claims were corrected before they shipped
 `web/lib/data.ts` types `brief` and `good_for` and resolves the brief's markers.
 Neither is a column in `scripts/db.py`; both ride `problems.extra_json`, like
 `process`.
+
+### `draft_law:` — the "Draft law" badge (optional, owner 2026-09-16)
+
+Owner: *"Add some badge to all problems that are 'probably': based on a law
+that's not yet released."* The page prints a **Draft law** badge on the record,
+and this line when the reader hovers it.
+
+**What it means, and only this:** the record's MAIN pain or opportunity depends
+on a law that is NOT yet passed or published. That covers a bill in parliament,
+a government draft, a planned law, or an EU directive not yet transposed where
+the pain depends on the Czech law (a directive binds the state, not the firm,
+so until the Czech law exists nobody in the story owes anything).
+
+**What it does not mean.** Leave the key out for:
+- **A law already in force**, even where enforcement is weak.
+- **A published, directly applicable EU regulation**, even one whose duties
+  apply from a future date: it is released. The AI Act's disclosure duty
+  (p-0034) applies today, so a Czech enforcement bill still in draft does not
+  make that record a draft-law record.
+- **A pain that exists today regardless of the draft.** p-0028's e-shops are
+  fined under current consumer law; the green-claims bill moving through
+  parliament is extra, not the pain.
+
+Absent means "not a draft-law record", never "not checked" (MATCH.md §0).
+
+**The value** is one plain line of at most 12 words naming the unpassed law and
+where it stands, with an `[Sn]` marker on the source that shows that status.
+Plain words, no jargon.
+
+```yaml
+# p-0018
+draft_law: 'Czech pay transparency law, still a draft [S1]'
+# p-0037
+draft_law: 'Draft change to the Czech water-utilities law, still out for comment [S4]'
+```
+
+**(gate)** `check_draft_law` in `scripts/check-records.py`: a non-empty string,
+at most 12 words, one line, at least one `[Sn]` marker, every marker resolving,
+every cited source `type: regulation` (the only type that holds legal texts,
+drafts and bill trackers; a news item cannot be a law's status receipt), and no
+certainty words (`OVERCLAIM`). Whether a record qualifies is judged, not gated:
+read the sources, and when you add the key, say why in that date's `##
+Revisions` entry. A law that passes takes the badge off: remove the key in the
+same change that records the law in force. `web/lib/data.ts` types it and
+resolves its markers; it rides `problems.extra_json`, like `brief`.
 
 ### `entry:` — difficulty to enter (required, owner 2026-09-15)
 

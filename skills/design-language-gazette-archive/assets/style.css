@@ -1,0 +1,1248 @@
+/* ============================================================
+   localproblems.org · design system v1.22 · 2026-09-15
+   v1.22 (owner, 2026-09-15, on v1.21's "Difficulty to enter"
+   shipped the same morning: "should be level — hard — and the
+   rest is explanatory, under it, bullet points, like First moves,
+   just a simple list"; the leader-dot ledger "looks different from
+   the rest of the page"): ONE SELECTOR WIDENED, NOTHING ADDED.
+   The section drops .buildfacts for the prose grammar the rest of
+   the funnel already wears — a run-in strong.lead paragraph, then
+   a plain bullet list — and that list is ul.prose, the class
+   renderBody has always emitted for a markdown bullet list but
+   which no record had yet exercised on a built page. Two of the
+   three .prose rules were written ol-scoped when only First moves
+   used them, so a ul fell back to the UA's 40px indent and lost
+   the --sp-2 step between items: `padding-left: var(--sp-6)` and
+   `li { margin-bottom: var(--sp-2) }` now name both lists. The
+   ::marker rule stays ol-only ON PURPOSE — it sets a marker in
+   mono because a NUMBER is a figure and figures are mono; a disc
+   is not a figure, and pushing it to --fs-data would shrink it for
+   no reason the content states. No colour, size, weight, rule
+   weight, spacing value, breakpoint or glyph enters the sheet, and
+   no existing page changes: nothing shipped a ul.prose before.
+   .buildfacts is left standing and unused — retiring a device is a
+   round of its own, and this is not it.
+   The scorecard's SIXTH ROW is gone from the record page markup
+   (owner, same day: the level is not part of the /12, and inside
+   the card it read as a sixth dimension). `.dim--build` and its
+   double rule stay in the sheet for the same reason — see above.
+   v1.21 (owner, 2026-09-15 — the entry contract: "include a clear
+   difficulty to enter … should be in the index view"): ONE CLASS,
+   ONE RULE. The register and category tables gain an Entry column
+   between Category and Score, and its cell is set in the register
+   label voice the Category cell already wears — uppercase mono at
+   --fs-label with the 0.06em registry tracking. .t-entry is its own
+   selector rather than a second class on .t-cat because the two are
+   different columns and a shared name would make a future change to
+   one silently change the other; the declarations are the existing
+   ones, copied, so nothing new enters the sheet. No colour, size,
+   weight, rule weight, spacing value, breakpoint or glyph. The
+   record page's "What you need" section is REPLACED by "Difficulty
+   to enter" in markup only: it reuses .buildfacts and .buildnote
+   unchanged, and the scorecard's sixth row keeps .dim--build, which
+   names its POSITION in the card (the row opened by the double
+   rule), not the retired field.
+   v1.20 (owner, on v1.19's phone front page: "putting the menu in
+   the footer is not a good solution — find a better, simple but
+   modern one"; "the filtering is still taking up a lot of space"):
+   v1.20 (owner, on v1.19's phone front page: "putting the menu in
+   the footer is not a good solution — find a better, simple but
+   modern one"; "the filtering is still taking up a lot of space"):
+   THE STRIP. On a phone the two chrome lines that wrapped into walls
+   — the site nav (with the region line, on the register) and the
+   category filter — each become ONE line that runs off the right
+   edge of the screen and scrolls sideways: white-space: nowrap +
+   overflow-x: auto, bleeding into the page gutter (negative inline
+   margin, matching padding) so the line is cut by the screen and not
+   by a box. The cut mid-word IS the affordance, as on every
+   newspaper's phone section strip: no fade, no arrow, no scrollbar
+   (scrollbar-width: none — a phone's overlay scrollbar is invisible
+   anyway). Everything stays where the desk has it: nav at the head,
+   filter over the register. The v1.19 body grid that sank the nav to
+   the foot is RETIRED and pruned, .sitenav--local with it; .sitenav is
+   now the WRAPPER that lets the site nav and the region line share one
+   strip (inline inside it on a phone, block lines on the desk), and
+   the category nav names itself .categories. The register's one-
+   sentence description drops to the muted --fs-data serif of the note
+   voice on a phone (.index-head ~ p): the problems are the page.
+   MEASURED at 375px: the first problem sat ~490px down at v1.18 and
+   ~330px at v1.19 with the nav gone from the head; now ~270px with the
+   nav back at the head. Scoped `screen and`; the photocopy wraps. No
+   colour, size, weight, rule weight, spacing value, breakpoint or
+   glyph. Markup: one wrapper div and one class.
+   v1.19 (owner: "on mobile you get greeted with this wall of text …
+   the problems are the focus"; "each section should be very easy to
+   scan and then to dive deeper"; "the 'more' under Sources is very
+   repetitive and ugly"): three moves, one round.
+   (a) THE PHONE FRONT PAGE — SUPERSEDED BY v1.20 the next day (the
+   owner: a menu in the footer is not the answer; the strip is). As
+   shipped for one day: below 56rem — the one narrow mode the
+   site already has — the cross-surface chrome leaves the head of the
+   page: the site nav (.sitenav) and the region line (.regions) drop
+   to the foot, between the content and the footer, by `order` on a
+   body grid. MEASURED: at 375px the register's first problem sat
+   ~490px down an 812px screen behind five identical mono lines (nav,
+   region, description, categories) a reader could not tell apart.
+   Now the masthead, the one-sentence description and the category
+   filter are the whole head and the first problem is on the first
+   screen. Nothing is hidden — a demotion in position, never in
+   visibility (the v1.9 doctrine) — and the markup is byte-identical
+   at every width (v1.8): the two navs gain a class naming what they
+   are, nothing else. The ledger pages keep their nav at the head
+   (.sitenav--local): there it is the ledger switcher, the page's own
+   control, not chrome. Scoped `screen and`; DOM order never moves,
+   so assistive tech and the photocopy keep the nav first.
+   (b) SCAN, THEN DIVE — the record page's section grammar. Every
+   evidence section now reads the same way: the prose first (the
+   argument), its ledger second (the receipts). Local competition
+   inverted this and is turned round, which retires the v1.17 seam
+   margin the inversion needed. Inside the prose, a section's FIRST
+   SENTENCE — and each first-moves step's — sets in the house 600 as
+   a run-in lead (strong.lead, split at build by splitLead with the
+   dek's 40-char floor; CSS cannot find a sentence): skim the
+   headings and the leads and you have read the findings; the rest
+   of each paragraph is their evidence. Inside the ledgers, a comp's
+   traction shows its first clause and a local player's evidence its
+   first sentence, and the rest folds behind the same native
+   disclosure the sources already used — the clause is the scan, the
+   fold is the dive.
+   (c) THE FOLD, GENERALISED. details.more leaves .sources and is the
+   one fold device for every ledger note; the repeated "more" summary
+   — seventeen identical words down one page — is gone. THE GIST IS
+   THE CONTROL: the sources gist, the comp's first clause, the local
+   player's first sentence each become the <summary>, in the voice
+   their ledger already gives that line (mono meta for a gist, the
+   italic note for a comp), wearing the house link grammar (rule
+   hairline underline, ink on hover, the 2px ink outline on focus). A
+   closed fold ends in the continuation mark " …" — the sign printed
+   text uses when it has been cut short, generated like the
+   th[aria-sort] arrow — and the photocopy prints every fold open
+   (::details-content { content-visibility: visible }, the mark
+   suppressed there). (d) One repair found on the way: a sources
+   row's ISO date broke at its own hyphens beside a long name on a
+   phone ("2026-" / "09-03"); a recorded date is one token and now
+   says so (white-space: nowrap, the .index .t-num rule's own value).
+   New on the sheet: one class (.lead) on a weight already spent
+   (600), one glyph (…). No colour, size, rule weight, spacing value
+   or breakpoint.
+   v1.18 (owner: "even the link explanations are too long. Maybe we
+   could have a few word explanation and see more on a toggle"): the
+   sources ledger row gains an optional GIST — the clerk's few-word
+   label after the serif name, in the line's existing mono voice and
+   muted like the date beside it, so the name keeps the row — and the
+   full `why` sentence folds behind the page's first native disclosure:
+   <details class="more"> with a quiet mono "more" summary wearing the
+   house link grammar (rule-hairline underline, ink on hover, the 2px
+   ink outline at 2px offset on :focus-visible — the v1.6 doctrine for
+   any control styled out of its default look). The default disclosure
+   triangle is suppressed (no icons — NEVER 6); the fold is HTML, not
+   script (NEVER 13 untouched). Open state simply reveals the existing
+   .sources .why voice. A source without a gist renders exactly as
+   before — the open why line, no toggle. Seven declaration blocks and
+   NO new colour, size, weight, rule weight, spacing value, breakpoint
+   or glyph: --fs-meta, the muted ink, the a-rule underline pair, the
+   2px focus outline and cursor:pointer are all already on the sheet.
+   (v1.17 — 2026-08-25, same day — is the .locals ledger→prose seam
+   margin, recorded in full at its rule below.)
+   v1.16 (owner: "never exclude — the goal is to inform the builder
+   properly"): the local-competition ledger renders in TWO LABELLED
+   GROUPS. `locals[].status` split into `competes` (direct | adjacent)
+   + `maturity` (established | early), so the section now holds two
+   kinds of row — firms selling THIS, and real firms nearby selling
+   something else — and printing them in one undifferentiated list
+   made the second kind read as a competitor nobody had scored. Each
+   group is opened by a plain count line in the EXISTING .crumb voice
+   (muted mono meta), re-spaced by `.locals .crumb` for its new job:
+   a label sitting ON a list hugs the rows it names, and the air moves
+   above it (`.locals + .locals .crumb`) to open the second group. The
+   .pill carries maturity ALONE now — one field, one meaning, on the
+   page as in the schema. NO new colour, size, weight, rule weight,
+   spacing value, breakpoint or glyph: two selectors, existing tokens.
+   v1.16 also CUTS FURNITURE (owner: "there are still artifacts like
+   `Created … · updated … · Source wrong? Corrections →`"). One date,
+   once, per page. A record page was rendering the same date FIVE
+   times — docket, the standalone "Last verified" line, twice in its
+   own footer, once in the site footer line — because three separate
+   passes each added a currency marker and none removed the one
+   before. Retired and PRUNED: p.verified (the standalone marker) and
+   the extract date inside FooterHouseLine, which printed on every
+   page of the site and duplicated a real date wherever one existed.
+   p.whenline keeps its relative distance and loses its ", as of
+   <date>" tail. `created` no longer renders anywhere: when a record
+   was minted is our bookkeeping, and git holds it. The corrections
+   link stops being telegraphic ("Source wrong? Corrections →") and
+   becomes one plain sentence from one component. Nothing was added.
+   v1.15 (owner: "there could be a simple proposed fix mentioned under
+   the subheading"): the record docket gains ONE line under the dek —
+   .docket .fixline, a mono registry label (`SUGGESTED SOLUTION`, the .facts dt
+   voice) plus one ink serif sentence naming the product, opened by the
+   1px row hairline because it is a separate RECORDED row rather than a
+   continuation of the derived standfirst. It renders the new optional
+   `fix:` frontmatter field (a real column, problems.fix, schema_version
+   5 — not looseObject overflow), and renders nothing at all when the
+   field is absent. The docket's wide grid gains a fourth row and the
+   facts rail spans it. No colour, size, weight, rule weight, spacing
+   value, breakpoint or glyph was introduced.
+   v1.14 (owner: "find a better layout", "add number there to enable
+   quick scanning"): the scorecard re-laid as single-column ledger rows.
+   v1.13 (same day, owner: "easier to scan, with links to read more"):
+   each scorecard cell becomes a plain anchor to the record section that
+   carries its evidence (Validated abroad → Proven abroad, Local
+   opportunity → Local competition, Money available → How big, Why now →
+   Why now, Demand signal → its source row; Build → What you need). The
+   affordance is visible at rest: the READ line wears the house link
+   grammar — hairline underline + a trailing mono "→" — hover thickens to
+   the 2px ink underline, focus states the 2px ink outline inset so it
+   never crosses the cell rules it abuts. No JS — plain #anchors. The
+   retired "Who builds this" buildfacts ledger returns as the "What you
+   need" section (capital · team · first revenue, with the team line
+   citing a comp where one states its headcount) — grammar unchanged.
+   v1.12 (owner rebuild): the record page becomes a board brief, not a
+   dossier. THE JARGON IS GONE — the scorecard drops the SCORING.md verdict
+   words (UNPROVEN, FAINT, LIKELY …) the owner struck out ("who are you
+   impressing with the jargon"). The top-line band is now a plain
+   "Opportunity {sum}/12" card: plain builder labels, a tally pip meter
+   (more is better on EVERY row — gap high = the field is open), one plain
+   line each, zero rows muted. A Build cell sits apart (feasibility, not
+   opportunity). The rundown popover dialogs are RETIRED from the record
+   page (their rubric criteria and raw notes were internal audit prose); the
+   .rundown grammar stays in the stylesheet, dormant, for reference. Sources
+   become a named link + one plain "what it is / why it's cited" line (the
+   new `name`/`why` source fields); the internal `note` receipt and the
+   S-number no longer render. The revision wall is replaced by one quiet
+   "Last verified {date}" line — the full trail stays in the markdown/git.
+   "Who builds this" folds into the scorecard Build cell. New: p.whenline
+   (the "why now" relative distance), p.verified (last-verified marker —
+   RETIRED and pruned at v1.16: one date, once, per page).
+   No new colour; tally ticks kept as the pip meter (no circles/rings).
+   v1.11: the signal abstract renders. Each ledger row's recorded ≤2-sentence
+   summary moves from the name's hover title — invisible on every phone — to a
+   visible muted serif note line under the name (`.index .t-title .note`), the
+   comps-ledger two-line entry grammar reused verbatim. Truncation moves from
+   the cell to the anchor so the name still ellipsises on one line (NEVER 14)
+   while the note wraps. The hover title now carries only the verbatim quote —
+   a tooltip repeating visible text is noise. No new colour, size or weight.
+   v1.10 (2026-08-21): ledger Record column retired with the visible ids
+   (owner) — its 20% width passed to the serif name; row anchors kept.
+   v1.9: revisions. The record's audit trail stops interrupting
+   the argument and becomes a ledger at the foot of the page.
+   .correction (v1.4 — the 4px "page begins" rule turned sideways,
+   body-size ink prose, appended wherever the correction landed)
+   is RETIRED and its rules pruned: it was right for one correction
+   and wrong for the forty the corpus had accumulated across 31
+   records, where on p-0026 the trail outweighed the argument it
+   corrected 441 words to 181. ol.revisions replaces it by REUSING
+   the .rundown .sig exhibit grammar — full-measure 1px row
+   hairline, --sp-5 hang, muted mono reference line — because a
+   revision is subordinate to a record exactly as an exhibit is to
+   a finding. Nothing is hidden: no disclosure, no collapse, the
+   trail still prints. A demotion in weight, not in visibility.
+   No colour, size, weight, rule weight or spacing value added.
+   v1.8: the narrow table. Below 56rem an .index row stops being
+   a squeezed table row and becomes the ruled ledger entry the
+   record pages already use — the serif name on its own line,
+   the clerk cells running on beneath it joined by the house
+   middot, the 1px hairline moved from the cell to the row. It
+   fixes a measured failure, not a preference: at 375px the
+   register truncated every problem title to four characters and
+   the seven-column signal ledger overlapped its own headers and
+   ellipsised every value to one or two glyphs. CSS only — the
+   markup is byte-identical at every width — and it introduces no
+   colour, size, weight, spacing value, breakpoint or glyph the
+   stylesheet did not already spend: 56rem is the width the scorecard,
+   the docket rail and the works grid already narrow at, and it is
+   independently where a Date cell stops fitting an ISO date. Scoped
+   `screen and` so the photocopy keeps the table. The landing
+   masthead joins the existing 30rem block, where its own name stops
+   fitting beside the About link.
+   v1.7: gap-check coverage — the receipts behind an absence
+   claim finally render. A gap-check source may record the
+   surfaces it searched and the queries it ran; the rundown
+   exhibit closes with them (p.coverage, the clerk's muted mono
+   coverage line; ul.queries, the verbatim strings in ink and in
+   quotes). Its `expires` horizon joins the dates on the exhibit's
+   reference line and on its sources-ledger row, stamp red via the
+   existing .urgent once crossed — a DISPLAY FLAG ONLY, decayed
+   against the register's own newest `updated` and never the wall
+   clock. No new colour, size, weight or rule weight; the one
+   added shim (.sources li time.urgent) exists solely to beat the
+   ledger's muted-date specificity, mirroring .comps time.urgent.
+   v1.6: two devices modernised on the owner's mandate.
+   (a) Inline source markers (.ref[href^="#s"]) stop opting out of
+   the house link grammar: they inherit their context's ink, carry
+   the rule-hairline underline every link on the site carries, and
+   seat their cap on the prose cap line instead of floating on
+   vertical-align:super. Hover thickens the underline to the 2px
+   ink "this is the one" mark; :focus-visible adds the 2px ink
+   outline — replacing Chrome's orange default ring, which was an
+   eighth colour leaking onto the page.
+   (b) The score rundown (.rundown[popover]) is rebuilt as an
+   opened page of the report rather than a UI panel: 4px ink head
+   rule (the page begins), 32/48/64 head-side-foot page margins,
+   a two-line document header closed by the 3px double rule (major
+   boundary), the rubric criterion raised to --fs-body as the
+   stated finding, and the source records set as indented exhibits
+   whose hairline is the row rule. Inside an exhibit the source's
+   own summary is roman ink (what the source says) and the
+   register's note italic muted (what the register says about it).
+   Scrim raised to 55% ink so the record beneath reads as ground.
+   v1.5.2: dead ol.receipts device pruned (its pages were retired).
+   v1.5.1: one shared --w-rail vertical (docket + works); sort-direction
+   text arrows on th[aria-sort]; who-builds as .buildfacts ruled ledger;
+   docket meta right-aligned; relative dates extended to the full
+   Notion-style ladder (weeks/months/years ago).
+   Two faces: Source Serif 4 (prose) + IBM Plex Mono (evidence).
+   Seven colors. Three rule weights. Zero JavaScript assumed.
+   v1.1: adds the 4px spacing scale (--sp-1…--sp-8); all margins,
+   paddings and gaps now derive from it — no ad-hoc values.
+   v1.2: adds the scorecard band (top-line dimensions + verdicts)
+   and the plain numbered source list (ol.sources); signals rows gain
+   a source-ref cell; the docket hands off to the scorecard.
+   v1.3: sources become one-line ledger entries (name links, no
+   note/url lines); score rundown moves into CSS-only :target
+   drawers under the scorecard (breakdown table retired); facts
+   values may carry one text-presentation glyph; date fields may
+   render relative via the tiny progressive script (ISO kept in
+   the datetime attribute — page works identically without JS).
+   v1.4: record-page rebuild — docket dek + quiet .meta line;
+   .rundown .bands legend; the h2-size window figure (retired
+   v1.5); two-line comps entries (.entry/.line/.name/.ref/.note);
+   ol.prose numbered steps; .correction left-rule; .absent;
+   .buildnote.
+   v1.4.1: the where-it-works map (.geomap — build-time inline
+   SVG of comp geography; locality shapes, ISO2 mono labels).
+   v1.4.2: the register caption goes visually hidden — kept in
+   the DOM for assistive tech (owner, 2026-08-19).
+   v1.5: five-lane round — the docket goes two-column on wide
+   viewports with the .facts--rail right rail; the .works grid
+   sets the comps ledger beside the geomap; inline source-
+   reference markers (.ref[href^="#s"]); the h2-size window
+   figure retired — window receipts keep a plain mono `by <ISO>`
+   (.urgent inside T−14, via the .comps time.urgent shim); the
+   geomap's North-America inset panel (.inset); aria-sort /
+   aria-current 2px ink underlines (sortable register, masthead
+   About); footer time inherits the meta size.
+   Content runs NEVER modify this file.
+   ============================================================ */
+
+:root {
+  /* -- color tokens (the only seven colors on the site) ----- */
+  --paper:     #F8F6F1;
+  --paper-2:   #EFECE5;
+  --ink:       #1A1814;
+  --ink-muted: #6E6A5F;
+  --rule:      #CBC6B9;
+  --stamp:     #BB271A;   /* official-stamp red */
+  --signal:    #1A7A3C;   /* status lifecycle only */
+
+  /* -- spacing scale (4px base — the only spacing values) ---- */
+  --sp-1: 0.25rem;   /*  4px · micro: dot cell inline pad        */
+  --sp-2: 0.5rem;    /*  8px · ledger rows, note gaps            */
+  --sp-3: 0.75rem;   /* 12px · cell gutters, small block pads    */
+  --sp-4: 1rem;      /* 16px · component padding, heading exhale */
+  --sp-5: 1.5rem;    /* 24px · page gutter, block padding, bands */
+  --sp-6: 2rem;      /* 32px · grid column gap, docket interior  */
+  --sp-7: 3rem;      /* 48px · section air above h2, docket gap  */
+  --sp-8: 4rem;      /* 64px · page bottom, footer clearance     */
+
+  /* -- type ------------------------------------------------- */
+  --serif: "Source Serif 4", Georgia, serif;
+  --mono:  "IBM Plex Mono", "Courier New", monospace;
+  --fs-masthead: 2.5rem;   --fs-title: 2rem;     --fs-h2: 1.375rem;
+  --fs-body: 1rem;         --fs-data: 0.8125rem; --fs-meta: 0.75rem;
+  --fs-label: 0.6875rem;
+
+  --w-page: 76rem;  --w-prose: 62ch;
+  --w-rail: 20rem;  /* THE right-rail width — docket facts and the works map
+                       share it so the page keeps ONE vertical (owner, 2026-08-20) */
+  color-scheme: light only;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body {
+  max-width: var(--w-page);
+  margin: 0 auto;
+  padding: 0 var(--sp-5) var(--sp-8);
+  font: 400 var(--fs-body)/1.6 var(--serif);
+  color: var(--ink);
+  border-top: 4px solid var(--ink);          /* the page begins */
+}
+p, ul.prose, ol.prose { max-width: var(--w-prose); margin-block: 0 var(--sp-4); }
+/* prose lists: numbered steps (first moves) and plain bullet lists (a record's
+   markdown bullets; Difficulty to enter's five gates). Both take the house
+   indent and the --sp-2 step between items (v1.22 — the two rules were written
+   ol-only when only First moves used them). Only the NUMBERED marker is mono:
+   a figure is a figure, and a disc is not one. */
+ul.prose, ol.prose { padding-left: var(--sp-6); }
+ul.prose li, ol.prose li { margin-bottom: var(--sp-2); }
+ol.prose li::marker { font: 600 var(--fs-data)/1 var(--mono); }
+/* the run-in lead (v1.19): a section's first sentence — and each first-moves
+   step's — sets in the house 600, so a reader who skims the headings and the
+   openers has read the findings; the rest of the paragraph is their evidence.
+   Emitted at BUILD by splitLead (web/lib/sections.ts, the dek's 40-char floor),
+   never by CSS — ::first-line is a line, not a sentence. */
+.lead { font-weight: 600; }
+/* sections breathe from above: ~3× the exhale below the heading */
+h2 { font: 600 var(--fs-h2)/1.3 var(--serif); margin: var(--sp-7) 0 var(--sp-4); }
+a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px; }
+a:hover { text-decoration-color: var(--ink); }
+
+/* every clerk-recorded value is mono */
+time, code, .mono { font-family: var(--mono); font-size: var(--fs-data); }
+.label {
+  font: 500 var(--fs-label)/1 var(--mono);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+.urgent { color: var(--stamp); }             /* window dates T−13 and closer */
+
+/* ---- masthead: gazette head, every page --------------------- */
+.masthead {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: var(--sp-4) 0 var(--sp-3); border-bottom: 1px solid var(--ink);
+}
+.masthead .brand { font: 700 1.25rem var(--serif); text-decoration: none; }
+.masthead .issue { font: 500 var(--fs-meta) var(--mono); }
+/* the masthead About link marks the current page with the house
+   aria-current grammar — same 2px ink underline as .filters (v1.5) */
+.masthead .issue[aria-current] { text-decoration: underline 2px var(--ink); }
+.index-head { padding: var(--sp-5) 0 var(--sp-4); }               /* landing only */
+.index-head .brand { font-size: var(--fs-masthead); line-height: 1.05; }
+.crumb { font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); margin: var(--sp-2) 0 var(--sp-5); }
+.filters { font: 500 var(--fs-meta)/2 var(--mono); margin: var(--sp-3) 0 var(--sp-5); }
+.filters [aria-current] { text-decoration: underline 2px var(--ink); }
+.filters .soon { color: var(--ink-muted); cursor: default; }  /* regions not yet live; title= carries "Coming soon" */
+
+/* ---- status dot: the only circle, the only icon -------------- */
+.dot {
+  display: inline-block; width: 0.625rem; height: 0.625rem;
+  border-radius: 50%;                        /* sanctioned exception */
+  border: 1.5px solid var(--signal); vertical-align: -1px;
+}
+.dot--claimed { background: var(--signal); }
+.dot--solved  { background: var(--signal); outline: 1px solid var(--signal); outline-offset: 2px; }
+.dot--closed  { border-color: var(--ink-muted); }
+.status { font: 600 var(--fs-label)/1 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ---- score tally: 12 survey ticks + zero-padded fraction ----- */
+.score { font: 600 var(--fs-data)/1 var(--mono); white-space: nowrap; }
+.score .tally {
+  display: inline-block; width: 3rem; height: 0.625rem;
+  margin-right: 0.75ch; position: relative; vertical-align: -1px;
+  /* hard-stop tick pattern — the only *-gradient() on the site */
+  background: repeating-linear-gradient(90deg, var(--rule) 0 2px, transparent 2px 4px);
+}
+.score .tally::after {
+  content: ""; position: absolute; inset: 0;
+  width: calc(var(--s) / 12 * 100%);         /* set style="--s:9" in HTML */
+  background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 4px);
+}
+.score-high .num { color: var(--stamp); }    /* scores 10–12 */
+
+/* ---- the index: a register, not a card grid ------------------ */
+table.index { width: 100%; border-collapse: collapse; font: 400 var(--fs-data)/1.5 var(--mono); }
+.index caption {  /* sort + extract date: kept in the DOM for assistive tech and
+                     the record's truth, visually retired (owner, 2026-08-19) */
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.index thead th {
+  font: 500 var(--fs-label)/1 var(--mono);
+  text-transform: uppercase; letter-spacing: 0.08em; text-align: left;
+  background: var(--paper-2); padding: var(--sp-2) var(--sp-3);
+  border-bottom: 3px double var(--ink);      /* cadastral boundary */
+}
+/* sortable register (sanctioned exception 3, v1.5): the active sort
+   header — server HTML ships aria-sort="descending" on Score, so the
+   sorted column reads marked with JS off and on the photocopy.
+   cursor:pointer comes from the script, never from here — a th is
+   only clickable when the script is running. */
+.index thead th[aria-sort] { text-decoration: underline 2px var(--ink); }
+/* the active sort column states its direction — text arrows, not icons */
+.index thead th[aria-sort="descending"]::after { content: " ↓"; }
+.index thead th[aria-sort="ascending"]::after  { content: " ↑"; }
+.index td { padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--rule); vertical-align: baseline; }
+.index tbody tr:hover { background: var(--paper-2); }   /* instant, no transition */
+.index .t-id { font-weight: 600; white-space: nowrap; }
+.index .t-title {                            /* the only serif cell */
+  font: 600 0.9375rem/1.3 var(--serif);
+  max-width: 0; width: 46%;                  /* the sizing trick stays on the cell */
+}
+/* v1.11: truncation lives on the ANCHOR so the name keeps its one ellipsised
+   line (NEVER 14) while the abstract beneath is free to wrap. */
+.index .t-title > a { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* the recorded ≤2-sentence abstract — the comps `.note` voice, roman because it
+   is the clerk's recorded summary, muted because it is subordinate to the name */
+.index .t-title .note {
+  display: block; margin-top: var(--sp-1);
+  font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted);
+  white-space: normal;
+}
+.index .t-cat { text-transform: uppercase; font-size: var(--fs-label); letter-spacing: 0.06em; }
+.index .t-entry { text-transform: uppercase; font-size: var(--fs-label); letter-spacing: 0.06em; }  /* v1.21 */
+.index .t-num, .index thead .t-num { text-align: left; white-space: nowrap; }  /* v2: every column left-aligns */
+.index .t-date { color: var(--ink-muted); }
+.index tr.is-solved .t-title { color: var(--ink-muted); }
+
+/* ---- problem page: docket header (the title block gets the most air) */
+/* the docket always hands off to the scorecard band directly below it */
+.docket { position: relative; border-top: 3px double var(--ink); border-bottom: 1px solid var(--ink); padding: var(--sp-5) 0 var(--sp-6); margin-bottom: 0; }
+.docket .id { font: 600 var(--fs-meta)/1 var(--mono); letter-spacing: 0.08em; }
+.docket .idline {                            /* id + housekeeping share one quiet line */
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--sp-4); flex-wrap: wrap; margin: 0;
+}
+.docket .idline .meta { margin: 0 0 0 auto; text-align: right; }
+.docket h1 { font: 700 var(--fs-title)/1.2 var(--serif); margin: var(--sp-2) 0 var(--sp-5); max-width: 30ch; clear: none; }
+/* the dek: one serif standfirst sentence directly under the title (v1.4) */
+.docket .dek { font: 400 var(--fs-h2)/1.4 var(--serif); color: var(--ink-muted); max-width: 40ch; margin: 0 0 var(--sp-5); }
+/* the proposed fix (v1.15, owner 2026-08-25: "there could be a simple proposed
+   fix mentioned under the subheading"): ONE plain sentence naming the product,
+   directly under the dek, so a builder learns WHAT TO BUILD without reading
+   three sections down to First moves. It is an AUTHORED frontmatter field
+   (`fix:`), not derived prose the way the dek is compressed out of the
+   who-pays paragraph — and it is set in the house label-value grammar that
+   says so: the muted mono registry label `.facts dt` already uses, then the
+   sentence itself. INK, not muted, and serif: the dek is context, the fix is
+   the answer, so the answer is the darker of the two even though it is set
+   smaller — and it is a human sentence, never a recorded value, so voice one
+   applies. The 1px --rule above it is the row hairline doing its one job (a
+   separate recorded row of the docket, not a continuation of the standfirst),
+   the weight the facts rail already spends on exactly this. `fix:` is
+   optional: absent, NOTHING renders — no label, no placeholder, no orphan
+   rule. No colour, size, weight, rule weight, spacing value, breakpoint or
+   glyph is introduced. */
+.docket .fixline {
+  margin: var(--sp-5) 0; padding-top: var(--sp-4);
+  border-top: 1px solid var(--rule);
+  font: 400 var(--fs-body)/1.5 var(--serif); color: var(--ink);
+  max-width: var(--w-prose);
+}
+.docket .fixline .k {
+  font: 500 var(--fs-label)/1 var(--mono); text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--ink-muted);
+  margin-right: 0.75ch; white-space: nowrap;
+}
+/* the quiet meta line at the docket's bottom edge — housekeeping whispers (v1.4) */
+.docket .meta { margin: var(--sp-5) 0 0; font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
+.docket .meta time { font-size: inherit; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-4) var(--sp-6); margin: 0; }
+.facts dt { font: 500 var(--fs-label)/1 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: var(--sp-1); }
+.facts dd { margin: 0; font: 500 var(--fs-data)/1.4 var(--mono); }
+.facts .range { color: var(--ink-muted); font-weight: 400; }   /* capital-ladder range beside the value (v1.4) */
+
+/* ---- docket two-column grid (v1.5) -----------------------------
+   Wide viewports: left minmax(0,1fr) — idline → h1 → dek; right an
+   18rem facts rail (.facts--rail markup modifier on the docket dl),
+   top-aligned, label-over-value rows separated by hairlines.
+   grid-template-rows auto auto 1fr parks any excess height in the
+   dek row so idline/h1/dek never drift apart when the rail is
+   taller. Narrow (< 56rem): all of this is inert — single column,
+   source order idline → h1 → dek → facts (facts keep the base
+   3-across .facts grid). 56rem matches the scorecard's breakpoint;
+   the single-point overlap at exactly 56rem is harmless.
+   .docket keeps its base rules (double-rule top, ink bottom,
+   padding, position: relative) — this block only adds placement. */
+@media (min-width: 56rem) {
+  .docket {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--w-rail);
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: var(--sp-7);
+  }
+  .docket .idline  { grid-column: 1; grid-row: 1; }
+  .docket h1       { grid-column: 1; grid-row: 2; }
+  .docket .dek     { grid-column: 1; grid-row: 3; margin-bottom: 0; }
+  /* row 4 is the 1fr row (v1.15): the fix line parks the excess height when
+     the facts rail is taller, exactly as the dek row did before it existed —
+     and on a record with no `fix:` the row is simply empty, so idline/h1/dek
+     still never drift apart. */
+  .docket .fixline { grid-column: 1; grid-row: 4; margin-bottom: 0; }
+  .docket .facts--rail {
+    display: block;
+    grid-column: 2; grid-row: 1 / span 4;
+    align-self: start;
+  }
+  .docket .facts--rail > div { padding: var(--sp-3) 0; border-bottom: 1px solid var(--rule); }
+  .docket .facts--rail > div:first-child { padding-top: 0; }
+}
+
+/* ---- scorecard: the "Opportunity /12" card (v1.14 rows) -----
+   Owner rebuild 2026-08-24; re-laid as ledger rows 2026-08-25 ("find a
+   better layout", "add number there to enable quick scanning"). The card
+   answers "how good is this opportunity, objectively?": a header
+   "Opportunity {sum}/12", then the five dimensions as SINGLE-COLUMN
+   ROWS that scan straight down like a table — plain builder label left,
+   the tally PIP METER with its mono figure (2/3, 1/2 …) in a shared
+   middle column, the one plain read right. More is better on EVERY row
+   — gap high means the field is open, not "more competition". NO
+   verdict words, NO rundown dialog: the receipts live in the Sources
+   ledger. The sixth Build row sits apart behind a 3px double rule — it
+   is feasibility, not opportunity. Tally ticks only; never a gauge. */
+.scorecard {
+  border: 1px solid var(--rule);
+  margin: 0 0 var(--sp-6);
+  font-family: var(--mono);
+}
+.scorecard .hd {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-2);
+}
+.scorecard .hd .t {
+  font: 500 var(--fs-label)/1 var(--mono);
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-muted);
+}
+.scorecard .hd .n { font: 600 var(--fs-body)/1 var(--mono); }
+.scorecard .hd .n b { font-size: var(--fs-title); }   /* the loudest figure on the page */
+.scorecard .dims { display: block; }
+/* one row, three fixed columns, so label / meter / read align down the
+   card: the label column clears the longest label (VALIDATED ABROAD at
+   --fs-label + 0.08em tracking), the meter column clears the widest pip
+   run and the Build pill. Rules are border-TOP so the Build row can
+   trade its hairline for the double rule without stacking two rules. */
+.scorecard .dim {
+  display: grid;
+  grid-template-columns: 8.5rem 6.5rem minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+}
+.scorecard .dim + .dim { border-top: 1px solid var(--rule); }
+/* Build sits apart — feasibility, not opportunity: the major boundary */
+.scorecard .dim--build { border-top: 3px double var(--rule); }
+.scorecard .meter { display: flex; align-items: center; gap: var(--sp-2); }
+/* the figure beside the pips — the register's .score fraction grammar */
+.scorecard .num { font: 600 var(--fs-data)/1 var(--mono); }
+.scorecard .read { font: 400 var(--fs-data)/1.4 var(--serif); color: var(--ink); }
+/* absence is stated, never hidden: a zero row greys its read and figure */
+.scorecard .is-zero .read, .scorecard .is-zero .num { color: var(--ink-muted); }
+/* the quiet bordered mono mark, not a stamp: a value from a CLOSED ENUM
+   stated as a band. Two callers, one device — the Build cell's team band
+   (solo / small-team / funded-team) and, since v1.15, the local-competition
+   ledger's MATURITY band (established / early), which is half of what the GAP
+   score turns on and therefore has to be readable at a glance rather than
+   inferred from a sentence. The other half — does this firm sell THIS? — is
+   the group the row sits in (v1.16), not a second pill: two stamps on one line
+   would read as a rating. No colour, size, weight, spacing value or breakpoint
+   joins the sheet for the second caller: the selector widens, the rule does not. */
+.scorecard .pill, .comps .pill {
+  font: 600 var(--fs-label)/1 var(--mono);
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted);
+  border: 1px solid var(--rule); padding: 2px 6px; white-space: nowrap;
+}
+/* the tally is the pip meter: --s of --max ticks filled, ink on rule.
+   Shared with the (retained, currently dormant) rundown header. */
+.scorecard .tally, .rundown header .tally {
+  width: calc(var(--max) * 0.625rem); height: 0.625rem; position: relative; flex: none;
+  /* wide-tick variant of the tally — still the only *-gradient() device */
+  background: repeating-linear-gradient(90deg, var(--rule) 0 6px, transparent 6px 10px);
+}
+.scorecard .tally::after, .rundown header .tally::after {
+  content: ""; position: absolute; inset: 0;
+  width: calc(var(--s) / var(--max) * 100%);  /* set style="--s:3;--max:3" in HTML */
+  background: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 10px);
+}
+@media (max-width: 40rem) {  /* narrow: label + meter share the top line, read below */
+  .scorecard .dim { grid-template-columns: minmax(0, 1fr) auto; row-gap: var(--sp-2); }
+  .scorecard .meter { justify-content: flex-end; }
+  .scorecard .read { grid-column: 1 / -1; }
+}
+/* v1.13: each cell links to the section carrying its evidence ("read
+   more" — owner, 2026-08-24). The label and pips stay plain; the READ
+   line wears the house link grammar — hairline underline + a trailing
+   mono "→" — so the affordance is visible at rest. Hover = the 2px ink
+   underline the site spends on "this is the one"; focus = the 2px ink
+   outline, INSET so it never crosses the cell rules the .dim abuts
+   (the .dot--solved offset would cut through the card grid). */
+a.dim { text-decoration: none; }
+a.dim .read {
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 2px;
+}
+a.dim .read::after { content: " →"; font-family: var(--mono); }
+a.dim:hover .read { text-decoration: underline 2px var(--ink); }
+a.dim:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+/* ---- score rundown: a page of the report, opened (v2; rebuilt v1.6)
+   A scorecard dimension is a button (popovertarget); the popover it
+   opens is not a panel but a sheet — the report page that justifies
+   that one dimension. Declarative close cross (popovertargetaction=
+   hide), light-dismiss, still no scripting.
+
+   The sheet reproduces the document grammar of the site itself, and
+   spends all three rule weights on their one meaning each:
+     4px solid  — the page begins        (the sheet's head rule)
+     3px double — a major boundary       (the header block ends)
+     1px solid  — a row hairline         (one exhibit from the next)
+   It carries no side or foot border at all: a page laid on a shaded
+   desk is defined by its own light, so the scrim is the edge. That
+   is why the scrim went from 24% to 55% ink — at 24% the record
+   underneath still competed for the eye; at 55% its ink text sits
+   near 3:1 against the shaded ground, which reads as present-but-
+   demoted rather than as a page that has been switched off.
+
+   Margins are a printed page's, not a UI panel's: 32 head / 48 side
+   / 64 foot — head < side < foot, the classic ratio, every value a
+   step on the 4px scale (--sp-6 / --sp-7 / --sp-8, and --sp-8 means
+   "page bottom" already).
+
+   Reading order is the report's: subject → determination → finding →
+   exhibits. Nothing here is a card; the hierarchy is typographic. */
+.rundown[popover] {
+  border: 0;
+  border-top: 4px solid var(--ink);           /* the page begins */
+  background: var(--paper); color: var(--ink);
+  padding: var(--sp-6) var(--sp-7) var(--sp-8);
+  width: min(38rem, calc(100vw - 2 * var(--sp-5)));
+  max-height: 80vh; overflow-y: auto;
+  margin: auto;
+  font: 400 var(--fs-data)/1.6 var(--mono);
+}
+.rundown::backdrop { background: color-mix(in srgb, var(--ink) 55%, transparent); }
+/* the close mark sits quietly in the sheet's head margin, clear of the
+   header block — a small stamped mark, not an app-modal control */
+.rundown .x {
+  position: absolute; top: var(--sp-3); right: var(--sp-4);
+  border: 0; background: none; cursor: pointer; padding: var(--sp-1) var(--sp-2);
+  font: 400 var(--fs-data)/1 var(--mono); color: var(--ink-muted);
+}
+.rundown .x:hover { color: var(--ink); }
+.rundown .x:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; color: var(--ink); }
+/* the document header block: subject line (the same muted label the
+   scorecard column carries — the dialog IS that column, opened), then
+   the determination line, figure left and verdict at the right margin,
+   closed by the double rule. */
+.rundown header {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: var(--sp-3); row-gap: var(--sp-2);
+  padding-bottom: var(--sp-4); margin-bottom: var(--sp-5);
+  border-bottom: 3px double var(--ink);       /* major boundary */
+}
+.rundown header .label {
+  flex: 0 0 100%;                             /* the subject gets its own line */
+  font-size: var(--fs-label); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted);
+}
+.rundown header .num { font-size: var(--fs-h2); font-weight: 600; }
+/* the shared wide tally is sized for the scorecard's --fs-body figure;
+   beside the sheet's --fs-h2 figure the same ticks need the extra
+   height to read as survey marks rather than as stray dashes */
+.rundown header .tally { height: 0.875rem; }
+.rundown header .verdict { margin-left: auto; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+/* the finding: the rubric criterion for the level actually reached.
+   Mono, because it is a recorded determination carrying its own
+   sub-scores — but at --fs-body it is the largest running text on the
+   sheet, which is what makes it the finding rather than a caption. */
+.rundown .crit { margin: 0 0 var(--sp-5); font-size: var(--fs-body); font-weight: 500; line-height: 1.5; }
+/* a dimension with no source on file is a page with a finding and no
+   exhibits — a stated absence, so it keeps the foot margin but not the
+   air that would have separated it from an exhibit list */
+.rundown .crit:last-child { margin-bottom: 0; }
+/* verdict-bands legend in the total rundown: borderless, current band
+   marked → (v1.4); indented and ruled like an exhibit (v1.6) so the
+   total sheet keeps the same finding-then-exhibits structure */
+.rundown .bands {
+  width: 100%; margin: 0; border-top: 1px solid var(--rule); border-collapse: collapse;
+  font-size: var(--fs-meta); color: var(--ink-muted);
+}
+.rundown .bands td { padding: var(--sp-1) var(--sp-4) 0 0; }
+.rundown .bands tr:first-child td { padding-top: var(--sp-4); }
+.rundown .bands td:first-child { padding-left: var(--sp-5); width: var(--sp-6); }
+.rundown .bands td:last-child { width: 100%; }
+.rundown .bands .is-band td { font-weight: 600; color: var(--ink); }
+/* the exhibits: the source records the finding rests on. The hairline
+   runs the full page measure (it is the row rule), the content hangs
+   indented — exhibits are subordinate to the finding, and the indent
+   is what says so. */
+.rundown .sig {
+  border-top: 1px solid var(--rule);
+  margin-top: var(--sp-5);
+  padding: var(--sp-4) 0 0 var(--sp-5);
+}
+.rundown .sig .meta { display: block; font-size: var(--fs-meta); color: var(--ink-muted); margin-bottom: var(--sp-2); }
+.rundown .sig .name { font: 600 0.9375rem/1.35 var(--serif); }
+/* one exhibit, two voices: the register's note on why the source is on
+   file is an editorial gloss, so it is italic and muted — the default
+   here, because it is the note that is always present. */
+.rundown .sig .note {
+  margin: var(--sp-2) 0 0; max-width: none;
+  font: 400 var(--fs-data)/1.55 var(--serif); font-style: italic; color: var(--ink-muted);
+}
+/* …and where a signal is attached its own summary precedes that gloss.
+   Roman ink: it is what the source says, and testimony is not set in
+   the same voice as the clerk's remark about it. :has(+ .note) is the
+   only way to tell "the source's summary" from "the register's note"
+   without a class — one note means the register's, two mean both. */
+.rundown .sig .note:has(+ .note) { font-style: normal; color: var(--ink); }
+/* ---- gap-check coverage: an absence claim states its own reach (v1.7)
+   A gap-check source is the receipt behind "nobody local does this",
+   and a bare negative is worth exactly what its coverage is worth.
+   Where the record files them, the exhibit closes with the surfaces
+   that were searched and the queries that were run.
+
+   Two voices again, inside the exhibit this time. The coverage line is
+   the clerk's — muted mono at --fs-meta, the same voice as the exhibit's
+   reference line above it, because "where we looked" is register
+   metadata. The queries are not: they are the literal strings a person
+   typed, the nearest thing this device has to testimony, so they are
+   ink at --fs-data and wear their quotation marks like the quoted
+   material they are. They hang one --sp-4 step inside the exhibit
+   indent — subordinate to the coverage claim exactly as the exhibit is
+   subordinate to the finding.
+
+   The horizon (`expires`) needs no rule at all: it joins the dates
+   already on the reference line, and once crossed the existing .urgent
+   spends stamp red on the phrase. That flag is DISPLAY ONLY — it never
+   moves scores.gap, score or status (data/CONVENTIONS.md, "THE LAW"),
+   and it decays against the register's own newest `updated`, never the
+   wall clock. Nothing new here: no colour, no size, no weight, no
+   fourth rule — the whole device is existing tokens rearranged. */
+p.coverage {
+  margin: var(--sp-3) 0 0; max-width: none;
+  font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted);
+}
+ul.queries {
+  list-style: none; margin: var(--sp-2) 0 0; padding-left: var(--sp-4);
+  font: 400 var(--fs-data)/1.6 var(--mono);
+}
+/* narrow sheets: below 30rem a 48px page margin starves the measure,
+   so head/side collapse to one step and the exhibit indent halves */
+@media (max-width: 30rem) {
+  .rundown[popover] { padding: var(--sp-5) var(--sp-5) var(--sp-6); }
+  .rundown .sig { padding-left: var(--sp-4); }
+  .rundown .bands td:first-child { padding-left: var(--sp-4); }
+}
+
+/* ---- sources: named link + one plain line (owner rebuild, v1.12) --
+   Two-line ledger entries, the comps `.entry` grammar reused: the serif
+   NAME links out, a muted date sits at the right of that line, and one
+   muted serif line says what the source is / why it is cited. The
+   S-number is the row anchor (id="sN") so in-body [Sn] markers still
+   jump here, but it is no longer PRINTED — a reader wants the source,
+   not its filing number (owner, 2026-08-21). The internal `note` receipt
+   does not render; the register keeps it in the markdown, auditable. */
+ol.sources { list-style: none; margin: 0; padding: 0; }
+.sources li { padding: var(--sp-3) 0; border-bottom: 1px solid var(--rule); }
+.sources .line { display: flex; align-items: baseline; gap: 0.75ch; font: 400 var(--fs-data)/1.5 var(--mono); }
+.sources .line > a, .sources .line > span:first-child { font: 600 0.9375rem/1.3 var(--serif); }
+.sources .line .leader { flex: 1; }
+.sources time { color: var(--ink-muted); white-space: nowrap; }   /* one token: never "2026-" / "09-03" (v1.19) */
+.sources li time.urgent { color: var(--stamp); }   /* retained shim */
+.sources .why { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); max-width: var(--w-prose); }
+/* ---- the fold: details.more (v1.18 on sources; generalised v1.19) --
+   The one disclosure device on the site, HTML not script (NEVER 13):
+   a ledger note's short form is the <summary>, its long form folds
+   beneath. THE GIST IS THE CONTROL — there is no "more" word: a
+   sources row folds its why behind its authored gist, a comp its
+   traction behind the traction's first clause, a local player its
+   evidence behind the first sentence, each summary in the voice its
+   ledger already gives that line (set per ledger, below). The summary
+   wears the house link grammar (rule hairline underline, ink on
+   hover, the 2px ink outline on focus — the v1.6 pairing for any
+   control styled out of its default look); the default triangle is
+   suppressed (NEVER 6); a closed fold ends in the continuation mark
+   " …" — the sign printed text uses when it has been cut short,
+   generated like th[aria-sort]'s arrow. The photocopy prints every
+   fold open (see @media print). v1.18's repeated "more" summary —
+   seventeen identical words down one sources ledger — is retired. */
+details.more { margin: var(--sp-1) 0 0; }
+details.more > summary {
+  display: inline-block; list-style: none; cursor: pointer; max-width: var(--w-prose);
+  text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 2px;
+}
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary:hover { text-decoration-color: var(--ink); }
+details.more > summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+details.more:not([open]) > summary::after { content: " …"; }
+/* the sources gist — the clerk's few-word label — is the fold's summary, or
+   a plain line where a source carries a gist and no why */
+.sources .gist, .sources details.more > summary { font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
+.sources p.gist { margin: var(--sp-1) 0 0; max-width: var(--w-prose); }
+
+
+/* comps: solved elsewhere — same one-line ledger grammar */
+.comps { list-style: none; margin: 0; padding: 0; font: 400 var(--fs-data)/1.5 var(--mono); }
+.comps li { display: flex; align-items: baseline; gap: 0.75ch; padding: var(--sp-2) 0; border-bottom: 1px solid var(--rule); }
+.comps .leader { flex: 1; }
+.comps time { color: var(--ink-muted); }
+/* urgent window date shim (v1.5): the window ledger's future receipt
+   is a plain mono <time class="urgent">by 2026-12-31</time> inside
+   its normal line. .comps time (0,1,1) would re-mute it past .urgent
+   (0,1,0), so the stamp red needs one notch more specificity. */
+.comps time.urgent { color: var(--stamp); }
+/* two-line comparable entries (v1.4): serif name line + traction note.
+   The name is serif because someone runs this — it is not clerk data. */
+.comps li.entry { display: block; }
+.comps .line { display: flex; align-items: baseline; gap: 0.75ch; }
+.comps .name { font: 600 0.9375rem/1.3 var(--serif); }
+.comps .ref { font-size: var(--fs-meta); color: var(--ink-muted); }
+.comps .note { margin: var(--sp-1) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); font-style: italic; color: var(--ink-muted); max-width: var(--w-prose); }
+/* a comp's first clause, or a local player's first sentence, is the fold's
+   summary in the note's own voice (v1.19) — the note beneath continues it */
+.comps details.more > summary { font: 400 var(--fs-data)/1.5 var(--serif); font-style: italic; color: var(--ink-muted); }
+/* local competition, grouped (v1.16): the ledger holds firms that sell
+   THIS and firms nearby that sell something else, and a reader must see
+   which is which without reading four evidence lines. Each group is one
+   .locals block opened by the house .crumb label — no new device, the
+   muted mono meta voice already in the sheet. Only its SPACING is
+   scoped: a label sitting on a list hugs its rows, and the group break
+   is the air above the second label. Existing tokens, both of them. */
+.locals .crumb { margin: 0 0 var(--sp-2); }
+.locals + .locals .crumb { margin-top: var(--sp-6); }
+/* v1.17's ledger→prose seam margin (`.locals { margin-block: 0 --sp-5 }`)
+   is RETIRED at v1.19: Local competition now reads prose first, ledger
+   second, like every other section, so the seam it guarded no longer
+   exists. Pruned, not left dormant — the v1.5.2 rule. */
+
+/* ---- record-page devices (v1.4; .correction retired v1.9) ------
+   .absent: stated absence (no sized figure / no comparable on file).
+   .buildnote: one muted serif sentence under the build facts.
+   .correction (the 4px page-begins rule turned sideways) is gone —
+   see ol.revisions below for what replaced it and why.           */
+p.absent { font: 400 var(--fs-data)/1.5 var(--mono); color: var(--ink-muted); }
+/* the "why now" relative line (v1.12). Muted mono meta, computed at build
+   against the register's own newest `updated` (extractDate) — never the wall
+   clock, so the page stays reproducible. It now prints the DISTANCE alone
+   ("~4 months out."); the ", as of <date>" that closed it was a second copy of
+   the docket's currency line (v1.16).
+   p.verified — the standalone "Last verified {date}" marker — is RETIRED and
+   its rule pruned with it (v1.16). It was the second of FIVE renderings of one
+   date on a record page, and the page now states that date once, in the docket,
+   where the reader forms a trust judgment. Pruned rather than left dormant: a
+   rule with no caller is a rule that gets re-adopted by accident. */
+p.whenline { margin: var(--sp-3) 0 0; font: 500 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); }
+/* who-builds-this as a ruled ledger — one fact per line, readable
+   (owner, 2026-08-20; replaces the facts-grid rendering here) */
+ul.buildfacts { list-style: none; margin: 0 0 var(--sp-4); padding: 0; max-width: var(--w-prose); font: 500 var(--fs-data)/1.5 var(--mono); }
+.buildfacts li { display: flex; align-items: baseline; gap: 0.75ch; padding: var(--sp-2) 0; border-bottom: 1px solid var(--rule); }
+.buildfacts .leader { flex: 1; }
+.buildfacts .val { font-weight: 600; }
+.buildfacts .val .range { color: var(--ink-muted); font-weight: 400; }
+
+.buildnote { margin: var(--sp-4) 0 0; font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); max-width: var(--w-prose); }
+
+/* ---- revisions: the record's audit trail, at the foot (v1.9) ---
+   The register prints its corrections — that is the entire claim it
+   has over an LLM guess — and .correction (v1.4) stated that loudly:
+   the 4px "page begins" rule turned sideways, body-size ink prose,
+   sitting wherever the correction was appended. It was right for one
+   correction and wrong for forty: by 2026-08-20 the corpus had 40 of
+   them across 31 records, and on p-0026 the audit trail outweighed
+   the argument it was correcting 441 words to 181. A reader asking
+   "what is the problem, and could I build it?" was reading a diff.
+
+   VISIBLE IS NOT THE SAME AS DOMINANT, so this is a demotion in
+   weight and position, never a deletion: every revision still ships
+   on the record, in the reading order, in the photocopy. It is NOT
+   behind a <details> — a gazette does not fold its own errata away,
+   and a collapsed disclosure prints closed.
+
+   No new device. This is the .rundown .sig exhibit grammar, reused
+   verbatim, because a revision stands in exactly the same relation
+   to a record as an exhibit does to a finding: the 1px row hairline
+   runs the full measure and opens the entry, the content hangs one
+   --sp-5 step inside it, and the indent is what says "subordinate".
+   The head is the exhibit's reference line — muted mono --fs-meta,
+   the clerk stating date and what kind of change this was.
+
+   The prose is the muted serif note voice .buildnote already sets:
+   ROMAN, not the italic of .rundown .sig .note. That italic exists
+   to contrast with a source's roman summary beside it; there is no
+   second voice in a revision, so the contrast would encode nothing —
+   and encoding nothing is the definition of slop in this system.  */
+ol.revisions { list-style: none; margin: 0; padding: 0; max-width: var(--w-prose); }
+.revisions li { border-top: 1px solid var(--rule); margin-top: var(--sp-5); padding: var(--sp-4) 0 0 var(--sp-5); }
+.revisions li:first-child { margin-top: 0; }
+.revisions .meta { display: block; font: 400 var(--fs-meta)/1.5 var(--mono); color: var(--ink-muted); margin-bottom: var(--sp-2); }
+.revisions p { margin: 0 0 var(--sp-3); font: 400 var(--fs-data)/1.6 var(--serif); color: var(--ink-muted); max-width: none; }
+.revisions p:last-child { margin-bottom: 0; }
+/* narrow screens: the same one-step indent collapse the rundown sheet
+   makes at 30rem, for the same reason — a --sp-5 hang starves the
+   measure on a 375px phone. */
+@media screen and (max-width: 30rem) {
+  .revisions li { padding-left: var(--sp-4); }
+}
+
+/* ---- inline source references (v1.5; modernised v1.6) ----------
+   Body prose carries a small mono S-number marker jumping to the
+   ledger row it cites:
+     <a class="ref" href="#s3" aria-label="…" title="…">S3</a>
+   Scoped by the in-page href so the comps ledger's .ref (a
+   cross-page evidence ref, href="/signals/…") keeps its existing
+   ledger form untouched — no override of .comps .ref needed.
+
+   The marker is a clerk's cross-reference stamped into a human's
+   sentence, so it is mono, at the --fs-label size every registry
+   label on the site uses, with that label's 0.08em tracking. It is
+   NOT a chip: --paper-2 means "row hover / thead / panel" — a
+   surface, not a mark — and at the density the corpus actually
+   reaches (30 markers a page, 5 in one paragraph) a field of filled
+   grounds reads as a badge rash, which is the one thing a citation
+   must never be.
+
+   Three things changed in v1.6, all of them subtractions:
+   · no colour of its own — it inherits its context, so a marker in
+     the muted dek is muted and a marker in body prose is ink;
+   · no text-decoration:none — the marker stops opting out of the
+     site's own link grammar (ink glyph, --rule hairline underline)
+     and therefore finally looks like the link it is;
+   · no vertical-align:super — a fixed 0.26em raise seats the 11px
+     marker's cap on the 16px prose cap line (cap 10.72px − marker
+     cap 7.81px ≈ 2.9px) instead of floating it at the ascender.
+   The marker size stays fixed at --fs-label at every prose size: a
+   registry number is stamped at one size whatever it is stamped on.
+   2px left margin is optical, marker-internal (same license as the
+   stamp micro-padding). It is not smaller because CSS cannot tell a
+   marker that follows a word from one that follows another marker,
+   and the corpus writes `[S1,S2]` — a negative hug would collide
+   them. Separating a run is a markup concern, not a CSS one. */
+.ref[href^="#s"] {
+  font: 600 var(--fs-label)/1 var(--mono);
+  letter-spacing: 0.08em;      /* the house registry-label tracking */
+  vertical-align: 0.26em;      /* cap-height seat, not a floating super */
+  margin-left: 2px;            /* optical, marker-internal */
+}
+/* resting = --rule hairline (from the a rule); hover = the 2px ink
+   underline the site already spends on "this is the one" */
+.ref[href^="#s"]:hover { text-decoration: underline 2px var(--ink); }
+/* focus was the UA's orange auto ring — an eighth colour. 2px ink is
+   the button/stamp weight; the offset matches .dot--solved. */
+.ref[href^="#s"]:focus-visible {
+  outline: 2px solid var(--ink); outline-offset: 2px;
+  text-decoration: underline 2px var(--ink);
+}
+
+/* ---- where-it-works map (v1.4.1; .inset v1.5) ------------------
+   Locality shapes as a data device: build-time inline SVG encoding
+   comp geography. Base countries paper-2 with paper hairlines (no
+   sea fill — the paper is the sea); comp countries ink-muted with
+   paper ISO2 labels; the home market paper-filled with a 1.25 ink
+   outline and an ink label. The ledger beside it is the legend.
+   .inset (v1.5): the North-America atlas-plate corner panel —
+   hairline-boxed on paper ground, sitting in the main frame's empty
+   NW Atlantic — rendered only when a record's comparable geography
+   includes US/CA. Countries and labels inside the box reuse the
+   existing grammar (base path / .comp / .lbl); this rule styles
+   only the box itself.                                           */
+.geomap { display: block; width: 100%; max-width: 28rem; height: auto; margin: var(--sp-5) 0; }
+.geomap path { fill: var(--paper-2); stroke: var(--paper); stroke-width: 0.5; }
+.geomap .comp { fill: var(--ink-muted); }
+.geomap .home { fill: var(--paper); stroke: var(--ink); stroke-width: 1.25; }
+.geomap .lbl {
+  font: 500 var(--fs-label)/1 var(--mono);
+  letter-spacing: 0.08em; text-anchor: middle;
+  fill: var(--paper); stroke: none;
+}
+.geomap .lbl-home { fill: var(--ink); }
+.geomap .inset { fill: var(--paper); stroke: var(--rule); stroke-width: 1; }
+
+/* ---- the works grid (v1.5) -------------------------------------
+   "Where it works": prose stays full-width above; inside .works the
+   comps ledger sits left (minmax(0,1fr)) and the geomap right
+   (22rem, top-aligned) on wide viewports. DOM order is map → ledger
+   so the narrow single-column stack reads prose → map → ledger.
+   margin-top sp-5 collapses against the prose/h2 margins to the
+   same 24px air the free-standing geomap used to carry. */
+.works {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-6);
+  align-items: start;
+  margin-top: var(--sp-5);
+}
+.works .geomap { margin: 0; }
+@media (min-width: 56rem) {
+  .works { grid-template-columns: minmax(0, 1fr) var(--w-rail); column-gap: var(--sp-7); }
+  .works .comps  { grid-column: 1; grid-row: 1; }
+  .works .geomap { grid-column: 2; grid-row: 1; }
+}
+
+/* ---- razítko --------------------------------------------------- */
+.stamp {
+  display: inline-block;
+  font: 600 var(--fs-meta)/1 var(--mono);
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--stamp); border: 2px solid currentColor;
+  padding: 0.375rem 0.625rem 0.3125rem;      /* optical, stamp-internal */
+  transform: rotate(-2deg); mix-blend-mode: multiply;
+}
+.stamp--green { color: var(--signal); }
+.stamp--overlay {                             /* max one per page */
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  font-size: 1.5rem; letter-spacing: 0.25em; border-width: 3px;
+  pointer-events: none; white-space: nowrap;
+}
+
+/* ---- signal ledgers: the fixed column layout (sources v2) --------
+   Every signal table shares one column layout, declared by a colgroup
+   (c-name … c-date). :has() switches those tables to fixed layout so
+   the serif name column can never be starved by nowrap mono columns. */
+.index:has(col.c-name) { table-layout: fixed; }
+.index:has(col.c-name) td { overflow: hidden; text-overflow: ellipsis; }
+/* v1.10: the Record column (c-rec, 20%) is retired — the signal id no longer
+   renders (owner, 2026-08-21). Its width goes to the serif name, which was the
+   column doing the reading work and the one that truncated first. The row still
+   carries id={s.id} as its anchor: 104 in-body deep links resolve against it. */
+.index col.c-name { width: 50%; }
+.index col.c-src  { width: 12%; }
+.index col.c-cat  { width: 11%; }
+.index col.c-geo  { width: 7%; }
+.index col.c-val  { width: 8%; }
+.index col.c-date { width: 12%; }
+
+/* ---- narrow tables: the row becomes a ledger entry (v1.8) --------
+   MEASURED FAILURE FIRST. At 375px the six-column register truncated
+   every problem title to four characters — twenty rows all reading
+   "Czec…" — and the seven-column signal ledger collapsed further
+   still: the header labels overlapped into "SOURCESECTORORIGVALUE"
+   and every data cell ellipsised to one or two glyphs (`R…`, `El`,
+   `reg-…`, and the dates rendered as `2…`). Both tables also pushed
+   the page into horizontal scroll. The table conveyed nothing at all;
+   this is not a polish item.
+
+   A horizontal scrollbar was the obvious fix and it is the wrong one
+   here. These are LEDGERS: the reader scans down a column of entries
+   looking for one, and a device that hides five of seven columns
+   off-screen makes the scan impossible while pretending the data is
+   present. The site already has the right answer in its own grammar —
+   .sources, .comps and .buildfacts are all ruled entries whose serif
+   name takes a line and whose clerk data runs on beneath it, joined
+   by the house middot. Below 56rem every .index row becomes exactly
+   that entry, so the narrow site speaks the language the record pages
+   already speak.
+
+   NOTHING NEW IS INTRODUCED: no colour, no size, no weight, no
+   spacing value off the scale, no glyph the site does not already
+   spend. The separator is the `·` of every run-on line here, emitted
+   as generated content the way th[aria-sort] emits its arrow. The row
+   hairline is the same 1px --rule the cells carried; it simply moves
+   from the cell to the row, because at this width the row IS the row.
+   It is CSS ONLY — the markup is byte-identical at every width, so no
+   page pays for the narrow layout and no second rendering exists to
+   drift.
+
+   THE BREAKPOINT IS MEASURED AND IT IS THE ONE THE SITE ALREADY HAS.
+   The threshold is the width at which a column can no longer print its
+   own content: the ledger's Date cell holds ten mono glyphs at
+   --fs-data (78px) plus the 24px cell gutter in a 12% column, so it
+   starts ellipsising ISO dates below ~898px; the register's five
+   non-title columns need ~452px beside a 46% title, i.e. ~885px.
+   Both land on 56rem — the breakpoint the scorecard, the docket rail
+   and the works grid already switch on. Verified at 720px, where the
+   table survives but the ledger reads `2029-1…`, `€3…`, `EDUCA…` and
+   wraps "CZ PROCUR…" onto two lines: still a table, no longer a
+   record. One narrow mode for the whole site, not two.
+
+   `screen and` is deliberate: A4 at 96dpi is ~794px, comfortably under
+   56rem, so an unscoped query would silently change what the site
+   prints. The photocopy keeps the table. */
+@media screen and (max-width: 56rem) {
+  .index, .index tbody, .index td { display: block; }
+  /* the header row goes with the columns it labelled — and with it the
+     sortable-column affordance, which is correct: sanctioned exception
+     3 is an enhancement over the build order, and the build order is
+     what the (DOM-resident) caption states either way */
+  .index thead, .index colgroup { display: none; }
+  .index tr {
+    display: flex; flex-wrap: wrap; align-items: baseline;
+    column-gap: 0.75ch;                       /* the house ledger gap */
+    padding: var(--sp-2) 0;
+    border-bottom: 1px solid var(--rule);     /* the row hairline, on the row */
+    overflow-wrap: anywhere;                  /* a 45-char signal id must fold, not overflow */
+  }
+  .index td { padding: 0; border: 0; }
+  /* the one serif cell takes the whole first line, and stops truncating:
+     a phone has no column to protect, so the name is stated in full */
+  .index .t-title {
+    order: -1; flex-basis: 100%;
+    max-width: none; width: auto;
+    white-space: normal; overflow: visible; text-overflow: clip;
+    margin-bottom: var(--sp-1);
+  }
+  .index .t-title > a { white-space: normal; overflow: visible; text-overflow: clip; }
+  .index:has(col.c-name) td { overflow: visible; text-overflow: clip; }
+  .index .t-id { white-space: normal; }
+  /* the clerk line: the cells run on, joined by the house middot. The
+     separator hangs off the END of the cell it follows, not the start
+     of the next one, so a line that wraps leaves "08/12 ·" closing the
+     line rather than an orphan "·" opening the next — the same reason
+     a printed list breaks after its separator. The serif name is
+     exempt: it owns a line and must not trail a dangling mark. */
+  .index td:not(:last-child, .t-title)::after { content: " ·"; }
+}
+
+/* ---- the landing masthead on a phone (v1.8) --------------------
+   Adjacent, and found by the same measurement. "localproblems.org"
+   at --fs-masthead sets 325px wide; with the About link's 36px it
+   needs a 361px line, so the pair stops fitting below a ~409px
+   viewport and the site's own name pushed About off the edge. It was
+   survivable only while the oversized table gave the page somewhere
+   to scroll sideways; now that the page fits, the masthead has to fit
+   too. One step down the existing type scale seats both on one line,
+   and flex-wrap is the safety valve below that — no new token, no new
+   size, no new breakpoint (30rem is the site's narrow-sheet width). */
+@media (max-width: 30rem) {
+  .index-head .brand { font-size: var(--fs-title); }
+  .masthead { flex-wrap: wrap; }
+  .masthead .issue { margin-left: auto; }
+}
+
+/* ---- the phone chrome: the strip (v1.20; replaces the v1.19 sink) --
+   MEASURED FIRST. At 375px the register's first problem began ~490px
+   down an 812px screen, behind five lines of chrome set in one voice
+   — site nav, region line, description, category filter — that a
+   reader could not tell apart. v1.19 answered by sinking the nav to
+   the foot; the owner struck that ("not a good solution — simple but
+   modern") and the filter was still four lines.
+   THE STRIP. Below 56rem — the site's one narrow mode — the site nav
+   (with the region line, on the register) and the category filter
+   each become ONE line that runs off the right edge of the screen and
+   scrolls sideways. The line bleeds into the page gutter by the
+   gutter's own width, so it is cut by the screen and not by a box:
+   the cut mid-word is the affordance, exactly as on a newspaper's
+   phone section strip. No fade (NEVER 5), no arrow, no scrollbar —
+   on a phone it is an overlay that never shows anyway, and on a
+   narrow desk window it would be a bar under a line of text. The
+   navs keep their landmarks; a link scrolled out of view still takes
+   focus and scrolls itself in. overscroll-behavior stops a swipe at
+   the strip's end from chaining into the browser's own back gesture.
+   Inside .sitenav the two navs go inline and share the line, joined
+   by the house middot; the wrapper takes the .filters line's voice
+   and margins so the strip reads as the line it replaces.
+   The register's description drops one voice on a phone — the muted
+   --fs-data serif the note lines already speak — so the problems are
+   the loudest thing under the masthead. Scoped `screen and`: the
+   photocopy wraps every strip. Markup is identical at every width. */
+@media screen and (max-width: 56rem) {
+  .sitenav, .categories {
+    white-space: nowrap; overflow-x: auto; overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    margin-inline: calc(-1 * var(--sp-5)); padding-inline: var(--sp-5);   /* cut by the screen, not a box */
+  }
+  .sitenav::-webkit-scrollbar, .categories::-webkit-scrollbar { display: none; }
+  .sitenav { margin-block: var(--sp-3) var(--sp-5); font: 500 var(--fs-meta)/2 var(--mono); }
+  .sitenav > nav { display: inline; margin: 0; }
+  .sitenav > nav + nav::before { content: " · "; }
+  .index-head ~ p { font: 400 var(--fs-data)/1.5 var(--serif); color: var(--ink-muted); }
+}
+
+/* ---- footer ----------------------------------------------------- */
+footer { margin-top: var(--sp-8); border-top: 3px double var(--ink); padding-top: var(--sp-4); font: 400 var(--fs-meta)/1.7 var(--mono); color: var(--ink-muted); }
+/* footer dates seat in the line (v1.5): the global time rule's
+   --fs-data would bulge one step out of the uniform meta line */
+footer time { font-size: inherit; }
+
+/* ---- print: the brand test is the photocopier ------------------- */
+@media print {
+  body { border-top-width: 2pt; max-width: none; }
+  .index tbody tr:hover { background: none; }
+  a { text-decoration: none; }
+  /* every fold prints open (v1.19): a gazette does not fold its evidence
+     away on paper; the continuation mark goes with the fold */
+  details.more::details-content { content-visibility: visible; }
+  details.more > summary::after { content: none; }
+}

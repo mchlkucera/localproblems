@@ -286,7 +286,8 @@ One markdown file per problem: `p-NNNN-<slug>.md`. A problem is uniquely
 `<region>/<id>`; each region has its own p-NNNN namespace. Frontmatter:
 ```
 id, region, title, brief? (one cited sentence: the situation), solution (one plain
-sentence: the likely solution), good_for? (one line: who it suits), category
+sentence: the likely solution), good_for? (one line: who it suits), draft_law? (one
+cited line: the unpassed law the main pain depends on), category
 (sector list above), geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status: candidate | active | watching | stale | claimed | solved | rejected,
@@ -358,6 +359,14 @@ number or date `[Sn]`-cited and resolving, no proposal, ledger name or certainty
 interests — no numbers, no markers, no market claims. ERRORs in check-records.py
 `check_headline`; both ride `problems.extra_json`. Full rules and the headline rule:
 `data/RECORD-TEMPLATE.md`, "The headline block".
+
+`draft_law` — THE "DRAFT LAW" BADGE (OPTIONAL; owner, 2026-09-16). Present ONLY when the
+record's main pain depends on a law not yet passed or published (a bill, a government
+draft, a planned law, or an untransposed EU directive where the pain needs the Czech law);
+never for a law in force, a published EU regulation, or a pain that exists today anyway.
+One line (≤ 12 words) naming the law and its status, `[Sn]`-cited to a `type: regulation`
+source, no certainty words. ERRORs in check-records.py `check_draft_law`; rides
+`problems.extra_json`. Full rules: `data/RECORD-TEMPLATE.md`, "`draft_law:`".
 
 `entry` — DIFFICULTY TO ENTER (REQUIRED on every record, rejected ones
 included; owner, 2026-09-15). It REPLACES `build` — the stánek→továrna capital

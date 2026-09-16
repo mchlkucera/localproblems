@@ -291,11 +291,29 @@ demand + gap`, every point justified by a `sources[]` entry, verdict words
 Router, TypeScript) in `web/`, deployed on Vercel — chosen for owner familiarity.
 Discipline keeps it exactly as simple as a static generator:
 
-- **Pure SSG.** Server Components only — no client components, no hydration, no ISR,
-  no runtime data reads. Every route statically generated (`generateStaticParams`,
-  `dynamicParams = false`); only sanctioned inline JS (relative dates). The site is a
-  pure function of `data/`: content arrives as git commits, commits trigger deploys —
+- **Pure SSG.** No ISR, no runtime data reads, no request-time data. Every route is
+  statically generated (`generateStaticParams`, `dynamicParams = false`). **No page may
+  read `searchParams`, `cookies()` or `headers()`**: any of them turns the route into a
+  serverless function, and that function has no `../data` to read. A second view of a
+  page is a second static path (e.g. `/by-category`), never a query string. The site is
+  a pure function of `data/`: content arrives as git commits, commits trigger deploys —
   the register can never silently go stale (the v1 failure mode).
+- **Client JavaScript: named progressive enhancements only** (owner, 2026-09-16, with
+  the modern design). This replaces "Server Components only — no client components, no
+  hydration; only sanctioned inline JS (relative dates)". Pages are Server Components.
+  The sanctioned client code is:
+  1. **`PeekHover`**, the source-peek hover script: one `"use client"` component with
+     document-level listeners. It adds hover-intent, focus-to-open and click-to-pin to
+     the citation peeks.
+  2. **Native popovers** (`popovertarget` peeks, Details modals, the sources drawer, the
+     country menu), CSS hover/focus tooltips and `<details>` folds. These are
+     browser-native, not scripts.
+  3. The gazette relative-dates and table-sort snippets, **only while their gazette
+     routes exist**.
+
+  **Every page must still read fully with all JavaScript off:** all text renders, and
+  every popover opens on click, tap or Enter. Anything beyond this list is a §10
+  tripwire (one client component at a time, explicit owner sign-off).
 - **`web/lib/data.ts`** reads `../data` at build time, zod-validated: schemas, category
   list, `score == sum(scores)`, `sources[] ≥ 1`, ISO dates. **Validation failure =
   build failure = deploy blocked.** The rundown ref-resolution rules (source type →
@@ -316,6 +334,19 @@ Discipline keeps it exactly as simple as a static generator:
 | `/sources` | the feeds page: the registry (`data/feeds.json`) — what we ingest from, what we are allowed to ingest from, and what a healthy fetch looks like — beside the observed health ledger (`data/feed_health.json`). Reads committed data only, never the working store, so the site stays a pure function of `data/`. |
 | 404 | house string: "Record not found. Either it never existed, or it was solved so thoroughly it disappeared." |
 
+**The table above describes the LIVE gazette routes. A migration to the modern design is
+in progress** (owner, 2026-09-16). Checklist and order of operations:
+`docs/modern-migration.md`. Here is what changes when it lands. Until then the table
+stays as it is, because it describes what production serves:
+- `/` becomes the modern front page (grouped by opportunity), and `/by-category` becomes
+  its static category grouping. Neither uses a query string.
+- `/problem/[region]/[id]` becomes the modern record page, **for non-rejected problems
+  only**. Rejected records return 404 (see below).
+- `/about` becomes `/how-it-works`, with a permanent redirect from `/about`.
+- `/category/[slug]`, `/signals/*` and the 404 get modern versions or stay gazette for
+  a stated period. That choice is still open.
+- The `/lab/*` prefix disappears from every public URL.
+
 The problem register and the evidence ledgers are two clearly separated surfaces: site
 nav reads `Problems` then `Signals: Funded · Regulation · Tenders · Demand · Hiring · Asks`,
 with the feeds page at `/sources`. The nav list is generated from `EVIDENCE_TYPES`, never
@@ -324,13 +355,46 @@ v3** — the ledgers moved to `/signals/`, matching `data/signals/`, and `/sourc
 freed for the feeds it is named after.
 
 Nothing else: permanent redirects for retired routes only — **the site is publicly
-deployed, so a URL that once resolved must keep resolving** — no test suite (the build's
-validation IS the gate), no OG images, no middleware, no API routes.
+deployed, so a URL that once resolved must keep resolving, with one exception: rejected
+records return 404** (owner, 2026-09-16) — no test suite (the build's validation IS the
+gate), no OG images, no middleware, no API routes.
 
-- **Design:** the `design-language` skill is binding. `web/shared.css` is a verbatim
-  copy of the skill stylesheet — the build asserts checksum equality and fails on
-  drift; no new classes, colors, or components; fonts load exactly as the skill
-  specifies.
+**Rejected records return 404 (owner, 2026-09-16).** Until then this clause read "a URL
+that once resolved must keep resolving", with no exception, and the gazette site
+pre-renders all 8 rejected records (p-0012–p-0016, p-0019–p-0021).
+- **What it costs:** those 8 URLs resolved in production and will stop resolving. Any
+  outside link, bookmark or search-index entry pointing at them breaks, and nothing on
+  the site says why. As of 2026-09-16 no newsletter draft links any of them (checked
+  with grep).
+- **What it buys:** a rejected record is by definition not a problem worth solving. A
+  public page for it reads as a listing whatever its status line says. It also saves a
+  modern "rejected" page design.
+- **The limits:** the exception covers `status: rejected` only. Every other URL keeps
+  the resolve-or-redirect rule. If a record is later un-rejected, its URL simply comes
+  back.
+- **How to undo it:** pre-render rejected records again, with a plain "rejected" line.
+  That was audit option D7.
+
+- **Design:** the `design-language` skill is binding. **It is the modern design as of
+  2026-09-16** (owner decision), and it supersedes the gazette design. The gazette skill
+  is kept read-only at `skills/design-language-gazette-archive/`. **Reversals, stated
+  rather than silently edited:**
+  - one font (Inter) instead of serif + mono
+  - a gray ramp plus three meaning-bearing hues instead of seven paper colours
+  - radius, a popover shadow and short opacity/transform motion are allowed
+  - popovers, peek cards and CSS tooltips are allowed on public pages, and the record
+    page's rail tooltips restate the SCORING.md ladders in plain words. This reverses
+    the 2026-08-24 "no rubric on the public page" ruling.
+  - the opportunity rows are sorted by fill, not in a fixed order
+  - the index is a card list, not a table
+  - dates read "4 Sep 2026", not ISO
+
+  **During the migration** `web/shared.css` stays a verbatim copy of
+  `skills/design-language/assets/style.css` (the gazette stylesheet, not moved), and the
+  `check-css` gate still asserts checksum equality, because the live gazette routes
+  still load it. The migration replaces or removes that gate and deletes both files once
+  no gazette route is left (`docs/modern-migration.md`). The modern CSS has no build gate
+  yet; the migration adds one.
 - **Deploy:** Vercel project `localproblems` (live: https://localproblems.vercel.app);
   the deploy is a LOCAL prebuilt upload — `cd web && NODE_USE_ENV_PROXY=1 vercel build --prod &&
   NODE_USE_ENV_PROXY=1 vercel deploy --prebuilt --prod` — because the app reads `../data` at build time,
@@ -350,8 +414,12 @@ filler. **Draft only — a human reviews and sends. Nothing is ever auto-sent.**
 
 - **Claiming** — cut entirely (owner, 2026-08-13). No claim UI. Revisit only if the
   register earns an audience. Lifecycle statuses live in data frontmatter only.
-- **Client-side JavaScript** beyond the sanctioned relative-dates snippet — no client
-  components, no hydration-dependent UI.
+- **Client-side JavaScript** beyond the named progressive enhancements in §5: the
+  `PeekHover` source-peek script, native popovers, and the gazette snippets while their
+  routes last. No hydration-dependent UI: a page must read fully with JS off, and no
+  page reads request-time data. (Amended by owner decision, 2026-09-16, with the modern
+  design. It previously read "beyond the sanctioned relative-dates snippet — no client
+  components".)
 - **Postgres, database servers, queues, client-side apps** — banned, permanently.
   **SQLite + embeddings are sanctioned** (owner, 2026-08-20): `data/register.db`, driven
   by `scripts/db.py`. **This was an owner decision, not a threshold being crossed:** §10's
@@ -473,7 +541,7 @@ measurement and must not be restored in their old form:
 | >~400 problems per region, or match dedup gets sloppy | SQLite + embeddings for shortlisting | **NOT FIRED** — 31 problems, 6,181 signals. Graduated anyway by owner decision 2026-08-20 (§7). The row stays visible precisely because the threshold is not what justified it. |
 | >~10 sources, or silent fetch failures | move fetch to GitHub Actions cron | **FIRED, twice over** — the registry carries 14 feeds, and a fetcher documented a 404-as-success. Warrants the runner and feed-health work in `docs/architecture-v3.md` §5 and §7. |
 | >100 newsletter subs or alert demand | paid Buttondown + small worker | not fired |
-| a page genuinely needs client-side JS | one client component at a time, explicit sign-off | not fired |
+| a page genuinely needs client-side JS | one client component at a time, explicit sign-off | **FIRED once, 2026-09-16:** the owner signed off `PeekHover` (the source-peek hover script) with the modern design (§5). The rule stands for every further client component. |
 
 Escalation beyond a line in the run summary — email, push, webhooks — is a future row in
 this table, never something smuggled into the pipeline docs.
@@ -499,7 +567,9 @@ this table, never something smuggled into the pipeline docs.
 | `docs/feeds-status.md` | per-feed measurement: does each feed work right now, and how far is it from being automated — advisory, regenerated from probes |
 | `data/feeds.json` | the feeds registry + per-feed contracts and ToS verdicts — binding |
 | `data/feed_health.json` | observed per-feed health — generated by ingest, never hand-edited |
-| `skills/design-language/` | the design system — binding |
+| `skills/design-language/` | the design system — binding; the modern design since 2026-09-16 (owner). Exact values for the front page and row card live in `web/app/lab/modern/DESIGN.md`, which the skill points to. `assets/style.css` is the gazette stylesheet, kept only until the migration removes the live gazette routes |
+| `skills/design-language-gazette-archive/` | the retired gazette design skill — read-only history (retired 2026-09-16) |
+| `docs/modern-migration.md` | the checklist for moving the modern pages to the live routes and reworking the design gates (2026-09-16) |
 | `docs/architecture-v3.md` | the ingest architecture — the DB, feeds, runners, receipts and feed-health design this spec points at |
 | `docs/sources-catalog.md` | candidate sources and their priority — advisory, not binding |
 | `docs/archive/` | superseded research & drafts — read-only history |

@@ -39,6 +39,17 @@
   line-height: 1.5;
   font-feature-settings: "cv11";
 }
+/* CONTRAST (audit B13): every text gray passes WCAG AA, 4.5:1 — the same
+   scoped override as front.css `.lab.lf`, never in tokens.css. #6e7077 is the
+   lightest gray of --l-text-3's hue that reads 4.5:1 on the darkest ground
+   meta text sits on here: --l-bg-3 #f4f4f6 (a hovered rail row, the current
+   ladder rung) 4.50, --l-bg-2 #fbfbfc (the solution box) 4.78, white 4.95.
+   --l-text-4 (2.5:1) is for non-text only: dots, rules, bars, chevrons. */
+.lab.ls { --l-text-3: #6e7077; }
+/* the figure kit (../parts/figures/kit/kit.css) sets small labels in
+   --l-text-4; on this page they are text, so they take the meta gray */
+.ls .lk-tick, .ls .lk-ls, .ls .lk-none:not(.is-open), .ls .lk-gut-t, .ls .lk-sn { fill: var(--l-text-3); }
+.ls .lk-g-ch, .ls .lk-g-cell.is-empty .lk-g-n, .ls .lk-band-k, .ls .lk-dim, .ls .lk-off { color: var(--l-text-3); }
 /* the gazette's global element rules must not reach in */
 .ls time { font: inherit; }
 .ls h1, .ls h2, .ls h3 { font-family: var(--l-font); }
@@ -90,36 +101,47 @@
   letter-spacing: -0.028em; color: var(--l-text-1);
   text-wrap: balance;
 }
-/* the headline copy under the title: the brief's one sentence and "Good for"
-   as bullets, one left-aligned block centred under the title (a centred
-   bullet has no left edge to read down) */
-/* `.ls` prefix: the lab reset `.lab ul { max-width: none }` outranks a lone class */
+/* the headline copy under the title: the brief's one sentence, then "Good
+   for", one left-aligned block centred under the title (a centred paragraph
+   has no left edge to read down). THE FRONT PAGE'S CARD RULES (DESIGN.md
+   "Row card", "Labels", "Exactly three text styles"): the story a plain
+   paragraph, no bullets; the label on its own line in the meta style (12px /
+   16px, --l-text-3, 2px above its words), never run in; the story and the
+   words under the label in ONE body style. Story → label 14px, as on a card.
+   The body is the head's lead size, 17px (15.5px on phone). */
 .ls .ls-brief {
-  list-style: none; padding: 0 !important; margin: 28px 0 0 !important;
+  margin: 28px 0 0 !important;
   max-width: 680px; text-align: left;
   font-size: 17px; line-height: 1.6; color: var(--l-text-2); text-wrap: pretty;
 }
-.ls-brief > li { position: relative; padding-left: 20px; }
-.ls-brief > li + li { margin-top: 8px; }
-.ls-brief > li::before {
-  content: ""; position: absolute; left: 4px; top: 12px;
-  width: 5px; height: 5px; border-radius: 50%; background: var(--l-text-4);
+.ls .ls-brief-story + .ls-brief-item { margin-top: 14px !important; }
+.ls .ls-brief-k { display: block; margin-bottom: 2px; font-size: var(--l-fs-sm); line-height: 16px; font-weight: 400; color: var(--l-text-3); }
+.ls .ls-brief-v { display: block; }
+/* the "Draft law" badge (DESIGN.md "Badges"): the front page's outlined gray
+   pill, standing over its line where a label would; the plain sentence after
+   the line in the same body style. Uncertainty, so no favour teal and no
+   warm hue. */
+.ls .ls-brief-story + .ls-draft, .ls .ls-brief-item + .ls-draft { margin-top: 14px !important; }
+.ls-badge {
+  display: inline-flex; align-items: center; height: 18px; padding: 0 6px; margin-bottom: 4px;
+  border: 1px solid var(--l-line-2); border-radius: var(--l-radius-sm);
+  font-size: var(--l-fs-sm); line-height: 16px; font-weight: 500; color: var(--l-text-2);
+  white-space: nowrap;
 }
-.ls-brief strong { font-weight: 500; color: var(--l-text-1); }
-.ls-brief-k { font-weight: 500; color: var(--l-text-1); }
+.ls-brief strong { font-weight: 400; color: inherit; }
 .ls-facts-row {
   display: flex; flex-wrap: wrap; justify-content: center;
   margin: 44px 0 0 !important;
 }
 .ls-facts-row > div { padding: 0 28px; }
 .ls-facts-row > div + div { border-left: 1px solid var(--l-line); }
-.ls-facts-row dt { font-size: var(--l-fs-sm); font-weight: 500; color: var(--l-text-4); }
+.ls-facts-row dt { font-size: var(--l-fs-sm); font-weight: 500; color: var(--l-text-3); }
 .ls-facts-row dd { margin: 6px 0 0; font-size: var(--l-fs-base); color: var(--l-text-1); white-space: nowrap; }
 .ls-facts-link { border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent); }
 .ls-facts-link:hover { border-bottom-color: currentColor; }
 
 .ls-eyebrow { font-size: var(--l-fs-sm); line-height: 1.4; font-weight: 500; color: var(--l-text-2); margin: 0 !important; }
-.ls-count { color: var(--l-text-4); font-weight: 500; margin-left: 2px; font-variant-numeric: tabular-nums; }
+.ls-count { color: var(--l-text-3); font-weight: 500; margin-left: 2px; font-variant-numeric: tabular-nums; }
 
 /* ---- monogram — the no-network favicon ------------------------------- */
 .ls-mono {
@@ -133,6 +155,9 @@
 
 /* ---- sections & prose ------------------------------------------------- */
 .ls-sec { margin-top: var(--ls-sec-gap); scroll-margin-top: calc(var(--ls-bar) + 32px); }
+/* an old anchor kept for deep links (`#how-big`): an empty line at the
+   section's top edge, landing exactly where the section's own id does */
+.ls-alias { display: block; scroll-margin-top: calc(var(--ls-bar) + 32px); }
 .ls-main > .ls-sec:first-child { margin-top: 0; }
 .ls-h2 {
   display: flex; align-items: baseline; gap: var(--l-2);
@@ -140,7 +165,7 @@
   font-size: 18px !important; line-height: 1.35 !important; font-weight: 600 !important;
   letter-spacing: -0.014em; color: var(--l-text-1);
 }
-.ls-h2-count { font-size: var(--l-fs-md); font-weight: 500; color: var(--l-text-4); font-variant-numeric: tabular-nums; }
+.ls-h2-count { font-size: var(--l-fs-md); font-weight: 500; color: var(--l-text-3); font-variant-numeric: tabular-nums; }
 
 .ls-p, .ls-steps, .ls-ul {
   font-size: var(--ls-fs-prose); line-height: 1.78; color: var(--ls-prose);
@@ -218,7 +243,7 @@
 .ls-peek--run .ls-pk-entry:first-of-type { padding-top: 10px; }
 .ls-pk-head { display: flex; align-items: center; gap: var(--l-2); min-width: 0; font-size: var(--l-fs-sm); color: var(--l-text-3); }
 .ls-pk-pub { color: var(--l-text-2); font-weight: 500; white-space: nowrap; }
-.ls-pk-host { color: var(--l-text-4); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.ls-pk-host { color: var(--l-text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .ls-pk-title { display: block; font-size: var(--l-fs-base); line-height: 1.4; font-weight: 500; color: var(--l-text-1); }
 a.ls-pk-title { color: var(--ls-ink); }
 a.ls-pk-title:hover { text-decoration: underline !important; text-decoration-color: color-mix(in srgb, var(--ls-ink) 40%, transparent) !important; text-underline-offset: 3px; }
@@ -228,7 +253,7 @@ a.ls-pk-title:hover { text-decoration: underline !important; text-decoration-col
   display: block; padding: 1px 0 1px 10px; border-left: 2px solid var(--l-line-2);
   font-size: 12.5px; line-height: 1.5; color: var(--l-text-2);
 }
-.ls-pk-qlabel { display: block; font-size: var(--l-fs-xs); font-weight: 500; color: var(--l-text-4); margin-bottom: 2px; }
+.ls-pk-qlabel { display: block; font-size: var(--l-fs-xs); font-weight: 500; color: var(--l-text-3); margin-bottom: 2px; }
 .ls-pk-foot { display: flex; align-items: center; gap: 10px; margin-top: 4px; font-size: var(--l-fs-sm); color: var(--l-text-3); }
 .ls-pk-meta { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -391,20 +416,35 @@ a.ls-modal-src-t:hover { text-decoration: underline !important; text-decoration-
 .ls-score { color: var(--l-text-3); font-variant-numeric: tabular-nums; border-radius: 4px; cursor: default; }
 .ls-score b { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--l-text-1); }
 .ls-dims, .ls-mix { list-style: none; padding: 0 !important; margin: 0 -8px !important; }
+/* z-index 0: each row is its own stacking context, so its wash (z -1) sits
+   under its words and never under the card; the hovered or focused row
+   rises so its tooltip lies over the rows after it (as front.css .lf-entry) */
 .ls-dim, .ls-mixrow {
+  position: relative; z-index: 0;
   display: grid; align-items: center; gap: 12px;
   width: 100%; min-height: 36px; padding: 0 8px; border-radius: 7px;
   color: var(--l-text-2); text-align: left;
-  transition: background-color .12s, color .12s;
+  transition: color .12s;
+}
+.ls-dim:is(:hover, :focus-visible), .ls-mixrow:is(:hover, :focus-visible) { z-index: 1; }
+/* THE WASH IS ALWAYS PAINTED, in its final gray, and only its opacity fades:
+   no background colour is ever interpolated, so nothing passes through black
+   on the way in or out (DESIGN.md "Motion"; front.css .lf-entry::before).
+   Absolutely positioned, so it takes no cell in the row's grid. */
+.ls-dim::before, .ls-mixrow::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  border-radius: inherit; background-color: var(--l-bg-3);
+  opacity: 0; transition: opacity .12s;
 }
 .ls-dim { grid-template-columns: minmax(0, 1fr) auto 28px; }
 .ls-mixrow {
   grid-template-columns: minmax(0, 1fr) 64px 20px;
-  appearance: none; border: 0; margin: 0; background: transparent; cursor: pointer;
+  appearance: none; border: 0; margin: 0; background: none; cursor: pointer;
   font: inherit;
 }
-.ls-dim:hover, .ls-mixrow:hover, .ls-dim:focus-visible, .ls-mixrow:focus-visible { background: var(--l-bg-3); color: var(--l-text-1); }
-.ls-dim.is-zero { color: var(--l-text-4); }
+.ls-dim:hover, .ls-mixrow:hover, .ls-dim:focus-visible, .ls-mixrow:focus-visible { color: var(--l-text-1); }
+.ls-dim:is(:hover, :focus-visible)::before, .ls-mixrow:is(:hover, :focus-visible)::before { opacity: 1; }
+.ls-dim.is-zero { color: var(--l-text-3); }
 .ls-dim-l, .ls-mix-l { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ls-pips { display: flex; gap: 3px; }
 .ls-pips > span { width: 12px; height: 4px; border-radius: 2px; background: var(--l-bg-4); }
@@ -440,6 +480,12 @@ a.ls-modal-src-t:hover { text-decoration: underline !important; text-decoration-
 .ls-tip-host:focus-visible > .ls-tip {
   opacity: 1; visibility: visible; transform: none;
   transition: opacity .12s ease-out .3s, transform .12s ease-out .3s, visibility 0s linear .3s;
+}
+/* Escape dismisses a showing tip without moving the pointer or focus (WCAG
+   1.4.13; peek-hover.tsx sets the attribute and clears it when the pointer
+   leaves the row or focus moves on). Gone at once, like every exit. */
+.ls-tip-host[data-tip-dismissed] > .ls-tip {
+  opacity: 0; visibility: hidden; transition: none;
 }
 /* where anchor positioning exists the tip is anchored to its row (the total's
    to its card): beside it, running down from its top edge, and flipping to
@@ -505,7 +551,7 @@ a.ls-modal-src-t:hover { text-decoration: underline !important; text-decoration-
 .ls-src-body { min-width: 0; }
 .ls-src-top { display: flex; align-items: baseline; gap: var(--l-2); min-width: 0; font-size: var(--l-fs-sm); line-height: 24px; color: var(--l-text-3); }
 .ls-src-pub { color: var(--l-text-2); font-weight: 500; white-space: nowrap; }
-.ls-src-host { color: var(--l-text-4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ls-src-host { color: var(--l-text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .ls-src-date { margin-left: auto; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .ls-src-title { font-weight: 500; line-height: 1.45; color: var(--l-text-1); }
 a.ls-src-title:hover { text-decoration: underline !important; text-decoration-color: var(--l-line-2) !important; text-underline-offset: 3px; }
@@ -514,7 +560,7 @@ a.ls-src-title:hover { text-decoration: underline !important; text-decoration-co
 a:hover > .ls-ext { opacity: 1; }
 .ls-sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .ls-src-why { font-size: var(--l-fs-md); line-height: 1.55; color: var(--l-text-2); margin-top: 3px !important; }
-.ls-src-meta { margin-top: 8px !important; font-size: var(--l-fs-sm); color: var(--l-text-4); }
+.ls-src-meta { margin-top: 8px !important; font-size: var(--l-fs-sm); color: var(--l-text-3); }
 .ls-src-quote > summary { margin-top: 6px; font-size: var(--l-fs-sm); font-weight: 500; color: var(--l-text-3); width: fit-content; }
 .ls-src-quote > summary::after { content: "›"; display: inline-block; margin-left: 6px; color: var(--l-text-4); transition: transform .12s; }
 .ls-src-quote[open] > summary::after { transform: rotate(90deg); }
@@ -538,6 +584,10 @@ a:hover > .ls-ext { opacity: 1; }
     grid-template-columns: minmax(0, var(--ls-main));
     grid-template-areas: "head" "main" "rail";
     padding: 0 var(--l-5) 120px;
+    /* the rail comes before main in the source (so a keyboard reaches the
+       scorecard early beside the article), but in one column it is drawn
+       last: focus and reading follow the drawn order here instead */
+    reading-flow: grid-rows;
   }
   .ls-rail { position: static; z-index: auto; margin-top: var(--ls-sec-gap); display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
   /* in one column the tooltip opens under its row, never off the left edge */
@@ -566,8 +616,6 @@ a:hover > .ls-ext { opacity: 1; }
      orphan at any length; shorter titles keep balance. */
   .ls-h1--long { text-wrap: pretty; }
   .ls .ls-brief { width: 100%; margin-top: 20px !important; font-size: 15.5px; line-height: 1.55; }
-  .ls-brief > li { padding-left: 16px; }
-  .ls-brief > li::before { left: 2px; top: 10px; }
 
   .ls-facts-row { display: block; width: 100%; margin-top: 28px !important; border-top: 1px solid var(--l-line); text-align: left; }
   .ls-facts-row > div {

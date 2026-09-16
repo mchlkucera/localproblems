@@ -23,7 +23,7 @@ export const TITLES: Record<EvidenceType, string> = {
 };
 
 // One serif paragraph per ledger: what this evidence is, and why it counts.
-const DESCRIPTIONS: Record<EvidenceType, string> = {
+export const DESCRIPTIONS: Record<EvidenceType, string> = {
   funded:
     "Companies founded and financed elsewhere. A funded business that works is the strongest evidence a problem is real and someone pays to solve it. Where no local equivalent exists, that absence is the arbitrage this register hunts.",
   regulation:
@@ -38,7 +38,7 @@ const DESCRIPTIONS: Record<EvidenceType, string> = {
     "Problems stated outright by the institutions that own them. A ministry, a hospital or a city publicly names a problem it wants solved and invites solutions — before any procurement money is attached, which is why an ask is evidence and not yet a tender. The record is the statement and who made it; prizes, team counts and winners are engagement, not pain, and are never scored.",
 };
 
-const SOURCE_LABELS: Record<string, string> = {
+export const SOURCE_LABELS: Record<string, string> = {
   ted: "TED", hlidac: "CZ procurement", yc: "Y Combinator", round: "Rounds",
   "reg-scan": "Regulations", "arb-scan": "Market scan", feed: "Feed",
   "demand-scan": "Demand scan", suggest: "Google Suggest", reddit: "Reddit",

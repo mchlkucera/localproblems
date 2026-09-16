@@ -1,9 +1,37 @@
 # /lab/modern — front page and row card rulebook
 
-The rules that shaped `page.tsx` + `front.css`. Each line: the rule, its value,
+The rules that shaped `front.tsx` + `front.css`. Each line: the rule, its value,
 and (in quotes) the owner correction that produced it, where there was one.
-Tokens (`--l-*`) come from `../tokens.css`. Change a value here and in the CSS
-together.
+Tokens (`--l-*`) come from `../tokens.css`, except the contrast override below.
+Change a value here and in the CSS together.
+
+## Routes and metadata
+- Two STATIC routes share one component (`front.tsx` `FrontPage`):
+  `/lab/modern` (by opportunity, `page.tsx`) and `/lab/modern/by-category`
+  (`by-category/page.tsx`). No page reads `searchParams`, `cookies()` or
+  `headers()`: a query string would make the route dynamic (audit B1).
+- Titles end "— localproblems.org", never "lab": front "Czech problems worth
+  solving", How it works "How it works", a record its own title.
+- Descriptions are existing copy, one plain sentence: front = the lede;
+  How it works = its first line; a record = its `brief` with `[Sn]` markers,
+  links and emphasis stripped, else its `solution`.
+- Record anchors keep the live site's: every source row `id="s1…sN"` (the
+  `sources[]` index), the drawer `id="sources"`, and `how-big` as an alias at
+  the top of Who pays. `#sources` / `#sN` open the drawer on that row
+  (`peek-hover.tsx`). No sources section at the foot of the page.
+
+## Contrast (WCAG AA)
+- Every text gray reads ≥4.5:1 on every ground it sits on. The modern pages
+  override `--l-text-3` to **`#6e7077`** in `.lab.lf` (front.css) and `.lab.ls`
+  (problem.css), never in tokens.css: 4.95:1 on white, 4.78 on `#fbfbfc`,
+  4.58 on the row wash `#f6f6f8`, 4.50 on `--l-bg-3` `#f4f4f6`. It is the
+  lightest gray of the old hue (`#8a8c93`, 3.36:1) that passes on `#f4f4f6`.
+- `--l-text-4` (`#a1a3a9`, 2.52:1) is for non-text only: dots, rules, carets,
+  bars, underlines. Text that used it (facts labels, counts, hosts, the figure
+  kit's small labels) takes `--l-text-3`.
+- Drawn lines keep the old gray as `--lf-ring` `#8a8c93` (Venn circles;
+  non-text needs 3:1). The "Coming soon" countries are `aria-disabled`
+  (inactive components, exempt) and stay `--l-text-4`.
 
 ## Page grid
 - Max width 1120px, side padding 32px (20px on phone ≤720px).
@@ -15,9 +43,15 @@ together.
 ## Top bar
 - "How it works", not "About", linking to `/lab/modern/how-it-works` (built
   separately in `./how-it-works/`). ("rename About to How it works")
-- One bar for every modern page: `<TopBar current="problems" | "how-it-works" />`
-  from `bar.tsx`; the current page's link gets `aria-current="page"` (primary
-  gray). The record page keeps its own breadcrumb bar (Problems / P-00xx).
+- Links: Problems `/lab/modern` · Signals `/lab/modern/signals/funded` · How
+  it works `/lab/modern/how-it-works`.
+- One bar for every modern page: `<TopBar current="problems" | "signals" |
+  "how-it-works" />` from `bar.tsx` (omit `current` on the 404); the current
+  page's link gets `aria-current="page"` (primary gray). The record page keeps
+  its own breadcrumb bar (Problems / P-00xx).
+- Phone: only two links fit, and the BAR picks the one that hides
+  (`lf-nav-spare`): the current page's link, else "Problems". Pages never add
+  their own hide-a-link CSS.
 - Country switcher (`country.tsx`), not a plain "Czechia" crumb. ("a modern
   dropdown with nice flags")
   - Button: "Czechia" + solid caret, no flag, 13px / 500 `--l-text-2`;
@@ -41,8 +75,10 @@ together.
   half the length; Slovakia's arms simplified (white-edged red shield, white
   double cross, blue hills) toward the hoist.
 - Phone ≤720px: the bar's switcher reads "CZ" + caret; its menu is pinned 12px
-  from the left (the heading's menu stays anchored under "Czech"); the nav hides the link to the current page
-  ("Problems") and never wraps. ≤359px: no "/" separator, 4px gaps. Fits 320.
+  from the left (the heading's menu stays anchored under "Czech"); links never
+  wrap. Sized for the widest pair ("Problems" + "How it works"): 6px bar gaps,
+  6px link padding, no gap between links. ≤359px: 12px links, 4px padding, 2px
+  bar gaps, no "/". No sideways scroll at 375 or 320 on any page.
 
 ## Header
 - Title "Czech problems worth solving" (28px / 600, 26px on phone) + ONE plain
@@ -76,8 +112,10 @@ together.
 - Start on the page's leftmost column, the rail edge (x=192 at 1440; page edge
   on phone). ("line up 'By opportunity' to the leftmost column")
 - 13px / 500, `--l-text-3`; current one `--l-text-1` + 1px underline, offset 6px.
-- 12px above the first rule. Plain server links (`?group=`), no JS; unknown
-  values fall back to opportunity. No deadline grouping. ("Remove deadline sort")
+- 12px above the first rule. Plain links between the two static routes
+  (`/lab/modern`, `/lab/modern/by-category`), no JS, no query string; the
+  current one carries `aria-current="page"`. No deadline grouping. ("Remove
+  deadline sort")
 
 ## Grouping rail
 - Label (13px / 600, `--l-text-1`) + count line "N problems" (13px, `--l-text-3`).
@@ -155,9 +193,9 @@ together.
 
 ## Category
 - One 14px SOLID icon per category: 16-unit grid, `fill: currentColor`,
-  even-odd fill, no strokes. Colour `#919399`, a step grayer than the label
-  beside it (`--l-text-3`), and still 3.07:1 on white (`--l-text-4` would be
-  2.5:1). ("make them a tiny bit grayer") ("add relevant icons instead of
+  even-odd fill, no strokes. Colour `#919399`, lighter than the label beside
+  it (`--l-text-3`), and still 3.07:1 on white, above the 3:1 a non-text glyph
+  needs (`--l-text-4` would be 2.5:1). ("make them a tiny bit grayer") ("add relevant icons instead of
   just boxes", then "choose solid icons instead of outlined ones")
 - fintech card (stripe gap + number-line hole) · health cross · housing house
   (door cut out) · energy bolt · mobility truck (wheels clear of the body) ·
@@ -174,6 +212,27 @@ together.
   add value")
 - No deadline item on the row. ("remove the deadline info")
 
+## Badges
+- ONE badge: "Draft law", on records with `draft_law` (the main pain depends
+  on a law not passed yet). ("add some badge to all problems that are
+  'probably': based on a law that's not yet released")
+- Look: neutral outlined gray pill: 1px `--l-line-2` outline, 4px radius,
+  18px tall, 6px side padding; label 12px / 500 `--l-text-2` (6.2:1 on white,
+  5.7:1 on the hover wash). No fill. It is a UI chip, not a fourth text style.
+- Colour meaning: uncertainty, not urgency, so never the favour teal (in the
+  builder's favour) or a warm hue (time pressure).
+- Row card: last on the meta line, after the meter and the category (22px
+  gap). Category pages get it through the shared `Entry`.
+- Card on hover / focus / tap, in the tooltip style: the record's `draft_law`
+  line (markers stripped) in bold, then "Based on a law that is not passed
+  yet, so this may change." It has a card, so it is keyboard-focusable
+  (`tabIndex 0`); one card at a time on the meta line.
+- Record page: in the head's brief block, the badge standing where a label
+  would, over the line (its `[Sn]` as the source pill, a full stop added if
+  missing) and the same plain sentence, in the body style.
+- Motion: none of its own; the card uses the tooltip entrance. Hover and
+  focus darken the outline gray to gray, instantly.
+
 ## Motion
 - Hover fades change ONE thing: an opacity, or one gray to another. Never
   transition to or from `transparent` — it interpolates through black. The
@@ -182,6 +241,29 @@ together.
 - Tooltips (meter card, Venn cards): fade + 3px rise, 140ms ease-out on
   appear, instant exit. Opacity and transform only.
 - `prefers-reduced-motion: reduce`: opacity fade only, no movement.
+- The same rule holds on the record page: the rail rows (`.ls-dim`,
+  `.ls-mixrow`) paint an always-present `--l-bg-3` wash in `::before` and fade
+  only its opacity; the row itself transitions colour only.
+
+## Record page: keyboard and tooltips
+- Citation pills: focus alone opens nothing. Tab focuses the pill; Enter,
+  Space, click or hover (~140ms) opens its card; only an open card's links
+  join the Tab order; Escape closes it and returns focus to the pill.
+- The rail (Opportunity, Who is here, Evidence) comes BEFORE `main` in the
+  source, so it is reached right after the head (tab stop 5 on p-0008).
+  Grid areas keep it drawn in the right column; at ≤1080px, where it is drawn
+  after main, `reading-flow: grid-rows` makes focus follow the drawn order.
+- Rail tooltips (`.ls-tip`) show on hover or keyboard focus, and Escape hides
+  a showing one without moving pointer or focus (WCAG 1.4.13). It returns
+  once the pointer leaves the row or focus moves off it.
+
+## Record page: header copy
+- The front card's rules apply to the head's `brief` / `good_for`: the brief
+  a plain paragraph, then "Good for" as a meta label on its own line (12px /
+  16px, `--l-text-3`, 2px above) with the words under it. No bullets, no
+  run-in "Good for:", no bold. One body style for both (17px / 1.6,
+  `--l-text-2`; 15.5px on phone), story → label 14px. The block is
+  left-aligned, centred under the centred title; the facts rows are unchanged.
 
 ## Whole row is one target
 - The title's link is stretched over the row (`::after`); hover or focus

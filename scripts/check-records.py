@@ -888,6 +888,105 @@ GOOD_FOR_MAX_WORDS = 15
 # only where the card does.
 SOLUTION_OPENER = "Build "
 
+# Where `solution:` points abroad, it says HOW MANY companies and WHERE, counted
+# off this record's own comps[] (owner, 2026-09-16: fill "do abroad" with "X
+# companies do in Y countries"). "As companies already do abroad" read as proof
+# on nine records while p-0031 held one comparable and p-0035 none that sold the
+# thing, and "as in Germany" did not parse at all. The count is the author's
+# judgment (only comps that sell THIS count); the checker holds the ceiling: a
+# count can never exceed the comps on file, nor a country be one no comp is
+# based in. Y >= 2 is counted, Y = 1 is named:
+#   "…, as 4 companies already do in 3 other countries."
+#   "…, as 3 companies already do in Germany."   "…, as 1 company already does in the Netherlands."
+SOLUTION_VAGUE_ABROAD = re.compile(r"(?i)\babroad\b|\bas in [A-Z]\w*")
+SOLUTION_COUNT_ANY = re.compile(
+    r"(?i)\b(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+compan(?:y|ies)\b")
+SOLUTION_ABROAD_COUNT = re.compile(
+    r"\bas (?P<n>\d+) (?P<noun>company|companies) already (?P<verb>does|do) in "
+    r"(?:(?P<m>\d+) other countries|(?:the )?(?P<country>[A-Z][A-Za-z]+(?: [A-Z][A-Za-z]+)*))"
+    r"\.\s*$")
+# The names a solution may use, mapped to the comps[] `geo` code. English short
+# names as web/lib/format.ts COUNTRY_NAMES prints them, plus "Britain", which the
+# records' own prose uses. A name missing here fails loudly rather than passing.
+COUNTRY_CODES = {
+    "Austria": "AT", "Belgium": "BE", "Britain": "GB", "Canada": "CA", "Denmark": "DK",
+    "Estonia": "EE", "Finland": "FI", "France": "FR", "Germany": "DE", "Iceland": "IS",
+    "Ireland": "IE", "Israel": "IL", "Italy": "IT", "Lithuania": "LT", "Netherlands": "NL",
+    "Norway": "NO", "Poland": "PL", "Slovakia": "SK", "Slovenia": "SI", "Spain": "ES",
+    "Sweden": "SE", "Switzerland": "CH", "Ukraine": "UA", "United Kingdom": "GB",
+    "United States": "US",
+}
+
+
+def _comp_geo(comp):
+    """A comp's `geo` as an ISO code. YAML 1.1 reads a bare `NO` as False, so
+    Norway (p-0027 Audun, p-0029 Documaster) arrives as a boolean."""
+    geo = comp.get("geo")
+    if geo is False:
+        return "NO"
+    return str(geo or "").strip().upper()
+
+
+def check_solution_abroad(solution, comps):
+    """The abroad clause of `solution:` against comps[]. -> [error strings]."""
+    errors = []
+    if not isinstance(solution, str):
+        return errors
+    for m in SOLUTION_VAGUE_ABROAD.finditer(solution):
+        errors.append(
+            f"`solution:` points abroad vaguely ('{m.group(0)}') — say how many comparables "
+            f"do this and where they are based: \"as 3 companies already do in Germany\", "
+            f"\"as 4 companies already do in 3 other countries\", counted from comps[] "
+            f"(RECORD-TEMPLATE.md, the headline block)")
+    if not SOLUTION_COUNT_ANY.search(solution):
+        return errors
+    m = SOLUTION_ABROAD_COUNT.search(solution)
+    if not m:
+        errors.append(
+            "`solution:` counts companies outside the one approved closing clause — end it "
+            "\"…, as N companies already do in M other countries.\" or \"…, as N companies "
+            "already do in <Country>.\", so the checker can hold the count against comps[]")
+        return errors
+    n = int(m.group("n"))
+    if n < 1:
+        errors.append("`solution:` counts 0 companies abroad — with none, drop the clause")
+        return errors
+    if (n == 1) != (m.group("noun") == "company") or (n == 1) != (m.group("verb") == "does"):
+        errors.append(f"`solution:` says '{m.group(0).strip()}' — write \"1 company already "
+                      f"does\" and \"N companies already do\"")
+    foreign = [g for g in (_comp_geo(c) for c in comps) if g and g != "CZ"]
+    if n > len(foreign):
+        errors.append(
+            f"`solution:` claims {n} companies abroad, but comps[] holds {len(foreign)} "
+            f"outside Czechia — the count is taken from the ledger, and only comps that sell "
+            f"this thing count")
+    if m.group("m") is not None:
+        k = int(m.group("m"))
+        if k < 2:
+            errors.append("`solution:` says 'in 1 other countries' — with one country, name "
+                          "it: \"as 3 companies already do in Germany\"")
+        if k > len(set(foreign)):
+            errors.append(
+                f"`solution:` claims {k} countries, but comps[] is based in "
+                f"{len(set(foreign))} outside Czechia ({', '.join(sorted(set(foreign))) or 'none'}) "
+                f"— count the countries the counted comps are BASED in (`geo`), not their markets")
+        if k > n:
+            errors.append(f"`solution:` claims {n} companies in {k} countries — a company is "
+                          f"based in one country")
+    else:
+        name = m.group("country")
+        code = COUNTRY_CODES.get(name)
+        if code is None:
+            errors.append(
+                f"`solution:` names '{name}' as the country abroad, which COUNTRY_CODES in "
+                f"scripts/check-records.py does not know — add it there if it is a country")
+        elif n > foreign.count(code):
+            errors.append(
+                f"`solution:` claims {n} {'company' if n == 1 else 'companies'} in {name}, but "
+                f"comps[] has {foreign.count(code)} based there (geo {code}) — name the country "
+                f"the counted comps are BASED in, or count the countries instead")
+    return errors
+
 # Digits, not words, for a number in a headline that sits over a brief card
 # (owner, 2026-09-16: "6,000 Czech towns", never "Six thousand Czech firms").
 # Cardinals two to ninety, and a bare singular magnitude ("a thousand"), are
@@ -945,7 +1044,7 @@ def _words(text):
 def check_headline(doc, n_sources, comps, locals_):
     """`brief:` and `good_for:`, plus the `solution:` opener and the title's
     digits on records that carry a brief, asserted. -> [error strings]."""
-    errors = []
+    errors = check_solution_abroad(doc.get("solution"), comps)
 
     brief = doc.get("brief")
     if brief is not None:
@@ -1058,6 +1157,74 @@ def check_headline(doc, n_sources, comps, locals_):
                     f"title spells a number out ({', '.join(spelled)}) — write the digits: "
                     f"\"6,000 Czech towns\", not \"Six thousand\" (RECORD-TEMPLATE.md, the "
                     f"headline block)")
+    return errors
+
+
+# ===========================================================================
+# THE DRAFT-LAW BADGE — `draft_law:` (owner, 2026-09-16)
+# ===========================================================================
+#
+# Owner: "Add some badge to all problems that are 'probably': based on a law
+# that's not yet released." The page prints a "Draft law" badge, with this
+# line on hover. OPTIONAL, and ONE MEANING ONLY: the record's MAIN pain or
+# opportunity depends on a law that is not yet passed or published — a bill in
+# parliament, a government draft, a planned law, or an EU directive not yet
+# transposed where the pain depends on the Czech law. NOT a law in force
+# however weakly enforced, NOT a published directly applicable EU regulation
+# (a future application date is still released), and NOT a record whose pain
+# exists today regardless of a pending bill (p-0028's fines stand under current
+# law, whatever the green-claims bill does).
+#
+# WHICH records carry it is judged, so no regex attempts that. What is gated is
+# the claim itself: "this law is not passed yet" is a statement about the
+# world, so it carries a receipt, and the receipt is the legal text or a bill
+# tracker — a `regulation` source, the only source type on the ledger that
+# holds statutes, drafts, VeKLEP entries, infringement notices and law-firm
+# readings of a bill. A news item, a gap check or a price cannot be the status
+# receipt of a law.
+DRAFT_LAW_MAX_WORDS = 12
+DRAFT_LAW_SOURCE_TYPES = frozenset(("regulation",))
+
+
+def check_draft_law(doc, sources):
+    """`draft_law:` asserted. -> [error strings]."""
+    errors = []
+    if "draft_law" not in doc:
+        return errors
+    line = doc.get("draft_law")
+    if not isinstance(line, str) or not line.strip():
+        errors.append(
+            f"`draft_law:` is {'empty' if isinstance(line, str) else type(line).__name__} — "
+            f"write one plain line naming the unpassed law and its status with an [Sn] "
+            f"marker, or leave the key out: absent means the record is not a draft-law "
+            f"record (RECORD-TEMPLATE.md, `draft_law:`)")
+        return errors
+    n = _words(line)
+    if n > DRAFT_LAW_MAX_WORDS:
+        errors.append(f"draft_law is {n} words (max {DRAFT_LAW_MAX_WORDS}) — it is a hover "
+                      f"line under a badge: the law's name and its status, nothing more")
+    if "\n" in line.strip():
+        errors.append("draft_law carries a line break — it is one line under the badge")
+    if _MARKER_ANY.sub("", line).find("[S") != -1:
+        errors.append("draft_law carries a malformed [S…] marker — write [S1] or [S1,S2]")
+    nums = markers(line)
+    if not nums:
+        errors.append("draft_law has no [Sn] marker — the badge says a law is not yet "
+                      "passed, and that status needs its receipt")
+    dead = {x for x in nums if x < 1 or x > len(sources)}
+    if dead:
+        errors.append(f"draft_law cites {', '.join('S%d' % x for x in sorted(dead))} — "
+                      f"{len(sources)} sources on file")
+    for x in sorted(nums - dead):
+        typ = sources[x - 1].get("type")
+        if typ not in DRAFT_LAW_SOURCE_TYPES:
+            errors.append(
+                f"draft_law cites S{x}, a `type: {typ}` source — a law's status is receipted "
+                f"by the legal text or a bill tracker "
+                f"(`type: {'|'.join(sorted(DRAFT_LAW_SOURCE_TYPES))}`)")
+    for claim in OVERCLAIM.findall(line):
+        errors.append(f"draft_law claims certainty ('{claim}') — name the law and where it "
+                      f"stands, not what it will do")
     return errors
 
 
@@ -1209,6 +1376,12 @@ def check(path, year):
     # none. Where a brief is drawn, `solution:` opens with "Build" and the
     # title writes its numbers in digits.
     errors.extend(check_headline(doc, len(sources), comps, locals_))
+
+    # ---- the draft-law badge (owner, 2026-09-16) --------------------------
+    # OPTIONAL `draft_law:` — present only where the main pain depends on a
+    # law not yet passed. The line is a status claim, so it is held to a
+    # resolving marker on a `regulation` source, a word cap and OVERCLAIM.
+    errors.extend(check_draft_law(doc, sources))
 
     # ---- citation integrity ------------------------------------------------
     n_sources = len(sources)

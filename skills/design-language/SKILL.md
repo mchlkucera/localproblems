@@ -1,198 +1,435 @@
 ---
 name: design-language
-description: Binding design system for the localproblems.org website. Use whenever generating, editing, or reviewing ANY page, layout, CSS, or HTML for the problems repository site — index pages, problem record pages, category pages, newsletter web versions. Enforces the gazette × land-registry × issue-tracker aesthetic and prevents generic AI design. The weekly pipeline task MUST follow this skill and may never modify assets/style.css or invent new visual elements.
+description: Binding design system for localproblems.org, the modern design adopted by the owner on 2026-09-16. Use whenever generating, editing or reviewing ANY page, layout, CSS or HTML for the site (front page, row cards, problem record pages, How it works, category and signals pages, the 404). One font (Inter), a gray ramp, three colours that each mean one thing, quiet motion, native popovers plus one sanctioned hover script. Guards against generic SaaS design. Exact values live in web/app/lab/modern/DESIGN.md and the page CSS; this file carries the rules and the reasons behind them.
 ---
 
-# The localproblems.org design language
+# The localproblems.org design language (modern)
 
-You are rendering a **state gazette that a very good contemporary designer redesigned in 2026** — official, dense, trustworthy, quietly witty. You are NOT designing a SaaS product, a startup landing page, or a blog.
+**Adopted 2026-09-16 by owner decision.** It replaces the gazette design, which is
+archived unchanged at `skills/design-language-gazette-archive/`.
+
+> **Migration in progress.** The modern pages still live under `/lab/modern` and are
+> not yet in production. The live routes (`/`, `/problem/…`, `/category/…`,
+> `/signals/…`, `/about`, 404) are still gazette pages. **The gazette stylesheet
+> `assets/style.css` in this directory and its live copy `web/shared.css` stay
+> exactly where they are, byte-identical, until the migration removes the live
+> gazette routes.** The `check-css` gate still asserts that equality. Never edit,
+> move or delete either file outside that migration step. Checklist:
+> `docs/modern-migration.md`.
 
 ## Why this file exists
 
-LLMs converge on generic design. The first generation of AI slop was purple gradients, Inter, icon cards, emoji bullets. The second generation — documented by Anthropic's own frontend-design skill — is *fake editorial*: cream paper + high-contrast serif + terracotta accent, or broadsheet layouts with hairline rules used as decoration. **This site is genuinely gazette-derived, which puts it one step from generic-broadsheet slop. The difference is specificity.** Every visual device here encodes something true about the content: rules mark document boundaries, stamps mark lifecycle events, zero-padding marks registry entries, dot leaders join a label to its recorded value. If you add a device that encodes nothing, you have produced slop. Remove it.
+The gazette's risk was fake-editorial slop. **This design's risk is generic-SaaS
+slop**: Inter, grays, rounded cards and soft shadows are what every AI-generated
+dashboard already looks like. The difference is the same as before: **specificity.**
+Every colour, glyph, card and hover here encodes one true thing about the record.
+Teal means "in your favour", so it never decorates. A hover card is about *this*
+record, so it never gives generic help. If a device encodes nothing, it is slop:
+remove it.
 
-The design is fully decided. Your job is to APPLY it, never to reinterpret it. When in doubt between plain and fancy, choose plain. When in doubt between stating a number and describing it, state the number.
+The design is decided. Apply it; don't reinterpret it. When plain and fancy are
+both options, choose plain.
 
-## The two voices (the fundamental rule)
+## Where the exact values live
 
-**If a human wrote it, it is serif. If a clerk recorded it, it is mono.** No third case.
+This skill states the rules. It does not repeat every pixel, because two copies of
+a number drift apart.
 
-- **Source Serif 4** (400/600/700): problem titles, body prose, section headings, masthead.
-- **IBM Plex Mono** (400/500/600): IDs, dates, sums, scores, deadlines, table cells, labels, buttons, nav, breadcrumbs, footer — anything that could appear in a ledger.
-- Both loaded from Google Fonts with `latin-ext` (diacritics in proper nouns verified).
-- Never any other font family. Not system-ui. Not Inter, Roboto, Space Grotesk, Geist, Instrument Serif.
-
-## The seven colors (there is no eighth)
-
-```
---paper:     #F8F6F1   page background (the only background)
---paper-2:   #EFECE5   row hover, thead, panels
---ink:       #1A1814   text, strong rules
---ink-muted: #6E6A5F   secondary text, timestamps
---rule:      #CBC6B9   hairlines, dotted leaders
---stamp:     #BB271A   official-stamp red — stamps, urgency, scores 10-12. Max ~5% of any viewport.
---signal:    #1A7A3C   status lifecycle ONLY — currently dormant (dot retired, claiming cut; token stays in the stylesheet)
-```
-
-**No dark mode.** A gazette is printed on paper; the paper is the brand. `color-scheme: light only`. The site must photocopy beautifully — there is a `@media print` block and it matters.
-
-**The browser's default focus ring is the eighth colour** (owner-mandate finding, v1.6): Chrome paints `:focus-visible` in its own orange. Any device that styles itself out of the default link or button look — the inline source marker did, the dialog close cross does — must therefore state its own focus in ink: `outline: 2px solid var(--ink)` (the button/stamp weight) at `outline-offset: 2px`, matching `.dot--solved` — or inset at `-2px` where the device abuts a rule or a neighbour, so the outline never crosses one (the scorecard `.dim` columns). Hover and focus must also read as *different* states: the house pairing is a 2px ink **underline** for hover and a 2px ink **outline** for focus. Focus is currently stated on the three devices the v1.6 round touched (`.ref[href^="#s"]`, `.rundown .x`, `.scorecard .dim`); the rest of the site still inherits the browser ring and is owed the same treatment in a future round.
-
-## Data formatting (data always looks like evidence)
-
-- Money: mono, euro-first: compact `€450k` / `€7M` for rounded sums, space-grouped `1 250 000` for exact figures. Currency always stated.
-- Dates in data positions: ISO `2026-08-13` in `<time>`. Long dates only inside serif prose.
-- Alignment (v2): every table column is left-aligned — numerics, dates and sums included. No right-aligned columns anywhere.
-- Deadlines: `by <ISO>` only — the T−n countdown is retired (owner, 2026-08-19). `.urgent` (stamp red) still applies to the plain date text inside T−14.
-- Inline source references: a claim in record body prose carries a small raised mono marker naming the source it came from — `<a class="ref" href="#s3" aria-label="Source S3 — {name}" title="S3 · {name} · {date}⏎{note}">S3</a>` — jumping to that ledger row. **Its form (`.ref[href^="#s"]`, modernised v1.6):** mono 600 at `--fs-label` with the house 0.08em registry-label tracking, raised a fixed `0.26em` so the marker's cap seats on the prose cap line — *not* `vertical-align: super`, which floated it at the ascender and detached it from the sentence. It declares **no colour of its own**: it inherits its context, so a marker in body prose is ink and a marker in the muted dek is muted. It declares **no `text-decoration: none`**: it wears the same `--rule` hairline underline every link on the site wears, which is what finally makes it read as the link it is. Hover thickens that underline to the 2px ink mark the site already spends on "this is the one" (`aria-current`, `aria-sort`); `:focus-visible` adds a 2px ink outline at 2px offset — replacing the browser's default orange ring, which was an eighth colour leaking onto the page. It is **not a chip**: `--paper-2` means a surface (row hover, thead, panel), not a mark, and at the density the corpus reaches — 30 markers on a record, 5 in one paragraph — a field of filled grounds is a badge rash, the one thing a citation must never be. The marker keeps `--fs-label` at every prose size: a registry number is stamped at one size whatever it is stamped on. **A run of markers (`[S1,S2]`) needs a separator emitted in markup** — CSS cannot tell a marker that follows a word from one that follows another marker, so the stylesheet must not try (the `+`/`:has(+ …)` combinators skip text nodes and fire on the wrong pairs). **One device, two triggers** (owner, 2026-08-20): the PRIMARY trigger is an explicit `[S3]` marker (or `[S3,S5]`) written in the body markdown, resolved by position in the record's `sources:` list — citation is stated, not inferred, so it survives rewording and is checkable by a lint; the secondary trigger is the original url match — prose that links a url already on the ledger gets its marker for free (trailing slash ignored; a duplicated source url resolves to its first S-number). The external link itself stays untouched: where we source from outside, the record says so. Consecutive markers to the same source collapse to one. An `[Sn]` that resolves to nothing renders as its own literal text — a broken citation is stated on the page, never silently swallowed — and the build prints a `citations: WARN` line. **The reveal is the native `title`**, never a tooltip component: hover, focus or long-press answers "which source is this?" with name · date · note without leaving the sentence. The marker stays an `<a href="#sN">`, so it also jumps to the full ledger row — a `popovertarget` would have to be a `<button>`, which would cost the anchor jump, break the `.ref[href^="#s"]` selector, and add a device where one already exists. **Which sources a claim resolves to is a data formatting rule; how the marker looks is the stylesheet's, and both are settled** — a content run adds `[Sn]` markers and nothing else, and never any JavaScript. The comps ledger's `.ref` is a different device (a cross-page evidence ref, `href="/signals/…"`); the in-page href scoping keeps the two apart, and neither may be styled through the other.
-- IDs: `{CITY3}-{NNN}` zero-padded: `BRN-041`. Scores `09/12`. Issue `no. 33`. **Zero-padding is the house tic** — everything countable is padded.
-- Scores render as **tally ticks** (survey chain marks) + zero-padded fraction: the 12-tick total tally in the index, and per-dimension tallies (`--s` of `--max`) in the scorecard, where the tally is the **pip meter** (filled/empty ticks to the dimension max). Never progress bars, gauges, stars, or rings.
-- **Score verdicts are RETIRED from the public record page (owner, 2026-08-24).** The one-word SCORING.md verdicts (`UNPROVEN`, `FAINT`, `LIKELY`, …) were jargon a reader could not decode — "who are you impressing" — and no longer render. The verdict/band vocabulary stays in `web/lib/scorecard.ts` as the constant the build still asserts against SCORING.md (`assertScoringVocabulary`), but the scorecard states each dimension with a **plain builder-facing line** instead (`web/lib/scorecard.ts` `READS`/`scoreRead`). Never surface a verdict word on a record page.
-
-## Page anatomy
-
-- **Masthead on every page**: 4px ink bar, then `localproblems.org` (serif 700) with an `About` link (mono, in the slot the issue line held — the `.issue` styling; `aria-current` when on /about) right-aligned, then 1px rule. The vol./no. issue line left the masthead (owner, 2026-08-19); gazette numbering is fully RETIRED (owner, 2026-08-24) — the footer states `Czechia · updated {date}` and nothing about itself; no page prints an issue number.
-- **Index = a register table**, not cards: 6 columns (ID / title / category / locality / score / updated — all left-aligned per v2; the dot column is retired with the status dot). Title is the ONLY serif cell. ~20–24 rows per viewport. Pre-sorted by score desc at build time — the Score `th` ships `aria-sort="descending"` in the server HTML — and re-sortable by header click under sanctioned exception 3 (the active column carries a text arrow ` ↓`/` ↑` via CSS content on `th[aria-sort]` — a typographic glyph, not an icon); the caption still states the sort and extract date but is **visually hidden** (owner, 2026-08-19) — it stays in the DOM for assistive tech; never delete it. **No JavaScript beyond the sanctioned exceptions** — filtering is a build-time concern: the register carries a **category filter nav** (mono `.filters` line, v1 grammar `All (31) · B2B (07) · …`, counts zero-padded, current entry `aria-current`) linking to pre-generated category pages, and above it a **region line** (`Region: Czechia · Poland · …`) where not-yet-live regions render muted `.soon` spans with `title="Coming soon"` — the native tooltip, no JS. The site nav is `Problems` then the Sources group — About lives in the masthead, never in the nav. **The record page carries no site nav** (owner, 2026-09-04): its crumb states the full hierarchy `Problems / {Country} / {Category}` and is the way back; the country segment is plain text until a per-country route exists. The register's stats line is RETIRED (owner, 2026-08-24) — no page narrates its own record counts; the footer carries only the house line (`Czechia · updated {date}`) and the corrections/nav links. **Below 56rem the register is not a table at all** (v1.8, see Signals architecture): each row becomes a ruled ledger entry — the serif title on its own line, untruncated, then `ID · CATEGORY · Locality · tally NN/12 · updated` running on beneath it. It is CSS only; the markup does not change. The column headers go with the columns, and with them the click-to-sort affordance — correct, because sanctioned exception 3 is an enhancement over the build order and the build order is what the (DOM-resident) caption states either way. **On a phone the chrome becomes strips (v1.20, owner: "simple but modern"; "the problems are the focus").** Below 56rem the site nav — with the region line beside it on the register, both inside the `.sitenav` wrapper — and the category filter (`.filters.categories`) each render as ONE line that runs off the right edge of the screen and scrolls sideways, bleeding into the page gutter so the screen cuts it, not a box: the cut mid-word is the whole affordance, as on a newspaper's phone section strip — no fade, no arrow, no scrollbar. Nothing moves: nav at the head, filter over the register, every link present. The register's one-sentence description drops to the muted `--fs-data` note voice on a phone. CSS only, `screen and`, markup identical at every width. (v1.19 sank the nav to the foot for one day; the owner struck it: "putting the menu in the footer is not a good solution".)
-- **Category pages** (reinstated by owner mandate 2026-08-19): `/category/[slug]` for ALL twelve categories, slug = the category id verbatim. Same masthead, crumb (`Problems / {Country} / {Category}` — owner, 2026-09-04), site nav with the region line (the country selection a filtered register carries like the register itself), the same filter nav with the current category marked, and the register table filtered — identical column grammar, category column kept (one table grammar everywhere). A category with no problems still gets its page with the house empty-category string — an empty register is a registered fact. The record page's crumb category links back to its category page.
-- **Problem page** (v1.4 rebuild, 2026-08-19 — fixed-role sections a reader learns once): **docket** (3px double rule, mono ID, serif title, then the **dek** — one muted serif standfirst sentence, derived at build from the who-pays paragraph's opening sentence(s) (absorbing until ≥40 chars so a punch opener never ships alone), never a stored field; the facts — Category (linked to its category page) / Locality / Window (`by <ISO>`, only when a future deadline is on file) — set as a right rail on the shared `--w-rail` width (`.facts--rail`) beside the title block: on wide viewports the docket is a two-column grid (left `minmax(0,1fr)`: idline → title → dek; right: the facts stacked as label-over-value rows separated by hairlines, top-aligned; column gap `--sp-7`), narrow screens stack single-column with the facts after the dek; housekeeping demoted to one quiet mono **meta line** sharing the ID's line (`.idline` — id left; `updated … · created …` right-aligned, relative-rendered, no source count; owner, 2026-08-20) — Updated/Created/Sources never render as loud facts) → **scorecard** (the top-line band, see below) → **The problem** (lead prose + the existing-non-solutions paragraph, serif, max 62ch, every figure carries a source link) → **The window** (why-now prose + a ledger of the urgency receipts; a future-dated receipt keeps a plain mono `by <ISO>` inside its ledger line — the oversized `.deadline` figure is retired (owner, 2026-08-19); `.urgent` inside T−14) → **How big** (who-pays prose + a ledger of the money receipts with their recorded euro figures; no receipts → the house absence line — never an estimate) → **Who builds this** (a ruled `.buildfacts` ledger — one fact per line: uppercase label · blank-spacer leader · 600-weight value, the capital ladder range muted beside its value (owner, 2026-08-20 — replaced the hard-to-read facts grid); one muted serif `.buildnote` sentence under it) → **Where it works** (solved-elsewhere prose full-width, then the `.works` grid — comps ledger left `minmax(0,1fr)`, map right on the shared `--w-rail` (the ONE right-rail width the docket rail also uses — the page keeps a single vertical; owner, 2026-08-20), top-aligned; narrow screens stack prose → map → ledger; the comps ledger: two-line `.entry` rows — serif linked name · full country name (COUNTRY_NAMES in `web/lib/format.ts`, fallback = the raw code as recorded) · since, dot-leader to the evidence-layer ref; traction as a muted serif note line; empty comps → the house absence line) → **First moves** (records scoring ≥ 7 only: numbered `ol.prose` steps, named competition, the open subsidy call cross-linked into the tenders ledger) → **Revisions** (v1.9, 2026-08-21 — the record's own audit trail, at the foot, oldest first, ONE ENTRY PER DATE: `ol.revisions`, each `li` opened by the full-measure 1px row hairline with its content hanging one `--sp-5` step inside it, a muted mono `--fs-meta` reference line stating `<ISO> · <what kind of change>`, then the change in the muted **roman** serif `--fs-data` note voice `.buildnote` already sets. It is the `.rundown .sig` exhibit grammar reused verbatim, because a revision stands to a record exactly as an exhibit stands to a finding — nothing new was invented to hold it, and the roman is deliberate: `.rundown .sig .note`'s italic exists to contrast with a source's roman summary beside it, and a revision has no second voice to contrast with. It **replaces `.correction`** (v1.4 — the 4px "page begins" rule turned sideways, body-size ink prose, appended wherever the correction landed), which was right for one correction and wrong for the forty the corpus reached across 31 records: on p-0026 the trail outweighed the argument it corrected 441 words to 181, and a reader who wanted "what is the problem, could I build it?" was reading a diff. **Visible is not the same as dominant** — this is a demotion in weight and position and never in visibility: no `<details>`, no collapse, nothing dropped. A gazette does not fold its own errata away, and a collapsed disclosure prints closed) → **Sources** (one-line ledger entries S1…Sn: S-number, linked name, dot leader, date — the name IS the link, no note or URL lines; **one line stays one line**, so a gap-check row spends visible width only on a second date — its `· expires <ISO>` horizon, stamp red as `· expired <ISO>` once crossed — and carries the surfaces and queries on the native `title` of its name, the house reveal, rather than growing the second line it is forbidden) → footer with record provenance. **Score rundown dialogs** (`.rundown[popover]`, rebuilt v1.6 — *a page of the report, opened*): each scorecard dimension is a button opening a centered native popover, light-dismiss, `popovertargetaction=hide`, no scripting; the score is explained in exactly ONE place. The sheet is a page, not a panel, and it earns that by document grammar rather than by boxes: **all three rule weights, each on its one meaning** — 4px solid ink across the head (*the page begins*, the same rule `body` carries), 3px double closing the header block (*a major boundary*), 1px `--rule` between exhibits (*a row hairline*). **No side or foot border at all** — a page laid on a shaded desk is defined by its own light, so the scrim is the edge; the scrim is `--ink` at **55%**, which puts the record underneath at roughly 3:1 and makes it read as ground rather than as competition. **Margins are a printed page's** — 32 head / 48 side / 64 foot (`--sp-6` / `--sp-7` / `--sp-8`, head < side < foot; below 30rem head and side collapse to `--sp-5` so the measure is not starved). Reading order is the report's: **subject** (the muted `--fs-label` dimension name on its own line — the same label the scorecard column carries, because the dialog *is* that column opened) → **determination** (the figure at `--fs-h2`, the wide tally beside it at `0.875rem`, the verdict at the right margin) → double rule → **the finding** (the rubric criterion, mono at `--fs-body`: the largest running text on the sheet, which is what makes it a finding and not a caption — mono because it is a recorded determination carrying its own sub-scores) → **the exhibits** (the source records, each opened by the full-measure row hairline with its content indented `--sp-5`: the indent is what says they are subordinate to the finding). Inside one exhibit: reference line (mono muted `--fs-meta`) → linked serif name → **the source's own summary in roman ink** → **the register's note in italic muted** — *roman is what the source says, italic is what the register says about it*; where only one note exists it is the register's, so italic muted is the default. A dimension with no source on file is a page with a finding and no exhibits — a stated absence, and correct as it stands. **A gap-check exhibit closes with its own coverage (v1.7)**, because a bare negative is worth exactly what its coverage is worth: the surfaces the check actually searched as one muted mono line (`p.coverage`, the reference line's voice, because "where we looked" is register metadata — surface tokens always render as English names via `GAP_SURFACES` in `web/lib/format.ts`, never as the raw `ares`/`google-cz` slugs), then the queries it actually ran as `ul.queries` — ink at `--fs-data`, each in its quotation marks, hanging one `--sp-4` step inside the exhibit indent, because the literal strings a person typed are the nearest thing this device has to testimony and are set as the quoted material they are. The check's `expires` horizon needs no device of its own: it joins the dates already on the exhibit's reference line (`· expires <ISO>`), and once crossed it reads `· expired <ISO>` in the existing `.urgent` stamp red. **That flag is display-only and the law is not a matter of taste** — an expired gap-check never moves `scores.gap`, `score` or `status` (`data/CONVENTIONS.md`, "THE LAW"), and staleness is decided against `extractDate()`, the register's own newest `updated`, never `new Date()`: a wall-clock read here would make one commit render differently on two days, which is a build-reproducibility bug. All three keys are optional and most gap-checks carry none: absent means nothing renders — no label, no "unknown", no dangling separator. The close cross `×` sits quietly in the head margin, `--fs-data` muted, clear of the header block. The **total dialog** takes the same shape: the house sentence (`Five dimensions — proof, money, urgency, demand, gap — each point justified by a source on file.`) as its finding, and the `.bands` legend as its one exhibit — ruled and indented like a `.sig`, four band rows, the current band marked `→` and set 600. Market math stays a hand-curated device (grammar retained for curated exhibits); the comps ledger is now generated from record frontmatter. The **where-it-works map** (`.geomap`, v1.4.1; markets grammar + inset v1.5) is a sanctioned data device in the locality-shapes tradition: build-time inline SVG set beside the comps ledger inside the `.works` grid (only when comps exist), encoding comp geography — the union of comp HQ countries and their recorded operating markets ink-muted, paper ISO2 mono labels on HQ countries only (market-only countries are a quiet unlabelled presence, named in the svg title's "operating markets" segment; labels stay ISO2 even though the ledger spells countries out), the home market paper-filled with an ink outline, no legend (the ledger beside it is the legend). Records whose comp geography includes US/CA additionally get a hairline-boxed **North-America inset panel** in the frame's empty NW Atlantic — same grammar, aggressively simplified, no added width or height; geos outside both frames (IL, IS …) stay named in the svg title only.
-
-> **OWNER REBUILD, 2026-08-24 — the record page is a board brief, not a dossier. This supersedes the stale parts of the anatomy above.** The jargon and the internal audit prose are off the public page. Specifically: (1) **Scorecard** is the plain `Opportunity /12` card (see "The scorecard" below) — no verdict words. (2) **Score rundown dialogs are RETIRED from the record page** — they rendered the rubric criterion and the raw source `note` (internal audit prose); the `.rundown` grammar stays dormant in the stylesheet. (3) **Section order is the builder funnel:** The problem → **Proven abroad** (solved-elsewhere prose + `.works` comps/map; was "Where it works") → **Local competition** (the existing-non-solutions paragraph, split out of "The problem" into its own `competition` section; v1.19: the paragraph renders FIRST and the `locals` ledger under it — every evidence section reads prose then ledger, see "Scan, then dive") → How big → **Why now** (was "The window"; the urgency ledger is followed by `p.whenline`, a build-time relative distance to the nearest deadline, computed against `extractDate()`, never the wall clock) → **Difficulty to enter** (v1.21, 2026-09-15 — see its section below; the scorecard Entry cell links here; it replaced "What you need", v1.13, when `build:` was retired) → First moves → Sources. (4) **"Who builds this" is gone as a heading** — its `.buildfacts` grammar returned as the "What you need" section (v1.13), which became **"Difficulty to enter"** at v1.21 (2026-09-15) and dropped `.buildfacts` for prose at v1.22 the same day; `build:` itself is retired, and so is the card's sixth row (see "The scorecard"). (5) **Revisions do NOT render as prose** — the wall is replaced by one quiet `p.verified` "Last verified {date}" line; the full trail stays in the markdown/git, auditable, just not shouted (this overrides the v1.9 "the trail still prints" rule for the PUBLIC page — the trail lives in the file, not on the page). (6) **Sources** are two-line entries: a serif linked NAME + one plain muted-serif WHY line ("what it is / why it's cited"), with a muted date on the name line. A source may also carry a `gist` (v1.18, owner: "a few word explanation and see more on a toggle") — the clerk's 2–6-word label; with one, the row is NAME … date and the gist is the `<summary>` of a native `details.more` fold holding the why (v1.19: the gist IS the control — no "more" word; see "Scan, then dive"). The name comes from the new `sources[].name` field (falls back to the signal title, then the type — never "gap-check — host"); the why from the new `sources[].why` field (falls back to the signal summary). **The internal `note` receipt no longer renders** and must never be rewritten to change the public render — add `name`/`why`, never edit `note`. The S-number is the row anchor (`id="sN"`) but is not printed. Coverage/queries/`expires` no longer render (methodology is not board matter). These two new source fields are first-class columns in `scripts/db.py` and typed optionals in `web/lib/data.ts` `SourceSchema`.
-
-## The scorecard (the "how good is it" card) — owner rebuild, 2026-08-24
-
-Sits immediately under the docket on every problem page — the first thing a solver reads, comparable across every record. It answers "how good is this opportunity, objectively?" before a single line of prose. The band of cryptic verdict words is gone; it is now a plain bordered **card**. Rules:
-
-- **Header + five dimensions. That is the whole card.** The card is headed `Opportunity {sum}/12` (the plain sum, the loudest figure on the page). Below it, the five SCORING.md dimensions as **single-column ledger rows** (v1.14, owner 2026-08-25: "find a better layout", "add number there to enable quick scanning") that scan straight down like a table, in the fixed builder order and with **plain labels**, never the raw enum: PROOF → *Validated abroad*, GAP → *Local opportunity*, DEMAND → *Demand signal*, MONEY → *Money available*, URGENCY → *Why now*. Never invent, drop, or reorder a dimension. Order and labels live in `web/lib/scorecard.ts` `SCORE_ROWS`.
-- Each dimension is one row of three aligned columns: **plain mono label · `.meter` (tally pip meter, `--s` of `--max`, with its mono `.num` figure `2/3` beside it — the register's `.score` fraction grammar) · one plain read line** (`web/lib/scorecard.ts` `scoreRead`). NO verdict word, NO rubric jargon, NO sentence longer than the read. The read is serif (a human sentence); the label and figure are mono (clerk). Below 40rem the row stacks: label + meter share the top line, the read follows full-width.
-- **One consistent polarity: more is better on EVERY row.** GAP high means the field is open, not "more competition" — its read says so ("no local player found — field open"). The pip meter fills the same direction on all five.
-- **There is NO sixth row (v1.22 — owner, 2026-09-15).** The card holds the five scored dimensions and nothing else. A sixth row had sat below a 3px double rule since the v1.12 rebuild — first as *Build* (`{capital range} · first revenue in {…}`), then for one morning as *Entry* (the difficulty LEVEL as a `.pill`, with the gate(s) that set it as its read) — and the owner struck it the same day it shipped: **the level is not part of the /12**, so a row inside a card headed `Opportunity {sum}/12` reads as a sixth dimension of a five-dimension score, whatever rule opens it. Difficulty to enter keeps its own section and its own index column; it does not pose as a score. Never re-add a row to this card for a value that is not one of the five. `.dim--build` and its double rule stay in the stylesheet, dormant — retiring a device is a stylesheet round of its own.
-- **Zero-scoring dimensions render muted** (`.is-zero` greys the read and the figure) — absence is stated, never hidden.
-- **Every cell is a "read more" link (v1.13, owner: "easier to scan, with links to read more").** Each cell is a plain `<a class="dim" href="#…">` to the record section carrying its evidence: *Validated abroad* → `#proven-abroad`, *Local opportunity* → `#local-competition` (falls back to `#sources` when a record states no competition paragraph), *Demand signal* → its first backing source row (`#sN`; `#problem` when none), *Money available* → `#how-big`, *Why now* → `#why-now`. (The retired sixth row pointed *Build* → `#what-you-need`, then *Entry* → `#difficulty-to-enter`; that section is now reached from the body and from the index Entry column, not from the card.) The affordance is visible at rest — the READ line wears the house link grammar (hairline underline) plus a trailing mono `→`; hover thickens to the 2px ink underline, `:focus-visible` states the 2px ink outline **inset** (`outline-offset: -2px`) so it never crosses the cell rules it abuts. Plain anchors, no JS.
-- **No rundown dialogs on the record page.** The popover sheets rendered the rubric criterion and the raw source `note` — internal audit prose the owner struck out ("no internal audit prose on the public page"). The `.rundown[popover]` grammar is retained in the stylesheet, dormant. The scorecard asserts; the **Sources** ledger testifies. No JavaScript.
-
-## Difficulty to enter (v1.22 — owner, 2026-09-15; replaces "What you need", v1.13)
-
-Between **Why now** and **First moves**, `id="difficulty-to-enter"`. It answers "how hard is it to get in?" Owner: *"include a clear difficulty to enter — e.g. app for truck people is easy, entering government healthcare is tough"*; *"keep it simple, the labels are good with clearly broken down reasoning"*.
-
-**It is PROSE, not a ledger (v1.22, owner, 2026-09-15 — on the `.buildfacts` version that shipped that morning: "should be level — hard — and the rest is explanatory, under it, bullet points, like First moves, just a simple list"; the leader-dot table "looks different from the rest of the page").** The section reads the way the rest of the builder funnel reads — the *Scan, then dive* grammar, nothing invented for it:
-
-1. **One paragraph, opened by the LEVEL as a run-in `strong.lead`** — `<p><strong class="lead">Hard.</strong> {entry.why}</p>`. The label takes a full stop and `entry.why` continues in the same paragraph. This is the same run-in lead `splitLead` emits for a section's first sentence and for each First-moves step; the level is the scan line, the reasoning is its evidence.
-2. **Then the five gates as `<ul class="prose">`**, each item `<strong class="lead">Label</strong> — value.` — a real em dash, a closing full stop. Fixed order, and it is the reader's order, not the schema's: **Permission → Who buys → Plug into → Money → Already here**.
-3. **Then, when comps exist, the one `.buildnote` link line** `See the teams doing it abroad →` to `#proven-abroad`.
-
-The values are the human labels, and **these are the ONLY spellings the site uses** — they live in `web/lib/format.ts` as `Record<enum, string>` maps, so a new token is a TypeScript error rather than a raw slug on the page:
-
-- **LEVEL** (the run-in lead) — `entry.level`: `Easy` · `Moderate` · `Hard` · `Very hard`.
-- **Permission** — `entry.permission`: `none needed` · `a registration` · `a licence`.
-- **Who buys** — `entry.buyer`: `small firms` · `large firms` · `the public sector`.
-- **Plug into** — `entry.integration`: `plain software` · `a national system or hardware` · `a certified product`.
-- **Money** — `entry.money`: `bootstrappable` · `outside money before the first sale`.
-- **Already here** — `entry.incumbents`: `nobody established` · `an established neighbour` · `an established direct competitor`.
-
-**Why the ledger was wrong here, stated so it is not rebuilt.** A dot leader joins a label to a *recorded value a reader compares down a column* — sources, comps, the docket facts, the register tables. Five closed-enum phrases read once are not a column, so the leader encoded nothing, and a device that encodes nothing is slop by this file's own first rule. `.buildfacts` and `.buildnote` stay in the stylesheet (`.buildnote` is still live on the abroad link line); **`.buildfacts` is now unused across `web/` and is dormant grammar**, to be retired in a stylesheet round of its own if it stays that way.
-
-**What was retired with it:** the `build:` block — CAPITAL as a euro band, TEAM as a headcount (with the comp-traction lookup that linked a comp stating `N-person team`), FIRST REVENUE — and the `CAPITAL_RANGE` / `TEAM_BAND` / `FIRST_REVENUE` maps in `web/app/problem/[region]/[id]/page.tsx`. Owner: *"get rid of the team predictions"*; *"CAPITAL €10–100k / TEAM 2–5 people is pretty arbitrary, more abstract categories will be more truthful"*. v1.21 kept `.buildfacts` for it; v1.22 dropped that too (above) — the content was a prediction, and the ledger grammar was the wrong frame for what replaced it.
-
-**The Entry column in the index (v1.21).** The register and category tables gain an `Entry` column between Category and Score, carrying the LEVEL label in the register-label voice (`.t-entry` — uppercase mono at `--fs-label` with the 0.06em tracking, the declarations `.t-cat` already had). The cell carries `data-sort` = the level's rank 0–3, because `SortScript` sorts on a cell's text unless `data-sort` overrides it and `Easy, Hard, Moderate, Very hard` is alphabetical nonsense.
-
-**`level` is DERIVED and nothing in `web/` re-derives it** — the record states it, `scripts/check-records.py --strict` asserts it, the pages read it. The weights and the amended rule (`incumbents` carries no weight: the gap score already prices competition) are in `data/CONVENTIONS.md` and `SCORING.md`.
-
-## Scan, then dive (v1.19 — owner, 2026-09-03)
-
-"Each section should be very easy to scan and then to dive deeper on it." The record page has one grammar for that, applied identically in every evidence section, so a reader learns it once:
-
-- **Prose first, ledger second — always.** The prose is the argument (the scan); the ledger under it is the receipts (the dive). Local competition used to invert this (ledger, then paragraph) and is turned round; the v1.17 seam margin the inversion needed is retired.
-- **The run-in lead.** A section's first sentence — and each First-moves step's — sets in the house 600 as `<strong class="lead">`, the rest of the paragraph in 400. Skim the `h2`s and the leads and you have read the record's findings; the rest is their evidence. It is emitted at BUILD by `splitLead` (`web/lib/sections.ts`; the dek's 40-char floor, bracket-aware so a link's text never splits, abbreviation-aware so "U.S." and "Sb." are not sentence ends) — CSS cannot find a sentence (`::first-line` is a line). Only the FIRST paragraph of a section leads (one scan line per section); a one-sentence paragraph is already its own scan line and gets none.
-- **The fold (`details.more`) — the one disclosure device, and the gist is the control.** A ledger note shows its short form and folds the rest behind a native `<details>` (HTML, never script — NEVER 13): a sources row folds its `why` behind its authored `gist`; a comp folds its traction behind the traction's first `;`-clause; a local player folds its evidence behind its first sentence. The short form IS the `<summary>` — there is no "more" word anywhere on the site, so nothing repeats down a ledger — set in the voice its ledger already gives that line (muted mono meta for a gist, the italic muted note for a comp), wearing the house link grammar (`--rule` hairline underline; ink underline on hover; 2px ink outline at 2px offset on `:focus-visible`), the default triangle suppressed. A closed fold ends in the continuation mark ` …` (generated content, like `th[aria-sort]`'s arrow) — the sign a printed text uses when it has been cut short. A note one unit long renders open: nothing to fold. **The photocopy prints every fold open** (`details.more::details-content { content-visibility: visible }` in `@media print`, the mark suppressed) — a gazette does not fold its evidence away on paper.
-- **What is NOT a fold:** prose. The argument never collapses; only a ledger note's long form does.
-
-## The five signature moves (the only permitted flourishes)
-
-1. **The stamp**: mono 600 uppercase, 2px border, `rotate(-2deg)`, `mix-blend-mode: multiply`. Overlay variant (`rotate(-8deg)`, centered) ONLY for CLAIMED / SOLVED / CLOSED. Max one overlay per page. DORMANT with claiming cut (owner, 2026-08-13) — no lifecycle event currently earns a stamp; grammar retained in the stylesheet.
-2. **Cadastral rules**: exactly three meanings — 4px solid = page begins; 3px double = major boundary; 1px solid = row hairline. No other border weights (2px reserved for buttons/stamps and, since v1.6, focus outlines). The rundown sheet is the canonical exemplar: all three weights inside one component, each doing its one job, and no fourth weight invented to hold the sheet together — where an edge was wanted, the scrim supplies it.
-3. **Gazette numbering** — RETIRED (owner, 2026-08-24): no issue numbers anywhere. Grammar deleted with the `issueLine()` helper; this entry records the retirement so nobody reintroduces it.
-4. **The status dot** — RETIRED (owner, 2026-08-13): kept in the stylesheet grammar, never emitted; returns only if lifecycle states actually diverge. When live it is the ONLY circle and ONLY icon on the site: hollow green = open, filled = claimed, filled + outline ring = solved, hollow grey = closed.
-5. **Dot leaders**: label→value pairs may be joined by a 1px dotted leader ONLY where the pair has no rule of its own (forms, facts). In ruled ledger lists (sources, comps, market math) the leader is a blank spacer — one row, one line, never two.
-
-## Spacing and rhythm (v1.1)
-
-- **One 4px scale**: `--sp-1…--sp-8` = 4 / 8 / 16 / 24 / 32 / 48 / 64px (with 12px as `--sp-3`). Every margin, padding, and gap is a step on this scale — no ad-hoc values. Sole exception: optical micro-padding inside the stamp.
-- **Sections breathe from above**: `h2` carries 48px above, 16px below — roughly 3:1. Air binds a heading to what follows, not to what precedes.
-- **The docket is the title block**: it gets the most air on the site — 24px above the ID, 24px around the title, 48px clearance before the prose begins.
-- **Ledger density**: register and signals rows sit at 8px vertical padding; 12px cell gutters; 24px page gutter; 32px facts-grid column gap. Dense is fine, squeezed is not.
-
-## Signals architecture (v2 — implemented 2026-08-13)
-
-- One ledger page per **evidence type**, generated by the web app from `data/signals/<type>/*.jsonl`: `/signals/funded` (companies founded and financed — market scans, YC, rounds), `/signals/regulation` (triggers with dates), `/signals/tenders` (public money on record), `/signals/demand` (documented complaints and unmet needs), `/signals/hiring` (employers staffing a dated need), `/signals/asks` (problems stated by their owners). These replace the v1 per-feed pages; the earlier origin-group hub design was superseded by SPEC.md's evidence types before being built. Each ledger opens with one plain serif paragraph under the crumb — 2–3 sentences stating what this evidence type is and why it counts as signal; it is the only prose on a ledger page.
-- The problem register and the evidence ledgers are clearly separated surfaces: nav reads `Problems` then `Signals: Funded · Regulation · Tenders · Demand · Hiring · Asks` — generated from `EVIDENCE_TYPES`, never hand-listed, so a new type appears in the nav the moment it is registered. Ledger pages live under `/signals/[type]`, matching the data directory `data/signals/`. **v3 swapped the two route names back:** the ledgers returned to `/signals/`, which frees `/sources` for the feeds page it is named after — the registry of what we ingest from, beside its observed health ledger. A registered evidence type with no records renders an empty ledger rather than 404ing; that is why `Hiring` is in the nav at zero records. An empty ledger is a published fact, not a defect, and it uses the house empty-state string rather than any new device.
-- All signal tables share one fixed column layout, declared by a `<colgroup>` of column classes (`c-name c-src c-cat c-geo c-val c-rec c-date` — widths live in the stylesheet, `:has(col.c-name)` switches the table to fixed layout): Name / Source / Sector / Origin / Value / Record / Date. The Source column names where the signal came from — the **country** for market scans, the feed for everything else (Regulations, TED, Contract registry, Y Combinator, Rounds).
-- Name is the only serif cell, links to the source URL, carries the recorded summary as its `title` attribute, truncates with ellipsis. Each row's anchor is its signal id — the provenance target for record-footer links.
-- **Ledgers are paged, and the pages are real documents (v3, 2026-08-20).** At 9,273 signals the one-document ledgers reached 7.6 MB (`/signals/funded`) and 5.5 MB (`/signals/tenders`) — unusable on a phone. **100 rows per page** (`LEDGER_PAGE_SIZE` in `web/lib/data.ts`): the printed-ledger page, and measured to land every ledger document at 120–215 kB, inside the band the record pages already occupy. Page 1 keeps the bare `/signals/[type]` URL — the canonical entry, the nav target, and where the retired `/sources/:type` 308 lands; pages 2…N are `/signals/[type]/[page]`, pre-rendered, so **no document has two addresses and `/signals/funded/1` is deliberately a 404**. The pager is the house `.filters` line (`Pages: 01 · 02 · …`, zero-padded, `aria-current` on the current page), at the foot of the table, with the position stated in the crumb at the head. Every page number is listed rather than windowed behind an `…`: a 37-page ledger is 37 pages, and a window would add a heuristic and two invented glyphs to save four lines of mono text.
-- **A paged ledger has exactly one order and no sort script.** Sanctioned exception 3 is honest on the register and category pages because those tables are the whole record set — the script sees every row it claims to order. Sorting one page of a 37-page ledger would look identical and be a false statement about the data, so ledgers stay date-descending, fixed at build time, stated in the caption for assistive tech and in the crumb for everyone. A second order would be a second set of pre-rendered pages, never a script over one slice.
-- **Every link into a ledger resolves through `signalHref`** (`web/lib/data.ts`) — record bodies, comps evidence refs, record-footer provenance, the register's next-deadline link. A fragment only scrolls on the document that holds the row, so an unresolved `/signals/tenders#dotace-…` would silently land on page 1 pointing at nothing, and still return 200. Body markdown keeps its stable human-written URL (including the retired `/sources/…` spelling); `repageLedgerLinks` in `web/lib/md.ts` resolves it at render time. **Never bake a page number into the corpus** — the ledgers are date-descending and grow at the top, so a row's page moves on every append.
-- An empty evidence type still gets its page with the empty-category line — a pending feed is a registered fact, not a hidden one.
-- These pages are GENERATED (Next.js app in `web/`, pure SSG — SPEC.md §5). Never hand-edit output; change the data or the app.
-
-**Implementation status:** v2 is live — every column left-aligns, the source ledgers are generated from the evidence layer, and `scripts/build_sources.py` + hand-built `site/` pages are retired. The stylesheet is at **v1.22** (2026-09-15, owner — the plain Difficulty-to-enter section: ONE selector widened, nothing added. `ul.prose` joins `ol.prose` on the two `.prose` list rules that had been written `ol`-only when only First moves used them — the house `--sp-6` indent and the `--sp-2` step between items; the mono `::marker` rule stays `ol`-only on purpose, because a number is a figure and a disc is not. No page changes: no record had shipped a `ul.prose` before. The record page's sixth scorecard row is gone from the MARKUP; `.dim--build` and `.buildfacts` stay in the sheet, dormant. No colour, size, weight, rule weight, spacing value, breakpoint or glyph). v1.21 history stands (2026-09-15, owner — the entry contract: ONE class, ONE rule. `.t-entry` sets the register tables' new Entry column in the uppercase-mono register-label voice `.t-cat` already wears; the declarations are copied, so nothing new enters the sheet. The record page's "What you need" became "Difficulty to enter" in MARKUP ONLY — it reused `.buildfacts` and `.buildnote` unchanged (superseded by v1.22 the same day), and the scorecard's sixth row kept `.dim--build` (the row itself is struck at v1.22). No colour, size, weight, rule weight, spacing value, breakpoint or glyph). v1.20 history stands (2026-09-04, owner — the strip: below 56rem the site nav (+ region line, sharing the `.sitenav` wrapper) and the category filter each become one sideways-scrolling line cut by the screen edge — `white-space: nowrap`, `overflow-x: auto`, gutter-wide negative inline margin, no scrollbar, no fade; the v1.19 footer sink is retired and pruned; the register description drops to the note voice on a phone. No colour, size, weight, rule weight, spacing value, breakpoint or glyph; markup gains one wrapper `div` and one class). v1.19 history stands (2026-09-03, owner — three moves, one round: (a) the phone front page — below 56rem the site nav and region line dropped to the foot by `order` on a body grid, ledger pages excepted; SUPERSEDED by v1.20 the next day; (b) scan-then-dive — every evidence section reads prose first then ledger (Local competition turned round, the v1.17 seam margin retired), and a section's first sentence and each first-moves step sets as the run-in `strong.lead` at 600, emitted at build by `splitLead`; (c) the fold generalised — `details.more` is the one disclosure device for every ledger note, the short form (sources gist, comp's first clause, local player's first sentence) as its `<summary>` in the ledger's own voice, the repeated "more" word retired, a closed fold ending in ` …`, every fold printing open. New on the sheet: one class (`.lead`) on a weight already spent, one glyph (`…`). No colour, size, rule weight, spacing value or breakpoint). v1.15–v1.18 (2026-08-25) are recorded in the stylesheet header: the docket `.fixline`, the grouped locals ledger and the furniture cut (one date per page), the locals seam margin (retired v1.19), the sources gist + fold. v1.14 history stands (2026-08-25, owner mandate — the scorecard re-laid as single-column ledger rows: `.dims` drops the two-column grid for one row per dimension (`grid-template-columns: 8.5rem 6.5rem minmax(0,1fr)` — label / meter / read aligned down the card), a mono `.num` figure (`2/3`) joins the pips inside the new `.meter`, row hairlines move to border-top so the Build row can open with the 3px double rule instead, `.is-zero` mutes the figure with the read, and the 40rem query restacks a row as label + meter on the top line with the read below. No colour, size, weight, or glyph was introduced — the double rule and the `.score` fraction grammar already existed). v1.13 history stands (2026-08-24 — scorecard "read more" links + the What-you-need section: `a.dim` cells become plain anchors to the sections carrying their evidence, the read line wearing the hairline underline and a trailing mono `→` at rest, 2px ink underline on hover, 2px ink outline INSET at `-2px` on focus so it never crosses the card's cell rules; the retired `.buildfacts`/`.buildnote` grammar returns unchanged as the "What you need" section between Why now and First moves. No colour, size, weight, rule weight, spacing value, breakpoint or glyph was introduced). v1.12 history stands (2026-08-24, owner rebuild — the board-brief record page: the plain `Opportunity {sum}/12` scorecard card with plain reads and no verdict words, rundown dialogs retired to dormant grammar, two-line named sources, `p.whenline` and `p.verified`). v1.9 history stands (2026-08-21 — revisions. The record's audit trail stops interrupting the argument and becomes a ledger at the foot of the page: `ol.revisions` in, `.correction` retired and its two rules pruned (the v1.5.2 precedent — a dead device is deleted, not left to rot). It reuses the `.rundown .sig` exhibit grammar exactly — full-measure 1px row hairline, `--sp-5` hang, muted mono `--fs-meta` reference line — plus the muted roman serif `--fs-data` of `.buildnote` for the prose, and one `@media screen and (max-width: 30rem)` indent collapse mirroring the rundown sheet's. **No colour, size, weight, rule weight, spacing value, breakpoint or glyph was introduced.** The markdown contract moved with it: corrections are no longer appended as `**CORRECTION (…)` blocks after a `---` but merged into a `## Revisions` section, one entry per date — see `data/CONVENTIONS.md`. `web/lib/sections.ts` still routes both legacy spellings into the same list, so a stray old block lands in the revisions ledger rather than leaking into the argument). v1.8 history stands (2026-08-20 — the narrow table. Below 56rem every `table.index` — register, category, signal ledger, feeds — stops being a squeezed table and becomes the ruled ledger entry the record pages already use: `thead` and `colgroup` go, the row is a wrapping flex line, the serif `.t-title` takes `order:-1` and `flex-basis:100%` and stops truncating, and the remaining cells run on joined by a `·` emitted as `td:not(:last-child, .t-title)::after` — the separator hanging off the END of the cell it follows so a wrapped line closes on it rather than opening with an orphan. The 1px `--rule` hairline moves from the cell to the row. It fixed a measured failure: at 375px the register truncated every problem title to four characters and the seven-column ledger overlapped its own headers and ellipsised every value to one or two glyphs, both with the page in horizontal scroll. **CSS only — the markup is byte-identical at every width**, so no page pays for the narrow layout and no second rendering exists to drift. No colour, size, weight, spacing value, glyph or breakpoint was introduced: 56rem is where the scorecard, docket rail and works grid already narrow, and independently where a Date cell stops fitting an ISO date (10 mono glyphs + the 24px gutter in a 12% column ⇒ ~898px). Scoped `screen and` so the photocopy keeps the table — A4 at 96dpi is ~794px and would otherwise flip. A second small block joins the existing 30rem query: the landing masthead's own name sets 325px and left nothing for the About link, so `.index-head .brand` drops one step to `--fs-title` with `flex-wrap` as the safety valve). v1.7 history stands (2026-08-20 — gap-check coverage: the receipts behind an absence claim finally render. `p.coverage` (muted mono `--fs-meta`, the exhibit reference line's voice) states the surfaces searched; `ul.queries` (ink `--fs-data`, quoted, one `--sp-4` step inside the exhibit indent) states the queries run; the `expires` horizon joins the dates already on the reference line and on the sources-ledger row, stamp red via the existing `.urgent` once crossed. No new colour, size, weight or rule weight was introduced — the one added rule beyond the two device rules is `.sources li time.urgent`, a specificity shim that exists solely to beat the ledger's muted-date rule, mirroring `.comps time.urgent` exactly). v1.6 history stands (2026-08-20, owner mandate — two devices modernised: (a) the inline source marker `.ref[href^="#s"]` stops opting out of the house link grammar — inherited colour, the `--rule` hairline underline, a `0.26em` cap-height seat instead of `vertical-align: super`, `0.08em` registry tracking, a 2px ink underline on hover and a 2px ink outline on `:focus-visible` that finally replaces the browser's orange default ring; (b) `.rundown[popover]` rebuilt as an opened report page — 4px ink head rule and no other border, 32/48/64 page margins, a two-line document header closed by the 3px double rule, the criterion raised to `--fs-body` as the stated finding, exhibits indented under a full-measure row hairline with roman-ink source summary vs italic-muted register note, scrim raised to 55% ink, `.bands` ruled and indented to match, one narrow-sheet breakpoint at 30rem). v1.5 history stands (2026-08-19 five-lane round: docket two-column grid + `.facts--rail`; the `.works` grid; `.ref[href^="#s"]` inline source markers introduced; `.deadline` retired — a plain mono `by <ISO>` with the `.comps time.urgent` shim; comps ledger full country names (COUNTRY_NAMES); the geomap North-America `.inset`; `aria-sort`/`aria-current` 2px ink underlines; `footer time` inherits the meta size). v1.4 history stands: the 2026-08-19 record-page rebuild brought `.dek`, docket `.meta`, the window figure since retired, `.rundown .bands`, two-line `.comps .entry`, `ol.prose`, `.correction`, `.absent`, `.buildnote` — all on the existing tokens and scale. `web/shared.css` must stay a verbatim copy of `assets/style.css`; the app's build asserts checksum equality.
-
-## The anti-slop rulebook (hard NEVERs)
-
-1. NEVER any font beyond Source Serif 4 + IBM Plex Mono.
-2. NEVER center or right-align text — every column, numerics included, left-aligns (v2). The dot cell centers; nothing else.
-3. NEVER `box-shadow` or blur — elevation does not exist on paper.
-4. NEVER `border-radius` except the status dot. Corners are square. Zero, not 2px.
-5. NEVER gradients as color (sole exception: the hard-stop tick pattern inside `.tally`).
-6. NEVER icons, emoji, or SVG decoration. Text `→`, `·`, the dialog close `×`, and the continuation mark `…` on a closed fold (v1.19) are permitted.
-7. NEVER a color outside the seven tokens. No hover tints, no rgba improvisation.
-8. NEVER animate. No transitions. Hover changes are instant.
-9. NEVER set a figure, date, ID, or sum in serif.
-10. NEVER progress bars, gauges, star ratings, percentage rings.
-11. NEVER marketing adjectives in chrome ("amazing", "🔥"). Every claim links to its source.
-12. NEVER more than one overlay stamp per page; never spend stamp red on >5% of a viewport.
-13. NEVER JavaScript beyond the sanctioned exceptions. Filtering is a build-time concern; sorting is build-time first — the client re-sort (exception 3) never changes what a page says with JS off.
-14. NEVER more than 7 index columns; titles truncate with ellipsis, never wrap.
-15. NEVER cards or section backgrounds beyond `--paper-2`. There are no cards; there are ruled records.
-16. NEVER modify `assets/style.css` during a content run. Invent no classes, colors, or sizes — if a needed class doesn't exist, flag it in the run summary instead of improvising.
-
-## Sanctioned exceptions (owner-approved)
-
-1. *(revoked)* **Facts glyphs** (v1.3: `⚡︎` category, `⌖` locality in the facts grid) — REVOKED by the owner 2026-08-13; no glyphs anywhere, NEVER 6 applies in full.
-
-2. **Relative dates**: `time.rel[datetime]` may render Notion-style relative text via the tiny progressive script — the full ladder (today / yesterday / N days ago / N weeks ago / N months ago / N years ago; owner, 2026-08-20). The ISO date always remains in `datetime` + `title`; the page must read identically with JS off.
-
-3. **Sortable register columns** (owner, 2026-08-19): on the register and category pages ONLY, one shared inline progressive script (`SortScript` in `web/lib/chrome.tsx` — under 40 lines, vanilla) re-sorts the register table client-side on header click — first click descending, second ascending. `aria-sort` marks the active `th` (the Score `th` ships `aria-sort="descending"` server-side, stating the build order, so a first click on Score yields ascending — descending already stands). The script alone adds `cursor:pointer` and keyboard activation (focusable `th`, Enter/Space) — the stylesheet never suggests a dead affordance. Sort keys are the cells' text — zero-padded scores (`09/12`) and ISO dates sort correctly as strings; a cell whose visible text would not sort carries the true key in `data-sort` (none needed today). The server-rendered order (score desc) is the no-JS default; the page must read identically with JS off.
-
-Exceptions 2 and 3 are the only JavaScript on the site; NEVER 13 stands for everything else.
-
-## Copy for UI chrome (exact strings)
-
-The site is English-only; render these strings exactly.
-
-| Slot | String |
+| What | Source of exact values |
 |---|---|
-| Empty category | `No open problems in this category as of {date}.` |
-| Empty ledger | `Nothing in this ledger as of {date} — the feed is registered but not yet producing.` |
-| Table caption (register/category) | `Sorted by score, descending` — visually hidden, AT only (owner, 2026-08-24: no "extract generated" narration) |
-| Table caption (ledger) | `Sorted by date, descending` + ` · page {NN} of {MM}` when `MM > 1` — visually hidden, AT only |
-| Corrections | `Source wrong? Corrections →` |
-| Footer | `Czechia · updated {date}` (owner, 2026-08-24: the gazette house line — "Data as recorded, no warranty… Extract no. {NN}/{YYYY}, generated automatically" — and the register stats line — "{N} problems on record · Czechia, pilot country · distilled from …" — are RETIRED; the footer states region and date, nothing about itself) |
-| 404 | `Record not found. Check the address, or start from the register.` |
-| No money receipts | `No sized figure on file.` |
-| No comparables | `No verified foreign comparable on file as of {date}.` |
-| Total-dialog rubric | `Five dimensions — proof, money, urgency, demand, gap — each point justified by a source on file.` |
-| Gap-check coverage | `Searched {surface} · {surface} · …` (English names from `GAP_SURFACES`, never the raw enum slug) |
-| Gap-check horizon | `expires {ISO}` · `expired {ISO}` once the extract date reaches it |
-| Ledger pager | `Pages: 01 · 02 · … · {NN}` (zero-padded, every page listed, `aria-current` on the current one) |
-| Ledger crumb | The evidence type's short name only (e.g. `Demand`) — the `· {NN} signals on file · latest {date} · newest first · page {NN} of {MM}` narration is RETIRED (owner, 2026-08-24); position lives in the pager's `aria-current`, order in the hidden caption |
+| Front page, top bar, country selector, row card, meter, category icons, motion | `web/app/lab/modern/DESIGN.md` (owner-approved rule by rule, 2026-09-16) |
+| Gray ramp, type scale, 4px grid, radius, popover shadow | `web/app/lab/tokens.css` (the `--l-*` tokens) |
+| Front-page contrast override, wash insets | `web/app/lab/modern/front.css` |
+| Record page tokens (semantic hues, measure, rail width, section gap), phone rules | `web/app/lab/modern/problem.css` |
+| Figures | `web/app/lab/parts/figures/kit/` (`index.ts` names each slot and width; `kit.css`) |
 
-Buttons: uppercase mono, verb-first, one verb. Never an exclamation mark in chrome. "Problem" is never softened to "challenge".
+These paths move during the migration (`docs/modern-migration.md` step 3). Change a
+value in the CSS and in `DESIGN.md` **together**.
 
-## Implementation
+## 1. Principles
 
-The complete reference stylesheet is in `assets/style.css` (part of this skill). It implements every token and component above and is the ONLY stylesheet the site uses. Its live copy is `web/shared.css` — the web app's build fails on any checksum drift between the two. Content runs never touch either file.
+1. **Hierarchy comes from size, weight and gray shade.** It never comes from a
+   second font or a decorative colour.
+2. **Colour encodes, never decorates.** Three hues, each with one meaning (§3).
+3. **One field, one meaning, on the page too.** A label, glyph or hue that shows up
+   for two different reasons is two devices, so split it.
+4. **The page reads fully without JavaScript.** Scripts only add convenience (§9).
+5. **Static.** Every page is a pure function of `data/` at build time. Nothing
+   depends on the request.
+6. **Honest absence.** When data is thin, the page says so in a plain line ("No
+   sized figure on file.") or draws nothing. It never shows an empty figure or a
+   dangling caption.
 
-Weekly build rules: compute `no. NN` as zero-padded ISO week (footer house line); mark window dates inside T−14 `.urgent`; sort index by score desc then updated desc; set tally fill via inline `style="--s:9"` (scorecard tallies additionally carry `--max`); pull dimension scores from SCORING.md (verdict words are no longer surfaced — the record scorecard states each dimension with a plain read, owner 2026-08-24); verify every page against the NEVER list before committing.
+## 2. Type
 
-## Quality gate (optional but recommended)
+- **One family: Inter** (400 / 500 / 600), with `font-feature-settings: "cv11"` on
+  the record page. There is no serif and no mono. Figures use
+  `font-variant-numeric: tabular-nums` so they line up; they don't switch face.
+- **Exactly three text styles on a row card** (owner: *"there's just too many text
+  styles, figure out how to simplify"*):
+  1. **Title**: 18/26, 500, `--l-text-1` (17/24 on phone).
+  2. **Body**: 15/24, 400, `--l-text-2`. The story, the solution and "Good for"
+     all use it.
+  3. **Meta**: 12px, 400, `--l-text-3`. The labels, "n/12" and the category.
+  - No bold inside the story and no darker solution. Emphasis comes from the label
+    and its position, never from a fourth style. Citation markers and markdown are
+    stripped on the card.
+- **Page headings are the only larger sizes:** the front title at 28/600 (26 on
+  phone) and the record title at 40/600 (26 on phone), set tight (negative
+  tracking). Record prose uses the Body size. Rail and ledger text step down to the
+  13px and 12px tokens.
+- **Wrapping:** titles use `text-wrap: balance` and body text uses `pretty`, with no
+  JS fallback. No title or paragraph may end on a lone word (owner: *"only 'law' is
+  being broken to a new line … we need more balanced wrapping"*). Record titles
+  over 120 characters switch to `pretty` on phone, because `balance` gives up past
+  six lines. Check at 1440 and 375 on real data, for every record title.
+- **Dates** read as "4 Sep 2026" (`fmtDate`). Relative distances ("~4 months out")
+  are computed against `extractDate()`, **never the wall clock**. Scores read
+  `11/12`, not zero-padded.
 
-After generating HTML, run `npx impeccable detect` (59 deterministic anti-slop rules, no API key) and treat any finding as a build failure to fix before commit.
+## 3. Colour
+
+**The gray ramp** (`--l-*` in `tokens.css`) runs from light to dark: backgrounds
+`--l-bg` white → `--l-bg-2` → `--l-bg-3` (hover, chip) → `--l-bg-4` (pressed,
+empty meter segment); lines `--l-line` (hairline) → `--l-line-2` (control edge);
+text `--l-text-4` → `--l-text-3` → `--l-text-2` → `--l-text-1`. The ground is
+white. There is no dark mode.
+
+**Contrast:** every gray used for text passes WCAG AA (4.5:1) on the ground it
+sits on, including the hover wash. `--l-text-4` is for non-text only (dots, rules,
+carets, bars). The front page scopes `--l-text-3` to `#6e7077` for this reason
+(`front.css`, audit B13). The record page must do the same before it goes live.
+
+**The semantic hues.** These are the only hues. All are low-saturation, and each has
+a graphic tone and a darker ink tone for text:
+
+| Hue | Means | Used for | Never for |
+|---|---|---|---|
+| **Teal** (`#3f8f7f`, ink `#2e7466`) | **in the builder's favour** | filled opportunity segments, the current rung in a ladder, "Easy" entry, a field nobody here sells (figures) | links, headings, brand, anything neutral |
+| **Warm** (amber `#b58a2e` → rust `#d0763f` → brick `#c4564f`) | **friction and time pressure** | entry level Moderate → Hard → Very hard; a deadline under six months (`.ls-soon`) | errors, alerts, emphasis |
+| **Ink blue** (`#3d5a96`; pill `#eef1f7` / text `#54607c`) | **a source you can open** | citation pills, source titles in peeks and the drawer, in-prose links | buttons, nav, anything that isn't a source or a link |
+
+A level or deadline shows its hue as a 7px dot plus the word in the ink tone, never
+as a filled badge. Category icons are gray (`#919399`).
+
+## 4. Page grid and top bar
+
+- **Front page:** max width 1120px with 32px side padding (20 on phone). Below the
+  header come a 232px rail, a 56px gap and the reading column (152/32 at ≤960px;
+  one column on phone).
+- **Record page:** a full-width centred head, then a 680px main column and a 272px
+  rail with an 88px gap. It becomes one column at ≤1080px (rail after main, two
+  rail cards side by side) and phone rules apply at ≤640px.
+- **Top bar**, 48px, sticky, hairline bottom. It holds the brand, "/", and the
+  country selector, then **Problems · Signals · How it works** on the right. The
+  label is "How it works", never "About" (owner: *"rename About to How it works"*).
+  There is one bar component for every page, and the current link carries
+  `aria-current="page"`. The record page keeps its own crumb bar, **Problems /
+  P-00xx**.
+- **Country selector** (owner: *"a modern dropdown with nice flags"*):
+  - The button reads "Czechia" with a solid caret and **no flag**. Flags appear only
+    in the menu (owner: *"hide the flag in the currently selected selector, show it
+    only in the dropdown"*).
+  - The menu is a native `popovertarget` + `popover="auto"`, positioned with CSS
+    anchor positioning. It needs no script.
+  - Czechia is the one link, marked with a solid tick. Other countries are muted,
+    say "Coming soon" and can't be focused.
+  - The "Czech" in the front title is the same selector (owner: *"make 'Czech' also a
+    selectable thing"*). It's a dotted underline and caret in the heading's own font.
+    Its menu sits after the h1, never inside it.
+  - Flags are inline SVG, 20×14, in official colours, with a hairline border. They
+    are never emoji and never an image request.
+  - On phone the button reads "CZ", the nav hides the current page's link and never
+    wraps, and the bar fits at 320px.
+
+## 5. Spacing
+
+- 4px grid (`--l-1…--l-8`). Air is part of the design (owner, record head: *"when
+  you open up the page, it's too much, we need more negative space"*; row cards:
+  *"these cards need more space"*).
+- **Row card rhythm:**
+  - padding 36 top / 40 bottom (28/32 on phone), with 1px `--l-line` hairlines
+    between rows
+  - title → story 10 · story → label 14 · text → next label 10 · label → its text 2
+    · copy → meta 16 · meter → category 22
+- **Front header:** 96 top / 80 bottom (56/72 on phone). The text block is centred
+  vertically on the Venn (owner: *"make sure 'Czech problems worth solving' is
+  vertically centered with the diagram"*).
+- **Record page:** 88px between sections (60 on phone). The head has 72 above and
+  104 below.
+- **Measure:** copy max 64ch and titles max 640px on cards. Record prose runs to
+  the 680px column. Keep ≥50px clear of the category drawing at desktop.
+- No horizontal page scroll at 375px or 320px. Wide figures scroll inside their own
+  container.
+
+## 6. The front page and the row card
+
+- **Header:** "Czech problems worth solving" plus **one** plain sentence. No counts
+  line and no stats. The Venn sits on the right: three monoline circles with labels
+  inside the box. Every part of it has a plain-language hover, focus and tap card
+  that says what the register looks *for*, never a promise that every problem meets
+  all three (owner: *"… non-technical simple language"*).
+- **Tabs:** "By opportunity" and "By category", with no "Group by" label (owner:
+  *"remove 'Group by'"*). They start at the rail's left edge (owner: *"line up 'By
+  opportunity' to the leftmost column"*). They are plain links. There is no
+  deadline grouping (owner: *"Remove deadline sort"*). **Each grouping is its own
+  static path, never a query string** (§9).
+- **Grouping rail:** a label and "N problems". Opportunity bands appear as numbers
+  only ("Opportunity 10–12", "8–9", "5–7", "0–4"), never verdict words. The rail is
+  sticky. Grouped by category, it shows the category drawing and the rows drop
+  their own.
+- **Row card anatomy, in this order:**
+  1. Title, the one link.
+  2. Story (`brief`), one plain paragraph. Omitted when absent.
+  3. **Suggested** label, then the solution.
+  4. **Good for** label, then the text. Omitted when absent.
+  5. Meta line: opportunity meter, then category.
+  - A row without the new copy is the same card with only "Suggested". It is never a
+    different design. Copy rules for these fields are in
+    `data/RECORD-TEMPLATE.md`, "The headline block".
+- **Labels sit on their own line.** A label is never inline with its text:
+  "Suggested Build a small…" must never read as one run (owner: *"Suggested and Good
+  for shouldn't mix with the text on the right"*). No colons, no bullets.
+- **One left content edge.** Title, story, labels, texts and meter all start on the
+  title's left edge. There is no label column and no indent (owner: *"can we align
+  the scoring with the right col"*, resolved by removing the column). There are no
+  bullet glyphs either (owner: *"the visual with the bullets is very messy right
+  now, they're overflowing"*).
+- **Opportunity meter:**
+  - 12 segments at 4×8px, filled teal up to the score, empty `--l-bg-4`. Then "n/12"
+    in meta, with "Opportunity" as screen-reader text (owner: *"make the opportunity
+    meter somehow visible"*).
+  - It leads the meta line, so meters line up down the page.
+  - Its hover, focus and tap card is **specific to this record**: "Opportunity n of
+    12", then the five checks with their mini bars, scores and plain read lines,
+    most-filled first (owner: *"on hover show specific information, not
+    generic"*).
+- **Category icons** are **solid**, never outlined:
+  - one 14px icon per category, on a 16-unit grid, `fill: currentColor`, even-odd,
+    no strokes, colour `#919399` (owner: *"add relevant icons instead of just
+    boxes"* → *"choose solid icons instead of outlined ones"* → *"make them a tiny
+    bit grayer"*)
+  - the telling detail is always negative space ≥1px, and ink density is balanced
+    across the set
+  - every small UI glyph is solid too (caret, tick). The large category drawings
+    stay line illustrations.
+  - icon plus label, plain, with no hover card (owner: *"remove the category hover,
+    doesn't add value"*). No deadline item on the row (owner: *"remove the deadline
+    info"*).
+- **The whole row is one target:**
+  - The title link stretches over the row. Hover or focus anywhere washes the row
+    `#f6f6f8` (radius 8) and underlines the title (owner: *"make the whole page
+    hoverable"*).
+  - The wash reaches 28px left and 16px right, and never over the hairlines (owner:
+    *"the grey of the card should reach more to the left"*). It never touches the
+    rail labels.
+  - The meter sits above the stretched link so it takes its own pointer. The keyboard
+    tabs from title to title.
+
+## 7. The record page
+
+**Head: centred, with air.** The category drawing (216px, very light gray; 120px on
+phone), the title, and the headline copy (`brief`, `good_for`) as one left-aligned
+block centred under the title. Then the **fact row**: Category · Locality · Window ·
+Entry · Verified. Each fact appears once, with a small label over its value and
+hairline dividers between facts. Window shows only when there is no `brief`, because
+a brief already says why it is urgent. The Entry value is the level dot and word, and
+it links to `#difficulty-to-enter`.
+
+**Sections, in the builder's order:** The problem (+ ProcessToday figure) →
+**Suggested solution** box (`--l-bg-2`, hairline, radius 12, + ProcessAfter figure)
+→ Proven abroad → Local competition → Who pays → Why now → Difficulty to enter →
+First moves. Every section reads **prose first, then its ledger**.
+
+**Company rows** (comps and locals):
+- Each row has the name ↗ (another site), a maturity tag, meta ("Germany · since
+  2019", "IČO …"), its **source pills**, then one clamped line of what it sells.
+  "Details" opens a native popover modal for the rest.
+- Every company names the sources that back it, or says **"No source on file"**,
+  never nothing (owner: *"isn't it connected to sources? … why isn't it
+  mentioned?"*).
+- Locals group into "Sells this" and "Nearby".
+
+**Receipts** (prices, public money, dates on file): figure, one line, meta, pill at
+the row end. "Public money nearby" folds in a native `<details>`.
+
+**Difficulty to enter is three lines** (owner: *"difficulty to enter is needlessly
+complex now"*, then *"typographically consistent"*):
+1. The **level**: a 22px/600 word with its hue dot (Easy · Moderate · Hard · Very
+   hard).
+2. **One sentence** naming the gates that set it (only the top-weight gates; an easy
+   record names its open gates).
+3. **One quiet line**: "Already here: … That counts under Local competition, not in
+   this level."
+
+Lines 2 and 3 share one voice (same size, weight and leading); line 3 is one gray
+lighter. The level is never re-derived on the page: the record carries it and
+`check-records.py` asserts it.
+
+**Figures** come from the kit:
+- ProcessToday, ProcessAfter, CompMap, FieldTimeline and MoneyScale go in the main
+  column. FieldGrid goes in the rail.
+- Each is a server function that returns `null` when its data is thin, so **call it
+  before the JSX and test it** before drawing anything around it.
+- A figure belongs to the section it explains. It gets air and nothing else: it's
+  never boxed and never captioned twice. In the rail it takes the rail's card.
+
+**The rail** (sticky under the bar; after main at ≤1080px):
+- **Opportunity card**, "Opportunity **n**/12":
+  - Five rows: label, segment bars (teal), n/max. **Sorted most-filled first, then
+    the longer bar (higher max), then the fixed order.** Never sort by ratio (owner:
+    *"longer bars are first"*).
+  - A zero row is muted. Each row links to the section with its evidence.
+- **Ladder tooltips** on each row and on the total (owner: *"expand on the tooltips
+  in the scoring"*):
+  - what the check asks, why it matters to a builder, and the SCORING.md rungs in
+    plain words, with this record's rung highlighted (teal number)
+  - then "This record: … n of max."
+  - the total's tip shows the four bands by number range. **No verdict words
+    anywhere.**
+  - these tips are CSS only (hover or keyboard focus, short delay) and must not
+    change wording from SCORING.md: restate the rungs, add nothing
+- **Who is here** (FieldGrid) when locals exist.
+- **Evidence card:** source count, a mix of source types as small gray bars (each
+  with a plain note), and "View all N sources →", which opens the sources drawer.
+
+**Sources: pills plus peek cards.** This is the record page's signature.
+- **At rest:** a quiet ink-blue pill in the sentence with the publisher's short name
+  ("NÚKIB"). A run collapses to the first name plus "+2", and the pill is glued to
+  the word before it.
+- **On peek:** a card anchored under the pill. It shows the monogram, publisher,
+  domain and date; **the source title is the link** ("Title ↗"); then one plain line
+  on why it backs the claim; then the source's own words when ingest captured them
+  (owner: *"just like you can click 'Lexnova Energy', you should be able to click
+  'Act No. 264/2025 Coll.'"*).
+- **Native first.** The pill is a `<button popovertarget>` and the card is a
+  `popover="auto"`. Click, tap or Enter opens it; Escape and an outside click close
+  it. The hover script (§9) only adds hover-intent, focus-to-open and click-to-pin.
+- **↗ means another site, everywhere, and nowhere else.** Every link that leaves the
+  site ends in ↗ plus screen-reader text "(another site)". An in-page link never
+  carries it.
+- The **drawer** is a right-side popover listing every source, grouped by type. Each
+  entry has publisher · host · date, the title ↗, why, a "In the source's words"
+  fold, and "Cited in …".
+
+**Phone (≤640px)** (owner: *"simple rows: left label, right value"*, then *"keep the
+illustration and heading centered, the rows below are wonderful"*):
+- The art and title stay centred. The art shrinks to 120px and the title to 26px.
+- The fact row becomes full-width rows on hairlines, label left and value right.
+- A peek card becomes a **bottom sheet** with a grab handle, and so do the Details
+  modals. The drawer goes full width.
+- The rail is one column after main, and receipts stack figure over line with the
+  pill on the right.
+
+## 8. Motion and hover
+
+- **Only `opacity` and `transform` animate.** Never width, height, position, margin
+  or colour-through-transparent.
+- **Never transition to or from `transparent`.** Some browsers interpolate through
+  black (owner: *"flashing through black on hover"*). A wash is always painted, and
+  only its opacity fades. A hover otherwise changes one thing: an opacity, or one
+  gray to another gray.
+- **Entrance:** tooltips, peeks and menus fade in with a 3px rise, about 140ms
+  ease-out. **Exit is instant.** The sources drawer slides 24px at 180ms.
+- **`prefers-reduced-motion: reduce`:** opacity fade only, no movement (or no
+  transition at all).
+- Menus and country hovers change instantly, with no fade.
+- Focus is always visible: a 2px gray outline (`--l-text-1` or `--l-text-2`) at a
+  1–2px offset. Hover and focus look different.
+
+## 9. JavaScript, popovers, static pages
+
+Owner decision, 2026-09-16: client JavaScript is allowed **for the named progressive
+enhancements below, and nothing else**. SPEC §5 and §7 carry the same list.
+
+1. **The source-peek hover script** (`PeekHover`, a `"use client"` component with one
+   document-level listener set and no per-pill hydration): hover-intent (~140ms)
+   opens a peek, the card stays open while the pointer is inside it, Tab onto a pill
+   opens it, and a click pins it.
+2. **Native popovers and CSS**, which aren't scripts but are sanctioned devices:
+   `popovertarget` peeks, Details modals, the sources drawer, the country menu, CSS
+   hover/focus tooltips, and `<details>` folds.
+3. The gazette-era relative-dates and table-sort scripts stay only while their
+   gazette routes exist, and go with them.
+
+Rules for all of it:
+- **The page reads fully with every `<script>` stripped.** All text renders, and
+  every popover opens on click, tap or Enter. Nothing is reachable only by hover.
+- **Pages stay static:** `generateStaticParams` + `dynamicParams = false`. **No
+  `searchParams`, `cookies()` or `headers()`** anywhere under `web/app`. Reading
+  `searchParams` makes the route dynamic, and a Vercel function has no `data/`, so
+  it 500s. A second view is a second static path (`/by-category`), never `?group=`.
+- **No wall clock:** relative dates use `extractDate()`.
+- Any other client component needs explicit owner sign-off first (SPEC §10
+  tripwire).
+
+## 10. The anti-slop NEVER list
+
+1. NEVER a second font family, and never a mono or serif face for figures or data.
+2. NEVER a hue that doesn't encode one of the three meanings in §3. No brand accent,
+   purple, gradient, glow or coloured shadow.
+3. NEVER a fourth text style on a row card, and never bold inside the story.
+4. NEVER a label inline with its text, and never colons or bullet glyphs on a card.
+5. NEVER a generic tooltip. Every hover card says something about *this* record, or
+   it isn't there.
+6. NEVER content reachable only by hover or only with JS.
+7. NEVER `searchParams`, `cookies()`, `headers()` or any request-time data.
+8. NEVER transition from or to `transparent`, never animate a layout property, never
+   an exit animation, never ignore reduced-motion.
+9. NEVER emoji, flag emoji, or an outlined stock icon set. Small glyphs are solid and
+   drawn for this site. Category drawings are line illustrations.
+10. NEVER marketing chrome: no hero stats, counts line, "trusted by", badges, CTA
+    buttons or exclamation marks. "Problem" is never softened to "challenge".
+11. NEVER a verdict word (PRIME, STRONG, …) on a public page. Bands are number ranges
+    with plain words.
+12. NEVER ↗ on an in-page link, and never an external link without ↗.
+13. NEVER an empty figure, a boxed figure, or a caption stated twice. Thin data draws
+    nothing or states the absence.
+14. NEVER a title or paragraph ending on a lone word, and never horizontal page
+    scroll at 320–375px.
+15. NEVER a text gray under 4.5:1 on its ground. `--l-text-4` is for non-text only.
+16. NEVER restate SCORING.md or CONVENTIONS.md vocabulary in different words, and
+    never add a rung, band or gate the rubric doesn't have.
+17. NEVER edit `assets/style.css` or `web/shared.css` during a content run or a page
+    build. They are the frozen gazette stylesheet until the migration deletes them.
+
+## 11. Not yet ruled: settle these in the migration
+
+These gaps are known from the 2026-09-16 audit. They aren't rules yet, so don't
+invent answers in a content run; the migration checklist owns them. Other sessions
+were already closing some of them the same day (anchor aliases, metadata), so
+**check the code before acting on an item**. When one is settled, move its answer
+into the sections above and delete the bullet.
+
+- **Print:** the modern CSS has no `@media print`, and a printed record carries no
+  sources (audit B12). Whether "photocopies beautifully" survives is an open owner
+  question.
+- **Sources anchors and ledger:** sources render only inside the drawer, with no
+  `id="sN"`, no `#sources` and no `#how-big` (audit B5, B6).
+- **Record head vs row card:** the record head renders `brief` and `good_for` as
+  dotted bullets with an inline "Good for:" label. The row card rule (labels on their
+  own line, no colons, no bullets) doesn't hold there yet.
+- **Record page contrast:** `problem.css` doesn't yet scope `--l-text-3` the way
+  `front.css` does (audit B13). Keyboard: tabbing onto a pill opens its card, and the
+  rail comes after main in DOM order.
+- **Hover rows in the rail** (`.ls-dim`, `.ls-mixrow`) transition `background-color`
+  from an unpainted state, which conflicts with §8.
+- **Record content cuts** (audit D9): `entry.why`, the gates list, the comps ledger
+  links, the whenline, past urgency receipts, the corrections link.
+- **404, signals ledgers, category pages:** no modern version yet (audit B4, B8).
+
+## 12. Implementation
+
+- **Modern CSS:** `tokens.css` (the `--l-*` tokens) plus per-page `front.css`,
+  `problem.css`, `how-it-works.css` and the kit's `kit.css`. Selectors are
+  prefixed per page (`lf-`, `ls-`, `lh-`, `lk-`).
+  - The migration plans to make `tokens.css` an asset of this skill, checksum-locked
+    like the gazette sheet was.
+  - Until then no gate checks modern CSS, so these rules are enforced only by prose.
+    That is exactly the failure CLAUDE.md rule 2 warns about, and the migration adds
+    the invariants.
+- **Gazette CSS:** `assets/style.css` = `web/shared.css`, locked by
+  `web/scripts/check-css.mjs`. It stays until the live gazette routes are gone.
+- **Verify every page change** with screenshots at 1440 and 375 on real data (both
+  groupings, several records, one long title), with scripts stripped once, and
+  against the NEVER list.

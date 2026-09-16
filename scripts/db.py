@@ -1372,7 +1372,12 @@ PROBLEM_OPTIONAL_KEYS = frozenset(("locals",))
 #             interests (2026-09-16). Uncited and number-free by rule.
 #             Both are asserted in scripts/check-records.py; this file
 #             validates neither, exactly as with `process`.
-PROBLEM_TYPED_OVERFLOW_KEYS = frozenset(("process", "brief", "good_for"))
+#   draft_law — the "Draft law" badge line (2026-09-16): present only when the
+#             record's main pain depends on a law not yet passed or published;
+#             one plain line naming that law and its status, with an [Sn]
+#             marker to a `regulation` source. A string the page prints whole
+#             on hover; no query reads it. Asserted in check-records.py.
+PROBLEM_TYPED_OVERFLOW_KEYS = frozenset(("process", "brief", "good_for", "draft_law"))
 SOURCE_KEYS = frozenset((
     "type", "url", "note", "date", "name", "why", "gist", "signal", "dims", "queries", "checked", "expires"))
 # The price-receipt fields (`type: price`, owner 2026-09-03): typed optionals in
