@@ -1,4 +1,4 @@
-// /lab/problem — the source model behind the Perplexity-style citations.
+// /lab/modern — the source model behind the Perplexity-style citations.
 // Server-only data shaping: every record source becomes one LabSource with the
 // four things a peek has to answer — WHO published it (publisher + domain),
 // WHAT it is (title + type), WHEN (date), and WHY it backs the claim (the
@@ -56,6 +56,7 @@ const PUBLISHERS: Record<string, string> = {
   "tech.eu": "Tech.eu",
   "sme-union.cz": "SME Union",
   "cybersecurity-centre.europa.eu": "ECCC",
+  "ec.europa.eu": "European Commission",
   "rowan.legal": "Rowan Legal",
   "mordorintelligence.com": "Mordor Intelligence",
   "uradprace.cz": "Úřad práce",
@@ -85,7 +86,39 @@ const TYPE_LABELS: Record<string, string> = {
   asks: "Stated need",
   report: "Report",
   news: "News",
+  arbitrage: "Company abroad",
+  ask: "Stated need",
 };
+
+/** What each KIND of source is, and why it counts — the Evidence tooltips.
+    Grounded in data/CONVENTIONS.md ("Evidence types and their feeds" and the
+    source type → scorecard dimension map: arbitrage→proof ·
+    tender/contract/subsidy→money · regulation→urgency · complaint/news→demand
+    · gap-check→gap) and SCORING.md (no source, no point). A kind the map does
+    not tie to a dimension says what it backs, never a point it does not earn. */
+const TYPE_NOTES: Record<string, string> = {
+  arbitrage: "A company already selling this in another market. It is what Validated abroad reads.",
+  round: "A funding round raised by a company doing this abroad: investors backing the model.",
+  funded: "A funding round raised by a company doing this abroad: investors backing the model.",
+  tender: "A public tender: a buyer asking the market to supply this, with a budget attached. It counts toward Money nearby.",
+  tenders: "A public tender: a buyer asking the market to supply this, with a budget attached. It counts toward Money nearby.",
+  contract: "A signed contract from the state contracts register: public money that has already moved. It counts toward Money nearby.",
+  subsidy: "A grant or subsidy call that can pay for this work. It counts toward Money nearby.",
+  regulation: "A law or rule with a date that forces buyers to act. It counts toward Why now.",
+  complaint: "Documented pain: an association, audit, survey or complaint saying this hurts. It counts toward Demand signal.",
+  news: "Reporting that documents the pain. It counts toward Demand signal.",
+  demand: "Documented complaints and unmet needs. It counts toward Demand signal.",
+  statistic: "A published figure — an official count, survey or market sizing — that sizes a claim in the text.",
+  price: "A price receipt: what a named Czech buyer actually pays for this, or for doing it by hand. It answers who pays.",
+  "gap-check": "The register's own search for Czech companies already selling this, run with a control that proves the search can find one. It is what Local opportunity reads.",
+  hiring: "Employers posting paid vacancies for this work through the Labour Office — committing their own budget to the need.",
+  ask: "A named institution stating this problem in public before money is attached.",
+  asks: "A named institution stating this problem in public before money is attached.",
+};
+
+export function typeNote(t: string): string | null {
+  return TYPE_NOTES[t] ?? null;
+}
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 

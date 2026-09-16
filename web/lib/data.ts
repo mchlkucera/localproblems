@@ -485,13 +485,105 @@ export function localHref(l: Local): string {
   return l.url ?? `https://ares.gov.cz/ekonomicke-subjekty?ico=${l.ico}`;
 }
 
+// THE PROCESS — how the work runs TODAY, and how it would run with the
+// suggested solution (owner, 2026-09-15). OPTIONAL: authored only where the
+// problem is a workflow someone performs today; a new obligation or a one-off
+// decision has no current process and carries no block. The page reads it in
+// SEQUENCE: `summary.today` and the steps' today column under the problem,
+// then the Suggested solution box, which holds the steps with the solution
+// applied (and `summary.after` when the author wrote one).
+//
+// UNCERTAINTY IS DATA HERE, NOT A FOOTNOTE — owner: "be SUPER CLEAR about
+// where we're not sure how the process looks, put question marks if you don't
+// know". So every step says how its TODAY column is known, in one field:
+//   `documented` — stated in cited evidence; `cites` non-empty, every S-number
+//                  resolving into sources[]
+//   `inferred`   — our reading of the record's prose, not stated in evidence;
+//                  drawn with a "?"; `cites` may name where the reading comes from
+//   `unknown`    — we do not know how this step happens; `cites` empty and
+//                  `today` states the open question ("Who files the claim is not
+//                  documented"); `who` may be '?'
+// On a `change: new` step there is no today to describe, so `known` says how
+// sure we are that nobody does the step today — usually `inferred`.
+// `after` is ALWAYS the proposal, never evidence: it carries no citations of
+// any kind and the page labels it uncited.
+//
+// ONE FIELD, ONE MEANING (CLAUDE.md rule 1): the block describes the workflow
+// and nothing else. Scores, money and competition have their own fields, and
+// scripts/check-records.py refuses a crown figure or a comps[]/locals[] name
+// inside it. That file owns every rule below in full; this schema types the
+// shape and carries the refinements the renderer relies on (nullability per
+// `change`, the known-vs-cites pairing), so neither loader can hand the page a
+// step it would have to guess about.
+//
+// NOT A COLUMN in scripts/db.py: it rides problems.extra_json verbatim (key-
+// sorted there) and comes back through the Object.assign in problemsFromDb.
+// Safe for `npm run parity` because zod emits object keys in SHAPE order, not
+// input order — measured on zod 4.4, 2026-09-15.
+export const PROCESS_KNOWN = ["documented", "inferred", "unknown"] as const;
+export const PROCESS_CHANGES = ["stays", "changes", "goes", "new"] as const;
+export type ProcessKnown = (typeof PROCESS_KNOWN)[number];
+export type ProcessChange = (typeof PROCESS_CHANGES)[number];
+
+const ProcessStepSchema = z.strictObject({
+  /** Who does the step TODAY, in plain words ('?' when unknown). On a
+      `change: new` step, who would do it with the suggested solution. */
+  who: z.string().min(1),
+  /** Today's step. null ONLY on `change: new` — the solution adds it. */
+  today: z.string().min(1).nullable(),
+  known: z.enum(PROCESS_KNOWN),
+  /** S-numbers into sources[] (S1 = sources[0]) backing `today`. Always
+      present; `[]` when none. Never cites `after`. */
+  cites: z.array(z.number().int().positive()),
+  /** Today's step re-types or re-reads what someone already wrote. */
+  reenters: z.boolean().optional(),
+  change: z.enum(PROCESS_CHANGES),
+  /** The step with the suggested solution applied — a proposal, uncited.
+      null ONLY on `change: goes` — the solution removes it. */
+  after: z.string().min(1).nullable(),
+}).check((ctx) => {
+  const s = ctx.value;
+  const issue = (message: string) => ctx.issues.push({ code: "custom", message, input: s });
+  if (s.change === "new" ? s.today !== null : s.today === null)
+    issue(`process step '${s.who}': today must be null exactly when change is 'new' ` +
+      `(a step the solution adds has no today; every other step does)`);
+  if (s.change === "goes" ? s.after !== null : s.after === null)
+    issue(`process step '${s.who}': after must be null exactly when change is 'goes' ` +
+      `(a step the solution removes has no after; every other step does)`);
+  if (s.known === "documented" && s.cites.length === 0)
+    issue(`process step '${s.who}': known 'documented' needs cites — a step stated in ` +
+      `evidence names the evidence; without it, it is 'inferred'`);
+  if (s.known === "unknown" && s.cites.length > 0)
+    issue(`process step '${s.who}': known 'unknown' carries cites — a source that ` +
+      `describes the step makes it documented or inferred, not unknown`);
+  if (s.reenters === true && s.today === null)
+    issue(`process step '${s.who}': reenters on a 'new' step — there is no today to re-enter`);
+});
+export type ProcessStep = z.infer<typeof ProcessStepSchema>;
+
+const ProcessSchema = z.strictObject({
+  summary: z.strictObject({
+    /** One plain sentence: the process today. May carry [Sn] markers; where
+        part of it is unknown, the sentence says so. REQUIRED. */
+    today: z.string().min(1),
+    /** One plain sentence on the process with the solution applied — OPTIONAL,
+        written only when it adds what the `solution` sentence does not say.
+        Uncited, no certainty words. */
+    after: z.string().min(1).optional(),
+  }),
+  steps: z.array(ProcessStepSchema).min(2),
+});
+export type Process = z.infer<typeof ProcessSchema>;
+
 const ProblemSchema = z.looseObject({
   id: z.string().regex(/^p-\d{4}$/),
   region: z.string().regex(/^[a-z]{2}$/),
   title: z.string().min(1),
-  // `solution` — the LIKELY solution in ONE plain sentence, rendered directly
-  // under the dek and ALWAYS labelled "Likely solution" (owner, 2026-09-10:
-  // "don't try to make it like we know everything"). A FIRST-CLASS FIELD, not
+  // `solution` — the SUGGESTED solution in ONE plain sentence, rendered directly
+  // under the dek and ALWAYS labelled "Suggested solution" (owner, 2026-09-10:
+  // "don't try to make it like we know everything"; labelled "Likely solution"
+  // until 2026-09-15, when "Suggested" took over because it owns the sentence
+  // as our proposal and the box now also carries the proposed process). A FIRST-CLASS FIELD, not
   // derived prose: the dek is compressed out of the who-pays paragraph, this is
   // authored. REQUIRED since 2026-09-10 (was the optional `fix`, 2026-08-25):
   // it answers "what would likely solve this problem?", which every record can
@@ -499,6 +591,27 @@ const ProblemSchema = z.looseObject({
   // score's question, never this field's. Carried as a NOT NULL column in
   // scripts/db.py (`problems.solution`), so it cannot vanish on the DB path.
   solution: z.string().min(1),
+  // `brief` — THE HEADLINE'S SITUATION LINE (owner, 2026-09-16). OPTIONAL.
+  // The page reads title → brief → solution ("Suggested") → good_for, and the
+  // owner's cap is "3 bullets at most" per problem: brief, Suggested, Good for.
+  // So `brief` is ONE STRING, one sentence of about 25 words at most, saying
+  // WHAT IS HAPPENING and WHY IT IS URGENT NOW: who is affected, the date, the
+  // penalty, the shortage. Facts only — one field, one meaning: no solution
+  // talk (that is `solution`), no competitor names (that is comps[]/locals[]),
+  // no certainty words. Every numeric claim or date carries an [Sn] marker
+  // resolving into sources[]; the marker check is below, the full rule set
+  // (one sentence, word cap, cite-on-number, OVERCLAIM, ledger names) is in
+  // scripts/check-records.py.
+  //
+  // NOT A COLUMN in scripts/db.py: rides problems.extra_json exactly like
+  // `process` and comes back through the Object.assign in problemsFromDb.
+  brief: z.string().min(1).optional(),
+  // `good_for` — WHO THE OPPORTUNITY SUITS, by skills and interests, in one
+  // line (owner, 2026-09-16). OPTIONAL. "Cybersecurity people interested in
+  // grants and public-sector sales." A description of a person, never of the
+  // market: no numbers, no [Sn] markers, no certainty words (check-records.py).
+  // Rides problems.extra_json, like `brief`.
+  good_for: z.string().min(1).optional(),
   // `price_search` — WHERE TO LOOK for the price when no Czech buyer has yet
   // priced this (owner, 2026-09-04: "we don't need to answer where the money
   // is where we don't know it; we can give an estimate of where to search").
@@ -534,6 +647,9 @@ const ProblemSchema = z.looseObject({
   // empty list from a missing key, so db.py refuses the empty form outright
   // rather than let the two loaders disagree (see `problem_locals`).
   locals: z.array(LocalSchema).optional(),
+  // `process` — the before/after workflow figure (2026-09-15). OPTIONAL; see
+  // ProcessSchema above. Absent means the record describes no workflow.
+  process: ProcessSchema.optional(),
   sources: z.array(SourceSchema).min(1),
   created: isoDate,
   updated: isoDate,
@@ -542,6 +658,33 @@ const ProblemSchema = z.looseObject({
   const sum = p.scores.proof + p.scores.money + p.scores.urgency + p.scores.demand + p.scores.gap;
   if (sum !== p.score) {
     ctx.issues.push({ code: "custom", message: `score ${p.score} != sum(scores) ${sum}`, input: p });
+  }
+  // A brief marker is a link the page draws into the Sources ledger, and the
+  // compound form `[S1,S19]` names several — read every number, not the first.
+  if (p.brief !== undefined) {
+    const nums = (p.brief.match(/\[S[\d,S]+\]/g) ?? []).flatMap((m) => (m.match(/\d+/g) ?? []).map(Number));
+    const dead = nums.filter((n) => n < 1 || n > p.sources.length);
+    if (dead.length) {
+      ctx.issues.push({
+        code: "custom",
+        message: `brief cites ${dead.map((n) => `S${n}`).join(", ")} — ` +
+          `${p.sources.length} sources on file`,
+        input: p,
+      });
+    }
+  }
+  // A process cite is a link the page draws into the Sources ledger; one that
+  // points past the end of sources[] would link nowhere.
+  for (const s of p.process?.steps ?? []) {
+    const dead = s.cites.filter((n) => n > p.sources.length);
+    if (dead.length) {
+      ctx.issues.push({
+        code: "custom",
+        message: `process step '${s.who}' cites ${dead.map((n) => `S${n}`).join(", ")} — ` +
+          `${p.sources.length} sources on file`,
+        input: p,
+      });
+    }
   }
   // proof >= 1 asserts a foreign analog exists — the comps ledger must name at least one.
   if (p.comps && p.scores.proof >= 1 && p.comps.length === 0) {

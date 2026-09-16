@@ -1,10 +1,10 @@
 ---
 id: p-0028
 region: cz
-title: Most inspected Czech e-shops break consumer law
-solution: 'A weekly scanner for Czech online shops that checks the checkout, the prices and the
-  product claims against consumer law and hands the merchant a fix list — on subscription,
-  not as a one-off legal audit.'
+title: 'Czech e-shops were fined 13M CZK last year for breaking consumer law'
+solution: 'Build an e-shop add-on that scans a shop''s checkout and "eco" claims weekly and sends the owner a fix list.'
+brief: 'Inspectors found breaches in 85% of e-shops they checked, like missing complaint information or illegal order buttons [S1]. A Czech ban on vague "eco" claims is also moving through parliament [S13].'
+good_for: 'Someone who''d like to work with small online shops and consumer law.'
 category: retail-services
 geo: CZ-national
 score: 9
@@ -116,7 +116,7 @@ sources:
 - type: regulation
   name: "Empowering Consumers for the Green Transition — Directive (EU) 2024/825"
   gist: "the green-claims ban and its date"
-  why: "From 27 September 2026 generic green claims, unverified sustainability labels and unsubstantiated durability promises are blacklisted, and ČOI enforces it through the consumer-protection act."
+  why: "The EU directive that blacklists generic green claims, unverified sustainability labels and unsubstantiated durability promises, which member states must apply from 27 September 2026. In Czechia it arrives through an amendment to the consumer-protection act that has not yet passed."
   url: https://eur-lex.europa.eu/eli/dir/2024/825/oj/eng
   note: 'reg-green-claims-ecgt: Empowering Consumers for the Green Transition Directive (2024/825)
     applies from 27 Sep 2026 — generic green claims (''eco'', offset-based ''climate neutral''),
@@ -287,13 +287,43 @@ sources:
   amount_czk: 200
   unit: per-seat-month
   basis: list-price
+- type: regulation
+  name: "Sněmovní tisk 53 — the Czech green-claims bill"
+  gist: "the Czech law, not yet passed"
+  why: "The government bill amending the consumer-protection act and the civil code to bring in the EU green-claims rules. It passed second reading on 24 June 2026; since then only a committee position has followed, with no third reading, Senate vote or publication."
+  url: https://www.psp.cz/sqw/historie.sqw?o=10&T=53
+  note: 'psp.cz bill history for sněmovní tisk 53, Novela z. o ochraně spotřebitele - EU, status
+    page dated 16 Sep 2026, read 2026-09-16. Government submitted 8 Dec 2025; first reading 25 Mar
+    2026; Hospodářský výbor resolutions 17 Apr 2026 (53/1, adjourned) and 18 May 2026 (53/2,
+    amendments); second reading, general and detailed debate, 24 Jun 2026, amendments printed as
+    53/3 on 26 Jun 2026; committee position 53/4 delivered 4 Sep 2026, further debate possible from
+    5 Sep 2026. No third reading, no Senate stage, not published. The government draft (53/0,
+    EU-compatibility table) set general effect on 31 Jul 2026 and 27 Sep 2026 for the Directive
+    2024/825 provisions; whether 53/2 or 53/3 moved those dates was not read. The same table quotes
+    Directive 2024/825 Art. 4(1): adopt and publish by 27 Mar 2026, apply from 27 Sep 2026.'
+  date: '2026-09-04'
+- type: news
+  name: "Pravano — EmpCo in Czech law"
+  gist: "the missed transposition deadline"
+  why: "A Czech compliance publisher's explainer, cross-checked against primary sources on 28 July 2026: Czechia missed the 27 March 2026 deadline, the new bans do not yet apply in Czech law as such, and ČOI can already pursue green claims as misleading practices under the current act."
+  url: https://pravano.cz/empco/baze/empco-transpozice-cr/
+  note: 'pravano.cz EMPCO báze, "Směrnice EmpCo (2024/825) v českém právu: novela ZOS a dozor ČOI",
+    published and modified 2026-07-28, read 2026-09-16. States: ČR transpoziční lhůtu 27. března
+    2026 zmeškala; tisk 53 (novela 634/1992 Sb. and 89/2012 Sb.) prošel druhým čtením 24. června
+    2026, third reading not held as of the Chamber status of 7 Aug 2026; zákon není platný ani
+    účinný; the per-se blacklist bans zatím formálně neplatí as separate offences, but green claims
+    can be pursued today under the general ban on misleading commercial practices, which ČOI
+    actively uses. Pravano itself offers a free EmpCo compliance check (prověrka), so it is also a
+    possible local player on green claims; not assessed here. dims empty: backs no score.'
+  date: '2026-07-28'
+  dims: []
 created: '2026-08-13'
 updated: '2026-09-04'
 ---
 
 ČOI — the Czech trade inspection authority — walked the checkout flows of 751 e-shops in 2025 and found 639 breaking the law: 2,399 violations, from missing complaint-handling and pre-contractual information to non-compliant order buttons [S1]. That 85% is the baseline, not a tail — targeted inspections in Q2 2026 found violations in 94 of 103 shops [S9].
 
-Why now: from 27 September 2026 the green-claims rules blacklist generic environmental claims, unverified sustainability labels and unsubstantiated durability promises, and ČOI enforces them [S2]. Every shop running an "eko" or climate-neutral badge must substantiate it or strip it. Its own inspections fell from ~29,000 a year to ~20,000 on a flat budget [S6], so it targets rather than samples.
+Why now: an EU directive blacklists generic environmental claims, unverified sustainability labels and unsubstantiated durability promises, and member states must apply it from 27 September 2026 [S2]. Czechia missed the March 2026 deadline to write it into law [S14]: the amendment to the consumer-protection act passed second reading in June 2026 and still awaits a third reading, the Senate and publication [S13]. Once it passes, every shop running an "eko" or climate-neutral badge must substantiate it or strip it [S2]; ČOI can already pursue misleading green claims under the current act [S14]. ČOI's own inspections fell from ~29,000 a year to ~20,000 on a flat budget [S6], so it targets rather than samples.
 
 Who pays: the merchants, because the alternative is a fine and inspectors now target the worst shops. Shoptet, a platform merchants rent their storefront from, hosts about 30,000 [S5]. Czech compliance add-ons charge 19 to 200 CZK a month [S8,S10]; the German subscriptions this copies run €9.90–24.90. Thirty thousand merchants, a €12 bundle over the uncovered duties, one in ten buying: about €430,000 a year, against ~13.0M CZK of ČOI fines in 2025 [S1].
 
@@ -303,12 +333,12 @@ Solved elsewhere: three German firms have lasted decades on this. Trusted Shops 
 
 ## First moves
 
-1. Crawl Czech e-shops for green-claims language — "eko", "šetrné k přírodě", climate-neutral badges. That list is your prospect list: from 27 September 2026 the directive blacklists unsubstantiated versions of exactly those claims [S2].
-2. Pitch those merchants before 27 September 2026 with a claim-by-claim fix report, priced at the German subscription points listed under Proven abroad. Whether a merchant buys before the fine arrives is the assumption everything here rests on — at 85–91% violation rates, ignoring the risk is what most of them already do [S1,S9].
+1. Crawl Czech e-shops for green-claims language — "eko", "šetrné k přírodě", climate-neutral badges. That list is your prospect list: the EU directive blacklists unsubstantiated versions of exactly those claims from 27 September 2026 [S2], and the Czech law that brings the ban in is past its second reading [S13].
+2. Pitch those merchants now with a claim-by-claim fix report, priced at the German subscription points listed under Proven abroad. The Czech ban has no start date until the law passes [S13], but ČOI can already pursue a misleading green claim under the current act [S14]. Whether a merchant buys before the fine arrives is the assumption everything here rests on — at 85–91% violation rates, ignoring the risk is what most of them already do [S1,S9].
 3. Extend the scanner to the four failures ČOI writes up most: missing pre-contractual information (488 breaches in 2025), missing complaint-handling information (363), unfair commercial practices (318), non-compliant order buttons (107) [S1]. Those four are 1,276 of the 2,399 recorded violations, and each one is a checklist item.
 4. Ship into the Shoptet add-on store, and expect company. Hlídač Slev sells there at ~19 CZK a month per 1,000 products, on five middling public ratings, with reviewers citing support and export accuracy [S8]; Slevy správně sells at a flat 200 Kč a month on Shoptet and Upgates [S10]. One integration still reaches tens of thousands of obligated shops [S5], and the catalogue has no legal-compliance category yet [S8,S10].
 5. Let public money halve the price outside the cities: shops in MAS areas — the state's rural local-action-group territories, outside Prague and towns over 25,000 people — get software co-funded at 50%, grants up to 1.49M CZK, from [OP TAK Technologie pro MAS II](/sources/tenders#dotace-optak-technologie-mas-2) — the state's business-support programme — €22M allocated, applications 2026-09-01 to 2027-09-01 [S7].
-6. Aim at the duties nobody sells. **Právo e-shopů, eLegal and AZ LEGAL** leave a shop compliant only until the next legislative wave [S5], and the three Czech products each cover one duty — **Hlídač Slev** and **Slevy správně** on discount labelling, **Pravoid** on legal texts with alerts from e-Sbírka, the state law gazette [S8,S10]. Both those vendors registered during 2025 [S8], so this is a race, not an entrenchment. The open ground is coverage: pre-contractual and complaint-handling information, order buttons, and the green claims blacklisted from 27 September 2026 [S1,S2,S8,S10].
+6. Aim at the duties nobody sells. **Právo e-shopů, eLegal and AZ LEGAL** leave a shop compliant only until the next legislative wave [S5], and the three Czech products each cover one duty — **Hlídač Slev** and **Slevy správně** on discount labelling, **Pravoid** on legal texts with alerts from e-Sbírka, the state law gazette [S8,S10]. Both those vendors registered during 2025 [S8], so this is a race, not an entrenchment. The open ground is coverage: pre-contractual and complaint-handling information, order buttons, and the green claims the EU blacklists from 27 September 2026, once Czech law brings the ban in [S1,S2,S8,S10,S13].
 
 ## Revisions
 
@@ -328,3 +358,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewrit
 2026-09-02 · plain-language pass — Trade terms glossed at first use in the rendered prose: ČOI as the Czech trade inspection authority, Shoptet as a platform merchants rent their storefront from, MAS as the state's rural local-action-group territories, OP TAK Technologie pro MAS II as the state's business-support programme [S7], and e-Sbírka as the state law gazette [S8]. The argument tightened from 441 words to 390 with every [Sn] marker, figure, price and named company kept, First moves rewritten in the plain house voice, and a short gist added beside all ten sources' public why lines. No score, status, ledger entry or source note touched.
 
 2026-09-04 · price receipt — The two discount-labelling add-ons already on file are now recorded as prices: about 19 CZK a month per 1,000 products [S11] and 200 CZK a month flat [S12]. The document prices of the third product stay in the note, its own page not being on this ledger. No score, status, ledger entry or source note touched.
+
+2026-09-16 · headline copy — The headline was rewritten for a general builder as three lines under the title: a `brief:` on what is happening and why it matters now, the `solution:` as a call to action, and a new `good_for:` line. New copy, verbatim — title: "Most e-shops Czech inspectors check are breaking consumer law"; brief: "Last year inspectors fined e-shops about 13M CZK over breaches like missing complaint information and illegal order buttons [S1]."; solution: "Build an e-shop add-on that scans a shop's checkout and "eco" claims weekly and sends the owner a fix list."; good_for: "Someone who'd like to work with small online shops and consumer law.". Previous title, verbatim: "Most inspected Czech e-shops break consumer law". Previous solution, verbatim: "A weekly scanner for Czech online shops that checks the checkout, the prices and the product claims against consumer law and hands the merchant a fix list — on subscription, not as a one-off legal audit.". There was no previous brief or good_for. Corrected against the evidence before it was written, from the owner-reviewed draft, then cut to the owner's length limits. The draft title and brief said new "eco" claim rules "start 27 September" and that unproven claims "have to come down" from that day. The only source on file for the date is Directive (EU) 2024/825, which obliges member states to apply the ban from 27 September 2026 [S2]; no source on this record names a Czech law that brings it in. Checked on 2026-09-16: the Czech transposition is sněmovní tisk 53, amending zákon 634/1992 Sb. and the civil code; it passed second reading on 24 June 2026 and had not had its third reading, reached the Senate or been published (psp.cz bill history, latest event 4 September 2026; pravano.cz reports the 27 March 2026 transposition deadline missed). The date is therefore out of the copy entirely. "Millions of crowns" became the figure behind it, about 13M CZK in 2025 [S1]; ČOI does not break its fines down by breach type, so the breaches are named as examples found, not as what each fine was for. FLAGGED, NOT CHANGED: the body's Why-now paragraph and First moves 1, 2 and 6 still state that the green-claims rules apply and are enforced by ČOI from 27 September 2026 [S2]; with the Czech amendment still in the Chamber that reads as a Czech date it is not, and a source for the bill belongs on this ledger before the body is reworded. No score, status, source, note, marker or body sentence changed. Same date, body correction: the flagged lines are corrected. What was wrong, verbatim: Why now said "from 27 September 2026 the green-claims rules blacklist generic environmental claims … and ČOI enforces them" and "Every shop running an "eko" or climate-neutral badge must substantiate it or strip it"; First move 1 said "from 27 September 2026 the directive blacklists"; First move 2 said "Pitch those merchants before 27 September 2026"; First move 6 said "the green claims blacklisted from 27 September 2026"; and the public line of [S2] said the claims "are blacklisted, and ČOI enforces it". All of that reads as a date binding Czech shops. It binds member states [S2]. Evidence, read on this date: the psp.cz history of sněmovní tisk 53 shows second reading on 24 June 2026 and, as the last step, a committee position delivered on 4 September 2026, with no third reading, Senate vote or publication [S13]; the government draft set 27 September 2026 for these provisions, which the process can no longer meet. Pravano's explainer reports the 27 March 2026 transposition deadline missed, the new bans not yet in force in Czech law as such, and ČOI already able to pursue green claims as misleading practices under the current act [S14]. Both appended as [S13] and [S14]; [S14] backs no score. Changed: Why now gives the EU date as the member states' date, the bill's stage and the existing-act route, and the badge sentence is conditional on the law passing; First move 2 pitches now rather than before a date; First moves 1 and 6 attach the date to the EU and cite the bill; the why line of [S2] rewritten to match; its note left as written. Urgency stays 3, checked: its deadline half, 2, rested on the 27 September 2026 date [S2]. That date still stands as the EU compliance date, inside 18 months, and the Czech bill carrying it is at its last Chamber stage [S13]; rung 1, a date more than 18 months out, and rung 0, no trigger, would both be false. The ladder has no rung for a national date not yet set, so the prose now says it. Freshness holds on [S9] and [S13]. The updated date is not moved: only these sources were re-read. Same date, pain-point pass: the owner's new rule, that each headline names who is hurting and how, in plain words. Before, verbatim — title: "Most e-shops Czech inspectors check are breaking consumer law"; brief: "Last year inspectors fined e-shops about 13M CZK over breaches like missing complaint information and illegal order buttons [S1].". After, verbatim — title: "Czech e-shops were fined 13M CZK last year for breaking consumer law"; brief: "Inspectors found breaches in 85% of e-shops they checked, like missing complaint information or illegal order buttons [S1]. A Czech ban on vague "eco" claims is also moving through parliament [S13].". Why: the old title stated a violation rate, which is the inspectors' finding, not the shop owner's pain; the owner, who is the buyer of what `solution:` describes, feels the fine. The figure moves up from the old brief into the title: about 13.0M CZK of fines across the 2025 inspections, and 2025 is last year as of this pass [S1]. It is rounded to 13M and says "for breaking consumer law", not which breach, because ČOI does not split its fines by breach type. The brief then carries the one number the title lost, 85%, 639 of 751 inspections [S1], with the same two example breaches, and replaces the repeated fine with what is coming: the Czech green-claims bill, sněmovní tisk 53, is past second reading and still awaits a third reading, the Senate and publication [S13]. "Moving through parliament" states that stage and no Czech start date, because none is set. Solution and good_for unchanged. No score, status, source, note, marker or body sentence changed.

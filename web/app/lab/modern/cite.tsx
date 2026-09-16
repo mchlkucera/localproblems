@@ -1,16 +1,17 @@
-// /lab/problem — the citation device.
+// /lab/modern — the citation device.
 //
 // AT REST: a quiet gray pill carrying the publisher's short name ("NÚKIB",
 // "Registr smluv"); a run of sources collapses to the first name plus "+2".
 // ON PEEK: a card anchored under the pill — monogram, publisher, domain, date,
-// the source's title, the one plain line saying why it backs the claim, the
-// source's own words when the ingest captured them, and "Open source ↗".
+// the source's title AS THE LINK ("Title ↗"), the one plain line saying why it
+// backs the claim, and the source's own words when the ingest captured them.
 //
 // NATIVE FIRST. The pill is a <button popovertarget>, the card a `popover=auto`
 // element positioned with CSS anchor positioning — so click/tap opens it,
 // Escape and an outside click close it, and focus returns to the pill, all
 // with no script. `peek-hover.tsx` only adds hover-intent and focus-to-open on
-// top. Every card links out to the source and down to its ledger row (#sN).
+// top. Every card links out to the source; the one full list of sources is
+// the rail's "View all" drawer.
 import type { CSSProperties, ReactNode } from "react";
 import { clip, type LabSource } from "./sources";
 
@@ -35,7 +36,19 @@ function record(ctx: CiteCtx, nums: number[]) {
   }
 }
 
-const EXT = { target: "_blank", rel: "noopener noreferrer" } as const;
+export const EXT = { target: "_blank", rel: "noopener noreferrer" } as const;
+
+/** The page's one link rule: ↗ after anything that leaves the site, never
+    after an in-page link. The words "another site" ride along for screen
+    readers, which cannot see the arrow. */
+export function ExtArrow() {
+  return (
+    <>
+      <span className="ls-ext" aria-hidden="true">↗</span>
+      <span className="ls-sr"> (another site)</span>
+    </>
+  );
+}
 
 /** One source inside a peek card. `compact` when the card holds a run. */
 function PeekEntry({ s, compact }: { s: LabSource; compact: boolean }) {
@@ -46,8 +59,13 @@ function PeekEntry({ s, compact }: { s: LabSource; compact: boolean }) {
         <span className="ls-pk-pub">{s.publisher}</span>
         {s.host && s.host !== s.publisher && <span className="ls-pk-host">{s.host}</span>}
       </span>
+      {/* THE TITLE IS THE LINK (owner, round 4: "just like you can click
+          'Lexnova Energy', you should be able to click 'Act No. 264/2025
+          Coll.'"). One rule across the page: ↗ = another site. */}
       {s.url ? (
-        <a className="ls-pk-title" href={s.url} {...EXT}>{s.title}</a>
+        <a className="ls-pk-title" href={s.url} {...EXT}>
+          {s.title}<ExtArrow />
+        </a>
       ) : (
         <span className="ls-pk-title">{s.title}</span>
       )}
@@ -62,12 +80,6 @@ function PeekEntry({ s, compact }: { s: LabSource; compact: boolean }) {
         <span className="ls-pk-meta">
           {s.typeLabel} · <time dateTime={s.date}>{s.dateLabel}</time>
         </span>
-        <a className="ls-pk-ref" href={`#s${s.n}`} data-peek-close="" aria-label={`Source ${s.n} in the list below`} title="In the list below">#{s.n}</a>
-        {s.url && (
-          <a className="ls-pk-open" href={s.url} {...EXT}>
-            Open source<span aria-hidden="true"> ↗</span>
-          </a>
-        )}
       </span>
     </span>
   );

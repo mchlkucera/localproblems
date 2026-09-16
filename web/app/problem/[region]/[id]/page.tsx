@@ -1,5 +1,5 @@
 // The record page — a board brief, not a dossier (owner rebuild, 2026-08-24).
-// docket (id, dek, the one-line likely solution, facts, quiet meta) · a plain
+// docket (id, dek, the one-line suggested solution, facts, quiet meta) · a plain
 // "Opportunity /12" scorecard (plain
 // labels, plain reads, no verdict words, no rundown dialogs) · a builder funnel
 // of plain sections: the problem → proven abroad → local competition → how big
@@ -258,18 +258,20 @@ export default async function Record({ params }: Params) {
           {sections.dek && (
             <p className="dek" dangerouslySetInnerHTML={{ __html: repageLedgerLinks(annotateSourceRefs(renderInline(sections.dek), sourceRefs), signalHref) }} />
           )}
-          {/* The likely solution — one plain sentence, directly under the dek.
+          {/* The suggested solution — one plain sentence, directly under the dek.
               An AUTHORED frontmatter field (`solution:`, required since
               2026-09-10; it was the optional `fix:` from 2026-08-25), a NOT NULL
-              column in the projection. The label is fixed and ALWAYS "Likely
-              solution" (owner, 2026-09-10: "don't try to make it like we know
-              everything") — the register states what would probably solve the
-              problem, never that it knows. It goes through the same inline
+              column in the projection. The label is fixed and ALWAYS "Suggested
+              solution" (owner, 2026-09-15; "Likely solution" from 2026-09-10,
+              both answering "don't try to make it like we know everything") —
+              the register proposes what could solve the problem, never claims
+              that it knows. "Suggested" owns the proposal as ours, which fits
+              the box now that it also carries the proposed process. It goes through the same inline
               pipeline as the dek so an `[Sn]` marker or a ledger url inside it
               resolves rather than printing as literal text. The `.fixline`
               class keeps its name: the stylesheet is checksum-locked. */}
           <p className="fixline">
-            <span className="k">Likely solution</span>
+            <span className="k">Suggested solution</span>
             <span dangerouslySetInnerHTML={{ __html: repageLedgerLinks(annotateSourceRefs(renderInline(p.solution), sourceRefs), signalHref) }} />
           </p>
           <dl className="facts facts--rail">

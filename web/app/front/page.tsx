@@ -7,8 +7,8 @@
 //
 // Every line on a story is derived, never written for this page: the headline
 // is the record title, the lede is the problem section's run-in lead (the same
-// `splitLead` the record page uses), the likely solution is the authored
-// `solution:` field (required on every record, always labelled "Likely
+// `splitLead` the record page uses), the suggested solution is the authored
+// `solution:` field (required on every record, always labelled "Suggested
 // solution" — never stated as known), and the glance lines are the
 // scorecard's own vetted reads (`scoreRead`), so the front page can never say
 // something the record page contradicts.
@@ -134,12 +134,13 @@ function Glance({ st, extract }: { st: Story; extract: string }) {
   );
 }
 
-/** Always "Likely solution": the register says what would probably solve the
-    problem, never that it knows (owner, 2026-09-10). */
+/** Always "Suggested solution" (owner, 2026-09-15; "Likely solution" from
+    2026-09-10): the register proposes what could solve the problem, never
+    claims that it knows. */
 function Solution({ st }: { st: Story }) {
   return (
     <p className="fix">
-      <span className="k">Likely solution</span> {st.solution}
+      <span className="k">Suggested solution</span> {st.solution}
     </p>
   );
 }

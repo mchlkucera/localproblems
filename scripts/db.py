@@ -96,8 +96,9 @@ SCHEMA_VERSION = "11"  # 11: the four problems.build_* columns are DROPPED and
 #                          / TEAM 2–5 people is pretty arbitrary, more abstract
 #                          categories will be more truthful")
 #                      10: problems.fix renamed problems.solution and made
-#                          NOT NULL — every record states its likely solution
-#                          (owner, 2026-09-10)
+#                          NOT NULL — every record states its suggested solution
+#                          (owner, 2026-09-10; labelled "Suggested solution"
+#                          since 2026-09-15, "Likely solution" before)
 #                       9: signals.owner — who stated the problem; REQUIRED on
 #                          every `asks` line, forbidden on every other, gated at
 #                          insert by check_owner() (owner, 2026-09-03)
@@ -459,7 +460,7 @@ CREATE TABLE IF NOT EXISTS problems (
   id                  TEXT    NOT NULL,          -- 'p-0001'; IS the route param
   slug                TEXT    NOT NULL,          -- filename minus .md; read ORDER
   title               TEXT    NOT NULL,
-  solution            TEXT    NOT NULL,          -- the likely solution, one sentence (v10)
+  solution            TEXT    NOT NULL,          -- the suggested solution, one sentence (v10)
   category            TEXT    NOT NULL,
   geo                 TEXT    NOT NULL,
   status              TEXT    NOT NULL,
@@ -1351,6 +1352,27 @@ PROBLEM_KEYS = frozenset((
 # difficulty to enter is required on every record and every gate inside it is
 # required too — owner, 2026-09-15.)
 PROBLEM_OPTIONAL_KEYS = frozenset(("locals",))
+# Top-level problem keys that are TYPED optionals in web/lib/data.ts but are
+# DELIBERATELY NOT columns here: they ride problems.extra_json verbatim via
+# `_overflow`, and data.ts reassigns them on the DB read path, so both loaders
+# agree without a schema bump — the SOURCE_PRICE_KEYS arrangement one level up.
+# Excluded from the unknown-key warning ONLY. They must NOT join
+# PROBLEM_OPTIONAL_KEYS: that set is also `_overflow`'s exclusion list, so a key
+# there with no column is dropped from the projection — production's DB path
+# would then serve the record without it while the journal path kept it, and
+# because the zod key is optional nothing would fail until a page drew it.
+#   process — the before/after workflow figure (2026-09-15): a summary plus an
+#             ordered list of steps. A nested document no query reads and the
+#             page consumes whole, so a column would be the same JSON under a
+#             second name. Its rules live in scripts/check-records.py.
+#   brief   — the headline's one situation sentence (2026-09-16): what is
+#             happening and why it is urgent now, with its [Sn] markers. A
+#             single string the page prints whole; no query reads it.
+#   good_for — one line naming who the opportunity suits, by skills and
+#             interests (2026-09-16). Uncited and number-free by rule.
+#             Both are asserted in scripts/check-records.py; this file
+#             validates neither, exactly as with `process`.
+PROBLEM_TYPED_OVERFLOW_KEYS = frozenset(("process", "brief", "good_for"))
 SOURCE_KEYS = frozenset((
     "type", "url", "note", "date", "name", "why", "gist", "signal", "dims", "queries", "checked", "expires"))
 # The price-receipt fields (`type: price`, owner 2026-09-03): typed optionals in
@@ -1750,7 +1772,8 @@ def read_problems():
                     f"as a QUOTED string (leading zeros are real; unquoted YAML eats them)")
 
         # ProblemSchema is z.looseObject as well — same pass-through, same silence.
-        extra = sorted(set(fm) - PROBLEM_KEYS - PROBLEM_OPTIONAL_KEYS)
+        extra = sorted(set(fm) - PROBLEM_KEYS - PROBLEM_OPTIONAL_KEYS
+                       - PROBLEM_TYPED_OVERFLOW_KEYS)
         if extra:
             warnings.append(
                 f"{rel}: frontmatter carries unknown top-level key(s) {', '.join(extra)} — "

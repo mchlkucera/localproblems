@@ -1,10 +1,10 @@
 ---
 id: p-0036
 region: cz
-title: Czech hospitals write reports as free text, then pay people to read them again
-solution: 'Report templates inside the hospital system, so a radiology or oncology report is captured
-  as data at the moment it is written and can be turned into insurer codes and registry entries
-  for a coder to confirm rather than re-read.'
+title: 'Czech hospitals pay twice for every medical report. A 1.14bn CZK grant for hospital records closes in December.'
+brief: 'Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. Hospitals in five regions can get state money to upgrade, but applications close in December [S8].'
+solution: 'Build report templates inside the hospital''s own software that pre-fill codes for staff to check, as German companies already do.'
+good_for: 'Developers who can plug into hospital software.'
 price_search: 'Registr smluv full-text for "vykazování zdravotní péče" or "asistent vykazování"
   (a hospital''s coding-assistant contract with STAPRO or ICZ once the free pilot ends) and the
   MS2021+ index under "zdravotnická dokumentace" or "nemocniční informační systém" (Nemocnice
@@ -128,6 +128,36 @@ locals:
     available in roughly 50 to 60 Czech hospitals by March 2025 after a EUR 1.2M round [S16]. It
     reads the image, not the report: the radiologist still writes the finding as free text, which
     is the step this problem is about. Founded June 2021.'
+process:
+  summary:
+    today: 'A doctor writes the finding or the discharge summary as free text, and two more people read that same text again — a coder for the insurer''s codes, a documentarian for the cancer registry [S1,S3].'
+  steps:
+  - who: Doctor
+    today: 'Writes the radiology finding or the discharge summary as free text'
+    known: documented
+    cites: [1, 3]
+    change: changes
+    after: 'Writes into a report template in the hospital system, so the report is data as it is written'
+  - who: Coder
+    today: 'Reads the report again to produce the codes the insurer pays on'
+    known: documented
+    cites: [3]
+    reenters: true
+    change: changes
+    after: 'Confirms the insurer codes proposed from the report''s own data'
+  - who: Documentarian
+    today: 'Reads the report a third time to fill the cancer registry'
+    known: documented
+    cites: [2]
+    reenters: true
+    change: changes
+    after: 'Confirms the registry entry proposed from the same data'
+  - who: '?'
+    today: 'What happens when the insurer queries or rejects a coded case, and who answers it, is not known'
+    known: unknown
+    cites: []
+    change: stays
+    after: 'Unchanged — the suggested solution changes how the report is written, not what follows the claim'
 sources:
 - type: ask
   name: "Hack jak Brno 2026 — StructREP, Masarykův onkologický ústav"
@@ -474,3 +504,5 @@ Solved elsewhere: both halves sell as products in Germany. Smart Reporting, now 
 ## Revisions
 
 2026-09-03 · record created — Minted from the first asks ledger: three owner-set challenges at Hack jak Brno 2026, two from Masarykův onkologický ústav and one from JINAG, each cited as demand only [S1,S2,S3]. Demand 2 on those plus Stapro's 23-hospital pilot and AKESO's [S4,S5]. Proof 3 on established sellers in Germany and the US [S10,S11,S12,S13]. Money 2 on the open IROP 79 call, which names the asking institute as eligible [S8]. Urgency 2: the 2031 European deadline for imaging and discharge reports, plus sources fresher than 90 days [S6]. Gap 1: Stapro, ICZ and Medicalc each sell or pilot one half of this inside their hospital systems and none is established for it; six local players recorded, three of them adjacent, and the standing positive controls that missed are written down rather than hidden [S16].
+
+2026-09-16 · process figure and headline copy — The three readings the opening paragraph describes are now carried as data: the doctor writing free text, the coder reading it back into insurer codes, the documentarian reading it again for the cancer registry [S1,S2,S3]. A fourth step is marked unknown — nothing here says what happens when an insurer queries a coded case. No score, source, note or marker changed. Same date, separate pass, merged here: headline copy — The headline was rewritten for a general builder as a title and at most three lines under it, all of it the owner's approved copy: a new `brief:` saying what is happening and why it is urgent, the `solution:` recast as a call to action, and a new `good_for:` line. New copy, verbatim — title: "Czech hospitals pay twice for every medical report. A 1.14bn CZK grant to change that closes in December."; brief: "Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. The state pays hospitals to upgrade, but only until December [S8]."; solution: "Build report templates inside the hospital's own software that pre-fill codes for staff to check, as companies already do abroad."; good_for: "Health-tech builders patient with hospital tenders." Previous title, verbatim: "Czech hospitals write reports as free text, then pay people to read them again". Previous brief: none, the key was absent. Previous solution, verbatim: "Report templates inside the hospital system, so a radiology or oncology report is captured as data at the moment it is written and can be turned into insurer codes and registry entries for a coder to confirm rather than re-read." Previous good_for: none, the key was absent. Checked against the sources before writing: the re-reading is how the asks themselves describe the work [S1,S3]; December is IROP call 79's extended application deadline of 2 December 2026 [S8]; 1.14bn CZK is that call's EU allocation, with about 490.6M CZK of state budget on top [S8]. The title carries no marker because no marker renders there; the figure is cited in the body [S8]. No score, status, source, note or body sentence changed. Simplified for the front page: title "Czech hospitals pay twice for every medical report. A 1.14bn CZK grant to change that closes in December." → "Czech hospitals pay twice for every medical report. A 1.14bn CZK grant for hospital records closes in December."; brief "Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. The state pays hospitals to upgrade, but only until December [S8]." → "Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. Hospitals in five regions can get state money to upgrade, but applications close in December [S8]."; solution "Build report templates inside the hospital's own software that pre-fill codes for staff to check, as companies already do abroad." → "Build report templates inside the hospital's own software that pre-fill codes for staff to check."; good_for "Health-tech builders patient with hospital tenders." → "Health-tech builders who can plug into hospital software.". The brief now says who can apply, hospitals in the five regions IROP call 79 covers, and that applications close in December [S8]; the solution drops "as companies already do abroad" because abroad different companies do the two halves (report templates, and coding), so no single foreign company does what the line describes; good_for names the real entry requirement, plugging into the hospital's own software. Same date, arbitrage proof restored on owner request: solution "Build report templates inside the hospital's own software that pre-fill codes for staff to check." became "Build report templates inside the hospital's own software that pre-fill codes for staff to check, as German companies already do." — both halves are sold in Germany by different companies: structured report templates by Jacobian (Smart Reporting, Munich, comps[0]) and coding proposed from the report by ID Berlin (ID DIACOS) and Tiplu (MOMO) (comps[2], comps[3]). Plural "companies" makes no claim that one product does both. Same date, good-for opener (owner: "Good for should always start with a person"): "Health-tech builders who can plug into hospital software." became "Developers who can plug into hospital software." — same meaning, person first.

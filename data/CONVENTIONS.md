@@ -285,7 +285,8 @@ two meanings. No region judgment at normalize.
 One markdown file per problem: `p-NNNN-<slug>.md`. A problem is uniquely
 `<region>/<id>`; each region has its own p-NNNN namespace. Frontmatter:
 ```
-id, region, title, solution (one plain sentence: the likely solution), category
+id, region, title, brief? (one cited sentence: the situation), solution (one plain
+sentence: the likely solution), good_for? (one line: who it suits), category
 (sector list above), geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
 status: candidate | active | watching | stale | claimed | solved | rejected,
@@ -293,6 +294,8 @@ entry {level, buyer, permission, incumbents, integration, money, why},
 comps [{name, url, geo, since, traction, signal?: <evidence id>, markets?: [ISO2..]}],
 locals? [{name, url?, ico?, since, competes: direct|adjacent,
           maturity: established|early, evidence}],   (url? — one of url/ico)
+process? {summary {today, after?},
+          steps [{who, today, known, cites, reenters?, change, after}]},
 sources [{type, url, note, date, name?, gist?, why?, signal?: <evidence id>,
           dims?: [dimension..],
           payer?, amount_czk?, unit?, basis?}],   (all four REQUIRED on type: price,
@@ -347,6 +350,14 @@ SOLUTION` — never as a known answer. Compression of `## First moves`,
 acronym goes in ungloss; no certainty words (check-records.py `OVERCLAIM`).
 Where a local incumbent already sells the answer, the sentence describes that
 product neutrally — whether the field is open is the gap score's job.
+
+`brief` / `good_for` — THE HEADLINE LINES (OPTIONAL; owner, 2026-09-16). `brief` is ONE
+sentence (≤ 25 words) of fact on what is happening and why it is urgent now, every
+number or date `[Sn]`-cited and resolving, no proposal, ledger name or certainty word;
+`good_for` is one line (≤ 15 words) naming who the opportunity suits by skills and
+interests — no numbers, no markers, no market claims. ERRORs in check-records.py
+`check_headline`; both ride `problems.extra_json`. Full rules and the headline rule:
+`data/RECORD-TEMPLATE.md`, "The headline block".
 
 `entry` — DIFFICULTY TO ENTER (REQUIRED on every record, rejected ones
 included; owner, 2026-09-15). It REPLACES `build` — the stánek→továrna capital
@@ -426,6 +437,27 @@ you must plug into, and money.
 derived from `locals[]`. Both are ERRORs in
 `python3 scripts/check-records.py --strict`, which runs inside `npm run build`.
 The site never re-derives either: `web/` reads the stored value.
+
+`process` — THE PROCESS FIGURE (OPTIONAL; owner, 2026-09-15). How the work runs
+TODAY and what the suggested solution does to each step: a `summary.today`
+sentence plus at least two ordered `steps`. **Authored only where the record's
+problem is a workflow somebody performs today** — roughly a dozen of the live
+records describe a new obligation or a one-off decision instead, have no
+process to draw, and carry no block; drawing one for them would mean inventing
+it. **Uncertainty is a value here, never a silence** (owner: *"be SUPER CLEAR
+about where we're not sure how the process looks, put question marks if you
+don't know"*): every step's `known` is `documented` (stated in cited evidence,
+`cites` required), `inferred` (our reading of the record's own prose, drawn
+dashed) or `unknown` (we do not know, `cites` forbidden, the page draws a "?").
+`today` is null exactly on a `change: new` step and `after` exactly on a
+`change: goes` one; `after` is the proposal and carries NO citation anywhere,
+including `summary.after`, which is optional and written only where it says
+what the `solution:` sentence does not. A crown figure or a `comps[]`/`locals[]`
+name inside the block is refused — money is a `type: price` receipt and
+competition is the ledgers' question (one field, one meaning). Every rule is an
+ERROR in `scripts/check-records.py --strict`; the full contract, the page order
+and a worked example are in `data/RECORD-TEMPLATE.md`, "Figures". Not a column
+in `scripts/db.py`: it rides `problems.extra_json` verbatim.
 
 `comps` — foreign comparables (REQUIRED; the "where it works" ledger): companies
 running the model elsewhere, with public verifiable traction. 2–4 entries per

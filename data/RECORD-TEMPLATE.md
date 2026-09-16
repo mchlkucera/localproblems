@@ -58,7 +58,10 @@ ledger from `locals[]`, "Difficulty to enter" from `entry`, Sources from
 ## Frontmatter that drives the page
 
 ```yaml
-solution: '<one plain sentence: what would likely solve the problem>'   # REQUIRED
+title: '<plain, urgent headline — digits for numbers, ≤ 2 short sentences>'   # REQUIRED
+brief: '<OPTIONAL — the story, ≤ 2 sentences and ≤ 40 words: who is stuck, doing what, what forces it NOW; every number/date cited [Sn]>'
+solution: '<one plain sentence: what would likely solve the problem; starts "Build " when brief is set>'   # REQUIRED
+good_for: '<one line, ≤ 15 words: the real entry requirement, or the space if anyone can enter>'   # OPTIONAL
 score: 7                      # MUST equal the sum of the five below
 scores:
   proof: 2                    # → "Validated abroad"   (0-3)
@@ -178,6 +181,171 @@ actually is. Renamed from `fix:` and made required on 2026-09-10. Rules:
   answer is still open to an entrant is the gap score's question, never this
   field's (one field, one meaning). The old rule — omit the key where an
   incumbent holds the field — is retired with the rename.
+
+### The headline block — `title`, `brief:`, `solution:`, `good_for:` (owner, 2026-09-16)
+
+A general builder reads the top of a record in this order: a **headline**, then a
+card of **exactly three items**: the story (`brief`), **Suggested** (`solution`)
+and **Good for** (`good_for`). `brief` and `good_for` are OPTIONAL; a record that
+carries a `brief` gets the card, and every rule below applies to it. The copy the
+owner approved after many rounds, and the reference for everything that follows:
+
+```yaml
+# p-0008
+title: '6,000 Czech towns and firms have months left to meet a new cybersecurity law'
+brief: 'Many small firms don''t even know the law covers them, and the first deadlines hit in late 2026 [S1,S2]. A firm that misses its deadline can be fined up to 2% of its turnover (which is A LOT of money) [S1].'
+solution: 'Build a small security agency that writes their EU grant applications and does the security work.'
+good_for: 'Cybersecurity people interested in grants and public-sector sales.'
+# p-0036
+title: 'Czech hospitals pay twice for every medical report. A 1.14bn CZK grant to change that closes in December.'
+brief: 'Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. The state pays hospitals to upgrade, but only until December [S8].'
+solution: 'Build report templates inside the hospital''s own software that pre-fill codes for staff to check, as companies already do abroad.'
+good_for: 'Health-tech builders patient with hospital tenders.'
+```
+
+#### The framing rules
+
+**The aim is really simple language and a clear motivation.** Each rule below
+came from an owner correction. Rules marked **(gate)** fail the build in
+`scripts/check-records.py --strict` (`check_headline`). The rest are judged:
+no regex can tell abstract from concrete, so none is attempted.
+
+**The card is exactly three items:** story, Suggested, Good for.
+- ✗ Four or five items. The brief was a list of 1 to 3 bullets for a few hours
+  on 2026-09-16, which made the card that long. **(gate)** A list now fails.
+- ✓ One `brief` string, one `solution`, one `good_for`.
+
+**Headline (`title`)**
+
+**The first test: every headline names a clear pain point.** Owner, 2026-09-16:
+*"Each heading should have a clear pain point."* Say WHO is hurting and HOW,
+in plain words: wasted time, lost money, fines, stuck cases, overpaying, a
+deadline they may miss. A volume ("82,000 cases") or a missing product ("no
+Czech software does X") is NOT a pain point on its own; it can sit beside the
+pain, never replace it. The pain must be real and sourced, like any other
+claim (rule 5): where a record's sources show nobody hurting, keep the most
+honest headline and flag the record, never invent a pain to pass this test.
+Judged, not gated: no regex can tell a pain from a fact.
+   - ✗ "Czechia handled 82,000 work-permit cases in 2024, and no Czech software tracks them" ("Why is that a problem? I don't see the pain point there.")
+   - ✓ "Czech work permits for foreign staff get stuck, and agencies still do every file by hand"
+   - ✓ "Czech hospitals are overpaying for medicine"
+   - ✓ "6,000 Czech towns and firms have months left to meet a new cybersecurity law"
+
+1. **Say plainly what is going on and why it matters now, in simple words.**
+   - ✗ "6,000 Czech organisations. One cyber deadline." ("sounds like a novel title, too abstract")
+   - ✗ "…and since September they can grow much bigger" ("very abstract", "wtf")
+   - ✓ "Czech hospitals are overpaying for medicine"
+2. **Use digits for numbers.** **(gate)** On a record with a brief, a spelled-out
+   cardinal (two to ninety, hundred, thousand, million, billion) fails. "one",
+   "hundreds", "thousands" and "twice" pass because they are ordinary prose or
+   vague amounts.
+   - ✗ "Six thousand Czech firms must meet new security rules, and most are not ready"
+   - ✓ "6,000 Czech towns and firms have months left to meet a new cybersecurity law"
+3. **Keep it short.** At most two short sentences. Use the second only when it
+   carries the urgency.
+   - ✗ "Czech hospitals write reports as free text, then pay people to read them again" (the second half repeats the problem, and no urgency is given)
+   - ✓ "Czech hospitals pay twice for every medical report. A 1.14bn CZK grant to change that closes in December."
+4. **Frame dates relative to today, honestly.** If most deadlines are 3 to 9 months
+   away, say "months left".
+   - ✗ "…have one year to meet a new cybersecurity law"
+   - ✓ "…have months left to meet a new cybersecurity law"
+5. **Make no claim a source doesn't back.** A headline carries no marker, so
+   check its figure against the body's cited sentence before it ships.
+   - ✗ "…and most are not ready" (no source counts who is ready)
+   - ✓ "6,000 Czech towns and firms" (the regulator's own count)
+
+**Story (`brief`)**
+
+6. **Tell it like a story:** who is stuck, doing what, and what forces it now.
+   Use simple language and no abstraction.
+   - ✗ "Most deadlines fall between late 2026 and mid-2027, fines reach 2% of turnover, and a university has re-tendered for a security manager" (a list of facts)
+   - ✗ "Grant: up to 28M CZK per hospital" ("abstract")
+   - ✓ "Doctors type reports as free text, then other staff re-read them by hand."
+7. **Say who a rule hits, and make the number felt in human terms.** A fine on a
+   percentage of turnover applies to firms, not to towns.
+   - ✗ "fines reach 2% of turnover" ("what fines, for whom?")
+   - ✓ "A firm that misses its deadline can be fined up to 2% of its turnover (which is A LOT of money)"
+8. **Don't be oddly specific.** Don't name a single town or institution, and
+   don't tell a one-off anecdote unless it IS the story. Cutting specifics is
+   the way to make a brief shorter.
+   - ✗ "The town of Týn nad Vltavou paid a consultant…" (too specific)
+   - ✗ "one small town paid…" ("how is it relevant?")
+   - ✓ "The state pays hospitals to upgrade, but only until December."
+9. **Use "most" or "many" only when a source says so.** No regex checks this.
+   The author has to find the receipt.
+   - ✗ "…and most have nobody who can do it" (no source counts them, so it was cut)
+   - ✓ "Many small firms don't even know the law covers them" (the business association's own words)
+10. **Don't assert a cause the evidence doesn't prove.** Put the two facts side
+    by side and let the reader join them.
+    - ✗ "Most of the 6,000 have nobody to do the work — Mendel University re-tendered…" (one re-tender offered as proof of the whole)
+    - ✓ "Doctors type reports as free text, then other staff re-read them by hand."
+11. **At most 2 sentences and 40 words.** **(gate)** A line break also fails.
+    - ✗ "…by hand [S1,S3]. Coders lose hours to it [S3]. The state pays…" (three sentences; the checker's positive control)
+    - ✓ the p-0008 brief above: two sentences, 39 words
+12. **Receipts and one meaning.** Every number, date or month carries `[Sn]` at
+    the end of the sentence it backs. **(gate)** A brief with a number and no
+    marker at all fails, and so does a marker that doesn't resolve. Where each
+    marker sits is judged. Don't talk about solutions ("suggest",
+    "opportunity", "build a": that is `solution:`). Don't name anyone from
+    `comps[]`/`locals[]` (the ledgers answer that question). No certainty
+    words (`OVERCLAIM`).
+    - ✗ "…the first deadlines hit in late 2026." (a date with no marker)
+    - ✓ "…the first deadlines hit in late 2026 [S1,S2]."
+
+**Suggested (`solution`)**
+
+13. **Start with "Build".** **(gate)** On a record with a brief, the check reads
+    only the opener. Then name the plain business form (an agency, software, a
+    marketplace, a service), WHERE it lives or plugs in, and what it does.
+    - ✗ "build report templates" ("WHERE? missing explanation")
+    - ✓ "Build report templates inside the hospital's own software that pre-fill codes for staff to check"
+14. **Point abroad in the plural.** Write "as companies already do abroad", not
+    the name of one foreign company. The names belong in the Proven abroad
+    ledger.
+    - ✗ "…, as Tiplu does in Germany" (illustrative; the owner asked of the plural form, "isn't better?")
+    - ✓ "…, as companies already do abroad."
+15. **No certainty words.** **(gate)** `OVERCLAIM`: "will solve", "the only",
+    "guarantees", "best" and similar.
+    - ✗ "…software that will solve the double reading" (illustrative)
+    - ✓ "Build a small security agency that writes their EU grant applications and does the security work."
+16. **Never a block of text that says almost nothing.**
+    - ✗ "A fixed-price service for the towns and care homes covered by the new Czech cybersecurity law: check what each one owes before its deadline, write the EU subsidy application where one applies, then do the security work itself rather than only the documents." ("a block of text saying almost nothing")
+    - ✓ "Build a small security agency that writes their EU grant applications and does the security work."
+
+**Good for (`good_for`)**
+
+17. **Name the real entry requirement plainly** when the evidence shows one:
+    the specific knowledge, interests, network or skills a builder must have to
+    enter.
+    - ✗ "procurement insiders patient with public hospitals" (a requirement stated as jargon: "this isn't simple language")
+    - ✓ "Someone with cybersecurity skills who's interested in grants and public-sector sales."
+18. **Never invent a requirement. When anyone could enter, name the space
+    instead**, so the reader knows what they are walking into.
+    - ✗ "people who know how hospitals buy medicines" (a requirement that isn't real: "the builder really must know this?")
+    - ✓ "Someone who'd like to work with hospitals."
+19. **Plain words, short, no numbers.** **(gate)** At most 15 words, one line, no
+    digits or spelled magnitudes, no `[Sn]`, and no market claims ("lucrative",
+    "growing", "underserved") or certainty words. A line that needs a citation
+    has turned into a second brief without its receipt.
+    - ✗ "Builders chasing a growing 1.14bn CZK market" (illustrative; it fails on the number and on "growing")
+20. **Start with the person.** **(gate)** The card prints "Good for" straight before
+    this line, so its first word names WHO: Someone, People, Engineers, Developers…
+    (`GOOD_FOR_PERSON_OPENERS` in `scripts/check-records.py`).
+    - ✗ "Mapping and aerial-photo people who'd like to work with sewer operators." (reads "Good for mapping…" — owner: "Good for should always start with a person")
+    - ✓ "Someone who can map from aerial photos and would like to work with sewer operators."
+    - ✓ "Health-tech builders patient with hospital tenders."
+
+**Honesty is non-negotiable.** Check every claim on the card against the
+record's sources before it ships, and never let wording the owner approved stand
+in for a receipt. The first approved draft of the p-0008 brief read "Most must
+comply by 31 Dec 2026 … and most have nobody who can do it". The Act starts each
+one-year clock when the registration decision is delivered, and no source on file
+counts who lacks the people, so both claims were corrected before they shipped
+(p-0008 `## Revisions`, 2026-09-16).
+
+`web/lib/data.ts` types `brief` and `good_for` and resolves the brief's markers.
+Neither is a column in `scripts/db.py`; both ride `problems.extra_json`, like
+`process`.
 
 ### `entry:` — difficulty to enter (required, owner 2026-09-15)
 
@@ -322,6 +490,187 @@ Rules the build enforces (each one fails `npm run build`):
   key, so the two loaders would disagree about the record.
 
 ---
+
+---
+
+## Figures — the diagrams on a record page
+
+A record page draws a handful of diagrams. **Four of them are DERIVED: they are
+read off ledgers you have already written, and you author nothing for them.**
+One is AUTHORED, and it is the only one this section asks anything of you.
+
+### Derived — nothing to write, and nothing to fix in the figure
+
+| Figure | Read from | Drawn when |
+|---|---|---|
+| **The field timeline** | `comps[].since` and `locals[].since` | two or more players carry a `since` |
+| **Who's in the room** | `locals[]`, gridded `competes` × `maturity` | the record has a `locals[]` ledger |
+| **The comp map** | `comps[].geo` and `comps[].markets` | the comps ledger names a country |
+| **The money scale** | `amount_czk` on every `type: price` source | **two or more** price receipts are on file |
+
+The money scale is the one with a threshold, and the threshold is the point: a
+scale drawn through a single point is a picture of one number pretending to be
+a distribution. One receipt renders as the ledger line it already is.
+
+**If a derived figure draws wrong, the ledger is wrong.** There is no figure to
+correct — change `since`, `competes`, `geo` or the price receipt, and the
+drawing follows. That is the whole reason these four are derived: a diagram
+hand-tuned to look right is a diagram that stops agreeing with the record
+underneath it the first time the ledger moves.
+
+### Authored — `process:`, the work as it runs today
+
+`process:` is OPTIONAL and the option is the point.
+
+- **Author it when the record's problem is a WORKFLOW somebody performs today** —
+  a report written and then read twice, a back office re-typing paperwork, a
+  duty bought in pieces from three different sellers. The figure shows those
+  steps and what the suggested solution does to each.
+- **SKIP it for a new obligation or a one-off decision with no current process.**
+  A hand classification of all 29 live records (2026-09-15) found about twelve
+  with nothing to draw: the problem is that a law starts applying, or that a
+  buyer has a choice to make, and there is no repeated sequence of steps to
+  put in a left-hand column. **Drawing one anyway means inventing it**, which is
+  the exact failure the register exists to avoid (MATCH.md §3). No block is the
+  honest answer and it costs the page nothing.
+
+### The uncertainty rule — say the quiet part in the data
+
+> Owner, 2026-09-15: *"be SUPER CLEAR about where we're not sure how the
+> process looks, put question marks if you don't know."*
+
+**NEVER FILL A GAP WITH A PLAUSIBLE GUESS.** A diagram reads as settled fact
+whatever the prose beside it says, so a step drawn confidently because nobody
+wrote down that it was a guess is the worst thing this figure can do. Every
+step therefore states how its TODAY column is known, in one field:
+
+| `known` | means | `cites` |
+|---|---|---|
+| `documented` | the step is stated in evidence cited on this record | REQUIRED, non-empty |
+| `inferred` | OUR READING of the record's own prose — not stated anywhere | optional: name where the reading comes from |
+| `unknown` | we do not know how this step happens; the page draws a **"?"** | FORBIDDEN — a source describing it would make it one of the two above |
+
+`inferred` costs the figure nothing but a dashed line, and `unknown` is a
+legitimate, publishable value: "who files the claim is not documented" is a
+fact about the evidence, and writing it down is how a reader learns which parts
+of the picture are receipts. What is forbidden is the fourth option — writing
+the guess as if it were the first.
+
+### The contract
+
+```yaml
+process:
+  summary:
+    today: '<ONE plain sentence: how the work runs today. REQUIRED.
+             May carry [Sn] markers, which must resolve.>'
+    after:  '<ONE plain sentence on the process with the solution applied.
+             OPTIONAL — write it only when it says something the `solution:`
+             sentence does not. NO citations, no certainty words.>'
+  steps:                       # at least 2; one step is a sentence, not a process
+  - who: Coder                 # who does it today, in plain words; '?' when unknown
+    today: 'Reads the report again to produce the codes the insurer pays on'
+    known: documented          # documented | inferred | unknown
+    cites: [3]                 # S-numbers into sources[]; [] when none, never absent
+    reenters: true             # OPTIONAL — this step re-types or re-reads what
+                               # someone already wrote. Forbidden on a `new` step.
+    change: changes            # stays | changes | goes | new
+    after: 'Confirms the insurer codes proposed from the report''s own data'
+```
+
+- **`today` is null EXACTLY when `change: new`** — a step the solution adds has
+  no today, and every other step has one.
+- **`after` is null EXACTLY when `change: goes`** — a step the solution removes
+  has no after, and every other step survives into the box.
+- **`after` is the proposal and carries NO citation, ever.** Not in a step, not
+  in `summary.after`. The record holds evidence for the problem; it holds none
+  for our answer to it, and an `[Sn]` there dresses a proposal as a finding.
+- **On a `new` step, `who` is who would do it with the solution** — there is
+  nobody doing it now, and `known` says how sure we are of that (usually
+  `inferred`).
+- **One field, one meaning (CLAUDE.md rule 1).** The block describes the
+  workflow and nothing else. A crown figure belongs on a `type: price` receipt,
+  which carries the payer, the unit and the basis that make a number checkable;
+  a competitor belongs on `comps[]` or `locals[]`, which carry the maturity
+  test. `scripts/check-records.py` refuses both inside the figure — name the
+  ROLE instead ("the dispatch software", "a compliance-documents seller").
+- Every rule above is an ERROR in `python3 scripts/check-records.py --strict`,
+  which runs inside `npm run build`. `web/lib/data.ts` types the same shape in
+  zod.
+
+### Where it lands on the page
+
+The page reads the record in this order, and the figure is split across two of
+the three:
+
+1. **The problem** — the full argument, unchanged: the lead paragraphs, Why
+   now, Who pays, Existing non-solutions, Solved elsewhere.
+2. **The process today** — `summary.today`, then the steps' TODAY column. This
+   is still the problem section's job: it is what the reader is being shown is
+   wrong.
+3. **The Suggested solution box** — the `solution:` sentence, and inside the
+   same box the steps with the solution applied (the AFTER column), plus
+   `summary.after` where one is written.
+
+So the same list of steps is drawn twice, once on each side of the box. Write
+each pair so it reads across: the `after` answers its own `today`, in the same
+grammar, at the same length.
+
+### A worked example (p-0010, trucking back office)
+
+```yaml
+process:
+  summary:
+    today: 'A dispatcher arranges each load by phone, and someone in the office re-types the delivery note and the CMR consignment note and chases the invoice and the factoring by hand [S2].'
+  steps:
+  - who: Dispatcher
+    today: 'Arranges each load by phone'
+    known: documented
+    cites: [2]
+    change: stays
+    after: 'Unchanged — the suggested solution reads the paperwork, it does not take the call'
+  - who: '?'
+    today: 'How the signed delivery note and CMR get from the delivery point back to the office is not known'
+    known: unknown
+    cites: []
+    change: changes
+    after: 'The driver captures the delivery note and the CMR where the load is delivered'
+  - who: The office
+    today: 'Someone re-types the delivery note and the CMR consignment note'
+    known: documented
+    cites: [2]
+    reenters: true
+    change: changes
+    after: 'The delivered load''s own delivery note and CMR are read instead of re-typed'
+  - who: The office
+    today: 'Invoices and the factoring paperwork are chased by hand'
+    known: documented
+    cites: [2]
+    change: changes
+    after: 'Those same two documents become the invoice'
+  - who: The back office
+    today: null
+    known: inferred
+    cites: [11]
+    change: new
+    after: 'The delivery note and the CMR are kept in the electronic form authorities must accept from 9 July 2027'
+```
+
+Read what that example does NOT do. It does not claim the office re-types the
+invoice as well — the record says the invoicing is "chased by hand" and nothing
+more, so no `reenters` is set on that step. It does not guess how the signed
+paperwork travels back from the delivery point, a step every haulier plainly
+performs and no source on the record describes: that step is `unknown`, carries
+no cites, and the page prints a "?". And the last step is `inferred` rather than
+`documented`, because the source behind it says only that the named incumbent
+does not do this — which is our reading that nobody does, not a finding that
+nobody does.
+
+**`summary.after` is absent from that example on purpose.** p-0010's `solution:`
+sentence already says the documents become the invoice and go onto the
+electronic footing; a summary repeating it would be the same sentence printed
+twice in the same box. Write `summary.after` only where it adds what `solution:`
+does not — p-0008 writes one because the shape of its answer (three sellers
+collapsing into one) is not in its solution sentence.
 
 ## House rules for the prose
 

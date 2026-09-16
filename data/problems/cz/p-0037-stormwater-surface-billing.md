@@ -1,10 +1,12 @@
 ---
 id: p-0037
 region: cz
-title: Czech sewer operators must bill rainwater from surfaces nobody has measured
+title: 'A Czech draft law would charge towns almost 5bn CZK yearly for rainwater'
 category: environment
 geo: CZ-national
-solution: 'A service that maps every roof and paved surface draining into a public sewer from the state orthophoto and cadastre, sends each owner a pre-filled area statement, and hands the sewer operator a billing-ready file.'
+solution: 'Build a service mapping roofs and paving from aerial photos into a billing file for sewer operators, as in Germany.'
+brief: 'Owners of roads, railways and homes would start paying for rainwater drained into sewers from July 2027 [S3]. Sewer operators would bill them, and it is only a draft [S4].'
+good_for: 'Someone who can map from aerial photos and would like to work with sewer operators.'
 score: 9
 scores:
   proof: 2
@@ -258,3 +260,5 @@ Solved elsewhere: Germany went through this after courts forced municipalities, 
 ## Revisions
 
 2026-09-04 · created — Written by the wastewater sweep after the 2026-09-03 weekly run deferred the cluster for want of a foreign comparable and a controlled Czech check. Proof 2 on two established German firms in one market [S1,S2]; money 1 on one signed public contract for the manual equivalent [S9]; urgency 2 on a draft effective July 2027 (deadline 1, because it is a draft) authorised 27 August 2026 (freshness 1) [S3,S4]; demand 2 on industry pressure and a ministry proposal documented since 2006 [S6,S7]; gap 2 on a Czech check with a passing control and no vendor selling this [S13]. The energy-assessment and micropollutant duties in the same bill were examined and not written up — see data/raw/2026-09-04/manifest-sweep-wastewater.md.
+
+2026-09-16 · headline copy — The headline was rewritten for a general builder as three lines under the title: a `brief:` on what is happening and why it matters now, the `solution:` as a call to action, and a new `good_for:` line. New copy, verbatim — title: "A Czech draft law would charge towns almost 5bn CZK yearly for rainwater"; brief: "Owners of roads, railways and homes would start paying for rainwater drained into sewers from July 2027 [S3]. Sewer operators would bill them, and it is only a draft [S4]."; solution: "Build a service mapping roofs and paving from aerial photos into a billing file for sewer operators, as in Germany."; good_for: "Mapping and aerial-photo people who'd like to work with sewer operators.". Previous title, verbatim: "Czech sewer operators must bill rainwater from surfaces nobody has measured". Previous solution, verbatim: "A service that maps every roof and paved surface draining into a public sewer from the state orthophoto and cadastre, sends each owner a pre-filled area statement, and hands the sewer operator a billing-ready file.". There was no previous brief or good_for. The owner-reviewed draft was verified against its sources, then cut to the owner's length limits. "Almost 5bn CZK" is the impact assessment's annual figure for municipal budgets, for rainwater from roads [S3]. "Roads, railways, cemeteries and homes would start paying" now reads "owners of" them, since a surface does not pay; cemeteries were cut for length and remain in the body [S3,S8]. "As in Germany" rests on CAIGOS and Phoenics [S1,S2]. No score, status, source, note, marker or body sentence changed. Same date, good-for opener (owner: "Good for should always start with a person"): "Mapping and aerial-photo people who'd like to work with sewer operators." became "Someone who can map from aerial photos and would like to work with sewer operators." — same meaning, person first.

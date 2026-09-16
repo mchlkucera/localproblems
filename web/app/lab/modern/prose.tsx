@@ -1,4 +1,4 @@
-// /lab/problem — record prose → React, with citations as components.
+// /lab/modern — record prose → React, with citations as components.
 //
 // The corpus grammar is the one web/lib/md.ts documents: paragraphs, "- "
 // bullets, "N. " steps, **strong**, [text](url) links, bare URLs, and explicit
@@ -11,7 +11,7 @@
 // wrapped with it in one no-break span.
 import type { ReactNode } from "react";
 import { splitLead } from "../../../lib/sections";
-import { citeParts, type CiteCtx } from "./cite";
+import { EXT, ExtArrow, citeParts, type CiteCtx } from "./cite";
 
 type Tok =
   | { k: "text"; v: string }
@@ -87,8 +87,9 @@ function renderToks(toks: Tok[], ctx: CiteCtx, opts: ProseOpts, key: string): Re
       const href = ledger ? opts.resolveLedger(ledger[2], ledger[1]) : t.href;
       const ext = href.startsWith("http");
       nodes.push(
-        <a key={k} className="ls-link" href={href} {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+        <a key={k} className="ls-link" href={href} {...(ext ? EXT : {})}>
           {t.text}
+          {ext && <ExtArrow />}
         </a>,
       );
     } else {

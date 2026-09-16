@@ -143,7 +143,17 @@ gets ignored, and an ignored check is the same as no check.**
 
 The reader is deciding what to build this quarter. Write for them:
 
-- **Headline**: short, plain, no acronym where a word exists. Detail goes in the dek.
+- **Headline**: short, concrete, urgent, a number where there is one, never abstract;
+  no acronym where a word exists. Detail goes in the dek.
+- **`brief:`** (optional): the situation told as a short story, at most 2 sentences
+  and 40 words. Say who is stuck, doing what, and what forces it now. Cite every
+  number or date, and write only what the sources say ("most have nobody" needs a
+  source that counts them). **`good_for:`** (optional): one line naming the real
+  entry requirement, or the space when anyone can enter. No numbers, no markers.
+  Both are gated in `check-records.py`.
+- **The card under a headline is exactly three items: story, Suggested, Good for.**
+  Write it by the framing rules, each with a rejected and an approved example, in
+  `data/RECORD-TEMPLATE.md` → "The headline block" → "The framing rules".
 - **Dek**: explain every acronym and Czech term in plain English on first use.
 - **`solution:`**: one sentence stating what would likely solve the problem —
   REQUIRED on every record, and always shown as "Likely solution", so describe the
@@ -191,6 +201,35 @@ must plug into · money**.
   Where the level is `easy`, say why the door is open.
 
 Full definitions: `data/CONVENTIONS.md`, "difficulty to enter".
+
+---
+
+## 9b. Draw the process only where a process exists (owner, 2026-09-15)
+
+`process:` is the one figure on a record page an author writes. Everything else
+drawn there — the field timeline, the who's-in-the-room grid, the comp map, the
+money scale — is derived from `comps[]`, `locals[]` and the price receipts, and
+you author none of it.
+
+- **Author `process:` when the problem is a WORKFLOW somebody performs today.**
+  Skip it for a new obligation or a one-off decision: about twelve of the 29
+  live records have no process to draw, and no block is the honest answer.
+- **NEVER FILL A GAP WITH A PLAUSIBLE GUESS.** A diagram reads as settled fact
+  whatever the prose beside it says. Owner: *"be SUPER CLEAR about where we're
+  not sure how the process looks, put question marks if you don't know."* So
+  every step carries `known`: `documented` (cited), `inferred` (our reading of
+  the record's own prose) or `unknown` (we do not know, and the page prints a
+  "?"). `inferred` costs a dashed line; a guess dressed as `documented` costs
+  the register the only thing it has. §3, drawn.
+- **The after half is ours, and it is never evidence.** No `[Sn]` in a step's
+  `after` or in `summary.after`, and no certainty words in the summary — it
+  renders inside a box labelled SUGGESTED (§9).
+- **Money and competitors are not in it.** A crown figure is a `type: price`
+  receipt; a named seller is `comps[]` or `locals[]`. Both are refused inside
+  the figure, and a step names the ROLE instead. §0, again.
+
+Full contract, page order and a worked example: `data/RECORD-TEMPLATE.md`,
+"Figures". Enforced in `scripts/check-records.py`.
 
 ---
 

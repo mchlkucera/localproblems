@@ -1,5 +1,5 @@
 "use client";
-// /lab/problem — hover-intent and focus-to-open for the citation peeks.
+// /lab/modern — hover-intent and focus-to-open for the citation peeks.
 //
 // PROGRESSIVE ONLY. Without this file every pill still opens its card on
 // click/tap/Enter (native `popovertarget`), Escape and an outside click still

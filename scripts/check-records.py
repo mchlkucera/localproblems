@@ -306,10 +306,11 @@ def buyers_by_ico():
     return _BUYERS
 
 
-# Certainty a "Likely solution" may not claim (owner, 2026-09-10: "don't try to
-# make it like we know everything"). Outcome verbs and superlatives only — a
-# legal "must" describing an obligation is a fact, not an overclaim, so it is
-# deliberately absent.
+# Certainty a "Suggested solution" may not claim (owner, 2026-09-10: "don't try
+# to make it like we know everything"; the label read "Likely solution" until
+# 2026-09-15). Outcome verbs and superlatives only — a legal "must" describing
+# an obligation is a fact, not an overclaim, so it is deliberately absent. The
+# same regex holds `entry.why` and the process figure's `summary.after`.
 OVERCLAIM = re.compile(
     r"(?i)\b(?:will (?:solve|fix|end|eliminate|remove|stop|save|cut|make)|guarantee\w*|"
     r"the only\b|the answer\b|eliminat\w*|definitely|certainly|clearly|obviously|best\b|"
@@ -496,6 +497,570 @@ def check_entry(doc, locals_):
     return errors
 
 
+# ===========================================================================
+# THE PROCESS FIGURE — the `process:` block (owner, 2026-09-15)
+# ===========================================================================
+#
+# OPTIONAL, AND THE OPTION IS THE POINT. It is authored only where the
+# record's problem is a workflow somebody performs today. Roughly a dozen of
+# the live records describe a new obligation or a one-off decision instead,
+# and a process drawn for one of those would be invented rather than read —
+# which is the failure this register exists to avoid (MATCH.md §3).
+#
+# UNCERTAINTY IS A VALUE HERE, NEVER A SILENCE. Owner, 2026-09-15: "be SUPER
+# CLEAR about where we're not sure how the process looks, put question marks
+# if you don't know." `known` carries that in ONE field — `documented` (stated
+# in cited evidence), `inferred` (our reading of the record's own prose) and
+# `unknown` (we do not know, and the page draws a "?"). The pairing with
+# `cites` is what keeps the three values from shading into one another:
+# `documented` with no citation is just a confident sentence, and `unknown`
+# with one is a step somebody documented after all. Both are refused below,
+# because the whole value of the figure is that a reader can tell which parts
+# of it are receipts.
+#
+# ONE FIELD, ONE MEANING (CLAUDE.md rule 1). The block describes the workflow
+# and NOTHING ELSE. A crown figure belongs on a `type: price` receipt, which
+# carries the payer, the unit and the basis that make a number checkable; a
+# competitor belongs on `comps[]` or `locals[]`, which carry the maturity test
+# and the derivations that read off them. Restating either inside a figure is
+# the same fact in two places, and it is the defect this register has already
+# shipped four separate times (MATCH.md §0).
+#
+# `web/lib/data.ts` types the same shape in zod, and the redundancy is
+# deliberate: zod dies on the first bad record inside the site build, this
+# runs in `prebuild` ahead of it and reports every record at once. `scripts/
+# db.py` validates none of it — `process` rides `problems.extra_json`
+# verbatim — so this file is the only gate the DB loader has.
+
+PROCESS_KEYS = ("summary", "steps")
+PROCESS_SUMMARY_KEYS = ("today", "after")
+PROCESS_STEP_KEYS = ("who", "today", "known", "cites", "reenters", "change", "after")
+PROCESS_KNOWN = ("documented", "inferred", "unknown")
+PROCESS_CHANGES = ("stays", "changes", "goes", "new")
+# Two steps is a process; one is a sentence, and the record already has one of
+# those in `solution:`.
+PROCESS_MIN_STEPS = 2
+# The same cap `entry.why` carries, for the same reason: these are single
+# lines on the page, and a paragraph there is a different device.
+PROCESS_SUMMARY_MAX = 320
+
+_MARKER_ANY = re.compile(r"\[S[\d,S]+\]")
+
+
+def markers(text):
+    r"""Every S-number a field's [Sn] markers name. -> {int}.
+
+    The compound form is the reason this is a function. `[S2,S7,S16]` is one
+    marker naming three sources, and the `\[S(\d+)` pattern the body check
+    uses reads only the first of them — which is survivable on body prose,
+    where a dead S7 renders as literal text a reader can see, and is not
+    survivable here, where the page turns each number into a link.
+    """
+    return {int(n) for m in _MARKER_ANY.findall(text) for n in re.findall(r"\d+", m)}
+
+# A CROWN FIGURE INSIDE THE FIGURE. Broader than the `price_search` pattern
+# above because a process line writes money the way prose does ("~9M CZK",
+# "€3,000 a year"), and narrower than "any number": a count of steps, a count
+# of towns and a date are what a process legitimately says.
+PROCESS_MONEY = re.compile(
+    r"(?i)\d[\d\s.,]*\s?(?:m|bn|k|mil|tis)?\s?(?:CZK|Kč|EUR|€|USD|GBP)"
+    r"|[€$£]\s?\d|\b\d{1,3}(?:[ .]\d{3}){1,}\b")
+
+# The banned-word style checks are CASE-SENSITIVE and whole-word: these are
+# proper names, and the lower-case forms are ordinary English the register is
+# entitled to use — the same lesson VERDICTS above was written for.
+_NAME_WORD = "[^\\W]"
+
+
+def process_texts(proc):
+    """Every rendered string inside a process block, with a label for each."""
+    out = []
+    summary = proc.get("summary")
+    if isinstance(summary, dict):
+        for key in PROCESS_SUMMARY_KEYS:
+            if isinstance(summary.get(key), str):
+                out.append((f"summary.{key}", summary[key]))
+    steps = proc.get("steps")
+    for i, s in enumerate(steps if isinstance(steps, list) else (), 1):
+        if not isinstance(s, dict):
+            continue
+        for key in ("who", "today", "after"):
+            if isinstance(s.get(key), str):
+                out.append((f"steps[{i}].{key}", s[key]))
+    return out
+
+
+def ledger_name_candidates(comps, locals_):
+    """Distinctive comps[]/locals[] names — the one-fact-one-place matcher.
+
+    DISTINCTIVE ONLY, AND THE NARROWING IS DELIBERATE. This register's own
+    ledgers carry companies called Better, Enter, Figures and Florence, and a
+    build gate that failed the honest sentence "Enter the codes" would be a
+    gate everyone learns to skip. A name earns a match by LOOKING like one:
+    more than one word, an internal capital or digit, a punctuation mark, or
+    ALL CAPS. A plain Capitalised single word is left through on purpose; the
+    check catches the common case and never cries wolf.
+    """
+    out = set()
+    for item in list(comps) + list(locals_):
+        raw = str(item.get("name") or "")
+        for piece in [re.sub(r"\([^)]*\)", " ", raw)] + re.findall(r"\(([^)]*)\)", raw):
+            for cand in re.split(r"\s*[/|]\s*", piece):
+                cand = cand.strip(" ,.-—·")
+                if len(cand) < 3:
+                    continue
+                if (" " in cand or cand.isupper() or re.search(r"[^\w\s]", cand)
+                        or re.search(r"(?<=.)[A-Z0-9]", cand)):
+                    out.add(cand)
+    return sorted(out, key=len, reverse=True)
+
+
+# Sentence ends that a one-sentence field may not contain. A terminator only
+# counts when a CAPITAL follows it, and an abbreviation or a single-letter
+# initial before it does not count at all — "s.r.o." and "J. Novák" are not
+# sentence breaks, and a checker that said they were would be wrong on the
+# records most likely to carry them.
+_SENT_ABBREV = frozenset((
+    "s.r.o.", "a.s.", "spol.", "č.", "no.", "e.g.", "i.e.", "cf.", "sb.",
+    "resp.", "tj.", "atd.", "apod.", "mj.", "tzv.",
+))
+
+
+def extra_sentences(text):
+    """How many sentence breaks a field carries beyond its first sentence."""
+    t = _MARKER_ANY.sub("", text)
+    n = 0
+    for m in re.finditer(r"(\S*[.!?])\s+(\S)", t):
+        head, nxt = m.group(1), m.group(2)
+        if not nxt[0].isupper():
+            continue
+        if head.lower() in _SENT_ABBREV or re.fullmatch(r"[^\W\d_]\.", head):
+            continue
+        n += 1
+    return n
+
+
+def check_process(doc, n_sources, comps, locals_):
+    """The `process:` figure, asserted. -> [error strings].
+
+    Absent is the normal case and is never an error: a record with no workflow
+    to draw carries no block, and "not drawn" is not a score (MATCH.md §7).
+    """
+    proc = doc.get("process")
+    if proc is None:
+        return []
+    if not isinstance(proc, dict):
+        return ["`process:` is not a block — it is a `summary` (today, and an optional "
+                "after) plus an ordered `steps:` list of at least two steps "
+                "(data/RECORD-TEMPLATE.md, Figures)"]
+    errors = []
+    extra = sorted(set(proc) - set(PROCESS_KEYS))
+    if extra:
+        errors.append(f"process carries unknown key(s) {', '.join(extra)} — the block is "
+                      f"exactly {', '.join(PROCESS_KEYS)}")
+
+    # ---- the summary: the line a reader gets without reading the diagram ---
+    summary = proc.get("summary")
+    if not isinstance(summary, dict):
+        errors.append(
+            "process has no `summary:` — `summary.today` is REQUIRED whenever a process "
+            "is drawn. The steps are the diagram; this is the one plain sentence a reader "
+            "gets who does not read it, and a figure with no sentence under it is a "
+            "picture the page cannot caption")
+        summary = {}
+    else:
+        extra = sorted(set(summary) - set(PROCESS_SUMMARY_KEYS))
+        if extra:
+            errors.append(f"process.summary carries unknown key(s) {', '.join(extra)} — it "
+                          f"is `today` (required) and `after` (optional)")
+        today = summary.get("today")
+        if not isinstance(today, str) or not today.strip():
+            errors.append(
+                "no `process.summary.today:` — one plain sentence saying how the work runs "
+                "today, required on every process block. Where part of it is unknown, the "
+                "sentence says so; 'not known' is a thing to write down, never a thing to "
+                "leave out (MATCH.md §7)")
+        else:
+            if len(today) > PROCESS_SUMMARY_MAX:
+                errors.append(f"process.summary.today is {len(today)} chars (max "
+                              f"{PROCESS_SUMMARY_MAX}) — it is one line above the figure, "
+                              f"not a paragraph")
+            if extra_sentences(today):
+                errors.append("process.summary.today runs to more than one sentence — the "
+                              "steps carry the detail; this line carries the shape")
+            dead = sorted(n for n in markers(today) if n > n_sources)
+            if dead:
+                errors.append(f"process.summary.today cites "
+                              f"{', '.join('S%d' % n for n in dead)} — {n_sources} sources "
+                              f"on file; an unresolved marker renders as literal text")
+        after = summary.get("after")
+        if after is not None:
+            if not isinstance(after, str) or not after.strip():
+                errors.append("process.summary.after is present but empty — it is one "
+                              "sentence on the process with the suggested solution "
+                              "applied, or the key is absent")
+            else:
+                if len(after) > PROCESS_SUMMARY_MAX:
+                    errors.append(f"process.summary.after is {len(after)} chars (max "
+                                  f"{PROCESS_SUMMARY_MAX}) — one line inside the Suggested "
+                                  f"solution box, not a paragraph")
+                if extra_sentences(after):
+                    errors.append("process.summary.after runs to more than one sentence — "
+                                  "it is the proposal in a line; the steps carry the rest")
+                if _MARKER_ANY.search(after):
+                    errors.append(
+                        "process.summary.after carries an [Sn] marker — the after half is "
+                        "the SUGGESTED solution, a proposal of ours, and no source on this "
+                        "record is evidence for it. Citing one dresses our proposal as "
+                        "somebody's finding")
+                for claim in OVERCLAIM.findall(after):
+                    errors.append(f"process.summary.after claims certainty ('{claim}') — it "
+                                  f"sits under a box labelled SUGGESTED; describe the "
+                                  f"process, never promise the outcome")
+
+    # ---- the steps --------------------------------------------------------
+    steps = proc.get("steps")
+    if not isinstance(steps, list) or not steps:
+        errors.append("process has no `steps:` — the block is a summary plus an ORDERED "
+                      "list of steps, each saying who does it today and what the suggested "
+                      "solution does to it")
+        steps = []
+    elif len(steps) < PROCESS_MIN_STEPS:
+        errors.append(f"process draws {len(steps)} step(s) — a process is at least "
+                      f"{PROCESS_MIN_STEPS}. One step is a sentence, and the record "
+                      f"already has one of those in `solution:`")
+
+    for i, s in enumerate(steps, 1):
+        where = f"process step {i}"
+        if not isinstance(s, dict):
+            errors.append(f"{where} is not a block — every step is who / today / known / "
+                          f"cites / change / after")
+            continue
+        who = s.get("who")
+        where = f"process step {i} '{who}'" if isinstance(who, str) and who.strip() else where
+        extra = sorted(set(s) - set(PROCESS_STEP_KEYS))
+        if extra:
+            errors.append(f"{where} carries unknown key(s) {', '.join(extra)} — a step is "
+                          f"exactly {', '.join(PROCESS_STEP_KEYS)} (`reenters` optional)")
+        if not isinstance(who, str) or not who.strip():
+            errors.append(f"{where} has no `who:` — name who performs it in plain words, "
+                          f"or '?' where the record does not say")
+
+        known, change = s.get("known"), s.get("change")
+        if known not in PROCESS_KNOWN:
+            errors.append(
+                f"{where} has known {known!r} — the enum is {' | '.join(PROCESS_KNOWN)}. It "
+                f"says how the TODAY column is known: `documented` is stated in cited "
+                f"evidence, `inferred` is our reading of this record's prose, `unknown` is "
+                f"that we do not know and the page draws a '?'")
+        if change not in PROCESS_CHANGES:
+            errors.append(
+                f"{where} has change {change!r} — the enum is {' | '.join(PROCESS_CHANGES)}. "
+                f"It says what the suggested solution does to the step: `stays` untouched, "
+                f"`changes` shape, `goes` away, or is `new`")
+
+        # NULLABILITY IS NOT A STYLE QUESTION — the renderer draws a missing
+        # column from it. A step with no `today` that is not `new` is a step
+        # whose left-hand cell the page has nothing to put in.
+        if change in PROCESS_CHANGES:
+            today = s.get("today")
+            if change == "new" and today is not None:
+                errors.append(f"{where} is change: new but writes a `today` — a step the "
+                              f"suggested solution ADDS has no today; set today: null, or "
+                              f"the change is `changes`, not `new`")
+            elif change != "new" and (not isinstance(today, str) or not today.strip()):
+                errors.append(f"{where} is change: {change} but has no `today` — only a "
+                              f"`new` step may set today: null. Every other step exists "
+                              f"today and the page prints it")
+            after = s.get("after")
+            if change == "goes" and after is not None:
+                errors.append(f"{where} is change: goes but writes an `after` — a step the "
+                              f"suggested solution REMOVES has no after; set after: null, "
+                              f"or the change is `changes`, not `goes`")
+            elif change != "goes" and (not isinstance(after, str) or not after.strip()):
+                errors.append(f"{where} is change: {change} but has no `after` — only a "
+                              f"`goes` step may set after: null. Every other step survives "
+                              f"into the Suggested solution box and the page prints it")
+
+        # KNOWN AND CITES ARE ONE PAIRING, AND EACH HALF WITHOUT THE OTHER
+        # MEANS SOMETHING ELSE ENTIRELY.
+        cites = s.get("cites")
+        if not isinstance(cites, list) or any(
+                isinstance(n, bool) or not isinstance(n, int) or n < 1 for n in cites):
+            errors.append(f"{where} has cites {cites!r} — a list of 1-based S-numbers into "
+                          f"sources[] ([] when none, never absent)")
+        else:
+            dead = sorted(n for n in cites if n > n_sources)
+            if dead:
+                errors.append(f"{where} cites {', '.join('S%d' % n for n in dead)} — "
+                              f"{n_sources} sources on file; the page draws each cite as a "
+                              f"link into the Sources ledger and these link nowhere")
+            if known == "documented" and not cites:
+                errors.append(
+                    f"{where} is known: documented with no cites — a step stated in "
+                    f"evidence names the evidence. Without one it is `inferred`, which is "
+                    f"an honest value and costs the figure nothing but a dashed line")
+            if known == "unknown" and cites:
+                errors.append(
+                    f"{where} is known: unknown but cites "
+                    f"{', '.join('S%d' % n for n in cites)} — a source that describes the "
+                    f"step makes it documented or inferred. `unknown` is for a step we "
+                    f"cannot describe at all, and the page prints a '?' for it")
+
+        # A `new` step has no today, so there is nothing for it to re-enter.
+        if s.get("reenters") is not None and not isinstance(s.get("reenters"), bool):
+            errors.append(f"{where} has reenters {s.get('reenters')!r} — true or false; "
+                          f"omit the key where the step enters nothing twice")
+        elif s.get("reenters") is True and s.get("today") is None:
+            errors.append(f"{where} sets reenters on a step with no today — re-entry is a "
+                          f"property of the work as it runs NOW, and a step the suggested "
+                          f"solution adds has no now")
+
+        if isinstance(s.get("after"), str) and _MARKER_ANY.search(s["after"]):
+            errors.append(
+                f"{where} writes an [Sn] marker into `after` — the after column is the "
+                f"suggested solution, and the record holds no evidence for what it "
+                f"proposes. `cites` backs the TODAY column only")
+
+    # ---- ONE FIELD, ONE MEANING: money and competitors live elsewhere ------
+    names = ledger_name_candidates(comps, locals_)
+    for label, text in process_texts(proc):
+        for amount in PROCESS_MONEY.findall(text):
+            errors.append(
+                f"process.{label} states a crown figure ('{amount.strip()}') — money is a "
+                f"`type: price` receipt, which names the payer, the unit, the basis and the "
+                f"date that make a number checkable. A figure repeating it carries the "
+                f"number without any of them (CLAUDE.md rule 1)")
+        for name in names:
+            if re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)", text):
+                errors.append(
+                    f"process.{label} names '{name}', which is on this record's comps[] or "
+                    f"locals[] ledger — who sells what is the ledgers' question, and they "
+                    f"carry the maturity test that makes the claim mean something. Name the "
+                    f"ROLE the step belongs to instead ('the dispatch software', 'a "
+                    f"compliance-documents seller')")
+                break
+    return errors
+
+
+# ===========================================================================
+# THE HEADLINE BLOCK — `brief:` and `good_for:` (owner, 2026-09-16)
+# ===========================================================================
+#
+# A general builder reads a record top-down as: a short, urgent, concrete
+# `title` → a `brief` of at most TWO sentences telling what is happening and
+# why it is urgent now → the `solution` as a call to action → `good_for`, who
+# it suits. The
+# owner's cap is "3 bullets at most" per problem — brief, Suggested, Good for —
+# which is why `brief` is a single string and not a list (it was briefly a
+# list of 1–3 on the same day). Both fields are OPTIONAL; absent is never an
+# error.
+#
+# ONE FIELD, ONE MEANING (CLAUDE.md rule 1), and these two sit right beside the
+# fields they are most likely to bleed into:
+#   brief    — FACTS ABOUT THE SITUATION ONLY: who is affected, the date, the
+#              penalty, the shortage. It is the one place on the headline that
+#              asserts things about the world, so every number and date in it
+#              is cited, and it may not propose (that is `solution`), name a
+#              ledger company (that is comps[]/locals[]) or claim certainty.
+#   good_for — A PERSON, never a market: skills and interests. The moment it
+#              carries a number, a citation or a market adjective it has become
+#              a second, uncited brief — the same fact in two places, one of
+#              them without its receipt.
+#
+# `web/lib/data.ts` types both and resolves the brief's markers; this file owns
+# every other rule. `scripts/db.py` validates neither (both ride extra_json).
+
+# The cap was one sentence and 25 words when the field landed. The owner's
+# approved copy for p-0008 and p-0036 (2026-09-16) tells the situation as a
+# short story — who is stuck, and what forces it now — which took two sentences
+# and up to 39 words every time, so the cap moved to what the approved copy
+# needs and no further. A third sentence is a paragraph, and the card has no
+# room for one.
+BRIEF_MAX_SENTENCES = 2
+BRIEF_MAX_WORDS = 40
+GOOD_FOR_MAX_WORDS = 15
+
+# A card that carries a `brief` shows `solution:` as "Suggested", read as a call
+# to action, and every approved one opens with the verb (owner, 2026-09-16:
+# "Build a small security agency…", "Build report templates inside…"). Records
+# with no brief still carry the older descriptive sentence, so the rule binds
+# only where the card does.
+SOLUTION_OPENER = "Build "
+
+# Digits, not words, for a number in a headline that sits over a brief card
+# (owner, 2026-09-16: "6,000 Czech towns", never "Six thousand Czech firms").
+# Cardinals two to ninety, and a bare singular magnitude ("a thousand"), are
+# numbers a digit writes better. Deliberately NOT here: "one", which is
+# ordinary prose far more often than a count ("one-man firms", "one by one",
+# "the one place"), and the plurals "hundreds"/"thousands", which are vague
+# quantities no digit expresses. "twice" and "double" are not cardinals.
+TITLE_NUMBER_WORD = re.compile(
+    r"(?i)\b(?:two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|"
+    r"thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|"
+    r"forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|million|billion)\b")
+
+# A claim that needs a receipt: any digit, a spelled-out magnitude, or a month.
+# Deliberately NOT "most"/"many" — quantity words without a figure are judged
+# by the author against MATCH.md §3, not pattern-matched here. "May" and
+# "March" are left out of the months because they are also English verbs
+# ("fines may reach"); a real date carries a digit anyway.
+NUMERIC_CLAIM = re.compile(
+    r"\d|(?i:\b(?:hundreds?|thousands?|millions?|billions?|percent|per cent|dozens?|"
+    r"half|twice|double|triple|january|february|april|june|july|august|"
+    r"september|october|november|december)\b)")
+
+# Proposal language in a situation sentence. Narrow on purpose (the VERDICTS
+# lesson): it catches a brief that has started pitching, not every sentence
+# containing "build". A bare "should" is left out: a legal duty ("towns
+# should have registered by …") is a fact, the same reason OVERCLAIM omits
+# "must".
+BRIEF_PROPOSAL = re.compile(
+    r"(?i)\b(?:suggest\w*|solutions?|opportunit\w*|start-?ups?|build (?:a|an|the)|"
+    r"you (?:can|could|should)|a product that|a service that|sell to)\b")
+
+# Market claims in a line that is meant to describe a person.
+# good_for opens with the PERSON (owner, 2026-09-16: "Good for should always
+# start with a person" — "Mapping and aerial-photo people…" rendered as "Good
+# for mapping…"). The card prints the label "Good for" straight before this
+# line, so its first word must name who: a pronoun-like opener or a role noun.
+# Extend the list when a real role needs it; never loosen it to a pattern.
+GOOD_FOR_PERSON_OPENERS = frozenset((
+    "someone", "anyone", "people", "builders", "developers", "engineers",
+    "founders", "accountants", "lawyers", "designers", "operators", "nurses",
+    "doctors", "teachers", "researchers", "consultants", "teams"))
+
+GOOD_FOR_MARKET = re.compile(
+    r"(?i)\b(?:markets?|demand|growing|growth|booming|huge|lucrative|profitable|"
+    r"underserved|untapped|wide open|no competition|buyers? (?:are|is)|customers (?:are|is))\b")
+
+
+def _words(text):
+    # A token counts only if it holds a letter or digit. Stripping a marker
+    # that sits before the full stop ("late 2026 [S1,S2].") leaves a lone "."
+    # behind, and counting it made the approved 39-word p-0008 brief read as 41.
+    return sum(1 for tok in _MARKER_ANY.sub(" ", text).split() if re.search(r"\w", tok))
+
+
+def check_headline(doc, n_sources, comps, locals_):
+    """`brief:` and `good_for:`, plus the `solution:` opener and the title's
+    digits on records that carry a brief, asserted. -> [error strings]."""
+    errors = []
+
+    brief = doc.get("brief")
+    if brief is not None:
+        if not isinstance(brief, str) or not brief.strip():
+            errors.append(
+                f"`brief:` is {'empty' if isinstance(brief, str) else type(brief).__name__} — "
+                f"it is ONE string of at most two sentences, or the key is absent. The "
+                f"owner's cap is three lines per problem (brief, Suggested, Good for), so "
+                f"a list here is a second and third line the page has no room for")
+        else:
+            n = _words(brief)
+            if n > BRIEF_MAX_WORDS:
+                errors.append(f"brief is {n} words (max {BRIEF_MAX_WORDS}) — at most two "
+                              f"short sentences; the detail belongs in the dek")
+            if "\n" in brief.strip():
+                errors.append("brief carries a line break — it is one short story under the "
+                              "headline, written as running text")
+            n_sent = 1 + extra_sentences(brief)
+            if n_sent > BRIEF_MAX_SENTENCES:
+                errors.append(f"brief runs to {n_sent} sentences (max {BRIEF_MAX_SENTENCES}) "
+                              f"— who is stuck and what forces it now; a third sentence is "
+                              f"a paragraph the card has no room for")
+            nums = markers(brief)
+            if re.sub(r"\[S[\d,S]+\]", "", brief).find("[S") != -1:
+                errors.append("brief carries a malformed [S…] marker — write [S1] or "
+                              "[S1,S19]")
+            dead = sorted(x for x in nums if x < 1 or x > n_sources)
+            if dead:
+                errors.append(f"brief cites {', '.join('S%d' % x for x in dead)} — "
+                              f"{n_sources} sources on file; the page links each marker "
+                              f"into the Sources ledger and these link nowhere")
+            if NUMERIC_CLAIM.search(_MARKER_ANY.sub(" ", brief)) and not nums:
+                errors.append(
+                    "brief states a number or a date with no [Sn] marker — it is the "
+                    "headline's only claim about the world, and a figure in it without a "
+                    "receipt is exactly the plausibility this register refuses (MATCH.md "
+                    "§9: every numeric claim carries an [Sn])")
+            for claim in OVERCLAIM.findall(brief):
+                errors.append(f"brief claims certainty ('{claim}') — state the fact, not "
+                              f"how sure we are of it")
+            for word in BRIEF_PROPOSAL.findall(brief):
+                errors.append(
+                    f"brief proposes ('{word}') — it is the SITUATION only. What to build "
+                    f"is `solution:`, and who should build it is `good_for:` (one field, "
+                    f"one meaning)")
+            for name in ledger_name_candidates(comps, locals_):
+                if re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)", brief):
+                    errors.append(
+                        f"brief names '{name}', which is on this record's comps[] or "
+                        f"locals[] ledger — competition is the ledgers' question and "
+                        f"carries its maturity test there; the brief states the situation")
+                    break
+
+    good_for = doc.get("good_for")
+    if good_for is not None:
+        if not isinstance(good_for, str) or not good_for.strip():
+            errors.append("`good_for:` is present but empty or not a string — one line "
+                          "naming who this suits by skills and interests, or the key is "
+                          "absent")
+        else:
+            n = _words(good_for)
+            if n > GOOD_FOR_MAX_WORDS:
+                errors.append(f"good_for is {n} words (max {GOOD_FOR_MAX_WORDS}) — one "
+                              f"line describing a person")
+            if "\n" in good_for.strip() or extra_sentences(good_for):
+                errors.append("good_for runs past one line — it is a single description "
+                              "of who this suits")
+            if re.search(r"\[S", good_for):
+                errors.append(
+                    "good_for carries an [Sn] marker — it describes a person, and no "
+                    "source is evidence for who should build this. A line that needs a "
+                    "citation is a fact, and facts go in `brief:`")
+            if NUMERIC_CLAIM.search(_MARKER_ANY.sub(" ", good_for)):
+                errors.append(
+                    "good_for states a number — figures are claims and belong, cited, "
+                    "in `brief:`. This line names skills and interests only")
+            for claim in OVERCLAIM.findall(good_for):
+                errors.append(f"good_for claims certainty ('{claim}') — describe who it "
+                              f"suits, never promise it works for them")
+            for word in GOOD_FOR_MARKET.findall(good_for):
+                errors.append(
+                    f"good_for makes a market claim ('{word}') — the size and state of the "
+                    f"market are scored and receipted elsewhere; this line describes a "
+                    f"person")
+            first = re.match(r"\s*([A-Za-z'-]+)", good_for)
+            if not first or first.group(1).lower() not in GOOD_FOR_PERSON_OPENERS:
+                errors.append(
+                    f"good_for opens with '{first.group(1) if first else good_for[:20]}', not a "
+                    f"person — the card reads \"Good for <this line>\", so start with who: "
+                    f"Someone / People / Engineers / Developers … (GOOD_FOR_PERSON_OPENERS)")
+
+    # ---- rules that bind only where the card is drawn (owner, 2026-09-16) --
+    # A record with a `brief` renders the three-line card, and the framing
+    # rules in RECORD-TEMPLATE.md apply to it. These two are the mechanical
+    # ones; the rest (plain, not abstract, not oddly specific) are judged.
+    if isinstance(brief, str) and brief.strip():
+        solution = doc.get("solution")
+        if isinstance(solution, str) and solution.strip() and \
+                not solution.lstrip().startswith(SOLUTION_OPENER):
+            errors.append(
+                f"`solution:` opens '{solution.strip()[:24]}…' — on a record with a brief it "
+                f"is the card's call to action and starts with \"{SOLUTION_OPENER.strip()}\", "
+                f"then names the plain business form, where it lives and what it does "
+                f"(RECORD-TEMPLATE.md, the headline block)")
+        title = doc.get("title")
+        if isinstance(title, str):
+            spelled = sorted({m.lower() for m in TITLE_NUMBER_WORD.findall(title)})
+            if spelled:
+                errors.append(
+                    f"title spells a number out ({', '.join(spelled)}) — write the digits: "
+                    f"\"6,000 Czech towns\", not \"Six thousand\" (RECORD-TEMPLATE.md, the "
+                    f"headline block)")
+    return errors
+
+
 def established(since, evidence, year, ico=None):
     """The established test, as one function. -> (bool, [limbs passed], [why not]).
 
@@ -627,6 +1192,23 @@ def check(path, year):
     # locals[] ledger, `level` from the five gate weights — and a derived value
     # written by hand drifts from its source the first time the ledger moves.
     errors.extend(check_entry(doc, locals_))
+
+    # ---- the process figure (owner, 2026-09-15) ---------------------------
+    # OPTIONAL — drawn only where the problem is a workflow someone performs
+    # today. Asserted rather than trusted for the reason every figure on this
+    # site is: a diagram reads as settled fact whatever the prose beside it
+    # says, so the one thing it may never do is look certain about a step
+    # nobody checked. `known` is where that uncertainty lives, and these are
+    # the rules that stop it collapsing back into confidence.
+    errors.extend(check_process(doc, len(sources), comps, locals_))
+
+    # ---- the headline block (owner, 2026-09-16) ---------------------------
+    # OPTIONAL `brief:` (at most two sentences) and `good_for:` line. The brief
+    # is the only part of the headline that asserts facts, so it is held to
+    # receipts; the good_for line describes a person and is held to carrying
+    # none. Where a brief is drawn, `solution:` opens with "Build" and the
+    # title writes its numbers in digits.
+    errors.extend(check_headline(doc, len(sources), comps, locals_))
 
     # ---- citation integrity ------------------------------------------------
     n_sources = len(sources)

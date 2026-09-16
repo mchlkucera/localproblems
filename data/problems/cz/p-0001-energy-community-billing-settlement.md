@@ -1,11 +1,10 @@
 ---
 id: p-0001
 region: cz
-title: Czech energy communities lose up to half the value of shared electricity to bad allocation
-  and settlement
-solution: 'Settlement software for electricity-sharing communities: recompute each member''s
-  share from the national electricity data hub, issue the monthly bills, and show in
-  crowns what bad allocation was costing.'
+title: 'Czech schools sharing electricity can pay 3 times its price in admin fees'
+solution: 'Build billing software that pulls sharing data from the national hub and bills each member, as companies already do abroad.'
+brief: 'One Czech energy community charges schools and care homes an admin fee 3 times the electricity price [S6,S7,S18]. It covers billing, but also accounting and legal advice [S18].'
+good_for: 'Someone who builds software and would like to work with energy communities.'
 category: energy
 geo: CZ-national
 score: 9
@@ -159,9 +158,9 @@ sources:
   date: '2026-06-05'
   signal: ted-385664-2026
 - type: contract
-  name: "Registr smluv — Dům seniorů Františkov (~1.0M CZK)"
-  gist: "the 1.0M CZK contract"
-  why: "A Liberec care home paid about 1.0M CZK for a sharing-administration contract numbered č. 58 — what this work costs today, done by hand."
+  name: "Registr smluv — Dům seniorů Františkov (960,000 CZK)"
+  gist: "the 960,000 CZK contract"
+  why: "A Liberec care home's open-ended sharing contract č. 58 with Energetické společenství Liberec, valued at 960,000 CZK: it pays for the shared electricity, owed to the producers, plus a separate administration fee, both set by the community's price list."
   url: https://smlouvy.gov.cz/smlouva/38899662
   note: 'hlidac-38899662: Dům seniorů Františkov (Liberec) signed ''Smlouva o zajištění sdílení
     elektřiny č. 58'' (~1.0M CZK, registr smluv) — public institutions are paying for sharing
@@ -210,8 +209,8 @@ sources:
   signal: round-delta-green
 - type: contract
   name: "Registr smluv — Nemocnice Pardubického kraje"
-  gist: "the 200k CZK hospital deal"
-  why: "A regional hospital group contracted a community for electricity sharing (~200k CZK) — the Liberec enrolment pattern repeating in a second region and a new buyer type."
+  gist: "the 200k CZK membership order"
+  why: "A regional hospital group's order to Energetické společenství východních Čech, headed as its membership contribution, for an annual volume of 200,000 CZK before VAT — a hospital joining a community in a second region; the order names neither electricity nor administration."
   url: https://smlouvy.gov.cz/smlouva/38404378
   note: 'hlidac-38404378: Nemocnice Pardubického kraje contracted Energetické společenství
     východních Čech for electricity sharing (~200k CZK vč. DPH, registr smluv, Jun 2026) —
@@ -298,33 +297,46 @@ sources:
   date: '2026-08-26'
   signal: ted-587970-2026
   dims: []
-- type: price
+- type: contract
   url: https://smlouvy.gov.cz/smlouva/38899662
   name: "Dům seniorů Františkov — the sharing contract"
-  gist: "about 1.0M CZK by hand"
-  why: "A Liberec care home pays about 1.0M CZK on one contract to have its electricity sharing administered by hand."
+  gist: "electricity plus administration"
+  why: "The same care-home contract read clause by clause: its 960,000 CZK pays for the shared electricity and the community's administration fee together, and nothing on it splits the two."
   note: 'Price receipt drawn from the contract already on this ledger (hlidac-38899662,
     registr smluv, Smlouva o zajištění sdílení elektřiny č. 58, ~1.0M CZK). The register
     entry states a contract value and no annual term, so the unit is one-off rather than
     per-year. dims omitted deliberately: this backs no score and moves nothing.'
   date: '2026-07-01'
-  payer: 'Dům seniorů Františkov, a Liberec care home'
-  amount_czk: 1000000
-  unit: one-off
-  basis: signed-contract
-- type: price
+  dims: []
+- type: contract
   url: https://smlouvy.gov.cz/smlouva/38404378
-  name: "Nemocnice Pardubického kraje — the same service"
-  gist: "about 200k CZK"
-  why: "A regional hospital group pays about 200,000 CZK for the same electricity-sharing administration, done by hand."
+  name: "Nemocnice Pardubického kraje — the membership order"
+  gist: "the membership-contribution order"
+  why: "The same hospital-group document read in full: a one-page order for 200,000 CZK before VAT, headed as a membership contribution for an annual volume, naming no service it buys."
   note: 'Price receipt drawn from the contract already on this ledger (hlidac-38404378,
     registr smluv, ~200k CZK vč. DPH, Jun 2026). No annual term is stated in the register
     entry, so the unit is one-off. dims omitted: backs no score.'
   date: '2026-06-16'
-  payer: 'Nemocnice Pardubického kraje, a regional hospital group'
-  amount_czk: 200000
-  unit: one-off
-  basis: signed-contract
+  dims: []
+- type: contract
+  url: https://energetika.liberec.cz/uploads/Vnit%C5%99n%C3%AD%20p%C5%99edpis%20%C4%8D.%204_Cen%C3%ADk.pdf
+  name: "Energetické společenství Liberec — price list for 2026"
+  gist: "the administration fee per kWh"
+  why: "The Liberec community's published 2026 price list, part of every member's sharing contract: members pay an administration fee of 1.516 CZK per shared kWh, covering the data-hub paperwork, data processing and billing but also accounting, legal advice and a reserve, and 0.484 CZK per kWh for the electricity, passed to the producers."
+  note: 'Vnitřní předpis č. 4/2026, Ceník pro rok 2026, Energetické společenství Liberec, z.s.
+    (IČO 22448225): approved by the Výbor 11 May 2026, effective 1 Jul 2026, listed 14 Jul 2026
+    under energetika.liberec.cz/energeticke-spolecenstvi/dokumenty; PDF read 2026-09-16. Čl. II:
+    Poplatek za administraci 1,516 Kč/kWh of shared electricity consumed by the odebírající člen,
+    the same for every supply point; the community is not a VAT payer, so it is a final price.
+    Purpose per II.1: zajištění administrace v EDC, zpracování dat, provádění vyúčtování; per I.6
+    the fee and contributions also cover operating, accounting and legal costs, running an interface
+    for EDC data and a reserve for technical and software infrastructure. Čl. IV: Cena sdílení
+    0,484 Kč/kWh, owed to the producing member. Separate předpis č. 3/2026: quarterly membership
+    contribution 100 Kč per EAN. The Františkov contract č. 58 names this Ceník an integral part
+    (clause 1.5). A real price for the administration service, but NOT written as type: price,
+    because the price-receipt unit list has no per-kWh unit. dims empty: backs no score.'
+  date: '2026-07-01'
+  dims: []
 created: '2026-08-13'
 updated: '2026-09-04'
 ---
@@ -333,7 +345,7 @@ Czech energy communities have shared electricity through EDC (the national elect
 
 Why now: from 1 September 2026 the territorial limit on energy communities is lifted and sharing allocation extends to groups of up to 100 supply points [S12] — more members, harder settlement. EDC moves data between market participants and does no community administration, member billing or optimization [S1]; the operator does it.
 
-Who pays: community founders — municipalities, housing cooperatives, groups of firms — plus utilities and the service firms around the regional grid operators, which want a white-label product to offer communities [S1]. Dům seniorů Františkov paid about 1.0M CZK for one sharing-administration contract, one of 37 community-energy contracts filed in the state contracts register since June 2026 [S6]. Nemocnice Pardubického kraje pays about 200k CZK for the same service [S10].
+Who pays: community founders — municipalities, housing cooperatives, groups of firms — plus utilities and the service firms around the regional grid operators, which want a white-label product to offer communities [S1]. Dům seniorů Františkov's open-ended contract, one of 37 community-energy contracts filed in the state contracts register since June 2026, is valued at 960,000 CZK and pays for the shared electricity plus a separate administration fee [S6]. Its community's 2026 price list sets that fee at 1.516 CZK per shared kWh, about three times the 0.484 CZK per kWh passed to producers [S18]. Nemocnice Pardubického kraje's 200,000 CZK is an order headed as a membership contribution to its community, naming neither electricity nor administration [S10].
 
 Existing non-solutions: EDC does data exchange only; ministry guidance and consultancies sell services, not product [S1,S3]. Jihomoravská energetická agentura runs sharing for the sdílEjme community by hand [S8]. The position is contested, not empty: Enerio, Softlink CEM, EnerCA, ENERGOMETR and CANCOM (five Czech vendors) sell community administration, allocation keys and member billing over EDC data [S13]. All five are young: sharing over EDC opened only in 2024, and none publishes a customer, contract or funding round [S13].
 
@@ -344,7 +356,7 @@ Solved elsewhere: Exnaton sells this to utilities across German-speaking Europe 
 1. Call **Energetické společenství Liberec** first. It signed about fourteen near-identical sharing contracts with Liberec schools and kindergartens in June–July 2026, numbered up to č. 58 [S7]. Ask how it splits the shared electricity and bills the members today. That routine is your product spec.
 2. Call **Jihomoravská energetická agentura** next. It runs sharing by hand for the sdílEjme community, Sonnentor included [S8]. Agencies like it are who Exnaton sells its white-label software to [S1].
 3. Recompute one community's month before building anything else. Take their EDC sharing data, work out who should have got what and who owes what, and show the loss in crowns — up to half the value of shared electricity goes to bad allocation and settlement [S2]. That also tests the risky assumption: that EDC data is enough for an outsider to settle on.
-4. Price under what they already pay. Dům seniorů Františkov paid about 1.0M CZK for a manual sharing service [S6] and Nemocnice Pardubického kraje about 200k CZK [S10]. Undercut those and the buyer is on record.
+4. Price against the fee communities already charge. Energetické společenství Liberec bills members 1.516 CZK per shared kWh for administration, which pays for data-hub paperwork, data processing and billing but also accounting, legal advice and a reserve, against 0.484 CZK per kWh for the electricity itself [S18]. Contracts like Dům seniorů Františkov's 960,000 CZK cover both, with no crown split published [S6].
 5. Point buyers at [Modernizační fond KOMUNERG 1/2025](/sources/tenders#dotace-mf-komunerg-1-energeticka-spolecenstvi): 1bn CZK (~€40.8M) for communities and municipalities building shared renewable generation, open until **2027-12-31** [S11]. Every community it funds will need billing and settlement.
 6. Expect competition. **Enerio**, **Softlink CEM**, **EnerCA**, **ENERGOMETR** (DEKSOFT) and **CANCOM** all sell community administration with allocation keys, member invoicing and EDC integration, and none of them names a customer [S13]. Nearby but not selling this: **Delta Green** (spot-price supply and flexibility) [S9] and **ASITIS** (consulting) [S3]. **EDC** itself does data exchange with no member billing [S1,S3], and **Jihomoravská energetická agentura** runs sharing as a manual service [S8].
 
@@ -365,3 +377,5 @@ Solved elsewhere: Exnaton sells this to utilities across German-speaking Europe 
 2026-09-02 · plain-language pass — Glossed at first use: EDC, Lex OZE II, Softlink CEM, CANCOM. Replaced with plain words: DACH, ETH, RED II, CEE, SME, ASITIS and JMEA. Argument 336 → 299 words, every figure and named vendor kept, with two on-file receipts now cited in the body: the 1 September 2026 rule change [S12] and the ~200k CZK hospital contract [S10]. First moves rewritten verbs-first; a gist added to all 14 sources. No score, status, note or marker touched.
 
 2026-09-04 · price receipt — The two sharing-administration contracts already on file are now also recorded as prices: about 1.0M CZK at a Liberec care home [S16] and about 200,000 CZK at a Pardubice-region hospital group [S17]. Same urls, same dates and same figures as the contracts they come from. No score, status, note or marker touched.
+
+2026-09-16 · headline copy — The headline was rewritten for a general builder as three lines under the title: a `brief:` on what is happening and why it matters now, the `solution:` as a call to action, and a new `good_for:` line. New copy, verbatim — title: "Czech energy communities can now share electricity among up to 100 connections"; brief: "Hospitals, schools and care homes already buy shared electricity from these communities [S6,S7,S10]. The state data hub only moves the data, and each community bills every member itself [S1,S6]."; solution: "Build billing software that pulls sharing data from the national hub and bills each member, as companies already do abroad."; good_for: "Software builders who'd like to work with energy data, towns and hospitals.". Previous title, verbatim: "Czech energy communities lose up to half the value of shared electricity to bad allocation and settlement". Previous solution, verbatim: "Settlement software for electricity-sharing communities: recompute each member's share from the national electricity data hub, issue the monthly bills, and show in crowns what bad allocation was costing.". There was no previous brief or good_for. The owner-reviewed draft title, "Czech hospitals and care homes pay up to 1M CZK just to have shared electricity split and billed", was NOT used, because the contract behind the figure says otherwise. Read on 2026-09-16 from the registr smluv entry [S6]: Dům seniorů Františkov's 960,000 CZK contract with Energetické společenství Liberec is open-ended, and the home pays the price of the shared electricity itself, owed to the producers, plus a separate administration fee (clauses 2.2, 2.3 and 3.1), both set by a price list not attached. The 1M CZK is therefore mostly electricity, and no source on file states the administration fee alone. The draft brief's "every member's share is still worked out and billed by hand" was also not used: five Czech vendors sell community billing software [S13], and the one contract read shows the community invoicing each member quarterly from the hub's data without saying how [S6]. What stands is written instead: since 1 September 2026 sharing groups reach 100 connections with no territorial limit [S12]; public hospitals, schools and care homes already buy shared electricity from communities [S6,S7,S10]; the hub does no member billing [S1]; the community bills each member [S6]. The solution says "bills each member" rather than "splits each member's share", because the hub itself runs the allocation between connections [S12]. FLAGGED, NOT CHANGED: the body's Who-pays paragraph, First move 4 and the price receipts [S16,S17] describe the 1.0M CZK and 200k CZK contracts as paying for a sharing-administration service done by hand; the Františkov contract shows the value covers the electricity too, so those lines and receipts need correcting in a separate pass. No score, status, source, note, marker or body sentence changed. Same date, body correction: the flagged lines are corrected. What was wrong, verbatim: Who pays said Dům seniorů Františkov "paid about 1.0M CZK for one sharing-administration contract" [S6] and Nemocnice Pardubického kraje "pays about 200k CZK for the same service" [S10]; First move 4 called both "a manual sharing service" to undercut; the public lines of [S6] and [S10] said "what this work costs today, done by hand" and "contracted a community for electricity sharing"; and [S16] and [S17] recorded both figures as price receipts for administration done by hand. Evidence, read on this date. The Františkov contract č. 58 is valued at 960,000 CZK including VAT, is open-ended, and charges the shared electricity, owed to the producers, plus a separate administration fee, both by the community's price list (clauses 1.5, 2.2, 2.3, 3.1 and 4.1) [S6]. That price list is published: Energetické společenství Liberec's Ceník for 2026, effective 1 July 2026, sets the administration fee at 1.516 CZK per shared kWh, for data-hub administration, data processing and billing but also accounting, legal advice and a reserve, and the electricity at 0.484 CZK per kWh [S18]. The earlier sentence of this entry, "The 1M CZK is therefore mostly electricity, and no source on file states the administration fee alone", is therefore withdrawn on both halves: per kWh the fee is about three times the electricity, and the fee is now on file. What is still unknown is the crown split of the 960,000 CZK, since no volume is stated. The Pardubice document [S10] is a one-page order headed "Členský příspěvek ESVČ", a membership contribution to Energetické společenství východních Čech, with the line "Roční objem" (annual volume) at 200,000 CZK before VAT; it names neither electricity nor administration, so "the same service" had no receipt. Changed: the three Who-pays sentences after the dek and First move 4 now state only those facts; the name, gist and why of [S6] and [S10] rewritten; [S16] and [S17] converted from type price to type contract, their payer, amount, unit and basis removed and dims set empty so they still back no score, notes left as written; the price list appended as [S18], backing no score. It prices the very administration a builder would automate, but the price-receipt unit list has no per-kWh unit, so it is not written as a receipt, and the page now carries none. Scores untouched, checked: money 2 needs recurring annual public spend or an open grant of about 5M CZK or more; the open-ended, quarterly-invoiced contracts [S6,S7] are still recurring public spend near the problem whatever they buy, and KOMUNERG's 1bn CZK, open until 31 December 2027 [S11], meets the rung by itself. What falls is only the 2026-08-13 wording that this spend buys sharing administration. FLAGGED, NOT CHANGED: the brief cites [S10] for hospitals buying shared electricity, which a membership order does not show. The updated date is not moved: only these sources were re-read. Same date, pain-point pass: the owner's new rule, that each headline names who is hurting and how, in plain words. Before, verbatim — title: "Czech energy communities can now share electricity among up to 100 connections"; brief: "Hospitals, schools and care homes already buy shared electricity from these communities [S6,S7,S10]. The state data hub only moves the data, and each community bills every member itself [S1,S6].". After, verbatim — title: "Czech schools sharing electricity can pay 3 times its price in admin fees"; brief: "One Czech energy community charges schools and care homes an admin fee 3 times the electricity price [S6,S7,S18]. It covers billing, but also accounting and legal advice [S18].". Why: the old title stated a capacity, not a pain. The pain now on file is the price list [S18]: an administration fee of 1.516 CZK per shared kWh against 0.484 CZK per kWh for the electricity, about 3.1 times, charged to every consuming member at the same rate. Its members include the schools and kindergartens of the contract series [S7] and the care home whose contract names the price list as an integral part [S6]. Kept honest in three ways: it is ONE community's price list, so the headline says "can pay" and the brief says "One Czech energy community" rather than stating it of all communities; the fee is not called a billing cost, because the price list also charges it for accounting, legal advice and a reserve, and the brief names accounting and legal advice beside billing; and no crown total is given, because the split of the 960,000 CZK contract is still unknown. The flagged [S10] claim is resolved: the old brief cited [S10] for hospitals buying shared electricity, but [S10] is an order headed as a membership contribution that names neither electricity nor administration, so hospitals and [S10] are out of the brief. The second old sentence, on the data hub moving data only, was dropped for length, not for being wrong; the body still carries it [S1]. Solution and good_for unchanged: billing software that pulls from the national hub automates the data-hub work and billing the fee pays for, and makes no claim about the fee. No score, status, source, note, marker or body sentence changed. Same date, good-for opener (owner: "Good for should always start with a person"): "Software builders who'd like to work with energy data, towns and hospitals." became "Someone who builds software and would like to work with energy communities." — same meaning, person first.
