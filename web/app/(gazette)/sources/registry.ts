@@ -11,7 +11,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { z } from "zod";
-import { EVIDENCE_TYPES, extractDate, getSignals } from "../../lib/data";
+import { EVIDENCE_TYPES, extractDate, getSignals } from "../../../lib/data";
 
 const ROOT = resolve(process.cwd(), "..");
 

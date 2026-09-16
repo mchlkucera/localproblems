@@ -1,4 +1,4 @@
-/* /lab/modern — the 404. Builds on ./front.css; scoped under .lnf. */
+/* The 404. Builds on lab/modern/front.css; scoped under .lnf. */
 .lnf-body { padding: 120px 0 160px; max-width: 34em; }
 .lf .lnf-code { font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-3); font-variant-numeric: tabular-nums; }
 .lnf-body h1 {

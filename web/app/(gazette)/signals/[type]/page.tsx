@@ -6,8 +6,8 @@
 // pre-paging bookmark holds. Pages 2…N live at `/signals/[type]/[page]`; there
 // is deliberately no `/signals/funded/1`, so no document has two addresses.
 import type { Metadata } from "next";
-import { EVIDENCE_TYPES, type EvidenceType } from "../../../lib/data";
-import { Ledger, TITLES } from "../../../lib/ledger";
+import { EVIDENCE_TYPES, type EvidenceType } from "../../../../lib/data";
+import { Ledger, TITLES } from "../../../../lib/ledger";
 
 export const dynamicParams = false;
 

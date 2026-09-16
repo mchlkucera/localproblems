@@ -1,10 +1,10 @@
 // Category pages — the register table filtered per category, one page per
 // category id, pre-generated (SPEC.md §5). Slug == category id (CONVENTIONS.md).
 import type { Metadata } from "next";
-import { CATEGORIES, categoryRows, extractDate } from "../../../lib/data";
-import { ENTRY_LEVEL_LABELS, categoryLabel, countryName, entryRank, pad2 } from "../../../lib/format";
-import { CategoryNav } from "../../../lib/category-nav";
-import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, SortScript, Tally } from "../../../lib/chrome";
+import { CATEGORIES, categoryRows, extractDate } from "../../../../lib/data";
+import { ENTRY_LEVEL_LABELS, categoryLabel, countryName, entryRank, pad2 } from "../../../../lib/format";
+import { CategoryNav } from "../../../../lib/category-nav";
+import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, SortScript, Tally } from "../../../../lib/chrome";
 
 export const dynamicParams = false;
 

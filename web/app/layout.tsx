@@ -1,7 +1,12 @@
-import "../shared.css";
 import type { Metadata } from "next";
 import { assertScoringVocabulary } from "../lib/scorecard";
 
+// THE ROOT LAYOUT CARRIES NO DESIGN. Each route group brings its own stylesheet
+// and fonts (docs/modern-migration.md step 3, audit B9): `(gazette)/layout.tsx`
+// loads web/shared.css and the gazette fonts for the routes that are still
+// gazette pages, and the modern pages load their own. A stylesheet imported here
+// would reach every page, which is how the modern pages came to load the
+// gazette sheet and both font stacks.
 export const metadata: Metadata = {
   title: "localproblems.org — a public register of local problems",
   description:
@@ -12,13 +17,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   assertScoringVocabulary(); // build gate: verdict words must match SCORING.md
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body>{children}</body>
     </html>
   );

@@ -1,8 +1,8 @@
 // The problem register — distilled from the source ledgers.
-import { registerRows } from "../lib/data";
-import { ENTRY_LEVEL_LABELS, categoryLabel, entryRank, pad2 } from "../lib/format";
-import { CategoryNav } from "../lib/category-nav";
-import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, SortScript, Tally } from "../lib/chrome";
+import { registerRows } from "../../lib/data";
+import { ENTRY_LEVEL_LABELS, categoryLabel, entryRank, pad2 } from "../../lib/format";
+import { CategoryNav } from "../../lib/category-nav";
+import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, SortScript, Tally } from "../../lib/chrome";
 
 export default function Register() {
   const rows = registerRows();

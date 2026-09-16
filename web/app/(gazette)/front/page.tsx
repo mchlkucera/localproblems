@@ -20,12 +20,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "./front.css";
-import { extractDate, getSignal, registerRows, type Problem, type ProblemSource } from "../../lib/data";
-import { ENTRY_LEVEL_LABELS, categoryLabel, countryName, entryGates, localityLabel, pad2 } from "../../lib/format";
+import { extractDate, getSignal, registerRows, type Problem, type ProblemSource } from "../../../lib/data";
+import { ENTRY_LEVEL_LABELS, categoryLabel, countryName, entryGates, localityLabel, pad2 } from "../../../lib/format";
 import { compEstablished } from "./field";
-import { dimRefs, scoreRead } from "../../lib/scorecard";
-import { splitBody, splitLead } from "../../lib/sections";
-import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, Tally } from "../../lib/chrome";
+import { dimRefs, scoreRead } from "../../../lib/scorecard";
+import { splitBody, splitLead } from "../../../lib/sections";
+import { CorrectionsLink, FooterHouseLine, Masthead, RegionNav, SiteNav, Tally } from "../../../lib/chrome";
 
 export const metadata: Metadata = { title: "Front page — localproblems.org" };
 

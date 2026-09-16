@@ -10,20 +10,20 @@
 // the markdown/git, not shouted on the page.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { extractDate, getProblems, getSignal, localHref, priceReceipts, signalHref, type Problem, type ProblemSource } from "../../../../lib/data";
-import { annotateSourceRefs, renderBody, renderInline, repageLedgerLinks, type SourceRef } from "../../../../lib/md";
-import { capitalize, splitBody, splitLead } from "../../../../lib/sections";
+import { extractDate, getProblems, getSignal, localHref, priceReceipts, signalHref, type Problem, type ProblemSource } from "../../../../../lib/data";
+import { annotateSourceRefs, renderBody, renderInline, repageLedgerLinks, type SourceRef } from "../../../../../lib/md";
+import { capitalize, splitBody, splitLead } from "../../../../../lib/sections";
 import {
   ENTRY_BUYER_LABELS, ENTRY_INCUMBENT_LABELS, ENTRY_INTEGRATION_LABELS,
   ENTRY_LEVEL_LABELS, ENTRY_MONEY_LABELS, ENTRY_PERMISSION_LABELS,
   PRICE_BASIS_LABELS, PRICE_UNIT_LABELS, categoryLabel, countryName, czk,
   euro, localityLong,
-} from "../../../../lib/format";
-import { type Dim, MAX, SCORE_ROWS, dimRefs, scoreRead } from "../../../../lib/scorecard";
+} from "../../../../../lib/format";
+import { type Dim, MAX, SCORE_ROWS, dimRefs, scoreRead } from "../../../../../lib/scorecard";
 import {
   CorrectionsLink, FooterHouseLine, Masthead, RelDatesScript, Tally,
-} from "../../../../lib/chrome";
-import { EuropeMap } from "../../../../lib/geomap";
+} from "../../../../../lib/chrome";
+import { EuropeMap } from "../../../../../lib/geomap";
 
 export const dynamicParams = false;
 

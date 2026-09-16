@@ -6,9 +6,9 @@
 // are no signals. Both are the honest answer: the register never publishes a
 // page it does not have.
 import type { Metadata } from "next";
-import { ledgerPages, type EvidenceType } from "../../../../lib/data";
-import { Ledger, TITLES, everyLedgerPage } from "../../../../lib/ledger";
-import { pad2 } from "../../../../lib/format";
+import { ledgerPages, type EvidenceType } from "../../../../../lib/data";
+import { Ledger, TITLES, everyLedgerPage } from "../../../../../lib/ledger";
+import { pad2 } from "../../../../../lib/format";
 
 export const dynamicParams = false;
 

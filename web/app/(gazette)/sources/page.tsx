@@ -22,8 +22,8 @@
 // point at the public signal ledgers, not at this page.
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CorrectionsLink, FooterHouseLine, Masthead, SiteNav } from "../../lib/chrome";
-import { pad2 } from "../../lib/format";
+import { CorrectionsLink, FooterHouseLine, Masthead, SiteNav } from "../../../lib/chrome";
+import { pad2 } from "../../../lib/format";
 import { since, sourcesView, type Feed } from "./registry";
 
 /** Read inside the component, never at module scope: a module-scope constant can
