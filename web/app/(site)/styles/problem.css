@@ -688,3 +688,23 @@ a:hover > .ls-ext { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   .ls-peek, .ls-drawer, .ls-tip { transition: none; }
 }
+
+/* ---- print: the record reads on paper, its sources listed in full ------------------
+   Minimal by design: no chrome, no dead buttons, one column, and the sources drawer
+   (a closed popover on screen) printed in place as the record's source list. */
+@media print {
+  .ls-bar, .ls-tip, .ls-peek, .ls-modal, .ls-all-link, .ls-x, .ls-foot { display: none !important; }
+  .ls-shell { display: block; padding: 0; }
+  .ls-head { padding: 0 0 24px; }
+  .ls-art { width: 96px; }
+  .ls-rail { position: static; display: block; margin: 0 0 24px; }
+  .ls-card { break-inside: avoid; box-shadow: none; }
+  .ls-drawer {
+    display: block !important; position: static; inset: auto; width: auto; height: auto;
+    margin: 32px 0 0; padding: 0; border: 0; box-shadow: none; overflow: visible;
+    opacity: 1; transform: none;
+  }
+  .ls-drawer-hd { height: auto; padding: 0 0 8px; }
+  .ls-drawer-body { overflow: visible; padding: 0; }
+  .ls-src { break-inside: avoid; }
+}
