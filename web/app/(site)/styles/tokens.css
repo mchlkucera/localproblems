@@ -8,7 +8,7 @@
 html:has(.lab) { background: var(--l-bg, #fff); }
 body:has(.lab) {
   margin: 0; padding: 0;
-  font: 400 14px/1.5 "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font: 400 14px/1.5 var(--font-inter, "Inter"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   color: #1b1c1f; background: #fff;
   -webkit-font-smoothing: antialiased;
 }
@@ -27,7 +27,7 @@ body:has(.lab) {
   --l-text-1:    #1b1c1f;   /* primary text, titles */
 
   /* type — one family, scale by size and weight only */
-  --l-font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --l-font: var(--font-inter, "Inter"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --l-fs-xs: 11px;  --l-fs-sm: 12px;  --l-fs-md: 13px;  --l-fs-base: 14px;
   --l-fs-lg: 16px;  --l-fs-xl: 20px;  --l-fs-2xl: 28px;
 
