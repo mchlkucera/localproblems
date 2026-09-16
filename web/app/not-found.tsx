@@ -10,15 +10,15 @@
 // route, which is why it must never import the gazette stylesheet (audit B9:
 // a gazette 404 put web/shared.css and the gazette fonts on the modern pages).
 // Its own sheets are scoped under `.lab` / `.lf` / `.lnf` and touch nothing else.
-import "./lab/tokens.css";
-import "./lab/modern/front.css";
-import "./not-found.css";
-import { TopBar } from "./lab/modern/bar";
+import "./(site)/styles/tokens.css";
+import "./(site)/styles/front.css";
+import "./(site)/styles/not-found.css";
+import { TopBar } from "../lib/site/bar";
+import { CORRECTIONS_MAILTO } from "../lib/chrome";
 
 export default function NotFound() {
   return (
     <div className="lab lf lnf">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
       <TopBar />
       <main className="lf-wrap">
@@ -29,6 +29,12 @@ export default function NotFound() {
           <p className="lnf-back"><a href="/">← Back to Problems</a></p>
         </div>
       </main>
+      <footer className="lf-foot">
+        <div className="lf-wrap lf-foot-in">
+          <span>localproblems.org · Czechia</span>
+          <a href={CORRECTIONS_MAILTO}>Report a correction</a>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -31,6 +31,9 @@ const nextConfig: NextConfig = {
       // intact. Writing a fragment here would override the incoming one and
       // break the 9 in-body deep links in the record bodies (§9.3, §9.4).
       { source: "/sources/:type", destination: "/signals/:type", permanent: true },
+      // The About page became "How it works" with the modern design (owner,
+      // 2026-09-16). No fragment, for the reason above.
+      { source: "/about", destination: "/how-it-works", permanent: true },
     ];
   },
 };

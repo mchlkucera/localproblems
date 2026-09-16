@@ -1,14 +1,8 @@
-// The signal ledger view — one evidence type, one page of it.
-//
-// SIGNALS = the records; SOURCES = the feeds we ingest from (architecture-v3 §9).
-// Shared by /signals/[type] (page 1) and /signals/[type]/[page] (pages 2…N) so
-// there is exactly one ledger rendering; the route only decides which slice.
-import {
-  EVIDENCE_TYPES, extractDate, ledgerPages, ledgerRows,
-  type EvidenceType, type Signal,
-} from "./data";
-import { categoryLabel, euro, pad2 } from "./format";
-import { CorrectionsLink, FooterHouseLine, Masthead, Pager, SiteNav } from "./chrome";
+// The signal ledgers: what each evidence type is called, what it is, and how
+// its pages are laid out. SIGNALS = the records; SOURCES = the feeds we ingest
+// from (architecture-v3 §9). The ledger view itself is lib/site/ledger.tsx,
+// shared by /signals/[type] (page 1) and /signals/[type]/[page] (pages 2…N).
+import { EVIDENCE_TYPES, ledgerPages, type EvidenceType } from "./data";
 
 // Both maps are Record<EvidenceType, string>, so registering a type in
 // EVIDENCE_TYPES without writing its explainer is a TypeScript error. The
@@ -44,116 +38,6 @@ export const SOURCE_LABELS: Record<string, string> = {
   "demand-scan": "Demand scan", suggest: "Google Suggest", reddit: "Reddit",
   mpsv: "MPSV vacancies", tacr: "TA ČR needs", hackathon: "Hackathon challenge",
 };
-
-/** The native `title` is the reveal — never a tooltip component — and it may
-    carry a newline, exactly as the inline source markers do. Where ingest
-    recorded a verbatim `quote` (§7.2) the row shows it beneath our paraphrase:
-    the source's own words are the stronger receipt, and a field that reaches
-    the JSONL but never reaches the page has not shipped (AC-Z3). */
-/** The summary now renders visibly under the name (owner, 2026-08-24), so the
-    native-title reveal carries only what stays hidden: the verbatim quote. A
-    tooltip that repeats visible text is noise; no quote, no title at all. */
-function rowTitle(s: Signal): string | undefined {
-  return s.quote ? `“${s.quote}”` : undefined;
-}
-
-/** THE LEDGERS CARRY NO SORT SCRIPT, AND THAT IS THE POINT.
- *
- *  Sanctioned exception 3 re-sorts a register table client-side. It is honest
- *  on the register and the category pages because those tables ARE the whole
- *  record set: the script sees every row it claims to order. A paged ledger is
- *  a different animal — page 3 of 37 holds 100 of 3,612 rows, so a client sort
- *  could only ever reorder the slice while looking exactly like it had sorted
- *  the ledger. That is not a smaller feature, it is a false statement about the
- *  data, so the ledgers keep ONE order: date descending, fixed at build time,
- *  stated in the (visually hidden) caption for assistive tech; the date column
- *  shows it to everyone else.
- *
- *  If a ledger ever needs a second order, it is a second set of pre-rendered
- *  pages — never a script over one slice. */
-export function Ledger({ type, page }: { type: EvidenceType; page: number }) {
-  const pages = ledgerPages(type);
-  const rows = ledgerRows(type, page);
-
-  return (
-    <>
-      <Masthead />
-      <SiteNav current={`/signals/${type}`} />
-
-      {/* the crumb is a heading, not a status line: the counts, "latest",
-          "newest first" and "page NN of MM" narration are retired (owner,
-          2026-08-24). Position lives in the pager; order in the caption. */}
-      <p className="crumb">{TITLES[type].split(" — ")[0]}</p>
-
-      <p>{DESCRIPTIONS[type]}</p>
-
-      {rows.length === 0 ? (
-        <p className="crumb">Nothing in this ledger as of <time>{extractDate()}</time> — the feed is registered but not yet producing.</p>
-      ) : (
-        <table className="index">
-          <colgroup>
-            <col className="c-name" /><col className="c-src" /><col className="c-cat" />
-            <col className="c-geo" /><col className="c-val" />
-            <col className="c-date" />
-          </colgroup>
-          {/* visually hidden — kept in the DOM so assistive tech gets the sort
-              order and, on a paged ledger, the position */}
-          <caption>
-            Sorted by date, descending
-            {pages > 1 && <> · page {pad2(page)} of {pad2(pages)}</>}
-          </caption>
-          <thead>
-            <tr>
-              <th>Name</th><th>Source</th><th>Sector</th><th>Origin</th>
-              <th className="t-num">Value</th><th className="t-num">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((s) => (
-              <tr key={s.id} id={s.id}>
-                <td className="t-title">
-                  <a href={s.url} title={rowTitle(s)}>{s.title}</a>
-                  {/* the recorded ≤2-sentence abstract — visible, not hover-only
-                      (owner, 2026-08-24): on a phone there is no hover at all. */}
-                  <span className="note">{s.summary}</span>
-                </td>
-                <td className="t-cat">
-                  {s.source === "arb-scan" ? s.geo_origin : SOURCE_LABELS[s.source] ?? s.source}
-                  {/* who asked. The Source column names where a signal came
-                      from — the country for a market scan, the feed for the
-                      rest — and for an ask that is the institution that
-                      stated it, not the site it was read off. `owner` is set
-                      on every asks row and on no other (db.py gates both
-                      directions), so this renders on exactly one ledger: same
-                      cell, same voice, the house `·` separator, no new device. */}
-                  {s.owner && ` · ${s.owner}`}
-                  {/* §7.3: the extraction value IS the review flag — an
-                      llm-fallback row is marked on the ledger for review, never
-                      silently trusted. `structured` is the default and earns no
-                      mark; a device that encodes nothing is slop. */}
-                  {s.extraction && s.extraction !== "structured" &&
-                    ` · ${s.extraction === "llm-fallback" ? "llm" : "manual"}`}
-                </td>
-                <td className="t-cat">{categoryLabel(s.sector)}</td>
-                <td className="mono">{s.geo_origin}</td>
-                <td className="t-num mono">{euro(s.money_eur)}</td>
-                <td className="t-num t-date"><time>{s.date}</time></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-
-      <Pager base={`/signals/${type}`} page={page} pages={pages} />
-
-      <footer>
-        <FooterHouseLine />
-        <br />
-        <CorrectionsLink /> · <a href="/">problem register</a>
-      </footer>
-    </>
-  );
-}
 
 /** Every ledger page there is, as `{ type, page }` params. Bottom-up: the
     `[page]` route has no layout above it that could generate `[type]`, so the
