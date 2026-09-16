@@ -1,6 +1,6 @@
 ---
 name: design-language
-description: Binding design system for localproblems.org, the modern design adopted by the owner on 2026-09-16. Use whenever generating, editing or reviewing ANY page, layout, CSS or HTML for the site (front page, row cards, problem record pages, How it works, category and signals pages, the 404). One font (Inter), a gray ramp, three colours that each mean one thing, quiet motion, native popovers plus one sanctioned hover script. Guards against generic SaaS design. Exact values live in web/app/lab/modern/DESIGN.md and the page CSS; this file carries the rules and the reasons behind them.
+description: Binding design system for localproblems.org, the modern design adopted by the owner on 2026-09-16. Use whenever generating, editing or reviewing ANY page, layout, CSS or HTML for the site (front page, row cards, problem record pages, How it works, category and signals pages, the 404). One font (Inter), a gray ramp, three colours that each mean one thing, quiet motion, native popovers plus one sanctioned hover script. Guards against generic SaaS design. Exact values live in web/app/(site)/DESIGN.md and the page CSS; this file carries the rules and the reasons behind them.
 ---
 
 # The localproblems.org design language (modern)
@@ -8,14 +8,10 @@ description: Binding design system for localproblems.org, the modern design adop
 **Adopted 2026-09-16 by owner decision.** It replaces the gazette design, which is
 archived unchanged at `skills/design-language-gazette-archive/`.
 
-> **Migration in progress.** The modern pages still live under `/lab/modern` and are
-> not yet in production. The live routes (`/`, `/problem/…`, `/category/…`,
-> `/signals/…`, `/about`, 404) are still gazette pages. **The gazette stylesheet
-> `assets/style.css` in this directory and its live copy `web/shared.css` stay
-> exactly where they are, byte-identical, until the migration removes the live
-> gazette routes.** The `check-css` gate still asserts that equality. Never edit,
-> move or delete either file outside that migration step. Checklist:
-> `docs/modern-migration.md`.
+> **Live since the migration of 2026-09-16.** The modern pages are the public routes
+> (`/`, `/by-category`, `/problem/…`, `/category/…`, `/signals/…`, `/how-it-works`,
+> the 404). The gazette stylesheet `assets/style.css` and its copy `web/shared.css`
+> remain only for the private `/sources` admin page; `check-css` still locks the pair.
 
 ## Why this file exists
 
@@ -37,13 +33,13 @@ a number drift apart.
 
 | What | Source of exact values |
 |---|---|
-| Front page, top bar, country selector, row card, meter, category icons, motion | `web/app/lab/modern/DESIGN.md` (owner-approved rule by rule, 2026-09-16) |
-| Gray ramp, type scale, 4px grid, radius, popover shadow | `web/app/lab/tokens.css` (the `--l-*` tokens) |
-| Front-page contrast override, wash insets | `web/app/lab/modern/front.css` |
-| Record page tokens (semantic hues, measure, rail width, section gap), phone rules | `web/app/lab/modern/problem.css` |
-| Figures | `web/app/lab/parts/figures/kit/` (`index.ts` names each slot and width; `kit.css`) |
+| Front page, top bar, country selector, row card, meter, category icons, motion, the compact signal ledger | `web/app/(site)/DESIGN.md` (owner-approved rule by rule, 2026-09-16) |
+| Gray ramp, type scale, 4px grid, radius, popover shadow | `assets/tokens.css` in this skill, copied verbatim to `web/app/(site)/styles/tokens.css` (the `--l-*` tokens) |
+| Front-page contrast override, wash insets | `web/app/(site)/styles/front.css` |
+| Record page tokens (semantic hues, measure, rail width, section gap), phone rules | `web/app/(site)/styles/problem.css` |
+| Figures | `web/lib/figures/` (`index.ts` names each slot and width) and `web/app/(site)/styles/kit.css` |
 
-These paths move during the migration (`docs/modern-migration.md` step 3). Change a
+Change a
 value in the CSS and in `DESIGN.md` **together**.
 
 ## 1. Principles
@@ -62,7 +58,8 @@ value in the CSS and in `DESIGN.md` **together**.
 
 ## 2. Type
 
-- **One family: Inter** (400 / 500 / 600), with `font-feature-settings: "cv11"` on
+- **One family: Inter** (400 / 500 / 600), self-hosted through `next/font` in the
+  root layout (no request to Google from a reader's browser), with `font-feature-settings: "cv11"` on
   the record page. There is no serif and no mono. Figures use
   `font-variant-numeric: tabular-nums` so they line up; they don't switch face.
 - **Exactly three text styles on a row card** (owner: *"there's just too many text
@@ -390,8 +387,8 @@ Rules for all of it:
 15. NEVER a text gray under 4.5:1 on its ground. `--l-text-4` is for non-text only.
 16. NEVER restate SCORING.md or CONVENTIONS.md vocabulary in different words, and
     never add a rung, band or gate the rubric doesn't have.
-17. NEVER edit `assets/style.css` or `web/shared.css` during a content run or a page
-    build. They are the frozen gazette stylesheet until the migration deletes them.
+17. NEVER edit `assets/style.css` or `web/shared.css`. They are the frozen gazette
+    stylesheet, kept only for the private `/sources` page.
 
 ## 11. Not yet ruled: settle these in the migration
 
@@ -404,8 +401,6 @@ into the sections above and delete the bullet.
 - **Print:** the modern CSS has no `@media print`, and a printed record carries no
   sources (audit B12). Whether "photocopies beautifully" survives is an open owner
   question.
-- **Sources anchors and ledger:** sources render only inside the drawer, with no
-  `id="sN"`, no `#sources` and no `#how-big` (audit B5, B6).
 - **Record head vs row card:** the record head renders `brief` and `good_for` as
   dotted bullets with an inline "Good for:" label. The row card rule (labels on their
   own line, no colons, no bullets) doesn't hold there yet.
@@ -416,20 +411,21 @@ into the sections above and delete the bullet.
   from an unpainted state, which conflicts with §8.
 - **Record content cuts** (audit D9): `entry.why`, the gates list, the comps ledger
   links, the whenline, past urgency receipts, the corrections link.
-- **404, signals ledgers, category pages:** no modern version yet (audit B4, B8).
 
 ## 12. Implementation
 
-- **Modern CSS:** `tokens.css` (the `--l-*` tokens) plus per-page `front.css`,
-  `problem.css`, `how-it-works.css` and the kit's `kit.css`. Selectors are
-  prefixed per page (`lf-`, `ls-`, `lh-`, `lk-`).
-  - The migration plans to make `tokens.css` an asset of this skill, checksum-locked
-    like the gazette sheet was.
-  - Until then no gate checks modern CSS, so these rules are enforced only by prose.
-    That is exactly the failure CLAUDE.md rule 2 warns about, and the migration adds
-    the invariants.
+- **Modern CSS:** `assets/tokens.css` (the `--l-*` tokens), copied verbatim to
+  `web/app/(site)/styles/tokens.css` and locked by `web/scripts/check-css.mjs`:
+  edit the asset, then copy it. The per-page sheets in `web/app/(site)/styles/`
+  (`front.css`, `problem.css`, `signals.css`, `category.css`, `how-it-works.css`,
+  `not-found.css`, `kit.css`) are not locked; their rules live here and in
+  `web/app/(site)/DESIGN.md`. Selectors are prefixed per page (`lf-`, `ls-`,
+  `lg-`, `lc-`, `lh-`, `lk-`, `lnf-`).
+- **Static contract:** `web/scripts/check-site.mjs` fails the build on
+  `searchParams`/`cookies(`/`headers(`, a `"use client"` outside its allow-list,
+  `href="/lab/`, a rejected record's page, and a record page without `id="sN"`.
 - **Gazette CSS:** `assets/style.css` = `web/shared.css`, locked by
-  `web/scripts/check-css.mjs`. It stays until the live gazette routes are gone.
+  `web/scripts/check-css.mjs`. It stays while the private `/sources` page uses it.
 - **Verify every page change** with screenshots at 1440 and 375 on real data (both
   groupings, several records, one long title), with scripts stripped once, and
   against the NEVER list.

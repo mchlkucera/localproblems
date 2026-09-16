@@ -6,6 +6,14 @@ live site?" (blockers B1–B14, decisions D1–D12, migration plan). This file i
 agent that moves the routes and reworks the gates. Tick boxes as you go, and put the
 commit hash beside each finished step.*
 
+> **Status, 2026-09-16 (branch `modern-migration`):** steps 3–7 are done — route
+> groups, the move to the public URLs (D3 = ported, D5 = 12 category pages, D7 = 404,
+> D4 = redirect, D12 = `next/font`), `check-site` (source + HTML halves, each proven to
+> fail), the reworked `check-css` (tokens locked; gazette clause kept for `/sources`),
+> and parity green with the modern pages in the build. Step 8 (deleting the gazette
+> stylesheet) waits on `/sources`. Print styles and the rest of step 1's blockers
+> (B13 record contrast/keyboard, D9 content cuts) were not part of this pass.
+
 Rules that still apply throughout:
 - **Never** run `next build` alongside a running dev server.
 - **Never** deploy any way other than CLAUDE.md's prebuilt `--archive=tgz` recipe.

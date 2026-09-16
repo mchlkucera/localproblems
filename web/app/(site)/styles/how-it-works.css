@@ -1,0 +1,81 @@
+/* /how-it-works — one reading column in the front page's design.
+   Builds on ../../tokens.css and ../front.css (the bar, the footer, the Venn);
+   everything here is scoped under .lh. The front page's type, no new style:
+     page title   28 / 1.2 · 600 · --l-text-1   (the front page's h1)
+     heading      18 / 26  · 500 · --l-text-1   (the row title)
+     body         15 / 24  · 400 · --l-text-2   (the row's story and solution)
+   One left content edge: the title, the headings, the words, the list and the
+   figure all start where the bar's brand does; only list items step in, 18px,
+   behind their dots. */
+
+.lh-doc {
+  max-width: 64ch;
+  padding: 96px 0 var(--l-8);
+  font-size: 15px; line-height: 24px; color: var(--l-text-2);
+}
+
+.lh-head { padding-bottom: 56px; }
+.lh-head h1 {
+  font-size: var(--l-fs-2xl); line-height: 1.2; font-weight: 600; letter-spacing: -0.022em;
+  color: var(--l-text-1); text-wrap: balance;
+}
+
+/* a section is a ruled block, as a front-page row is: the first under the
+   darker rule, the rest under the hairline */
+.lh-sec { padding: 36px 0 40px; border-top: 1px solid var(--l-line); }
+.lh-head + .lh-sec { border-top-color: var(--l-line-2); }
+.lh .lh-sec h2 {
+  font-size: 18px; line-height: 26px; font-weight: 500; letter-spacing: -0.011em;
+  color: var(--l-text-1); text-wrap: balance;
+}
+.lh .lh-sec p, .lh .lh-list li { text-wrap: pretty; }
+.lh .lh-sec h2 + * { margin-top: 10px; }
+.lh .lh-sec p + .lh-list { margin-top: 16px; }
+
+/* lists: a small solid dot in the meta gray (owner, 2026-09-16: "Add bullets
+   to the 'what's"). A SLIGHT INDENT, not a hanging dot: the front page dropped
+   hanging dots because they sat in the phone gutter and read as overflow, so
+   the dot stays inside the column and the item's lines share one edge 18px in.
+   The dot is centred on the first line (24px line box). Items sit closer to
+   each other (8px) than the list sits to its lead-in (16px) */
+.lh .lh-list { list-style: none; padding: 0; }
+.lh .lh-list li { position: relative; padding-left: 18px; }
+.lh .lh-list li::before {
+  content: ""; position: absolute; left: 3px; top: 10px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--l-text-4);
+}
+.lh .lh-list li + li { margin-top: 8px; }
+/* the "Why" items are paragraphs, not a group: a paragraph's gap */
+.lh .lh-list--paras li + li { margin-top: 14px; }
+/* keep "↗" and the punctuation after a link on the link's line */
+.lh-nw { white-space: nowrap; }
+
+/* links out (owner, 2026-09-16: "Make sure (mikeoxhard.com↗) is thinly
+   underlined"): a 1px underline at rest, 3px under the text, in the ramp's
+   light gray; hover darkens it one step, still 1px. Gray to gray, never to or
+   from transparent. The ↗ is inside the link and inline, so the one thin line
+   runs under the name and the arrow alike */
+.lh .lh-out {
+  color: var(--l-text-1);
+  text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+  text-decoration-color: var(--l-text-4);
+  transition: text-decoration-color .15s ease-out;
+}
+.lh .lh-out:hover { text-decoration-color: var(--l-text-2); }
+/* ↗ = another site (the record page's rule); a narrow no-break space ties it
+   to the name */
+.lh-ext { font-size: .86em; color: var(--l-text-3); transition: color .15s ease-out; }
+.lh-out:hover .lh-ext { color: var(--l-text-1); }
+
+/* the figure under the three conditions it draws; its hover card hangs below
+   and lies over the next section, as on the front page */
+.lh .lh-venn { margin-top: 40px; }
+
+@media (max-width: 720px) {
+  .lh-doc { padding: 56px 0 var(--l-7); }
+  .lh-head { padding-bottom: 40px; }
+  .lh-head h1 { font-size: 26px; }
+  .lh .lh-sec h2 { font-size: 17px; line-height: 24px; }
+  .lh-sec { padding: 28px 0 32px; }
+  .lh .lh-venn { margin-top: 32px; }
+}
