@@ -1,76 +1,114 @@
-/* /signals — the ledger pages. Builds on ./front.css (the bar, the
-   rail grid `.lf-sec`, the footer) and ../../tokens.css; everything new is
-   scoped under .lg. A ledger row is three text styles, stepped down from the
-   row card: title 15/24 500 · summary 13/20 · meta 12. */
+/* /signals — the ledger pages. Builds on ./front.css (the bar, the page wrap,
+   the footer) and ./tokens.css; everything new is scoped under .lg.
+
+   A COMPACT LEDGER (owner, 2026-09-16: "less negative space, more cramped, fit
+   more on the page … Love the blue"). Data-dense pages are the one place the
+   design trades air for rows: one 34px line per signal (about 24 rows in a
+   1440×900 window), fixed meta columns, a slim sticky month line. The front
+   page and the record keep their air. Type: title 14/20 500 ink blue · meta
+   12/20 · summary 13/20. */
 
 .lg {
   --lg-ink: #3d5a96;   /* ink blue: a source you can open (design-language §3) */
+  /* title · source · sector · origin · value · date; the caret sits in the
+     28px kept clear on the right */
+  --lg-cols: minmax(0, 1fr) 200px 104px 84px 64px 84px;
+  --lg-caret: 28px;
 }
 
 /* ---- header: the ledger's name and its one paragraph ---------------------------- */
-.lg-head { padding: 72px 0 48px; }
+.lg-head { padding: 40px 0 20px; }
 .lg-head h1 {
   font-size: var(--l-fs-2xl); line-height: 1.2; font-weight: 600; letter-spacing: -0.022em;
   color: var(--l-text-1);
 }
 .lf .lg-lede {
-  margin-top: var(--l-3); max-width: 64ch;
-  font-size: var(--l-fs-lg); line-height: 1.55; color: var(--l-text-2); text-wrap: pretty;
+  margin-top: var(--l-2); max-width: 80ch;
+  font-size: var(--l-fs-base); line-height: 22px; color: var(--l-text-2); text-wrap: pretty;
 }
 
 /* ---- the six ledgers, as the front page's tabs ---------------------------------- */
 .lg-tabs {
   display: flex; flex-wrap: wrap; column-gap: var(--l-4); row-gap: var(--l-1);
-  margin-bottom: var(--l-3);
+  margin-bottom: var(--l-4);
   font-size: var(--l-fs-md); line-height: 24px;
 }
 .lg-tabs a { font-weight: 500; color: var(--l-text-3); text-underline-offset: 6px; text-decoration-thickness: 1px; }
 .lg-tabs a:hover { color: var(--l-text-1); }
 .lg-tabs a[aria-current="page"] { color: var(--l-text-1); text-decoration-line: underline; }
 
-/* ---- a month: the rail label beside its rows ------------------------------------- */
-/* the row's 20px top padding + 1: the 13px label's cap height starts on the
-   first 15px title's */
-.lg .lg-sec .lf-sec-h { margin-top: 21px; }
+/* ---- the column heads: once, over the first month -------------------------------- */
+.lg-cols {
+  display: grid; grid-template-columns: var(--lg-cols); column-gap: var(--l-4);
+  padding: 0 var(--lg-caret) 6px 0;
+  border-bottom: 1px solid var(--l-line-2);
+  font-size: var(--l-fs-sm); line-height: 16px; font-weight: 500; color: var(--l-text-3);
+}
+
+/* ---- a month: a slim line that sticks under the bar while its rows pass ---------- */
+.lg-month {
+  position: sticky; top: var(--lf-bar-h); z-index: 2;
+  display: flex; align-items: baseline; gap: var(--l-2);
+  padding: 8px 0 3px;
+  background: var(--l-bg);            /* painted, so rows never show through */
+  border-bottom: 1px solid var(--l-line);
+}
+.lf .lg-month h2 { font-size: var(--l-fs-sm); line-height: 18px; font-weight: 600; color: var(--l-text-1); }
+.lf .lg-month p { font-size: var(--l-fs-sm); line-height: 18px; color: var(--l-text-3); font-variant-numeric: tabular-nums; }
+
 .lf .lg-rows { list-style: none; padding: 0; }
 
 .lg-row {
   position: relative; z-index: 0;
-  padding: 20px 0 22px;
-  /* a deep link lands under the sticky bar, not behind it */
-  scroll-margin-top: calc(var(--lf-bar-h) + var(--l-4));
+  /* a deep link lands under the bar and the month line, not behind them */
+  scroll-margin-top: calc(var(--lf-bar-h) + 40px);
 }
 .lg-row + .lg-row { border-top: 1px solid var(--l-line); }
-/* the wash marks the row a link landed on. It is always painted; only its
-   opacity changes (design-language §8) */
+/* the wash: under the pointer, and on the row a link landed on. It is always
+   painted; only its opacity changes, instantly (design-language §8) */
 .lg-row::before {
   content: ""; position: absolute; z-index: -1;
-  inset: 4px calc(var(--lf-wash-r) * -1) 4px calc(var(--lf-wash-l) * -1);
-  border-radius: 8px; background-color: #f6f6f8;
+  inset: 0 -8px;
+  border-radius: var(--l-radius); background-color: #f6f6f8;
   opacity: 0;
 }
-.lg-row:target::before { opacity: 1; }
+.lg-row:hover::before, .lg-row:target::before { opacity: 1; }
 
+.lg-line {
+  display: grid; grid-template-columns: var(--lg-cols); column-gap: var(--l-4); align-items: baseline;
+  padding: 7px var(--lg-caret) 7px 0;
+}
 .lf .lg-title {
-  max-width: var(--lf-measure);
-  font-size: 15px; line-height: 24px; font-weight: 500; letter-spacing: -0.006em;
-  color: var(--lg-ink); text-wrap: pretty;
-  overflow-wrap: anywhere;
+  min-width: 0;
+  font-size: var(--l-fs-base); line-height: 20px; font-weight: 500; letter-spacing: -0.003em;
+  color: var(--lg-ink);
 }
-.lg-title a { text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.lg-title a { display: inline-flex; max-width: 100%; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
 .lg-title a:hover { text-decoration-line: underline; }
-.lg-ext { white-space: nowrap; }
+.lg-t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lg-ext { flex: none; white-space: pre; }
 
-.lf .lg-sum {
-  margin-top: 2px; max-width: var(--lf-measure);
-  font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-2); text-wrap: pretty;
-  overflow-wrap: anywhere;
+.lg-c {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: var(--l-fs-sm); line-height: 20px; color: var(--l-text-3); font-variant-numeric: tabular-nums;
 }
-.lf .lg-meta {
-  display: flex; flex-wrap: wrap; column-gap: var(--l-4); row-gap: 2px;
-  margin-top: var(--l-2);
-  font-size: var(--l-fs-sm); line-height: 18px; color: var(--l-text-3); font-variant-numeric: tabular-nums;
+.lg-c-val, .lg-c-date { text-align: right; }
+
+/* ---- the summary: one native disclosure per row, its caret at the line's end ------ */
+.lg-more > summary {
+  position: absolute; top: 7px; right: 0;
+  display: grid; place-items: center; width: 20px; height: 20px;
+  border-radius: var(--l-radius-sm);
+  list-style: none; cursor: pointer; color: var(--l-text-3);
 }
+.lg-more > summary::-webkit-details-marker { display: none; }
+.lg-more > summary:hover { color: var(--l-text-1); }
+.lg-more > summary:focus-visible { outline: 2px solid var(--l-text-1); outline-offset: 1px; }
+.lg-caret { display: block; }
+.lg-more[open] .lg-caret { transform: rotate(180deg); }
+.lf .lg-sum { max-width: 80ch; padding: 0 var(--lg-caret) 10px 0; }
+.lf .lg-sum p { font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-2); text-wrap: pretty; overflow-wrap: anywhere; }
+.lf .lg-sum .lg-quote { margin-top: 4px; color: var(--l-text-3); }
 
 /* ---- the honest empty state ------------------------------------------------------ */
 .lf .lg-empty {
@@ -82,7 +120,7 @@
 .lg-pager {
   /* three columns, so the numbers sit on the page's centre whatever the widths */
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: var(--l-4);
-  margin-top: var(--l-6); padding-top: var(--l-5);
+  margin-top: var(--l-5); padding-top: var(--l-4);
   border-top: 1px solid var(--l-line-2);
   font-size: var(--l-fs-md); line-height: 20px; font-variant-numeric: tabular-nums;
 }
@@ -100,13 +138,26 @@ a.lg-step:hover { color: var(--l-text-1); }
 .lg-gap { padding: 0 4px; color: var(--l-text-3); }
 .lg-pos { display: none; color: var(--l-text-3); }
 
+/* ---- tablet: the origin column goes; its country is rarely the news ------------- */
+@media (max-width: 1000px) {
+  .lg { --lg-cols: minmax(0, 1fr) 172px 96px 60px 84px; }
+  .lg-c-geo, .lg-cols > span:nth-child(4) { display: none; }
+}
+
+/* ---- phone: two lines, the title then the meta; no column heads ----------------- */
 @media (max-width: 720px) {
-  .lg-head { padding: 48px 0 32px; }
+  .lg-head { padding: 28px 0 16px; }
   .lg-head h1 { font-size: 26px; }
-  /* one column: the month heads its rows, as the band does on the front page */
-  .lg .lg-sec .lf-sec-h { margin: 0; padding-top: 20px; }
-  .lg-row { padding: 16px 0 18px; }
+  .lg-cols { display: none; }
+  .lg-line { display: flex; flex-wrap: wrap; column-gap: 10px; padding: 8px var(--lg-caret) 8px 0; }
+  .lf .lg-title { flex: 1 0 100%; }
+  /* up to two lines of title, then an ellipsis */
+  .lg-title a { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+  .lg-t { white-space: normal; overflow: visible; }
+  .lg-c { line-height: 18px; }
+  .lg-c-sec, .lg-c-geo, .lg-c:empty { display: none; }
+  .lg-c-src { max-width: 60%; }
+  .lg-more > summary { top: 8px; }
   .lf .lg-pages { display: none; }
   .lf .lg-pos { display: inline; }
-
 }

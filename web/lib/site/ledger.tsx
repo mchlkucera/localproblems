@@ -1,23 +1,27 @@
-// /signals — one evidence ledger, one page of it, in the modern
-// design. The port of lib/ledger.tsx (the live `/signals/[type]` pages): the
-// SAME data (`ledgerRows`, `ledgerPages`), the same 100-row pages
-// (`LEDGER_PAGE_SIZE`), the same one-paragraph description per type
-// (`DESCRIPTIONS`, imported, never restated), the same row anchors (each row's
-// id IS its signal id, because `signalHref` deep links land on it) and the same
-// honest empty state. Only the design differs.
+// /signals — one evidence ledger, one page of it, in the modern design: the
+// SAME data as the retired gazette ledger (`ledgerRows`, `ledgerPages`), the
+// same 100-row pages (`LEDGER_PAGE_SIZE`), the same one-paragraph description
+// per type (`DESCRIPTIONS`, imported, never restated), the same row anchors
+// (each row's id IS its signal id, because `signalHref` deep links land on it)
+// and the same honest empty state.
 //
-// DESIGN: the front page's grid (app/(site)/styles/front.css). The rail names the month the
-// rows below it were dated in, sticky while they scroll past; the column is a
-// ruled list, newest first. A row is three text styles, stepped down for a
-// ledger (design-language §2: "rail and ledger text step down to the 13px and
-// 12px tokens"): the title 15/24 500, the summary 13/20, one meta line 12px.
-// The title is the source and leaves the site, so it is ink blue and ends in ↗
-// (§3, §10.12). No table, so nothing scrolls sideways on a phone.
+// DESIGN: A COMPACT LEDGER (owner, 2026-09-16: "less negative space, more
+// cramped, fit more on the page, more compact. Love the blue you've chosen").
+// The front page and the record stay airy; a ledger is data, read by scanning.
+// - One line per row: the title (ink blue, a source you can open, ending in
+//   ↗; §3, §10.12) truncates with an ellipsis and carries its full text in
+//   the native `title`; then Source · Sector · Origin · Value · Date in fixed
+//   columns, so the eye runs down each one.
+// - The summary is one native `<details>` away (the caret at the row's end):
+//   readable on click, tap or Enter, never only on hover, no script.
+// - The month is a slim sticky subheader, not a rail block.
+// - Phone: two lines, the title then the meta, still one tap from the summary.
+//   No table, so nothing scrolls sideways.
 //
-// ONE ORDER, NO SORT SCRIPT, for the reason lib/ledger.tsx gives: a page holds
-// 100 of thousands of rows, and a client sort over the slice would look like a
-// sort of the ledger. The order (date, newest first) is stated for assistive
-// tech; the dates show it to everyone else.
+// ONE ORDER, NO SORT SCRIPT: a page holds 100 of thousands of rows, and a
+// client sort over the slice would look like a sort of the ledger. The order
+// (date, newest first) is stated for assistive tech; the dates show it to
+// everyone else.
 import type { Metadata } from "next";
 import {
   EVIDENCE_TYPES, extractDate, ledgerPages, ledgerRows,
@@ -84,25 +88,42 @@ function extraction(s: Signal): string | null {
 
 function Row({ s }: { s: Signal }) {
   const flag = extraction(s);
+  const from = origin(s);
+  const tid = `${s.id}-t`;
   return (
     <li className="lg-row" id={s.id}>
-      <h3 className="lg-title">
-        {/* the verbatim quote rides in the native title, as on the live ledger */}
-        <a href={s.url} target="_blank" rel="noopener noreferrer" title={s.quote ? `“${s.quote}”` : undefined}>
-          {s.title}
-          <span className="lg-ext" aria-hidden="true">{" ↗"}</span>
-          <span className="lf-sr"> (another site)</span>
-        </a>
-      </h3>
-      <p className="lg-sum">{s.summary}</p>
-      <p className="lg-meta">
-        <time dateTime={s.date}>{fmtDate(s.date)}</time>
-        <span>{origin(s)}</span>
-        <span>{categoryLabel(s.sector)}</span>
-        {s.source !== "arb-scan" && <span>{countryName(s.geo_origin)}</span>}
-        {s.money_eur != null && <span>{euro(s.money_eur)}</span>}
-        {flag && <span>{flag}</span>}
-      </p>
+      <div className="lg-line">
+        <h3 className="lg-title" id={tid}>
+          {/* the full title rides in the native title, as the verbatim quote
+              did on the gazette ledger; the quote now opens with the summary */}
+          <a href={s.url} target="_blank" rel="noopener noreferrer" title={s.title}>
+            <span className="lg-t">{s.title}</span>
+            <span className="lg-ext" aria-hidden="true">{" ↗"}</span>
+            <span className="lf-sr"> (another site)</span>
+          </a>
+        </h3>
+        <span className="lg-c lg-c-src" title={flag ? `${from} · ${flag}` : from}>
+          <span className="lf-sr">Source: </span>{from}{flag && <span className="lg-flag"> · {flag}</span>}
+        </span>
+        <span className="lg-c lg-c-sec"><span className="lf-sr">Sector: </span>{categoryLabel(s.sector)}</span>
+        <span className="lg-c lg-c-geo">
+          {s.source !== "arb-scan" && <><span className="lf-sr">Origin: </span>{countryName(s.geo_origin)}</>}
+        </span>
+        <span className="lg-c lg-c-val">{s.money_eur != null && <><span className="lf-sr">Value: </span>{euro(s.money_eur)}</>}</span>
+        <span className="lg-c lg-c-date"><time dateTime={s.date}>{fmtDate(s.date)}</time></span>
+      </div>
+      <details className="lg-more">
+        <summary aria-describedby={tid}>
+          <span className="lf-sr">Summary</span>
+          <svg className="lg-caret" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" aria-hidden="true">
+            <path d="M4.5 6h7L8 10.5Z" />
+          </svg>
+        </summary>
+        <div className="lg-sum">
+          <p>{s.summary}</p>
+          {s.quote && <p className="lg-quote">“{s.quote}”</p>}
+        </div>
+      </details>
     </li>
   );
 }
@@ -191,9 +212,13 @@ export function LedgerPage({ type, page }: { type: EvidenceType; page: number })
             <p className="lf-sr">
               Sorted by date, newest first{pages > 1 && `, page ${page} of ${pages}`}.
             </p>
+            <div className="lg-cols" aria-hidden="true">
+              <span>Signal</span><span>Source</span><span>Sector</span><span>Origin</span>
+              <span className="lg-c-val">Value</span><span className="lg-c-date">Date</span>
+            </div>
             {byMonth(rows).map((g) => (
-              <section key={g.key} className="lf-sec lg-sec" aria-labelledby={`m-${g.key}`}>
-                <header className="lf-sec-h">
+              <section key={g.key} className="lg-sec" aria-labelledby={`m-${g.key}`}>
+                <header className="lg-month">
                   <h2 id={`m-${g.key}`}>{g.label}</h2>
                   {/* a count of the rows beside it, never of the month: a
                       month can run on across a page break */}

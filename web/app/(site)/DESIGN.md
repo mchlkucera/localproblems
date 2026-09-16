@@ -1,13 +1,14 @@
-# /lab/modern — front page and row card rulebook
+# The site — front page, row card and ledger rulebook
 
-The rules that shaped `front.tsx` + `front.css`. Each line: the rule, its value,
+The rules that shaped `lib/site/front.tsx` + `styles/front.css` (and, for the
+ledgers, `lib/site/ledger.tsx` + `styles/signals.css`). Each line: the rule, its value,
 and (in quotes) the owner correction that produced it, where there was one.
-Tokens (`--l-*`) come from `../tokens.css`, except the contrast override below.
+Tokens (`--l-*`) come from `styles/tokens.css`, except the contrast override below.
 Change a value here and in the CSS together.
 
 ## Routes and metadata
 - Two STATIC routes share one component (`front.tsx` `FrontPage`):
-  `/lab/modern` (by opportunity, `page.tsx`) and `/lab/modern/by-category`
+  `/` (by opportunity, `page.tsx`) and `/by-category`
   (`by-category/page.tsx`). No page reads `searchParams`, `cookies()` or
   `headers()`: a query string would make the route dynamic (audit B1).
 - Titles end "— localproblems.org", never "lab": front "Czech problems worth
@@ -41,10 +42,10 @@ Change a value here and in the CSS together.
   then Problems · Signals · How it works on the right.
 
 ## Top bar
-- "How it works", not "About", linking to `/lab/modern/how-it-works` (built
-  separately in `./how-it-works/`). ("rename About to How it works")
-- Links: Problems `/lab/modern` · Signals `/lab/modern/signals/funded` · How
-  it works `/lab/modern/how-it-works`.
+- "How it works", not "About", linking to `/how-it-works` (built
+  separately in `./how-it-works/`; `/about` redirects there). ("rename About to How it works")
+- Links: Problems `/` · Signals `/signals/funded` · How it works
+  `/how-it-works`.
 - One bar for every modern page: `<TopBar current="problems" | "signals" |
   "how-it-works" />` from `bar.tsx` (omit `current` on the 404); the current
   page's link gets `aria-current="page"` (primary gray). The record page keeps
@@ -113,7 +114,7 @@ Change a value here and in the CSS together.
   on phone). ("line up 'By opportunity' to the leftmost column")
 - 13px / 500, `--l-text-3`; current one `--l-text-1` + 1px underline, offset 6px.
 - 12px above the first rule. Plain links between the two static routes
-  (`/lab/modern`, `/lab/modern/by-category`), no JS, no query string; the
+  (`/`, `/by-category`), no JS, no query string; the
   current one carries `aria-current="page"`. No deadline grouping. ("Remove
   deadline sort")
 
@@ -277,3 +278,32 @@ Change a value here and in the CSS together.
 - The meta line sits above the stretched link and is only as wide as its
   items, so the meter takes its own pointer; it is tabIndex −1, so the
   keyboard tabs title to title.
+
+## Signals ledgers: a compact ledger
+Data-dense pages trade air for rows; the front page and the record keep theirs.
+("The Signals view needs something better: less negative space, more cramped,
+fit more on the page, more compact. Love the blue you've chosen.")
+- One 34px line per signal (7px above and below a 20px line, hairline between):
+  about 24 rows in a 1440×900 window.
+- Columns, in a fixed grid so each reads down the page: title (flexible) ·
+  Source 200 · Sector 104 · Origin 84 · Value 64 (right) · Date 84 (right),
+  16px apart, 28px kept clear on the right for the summary caret. One quiet
+  column-head line (12/500, `--l-text-3`) over the first month. At ≤1000px the
+  Origin column goes.
+- Title 14/20 500 in ink blue `#3d5a96` (a source you can open), ending in ↗.
+  It truncates with an ellipsis; the full title is the link's native `title`.
+- Meta cells 12/20 `--l-text-3`, tabular figures, ellipsis. The §7.3 review
+  flag rides in the Source cell ("TED · Read by LLM").
+- The summary (and the source's own words, when ingest kept them) sits in a
+  native `<details>` whose caret is the row's last element: it opens on click,
+  tap or Enter, never on hover alone, with no script.
+- The month is a slim sticky line under the bar (12px: month 600 `--l-text-1`,
+  count `--l-text-3`), painted white with a hairline, never a rail block.
+- Row wash `#f6f6f8` under the pointer and on the `:target` row (a deep link),
+  always painted, opacity only, instant. Deep links clear the bar and the
+  month line (`scroll-margin-top`).
+- Header tightened: 40px above the title, a 14/22 description, the six tabs.
+- Phone (≤720px): no column heads; two lines per row, the title (clamped to
+  two lines) then Source · Value · Date. Sector and Origin go. No sideways scroll.
+- Unchanged: row ids (= signal ids), 100 rows per page, the pager, the honest
+  empty state.
