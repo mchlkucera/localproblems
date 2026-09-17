@@ -81,16 +81,18 @@ Change a value here and in the CSS together.
     Enter/Space open; Escape and outside click close; Tab walks into the menu.
   - Menu 248px, radius 10px, pop shadow, 4px padding; "Country" heading in
     the meta style; rows 32px: flag · name · right slot.
-  - Czechia is the one link: current, solid tick. Slovakia, Poland, Germany,
-    Austria, Hungary are listed muted with "Coming soon", not focusable, flag
-    at 70% opacity.
+  - Czechia is the one link: current, solid tick. Five "Coming soon" rows,
+    muted, not focusable, flag at 70% opacity: India, Brazil, Nigeria,
+    Ukraine, Germany — a guess at where the most motivated builders meet the
+    most problems, most likely first ("replace the mock … countries … make an
+    educated guess. Keep it 5", 2026-09-17). The reasons live in country.tsx.
   - Opens with the tooltip entrance (fade + 3px rise, 140ms), closes
     instantly; reduced motion: fade only.
 - Flags: inline SVG, 20×14, 2px radius, 0.5px hairline border (16% black) so
   white stripes read on white. Never emoji (letters on Windows), never an
   image request. Official colours; exact halves / thirds; Czechia's wedge to
-  half the length; Slovakia's arms simplified (white-edged red shield, white
-  double cross, blue hills) toward the hoist.
+  half the length; India's chakra as a navy ring and hub; Brazil's rhombus,
+  globe and white band without stars or motto.
 - Phone ≤720px: the bar's switcher reads "CZ" + caret; its menu is pinned 12px
   from the left (the heading's menu stays anchored under "Czech"); links never
   wrap. Sized for the widest pair ("Problems" + "How it works"): 6px bar gaps,

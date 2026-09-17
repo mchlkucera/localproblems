@@ -1,7 +1,22 @@
 // The country switcher in the top bar, and its flags.
 //
 // Owner, 2026-09-16: "make sure 'Czechia' in the header is a modern dropdown
-// with nice flags. Fetch some countries around Czechia for now."
+// with nice flags."
+//
+// THE FIVE "COMING SOON" (owner, 2026-09-17: "replace the mock … countries
+// with countries that you guess have the most builders who are motivated to
+// build stuff and problems to be addressed … keep it 5"). An educated guess,
+// most likely first, not a roadmap:
+//   India   — the world's largest and fastest-growing developer population, and
+//             public services, health and SME tooling far behind its demand.
+//   Brazil  — Latin America's biggest startup scene, notorious tax and
+//             paperwork burden, and a lot of open procurement data.
+//   Nigeria — Africa's most active builder and fintech scene, working around
+//             missing payments, power and logistics infrastructure.
+//   Ukraine — a deep engineering bench rebuilding a country, with EU accession
+//             and reconstruction money pushing buyers to act.
+//   Germany — Europe's largest pool of engineers beside one of its slowest
+//             public and SME digitisation records; EU evidence like Czechia's.
 //
 // TWO TRIGGERS, ONE MENU (owner, 2026-09-16): the top bar's text button
 // ("Czechia", "CZ" on a phone — no flag: "hide the flag in the currently
@@ -15,16 +30,18 @@
 // Escape and an outside click close it, and Tab moves from the button into
 // the menu — all from the platform. Only Czechia has data: it is the one
 // link, marked current; the neighbours are listed, muted and not focusable,
-// as "Coming soon" (the live site's region line says the same).
+// as "Coming soon".
 //
 // FLAGS ARE INLINE SVG, never emoji (Windows renders those as two letters) and
 // never an image request. Every flag is drawn in one 20×14 box, clipped to a
 // 2px radius by CSS, with a hairline inset border so a white stripe still
 // reads on a white menu. Colours are the official ones; stripes are exact
-// halves or thirds of the box; Czechia's wedge reaches half the length.
+// halves or thirds of the box; Czechia's wedge reaches half the length. At
+// 20×14 India's 24-spoke chakra is a ring and hub, and Brazil keeps its
+// rhombus, globe and white band but not the stars or motto.
 import type { CSSProperties, ReactNode } from "react";
 
-type Code = "cz" | "de" | "pl" | "sk" | "at" | "hu";
+type Code = "cz" | "in" | "br" | "ng" | "ua" | "de";
 
 const W = 20;
 const H = 14;
@@ -32,6 +49,14 @@ const third = H / 3;
 
 /** The hairline that keeps white stripes visible on white. */
 const Edge = () => <rect x=".25" y=".25" width={W - 0.5} height={H - 0.5} rx="1.75" fill="none" stroke="#000" strokeOpacity=".16" strokeWidth=".5" />;
+
+const vstripes3 = (a: string, b: string, c: string) => (
+  <>
+    <rect width={W / 3} height={H} fill={a} />
+    <rect x={W / 3} width={W / 3} height={H} fill={b} />
+    <rect x={(W / 3) * 2} width={W / 3} height={H} fill={c} />
+  </>
+);
 
 const stripes3 = (a: string, b: string, c: string) => (
   <>
@@ -50,27 +75,33 @@ const FLAG_ART: Record<Code, ReactNode> = {
       <path d={`M0 0L${W / 2} ${H / 2}L0 ${H}Z`} fill="#11457E" />
     </>
   ),
+  // saffron, white, green thirds; the navy chakra as a ring and hub
+  in: (
+    <>
+      {stripes3("#FF671F", "#fff", "#046A38")}
+      <circle cx={W / 2} cy={H / 2} r="1.95" fill="none" stroke="#06038D" strokeWidth=".45" />
+      <circle cx={W / 2} cy={H / 2} r=".45" fill="#06038D" />
+    </>
+  ),
+  // green field, yellow rhombus, blue globe crossed by a white band
+  br: (
+    <>
+      <rect width={W} height={H} fill="#009C3B" />
+      <path d={`M1.7 ${H / 2}L${W / 2} 1.2L18.3 ${H / 2}L${W / 2} 12.8Z`} fill="#FFDF00" />
+      <circle cx={W / 2} cy={H / 2} r="3.5" fill="#002776" />
+      <path d="M6.55 6.4Q10 5.3 13.45 7.55" fill="none" stroke="#fff" strokeWidth=".6" />
+    </>
+  ),
+  // green, white, green, vertical thirds
+  ng: vstripes3("#008751", "#fff", "#008751"),
+  // blue over yellow
+  ua: (
+    <>
+      <rect width={W} height={H / 2} fill="#0057B7" />
+      <rect y={H / 2} width={W} height={H / 2} fill="#FFD700" />
+    </>
+  ),
   de: stripes3("#000", "#DD0000", "#FFCE00"),
-  // white over red
-  pl: (
-    <>
-      <rect width={W} height={H / 2} fill="#fff" />
-      <rect y={H / 2} width={W} height={H / 2} fill="#DC143C" />
-    </>
-  ),
-  // white, blue, red thirds; the arms toward the hoist, centred on the flag's
-  // height: a white-edged red shield, the white double cross on three blue hills
-  sk: (
-    <>
-      {stripes3("#fff", "#0B4EA2", "#EE1C25")}
-      <path d="M3.9 3H10.1V7.6C10.1 9.9 8.7 11.1 7 11.9C5.3 11.1 3.9 9.9 3.9 7.6Z" fill="#fff" />
-      <path d="M4.45 3.55H9.55V7.6C9.55 9.55 8.35 10.6 7 11.3C5.65 10.6 4.45 9.55 4.45 7.6Z" fill="#EE1C25" />
-      <path d="M6.65 4.2H7.35V5.2H8.3V5.8H7.35V6.6H8.75V7.25H7.35V9.2H6.65V7.25H5.25V6.6H6.65V5.8H5.7V5.2H6.65Z" fill="#fff" />
-      <path d="M4.75 9.35C5.25 8.7 5.95 8.65 6.4 9.15C6.75 8.5 7.25 8.5 7.6 9.15C8.05 8.65 8.75 8.7 9.25 9.35C8.85 10.2 8.1 10.8 7 11.3C5.9 10.8 5.15 10.2 4.75 9.35Z" fill="#0B4EA2" />
-    </>
-  ),
-  at: stripes3("#C8102E", "#fff", "#C8102E"),
-  hu: stripes3("#CD2A3E", "#fff", "#436F4D"),
 };
 
 export function Flag({ code }: { code: Code }) {
@@ -86,11 +117,11 @@ export function Flag({ code }: { code: Code }) {
     ("Czech problems worth solving"). The menu always lists country names. */
 const COUNTRIES: { code: Code; name: string; short: string; adjective: string; live: boolean }[] = [
   { code: "cz", name: "Czechia", short: "CZ", adjective: "Czech", live: true },
-  { code: "sk", name: "Slovakia", short: "SK", adjective: "Slovak", live: false },
-  { code: "pl", name: "Poland", short: "PL", adjective: "Polish", live: false },
+  { code: "in", name: "India", short: "IN", adjective: "Indian", live: false },
+  { code: "br", name: "Brazil", short: "BR", adjective: "Brazilian", live: false },
+  { code: "ng", name: "Nigeria", short: "NG", adjective: "Nigerian", live: false },
+  { code: "ua", name: "Ukraine", short: "UA", adjective: "Ukrainian", live: false },
   { code: "de", name: "Germany", short: "DE", adjective: "German", live: false },
-  { code: "at", name: "Austria", short: "AT", adjective: "Austrian", live: false },
-  { code: "hu", name: "Hungary", short: "HU", adjective: "Hungarian", live: false },
 ];
 const current = COUNTRIES[0];
 
