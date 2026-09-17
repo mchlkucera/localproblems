@@ -7,17 +7,26 @@
 .lf {
   --lf-max: 1120px;
   --lf-bar-h: 48px;
+  --lf-by-h: 48px;           /* the sticky tabs under the bar */
+  --lf-pad: var(--l-6);      /* the page's side padding, which sticky strips bleed into */
+  /* THE LIST GRID: a rail and a reading column (owner, 2026-09-17: "the
+     opportunity before was better"), kept to few edges ("simplify the grid"):
+       · nothing passes the content box — sticky strips, rules, washes;
+       · the page edge: the tabs, the band labels, the category drawings;
+       · the text edge (rail + gap): every title, name and line of copy;
+       · a row's box starts --lf-row-in before the text edge and ends at the
+         content edge: its rules and its hover wash are that box exactly, so
+         the words sit inside the grey (owner, 2026-09-16: "the grey of the
+         card should reach more to the left"). A group's own rows — the band
+         rule, a category's summary — span the whole content box. */
   --lf-rail: 232px;          /* the band label's column */
-  --lf-gap: 56px;            /* rail → reading column */
+  --lf-gap: 56px;            /* rail → text edge */
+  --lf-row-in: 28px;         /* a row's box, before the text edge */
+  --lf-bleed: 0px;           /* how far strips and washes pass the content box: none on desktop */
   --lf-measure: 640px;       /* one measure for the title and the solution */
   --lf-fs-title: 18px;
   --lf-lh-title: 26px;
   --lf-favour: #3f8f7f;      /* = problem.css --ls-favour: a filled opportunity point */
-  /* how far the row's hover wash reaches past the reading column: more on the
-     left, so the words sit inside the grey, not on its edge (owner,
-     2026-09-16: "the grey of the card should reach more to the left") */
-  --lf-wash-l: 28px;
-  --lf-wash-r: 16px;
 }
 /* CONTRAST (audit B13): every text gray passes WCAG AA, 4.5:1, wherever it
    sits. tokens.css's --l-text-3 (#8a8c93) is 3.4:1 on white, so the modern
@@ -44,7 +53,7 @@
   border-bottom: 1px solid var(--l-line);
 }
 .lf-bar-in {
-  max-width: var(--lf-max); height: 100%; margin: 0 auto; padding: 0 var(--l-6);
+  max-width: var(--lf-max); height: 100%; margin: 0 auto; padding: 0 var(--lf-pad);
   display: flex; align-items: center; gap: var(--l-3);
 }
 .lf-brand { font-size: var(--l-fs-base); font-weight: 600; letter-spacing: -0.01em; color: var(--l-text-1); }
@@ -127,7 +136,33 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf-nav a { white-space: nowrap; padding: 5px 10px; border-radius: var(--l-radius); font-size: var(--l-fs-md); font-weight: 500; color: var(--l-text-3); }
 .lf-nav a:hover, .lf-nav a[aria-current="page"] { color: var(--l-text-1); }
 
-.lf-wrap { max-width: var(--lf-max); margin: 0 auto; padding: 0 var(--l-6); }
+/* the phone's menu (owner, 2026-09-17: "on mobile lets just hide it behind a
+   burger menu"): a native popover under the bar, full width, one link per
+   48px row on hairlines — a thumb target, not a dropdown. The current page is
+   the primary gray at 600, the others one gray lighter. It rises 3px as it
+   fades in and leaves at once, like every menu here. Hidden above 720px. */
+.lf-burger { display: none; }
+.lf-menu {
+  margin: 0; border: 0; padding: var(--l-2) 20px var(--l-4);
+  position: fixed; inset: var(--lf-bar-h) 0 auto 0; width: auto; max-width: none;
+  background: var(--l-bg); border-bottom: 1px solid var(--l-line); box-shadow: var(--l-shadow-pop);
+  font: 500 17px/24px var(--l-font);
+  opacity: 0; transform: translateY(-3px);
+}
+.lf-menu:popover-open { opacity: 1; transform: none; transition: opacity .14s ease-out, transform .14s ease-out; }
+@starting-style { .lf-menu:popover-open { opacity: 0; transform: translateY(-3px); } }
+.lf-menu::backdrop { background: rgba(20, 21, 26, 0.16); }
+@media (prefers-reduced-motion: reduce) {
+  .lf-menu, .lf-menu:popover-open { transform: none; }
+  @starting-style { .lf-menu:popover-open { transform: none; } }
+}
+.lf-menu nav { display: flex; flex-direction: column; }
+.lf .lf-menu-item { display: flex; align-items: center; min-height: 48px; color: var(--l-text-2); }
+.lf-menu-item + .lf-menu-item { border-top: 1px solid var(--l-line); }
+.lf .lf-menu-item[aria-current="page"] { color: var(--l-text-1); font-weight: 600; }
+.lf .lf-menu-item:focus-visible { outline-offset: -2px; }
+
+.lf-wrap { max-width: var(--lf-max); margin: 0 auto; padding: 0 var(--lf-pad); }
 
 /* ---- header: words left, the figure right, centred on each other ------------- */
 /* The title + sentence block is vertically centred on the diagram (owner,
@@ -198,13 +233,18 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf-venn-fig:has(.lf-venn-part:hover):not(:has(.lf-venn-part[data-k="core"]:hover)) .lf-venn-tip[data-k="core"] { display: none; }
 
 /* ---- group by: the tabs, just above the first rule ------------------------------- */
-/* "By opportunity" / "By category" start on the page's leftmost column, the
-   rail edge the band labels sit on (owner, 2026-09-16: "line up 'By
-   opportunity' to the leftmost column"). 12px above the list, so they read as
-   the list's own control. */
+/* "By opportunity" / "By category" start on the page edge (owner, 2026-09-16:
+   "line up 'By opportunity' to the leftmost column").
+   STICKY (owner, 2026-09-17: "By opportunity/category should be also
+   sticky"): once scrolled to, the tabs hold under the bar on the bar's own
+   frosted white. Their bottom rule is the list's first rule. */
 .lf-by {
-  display: flex; align-items: baseline;
-  margin-bottom: var(--l-3);
+  position: sticky; top: var(--lf-bar-h); z-index: 15;
+  display: flex; align-items: center;
+  height: var(--lf-by-h); margin: 0 calc(var(--lf-bleed) * -1); padding: 0 var(--lf-bleed);
+  background: rgba(255, 255, 255, 0.94);
+  -webkit-backdrop-filter: saturate(1.5) blur(10px); backdrop-filter: saturate(1.5) blur(10px);
+  border-bottom: 1px solid var(--l-line-2);
   font-size: var(--l-fs-md); line-height: 24px;
 }
 /* the 4px padding, cancelled by the margin, keeps a focus ring from being
@@ -219,44 +259,88 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf-by a:hover { color: var(--l-text-1); }
 .lf-by a[aria-current="page"] { color: var(--l-text-1); text-decoration-line: underline; }
 
-/* ---- a group: the rail label beside its entries -------------------------------- */
-.lf-sec {
-  display: grid; grid-template-columns: var(--lf-rail) minmax(0, 1fr); column-gap: var(--lf-gap);
-  border-top: 1px solid var(--l-line-2);
+/* the frosted strip a sticky header shares with the tabs: their white, a hairline under */
+.lf-fold[open] > .lf-fold-h {
+  position: sticky; top: calc(var(--lf-bar-h) + var(--lf-by-h)); z-index: 10;
+  margin: 0 calc(var(--lf-bleed) * -1); padding-left: var(--lf-bleed); padding-right: var(--lf-bleed);
+  background: rgba(255, 255, 255, 0.94);
+  -webkit-backdrop-filter: saturate(1.5) blur(10px); backdrop-filter: saturate(1.5) blur(10px);
+  border-bottom: 1px solid var(--l-line);
 }
-/* margin, not padding, so the stuck label sits 32px under the bar, and 37px
-   (the row's 36px top padding + 1) so the 13px label's cap height starts on
-   the same pixel row as the first 18px title's (measured from the ink,
-   2026-09-16) — the two tops share one line */
+
+/* ---- by opportunity: the band label in the rail beside its rows ----------------- */
+.lf-sec { display: grid; grid-template-columns: var(--lf-rail) minmax(0, 1fr); column-gap: var(--lf-gap); }
+.lf-sec + .lf-sec { border-top: 1px solid var(--l-line-2); }
+/* sticky under the tabs; margin, not padding, and 37px (the row's 36px top
+   padding + 1) so the 13px label's cap height starts on the same pixel row as
+   the first 18px title's — the two tops share one line */
 .lf-sec-h {
-  position: sticky; top: calc(var(--lf-bar-h) + var(--l-6)); align-self: start;
+  position: sticky; top: calc(var(--lf-bar-h) + var(--lf-by-h) + var(--l-6)); align-self: start;
   margin-top: 37px;
 }
 .lf .lf-sec-h h2 { font-size: var(--l-fs-md); line-height: 20px; font-weight: 600; color: var(--l-text-1); }
 .lf .lf-sec-h p { font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-3); font-variant-numeric: tabular-nums; }
 
 .lf .lf-entries { list-style: none; padding: 0; }
-/* category grouping: the drawing under the count, as /lab/paper's rail has it.
-   The drawings sit centred in a 240-wide box with ~40 units of air each side;
-   the negative margin puts the ink, not the box, on the rail's left edge */
-.lf .lf-rail-art { display: block; width: 136px; height: auto; margin: var(--l-5) 0 0 -22px; color: #c3c4c9; }
+
+/* ---- by category: an index of closed folds (front.tsx CategoryFold) -------------
+   One row per category on the rail grid: the drawing in the rail, the name
+   (title style) and "N problems" on the text edge, a caret at the end. The
+   summary spans the content box and washes on hover. Open, its rows follow on
+   the text edge like the opportunity rows, and the summary sticks under the
+   tabs — the same box open or closed. */
+.lf-fold + .lf-fold { border-top: 1px solid var(--l-line); }
+.lf-fold:last-of-type { border-bottom: 1px solid var(--l-line); }
+.lf-fold-h {
+  position: relative; z-index: 0;
+  display: grid; grid-template-columns: var(--lf-rail) minmax(0, 1fr) auto; column-gap: var(--lf-gap); align-items: center;
+  padding-top: var(--l-4); padding-bottom: var(--l-4); list-style: none; cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.lf-fold-h::-webkit-details-marker { display: none; }
+.lf-fold-h::before {
+  content: ""; position: absolute; z-index: -1; inset: 4px 0;
+  border-radius: 8px; background-color: #f6f6f8; opacity: 0; transition: opacity .15s ease-out;
+}
+.lf-fold-h:hover::before { opacity: 1; }
+.lf-fold-h:focus-visible { outline: none; }
+.lf-fold-h:focus-visible::before { opacity: 1; box-shadow: 0 0 0 1.5px var(--l-text-2); }
+/* the drawings sit centred in a 240-wide box with ~40 units of air each side;
+   the negative margin puts the ink, not the box, on the page edge */
+.lf .lf-fold-art { display: block; width: 96px; height: auto; margin: -4px 0 -4px -16px; color: #c3c4c9; transition: color .15s ease-out; }
+.lf-fold-h:hover .lf-fold-art { color: var(--l-text-4); }
+.lf-fold-text { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.lf .lf-fold-name {
+  display: flex; align-items: center; gap: 6px;
+  font-size: var(--lf-fs-title); line-height: var(--lf-lh-title); font-weight: 500; letter-spacing: -0.011em; color: var(--l-text-1);
+}
+.lf-fold-name .lf-glyph { display: none; }
+.lf-fold-meta { font-size: var(--l-fs-sm); line-height: 18px; color: var(--l-text-3); font-variant-numeric: tabular-nums; }
+/* the caret keeps 16px inside the wash's right edge */
+.lf-fold-h .lf-more-caret { width: 12px; height: 12px; margin-right: var(--l-4); color: var(--l-text-3); }
+.lf-fold[open] > .lf-fold-h .lf-more-caret { transform: rotate(180deg); }
+.lf .lf-fold-list { padding-left: calc(var(--lf-rail) + var(--lf-gap)); }
+.lf-fold-list .lf-entry:first-child { padding-top: var(--l-6); }
 
 /* an entry is one hit area (owner, 2026-09-16: "make the whole page
    hoverable"): the title's link is stretched over it, and hovering or focusing
-   anywhere lays a faint wash under the words. The wash bleeds past the
-   column — 28px left, 16px right (24px left at ≤960px, 16px on phone) — and
-   stops 4px short of the hairlines, so the text never
-   moves and the rules stay whole. z-index 0 makes each entry its own stacking
-   context; the hovered one rises so its meta card lies over the next entry. */
+   anywhere lays a faint wash under the words. The wash and the rule above the
+   entry are the row's box exactly — from --lf-row-in before the text edge to
+   the content edge — and the wash stops 4px short of the hairlines. z-index 0
+   makes each entry its own stacking context; the hovered one rises so its meta
+   card lies over the next entry. */
 .lf-entry { position: relative; z-index: 0; padding: 36px 0 40px; }
 .lf-entry:is(:hover, :focus-within) { z-index: 1; }
-.lf-entry + .lf-entry { border-top: 1px solid var(--l-line); }
+.lf-entry + .lf-entry::after {
+  content: ""; position: absolute; top: 0; right: calc(var(--lf-bleed) * -1); left: calc(var(--lf-row-in) * -1);
+  border-top: 1px solid var(--l-line);
+}
 /* the wash is always painted, in its final gray, and only its opacity fades:
    no colour is ever interpolated, so nothing can pass through black on the way
    in or out (owner, 2026-09-16: "flashing through black on hover") */
 .lf-entry::before {
   content: ""; position: absolute; z-index: -1;
-  inset: 4px calc(var(--lf-wash-r) * -1) 4px calc(var(--lf-wash-l) * -1);
+  inset: 4px calc(var(--lf-bleed) * -1) 4px calc(var(--lf-row-in) * -1);
   border-radius: 8px; background-color: #f6f6f8; /* between --l-bg-3 and --l-bg-2 */
   opacity: 0; transition: opacity .15s ease-out;
 }
@@ -264,7 +348,7 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf-entry:has(.lf-title a:focus-visible)::before { box-shadow: 0 0 0 1.5px var(--l-text-2); }
 
 /* with a drawing (opportunity grouping): words | drawing, the words keeping
-   their measure and their left edge */
+   their measure and their left edge, the drawing's box on the content edge */
 .lf-entry--art { display: grid; grid-template-columns: minmax(0, 1fr) 112px; column-gap: var(--l-6); align-items: start; }
 .lf-entry--art > .lf-entry-body { grid-column: 1; grid-row: 1; }
 .lf .lf-art { grid-column: 2; grid-row: 1; display: block; width: 112px; height: auto; margin-top: 2px; color: #c3c4c9; transition: color .15s ease-out; }
@@ -282,7 +366,7 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 }
 .lf-title a { text-decoration-line: none; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
 /* the click area is exactly the wash */
-.lf-title a::after { content: ""; position: absolute; inset: 4px calc(var(--lf-wash-r) * -1) 4px calc(var(--lf-wash-l) * -1); border-radius: 8px; }
+.lf-title a::after { content: ""; position: absolute; inset: 4px calc(var(--lf-bleed) * -1) 4px calc(var(--lf-row-in) * -1); border-radius: 8px; }
 .lf-entry:hover .lf-title a, .lf-title a:focus-visible { text-decoration-line: underline; }
 .lf .lf-title a:focus-visible { outline: none; }
 
@@ -315,6 +399,9 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
    (owner: "Suggested and Good for shouldn't mix with the text") */
 .lf .lf-item-k { display: block; margin-bottom: 2px; font-size: var(--l-fs-sm); line-height: 16px; font-weight: 400; color: var(--l-text-3); }
 .lf .lf-item-v { display: block; }
+/* the fold exists only on a phone (see the phone block): above 720px the
+   entry is always open */
+.lf-more-cb, .lf-more { display: none; }
 .lf-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* … then one quiet line to skip: the opportunity meter, whose card lists this
@@ -434,7 +521,7 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 
 /* ---- tablet: the figure drops under the words; the rail narrows ------------------ */
 @media (max-width: 960px) {
-  .lf { --lf-rail: 152px; --lf-gap: var(--l-6); --lf-wash-l: 24px; }   /* 8px clear of the narrower rail */
+  .lf { --lf-rail: 152px; --lf-gap: var(--l-6); --lf-row-in: 16px; }
   .lf-intro {
     grid-template-columns: minmax(0, 1fr); grid-template-rows: none;
     grid-template-areas: "title" "lede" "venn";
@@ -444,11 +531,10 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 
 /* ---- phone: one column; the band label heads its entries ------------------------- */
 @media (max-width: 720px) {
-  .lf { --lf-fs-title: 17px; --lf-lh-title: 24px; --lf-wash-l: 16px; }   /* inside the 20px gutter */
-  .lf-bar-in, .lf-wrap { padding: 0 20px; }
-  /* the bar at 375, measured with its widest pair ("Problems" + "How it
-     works", when Signals is current): 6px around the switcher, links 6px
-     apart in padding with no extra gap */
+  /* one column; strips run to the screen edges and washes 16px past the text,
+     inside the 20px gutter */
+  .lf { --lf-fs-title: 17px; --lf-lh-title: 24px; --lf-pad: 20px; --lf-by-h: 44px; --lf-bleed: var(--lf-pad); --lf-row-in: var(--lf-pad); }
+  /* the bar at 375: brand, 6px, the switcher, and the menu button at the end */
   .lf-crumb::before { margin-right: 6px; }
   .lf-bar-in { gap: 6px; }
   /* the bar's switcher reads "CZ" + caret: "Czechia" would crowd the bar */
@@ -457,39 +543,92 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
   /* the menu hangs 12px from the screen's left edge: anchored under a button
      at x≈150, a 248px menu would run off a 375px screen */
   .lf-cc-menu--bar { position-area: none; inset: calc(var(--lf-bar-h) - 2px) auto auto 12px; margin: 0; }
-  /* two links fit beside brand + switcher, not three: the bar marks the spare
-     one (the current page's, else "Problems") — see bar.tsx */
-  .lf-nav .lf-nav-spare { display: none; }
-  .lf-nav { gap: 0; }
-  .lf-nav a { padding: 5px 6px; }
-  .lf-nav { margin-right: -10px; }
+  /* the three links move into the menu behind one button (bar.tsx) */
+  .lf-nav { display: none; }
+  .lf-burger {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px; margin: 0 -12px 0 auto; padding: 0;
+    border: 0; background: none; border-radius: var(--l-radius); color: var(--l-text-1); cursor: pointer;
+  }
+  .lf-burger:focus-visible { outline: 2px solid var(--l-text-1); outline-offset: -6px; }
+  .lf-burger:has(+ .lf-menu:popover-open) { color: var(--l-text-3); }
 
-  .lf-intro { padding: 56px 0 72px; }   /* +24px before the list: a bit less than desktop */
+  .lf-intro { padding: 40px 0 48px; }
   .lf-intro h1 { font-size: 26px; }
   .lf-venn-fig { margin-top: var(--l-5); }
 
-  /* a band opens with the darker rule and a wider gap than an entry does */
-  .lf-sec { display: block; border-top-color: var(--l-text-4); }
-  .lf-sec-h { position: static; margin: 0; padding-top: 20px; display: flex; align-items: baseline; gap: var(--l-2); }
-  .lf-entry { padding: 28px 0 32px; }
-  /* the drawing floats beside the title; the solution then takes the full width */
+  /* one column: the band label heads its rows as a sticky strip under the
+     tabs, full bleed, until the band's last row passes (owner, 2026-09-17:
+     "make the categories e.g. 'Opportunity 10–12' sticky so that its clear
+     where are we"); rules between rows keep to the text width */
+  .lf-sec { display: block; }
+  .lf-sec-h {
+    top: calc(var(--lf-bar-h) + var(--lf-by-h)); z-index: 10;
+    margin: 0 calc(var(--lf-pad) * -1); padding: 12px var(--lf-pad);
+    display: flex; align-items: baseline; gap: var(--l-2);
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: saturate(1.5) blur(10px); backdrop-filter: saturate(1.5) blur(10px);
+    border-bottom: 1px solid var(--l-line);
+  }
+  .lf .lf-sec-h h2 { font-size: 15px; }
+  .lf-entry + .lf-entry::after { left: 0; right: 0; }
+
+  /* by category on a phone: the glyph, not the drawing */
+  .lf .lf-fold-art { display: none; }
+  .lf-fold-name .lf-glyph { display: block; }
+  .lf-fold-h { display: flex; gap: var(--l-3); padding-top: 14px; padding-bottom: 14px; }
+  .lf-fold-text { flex: 1; }
+  .lf-fold-h .lf-more-caret { margin-right: 0; }
+  .lf .lf-fold-list { padding-left: 0; }
+  .lf-fold-list .lf-entry:first-child { padding-top: 20px; }
+
+  /* THE FOLDED ENTRY (owner, 2026-09-17: "just heading, small peek, and
+     toggle to expand"): the title, two lines of the first paragraph, the meta
+     line with "Show more" at its right end. The drawing beside the title
+     goes too — the meta line already names the category, and the title gets
+     the full width, so most titles take two lines, not three. */
+  .lf-entry { padding: 22px 0 18px; }
   .lf-entry--art { display: block; }
-  .lf-entry--art::after { content: ""; display: block; clear: both; }
-  .lf .lf-art { float: right; width: 72px; margin: 0 -6px 4px var(--l-3); }
-  .lf-entry:first-child { padding-top: 16px; }
+  .lf-entry:first-child { padding-top: 20px; }
   .lf-entry:last-child { padding-bottom: var(--l-6); }
+  .lf .lf-art { display: none; }
+  .lf .lf-copy { margin-top: 6px; }
+
+  .lf-more-cb { display: block; position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+  .lf-more-cb:not(:checked) ~ .lf-copy > :not(:first-child) { display: none; }
+  .lf-more-cb:not(:checked) ~ .lf-copy > .lf-story:first-child,
+  .lf-more-cb:not(:checked) ~ .lf-copy > .lf-item:first-child .lf-item-v {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+  }
+  .lf-more-cb:not(:checked) ~ .lf-copy > .lf-item:first-child .lf-item-k { display: none; }
+
+  /* the meta line spans the entry so the toggle can sit at its right end; the
+     line itself lets taps through to the entry's link, its items do not */
+  .lf .lf-meta { width: 100%; margin-top: 10px; align-items: center; pointer-events: none; }
+  .lf .lf-meta > * { pointer-events: auto; }
+  .lf-more {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin: -13px -10px -13px auto; padding: 13px 10px;
+    font-size: var(--l-fs-sm); line-height: 18px; font-weight: 500; color: var(--l-text-2);
+    white-space: nowrap; cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  .lf-more-caret { flex: none; color: var(--l-text-3); }
+  .lf-more-hide { display: none; }
+  .lf-more-cb:checked ~ .lf-meta .lf-more-show { display: none; }
+  .lf-more-cb:checked ~ .lf-meta .lf-more-hide { display: inline; }
+  .lf-more-cb:checked ~ .lf-meta .lf-more-caret { transform: rotate(180deg); }
+  .lf-more-cb:focus-visible ~ .lf-meta .lf-more { outline: 2px solid var(--l-text-1); outline-offset: -8px; border-radius: 10px; }
   .lf-foot-in { flex-direction: column; gap: var(--l-2); }
 }
 
-/* ---- small phones (320): the bar tightens so brand + two links still fit ---------- */
+/* ---- small phones (320): the bar tightens ------------------------------------------- */
 @media (max-width: 359px) {
-  .lf-bar-in, .lf-wrap { padding: 0 var(--l-4); }
+  .lf { --lf-pad: var(--l-4); }
   .lf-brand { font-size: var(--l-fs-md); }
-  .lf-nav { margin-right: -5px; }
-  .lf-nav a { padding: 5px 4px; font-size: var(--l-fs-sm); }
   /* the switcher keeps "CZ" and its caret; the "/" before it goes */
   .lf-bar-in { gap: 2px; }
   .lf-crumb::before { display: none; }
   .lf-cc-btn { margin-left: 0; padding: 4px; }
-  .lf-by, .lf-by-opts { gap: var(--l-3); }
+  .lf-by-opts { gap: var(--l-3); }
+  .lf-menu { padding-left: var(--l-4); padding-right: var(--l-4); }
 }

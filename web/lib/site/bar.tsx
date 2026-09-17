@@ -5,11 +5,12 @@
 // live in app/(site)/styles/front.css under `.lf`, so a page using this bar renders inside
 // `.lab.lf` and imports that stylesheet.
 //
-// ON A PHONE ONE LINK GOES, AND THE BAR PICKS IT: three links cannot share
-// 375px with the brand and the country switcher, so the link to the page
-// being shown is hidden (`lf-nav-spare`), and on a page with no current link
-// (the 404) "Problems" goes, because those pages link back to it in their
-// body. No page needs its own hide-a-link CSS.
+// ALL THREE LINKS, ALWAYS (owner, 2026-09-17: "there should be always
+// problems, signals, how it works visible on all devices … on mobile lets just
+// hide it behind a burger menu"). Above 720px the three links sit in the bar.
+// On a phone they move into a menu behind one button: a native popover
+// (`popovertarget`), so it opens by tap or Enter and closes on Escape or an
+// outside tap, with no script. Nothing is dropped any more to make room.
 import { CountrySwitcher } from "./country";
 
 export type BarPage = "problems" | "signals" | "how-it-works";
@@ -21,25 +22,49 @@ const LINKS: { page: BarPage; href: string; label: string }[] = [
   { page: "how-it-works", href: "/how-it-works", label: "How it works" },
 ];
 
+const MENU_ID = "lf-menu";
+
+function Links({ current, className }: { current?: BarPage; className?: string }) {
+  return (
+    <>
+      {LINKS.map((link) => (
+        <a
+          key={link.page}
+          href={link.href}
+          className={className}
+          aria-current={link.page === current ? "page" : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </>
+  );
+}
+
+/** The burger: three solid bars, drawn for this site on the 16-unit grid. */
+const Burger = () => (
+  <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true">
+    <path d="M2 3.25h12v1.5H2Z M2 7.25h12v1.5H2Z M2 11.25h12v1.5H2Z" />
+  </svg>
+);
+
 export function TopBar({ current }: { current?: BarPage }) {
-  const spare: BarPage = current ?? "problems";
   return (
     <header className="lf-bar">
       <div className="lf-bar-in">
         <a className="lf-brand" href="/">localproblems.org</a>
         <CountrySwitcher />
         <nav className="lf-nav" aria-label="Site">
-          {LINKS.map((link) => (
-            <a
-              key={link.page}
-              href={link.href}
-              className={link.page === spare ? "lf-nav-spare" : undefined}
-              aria-current={link.page === current ? "page" : undefined}
-            >
-              {link.label}
-            </a>
-          ))}
+          <Links current={current} />
         </nav>
+        <button type="button" className="lf-burger" popoverTarget={MENU_ID} aria-label="Menu">
+          <Burger />
+        </button>
+        <div id={MENU_ID} popover="auto" className="lf-menu" role="dialog" aria-label="Menu">
+          <nav aria-label="Site menu">
+            <Links current={current} className="lf-menu-item" />
+          </nav>
+        </div>
       </div>
     </header>
   );

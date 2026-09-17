@@ -113,7 +113,10 @@ as a filled badge. Category icons are gray (`#919399`).
 
 - **Front page:** max width 1120px with 32px side padding (20 on phone). Below the
   header come a 232px rail, a 56px gap and the reading column (152/32 at ≤960px;
-  one column on phone).
+  one column on phone). Few edges: nothing passes the content box; tabs, band
+  labels and category drawings on the page edge; every title and line of copy on
+  the text edge; a row's rule and hover wash are one box (owner, 2026-09-17:
+  *"simplify the grid"*).
 - **Record page:** a full-width centred head, then a 680px main column and a 272px
   rail with an 88px gap. It becomes one column at ≤1080px (rail after main, two
   rail cards side by side) and phone rules apply at ≤640px.
@@ -136,8 +139,8 @@ as a filled badge. Category icons are gray (`#919399`).
     Its menu sits after the h1, never inside it.
   - Flags are inline SVG, 20×14, in official colours, with a hairline border. They
     are never emoji and never an image request.
-  - On phone the button reads "CZ", the nav hides the current page's link and never
-    wraps, and the bar fits at 320px.
+  - On phone the button reads "CZ", the three links move behind a menu button (a
+    native popover, full-width rows), and the bar fits at 320px.
 
 ## 5. Spacing
 
@@ -167,14 +170,21 @@ as a filled badge. Category icons are gray (`#919399`).
   that says what the register looks *for*, never a promise that every problem meets
   all three (owner: *"… non-technical simple language"*).
 - **Tabs:** "By opportunity" and "By category", with no "Group by" label (owner:
-  *"remove 'Group by'"*). They start at the rail's left edge (owner: *"line up 'By
+  *"remove 'Group by'"*). They start at the page edge (owner: *"line up 'By
   opportunity' to the leftmost column"*). They are plain links. There is no
   deadline grouping (owner: *"Remove deadline sort"*). **Each grouping is its own
   static path, never a query string** (§9).
 - **Grouping rail:** a label and "N problems". Opportunity bands appear as numbers
   only ("Opportunity 10–12", "8–9", "5–7", "0–4"), never verdict words. The rail is
-  sticky. Grouped by category, it shows the category drawing and the rows drop
-  their own.
+  sticky under the sticky tabs. On phone it becomes a one-line sticky strip.
+- **By category is an index first**, at every width: one closed native `<details>`
+  per category (drawing, name, "N problems"). Opening one
+  lists its rows, which drop their own category item and drawing.
+- **On phone (≤720px) a row is folded:** title, a two-line peek of its first
+  paragraph, and the meta line ending in "Show more". The fold is a CSS
+  checkbox and label, never a script, and every word stays in the HTML. Above 720px
+  rows are always open (owner, 2026-09-17: *"just heading, small peek, and toggle
+  to expand"*).
 - **Row card anatomy, in this order:**
   1. Title, the one link.
   2. Story (`brief`), one plain paragraph. Omitted when absent.
@@ -217,9 +227,9 @@ as a filled badge. Category icons are gray (`#919399`).
   - The title link stretches over the row. Hover or focus anywhere washes the row
     `#f6f6f8` (radius 8) and underlines the title (owner: *"make the whole page
     hoverable"*).
-  - The wash reaches 28px left and 16px right, and never over the hairlines (owner:
-    *"the grey of the card should reach more to the left"*). It never touches the
-    rail labels.
+  - The wash reaches 28px left of the text and to the content edge on the right,
+    never over the hairlines, and the rule above a row is the same width (owner:
+    *"the grey of the card should reach more to the left"*).
   - The meter sits above the stretched link so it takes its own pointer. The keyboard
     tabs from title to title.
 

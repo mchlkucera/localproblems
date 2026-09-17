@@ -14,10 +14,11 @@
 // reads title → the story → Suggested → Good for. The quiet line under them
 // (the opportunity meter, the category) is there to be skipped.
 //
-// The layout is a label rail and a ruled column: the group label (opportunity
-// band or category — one quiet line of links above the list
-// picks which) sits in the left rail, sticky while its entries scroll past; the
-// problems run down one reading column. No table columns, no preview — the
+// The layout is a label rail and a reading column on one grid: the band label
+// sits in the rail, sticky while its rows scroll past; by category, an index of
+// closed folds (drawing in the rail, name on the text edge) opens onto the same
+// rows. Nothing bleeds past the content box, and a row's rules are exactly as
+// wide as its hover wash (owner, 2026-09-17: "simplify the grid"). No table columns, no preview — the
 // title is the one link, stretched over its entry, so hovering or focusing
 // anywhere on an entry washes it and underlines the title.
 //
@@ -355,15 +356,25 @@ function OpportunityCard({ p }: { p: Problem }) {
     brief as a plain paragraph, then "Suggested" and "Good for", each a quiet
     label on its own line over its words — no bullets, no emphasis, three
     text styles in all. A record with neither new field is the same card with one
-    property, "Suggested", so it reads as the same design, not a leftover. */
+    property, "Suggested", so it reads as the same design, not a leftover.
+
+    FOLDED ON A PHONE (owner, 2026-09-17: "make the items expandable, they take
+    too much vertical space … just heading, small peek, and toggle to expand"):
+    at ≤720px an entry shows its title, a two-line peek of its first paragraph
+    and the meta line; "Show more" unfolds the rest in place. The fold is a
+    visually hidden checkbox and its label, CSS only: every word is in the HTML,
+    so the page still reads fully without a script, and above 720px the
+    checkbox is not rendered at all and the entry is always open. */
 export function Entry({ it, showCategory }: { it: Item; showCategory: boolean }) {
   const { p } = it;
+  const more = `${p.id}-more`;
   return (
     <li className={showCategory ? "lf-entry lf-entry--art" : "lf-entry"}>
       {/* first in source so a phone can float it beside the title */}
       {showCategory && <CategoryArt category={p.category} className="lf-art" />}
       <div className="lf-entry-body">
         <h3 className="lf-title"><a href={it.href}>{p.title}</a></h3>
+        <input type="checkbox" id={more} className="lf-more-cb" />
         <div className="lf-copy">
           {it.brief && <p className="lf-story">{plain(it.brief)}</p>}
           <p className="lf-item"><span className="lf-item-k">Suggested</span> <span className="lf-item-v">{it.solution}</span></p>
@@ -377,9 +388,48 @@ export function Entry({ it, showCategory }: { it: Item; showCategory: boolean })
             <span className="lf-cat"><CategoryGlyph category={p.category} />{categoryLabel(p.category)}</span>
           )}
           {it.draftLaw && <DraftLawBadge id={`${p.id}-draft`} line={it.draftLaw} />}
+          <label htmlFor={more} className="lf-more">
+            <span className="lf-more-show">Show more</span>
+            <span className="lf-more-hide">Hide</span>
+            <FoldCaret />
+          </label>
         </p>
       </div>
     </li>
+  );
+}
+
+const FoldCaret = () => (
+  <svg className="lf-more-caret" viewBox="0 0 10 10" width="10" height="10" fill="currentColor" aria-hidden="true">
+    <path d="M2.2 3.6h5.6a.4.4 0 0 1 .3.66L5.3 7.1a.4.4 0 0 1-.6 0L1.9 4.26a.4.4 0 0 1 .3-.66Z" />
+  </svg>
+);
+
+/** BY CATEGORY IS AN INDEX FIRST (owner, 2026-09-17: "make the by category
+    all hidden first so that we can see the category list first! Both on
+    desktop and mobile"). Every category is a native <details>, closed: its
+    summary row is the drawing (the glyph on a phone), the name, and one meta
+    line — how many problems (owner, 2026-09-17: "remove the opportunity up
+    to X in categories"). Opening one lists its rows under the name, on the name's left edge,
+    and the summary sticks under the tabs while they scroll past. No script:
+    the browser opens it on tap, Enter, or a find-in-page hit inside it. */
+function CategoryFold({ g }: { g: Group }) {
+  const n = g.items.length;
+  const category = g.category ?? "other";
+  return (
+    <details className="lf-fold" id={g.id}>
+      <summary className="lf-fold-h">
+        <CategoryArt category={category} className="lf-fold-art" />
+        <span className="lf-fold-text">
+          <h2 className="lf-fold-name"><CategoryGlyph category={category} />{g.label}</h2>
+          <span className="lf-fold-meta">{n} {n === 1 ? "problem" : "problems"}</span>
+        </span>
+        <FoldCaret />
+      </summary>
+      <ol className="lf-entries lf-fold-list">
+        {g.items.map((it) => <Entry key={it.p.id} it={it} showCategory={false} />)}
+      </ol>
+    </details>
   );
 }
 
@@ -406,15 +456,16 @@ export function FrontPage({ group }: { group: GroupKey }) {
 
         <GroupBy current={group} />
 
-        {groups.map((g) => (
+        {group === "category"
+          ? groups.map((g) => <CategoryFold key={g.id} g={g} />)
+          : groups.map((g) => (
           <section key={g.id} className="lf-sec" aria-labelledby={`${g.id}-h`}>
             <header className="lf-sec-h">
               <h2 id={`${g.id}-h`}>{g.label}</h2>
               <p>{g.items.length} {g.items.length === 1 ? "problem" : "problems"}</p>
-              {g.category && <CategoryArt category={g.category} className="lf-rail-art" />}
             </header>
             <ol className="lf-entries">
-              {g.items.map((it) => <Entry key={it.p.id} it={it} showCategory={group !== "category"} />)}
+              {g.items.map((it) => <Entry key={it.p.id} it={it} showCategory />)}
             </ol>
           </section>
         ))}

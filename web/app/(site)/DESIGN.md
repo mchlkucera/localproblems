@@ -37,7 +37,17 @@ Change a value here and in the CSS together.
 ## Page grid
 - Max width 1120px, side padding 32px (20px on phone ≤720px).
 - Two columns below the header: rail 232px, gap 56px, then the reading column
-  (rail 152px / gap 32px at ≤960px; one column on phone).
+  (rail 152px / gap 32px at ≤960px; one column on phone). Kept to few edges
+  (owner, 2026-09-17: "simplify the grid"; then "the opportunity before was
+  better", so the rail stays):
+  - nothing passes the content box: the sticky tabs, an open category's
+    sticky summary, every rule and wash end at the content edges.
+  - the page edge: tabs, band labels, category drawings.
+  - the text edge (rail + gap): every title, category name and line of copy.
+  - a row's rule and its hover wash are one box: 28px before the text edge
+    (16px at ≤960px) to the content edge. A category summary spans the
+    whole content box.
+- Phone: one column; sticky strips run to the screen edges.
 - Top bar 48px, sticky, hairline bottom: brand · "/" · country switcher,
   then Problems · Signals · How it works on the right.
 
@@ -50,9 +60,12 @@ Change a value here and in the CSS together.
   "how-it-works" />` from `bar.tsx` (omit `current` on the 404); the current
   page's link gets `aria-current="page"` (primary gray). The record page keeps
   its own breadcrumb bar (Problems / P-00xx).
-- Phone: only two links fit, and the BAR picks the one that hides
-  (`lf-nav-spare`): the current page's link, else "Problems". Pages never add
-  their own hide-a-link CSS.
+- All three links show at every width above 720px; none is ever dropped to
+  make room. Phone ≤720px: they move behind one menu button (three solid
+  bars, 44px target) that opens a native popover, full width under the bar,
+  one link per 48px row on hairlines, the current page at 600. No script.
+  ("there should be always problems, signals, how it works visible on all
+  devices … on mobile lets just hide it behind a burger menu", 2026-09-17)
 - Country switcher (`country.tsx`), not a plain "Czechia" crumb. ("a modern
   dropdown with nice flags")
   - Button: "Czechia" + solid caret, no flag, 13px / 500 `--l-text-2`;
@@ -103,29 +116,45 @@ Change a value here and in the CSS together.
   diagram `align-self: center` across all four. The diagram's box includes its
   labels; hover cards are absolute and don't count. ("make sure 'Czech
   problems worth solving' is vertically centered with the diagram")
-- Padding 96px top, 80px bottom (phone 56 / 72). ("add a bit more negative
+- Padding 96px top, 80px bottom (phone 40 / 48). ("add a bit more negative
   space before the lines start")
 - ≤960px: title, sentence, diagram stack.
 
 ## Tabs
 - "By opportunity" / "By category". No "Group by" label. ("remove 'Group by'
   and just have 'By opportunity' and 'By category'")
-- Start on the page's leftmost column, the rail edge (x=192 at 1440; page edge
-  on phone). ("line up 'By opportunity' to the leftmost column")
+- Start on the page edge (x=192 at 1440). ("line up 'By opportunity' to the leftmost column")
 - 13px / 500, `--l-text-3`; current one `--l-text-1` + 1px underline, offset 6px.
-- 12px above the first rule. Plain links between the two static routes
+- Plain links between the two static routes
   (`/`, `/by-category`), no JS, no query string; the
   current one carries `aria-current="page"`. No deadline grouping. ("Remove
   deadline sort")
 
-## Grouping rail
+## Grouping rail (by opportunity)
 - Label (13px / 600, `--l-text-1`) + count line "N problems" (13px, `--l-text-3`).
 - Opportunity bands at the SCORING.md thresholds as numbers: "Opportunity
   10–12", "8–9", "5–7", "0–4". No verdict words.
-- Sticky under the bar; its first line sits on the first title's cap height.
-- Category grouping: the category drawing under the count (136px); rows then
-  drop the category item and the per-row drawing.
-- Phone: the label + count run in one line above the band, darker rule.
+- Sticky under the tabs; its first line sits on the first title's cap height.
+  Darker rule between bands. (A full-width semibold header strip on desktop
+  was tried and rejected, 2026-09-17: "out of place".)
+- The tabs are sticky under the bar (48px, 44 on phone), frosted white, their
+  bottom rule the list's first rule; band labels stick under them. ("By
+  opportunity/category should be also sticky", 2026-09-17)
+- Category grouping is an INDEX first, at every width: each category is a
+  native `<details>`, closed by default. Summary row: the drawing (96px) in
+  the rail (the solid glyph on phone), the name in the title style on the text
+  edge, meta "N problems" only ("remove the opportunity up to X in
+  categories", 2026-09-17), caret at the end; hover washes it like a row. Open,
+  its rows follow on the text edge, titles on the name's edge, without their
+  category item or drawing, and the summary sticks under the tabs. ("make the
+  by category all hidden first so that we can see the category list first!
+  Both on desktop and mobile", 2026-09-17)
+- Phone: the band label + count become one line, 15px, a full-bleed frosted
+  strip sticky under the tabs; open categories stick the same way. By
+  category the name carries the category's solid glyph and the drawing is not
+  shown. ("make the categories … sticky so that its clear
+  where are we"; "category heading is almost not visible and image is weirdly
+  aligned", 2026-09-17)
 
 ## Row card — order
 1. Title (the one link).
@@ -135,8 +164,13 @@ Change a value here and in the CSS together.
 5. Meta line: opportunity meter, then category.
 - A row without the new copy is the same card with only "Suggested" — never a
   different design.
-- Category drawing (112px) in a right column; on phone floated beside the
-  title at 72px.
+- Category drawing (112px) in a right column; not shown on phone (the meta
+  line names the category).
+- Phone ≤720px: the row is FOLDED — title, a two-line clamp of the first
+  paragraph, the meta line with "Show more" + caret at its right end
+  ("Hide" when open). The fold is a visually hidden checkbox + label, CSS only;
+  all copy is in the HTML. Above 720px the row is always open. ("make the items
+  expandable … just heading, small peek, and toggle to expand", 2026-09-17)
 
 ## Exactly three text styles
 ("there's just too many text styles, figure out how to simplify")
@@ -174,7 +208,7 @@ Change a value here and in the CSS together.
 - Verify at 1440 and 375 on real data, both groupings, every record title.
 
 ## Spacing
-- Row padding 36px top / 40px bottom (phone 28 / 32); rows separated by a 1px
+- Row padding 36px top / 40px bottom (phone 22 / 18); rows separated by a 1px
   `--l-line` hairline. ("these cards need more space")
 - Title → story 10px · story → label 14px · text → next label 10px ·
   label → its text 2px · copy → meta line 16px.
@@ -271,10 +305,10 @@ Change a value here and in the CSS together.
   anywhere washes the row (`#f6f6f8`, radius 8px) and underlines the title.
   ("make the whole page hoverable")
 - Wash and click area share one inset: 4px top/bottom (never over the
-  hairlines), 16px past the column on the right, **28px on the left**, so the
-  text sits inside the grey, not on its edge ("the grey of the card should
-  reach more to the left"). 24px left at ≤960px (8px clear of the narrower
-  rail); 16px on phone (inside the 20px gutter). Never touches the rail labels.
+  hairlines), **28px past the text edge on the left** ("the grey of the card
+  should reach more to the left"; 16px at ≤960px) and exactly to the content
+  edge on the right. The rule above a row is the same box, so grey and rule
+  are one width. On phone the wash runs to the screen edges.
 - The meta line sits above the stretched link and is only as wide as its
   items, so the meter takes its own pointer; it is tabIndex −1, so the
   keyboard tabs title to title.
