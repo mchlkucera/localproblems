@@ -91,31 +91,44 @@
 .lk-g-names { font-size: 11px; line-height: 1.35; color: var(--l-text-2); overflow-wrap: anywhere; }
 .lk-g-keyk { margin-top: auto; padding-top: 4px; font-size: 10px; font-weight: 500; color: var(--l-text-3); }
 
-/* ---- CompMap: the full column, a numbered dot per company, the list as key
-   Based in = the darker shade, also sells in = the lighter one; the list's
-   column heads carry both swatches, so the map needs no caption. */
-.lk-map { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-.lk-map-svg { position: relative; }
-.lk-map .geomap { display: block; width: 100%; max-width: none; height: auto; margin: 0; }
+/* ---- CompMap: numbered dots on a cropped map, the list beside it as key --
+   Map left (~62%), list right; stacked under 560px of the figure's own width.
+   The map's height is capped through its width: --lk-ar is the crop's
+   height / width, so width = cap / ratio (300px beside the list, 260px
+   stacked). --lk-vw is the crop width in user units, for the CZ code size.
+   Home country = the darker shade, other markets = the lighter one; each list
+   row carries the same swatches, so the map needs no caption. */
+.lk-map { min-width: 0; container-type: inline-size; }
+.lk-map-in { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 16px; align-items: start; }
+.lk-map-svg { position: relative; width: min(100%, calc(260px / var(--lk-ar, .72))); }
+/* no list beside it (the sheet lists the companies under the map): the map alone, a little larger */
+.lk-map--solo .lk-map-in { display: block; }
+.lk-map--solo .lk-map-svg { width: 100%; }   /* full width in the sheet (owner) */
+@container (min-width: 560px) {
+  .lk-map-in { grid-template-columns: minmax(0, 62fr) minmax(0, 38fr); column-gap: 28px; }
+  .lk-map-svg { width: min(100%, calc(300px / var(--lk-ar, .72))); }
+}
+.lk-map .geomap { display: block; width: 100%; max-width: none; height: auto; margin: 0; overflow: hidden; }
 .lk-map .geomap path { fill: #efeff2; stroke: var(--l-bg); stroke-width: .8; vector-effect: non-scaling-stroke; }
 .lk-map .geomap .comp { fill: #b6b8be; }
 .lk-map .geomap .comp.mkt { fill: #dcdde1; }
 .lk-map .geomap .home { fill: var(--l-bg); stroke: var(--l-text-1); stroke-width: 1.4; }
-/* --lk-u = crop width / 680 (set on the figure): the code reads 13px at the
-   full column. The dots now mark the countries, so only Czechia keeps its code */
-.lk-map .geomap .lbl { font: 600 calc(13px * var(--lk-u, .66)) var(--l-font); fill: var(--l-text-1); text-anchor: middle; letter-spacing: .02em; paint-order: stroke; stroke: rgba(255, 255, 255, .7); stroke-width: 2.5px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+/* the code reads ~12px on a ~380px map. The dots mark the other countries,
+   so only Czechia keeps its code */
+.lk-map .geomap .lbl { font: 600 calc(12px * var(--lk-vw, 448) / 380) var(--l-font); fill: var(--l-text-1); text-anchor: middle; letter-spacing: .02em; paint-order: stroke; stroke: rgba(255, 255, 255, .7); stroke-width: 2.5px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .lk-map .geomap .lbl:not(.lbl-home) { display: none; }
 .lk-map .geomap .inset { fill: var(--l-bg); stroke: var(--l-line-2); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .lk-map-dots, .lk-map-hl { position: absolute; inset: 0; }
-.lk-map-hl { width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.lk-map-hl { width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
 
-/* one company's countries, brought up by its dot, its row or its open card */
+/* one company's countries, ALL together, brought up by its dot, its row or
+   its open card; every other shaded country and number steps back. Instant:
+   no fade (§8, "country hovers change instantly"). */
 .lk-hl { opacity: 0; }
 .lk-hl path { stroke: var(--l-text-1); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .lk-hl-hq path { fill: #8e9097; }
-.lk-hl-mk path { fill: #cfd1d6; stroke: var(--l-text-3); }
-.lk-hl-ln { stroke: var(--l-text-2); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
-.lk-map:has(.lk-pin:is(:hover, :focus-visible), .lk-pin + :popover-open, .lk-map-t tbody tr:is(:hover, :focus-within)) .geomap .comp { fill: #e6e7ea; }
+.lk-hl-mk path { fill: #c8cad0; stroke: var(--l-text-2); }
+.lk-map:has(.lk-pin:is(:hover, :focus-visible), .lk-pin + :popover-open, .lk-map-l > li:is(:hover, :focus-within)) .geomap .comp { fill: #ebebee; }
 .lk-map:has([data-i="0"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="0"] + :popover-open) .lk-hl[data-i="0"],
 .lk-map:has([data-i="1"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="1"] + :popover-open) .lk-hl[data-i="1"],
 .lk-map:has([data-i="2"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="2"] + :popover-open) .lk-hl[data-i="2"],
@@ -128,6 +141,30 @@
 .lk-map:has([data-i="9"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="9"] + :popover-open) .lk-hl[data-i="9"],
 .lk-map:has([data-i="10"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="10"] + :popover-open) .lk-hl[data-i="10"],
 .lk-map:has([data-i="11"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="11"] + :popover-open) .lk-hl[data-i="11"] { opacity: 1; }
+.lk-map:has([data-i="0"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="0"] + :popover-open) .lk-pin:not([data-i="0"]),
+.lk-map:has([data-i="1"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="1"] + :popover-open) .lk-pin:not([data-i="1"]),
+.lk-map:has([data-i="2"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="2"] + :popover-open) .lk-pin:not([data-i="2"]),
+.lk-map:has([data-i="3"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="3"] + :popover-open) .lk-pin:not([data-i="3"]),
+.lk-map:has([data-i="4"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="4"] + :popover-open) .lk-pin:not([data-i="4"]),
+.lk-map:has([data-i="5"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="5"] + :popover-open) .lk-pin:not([data-i="5"]),
+.lk-map:has([data-i="6"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="6"] + :popover-open) .lk-pin:not([data-i="6"]),
+.lk-map:has([data-i="7"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="7"] + :popover-open) .lk-pin:not([data-i="7"]),
+.lk-map:has([data-i="8"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="8"] + :popover-open) .lk-pin:not([data-i="8"]),
+.lk-map:has([data-i="9"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="9"] + :popover-open) .lk-pin:not([data-i="9"]),
+.lk-map:has([data-i="10"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="10"] + :popover-open) .lk-pin:not([data-i="10"]),
+.lk-map:has([data-i="11"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="11"] + :popover-open) .lk-pin:not([data-i="11"]) { opacity: .35; }
+.lk-map:has([data-i="0"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="0"] + :popover-open) .lk-map-l > li[data-i="0"],
+.lk-map:has([data-i="1"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="1"] + :popover-open) .lk-map-l > li[data-i="1"],
+.lk-map:has([data-i="2"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="2"] + :popover-open) .lk-map-l > li[data-i="2"],
+.lk-map:has([data-i="3"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="3"] + :popover-open) .lk-map-l > li[data-i="3"],
+.lk-map:has([data-i="4"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="4"] + :popover-open) .lk-map-l > li[data-i="4"],
+.lk-map:has([data-i="5"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="5"] + :popover-open) .lk-map-l > li[data-i="5"],
+.lk-map:has([data-i="6"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="6"] + :popover-open) .lk-map-l > li[data-i="6"],
+.lk-map:has([data-i="7"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="7"] + :popover-open) .lk-map-l > li[data-i="7"],
+.lk-map:has([data-i="8"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="8"] + :popover-open) .lk-map-l > li[data-i="8"],
+.lk-map:has([data-i="9"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="9"] + :popover-open) .lk-map-l > li[data-i="9"],
+.lk-map:has([data-i="10"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="10"] + :popover-open) .lk-map-l > li[data-i="10"],
+.lk-map:has([data-i="11"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="11"] + :popover-open) .lk-map-l > li[data-i="11"] { background: var(--l-bg-2); }
 
 .lk-num {
   position: relative; display: grid; place-items: center; width: 17px; height: 17px; border-radius: 50%;
@@ -135,25 +172,22 @@
   font: 600 10px/1 var(--l-font); font-variant-numeric: tabular-nums;
 }
 
-.lk-map-t { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 20px; color: var(--l-text-2); }
-.lk-map-t th { padding: 0 12px 6px 0; text-align: left; font-size: 12px; font-weight: 500; color: #6e7077; white-space: nowrap; }
-.lk-map-t td { padding: 8px 12px 8px 0; vertical-align: top; border-top: 1px solid var(--l-line); overflow-wrap: anywhere; }
-.lk-map-t th:last-child, .lk-map-t td:last-child { padding-right: 0; }
-.lk-map-t .lk-map-tn { width: 17px; padding-right: 10px; }
-.lk-map-t .lk-map-tn .lk-num { margin-top: 1.5px; box-shadow: none; }
-.lk-map-tc { font-weight: 500; white-space: nowrap; }
-.lk-map-t td:nth-child(3) { white-space: nowrap; }
-.lk-map-tc a { color: var(--l-text-1); text-decoration: none; }
-.lk-map-tc a:hover { text-decoration: underline; text-underline-offset: 3px; }
-.lk-map-tc a:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 1px; border-radius: 2px; }
-.lk-map-t td.is-none, .lk-map-off { color: var(--l-text-4); }
-.lk-sw { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 2px; vertical-align: -1px; }
+.lk-map-l { list-style: none; margin: 0; padding: 0; font-size: 13px; line-height: 18px; color: var(--l-text-2); }
+.lk-map-l > li { display: flex; gap: 10px; padding: 8px 6px; margin: 0 -6px; border-radius: 6px; }
+.lk-map-l > li + li { box-shadow: 0 -1px 0 var(--l-line); }
+.lk-map-ln { flex: none; width: 17px; padding-top: .5px; }
+.lk-map-ln .lk-num { box-shadow: none; }
+.lk-map-lt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lk-map-lc { align-self: flex-start; font-weight: 500; color: var(--l-text-1); text-decoration: none; }
+.lk-map-lc:hover { text-decoration: underline; text-underline-offset: 3px; }
+.lk-map-lc:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 1px; border-radius: 2px; }
+.lk-map-lm { display: flex; flex-wrap: wrap; column-gap: 12px; row-gap: 2px; font-size: 12px; color: #6e7077; }
+.lk-map-hq { white-space: nowrap; }
+.lk-map-mk { min-width: 0; letter-spacing: .02em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.lk-map-off { color: var(--l-text-4); }
+.lk-sw { display: inline-block; width: 9px; height: 9px; margin-right: 5px; border-radius: 2px; vertical-align: -.5px; }
 .lk-sw.is-hq { background: #b6b8be; }
 .lk-sw.is-mk { background: #dcdde1; }
-@media (max-width: 640px) {
-  .lk-map .geomap .lbl { font-size: calc(22px * var(--lk-u, .66)); }
-  .lk-map-t { font-size: 12.5px; }
-}
 
 /* ---- LocalMatrix: the Czech players, 2×2 ------------------------------
    Columns: y-axis gutter · early · established. Rows: sells this · nearby ·
@@ -434,14 +468,14 @@
    the Willing to pay sheet). Gray dots only: a dot is one purchase or price,
    never a verdict. Each dot is a <button data-peek> opening an `ls-peek` card;
    hover and open change one gray to another, instantly, never via transparent. */
-.lk-pay { display: flex; flex-direction: column; min-width: 0; }
-.lk-pay-lane { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: 16px; align-items: center; }
+.lk-pay { display: flex; flex-direction: column; min-width: 0; margin: 40px 0 36px; }   /* air above and below (owner: "cramped") */
+.lk-pay-lane { display: grid; grid-template-columns: 128px minmax(0, 1fr); column-gap: 24px; align-items: center; }
 .lk-pay-lane + .lk-pay-lane:not(.lk-pay-axis) { border-top: 1px solid var(--l-line); }
 .lk-pay-ll { margin: 0; font-size: 13px; line-height: 18px; color: var(--l-text-2); text-wrap: balance; }
-.lk-pay-track { position: relative; height: calc(var(--rows, 1) * 18px + 20px); }
+.lk-pay-track { position: relative; height: calc(var(--rows, 1) * 24px + 40px); }
 .lk-pay-grid { position: absolute; top: 0; bottom: 0; left: calc(var(--x) * 100%); border-left: 1px solid var(--l-line); }
 /* rows of a crowded lane fan out around the lane's middle */
-.lk-pay-at { position: absolute; left: calc(var(--x) * 100%); top: calc(50% + (var(--row, 0) - (var(--rows, 1) - 1) / 2) * 18px); margin: -9px 0 0 -9px; display: flex; }
+.lk-pay-at { position: absolute; left: calc(var(--x) * 100%); top: calc(50% + (var(--row, 0) - (var(--rows, 1) - 1) / 2) * 24px); margin: -9px 0 0 -9px; display: flex; }
 .lk-pay-dot {
   position: relative; display: block; flex: none; width: 18px; height: 18px;
   margin: 0; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer;
@@ -452,7 +486,7 @@
 }
 .lk-pay-dot:hover::before, .lk-pay-dot:has(+ :popover-open)::before { background: var(--l-text-1); }
 .lk-pay-dot:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 0; }
-.lk-pay-axis { align-items: start; padding-top: 6px; border-top: 1px solid var(--l-line-2); }
+.lk-pay-axis { align-items: start; padding-top: 10px; border-top: 1px solid var(--l-line-2); }
 .lk-pay-axis > span { font-size: 11px; line-height: 14px; color: var(--l-text-3); }
 .lk-pay-ticks { position: relative; height: 14px; }
 .lk-pay-tick {
@@ -478,7 +512,8 @@
 .lk-payt-grants { margin-left: 12px; padding-left: 16px; border-left: 1px solid var(--l-line); }
 
 @media (max-width: 640px) {
-  .lk-pay-lane { grid-template-columns: 72px minmax(0, 1fr); column-gap: 10px; }
+  .lk-pay { margin: 32px 0 28px; }
+  .lk-pay-lane { grid-template-columns: 72px minmax(0, 1fr); column-gap: 12px; }
   .lk-pay-ll { font-size: 12px; line-height: 16px; }
   .lk-payt-cols { column-gap: 2px; }
   .lk-payt-grants { margin-left: 6px; padding-left: 8px; }

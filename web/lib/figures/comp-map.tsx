@@ -50,7 +50,7 @@ const proj = (lon: number, lat: number) => ({ x: (lon - FRAME.w) * KLAT * SCALE,
 /** The crop (owner via coordinator, 2026-09-17: the full frame ran ~780px
     tall at 680 wide). The box around every drawn country's label anchor
     (home, bases, markets), padded, never smaller than central Europe, then
-    widened or deepened to about 0.62 high per 1 wide (~420px at 680) and
+    widened or deepened to about 0.72 high per 1 wide and
     kept inside the frame. A spread that needs more height keeps it. */
 function cropFor(isos: string[]): MapView {
   const a = proj(2, 57.5), b = proj(27, 43.5);
@@ -59,9 +59,9 @@ function cropFor(isos: string[]): MapView {
     const s = EU.shapes.get(iso);
     if (!s) continue;
     x0 = Math.min(x0, s.anchor.x - 44); x1 = Math.max(x1, s.anchor.x + 44);
-    y0 = Math.min(y0, s.anchor.y - 36); y1 = Math.max(y1, s.anchor.y + 36);
+    y0 = Math.min(y0, s.anchor.y - 48); y1 = Math.max(y1, s.anchor.y + 44);
   }
-  const R = 0.62;
+  const R = 0.72;
   let w = x1 - x0, h = y1 - y0;
   if (h < w * R) { y0 -= (w * R - h) / 2; h = w * R; } else { x0 -= (h / R - w) / 2; w = h / R; }
   if (w > EU.vw) { x0 = 0; w = EU.vw; }
@@ -83,21 +83,25 @@ function spot(iso: string, v: MapView): { x: number; y: number } | null {
 
 /** `null` without comparables, or with none in a country the map can draw.
 
-    READS WITHOUT A CAPTION (owner, 2026-09-17: "make it self explanatory …
-    fit the whole width … We should still keep a list and the map"). Full
-    column width. Where each company is BASED is a numbered dot on a darker
-    country; the other markets it sells in (`markets`) are a lighter shade. The
-    list under the map is the key: number, name ↗, based in, also sells in,
-    and its two column heads carry the two shades, so no sentence is needed.
-    Czechia is outlined and keeps its "CZ" code on the map.
+    READS WITHOUT A CAPTION (owner, 2026-09-17: "make it self explanatory";
+    then "make the map less high, maybe keep the company list on right of
+    company map. make sure the map view is ready for one company through
+    multiple countries"). Map left, list right; stacked in a narrow container
+    (kit.css container query). The map is cropped to the countries on file
+    and capped in height by width (≈300px beside the list, ≈260px stacked).
 
-    Pointing at a dot or a list row (or opening a dot's card) brings up that
-    company's countries in ink, with a hairline from its dot to each market;
-    the rest of the shading steps back. CSS `:has()` only, keyed by `data-i`
-    (kit.css enumerates 0–11). Several dots in one country sit as a small
-    centred cluster. `scope` keeps popover and title ids unique when the page
-    renders the figure twice. */
-export function CompMap({ p, scope = "" }: { p: Problem; scope?: string }): ReactNode {
+    ONE COMPANY, MANY COUNTRIES: at rest its home is the darker shade with its
+    number on it, every other market (`markets`) the lighter shade, and nothing
+    else is drawn: no line and no dot per market, so ten markets stay as clean
+    as one. Pointing at its dot or its list row (or opening its card) brings
+    ALL its countries up in ink together, steps every other shaded country
+    back, and fades the other numbers. CSS `:has()` only, keyed by `data-i`
+    (kit.css enumerates 0–11). The list row carries the same two swatches, so
+    it is the key: number, name ↗, home country, then the other markets as
+    country codes. Czechia is outlined and keeps its "CZ" code on the map.
+    Several dots in one country sit as a small centred cluster. `scope` keeps
+    popover and title ids unique when the page renders the figure twice. */
+export function CompMap({ p, scope = "", list = true }: { p: Problem; scope?: string; list?: boolean }): ReactNode {
   const comps = p.comps ?? [];
   const home = p.region.toUpperCase();
   const countries = [...new Set(comps.flatMap((c) => [c.geo, ...(c.markets ?? [])]))].filter((c) => c !== home);
@@ -122,22 +126,18 @@ export function CompMap({ p, scope = "" }: { p: Problem; scope?: string }): Reac
   };
 
   return (
-    <figure className="lk lk-map" style={{ "--lk-u": view.w / 680 } as CSSProperties}>
+    <figure className={list ? "lk lk-map" : "lk lk-map lk-map--solo"} style={{ "--lk-vw": view.w, "--lk-ar": view.h / view.w } as CSSProperties}>
+      <div className="lk-map-in">
       <div className="lk-map-svg">
         <EuropeMap comps={comps.map((c) => ({ geo: c.geo, markets: c.markets }))} home={p.region} titleId={`geomap-title${scope}`} view={view} />
         <svg className="lk-map-hl" viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`} aria-hidden="true" focusable="false">
           {comps.map((c, i) => {
-            const at = spot(c.geo, view);
-            if (!at) return null;
+            if (!spot(c.geo, view)) return null;
             const mk = also(c).filter((m) => m !== home);
             return (
               <g key={i} className="lk-hl" data-i={i}>
                 <g className="lk-hl-mk">{mk.map(pathOf)}</g>
                 <g className="lk-hl-hq">{pathOf(c.geo)}</g>
-                {mk.map((m) => {
-                  const to = spot(m, view);
-                  return to ? <line key={m} className="lk-hl-ln" x1={at.x} y1={at.y} x2={to.x} y2={to.y} /> : null;
-                })}
               </g>
             );
           })}
@@ -175,29 +175,35 @@ export function CompMap({ p, scope = "" }: { p: Problem; scope?: string }): Reac
           })}
         </div>
       </div>
-      <table className="lk-map-t">
-        <thead className={anyMk ? undefined : "lk-sr"}>
-          <tr>
-            <th scope="col"><span className="lk-sr">Number</span></th>
-            <th scope="col"><span className="lk-sr">Company</span></th>
-            <th scope="col">{anyMk && <span className="lk-sw is-hq" aria-hidden="true" />}Based in</th>
-            {anyMk && <th scope="col"><span className="lk-sw is-mk" aria-hidden="true" />Also sells in</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {comps.map((c, i) => {
-            const mk = also(c);
-            return (
-              <tr key={i} data-i={i}>
-                <td className="lk-map-tn">{num.has(i) ? <span className="lk-num" aria-hidden="true">{num.get(i)}</span> : null}</td>
-                <td className="lk-map-tc"><a href={c.url} {...EXT}>{shortName(c.name)}<ExtArrow /></a></td>
-                <td>{countryName(c.geo)}{num.has(i) ? "" : <span className="lk-map-off"> · not on the map</span>}</td>
-                {anyMk && <td className={mk.length ? undefined : "is-none"}>{mk.length ? mk.map(countryName).join(", ") : "—"}</td>}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      {/* list={false}: the sheet lists the companies itself, under the map (owner: "listed two times") */}
+      {list && <ol className="lk-map-l">
+        {comps.map((c, i) => {
+          const mk = also(c);
+          return (
+            <li key={i} data-i={i}>
+              <span className="lk-map-ln" aria-hidden="true">{num.has(i) ? <span className="lk-num">{num.get(i)}</span> : null}</span>
+              <span className="lk-map-lt">
+                <a className="lk-map-lc" href={c.url} {...EXT}>{shortName(c.name)}<ExtArrow /></a>
+                <span className="lk-map-lm">
+                  <span className="lk-map-hq">
+                    {anyMk && <span className="lk-sw is-hq" aria-hidden="true" />}
+                    <span className="lk-sr">Based in </span>{countryName(c.geo)}
+                    {!num.has(i) && <span className="lk-map-off"> · not on the map</span>}
+                  </span>
+                  {mk.length > 0 && (
+                    <span className="lk-map-mk">
+                      <span className="lk-sw is-mk" aria-hidden="true" />
+                      <span className="lk-sr">Also sells in {mk.map(countryName).join(", ")}</span>
+                      <span aria-hidden="true">{mk.join(" ")}</span>
+                    </span>
+                  )}
+                </span>
+              </span>
+            </li>
+          );
+        })}
+      </ol>}
+      </div>
     </figure>
   );
 }

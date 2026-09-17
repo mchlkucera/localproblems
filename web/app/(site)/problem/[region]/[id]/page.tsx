@@ -287,7 +287,7 @@ const DAY = 86_400_000;
 /** `alias`: an older anchor for the same section, so deep links written
     against the live record page still land (audit B5: `#how-big` → Who pays).
     No count beside the title (redesign §3.2). */
-function Section({ id, alias, title, chip, children }: { id: string; alias?: string | string[]; title: string; chip?: string; children: ReactNode }) {
+function Section({ id, alias, title, chip, chipLevel, children }: { id: string; alias?: string | string[]; title: string; chip?: string; chipLevel?: string; children: ReactNode }) {
   const aliases = alias === undefined ? [] : Array.isArray(alias) ? alias : [alias];
   return (
     <section className="ls-sec" id={id} aria-labelledby={`${id}-h`}>
@@ -295,7 +295,10 @@ function Section({ id, alias, title, chip, children }: { id: string; alias?: str
       <h2 className="ls-h2" id={`${id}-h`}>{title}</h2>
       {/* PROTOTYPE score line (lib/site/score-proto.ts): under the heading,
           readable, gray (owner, 2026-09-17) */}
-      {chip && <p className="ls-h2-chip">{chip}</p>}
+      {/* the difficulty line keeps its level hue: a dot and the word in its ink (owner) */}
+      {chip && (chipLevel
+        ? <p className="ls-h2-chip ls-level" data-level={chipLevel}>{chip}</p>
+        : <p className="ls-h2-chip">{chip}</p>)}
       {children}
     </section>
   );
@@ -726,7 +729,7 @@ export default async function LabRecord({ params }: Params) {
   const mapFig = CompMap({ p });
   // the sheet copies take their own scope, so the dots' popover ids never collide
   const matrixFigS = LocalMatrix({ p, scope: "s" });
-  const mapFigS = CompMap({ p, scope: "s" });
+  const mapFigS = CompMap({ p, scope: "s", list: false });
   // Willing to pay: what buyers already pay (page) and when they bought (sheet)
   const payDots = PayDots({ p });
   const payDotsS = PayDots({ p, scope: "s" });
@@ -1232,7 +1235,7 @@ export default async function LabRecord({ params }: Params) {
           </Section>
 
           {/* The level, then what makes entry easier and what harder. */}
-          <Section id="execution-difficulty" alias="difficulty-to-enter" title="Execution difficulty" chip={chip("execution-difficulty")}>
+          <Section id="execution-difficulty" alias="difficulty-to-enter" title="Execution difficulty" chip={chip("execution-difficulty")} chipLevel={entry.level}>
             {/* the level word is already in the score line under the heading */}
             {entryPage}
             <Sheet id="difficulty-to-enter" title="Execution difficulty" rec={rec} about={SECTION_ABOUT["execution-difficulty"]}>{entrySheet}</Sheet>
