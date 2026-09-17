@@ -7,6 +7,7 @@ A public register of Czech problems worth solving, distilled from public evidenc
 | You are about to… | Read first |
 |---|---|
 | author or edit a **problem record** | **`pipeline/MATCH.md`** — the judgment. Then `SCORING.md` and `data/RECORD-TEMPLATE.md` |
+| rewrite a **record's body** | **`pipeline/REWRITE.md`** — the procedure and checklist. Then `data/RECORD-TEMPLATE.md` "Writing the body"; p-0008 is the reference |
 | change a **score or a ladder** | `SCORING.md`, then `pipeline/MATCH.md` §0 and §1 |
 | add a **source or ingest script** | `pipeline/INGEST.md`, `docs/sources-catalog.md` |
 | change the **site** | `skills/design-language/SKILL.md` (the modern design, adopted 2026-09-16), `web/app/(site)/DESIGN.md`, and `web/AGENTS.md`. `web/app/(site)/styles/tokens.css` is checksum-gated to `skills/design-language/assets/tokens.css` |

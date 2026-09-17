@@ -207,7 +207,7 @@ entry at position n of the record's own `sources[]`, rendered as a superscript
 S-number linking its ledger row (`[S3,S5]` for two). Citation is stated, never
 inferred from a url coincidence; the syntax and its rules live in
 `data/CONVENTIONS.md`.
-Records scoring >= 7 additionally carry a `## First moves` body section: 4–6
+Records scoring >= 7 additionally carry a `## First moves` body section: 3–5
 numbered concrete steps, named competition, and the open subsidy call that funds
 the work, cross-linked to the tenders ledger (`/signals/tenders#dotace-...`).
 

@@ -19,6 +19,8 @@ reader both times.
 
     python3 scripts/check-records.py            # report
     python3 scripts/check-records.py --strict   # exit 1 on ERRORs — the build gate
+    python3 scripts/check-records.py --body-v2  # list every body-v2 finding (BODY_V2_ENFORCED)
+    python3 scripts/check-records.py --strict --enforce p-0036   # a rewrite, checked as enforced
 """
 import argparse
 import glob
@@ -1262,6 +1264,312 @@ def established(since, evidence, year, ico=None):
     return (not blockers), limbs, blockers
 
 
+# ===========================================================================
+# BODY V2 — the owner-approved writing rules for the body (2026-09-16/17)
+# ===========================================================================
+#
+# data/RECORD-TEMPLATE.md "Writing the body" carries the rules and the reasons;
+# pipeline/REWRITE.md carries the procedure. This block holds the ones a
+# machine can check without guessing (CLAUDE.md rule 2: a rule enforced by
+# prose is not enforced).
+#
+# THE SWITCH. The 28 records written before these rules fail most of them, and
+# turning 28 records red at once would teach everyone to skip this output. So:
+#
+#   * a record in BODY_V2_ENFORCED gets every GATE finding below as an ERROR,
+#     which fails `npm run build`;
+#   * every other live record gets ONE summary warning naming its finding
+#     counts (its rewrite worklist); `--body-v2` prints each finding in full.
+#
+# A rewritten record JOINS BODY_V2_ENFORCED IN THE SAME CHANGE as its rewrite
+# (pipeline/REWRITE.md, "Done"). When every live record is in the set, delete
+# the set and make the gates unconditional.
+#
+# BODY_V2_WAIVERS: a known, reported defect on an enforced record, printed as a
+# warning until it is fixed. It is a debt list, never a way to pass a rewrite:
+# a new entry needs the owner's say-so, recorded in that record's Revisions.
+BODY_V2_ENFORCED = frozenset({"p-0008"})
+BODY_V2_WAIVERS: dict[str, frozenset[str]] = {
+    # Empty. p-0008's three waivers (ANSWER_WORDS, MOVE_EVIDENCE, PRICE_RESTATED)
+    # were cleared by content on 2026-09-17; see its Revisions entry.
+}
+BODY_V2_DETAIL = False          # set by `--body-v2`
+
+ANSWER_MAX_WORDS = 25           # the rule says "about 20"; the gate allows the "about"
+PAGE_ITEMS = 3                  # web/app/(site)/problem/[region]/[id]/page.tsx PAGE_CAP
+PAGE_ITEM_MAX_WORDS = 14        # advice only: an item the page shows
+MOVE_LEAD_MAX_WORDS = 25        # advice only: the one sentence the page shows per move
+MOVES_MIN, MOVES_MAX = 3, 5
+ENTRY_ITEM_MIN_WORDS = 3        # a shorter Easier/Harder item is a list split by its own commas
+
+# The anchors the record page emits (page.tsx `Section id` + `alias`). Canonical
+# first; the aliases are kept so older links still land. `first-moves` exists
+# only on a record with moves, `how-it-works` only with a process figure, and
+# `s1…sN` are the rows of the sources drawer.
+ANCHORS_CANONICAL = ("opportunity", "solution", "why-now", "willing-to-pay",
+                     "validated-abroad", "competition", "execution-difficulty",
+                     "first-moves", "sources")
+ANCHORS_ALIAS = ("problem", "how-it-works", "who-pays", "how-big", "proven-abroad",
+                 "who-sells-this", "local-competition", "difficulty-to-enter")
+
+# "the record" / "this record" said to a reader (owner, 2026-09-17: "The page
+# we're looking at is the record isn't it?"). Singular only: "the records" is
+# ordinary English about somebody else's files.
+SELF_RECORD = re.compile(r"(?i)\b(?:the|this)\s+record(?:'s|’s)?\b(?!s)")
+
+# `- **Key:** value` — the two-column row the owner retired ("should be bullets
+# not columns"). No live record uses one since the p-0008 rewrite.
+KEYED_BULLET = re.compile(r"^\s*- \*\*[^*]{1,40}?:\*\*", re.M)
+
+# Why now's first items are the pain; a law date there is the old shape
+# ("Now it's just explaining laws"). A date-led item: "On 1 November 2025 …",
+# "By 17 July 2026 …", "In late 2026 …", "17 Dec 2026: …", "Mid 2027 …".
+_MONTH = (r"(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|"
+          r"Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)")
+DATE_LED = re.compile(
+    r"^(?:(?:On|By|In|From|Since|Until|Before|After|Between)\s+)?"
+    r"(?:\d{1,2}\s+" + _MONTH + r"|" + _MONTH + r"|(?:early|mid|late)|Q[1-4]|H[12])"
+    r"\s+\d{4}\b|^\d{4}\s*:", re.I)
+
+FLUFF = re.compile(
+    r"\b(?:demonstrably|notably|crucially|essentially|robust|leverag(?:e|es|ed|ing)|"
+    r"landscape|ecosystem|seamless(?:ly)?|game[- ]chang\w*|cutting[- ]edge)\b", re.I)
+
+# lib/sections.ts splitLead, ported: the page's own sentence boundary. ". " at
+# bracket depth 0, not inside the first 40 characters, not after an initial or
+# a stock abbreviation. A boundary this misses is a boundary the page misses.
+_LEAD_ABBR = re.compile(r"(?:(?:^|[\s(])(?:[A-Za-z]|e\.g|i\.e|vs|cf|approx|No|Sb|St|Dr|Mr|"
+                        r"Ms|Mrs|Inc|Ltd|Co|Corp|Jr|Sr|cca|tzv|resp|např|tj)|\.[A-Za-z])$")
+_LIST_LINE = re.compile(r"^(?:- |\d+\.\s)")
+
+
+def split_lead(s, floor=40):
+    depth = 0
+    for i in range(len(s) - 1):
+        ch = s[i]
+        if ch in "[(":
+            depth += 1
+        elif ch in "])":
+            depth = max(0, depth - 1)
+        elif depth == 0 and ch == "." and s[i + 1] == " ":
+            if i + 1 < floor or _LEAD_ABBR.search(s[:i]):
+                continue
+            return s[: i + 1], s[i + 2:].strip()
+    return s, ""
+
+
+def reader_words(text):
+    """Words a reader sees: no [Sn] markers, link targets or emphasis marks."""
+    t = re.sub(r"\[S[\d,\sS]+\]", "", text)
+    t = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", t)
+    return len(t.replace("**", "").split())
+
+
+def body_sections(arg):
+    """The body routed the way lib/sections.ts routes it. -> {name: markdown}."""
+    out = {"The opportunity": [], "Competition": [], "Why now": [],
+           "Willing to pay": [], "Validated abroad": []}
+    cur = out["The opportunity"]
+    leads = (("Why now", r"Why now:\s*"), ("Willing to pay", r"Who pays:\s*"),
+             ("Competition", r"Existing non-solutions[^:\n]*:\s*"),
+             ("Validated abroad", r"Solved elsewhere[^:\n]*:\s*"))
+    for block in re.split(r"\n{2,}", arg):
+        p = block.strip()
+        if not p or re.fullmatch(r"-{3,}", p):
+            continue
+        for name, lead in leads:
+            if re.match(lead, p, re.I):
+                cur = out[name]
+                p = re.sub("^" + lead, "", p, flags=re.I)
+                break
+        cur.append(p)
+    return {k: "\n\n".join(v) for k, v in out.items() if v}
+
+
+def outline(md):
+    """page.tsx outline(): the answer paragraph and the first list the page shows.
+    -> (first_paragraph, is_one_sentence, list_items)."""
+    blocks = [[l.strip() for l in b.split("\n") if l.strip() and l.strip() != "---"]
+              for b in re.split(r"\n{2,}", md)]
+    blocks = [b for b in blocks if b]
+    if not blocks:
+        return "", False, []
+    b0, k, para = blocks[0], 0, []
+    while k < len(b0) and not _LIST_LINE.match(b0[k]):
+        para.append(b0[k])
+        k += 1
+    tail = b0[k:]
+    mixed = any(not _LIST_LINE.match(l) for l in tail)
+    lst = tail[: next(i for i, l in enumerate(tail) if not _LIST_LINE.match(l))] if mixed else tail
+    used = 1
+    if not lst and not mixed and len(blocks) > 1 and all(_LIST_LINE.match(l) for l in blocks[1]):
+        lst, used = blocks[1], 2
+    while not mixed and lst and used < len(blocks) and all(_LIST_LINE.match(l) for l in blocks[used]):
+        lst, used = lst + blocks[used], used + 1
+    text = " ".join(para)
+    return text, bool(text) and split_lead(text)[1] == "", [_LIST_LINE.sub("", l) for l in lst]
+
+
+def entry_why_items(t):
+    """page.tsx splitItems(): one Easier/Harder half -> its items."""
+    semi = ";" in re.sub(r"\[[^\]]*\]|\([^)]*\)", "", t)
+    out, depth, start = [], 0, 0
+    for i, ch in enumerate(t):
+        if ch in "[(":
+            depth += 1
+        elif ch in "])":
+            depth = max(0, depth - 1)
+        elif depth == 0 and (ch == ";" if semi else (ch == "," and t[i + 1:i + 2] == " ")):
+            if not semi and re.match(r"(?i)(?:so|which|who|because|but|while|though|since|as|or|"
+                                     r"when|where|until)\b", t[i + 1:].lstrip()):
+                continue
+            out.append(t[start:i])
+            start = i + 1
+    out.append(t[start:])
+    items = [re.sub(r"[.;,\s]+$", "", re.sub(r"(?i)^and\s+", "", x.strip())) for x in out]
+    return [x for x in items if x]
+
+
+def check_body_v2(doc, arg, firstmoves, sources, comps, locals_):
+    """The body-v2 rules. -> [(code, gate: bool, message)].
+
+    `gate` findings become ERRORs on a BODY_V2_ENFORCED record; advice
+    findings (word targets a page can live with) never fail a build.
+    """
+    out = []
+    add = lambda code, gate, msg: out.append((code, gate, msg))  # noqa: E731
+    sections = body_sections(arg)
+
+    # 1. Every section opens with ONE answer sentence the page can set alone.
+    for name, md in sections.items():
+        para, one, items = outline(md)
+        if not para:
+            add("ANSWER_SENTENCE", True, f"{name}: no answer sentence — the section opens "
+                f"with a list, so the page has no answer line to show")
+            continue
+        if not one:
+            add("ANSWER_SENTENCE", True, f"{name}: the first paragraph is more than one "
+                f"sentence (\"{para[:70]}…\") — the page shows only its first sentence; "
+                f"end the paragraph there and move the rest into the detail")
+        first = split_lead(para)[0]
+        if reader_words(first) > ANSWER_MAX_WORDS:
+            add("ANSWER_WORDS", True, f"{name}: the answer sentence is {reader_words(first)} "
+                f"words (max {ANSWER_MAX_WORDS}, aim for about 20)")
+        # 3. The first three items are what the page shows: short.
+        for i, item in enumerate(items[:PAGE_ITEMS], 1):
+            n = reader_words(item)
+            if n > PAGE_ITEM_MAX_WORDS:
+                add("PAGE_ITEM_WORDS", False, f"{name}: list item {i} is {n} words and shows "
+                    f"on the page (aim ≤{PAGE_ITEM_MAX_WORDS}): \"{item[:60]}…\"")
+        # 7. Why now leads with the pain; law dates come after the first three.
+        if name == "Why now":
+            for i, item in enumerate(items[:PAGE_ITEMS], 1):
+                if DATE_LED.match(item):
+                    add("WHY_NOW_DATE_FIRST", True, f"Why now: page item {i} opens on a date "
+                        f"(\"{item[:50]}…\") — the first three items say who loses what time "
+                        f"or money; law dates go after them")
+
+    # 6. Plain bullets, never keyed two-column rows.
+    if KEYED_BULLET.search(arg + "\n" + firstmoves):
+        add("KEYED_LIST", True, "a `- **Key:** text` row in the body — lists are plain bullet "
+            "sentences that start with the number or the subject")
+
+    # 1. Fluff words.
+    for w in sorted({m.group(0).lower() for m in FLUFF.finditer(arg + "\n" + firstmoves)}):
+        add("FLUFF", True, f"fluff word '{w}' in the body — say the plain thing")
+
+    # 1. No stacked parentheticals: at most one (…) per sentence, never nested.
+    plain = re.sub(r"\]\([^)]*\)", "]", re.sub(r"\[S[\d,\sS]+\]", "", arg + "\n" + firstmoves))
+    for sent in re.split(r"(?<=[.!?])\s+|\n", plain):
+        opens = len(re.findall(r"(?<!\w)\(", sent))   # "AV(D)" is a term, not an aside
+        nested = re.search(r"(?<!\w)\([^)]*(?<!\w)\(", sent)
+        if opens > 1 or nested:
+            add("PARENS_STACKED", True, f"{opens} parentheticals in one sentence: "
+                f"\"{sent.strip()[:60]}…\" — one aside per sentence at most; make the rest "
+                f"its own sentence")
+
+    # 11. Never "the record" / "this record" where a reader sees it.
+    fields = [("body", arg), ("moves", firstmoves)]
+    for key in ("title", "brief", "solution", "good_for", "draft_law", "price_search"):
+        if isinstance(doc.get(key), str):
+            fields.append((key, doc[key]))
+    entry = doc.get("entry") if isinstance(doc.get("entry"), dict) else {}
+    if isinstance(entry.get("why"), str):
+        fields.append(("entry.why", entry["why"]))
+    if isinstance(doc.get("process"), dict):
+        fields += [(f"process.{k}", v) for k, v in process_texts(doc["process"])]
+    fields += [(f"comps[{i}].traction", str(c.get("traction") or "")) for i, c in enumerate(comps, 1)]
+    fields += [(f"locals[{i}].evidence", str(l.get("evidence") or "")) for i, l in enumerate(locals_, 1)]
+    for i, s in enumerate(sources, 1):
+        fields += [(f"S{i}.{k}", s[k]) for k in ("name", "gist", "why") if isinstance(s.get(k), str)]
+    for where, text in fields:
+        m = SELF_RECORD.search(text)
+        if m:
+            add("SELF_RECORD", True, f"'{m.group(0)}' in {where} — the reader is on the page; "
+                f"say \"this problem\", or just say the thing")
+
+    # 5. Say each fact once: a company lives in its row, a price in its receipt.
+    say_once = arg + "\n" + firstmoves
+    for name in ledger_name_candidates(comps, locals_):
+        if re.search(r"(?<![\w])" + re.escape(name) + r"(?![\w])", say_once):
+            add("LEDGER_NAME", True, f"'{name}' is named in the body — a company lives in its "
+                f"comps[]/locals[] row; link [Competition](#competition) or "
+                f"[Validated abroad](#validated-abroad) instead")
+    prices = {i for i, s in enumerate(sources, 1) if s.get("type") == "price"}
+    cited = markers(say_once) & prices
+    if cited:
+        add("PRICE_RESTATED", True, f"the body cites price receipt(s) "
+            f"{', '.join(f'S{n}' for n in sorted(cited))} — a price lives in its receipt; "
+            f"link [Willing to pay](#willing-to-pay) instead of restating it")
+
+    # 5. In-page links land.
+    anchors = set(ANCHORS_CANONICAL) | set(ANCHORS_ALIAS) | {f"s{i}" for i in range(1, len(sources) + 1)}
+    if not firstmoves.strip():
+        anchors.discard("first-moves")
+    if not isinstance(doc.get("process"), dict):
+        anchors.discard("how-it-works")
+    for a in sorted(set(re.findall(r"\]\(#([^)\s]+)\)", arg + "\n" + firstmoves))):
+        if a not in anchors:
+            add("ANCHOR", True, f"in-page link #{a} lands nowhere — use one of "
+                f"{', '.join('#' + x for x in ANCHORS_CANONICAL)}")
+
+    # 9. Suggested first moves.
+    moves = [re.sub(r"^\d+\.\s+", "", l.strip()) for l in firstmoves.split("\n")
+             if re.match(r"^\s*\d+\.\s", l)]
+    if firstmoves.strip():
+        if not MOVES_MIN <= len(moves) <= MOVES_MAX:
+            add("MOVES_COUNT", True, f"{len(moves)} first moves (write {MOVES_MIN}–{MOVES_MAX}, "
+                f"each on ONE line)")
+        if moves and re.match(r"(?i)(?:sell|pitch)\b", moves[0]):
+            add("MOVE1_SELL", True, "move 1 sells — it BUILDS something or CONTACTS someone "
+                "specific")
+        heavy = [str(i) for i, mv in enumerate(moves, 1)
+                 if _MARKER_ANY.search(mv) or re.search(r"\d", re.sub(r"\]\([^)]*\)", "]", mv))]
+        if heavy:
+            add("MOVE_EVIDENCE", True, f"move(s) {', '.join(heavy)} carry a [Sn] marker or a "
+                f"figure — moves link to the section holding the evidence and restate none of it")
+        for i, mv in enumerate(moves, 1):
+            lead = split_lead(mv)[0]
+            if reader_words(lead) > MOVE_LEAD_MAX_WORDS:
+                add("MOVE_LEAD_WORDS", False, f"move {i}'s first sentence is "
+                    f"{reader_words(lead)} words, and it is all the page shows "
+                    f"(aim ≤{MOVE_LEAD_MAX_WORDS})")
+
+    # 10. Execution difficulty: "Easier: … Harder: …", items that survive the split.
+    why = entry.get("why") if isinstance(entry.get("why"), str) else ""
+    e = re.search(r"(?:^|\s)Easier:\s*([\s\S]*?)(?=\s+Harder:|$)", why)
+    h = re.search(r"(?:^|\s)Harder:\s*([\s\S]*?)(?=\s+Easier:|$)", why)
+    if not (e and h):
+        add("ENTRY_WHY_SIDES", True, "entry.why is not written as \"Easier: a, b, and c. "
+            "Harder: x, and y.\" — the page reads the two lists from those two labels")
+    for label, m in (("Easier", e), ("Harder", h)):
+        for item in entry_why_items(m.group(1)) if m else ():
+            if len(item.split()) < ENTRY_ITEM_MIN_WORDS:
+                add("ENTRY_WHY_ITEM", True, f"entry.why {label} item \"{item}\" — the page split "
+                    f"an item at its own comma; separate the items with semicolons instead")
+    return out
+
+
 def split_record(text):
     """→ (frontmatter, argument, firstmoves, revisions)."""
     parts = text.split("---\n")
@@ -1382,6 +1690,32 @@ def check(path, year):
     # law not yet passed. The line is a status claim, so it is held to a
     # resolving marker on a `regulation` source, a word cap and OVERCLAIM.
     errors.extend(check_draft_law(doc, sources))
+
+    # ---- body v2: the writing rules (owner, 2026-09-16/17) -----------------
+    # ERRORs on a BODY_V2_ENFORCED record (a rewritten one); on every other live
+    # record ONE summary warning, its rewrite worklist, so 28 unrewritten
+    # records do not bury everything else this file prints. Rejected records
+    # never render and are exempt.
+    if live:
+        v2 = check_body_v2(doc, arg, firstmoves, sources, comps, locals_)
+        waived = BODY_V2_WAIVERS.get(pid, frozenset())
+        if pid in BODY_V2_ENFORCED:
+            for code, gate, msg in v2:
+                if gate and code not in waived:
+                    errors.append(f"[body-v2 {code}] {msg}")
+                else:
+                    tag = "waived, reported debt" if gate else "advice"
+                    warns.append(f"[body-v2 {code}, {tag}] {msg}")
+        elif v2 and BODY_V2_DETAIL:
+            warns.extend(f"[body-v2 {code}{'' if gate else ', advice'}] {msg}"
+                         for code, gate, msg in v2)
+        elif v2:
+            counts = {}
+            for code, _gate, _msg in v2:
+                counts[code] = counts.get(code, 0) + 1
+            warns.append(f"body v2: not rewritten yet ({sum(counts.values())} findings: "
+                         f"{', '.join(f'{c} {n}' for c, n in sorted(counts.items()))}) — "
+                         f"pipeline/REWRITE.md; `--body-v2` lists them")
 
     # ---- citation integrity ------------------------------------------------
     n_sources = len(sources)
@@ -1684,7 +2018,7 @@ def check(path, year):
                       f"much; a figure belongs on a type: price source with a url, or nowhere")
     if live and isinstance(total, int) and total >= PRICE_EXPECTED_FROM and not prices and not hint:
         warns.append(f"score {total} with no type: price source and no price_search — the "
-                     f"page prints 'No Czech buyer has priced this yet.'; add a `type: price` "
+                     f"page prints 'No price paid by a Czech buyer is on file yet.'; add a `type: price` "
                      f"receipt, or say WHERE to look in `price_search:` (CONVENTIONS.md, "
                      f"price receipts)")
 
@@ -1751,8 +2085,11 @@ def check(path, year):
                          f"nobody selling this, rung 2 is the honest score, but only on a "
                          f"gap-check with a passing positive control")
 
+    # Not on a body-v2 record: its page shows an answer line and three items a
+    # section, and the owner's rule is "Dont remove content" — the detail's
+    # length lives in the Read more sheet, where it is meant to be.
     words = len(re.sub(r"\[S[\d,S]+\]", "", arg).split())
-    if words > ARG_WORDS_MAX:
+    if words > ARG_WORDS_MAX and pid not in BODY_V2_ENFORCED:
         warns.append(f"argument {words} words (target ≤{ARG_WORDS_MAX})")
 
     # citation clot — the measured difference between p-0010 and p-0008
@@ -1793,7 +2130,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--strict", action="store_true",
                     help="exit 1 if any ERROR is found — this is the build gate")
+    ap.add_argument("--body-v2", action="store_true",
+                    help="list every body-v2 finding on records not yet rewritten "
+                         "(default: one summary line each)")
+    ap.add_argument("--enforce", metavar="IDS",
+                    help="treat these record ids (comma-separated) as BODY_V2_ENFORCED for "
+                         "this run only — how a rewrite agent proves its record passes "
+                         "without editing this shared file (pipeline/REWRITE.md)")
     args = ap.parse_args()
+    global BODY_V2_DETAIL, BODY_V2_ENFORCED
+    BODY_V2_DETAIL = args.body_v2
+    if args.enforce:
+        BODY_V2_ENFORCED = BODY_V2_ENFORCED | {x.strip() for x in args.enforce.split(",") if x.strip()}
     ensure_yaml(sys.argv[1:])
 
     files = sorted(glob.glob(RECORDS))

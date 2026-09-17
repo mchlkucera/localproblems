@@ -3,55 +3,207 @@
 **One file, one job: what a problem record must contain so the page renders itself.**
 
 The site is a template, not a set of hand-built pages. `web/lib/sections.ts` splits a
-record's body by **literal lead-ins**, and `web/app/problem/[region]/[id]/page.tsx`
+record's body by **literal lead-ins**, and `web/app/(site)/problem/[region]/[id]/page.tsx`
 renders those slices into fixed sections. So a record that follows this contract gets
-the current design for free — and a future design change is one edit to the template,
-never a regeneration of 23 pages.
+the current design for free, and a design change is one edit to the template, never a
+regeneration of 37 pages.
 
-**This is why the lead-ins are load-bearing.** Change `Why now:` to `Why it's urgent:`
-in a record and that paragraph silently falls into the previous section. There is no
-error; the page just renders wrong. Do not improvise them.
+**The lead-ins are load-bearing.** Change `Why now:` to `Why it's urgent:` and that
+paragraph silently falls into the previous section. There is no error; the page just
+renders wrong. Do not improvise them.
+
+**Rewriting an old record?** Follow `pipeline/REWRITE.md`. The approved reference is
+**p-0008**.
 
 ---
 
-## The body, in order
+## Writing the body (owner, 2026-09-16/17)
+
+Owner: *"complex language, unstructured walls of texts … full of fluff and
+complexity."* And: *"Make the without modal really short and scannable, all detail
+goes in the modal which is in-depth."* And: *"Dont remove content just make it
+scannable and readable."*
+
+Rules marked **(gate)** are checked by `check_body_v2` in `scripts/check-records.py`.
+They are ERRORs for a record in `BODY_V2_ENFORCED` (a rewritten record) and one
+summary warning for every other record. The rest are judged.
+
+### The body, in order
 
 ```markdown
-<lead paragraph — the problem, in plain words, with [Sn] markers>
+<The opportunity: ONE answer sentence [Sn]>
+- <the 3 most important items, short [Sn]>
+<detail: short paragraphs or bullets [Sn]>
 
-Why now: <the dated trigger and why the window is open now>
+Existing non-solutions: <ONE answer sentence [Sn]>
+<detail>
 
-Who pays: <who the buyer is; the FIRST SENTENCE becomes the page's dek, so
-make it a standalone sentence that reads well directly under the title>
+Why now: <ONE answer sentence: who runs out of time or money, and when [Sn]>
+- <3 pain items: who loses what, and when [Sn]>
+<detail: the law dates, as plain bullets [Sn]>
 
-Existing non-solutions: <who is already in this market locally, plainly —
-"nobody, and here is what a search returns" is a valid answer>
+Who pays: <ONE answer sentence: is anyone paying for this now? [Sn]>
+- <3 items: prices paid, contracts signed, consultants paid [Sn]>
+<detail>
 
-Solved elsewhere: <the funded comparables abroad, what each proves>
+Solved elsewhere: <ONE answer sentence [Sn]>
+<detail>
 
-## First moves        ← records scoring ≥ 7 only
-1. <numbered, concrete, each tied to evidence on the record>
+## First moves
+1. <one line per move: a standalone first sentence, then the story>
 
-## Revisions          ← audit trail; kept in the file, NOT rendered publicly
-2026-08-24 · <tag> — <what changed and why>
+## Revisions          ← not rendered; one dated entry per date
+2026-09-17 · <tag> — <what changed and why>
 ```
 
-### Where each slice lands on the page
+- **The lead-ins stay literal.** `Who pays:` is still the key for the section the page
+  now titles **Willing to pay**. `## First moves` is still the key for **Suggested first
+  moves**.
+- **Order in the file does not matter** to the splitter; p-0008 writes the sections in
+  the order above.
+- **A paragraph is one block.** A list may follow its paragraph on the next line; a
+  blank line ends a block. **A move is one line**: a wrapped line breaks the list.
 
-| lead-in | section | notes |
+### What the page shows, and what goes in the sheet
+
+The page is an outline. Each section's **Read more** opens a sheet holding the whole
+section. Anything not in the "On the page" column is read only by people who open it.
+
+| In the file | Page section · anchor (old aliases) | On the page | In the Read more sheet |
+|---|---|---|---|
+| the opener | The opportunity · `#opportunity` (`#problem`) | the answer sentence + the **first 3 items** of the first list | the whole section |
+| `solution:` + `process:` | Suggested solution · `#solution` (`#how-it-works`) | the solution sentence and the steps figure | `process.summary` lines, the figure |
+| `Why now:` | Why now · `#why-now` | the answer sentence + the **first 3 items** | the whole section |
+| `Who pays:` | Willing to pay · `#willing-to-pay` (`#who-pays`, `#how-big`) | the answer sentence + the **first 3 items** + the price dots | the whole section, the price receipts, the public-money rows, `price_search` |
+| `Solved elsewhere:` | Validated abroad · `#validated-abroad` (`#proven-abroad`, `#who-sells-this`) | the answer sentence + the map | the `comps[]` rows, then the rest of the section |
+| `Existing non-solutions:` | Competition · `#competition` (`#local-competition`) | the answer sentence + the matrix | the `locals[]` rows, then the rest of the section |
+| `entry.why` | Execution difficulty · `#execution-difficulty` (`#difficulty-to-enter`) | the first 3 Easier and first 3 Harder items, each cut before its first ", so / which / who / because / but / while" | the level and every item in full |
+| `## First moves` | Suggested first moves · `#first-moves` | the **first sentence** of moves 1–3 | every move in full |
+| `## Revisions` | *(not rendered)* | | |
+
+The sources drawer is `#sources`, its rows `#s1`…`#sN`. Link with the canonical
+anchors; the aliases only keep old links alive. **(gate)** `ANCHOR`: an in-page link
+must land.
+
+"The first sentence" is the page's own boundary (`splitLead`): a ". " outside brackets
+and parentheses, **not within the first 40 characters**, and not after an initial or
+an abbreviation (`No.`, `e.g.`, `Sb.`). A first sentence shorter than 40 characters
+absorbs the next one.
+
+### The 14 rules
+
+**1. Plain language.** Write in the voice of the headline block. Assume the reader
+has never heard of the topic. Explain every acronym, agency and law where it first
+appears, or leave it out (owner: *"who should know what's NÚKIB?"*). Short sentences.
+No fluff words, no stacked asides. **(gate)** `FLUFF` (demonstrably, notably,
+crucially, essentially, robust, leverage, landscape, ecosystem, seamless);
+`PARENS_STACKED` (two or more parentheses, or nested ones, in one sentence).
+- ✗ "NÚKIB (the national cyber agency) had 4,825 registered by February 2026, over a thousand short [S13]; many small firms do not know they are in scope [S2]."
+- ✓ "4,825 had registered by February 2026, so over a thousand had not [S13]."
+- ✗ "the one-year clocks are running, and NÚKIB counts delay against the unregistered"
+- ✓ "The agency counts a long delay against an organisation when it sets a fine [S13]."
+
+**2. Answer first.** Every section opens with ONE sentence, about 20 words, that
+answers the section's question. A reader who reads only the headings and the first
+lines gets the whole story. **(gate)** `ANSWER_SENTENCE` (one sentence, and not a
+list); `ANSWER_WORDS` (at most 25 words, markers and link targets not counted).
+- ✗ "Who pays: the roughly 6,000 regulated entities themselves — compelled by law, not persuaded [S1,S13]. Public buyers placed ~77 cyber-security awards…"
+- ✓ "Who pays: The covered organisations pay, and towns, regions and hospitals can get half back from an EU grant [S1,S9]."
+
+**3. Short page, in-depth sheet.** Order each section's first list with its 3 most
+important items first, each about 14 words or fewer. Everything else comes AFTER
+them, as short paragraphs or bullets, well structured. (Advice, printed as a
+warning: `PAGE_ITEM_WORDS` over 14 words.)
+
+**4. Never remove content.** A rewrite keeps every sourced fact somewhere, usually in
+the detail. Only a claim the sources do not support is corrected or cut, and every
+such correction is written in that date's Revisions entry.
+- ✗ the 2026-09-16 p-0008 pilot cut the Europe-wide market size, the €4.5M estimate and the closed EU fund as fluff.
+- ✓ the same day's restore put each back after its section's first list, cited as before. Only "Neither sells in Czechia" stayed cut: no source supports it.
+
+**5. Say each fact once.** Each fact has one home. Everywhere else, link to it.
+
+| Fact | Its one home | Everywhere else |
 |---|---|---|
-| *(no lead-in — the opener)* | **The problem** | anchors `#problem` |
-| `Why now:` | **Why now** | `#why-now`; also feeds the dated Window fact |
-| `Who pays:` | **dek** + **How big** | first sentence → dek, remainder → `#how-big` |
-| `Existing non-solutions:` | **Local competition** | `#local-competition`, **below** the `locals[]` ledger |
-| `Solved elsewhere:` | **Proven abroad** | `#proven-abroad`, above the comps ledger |
-| `## First moves` | **First moves** | score ≥ 7 only |
-| `## Revisions` | *(not rendered)* | stays auditable in git |
+| A company | its row in `comps[]` or `locals[]` | a link: `[Competition](#competition)`, `[Validated abroad](#validated-abroad)` |
+| A price one buyer paid | its `type: price` receipt | `[Willing to pay](#willing-to-pay)` |
+| A deadline or dated event | its bullet in Why now | `[Why now](#why-now)` |
+| The gates to entry | `entry` | `[Execution difficulty](#execution-difficulty)` |
+| A source | the sources drawer | an `[Sn]` marker |
 
-Everything else on the page is generated from **frontmatter**, not prose: the
-scorecard from `scores`, the comps ledger from `comps[]`, the local-competition
-ledger from `locals[]`, "Difficulty to enter" from `entry`, Sources from
-`sources[]`.
+**(gate)** `LEDGER_NAME`: a distinctive `comps[]`/`locals[]` name (two words, an
+internal capital, a digit or punctuation, or all caps) in the body or the moves.
+`PRICE_RESTATED`: the body or the moves cite a `type: price` source. Buyers, agencies
+and firms that are not on a ledger (a university, a consultant) may be named.
+- ✗ "four Czech products now sell the obligation itself: NIS2 Průvodce at 3,000 CZK a month, built by one person; Compligen at 29,900 CZK once…"
+- ✓ "Four Czech sellers offer the paperwork the law requires, and none sells the security work itself [S7,S16]."
+
+**6. Lists are plain bullet sentences** that start with the number or the subject.
+Keyed two-column rows are no longer used in record prose (owner: *"should be bullets
+not columns"*); the page draws its own tables from the receipts. **(gate)**
+`KEYED_LIST`.
+- ✗ `- **About €33M:** public cyber-security contracts in June–August 2026 [S7].`
+- ✓ `- About €33M in public cyber-security tenders and awards landed in June–August 2026 alone [S7].`
+
+**7. Why now is the pain, felt by the people affected.** Who loses what time or money,
+and when (owner: *"so that we can empathise with the target … Now it's just explaining
+laws"*). The law dates are detail, after the first 3 items. Why now is never "recently
+checked". **(gate)** `WHY_NOW_DATE_FIRST`: one of the first 3 items opens on a date.
+- ✗ "Why now: the one-year clocks are running, and NÚKIB counts delay against the unregistered [S1,S13]. Act No. 266/2025 adds CER…"
+- ✓ "Why now: Small towns, care homes and firms covered by the new cybersecurity law start running out of time in late 2026…"
+- ✓ "- A town's director who wants the EU to pay half of the work first pays a consultant about 121,000 CZK just to write the grant application [S8,S9]."
+
+**8. Willing to pay** (the old "Who pays"): are people paying for this right now?
+Prices paid, signed contracts, consultants paid to do it by hand. Public money nearby
+raises the odds, but it is never the whole case: say what buyers actually spend.
+
+**9. Suggested first moves.** 3 to 5 moves. **(gate)** `MOVES_COUNT`; `MOVE1_SELL`;
+`MOVE_EVIDENCE` (no `[Sn]` marker and no figure in a move).
+- **Move 1 builds something or contacts someone specific**, never "Sell".
+- **The first sentence stands alone and is complete.** It is all the page shows, so it
+  assumes nothing. (Advice: `MOVE_LEAD_WORDS` over 25 words.)
+- **Then tell it as a story in simple words:** who you talk to, what you give them, why
+  they say yes, what comes next.
+- **Link to the evidence** (`[Why now](#why-now)`); restate none of it.
+- ✗ "1. Sell to the buyers already paying: small towns and social-care homes."
+- ✗ "1. Build a fixed-price readiness check for one town." (owner: *"readiness of what?"*)
+- ✓ "1. Build a simple, fixed-price check that tells a small town exactly what the new cybersecurity law requires of it and by when."
+
+**10. Execution difficulty: `entry.why` says plainly what makes entering easier and
+what makes it harder**, in exactly this shape, within the 320-character cap:
+
+```yaml
+why: 'Easier: <item>, <item>, and <item>. Harder: <item>, and <item>.'
+```
+
+The page splits each half into items at its commas (not before ", so", ", which",
+", who", ", because", ", but", ", while" and similar, which continue the item) and
+drops a leading "and". **If any item contains a comma list of its own, separate every
+item in that half with semicolons instead**: then only semicolons split. **(gate)**
+`ENTRY_WHY_SIDES` (both labels); `ENTRY_WHY_ITEM` (an item under 3 words, the sign of a
+split inside an item).
+- ✗ "The buyers this record goes after are small towns and public care providers, so the first sale runs through public purchasing and its pace. Nothing licences the work…"
+- ✓ "Easier: the law's deadlines push towns and firms to buy now, an EU grant pays half for towns, and no licence is needed to do the work. Harder: the buyers are public bodies, so each sale goes through their slow purchasing rules and tenders, and they want references a new provider does not have yet."
+
+**11. Never write "the record" or "this record"** where a reader sees it (owner: *"The
+page we're looking at is the record isn't it?"*). Say "this problem", or just say the
+thing. **(gate)** `SELF_RECORD`: the body, the moves, `title`, `brief`, `solution`,
+`good_for`, `draft_law`, `price_search`, `entry.why`, `process` text, `comps[].traction`,
+`locals[].evidence` and each source's `name`, `gist` and `why`. Revisions and `note:`
+are not rendered and are not checked.
+- ✗ "The buyers this record goes after are small towns…"
+- ✓ "Harder: the buyers are public bodies…"
+
+**12. The headline block rules stay** (below): `good_for` starts with a person.
+
+**13. Evidence stays honest.** Every kept claim keeps its `[Sn]` markers. Check every
+rewritten sentence against its source, not against the old sentence. An inference
+the sources do not state is written as one and flagged in Revisions with the sources
+it rests on.
+- ✓ p-0008, 2026-09-17: "that a town missing the 17 December grant deadline pays the full cost itself rests on [S9] naming no later call" (flagged as an inference).
+
+**14. Every rewrite adds a dated Revisions entry**: what moved, what was corrected and
+why, what was flagged as inference, and that no score, status, source or note changed.
 
 ---
 
@@ -98,7 +250,7 @@ locals:                         # OPTIONAL — omit the key entirely, NEVER `loc
     competes: adjacent          # a real player nearby, selling something else
     maturity: established       # …and mature. Adjacent NEVER moves gap.
     evidence: 'sells AI triage to the building authority — the other side of the counter
-      from the applicant this record serves'
+      from the applicant'
 sources:
   - type: arbitrage
     url: https://…
@@ -127,9 +279,11 @@ is real where a free incumbent sets the price), `unit` (`per-seat-month` ·
 `per-case` · `per-year` · `per-project` · `one-off` · `per-hour`), `basis`
 (`list-price` · `signed-contract` · `tender-line` · `buyer-interview` ·
 `manual-equivalent`), `date`. The same fields on any other type also fail. It
-renders under **How big** as one ledger line, `<payer> pays <amount> CZK <unit>
-· <basis> · <date>`; a record scoring ≥ 7 without one prints `No Czech buyer
-has priced this yet.` It cites `money` only when tagged `dims: [money]`, never
+renders under **Willing to pay** as a price dot on the page and a row of the
+"What one buyer pays" table in its sheet (amount and unit · payer · basis ·
+month); without one the section prints `No price paid by a Czech buyer is on
+file yet.` It is the price's ONE home: the body links `#willing-to-pay` and never
+cites it (`PRICE_RESTATED`). It cites `money` only when tagged `dims: [money]`, never
 another dimension — untagged, it backs no score, which is the point.
 
 ```yaml
@@ -137,7 +291,7 @@ another dimension — untagged, it backs no score, which is the point.
     url: https://www.wue.cz/cenik
     name: 'Wue'
     gist: 'installer SaaS list price'
-    why: 'What a Czech installer pays today for the back office this record proposes.'
+    why: 'What a Czech installer pays today for installer back-office software.'
     note: 'ceník read 2026-08-13; 650 Kč/seat/mo, heat-pump module +200 Kč'
     date: '2026-08-13'
     payer: 'Czech PV/heat-pump installers (2–20 seats)'
@@ -153,7 +307,7 @@ surfaces and the keyword a builder should search — a registr smluv full-text
 query, an MS2021+ index keyword (`scripts/ms21_query.py`), a named vendor's
 price list, a named ROLE at a named institution to ask. It is an estimate of
 WHERE, never of HOW MUCH: a crown figure in it fails the build (owner,
-2026-09-04). Renders beside "No Czech buyer has priced this yet."
+2026-09-04). Renders as "Where to look" in the Willing to pay sheet.
 
 ### `solution:` — the likely solution, in one sentence (required)
 
@@ -529,13 +683,13 @@ every local player lived as prose inside a gap-check `note:`. A machine could
 read the foreign half of the register and not the local half, so `gap` could not
 be audited, and `gap: 0` silently meant two opposite things.
 
-It renders as a ledger under **Local competition**, in the same grammar as
-"Proven abroad": linked name · IČO · since · the `established`/`early` maturity
-band, with `evidence` as the note line — **split into two labelled groups**, the
-ones that sell this first ("3 sell this") and the ones nearby that do not ("4
-nearby, selling something else"). The `Existing non-solutions:` paragraph keeps
-rendering **underneath** — the ledger says *who*, the prose says *what that
-means for an entrant*.
+It renders as rows in the **Competition** sheet (`#competition`), in the same
+grammar as the Validated abroad rows: linked name · IČO · since · the
+`established`/`early` maturity dot, with `evidence` as the note line — **split
+into two labelled groups**, "Sells this" and "Sells something nearby". The
+`Existing non-solutions:` answer sentence is on the page; the rest of that
+section renders under the rows in the sheet — the ledger says *who*, the prose
+says *what that means for an entrant*, and never names the companies again.
 
 | key | |
 |---|---|
@@ -738,8 +892,8 @@ process:
 The page reads the record in this order, and the figure is split across two of
 the three:
 
-1. **The problem** — the full argument, unchanged: the lead paragraphs, Why
-   now, Who pays, Existing non-solutions, Solved elsewhere.
+1. **The opportunity** — the opener's answer sentence and first 3 items; the
+   rest of the section is in its Read more sheet (see "What the page shows").
 2. **The process today** — `summary.today`, then the steps' TODAY column. This
    is still the problem section's job: it is what the reader is being shown is
    wrong.
@@ -810,21 +964,15 @@ collapsing into one) is not in its solution sentence.
 
 ## House rules for the prose
 
-- **Plain.** A board member reading for the first time must not meet jargon. Banned
-  from rendered prose: *de-rank, gap-check, absence check, incumbent re-check,
-  receipted, materiality, verdict words* (UNPROVEN/FAINT/SCATTERED…), and any
-  sentence about our own process ("the audit found…", "re-judgment required").
-  That story belongs in `## Revisions`.
-- **One claim per sentence, one or two `[Sn]` markers per sentence.** Chaining four
-  markers into a clause is what made p-0008 read denser than p-0010 at the same
-  length. If a sentence needs five receipts, it is five sentences — or the
-  enumeration belongs in the money-receipts list, which renders automatically.
-- **≤ 300 words of argument** (the five paragraphs above, excluding First moves and
-  Revisions). p-0010 is the reference at ~511 including everything.
-- **"How big" states a real number.** Market size, population of buyers, and a
-  bottom-up estimate with its assumptions shown — never a vibe. If no figure is on
-  file, say so plainly; `money: 0` is honest.
-- **Every figure carries a source.** No source, no number.
+The body rules are **Writing the body**, at the top of this file. Two more hold for
+every rendered line:
+
+- **No process talk.** Banned from rendered prose: *de-rank, gap-check, absence check,
+  incumbent re-check, receipted, materiality, verdict words* (UNPROVEN/FAINT/SCATTERED…),
+  and any sentence about our own process ("the audit found…"). That story belongs in
+  `## Revisions`.
+- **At most two `[Sn]` markers per sentence, and every figure carries one.** No
+  source, no number. If a sentence needs five receipts, it is five sentences.
 
 ## Rules that are not style
 
@@ -841,6 +989,7 @@ collapsing into one) is not in its solution sentence.
 ```bash
 node web/scripts/lint-citations.mjs     # reads output, ALWAYS exits 0 — read the WARNs
 python3 scripts/check-records.py        # this contract, reported (exits 0; read the ERRORs)
+python3 scripts/check-records.py --body-v2   # every "Writing the body" finding, per record
 npm --prefix web run build              # zod-validated; a bad record fails the build
 npm --prefix web run parity             # both loaders must emit byte-identical HTML
 ```
