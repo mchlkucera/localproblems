@@ -22,21 +22,22 @@ entry:
   incumbents: adjacent
   integration: software
   money: bootstrap
-  why: 'The buyers this record goes after are small towns and public care providers, so the first sale runs through public purchasing and its pace. Nothing licences the work, and the established neighbour is ICZ, a systems house selling security projects at the enterprise end.'
+  why: 'Easier: the law''s deadlines push towns and firms to buy now, an EU grant pays half for towns, and no licence is needed to do the work. Harder: the buyers are public bodies, so each sale goes through their slow purchasing rules and tenders, and they want references a new provider does not have yet.'
 comps:
 - name: Secfix
   url: https://www.secfix.com/
   geo: DE
   since: 2021
-  traction: '€10.2M Series A, Feb 2026 (Vestbee); hundreds of SMB customers across 15+ European
-    countries (Tech Funding News, 2026)'
+  traction: 'Raised €10.2M in a Series A round, Feb 2026 (Vestbee); hundreds of small-business
+    customers in 15+ European countries (Tech Funding News, 2026)'
   signal: round-secfix
 - name: Copla
   url: https://cyberupgrade.net/
   geo: LT
   since: 2023
-  traction: '€6M Series A, Feb 2026, after €2.5M seed, Nov 2024 (Vestbee); NIS2/DORA/ISO 27001
-    compliance automation, rebranded from CyberUpgrade (EU-Startups, 2026)'
+  traction: 'Raised €6M in a Series A round, Feb 2026, after a €2.5M seed round, Nov 2024 (Vestbee);
+    software that automates compliance with EU security rules (NIS2, DORA) and the ISO 27001
+    standard, formerly called CyberUpgrade (EU-Startups, 2026)'
   signal: round-copla
 locals:
 - name: NIS2 Průvodce
@@ -45,96 +46,94 @@ locals:
   since: 2025
   competes: direct
   maturity: early
-  evidence: 'A full Czech platform at 3,000 CZK a month per company: twelve modules across
-    vyhláška 409/2025 and 410/2025, an asset register, a 52-measure risk catalogue, a supplier
-    register wired to the state business register, incident forms for the national cyber agency
-    (NÚKIB) with their 24- and 72-hour deadlines, training and an AI assistant over the
-    statute. It is run by one person, Ondřej Šitler, is not VAT-registered, sells against an
-    obligation that only took effect in November 2025, and names nobody who has bought it.'
+  evidence: 'A Czech compliance platform, sold by monthly subscription per company. Twelve modules
+    cover both decrees that set out the security measures (vyhláška 409/2025 and 410/2025): an
+    asset register, a 52-item risk catalogue, a supplier register linked to the state business
+    register, incident reports to the national cyber-security agency within its 24- and 72-hour
+    deadlines, training, and an AI assistant that answers questions about the law. One person,
+    Ondřej Šitler, runs it. He is not VAT-registered, the law it sells against only took effect
+    in November 2025, and no buyer is named.'
 - name: Compligen
   url: https://www.compligen.cz/
   since: 2026
   competes: direct
   maturity: early
-  evidence: 'An online guided generator producing 20+ documents against vyhláška 410/2025 for the
-    lighter-obligations regime, 29,900 CZK one-off before VAT, with a page aimed at
-    municipalities. Founder Lukáš Vencálek publishes no company number and no company of that
-    trade name is on the state business register; its own reference line claims 30+ firem a
-    obcí, while the product still carries a Q3 2026 roadmap.'
+  evidence: 'An online tool that generates the documents the law requires. It produces 20+
+    documents for organisations under the lighter set of rules (vyhláška 410/2025), for 29,900
+    CZK one-off before VAT, and has a page aimed at towns. It claims more than 30 firms and towns
+    as clients. But founder Lukáš Vencálek publishes no company number, no company of that trade
+    name is in the state business register, and the product still shows a Q3 2026 roadmap.'
 - name: NIS2 Doku
   url: https://nis2doku.cz/
   since: 2025
   competes: direct
   maturity: early
-  evidence: 'A documentation pack — Start 4,900 CZK, Pro 11,900 CZK one-off before VAT, 10+
-    documents per vyhláška 410/2025 plus Excel asset, incident and supplier tools — sold by
-    David Mikulec against an obligation that took effect in November 2025. Nobody who has
-    bought it is named.'
+  evidence: 'A pack of ready-made compliance documents. It holds 10+ documents for the lighter set
+    of rules (vyhláška 410/2025), plus Excel tools for assets, incidents and suppliers, at 4,900
+    CZK (Start) or 11,900 CZK (Pro), one-off before VAT. It is sold by David Mikulec, and no
+    buyer is named.'
 - name: Lexnova Energy
   url: https://www.lexnova.cz/
   ico: '22530649'
   since: 2025
   competes: direct
   maturity: early
-  evidence: 'Sells a productised "NIS 2 package" at about 91k CZK a time, with repeat orders
-    visible in the state contracts register. Lexnova Energy s.r.o. was incorporated in January
-    2025 and the sibling Lexnova Services s.r.o. in July 2026, so the seller is younger than
-    the obligation it packages.'
+  evidence: 'A ready-made "NIS 2 package" for public buyers, with repeat orders in the state
+    contracts register. Lexnova Energy s.r.o. was founded in January 2025, and its sister
+    company Lexnova Services s.r.o. in July 2026.'
 - name: ICZ Risk*Guide
   url: https://www.iczgroup.com/riskguide/
   ico: '25145444'
   since: 1997
   competes: adjacent
   maturity: established
-  evidence: 'A modular information-security and risk-assessment platform deployed at the state
-    digital agency (Digitální a informační agentura), the police presidium and the Plzeň city
-    IT authority, put in over a one-to-three-month implementation with a 24/7 advisory service
-    attached. It is a security programme bought as a project by ministries, regions, cities and
-    large organisations — municipalities are among its buyers — rather than the fixed-price
-    product a small obliged firm buys off a web page; ICZ a.s. has traded since July 1997 and
-    the product is now sold by the group company ICZ.Services a.s. (IČO 22183809, incorporated
-    October 2024).'
+  evidence: 'A security and risk-management platform, bought as a large project. It is deployed
+    at the state digital agency, the police presidium and the Plzeň city IT authority. Ministries,
+    regions, towns and large organisations buy it with one to three months of setup and a 24/7
+    advisory service, not as the fixed-price product a small organisation buys off a web page.
+    ICZ a.s. has traded since July 1997, and the product is now sold by the group company
+    ICZ.Services a.s. (IČO 22183809, founded October 2024).'
 process:
   summary:
-    today: 'A town or care home under the new cybersecurity law buys its way through it in pieces — one seller works out what it owes, another writes the subsidy application, a third sells the paperwork — and the security work itself has nobody to do it [S2,S7,S16].'
+    today: 'A covered town or care home buys help in pieces: one seller checks what it owes, another writes the grant application, a third sells paperwork [S7,S8,S16].'
     after: 'One provider does the check, the application and the security work, so the organisation buys once instead of three times.'
   steps:
-  - who: A scope-analysis seller
-    today: 'Works out whether the new cybersecurity law applies to the organisation and what it owes'
+  - who: A consultant who checks what the law requires
+    today: 'Checks whether the new cybersecurity law covers the organisation, and what it owes'
     known: documented
     cites: [2, 7]
     change: changes
-    after: 'One fixed-price provider makes the same check, ahead of the organisation''s own deadline'
+    after: 'One fixed-price provider makes the same check, before the organisation''s deadline'
   - who: The town or care home
-    today: 'Registers with the national cyber agency, which starts the one-year clock on its measures'
+    today: 'Registers with the national cyber-security agency, which starts its one-year deadline for security measures'
     known: documented
     cites: [1, 13]
     change: stays
-    after: 'Unchanged — registering is the organisation''s own duty'
-  - who: A grant consultant
-    today: 'Writes the EU subsidy application for the organisations that qualify for one'
+    after: 'Unchanged: registering is the organisation''s own duty'
+  - who: A consultant who writes grant applications
+    today: 'Writes the EU grant application for the organisations that can get one'
     known: documented
     cites: [8]
     change: changes
     after: 'The same provider writes the application, inside the fixed price'
-  - who: A compliance-documents seller
-    today: 'Sells the required paperwork as a package; the sellers here sell the documents rather than the security work'
+  - who: A seller of ready-made compliance documents
+    today: 'Sells the required documents as a package, without doing the security work'
     known: documented
     cites: [16]
     change: changes
-    after: 'The paperwork is written out of work the provider has actually done'
+    after: 'The documents describe security work the provider has actually done'
   - who: Nobody in-house, at most of these organisations
-    today: 'The security measures themselves have no one to carry them out; one university re-tendered after its first attempt to hire an outsourced security manager'
+    today: 'Nobody carries out the security measures; one university had to re-run its tender for an outside security manager'
     known: inferred
     cites: [2, 19]
     change: changes
     after: 'The provider does the security work itself, at the same fixed price'
   - who: '?'
-    today: 'Who checks that the measures are in place once the deadline passes, and when, is not known'
+    today: 'Who checks the measures after the deadline, and when, is not known'
     known: unknown
     cites: []
     change: stays
-    after: 'Unchanged — the suggested solution prepares the organisation for that check rather than performing it'
+    after: 'Unchanged: the provider prepares the organisation for that check but does not perform it'
 sources:
 - type: regulation
   name: "Act No. 264/2025 Coll. (new cybersecurity act)"
@@ -460,24 +459,75 @@ created: '2026-08-13'
 updated: '2026-09-04'
 ---
 
-Act No. 264/2025 Coll., the Czech transposition of the EU's NIS2 security directive, puts roughly 6,000 firms and municipalities under a cybersecurity regime: energy, manufacturing, food, logistics, digital services [S1,S2]. NÚKIB (the national cyber agency) had 4,825 registered by February 2026, over a thousand short [S13]; many small firms do not know they are in scope [S2]. Measures fall due a year after registration — deadlines through H1 2027, fines to 2% of global turnover or CZK 250m [S1]. Most of the 6,000 have nobody to do the work — Mendel University re-tendered in August 2026 after its first attempt to hire an outsourced security manager [S19].
+The new cybersecurity law makes each covered organisation register, then put security measures in place within a year [S1].
 
-Existing non-solutions: consultancies are no longer alone — four Czech products now sell the obligation itself: NIS2 Průvodce at 3,000 CZK a month, built by one person; Compligen at 29,900 CZK once, aimed at towns; NIS2 Doku from 4,900 CZK; Lexnova Energy's ~91k CZK package, ordered twice by care providers in weeks [S2,S7,S16]. All four are younger than the obligation, in force since November 2025 — they sell the paperwork, not the work [S1,S16]. Only ICZ (a systems house trading since 1997) works the enterprise end, and sells a project [S16].
+- About 6,000 towns and firms are covered, in energy, manufacturing, food, logistics and digital services [S1,S2].
+- Many small firms do not yet know the law covers them [S2].
+- The top fine is CZK 250m or 2% of global turnover [S1,S13].
+- 4,825 had registered by February 2026, so over a thousand had not [S13].
+- One university had to re-run its tender for an outside security manager [S19].
 
-Why now: the one-year clocks are running, and NÚKIB counts delay against the unregistered [S1,S13]. Act No. 266/2025 adds CER — the EU's critical-entity law — with physical-resilience duties on the same entities from 17 July 2026 [S5]. IROP (the EU regional-development programme) stops taking applications on 17 December 2026 [S9].
+The law is Act No. 264/2025, the Czech version of the EU's NIS2 directive (its common cybersecurity rules) [S1]. Each organisation registers with NÚKIB (the national cyber-security agency), and its year for security measures runs from that registration [S1].
 
-Who pays: the roughly 6,000 regulated entities themselves — compelled by law, not persuaded [S1,S13]. Public buyers placed ~77 cyber-security awards worth ~€33M in June–August 2026 [S7]. Awards run from ~€6.1M at Motol and Homolka [S3] to ~9M CZK at Český Brod, a town of 7,000 [S6]; Prague bought city-wide monitoring for ~€5.3M [S4]. A ~€99.6M subsidy pot sits behind them [S9]; towns pay ~121k CZK for the application alone [S8]. Tooling sells at €500–6,000 per firm a year [S14]: a quarter of the 6,000 at €3,000 is ~€4.5M a year, before the implementation the €33M buys. European cybersecurity spend runs ~$70 billion in 2026, up ~11% a year [S15].
+- The agency counts a long delay against an organisation when it sets a fine [S13].
+- The university is Mendel University in Brno. In August 2026 it went back to market for an outsourced security manager, a role the law requires [S19].
 
-Solved elsewhere: Secfix (Berlin, €10.2M Series A) sells compliance automation to hundreds of small firms in 15+ European countries [S11]. Copla (Vilnius, €6M Series A) automates the same compliance next door [S12]. Neither sells in Czechia.
+Existing non-solutions: Four Czech sellers offer the paperwork the law requires, and none sells the security work itself [S7,S16].
+
+None of the four puts the security measures in place, and that work is what the public contracts under [Who pays](#how-big) buy [S7,S16]. Other firms sell single pieces of the job:
+
+- Institut kybernetické bezpečnosti sells scope analysis: whether the law applies, and what is owed [S7].
+- enovation writes the EU grant applications that towns pay for [S8].
+
+Why now: Small towns, care homes and firms covered by the new cybersecurity law start running out of time in late 2026, and even the first steps already cost them around 100,000 CZK [S1,S8,S23].
+
+- A firm's owner has one year from registering with the national cyber-security agency to put the required security in place, so the first deadlines fall in late 2026 [S1]. A firm that misses its deadline can be fined up to 2% of its turnover [S1,S13].
+- A town's director who wants the EU to pay half of the work first pays a consultant about 121,000 CZK just to write the grant application [S8,S9]. The grant stops taking applications on 17 December 2026, so a town that has not applied by then pays the full cost itself [S9].
+- Hiring someone to do the work is hard. Mendel University in Brno had to run its tender for an outside security manager, the person the law requires to be in charge of security, a second time in August 2026 [S19]. A care home that bought a ready-made package instead paid about 91,000 CZK [S23].
+- Many small firms do not yet know the law covers them [S2]. An organisation that has not registered already faces proceedings and a fine [S13].
+
+The dates behind these deadlines come from the law itself, and from a second law on critical infrastructure [S1,S5]:
+
+- On 1 November 2025 the new cybersecurity law took effect [S1].
+- By 17 July 2026 the state had to name the organisations covered by the second law, on critical infrastructure [S5].
+- In late 2026 the first one-year deadlines for security measures run out [S1].
+- On 17 December 2026 the EU grant for towns, regions and hospitals stops taking applications [S9].
+- By mid 2027 most of the remaining deadlines have run out [S1].
+- The top fine is CZK 250m or 2% of global turnover, and the agency counts a long delay against an organisation when it sets the fine [S1,S13].
+
+The second law is Act No. 266/2025, the Czech version of the EU's CER directive (its rules for critical entities) [S5]. It puts physical-resilience duties on many of the same organisations: resilience plans and incident reporting, through 2027 [S5]. Many customers for the first law will need this work too [S5].
+
+Who pays: The covered organisations pay, and towns, regions and hospitals can get half back from an EU grant [S1,S9].
+
+- About €33M in public cyber-security tenders and awards landed in June–August 2026 alone [S7].
+- About 121,000 CZK is what one town paid a consultant just to write its grant application [S8].
+- €500–6,000 a year is what compliance software costs one organisation [S14].
+
+The €33M is spread over about 77 tenders and awards [S7]. Buyers range from large hospitals to small towns:
+
+- Motol and Homolka, two large Prague hospitals, bought threat detection and response for about €6.1M [S3].
+- The city of Prague bought security monitoring across the city for about €5.3M [S4].
+- Český Brod, a town of about 7,000, bought its whole cyber-security job; its price is in the table of what one buyer pays [S6].
+- 341 cyber-security contracts have entered the state contracts register since June 2026 [S6].
+- The town of Týn nad Vltavou paid just to find out whether the law applied to it [S7].
+
+The EU grant is IROP call 120 (the cyber-security call of the EU's regional-development programme). It holds about €99.6M and pays 50% of the cost [S9].
+
+A rough estimate from the software price range: if a quarter of the 6,000 paid €3,000 a year, software alone would bring about €4.5M a year [S14]. That is before the security work itself, which is what the public contracts buy [S7].
+
+Across Europe, cybersecurity spending is about $70 billion in 2026, growing about 11% a year [S15].
+
+Money for building security tools, rather than buying them, also existed. The ECCC (the EU's cybersecurity competence centre) offered €56.2M from the HORIZON research programme to groups of firms and research bodies, Czech ones included. That call closed on 15 September 2026 [S10].
+
+Solved elsewhere: Two funded European companies sell software that automates security compliance [S11,S12].
 
 ## First moves
 
-1. Sell to the buyers already paying: small towns and social-care homes. A care home bought Lexnova's ~91k CZK package off the shelf, then ordered again weeks later; Týn nad Vltavou paid just to find out whether the law applied to it [S7]. Český Brod, 7,000 people, signed ~9M CZK, and 341 cyber contracts have landed in the state contracts register since June [S6].
-2. Start with a fixed-price readiness check: where one town or institution stands against Act 264/2025 and Vyhláška 409/2025 — the decree setting out the security measures — and what it owes before its one-year deadline runs out [S1]. Fixed price is what the smallest obliged buyers demonstrably choose [S7].
-3. Let the state pay for it. [IROP 120 Kybernetická bezpečnost II](/sources/tenders#dotace-irop-120-kyberbezpecnost) — the cyber call — holds ~€99.6M at a 50% rate for municipalities, regions and hospitals, open until 17 December 2026 [S9]. Towns already pay consultants to write those applications [S8]: write the application, then do the work it funds. To fund the tool itself, [HORIZON-CL3-2026-02-CS-ECCC](/sources/tenders#dotace-horizon-eccc-cyber-2026) (€56.2M) closes 15 September 2026 [S10].
-4. Sell the doing, not the documents. NIS2 Průvodce (3,000 CZK a month), Compligen (29,900 CZK once) and NIS2 Doku (4,900 CZK) already sell the paperwork [S16]. None of them implements anything, and implementation is what the ~€33M of public awards buys [S7].
-5. Come back for the second law. Act No. 266/2025 puts physical-resilience duties on many of the same organisations through 2027 [S5]. Every NIS2 customer will need that too.
-6. Know who else is in the room. NIS2 Průvodce, Compligen, NIS2 Doku and ICZ Risk*Guide sell the compliance product [S16]; Lexnova Energy sells repeat packages, Institut kybernetické bezpečnosti sells scope analysis, and enovation writes the subsidy applications [S7,S8]. Abroad, Secfix [S11] and Copla [S12] do it at Series A scale.
+1. Build a simple, fixed-price check that tells a small town exactly what the new cybersecurity law requires of it and by when. The check answers three questions. First, does [the new law](#problem) cover the town at all? Second, has the town registered, meaning told the national cyber-security agency (NÚKIB) that it runs a covered service, which is the step that starts its one-year clock [S1]? Third, which security measures is it still missing? The measures are the concrete steps two decrees set out (vyhláška 409/2025 and 410/2025), such as a list of the town's computers and data, an assessment of its risks, checks on its suppliers, staff training, and reporting an attack to the agency within 24 hours [S16]. The town gets a short report: what is done, what is missing, and the date each missing piece is due, before [its deadline](#why-now). Give it one price agreed up front, because the smallest buyers already choose fixed-price packages [S7].
+2. Call the directors of care homes and small towns that are already paying for help with this law, and offer them the check. They are easy to find, because public bodies must publish their contracts. The state contracts register shows a care home in Napajedla and social-care services in the Zlín region buying the same ready-made package, and the town of Týn nad Vltavou paying just to learn whether the law applies to it [S7]. More buyers are listed under [Who pays](#how-big). These people have already shown they will spend money on this, and their deadline is close, as [Why now](#why-now) explains. Ask each one what they have done so far and what worries them, and use the answers to improve the check.
+3. For each town that can get the EU grant, write the grant application for it, so the EU pays half of the security work that follows. The grant is IROP call 120, EU money for towns, regions and hospitals covered by the law, and it pays 50% of the cost [S9]. Towns already pay consultants about 121,000 CZK just to write this application [S8]. If you write it as part of your price, the town saves that fee and deals with one provider instead of two. Start early: the grant stops taking applications on 17 December 2026, as [Why now](#why-now) explains [S9].
+4. Do the security work the check found missing, rather than only writing the documents that describe it. The work means putting the measures in place for real: making the list of computers and data, setting up supplier checks, training the staff, and being ready to report an attack in time [S16]. Several Czech sellers already sell the documents, as ready-made packs or online tools, but none of them does the work itself; see [Who already sells this](#local-competition) [S7,S16]. The public contracts pay for the work: a town of about 7,000 people signed about 9M CZK for its cyber security [S24]. Hiring their own person is hard, too, since one university had to run its tender for an outside security manager a second time [S19]. So one provider that does the check, the application and the work, at a fixed price, saves the buyer from buying three times.
+5. Once a town or care home trusts you, help it with a second new law, on critical infrastructure, which puts more duties on many of the same organisations. That law is Act No. 266/2025, the Czech version of the EU's rules for critical entities [S5]. It asks the organisations the state names to write resilience plans, meaning how they keep their essential services running through physical threats, and to report serious incidents, through 2027 [S5]. Its dates are under [Why now](#why-now). You already know these customers and their systems, so this is the natural next job to offer them.
 
 ## Revisions
 
@@ -495,4 +545,6 @@ Solved elsewhere: Secfix (Berlin, €10.2M Series A) sells compliance automation
 
 2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from First moves 1–4 and build.note. No claim, score or source changed.
 
-2026-09-16 · process figure and headline copy — The pieces a covered organisation buys separately are now carried as data: the scope check, the registration and its one-year clock, the paid subsidy application, the paperwork package, and the security work nobody is doing [S1,S2,S7,S8,S13,S16,S19]. Who inspects once a deadline passes is marked unknown. No score, source, note or marker changed. Same date, separate pass, merged here: headline copy — The headline was rewritten for a general builder as at most three lines under the title: a `brief:` sentence on what is happening and why it is urgent, the `solution:` as a call to action, and a new `good_for:` line. New copy, verbatim — title: "6,000 Czech towns and firms have one year to meet a new cybersecurity law"; brief: "Most deadlines fall between late 2026 and mid-2027, fines reach 2% of turnover, and a university has re-tendered for a security manager [S1,S19]."; solution: "Build a small security agency that writes their EU grant applications and does the security work."; good_for: "Cybersecurity people interested in grants and public-sector sales." Previous title, verbatim: "Six thousand Czech firms must meet new security rules, and most are not ready". Previous solution, verbatim: "A fixed-price service for the towns and care homes covered by the new Czech cybersecurity law: check what each one owes before its deadline, write the EU subsidy application where one applies, then do the security work itself rather than only the documents." Two claims in the approved draft brief were corrected against the evidence before it was written. "Must comply by 31 Dec 2026" became "between late 2026 and mid-2027": the Act starts each one-year clock on delivery of NÚKIB's registration decision, not on the notification that was due by 31 December 2025, and this record's own reading of the law puts most deadlines in Q4 2026 – H1 2027 [S1]. "Most have nobody who can do it" became the receipt behind it, a university re-tendering for the security manager the Act requires [S19]: no source on file counts how many of the 6,000 lack the people, which is why the process figure already marks that step inferred. The fine keeps the top of the scale, 2% of global turnover (or CZK 250m, whichever is higher, in the higher-obligations regime; 1.4% or CZK 175m in the lower one) [S1,S13]. No score, status, source, note, marker or body sentence changed. Second pass this date, merged here: the owner's final copy, approved after several rounds of review, replaced that draft. New copy, verbatim — title: "6,000 Czech towns and firms have months left to meet a new cybersecurity law"; brief: "Many small firms don't even know the law covers them, and the first deadlines hit in late 2026 [S1,S2]. A firm that misses its deadline can be fined up to 2% of its turnover (which is A LOT of money) [S1]."; solution and good_for unchanged. Previous title, verbatim: "6,000 Czech towns and firms have one year to meet a new cybersecurity law". Previous brief, verbatim: "Most deadlines fall between late 2026 and mid-2027, fines reach 2% of turnover, and a university has re-tendered for a security manager [S1,S19]." Previous solution, verbatim: "Build a small security agency that writes their EU grant applications and does the security work." Previous good_for, verbatim: "Cybersecurity people interested in grants and public-sector sales." "One year" became "months left" because the deadlines this record's reading of the Act places in Q4 2026 – H1 2027 are now between about three and nine months away [S1]. Each claim in the new brief was checked against the sources before it was written: that many small firms do not know the law covers them is the business association's own finding [S2]; the first deadlines fall in late 2026 because the Act took effect on 1 November 2025 and each security-measures clock runs one year from registration [S1]; and 2% of turnover is the top of the fine scale, a turnover-based fine that applies to firms [S1,S13]. The university re-tender [S19] left the brief and stays in the body. No score, status, source, note or body sentence changed. Simplified for the front page: solution "Build a small security agency that writes their EU grant applications and does the security work." → "Build a small security agency that does the security work, and writes EU grant applications for the towns that qualify.". Solution corrected, not only shortened: the EU grants this record carries go to towns, regions and hospitals, not to private firms, so the line no longer says the agency writes grant applications for the firms it serves. Title, brief and good_for unchanged. Same date, good-for opener (owner: "Good for should always start with a person"): "Cybersecurity people interested in grants and public-sector sales." became "Someone with cybersecurity skills who's interested in grants and public-sector sales." — same meaning, person first.
+2026-09-16 · process figure and headline copy — The pieces a covered organisation buys separately are now carried as data: the scope check, the registration and its one-year clock, the paid subsidy application, the paperwork package, and the security work nobody is doing [S1,S2,S7,S8,S13,S16,S19]. Who inspects once a deadline passes is marked unknown. No score, source, note or marker changed. Same date, separate pass, merged here: headline copy — The headline was rewritten for a general builder as at most three lines under the title: a `brief:` sentence on what is happening and why it is urgent, the `solution:` as a call to action, and a new `good_for:` line. New copy, verbatim — title: "6,000 Czech towns and firms have one year to meet a new cybersecurity law"; brief: "Most deadlines fall between late 2026 and mid-2027, fines reach 2% of turnover, and a university has re-tendered for a security manager [S1,S19]."; solution: "Build a small security agency that writes their EU grant applications and does the security work."; good_for: "Cybersecurity people interested in grants and public-sector sales." Previous title, verbatim: "Six thousand Czech firms must meet new security rules, and most are not ready". Previous solution, verbatim: "A fixed-price service for the towns and care homes covered by the new Czech cybersecurity law: check what each one owes before its deadline, write the EU subsidy application where one applies, then do the security work itself rather than only the documents." Two claims in the approved draft brief were corrected against the evidence before it was written. "Must comply by 31 Dec 2026" became "between late 2026 and mid-2027": the Act starts each one-year clock on delivery of NÚKIB's registration decision, not on the notification that was due by 31 December 2025, and this record's own reading of the law puts most deadlines in Q4 2026 – H1 2027 [S1]. "Most have nobody who can do it" became the receipt behind it, a university re-tendering for the security manager the Act requires [S19]: no source on file counts how many of the 6,000 lack the people, which is why the process figure already marks that step inferred. The fine keeps the top of the scale, 2% of global turnover (or CZK 250m, whichever is higher, in the higher-obligations regime; 1.4% or CZK 175m in the lower one) [S1,S13]. No score, status, source, note, marker or body sentence changed. Second pass this date, merged here: the owner's final copy, approved after several rounds of review, replaced that draft. New copy, verbatim — title: "6,000 Czech towns and firms have months left to meet a new cybersecurity law"; brief: "Many small firms don't even know the law covers them, and the first deadlines hit in late 2026 [S1,S2]. A firm that misses its deadline can be fined up to 2% of its turnover (which is A LOT of money) [S1]."; solution and good_for unchanged. Previous title, verbatim: "6,000 Czech towns and firms have one year to meet a new cybersecurity law". Previous brief, verbatim: "Most deadlines fall between late 2026 and mid-2027, fines reach 2% of turnover, and a university has re-tendered for a security manager [S1,S19]." Previous solution, verbatim: "Build a small security agency that writes their EU grant applications and does the security work." Previous good_for, verbatim: "Cybersecurity people interested in grants and public-sector sales." "One year" became "months left" because the deadlines this record's reading of the Act places in Q4 2026 – H1 2027 are now between about three and nine months away [S1]. Each claim in the new brief was checked against the sources before it was written: that many small firms do not know the law covers them is the business association's own finding [S2]; the first deadlines fall in late 2026 because the Act took effect on 1 November 2025 and each security-measures clock runs one year from registration [S1]; and 2% of turnover is the top of the fine scale, a turnover-based fine that applies to firms [S1,S13]. The university re-tender [S19] left the brief and stays in the body. No score, status, source, note or body sentence changed. Simplified for the front page: solution "Build a small security agency that writes their EU grant applications and does the security work." → "Build a small security agency that does the security work, and writes EU grant applications for the towns that qualify.". Solution corrected, not only shortened: the EU grants this record carries go to towns, regions and hospitals, not to private firms, so the line no longer says the agency writes grant applications for the firms it serves. Title, brief and good_for unchanged. Same date, good-for opener (owner: "Good for should always start with a person"): "Cybersecurity people interested in grants and public-sector sales." became "Someone with cybersecurity skills who's interested in grants and public-sector sales." — same meaning, person first. Same date, plain-prose pilot (owner: "complex language, unstructured walls of texts … full of fluff"; spec docs/record-page-redesign.md §7): every body section now opens with one answer sentence followed by one short list, with the numbers and dates people scan for set as list keys. Company names, receipt prices and Act numbers left the body, since each company now lives only in its row and each price only in its receipt, and the moves link to the section holding their evidence and carry no markers or figures. Move 1 builds a readiness check instead of selling. Cut as fluff or stale: the Europe-wide market size [S15]; the unsourced "a quarter of the 6,000 at €3,000" estimate; "Neither sells in Czechia", which no source on file supports (Secfix sells in 15+ European countries [S11]); the individual award figures for Motol, Homolka, Prague and Český Brod, which stay on the money ledger [S3,S4,S6]; and the EU fund for building security tools, which closed on 15 September 2026 [S10]. Two claims were corrected against their sources while rewriting. Copla serves fintechs and banks [S12], so "compliance software for small firms" now describes only what both companies share. And Lexnova Energy was incorporated in January 2025, before the law took effect in November 2025, so its entry no longer calls the seller younger than the obligation. The `process` step text was rewritten in plain words, with its summary now citing the evidence for each piece [S7,S8,S16]. The `comps[]` and `locals[]` lines were shortened, and every date, company number, customer claim and funding figure was kept, except the 3,000 CZK and 91k CZK prices, which live in their receipts [S23,S25]. No score, status, source, note or `entry` changed. Same date, content restored (owner: "Dont remove econtent just make it scanneable and readable"): every fact the pilot cut is back after its section's short list, cited as before, including the Act numbers, the award figures, the rough €4.5M software estimate, the Europe-wide market size and the now-closed EU fund for security tools, with The problem's list set as plain bullets and each move opening with a short lead line, and nothing stays cut except the claims corrected above.
+
+2026-09-17 · story pass — Why now now opens on who loses what and when (a firm's fine, a town's 121,000 CZK grant application and its December cut-off, the university re-tender, the 91,000 CZK package) with the law dates moved below as plain bullets, Who pays' keyed list became plain sentences led by the number, First moves were rewritten as a five-step story whose lead sentences stand alone and explain registration and the security measures [S16], and `entry.why` now says what makes entry easier and harder (ICZ stays named in `locals[]`), with one inference marked here: that a town missing the 17 December grant deadline pays the full cost itself rests on [S9] naming no later call, and no score, status, source or entry level changed.
