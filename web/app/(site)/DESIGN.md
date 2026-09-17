@@ -1,7 +1,10 @@
-# The site — front page, row card and ledger rulebook
+# The site — front page, row card, record page and ledger rulebook
 
-The rules that shaped `lib/site/front.tsx` + `styles/front.css` (and, for the
-ledgers, `lib/site/ledger.tsx` + `styles/signals.css`). Each line: the rule, its value,
+The rules that shaped `lib/site/front.tsx` + `styles/front.css`, the record page
+(`problem/[region]/[id]/page.tsx` + `styles/problem.css`, its figures
+`lib/figures/*` + `styles/kit.css`), and the ledgers (`lib/site/ledger.tsx` +
+`styles/signals.css`). The reasons behind the record-page rules are in the
+design-language skill, §7. Each line: the rule, its value,
 and (in quotes) the owner correction that produced it, where there was one.
 Tokens (`--l-*`) come from `styles/tokens.css`, except the contrast override below.
 Change a value here and in the CSS together.
@@ -17,9 +20,9 @@ Change a value here and in the CSS together.
   How it works = its first line; a record = its `brief` with `[Sn]` markers,
   links and emphasis stripped, else its `solution`.
 - Record anchors keep the live site's: every source row `id="s1…sN"` (the
-  `sources[]` index), the drawer `id="sources"`, and `how-big` as an alias at
-  the top of Who pays. `#sources` / `#sN` open the drawer on that row
-  (`peek-hover.tsx`). No sources section at the foot of the page.
+  `sources[]` index), the drawer `id="sources"`, and every older section id as an
+  alias (see "Record page: sections"). `#sources` / `#sN` open the drawer on that
+  row (`peek-hover.tsx`). No sources section at the foot of the page.
 
 ## Contrast (WCAG AA)
 - Every text gray reads ≥4.5:1 on every ground it sits on. The modern pages
@@ -59,7 +62,7 @@ Change a value here and in the CSS together.
 - One bar for every modern page: `<TopBar current="problems" | "signals" |
   "how-it-works" />` from `bar.tsx` (omit `current` on the 404); the current
   page's link gets `aria-current="page"` (primary gray). The record page keeps
-  its own breadcrumb bar (Problems / P-00xx).
+  its own breadcrumb bar (Problems / Czechia / P-00xx; "Record page: crumb bar").
 - All three links show at every width above 720px; none is ever dropped to
   make room. Phone ≤720px: they move behind one menu button (three solid
   bars, 44px target) that opens a native popover, full width under the bar,
@@ -279,7 +282,7 @@ Change a value here and in the CSS together.
 - Tooltips (meter card, Venn cards): fade + 3px rise, 140ms ease-out on
   appear, instant exit. Opacity and transform only.
 - `prefers-reduced-motion: reduce`: opacity fade only, no movement.
-- The same rule holds on the record page: the rail rows (`.ls-dim`,
+- The same rule holds on the record page: the rail rows (`.ls-toc-row`,
   `.ls-mixrow`) paint an always-present `--l-bg-3` wash in `::before` and fade
   only its opacity; the row itself transitions colour only.
 
@@ -287,22 +290,13 @@ Change a value here and in the CSS together.
 - Citation pills: focus alone opens nothing. Tab focuses the pill; Enter,
   Space, click or hover (~140ms) opens its card; only an open card's links
   join the Tab order; Escape closes it and returns focus to the pill.
-- The rail (Opportunity, Evidence) comes BEFORE `main` in the
-  source, so it is reached right after the head (tab stop 5 on p-0008).
+- The rail (contents, Evidence) comes BEFORE `main` in the
+  source, so it is reached right after the head.
   Grid areas keep it drawn in the right column; at ≤1080px, where it is drawn
   after main, `reading-flow: grid-rows` makes focus follow the drawn order.
 - Rail tooltips (`.ls-tip`) show on hover or keyboard focus, and Escape hides
   a showing one without moving pointer or focus (WCAG 1.4.13). It returns
   once the pointer leaves the row or focus moves off it.
-
-## Record page: header copy
-- The front card's rules apply to the head's `brief` / `good_for`: the brief
-  a plain paragraph, then "Good for" as a meta label on its own line (12px /
-  16px, `--l-text-3`, 2px above) with the words under it. No bullets, no
-  run-in "Good for:", no bold. One body style for both (17px / 1.6,
-  `--l-text-2`; 15.5px on phone), story → label 14px. The block is
-  left-aligned on the main column's edge, like the art, title and facts above
-  and below it (owner, 2026-09-16: the centred head "got all over the place").
 
 ## Whole row is one target
 - The title's link is stretched over the row (`::after`); hover or focus
@@ -345,3 +339,274 @@ fit more on the page, more compact. Love the blue you've chosen.")
   two lines) then Source · Value · Date. Sector and Origin go. No sideways scroll.
 - Unchanged: row ids (= signal ids), 100 rows per page, the pager, the honest
   empty state.
+
+## Record page: grid
+The p-0008 design, owner-approved 2026-09-16/17 and live on every record page.
+- `.ls-shell`: main 680px (`--ls-main`) · gap 88px · rail 272px (`--ls-rail`),
+  centred; padding 0 32px 160px. The head spans both columns on the same grid.
+- ≤1080px: one column (main up to 680px), padding 0 24px 120px; the rail follows
+  main, 120px below it, as two cards side by side (20px gap); `reading-flow:
+  grid-rows`. ≤640px: padding 0 16px 88px; the rail cards stack, 16px apart.
+- Footer: the front page's footer line on this grid ("localproblems.org ·
+  Czechia" · "Report a correction"), 13px `--l-text-2` over a `--l-line-2` rule.
+
+## Record page: crumb bar
+- 48px (`--ls-bar`), sticky at the top, **z-index 30**, so it stays above the
+  sticky rail (z 6) that rises under it at the page end. Solid `--l-bg`, 1px
+  `--l-line` bottom, 13px `--l-text-3`. The crumb starts on the content's left
+  edge (owner): side padding max(32px, (100% − 680 − 88 − 272px) / 2); at
+  ≤1080px max(24px, (100% − 680px) / 2); 16px on phone.
+- "Problems / Czechia / P-0008". Both links go to `/` (Czechia is the one
+  country with data), `--l-text-2`, hover `--l-text-1`; "/" in `--l-text-4`;
+  the id `--l-text-1`, 500, tabular, 0.01em. ("Problems / Czechia / P-…",
+  2026-09-16)
+
+## Record page: head
+- Everything in the main column, left-aligned, at every width. ("the centred
+  first section got all over the place")
+- Padding 72px top / 104px bottom, 48px top when the drawing shows (always, today:
+  `SHOW_HEAD_ART`). Phone 24 / 52.
+- Category drawing 128px wide, `#c3c4c9`, 24px above the title; phone 96px, 16px.
+  No colour fade behind it. ("without it the page at top would be just plain";
+  "Remove the color")
+- Title 40px / 1.14, 600, −0.028em, `--l-text-1`, balance. Phone 26px / 1.22,
+  −0.022em; over 120 characters it wraps `pretty` on phone.
+- Headline copy 28px under the title (20 on phone): 17px / 1.6 `--l-text-2`
+  (15.5 / 1.55 on phone). The "Good for" label is on its own line, 12px / 16px
+  `--l-text-3`, 2px above its words; story → label 14px. No bullets, no run-in
+  label, no bold. The "Draft law" badge stands where a label would ("Badges").
+- **Facts column** in the rail's column, on the brief's grid row with the same
+  28px top margin, so its first line is level with the brief's: Category ·
+  Entry · Verified. A hairline over the list and under each row; rows 10px
+  top and bottom; label 13px `--l-text-3` left, value 13px `--l-text-1` right,
+  no wrap. Entry is the level dot (7px, 7px before the word) and word in its
+  ink, linking `#execution-difficulty` with a 30% `currentColor` underline
+  (full on hover). No Locality, no Window. ≤1080px: the facts follow the
+  brief, 36px above (28 on phone).
+
+## Record page: sections
+- Order and ids: The opportunity `#opportunity` · Suggested solution
+  `#solution` · Why now `#why-now` · Willing to pay `#willing-to-pay` ·
+  Validated abroad `#validated-abroad` · Competition `#competition` ·
+  Execution difficulty `#execution-difficulty` · Suggested first moves
+  `#first-moves` (only when the problem has moves).
+- Aliases, each an empty span at its section's top edge that lands where the
+  section id does: `problem` → opportunity; `how-it-works` → solution;
+  `who-pays`, `how-big` → willing-to-pay; `proven-abroad`, `who-sells-this` →
+  validated-abroad; `local-competition` → competition; `difficulty-to-enter` →
+  execution-difficulty.
+- Gap `--ls-sec-gap` 120px (72 on phone), split around the rule: 60px margin,
+  1px `--l-line`, 60px padding to the heading. ("a line before each heading
+  clearly separating the sections") The first section has no top margin. A
+  heading lands 32px under the bar.
+- Heading (h2) 20px / 28px, 600, −0.014em, `--l-text-1`, 16px to the answer.
+- Answer line 17px / 26px, 500, `--l-text-1`, max 62ch (16.5 / 25 on phone).
+- One scan block (keyed list, bullets, steps or figure) 32px under the answer;
+  numbered steps 24px. At most **3** list items on the page (`PAGE_CAP`, page
+  code only).
+- Prose 15px / 24px `#3b3d43` (`--ls-prose`; 15.5 on phone). Bullets 15 / 24
+  `--l-text-2`: a 5px `--l-text-4` dot 3px in, text 18px in, 8px between
+  items. Keyed list: key column 148px (132 in a sheet; stacked on phone),
+  16px gap, 10px between rows; key 500 `--l-text-1` tabular, value
+  `--l-text-2`. A date inside six months hangs its 7px warm dot 14px into the
+  gutter.
+- **Suggested solution** box: 64px under the section above (48 on phone),
+  padding 20 24 22 (16 18 18), `--l-bg-2`, 1px `--l-line`, radius 12. Its own h2
+  (12px below it), then the sentence 15 / 24 `--l-text-1`, then ProcessSteps
+  24px under, then Read more 20px under. ("Suggested solution could use a bigger
+  heading")
+- **Why now** page rows: the nearest dated rows still ahead of the register date
+  (`extractDate()`), soonest first; the sheet holds the whole list.
+- **Execution difficulty** page: "Makes it easier" · "Makes it harder" (labels
+  13px / 20px 500 `--l-text-2`, 6px above their list), two columns 32px apart,
+  row gap 20px, 20px under the heading; stacked on phone; "Nothing." when a list
+  is empty. No level line on the page: the word is in the badge. Sheet: the level
+  22px / 1.25, 600, −0.02em (20 on phone) after a 9px hue dot 10px before it;
+  the reason 10px under it (15 / 24 prose, only when the reason isn't already
+  written as the two lists); the lists in whole sentences 28px under; then "Competition
+  does not change this level. It is covered under Competition." 28px under.
+- **Suggested first moves** page: each move's lead sentence, 500 `--l-text-1`,
+  in 24px number squares (radius 6, `--l-bg-3`, 12px 600 `--l-text-2`), text
+  40px in (34 on phone), 20px between moves.
+
+## Record page: Read more and the sheet
+- **Read more**: a `<button popovertarget>`, 28px under the section's last block;
+  padding 7px 14px; 1px `--l-line-2`; radius 8; `--l-bg`; 13px / 20px 500
+  `--l-text-1`; hover `--l-bg-3`; focus 2px `--l-text-2` at 2px. Name "Read more:
+  {section}". Never filled. ("Read more is an outlined button")
+- **Sheet**: `popover="auto"`, `role="dialog"`, labelled by its heading. Width
+  min(720px, 100vw − 48px), max height 100dvh − 72px, centred; radius 8; shadow
+  `0 0 0 1px rgb(0 0 0 / .07), 0 2px 8px rgb(0 0 0 / .04), 0 28px 72px rgb(0 0 0
+  / .14)`; backdrop `rgb(20 20 24 / .32)`. In: 140ms fade + 3px rise. Out:
+  instant. Reduced motion: fade only.
+- Sticky bar 52px, padding 0 12px 0 56px: the × (28px, radius 6, hover
+  `--l-bg-3`) on the right. The section name (13px / 600) and the bar's hairline
+  fade in over 64–112px of sheet scroll (scroll-driven, opacity only).
+- Page padding 4px 56px 56px. Head: the meta line "P-0008 · {title}" 12px / 16px
+  `--l-text-3`, one line, ellipsis; the section heading 8px under it, 30px /
+  1.2, 600, −0.024em, balance; 20px to the About panel.
+- **About this section**: 32px under it (28 on phone); padding 14 20 16 (12 16 14
+  on phone); `--l-bg-2`; radius 10; no edge. "About this section" 13px / 20px 500
+  `--l-text-3`, 6px under. One column: label (dt) 13 / 20 500 `--l-text-2`, 2px
+  under; text (dd) 14 / 22 `--l-text-3`; 12px between items. What this shows ·
+  Why it matters to a builder · How to read the score (scored sections only).
+  The words are the page's `SECTION_ABOUT` map, the same on every problem.
+  ("one muted column")
+- Body: the answer is the lede at 19px / 28px, full width (17 / 26 on phone).
+  Blocks 16px apart; scan blocks 32px; a paragraph introducing a list sits 14px
+  above it; whatever follows a list is 32px under it; bullets 10px apart.
+- **Sub-group heading** (h3): 48px above, 20px / 28px 600, −0.014em
+  `--l-text-1`, 10px padding over a hairline, 8px to its rows; its count in
+  `--l-text-3`. ("CLEARLY with bigger heading separate")
+- Validated abroad sheet: the map full width with no list, then the company rows
+  32px under it, a hairline over the first. Competition sheet: the matrix, then
+  "Sells this" and "Sells something nearby" as h3 groups. ("listed two times")
+- Company row: padding 14 0 16 (12 0 14 on phone), hairlines between; name 500
+  ↗ with the 10px maturity dot; meta 12px `--l-text-3` tabular; source pills (or
+  "No source on file", 12px `--l-text-3`) on the right; what it sells 13.5px /
+  1.55 `--l-text-2`.
+- Phone: a bottom sheet, height 100dvh − 16px, radius 16 16 0 0, a 36×4px
+  `--l-line-2` grab handle 6px from the top; bar 48px, padding 0 8 0 20; page
+  padding 4 20 40 plus the safe area; heading 26px.
+
+## Record page: scores (prototype)
+- `lib/site/score-proto.ts`, over the existing rubric, until the scoring-v2
+  decisions (`docs/scoring-v2/`):
+  - The opportunity = `scores.demand` /2
+  - Why now = `scores.urgency` /3 (its word reads the deadline part)
+  - Willing to pay = `scores.money` /2 (still public-money proximity)
+  - Validated abroad = `scores.proof` /3
+  - Competition = `scores.gap` /2 (more points, less competition; the contents
+    label adds "· High / Medium / Low")
+  - Execution difficulty = `entry.level`, Easy 3 · Moderate 2 · Hard 1 · Very
+    hard 0 /3
+- Words, 0 → max: Unclear pain · Some pain · Clear, recurring pain | No deadline ·
+  Deadline later · Deadline soon | No sign yet · Some buyers · Already paying |
+  Not yet · Early abroad · Proven once · Proven in 2+ markets | Crowded · Early
+  rivals only · Open | Very hard · Hard · Moderate · Easy.
+- **Total** = the five rubric checks = the front page's /12. Execution difficulty
+  is not in it (`inTotal: false`).
+- **Tone** (`scoreTone`): n = max → `--ls-score-good` `#3f8f7f`; n/max ≥ 0.5 →
+  `--ls-score-mid` `#b58a2e`; below, 0 included → `--ls-score-bad` `#c4564f`.
+- **Heading badge**: beside the h2 on one flex line, vertically centred on it,
+  12px after the title (it wraps under, 6px below, when the line is too
+  narrow); 16px to the answer. Padding 3px 10px 3px 8px; radius 999px;
+  background the tone at 7% over `--l-bg`; text "n/max · word" 13px / 18px 500
+  `--l-text-2`, tabular (≥ 5.6:1 on every tint); a 7px tone dot, 6px gap. A
+  sibling of the h2, never inside it. ("Make the badge colors more subtle. try
+  putting the badges next to the heading")
+
+## Record page: rail
+- Sticky at bar + 32px, z-index 6, cards 20px apart, 13px. At ≥1081px, where
+  anchor positioning exists, a rail taller than 100dvh − bar − 48px scrolls
+  inside itself.
+- Card: padding 18 18 16 (16 16 14 on phone), 1px `--l-line`, radius 12. Head
+  14px above the rows (10 at ≥1081px): eyebrow 12px 500 `--l-text-2`; the total
+  "n/12" with n at 22px / 600 `--l-text-1`.
+- **Contents rows**, one per section: min-height 42px, content vertically
+  centred, padding 4px 8px 4px 26px, radius 7, 18px line, label `--l-text-2`
+  (a zero score `--l-text-3`; the current section `--l-text-1`). A scored row:
+  label over its word (12px / 16px `--l-text-3`) on the left; n/max (12px
+  `--l-text-3`, opacity 0 → 1 on hover or focus, 0.12s) and the 8px score dot
+  on the right, 8px apart. Hover wash `--l-bg-3`, inset 20px from the left so
+  the stepper line never breaks; opacity only.
+- **Stepper**: a 1px `--l-line-2` line 11px in, drawn from each dot to the next.
+  Dots are 8px drawn at 0.75 (6px): at rest a 1.5px `--l-text-4` ring on
+  `--l-bg`; read = `--l-text-4` fill; current = `--l-text-1` fill at full size
+  (transform). A section becomes current when its top crosses a line 30% down
+  the viewport (`view-timeline-inset: 30% 69%`); the last row is current in the
+  page's last 24px; The opportunity is current from the top. CSS only;
+  unsupported → every dot hollow. ("something cleaner like dots or a line")
+- **Tooltips** (scored rows, the total): 320px, padding 14 16, radius 10, pop
+  shadow, 13px / 1.5 `--l-text-2`; anchored left of the row, flipping up when
+  there's no room below; under the row at ≤1080px. Shown 0.3s after hover or
+  keyboard focus (0.12s fade), hidden at once, Escape dismisses. Ladder rungs
+  12px; this problem's rung on `--l-bg-3` with its number in teal ink; last line
+  "This problem: … n of max."
+- **Evidence card**: "Evidence" · "N sources"; one row per source type (min-height
+  36px, 30 at ≥1081px): type · 64px bar (4px, `--l-bg-3` track, `--l-text-4`
+  fill) · count (20px, 12px `--l-text-3`). Each row is a button that opens the
+  drawer at its type's group (`data-src-group`). "View all N sources →" 13px
+  500 `--l-text-3`, 12px above.
+- No "Who is here". ("remove the Who is here from the right sidebar")
+- **Phone** (`.ls-toc-mini`, ≤640px only): after the facts, 28px above; head
+  "Opportunity" · n/12 (n 18px); rows 9px top and bottom on hairlines: label ·
+  word (12px `--l-text-3`) · n/max (always shown) · dot.
+
+## Record page: figures
+("use interaction to simplify, not decoration"; "Make the diagram clearly self
+explanatory, less text!") No caption, legend or explanatory paragraph on any of
+them. Every dot or column is a `DotPeek`-style `<button popovertarget data-peek>`
+opening an `.ls-peek` card (140ms in, instant out). A figure drawn twice on the
+page passes `scope` (`"s"` in sheets) so its popover ids stay unique.
+- **LocalMatrix** (Competition): an 18px axis gutter, then two equal columns
+  (Early · Established) over two rows (Sells this · Sells something nearby).
+  Quadrant min-height 168px, padding 10 8 10 10. Left and bottom axes
+  `--l-text-4` with solid 7×6px arrowheads; the inner cross `--l-line`. Dots are
+  the 10px MaturityDot (hollow early, filled established) on a lattice of 42px
+  rows, 12px clear of every edge, with a fixed jitter hashed from the name.
+  Favour quadrants (new and selling this; established and selling this while
+  empty) have a `#f4f9f7` wash. "The space is still open" 13px / 18px 500 in
+  teal ink `#2e7466`, only in the empty established-and-sells-this quadrant.
+  Axis words 11px / 14px 500 `#6e7077`.
+- **CompMap** (Validated abroad): at ≥560px of its own width the map is 62% and
+  the list 38%, 28px apart; narrower, they stack 16px apart. Map width capped at
+  300px ÷ crop ratio beside the list (260 stacked), so its height stays ≤300px;
+  the crop is ≈0.72 high per 1 wide. Countries `#efeff2`; Czechia outlined
+  `--l-text-1` 1.4 and labelled "CZ"; home bases `#b6b8be`; other markets
+  `#dcdde1`. Pins are 17px numbered discs (`--l-text-1`, 10px / 600 white, a 1.5px
+  white ring) on 24px targets; several in one country sit as a small centred
+  cluster. Pointing at a pin or row, or opening its card, highlights that company
+  instantly: base `#8e9097`, markets `#c8cad0`, both outlined; other shaded
+  countries `#ebebee`; other pins at 0.35; its list row `--l-bg-2` (indices
+  0–11). List 13px / 18px, rows 8px 6px on hairlines: number, name ↗, then 12px
+  `#6e7077` meta with 9px swatches (home country, other market codes). Sheet:
+  `list={false}`, the map full width. ("make the map less high, maybe keep the
+  company list on right … one company through multiple countries")
+- **PayDots** (Willing to pay, page and sheet): 40px above, 36 below (32 / 28 on
+  phone). Plot 168px (140), a 52px tick gutter (44); up to three labelled log
+  gridlines (`--l-line`, 11px `--l-text-3`, "CZK" on the top one). Groups 28px
+  apart (16), each at least 64px (56). A column is clamp(6px, 56%, 22px) wide,
+  radius 2 2 0 0, at least 3px tall, `#3f8f7f`; a recurring-unit group (per seat
+  monthly, per case, per year …) is the teal at 60% over white; hover, focus or
+  open `#2e7466`, instantly. A buyer word under each column (11px / 13px
+  `--l-text-3`), hidden over 16 columns, or over 8 on phone; a group label 11px /
+  14px under a hairline, 8px below. ("could we choose another graph? maybe
+  columns"; "use some other color for the graph not gray")
+- **PayTimeline** (Willing to pay sheet only): one column per month, 4px apart
+  (2 on phone), 16px teal dots stacked from a `--l-line-2` baseline, month 11px
+  `--l-text-3` 6px under it; open grant calls as a last group behind a hairline,
+  12px + 16px in (6 + 8 on phone).
+- **ProcessSteps** (Suggested solution): step columns 12px apart; lane labels
+  "Today" and "With the suggested solution" 12px / 16px 500 `#6e7077`, the second
+  24px under the first lane. Nodes min-height 60px (48 on phone), padding 8px
+  10px, 1px `--l-line-2`, radius 8, 12.5px / 17px 500 `--l-text-1`. A step nobody
+  does, or not done today: an empty slot, 1px dashed `--l-text-4`, 400 `#6e7077`.
+  The steps the solution changes sit under one band (1px `#9fcbc1`, `#f0f7f5`,
+  radius 10; label 13px / 18px 500 teal ink). A step that stays is 400 `#6e7077`.
+  An unknown actor gets no column (no "Not known" box); its question is one
+  13px / 20px `#6e7077` line under the figure. Phone: steps run down, the lanes
+  sit side by side, 10px apart.
+- Figure placement on the page and in the sheet: 32px above (26 on phone), no box.
+
+## Record page: sources drawer
+- Right-side `popover="auto"`, width min(440px, 100vw) (full width on phone),
+  full height, 1px `--l-line` left edge, shadow `-16px 0 48px rgb(0 0 0 / .07)`,
+  backdrop `rgb(20 20 24 / .14)`; slides 24px with a fade at 180ms.
+- Head 52px: "Sources N" 14px 600, × on the right. Body padding 4px 20px 32px.
+- Groups by source type. The group heading is sticky at the top of the list:
+  12px 500 `--l-text-3` with its count, padding 10px 20px 8px full bleed,
+  `--l-bg`, hairline under. ("make sure headings are sticky")
+- Row: 24px monogram; publisher · host · date (12px); title ↗ 500; why 13px /
+  1.55 `--l-text-2`; an "In the source's words" fold; "Cited in …" 12px
+  `--l-text-3`.
+- An Evidence row opens the drawer and scrolls only the list so its group heading
+  sits at the top (a group near the end gets bottom padding while open). Without
+  JS it opens at the top.
+
+## Record page: copy and print
+- Never "record" to readers: "This problem: 2 of 3.", "Found by the register's
+  market check", "No source on file".
+- Print: the bar, tooltips, peeks, Read more, sheet bars and footer hide; every
+  sheet prints in place (static, no shadow); the rail prints before main as
+  plain cards; the drawer prints as the source list, each source unbroken.

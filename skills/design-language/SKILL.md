@@ -1,6 +1,6 @@
 ---
 name: design-language
-description: Binding design system for localproblems.org, the modern design adopted by the owner on 2026-09-16. Use whenever generating, editing or reviewing ANY page, layout, CSS or HTML for the site (front page, row cards, problem record pages, How it works, category and signals pages, the 404). One font (Inter), a gray ramp, three colours that each mean one thing, quiet motion, native popovers plus one sanctioned hover script. Guards against generic SaaS design. Exact values live in web/app/(site)/DESIGN.md and the page CSS; this file carries the rules and the reasons behind them.
+description: Binding design system for localproblems.org, the modern design adopted by the owner on 2026-09-16. Use whenever generating, editing or reviewing ANY page, layout, CSS or HTML for the site (front page, row cards, problem record pages, How it works, category and signals pages, the 404). One font (Inter), a gray ramp, three colours that each mean one thing (plus one owner-approved score scale), quiet motion, native popovers plus one sanctioned hover script. Guards against generic SaaS design. Exact values live in web/app/(site)/DESIGN.md and the page CSS; this file carries the rules and the reasons behind them.
 ---
 
 # The localproblems.org design language (modern)
@@ -36,8 +36,10 @@ a number drift apart.
 | Front page, top bar, country selector, row card, meter, category icons, motion, the compact signal ledger | `web/app/(site)/DESIGN.md` (owner-approved rule by rule, 2026-09-16) |
 | Gray ramp, type scale, 4px grid, radius, popover shadow | `assets/tokens.css` in this skill, copied verbatim to `web/app/(site)/styles/tokens.css` (the `--l-*` tokens) |
 | Front-page contrast override, wash insets | `web/app/(site)/styles/front.css` |
-| Record page tokens (semantic hues, measure, rail width, section gap), phone rules | `web/app/(site)/styles/problem.css` |
+| Record page: crumb bar, head, sections, sheets, scores, rail, figures, drawer (owner-approved on p-0008, 2026-09-16/17) | `web/app/(site)/DESIGN.md` "Record page" sections |
+| Record page tokens (semantic hues, score tones, measure, rail width, section gap), phone and print rules | `web/app/(site)/styles/problem.css` |
 | Figures | `web/lib/figures/` (`index.ts` names each slot and width) and `web/app/(site)/styles/kit.css` |
+| Score mapping and judgement words (a prototype, §7) | `web/lib/site/score-proto.ts` |
 
 Change a
 value in the CSS and in `DESIGN.md` **together**.
@@ -46,7 +48,8 @@ value in the CSS and in `DESIGN.md` **together**.
 
 1. **Hierarchy comes from size, weight and gray shade.** It never comes from a
    second font or a decorative colour.
-2. **Colour encodes, never decorates.** Three hues, each with one meaning (§3).
+2. **Colour encodes, never decorates.** Three hues, each with one meaning, plus
+   the score scale, which reuses their tones for one more meaning (§3).
 3. **One field, one meaning, on the page too.** A label, glyph or hue that shows up
    for two different reasons is two devices, so split it.
 4. **The page reads fully without JavaScript.** Scripts only add convenience (§9).
@@ -75,6 +78,9 @@ value in the CSS and in `DESIGN.md` **together**.
   phone) and the record title at 40/600 (26 on phone), set tight (negative
   tracking). Record prose uses the Body size. Rail and ledger text step down to the
   13px and 12px tokens.
+- **A record section has four levels and no more:** heading (20/600) → answer line
+  (17/26, 500, `--l-text-1`) → body and lists (15/24) → meta (12–13, `--l-text-3`).
+  A section sheet adds only its presenting heading (30/600) and a larger lede.
 - **Wrapping:** titles use `text-wrap: balance` and body text uses `pretty`, with no
   JS fallback. No title or paragraph may end on a lone word (owner: *"only 'law' is
   being broken to a new line … we need more balanced wrapping"*). Record titles
@@ -95,19 +101,37 @@ white. There is no dark mode.
 **Contrast:** every gray used for text passes WCAG AA (4.5:1) on the ground it
 sits on, including the hover wash. `--l-text-4` is for non-text only (dots, rules,
 carets, bars). The front page scopes `--l-text-3` to `#6e7077` for this reason
-(`front.css`, audit B13). The record page must do the same before it goes live.
+(`front.css`, audit B13). The record page does the same (`problem.css`, `.lab.ls`).
 
 **The semantic hues.** These are the only hues. All are low-saturation, and each has
 a graphic tone and a darker ink tone for text:
 
 | Hue | Means | Used for | Never for |
 |---|---|---|---|
-| **Teal** (`#3f8f7f`, ink `#2e7466`) | **in the builder's favour** | filled opportunity segments, the current rung in a ladder, "Easy" entry, a field nobody here sells (figures) | links, headings, brand, anything neutral |
+| **Teal** (`#3f8f7f`, ink `#2e7466`) | **in the builder's favour** | filled opportunity segments, the current rung in a ladder, "Easy" entry, the open quadrant of the Competition matrix ("The space is still open"), the columns and dots of money already being paid, the process band the solution changes | links, headings, brand, anything neutral |
 | **Warm** (amber `#b58a2e` → rust `#d0763f` → brick `#c4564f`) | **friction and time pressure** | entry level Moderate → Hard → Very hard; a deadline under six months (`.ls-soon`) | errors, alerts, emphasis |
 | **Ink blue** (`#3d5a96`; pill `#eef1f7` / text `#54607c`) | **a source you can open** | citation pills, source titles in peeks and the drawer, in-prose links | buttons, nav, anything that isn't a source or a link |
 
 A level or deadline shows its hue as a 7px dot plus the word in the ink tone, never
 as a filled badge. Category icons are gray (`#919399`).
+
+**The score scale: an owner-approved exception** (2026-09-17: a green, amber and red
+scale, then *"make the badge colors more subtle"*). A record section's score has a tone.
+It is the one place a hue means "how this score stands" instead of the three
+meanings above:
+
+| Tone | When (`scoreTone` in `page.tsx`) | Value (`--ls-score-*`) |
+|---|---|---|
+| **Good** (teal) | full marks, n = max | `#3f8f7f` |
+| **Mid** (amber) | half or more, n/max ≥ 0.5 | `#b58a2e` |
+| **Bad** (brick) | under half, 0 included | `#c4564f` |
+
+Why it is allowed: a reader should see at a glance which sections are strong, and
+the scale adds no new colour. It reuses the teal and warm tones, and it keeps close
+to their meanings (full marks are in the builder's favour; a weak score is
+friction). Limits: it appears **only** as a score dot (8px in the contents, 7px in a
+badge) and as a badge's 7% tint behind gray text. Never as text colour, never on a
+fill larger than a dot, and never outside a score.
 
 ## 4. Page grid and top bar
 
@@ -125,7 +149,7 @@ as a filled badge. Category icons are gray (`#919399`).
   label is "How it works", never "About" (owner: *"rename About to How it works"*).
   There is one bar component for every page, and the current link carries
   `aria-current="page"`. The record page keeps its own crumb bar, **Problems /
-  P-00xx**.
+  Czechia / P-00xx** (§7).
 - **Country selector** (owner: *"a modern dropdown with nice flags"*):
   - The button reads "Czechia" with a solid caret and **no flag**. Flags appear only
     in the menu (owner: *"hide the flag in the currently selected selector, show it
@@ -155,10 +179,12 @@ as a filled badge. Category icons are gray (`#919399`).
 - **Front header:** 96 top / 80 bottom (56/72 on phone). The text block is centred
   vertically on the Venn (owner: *"make sure 'Czech problems worth solving' is
   vertically centered with the diagram"*).
-- **Record page:** 88px between sections (60 on phone). The head has 72 above and
-  104 below.
+- **Record page:** 120px between sections (72 on phone), split evenly around the
+  hairline above each heading (owner: *"more space between sections"*). The head
+  has 48 above (with the drawing) and 104 below.
 - **Measure:** copy max 64ch and titles max 640px on cards. Record prose runs to
-  the 680px column. Keep ≥50px clear of the category drawing at desktop.
+  the 680px column; answer lines stop at 62ch. Keep ≥50px clear of the category
+  drawing on a front-page card at desktop.
 - No horizontal page scroll at 375px or 320px. Wide figures scroll inside their own
   container.
 
@@ -207,10 +233,15 @@ as a filled badge. Category icons are gray (`#919399`).
     in meta, with "Opportunity" as screen-reader text (owner: *"make the opportunity
     meter somehow visible"*).
   - It leads the meta line, so meters line up down the page.
-  - Its hover, focus and tap card is **specific to this record**: "Opportunity n of
-    12", then the five checks with their mini bars, scores and plain read lines,
-    most-filled first (owner: *"on hover show specific information, not
-    generic"*).
+  - Its hover, focus and tap card is **specific to this problem**: "Opportunity n of
+    12", then the record page's five scored sections in page order, each with its
+    score dot (§3 scale), name, judgement word, n/max and one-line reason; Execution
+    difficulty sits apart, "Not added to the total" (owner: *"on hover show specific
+    information, not generic"*; *"make sure the scoring changes are written to
+    mainpage as well"*).
+  - An open card's row rises above every row and every later group header, so a card
+    held open by focus or tap is never covered (owner: *"overlap problems on
+    mainpage"*).
 - **Category icons** are **solid**, never outlined:
   - one 14px icon per category, on a 16-unit grid, `fill: currentColor`, even-odd,
     no strokes, colour `#919399` (owner: *"add relevant icons instead of just
@@ -235,71 +266,149 @@ as a filled badge. Category icons are gray (`#919399`).
 
 ## 7. The record page
 
-**Head: one left edge, with air** (owner, 2026-09-16: the centred head "got all over
-the place"; *"make it all left"*). The category drawing (216px, very light gray;
-120px on phone), the title, the headline copy (`brief`, `good_for`) and the fact row
-all start on the main column's left edge, at every width. The **fact row**: Category · Locality · Window ·
-Entry · Verified. Each fact appears once, with a small label over its value and
-hairline dividers between facts. Window shows only when there is no `brief`, because
-a brief already says why it is urgent. The Entry value is the level dot and word, and
-it links to `#difficulty-to-enter`.
+Owner-approved on p-0008 (2026-09-16/17), live at `/problem/cz/p-0008`. The brief:
+no complex language, walls of text or facts said twice, and **scannability first**.
+Someone who reads only the headings and answer lines still gets the story. Exact
+values are in `DESIGN.md`, "Record page".
 
-**Sections, in the builder's order:** The problem (+ ProcessToday figure) →
-**Suggested solution** box (`--l-bg-2`, hairline, radius 12, + ProcessAfter figure)
-→ Proven abroad → Local competition → Who pays → Why now → Difficulty to enter →
-First moves. Every section reads **prose first, then its ledger**.
+**Head: one left edge, a small drawing, the facts beside it.**
+- Everything starts on the main column's left edge, at every width (owner: the
+  centred first section *"got all over the place"*).
+- A **small category drawing**, 128px (96 on phone), very light gray. It stays because
+  *"without it the page at top would be just plain"*. It stays small because it only
+  says "category".
+- **No category colour fade** (owner: *"Remove the color"*). A category isn't one of
+  the meanings in §3.
+- Title, then the headline copy under the front card's rules: `brief` as a plain
+  paragraph, "Good for" as a meta label on its own line, the "Draft law" badge where
+  a label would stand.
+- **Facts column** in the rail's column, level with the brief's first line: Category
+  · Entry · Verified, label left and value right, on hairlines. Each fact once. There
+  is no Locality (every record is national, and the crumb says Czechia) and no Window
+  (Why now holds the dates). Entry is the level dot and word, and it links to
+  `#execution-difficulty`.
+- **Crumb bar:** "Problems / Czechia / P-xxxx". It is solid white and stacks above the
+  sticky rail, so the rail never shows through it at the page end.
 
-**Company rows** (comps and locals):
-- Each row has the name ↗ (another site), a maturity tag, meta ("Germany · since
-  2019", "IČO …"), its **source pills**, then one clamped line of what it sells.
-  "Details" opens a native popover modal for the rest.
-- Every company names the sources that back it, or says **"No source on file"**,
-  never nothing (owner: *"isn't it connected to sources? … why isn't it
-  mentioned?"*).
-- Locals group into "Sells this" and "Nearby".
+**Sections, in the builder's order**, one question each: The opportunity ·
+Suggested solution · Why now · Willing to pay · Validated abroad · Competition ·
+Execution difficulty · Suggested first moves.
+- "Who already sells this" is split (owner: *"separate abroad and in Czechia"*):
+  **Validated abroad** carries the map and **Competition** the matrix. A company has
+  one home.
+- **A hairline above every section heading** (owner: *"a line before each heading
+  clearly separating the sections"*), with the section gap split around it. Suggested
+  solution stays a subtle box whose edge is its line, and it has a **real h2** like
+  every other section (owner: *"could use a bigger heading"*).
+- **Old anchors stay as aliases**, so deep links still land (`#problem`, `#who-pays`,
+  `#how-big`, `#proven-abroad`, `#local-competition`, `#difficulty-to-enter` and the
+  rest; the list is in DESIGN.md).
 
-**Receipts** (prices, public money, dates on file): figure, one line, meta, pill at
-the row end. "Public money nearby" folds in a native `<details>`.
+**The page is the outline, and the sheet is the section** (owner: *"make the without
+modal really short and scannable, all detail goes in the modal which is
+in-depth"*).
+- On the page a section is: heading → **answer line** (one sentence) → **at most 3
+  items or one figure** → **Read more**. The cap lives in page code. The data is
+  never trimmed.
+- **Read more** is an outlined button, never a filled CTA. It opens a **sheet**, a
+  paper-like native `popover="auto"` dialog (owner: *"read more into paper like modal
+  with heading that presents"*). The sheet has a meta line with the ID and title, a
+  large section heading, and the answer as its lede. A section with nothing beyond
+  its outline gets no button.
+- The sheet opens with a muted **About this section** panel in one column: *What
+  this shows · Why it matters to a builder · How to read the score* (the last only
+  on scored sections). The words are the same on every problem. They restate the
+  rubric's rungs and add none.
+- Then everything, in depth. **Sub-groups get real h3 headings**, never meta labels
+  (owner: *"CLEARLY with bigger heading separate"*). **Nothing is listed twice**
+  (owner: *"listed two times"*). The Validated abroad sheet shows its map without the
+  company list, because the company rows follow it.
+- No URL opens a sheet, because a closed popover can't open from a fragment without a
+  script. On paper every sheet prints in place under its outline.
 
-**Difficulty to enter is three lines** (owner: *"difficulty to enter is needlessly
-complex now"*, then *"typographically consistent"*):
-1. The **level**: a 22px/600 word with its hue dot (Easy · Moderate · Hard · Very
-   hard).
-2. **One sentence** naming the gates that set it (only the top-weight gates; an easy
-   record names its open gates).
-3. **One quiet line**: "Already here: … That counts under Local competition, not in
-   this level."
+**Scores: a presentation prototype.** The section scores come from
+`lib/site/score-proto.ts`, which maps the existing rubric onto the sections until the
+scoring-v2 decisions land (`docs/scoring-v2/`). The mapping and words are
+provisional. The display rules below stand.
+- **Points stay visible** as n/max. Each score has a **reasonable judgement word**,
+  never a verdict: "Clear, recurring pain", "Deadline soon", "Early rivals only",
+  "Proven in 2+ markets".
+- Each scored heading carries a **badge beside the title** (owner: *"try putting the
+  badges next to the heading"*). The badge is a faint tint, gray "n/max · word" text
+  and a dot in the score's tone (§3). It is a sibling of the h2, so it stays out of
+  the heading's name, and it wraps under the title when the line is too narrow.
+- **The total stays the rubric score /12**, so the record page and the front page
+  never disagree. **Execution difficulty** (easier = more points, /3) is shown beside
+  the total, in the contents, and is **never summed** into it. On Competition, more
+  points mean less competition.
 
-Lines 2 and 3 share one voice (same size, weight and leading); line 3 is one gray
-lighter. The level is never re-derived on the page: the record carries it and
-`check-records.py` asserts it.
+**The rail: contents and evidence** (sticky under the bar; after main at ≤1080px).
+- **Contents card**, "Opportunity n/12": every section in page order, with a **thin
+  stepper line and one dot per section** (owner: *"something cleaner like dots or a
+  line"*). The section in view fills its dot dark, and sections already read keep a
+  gray dot. CSS scroll-driven animations drive it, with **no JS**. Where they are
+  unsupported every dot stays hollow.
+- **Every row is one height**, with its content vertically centred. A scored row
+  shows its word under the label and a **coloured score dot** (owner: *"lets use
+  dots instead of the circles"*). **n/max appears only on hover or focus**, and it
+  stays in the DOM for screen readers.
+- Scored rows keep their ladder tooltips: what the check asks, why it matters, the
+  rungs with this problem's rung highlighted, then "This problem: … n of max." They
+  restate the rungs, add nothing, and use no verdict words.
+- **"Who is here" isn't in the rail** (owner: *"remove the Who is here from the
+  right sidebar"*).
+- **Evidence card:** the source count, one row per source type as a small gray bar
+  with a plain note, and "View all N sources →". **A type row opens the sources
+  drawer scrolled to its group** (through the sanctioned script, §9; without JS the
+  drawer opens at the top). **Drawer group headings are sticky** (owner: *"make sure
+  headings are sticky"*).
+- On phone a compact score list follows the facts, with n/max visible because a
+  phone has no hover. The full contents card follows main.
 
-**Figures** come from the kit:
-- ProcessToday, ProcessAfter, CompMap, FieldTimeline and MoneyScale go in the main
-  column. FieldGrid is not on the record page (owner, 2026-09-16: *"remove the Who
-  is here from the right sidebar"*).
-- Each is a server function that returns `null` when its data is thin, so **call it
-  before the JSX and test it** before drawing anything around it.
-- A figure belongs to the section it explains. It gets air and nothing else: it's
-  never boxed and never captioned twice. In the rail it takes the rail's card.
+**Figures: "use interaction to simplify, not decoration"** (owner).
+- **Simple dots or columns.** Detail opens in a peek card on hover, focus or tap. **No
+  captions, no legends, no explanatory paragraphs, less text** (owner: *"make the
+  diagram clearly self explanatory, less text!"*). The axes and the marks carry the
+  meaning.
+- **LocalMatrix** (Competition) is a 2×2: Early / Established across, Sells something
+  nearby / Sells this up. Each Czech player is one dot (hollow early, filled
+  established), and a dot's position inside its quadrant means nothing. It is **dots
+  only**, drawn taller. The only words inside it are **"The space is still open"**, in
+  teal, in the empty established-and-sells-this quadrant.
+- **CompMap** (Validated abroad) is a **shorter map beside a numbered company list**.
+  A company that sells in several countries shows **all its markets** (home darker,
+  other markets lighter), and pointing at its dot or its row **highlights them
+  together**, instantly. In the sheet the map runs **full width without its list**,
+  and the company rows sit under it.
+- **PayDots** (Willing to pay): **teal columns, one per real price or purchase**, on
+  a log CZK scale, with a **buyer word under each**. Monthly and other recurring
+  prices form a **separate, lighter group**, so they never read as something to add
+  to the purchases. Nothing is summed. **PayTimeline** (purchases stacked by month,
+  open grant calls last) appears only in the Willing to pay sheet.
+- **ProcessSteps** (Suggested solution) has **two lanes**: Today above With the
+  suggested solution. A step nobody does is an **empty dashed slot**, and the steps
+  the solution changes sit under one teal band. There are **no "Not known" boxes**
+  (owner, 2026-09-17). A step with an unknown actor gets no column, and its open
+  question is one line under the figure.
+- A figure **rendered twice** (page and sheet) takes a **`scope`**, so popover ids
+  stay unique.
+- Each figure is a server function that returns `null` when its data is thin. **Call
+  it before the JSX and test it** before drawing anything around it. A figure gets
+  air, never a box.
 
-**The rail** (sticky under the bar; after main at ≤1080px):
-- **Opportunity card**, "Opportunity **n**/12":
-  - Five rows: label, segment bars (teal), n/max. **Sorted most-filled first, then
-    the longer bar (higher max), then the fixed order.** Never sort by ratio (owner:
-    *"longer bars are first"*).
-  - A zero row is muted. Each row links to the section with its evidence.
-- **Ladder tooltips** on each row and on the total (owner: *"expand on the tooltips
-  in the scoring"*):
-  - what the check asks, why it matters to a builder, and the SCORING.md rungs in
-    plain words, with this record's rung highlighted (teal number)
-  - then "This record: … n of max."
-  - the total's tip shows the four bands by number range. **No verdict words
-    anywhere.**
-  - these tips are CSS only (hover or keyboard focus, short delay) and must not
-    change wording from SCORING.md: restate the rungs, add nothing
-- **Evidence card:** source count, a mix of source types as small gray bars (each
-  with a plain note), and "View all N sources →", which opens the sources drawer.
+**Execution difficulty.** The page shows two short lists, **Makes it easier** and
+**Makes it harder** (owner: *"which is making it easier and which harder"*). The
+level word is already in the badge. The sheet adds the level (a large word with its
+hue dot), the problem's own reason, the same lists in whole sentences, and one line:
+competition doesn't change this level. The warm hue is the level dot only. The level
+is never re-derived on the page: the record carries it and `check-records.py`
+asserts it.
+
+**Company rows** (in the sheets): name ↗, maturity dot, meta ("Germany · since
+2019", "IČO …"), and one line of what it sells. Every company names the sources that
+back it or says **"No source on file"** (owner: *"isn't it connected to sources? …
+why isn't it mentioned?"*). Czech rows group under the h3s "Sells this" and "Sells
+something nearby".
 
 **Sources: pills plus peek cards.** This is the record page's signature.
 - **At rest:** a quiet ink-blue pill in the sentence with the publisher's short name
@@ -312,21 +421,29 @@ lighter. The level is never re-derived on the page: the record carries it and
   'Act No. 264/2025 Coll.'"*).
 - **Native first.** The pill is a `<button popovertarget>` and the card is a
   `popover="auto"`. Click, tap or Enter opens it; Escape and an outside click close
-  it. The hover script (§9) only adds hover-intent, focus-to-open and click-to-pin.
+  it. The hover script (§9) only adds hover-intent and click-to-pin.
 - **↗ means another site, everywhere, and nowhere else.** Every link that leaves the
   site ends in ↗ plus screen-reader text "(another site)". An in-page link never
   carries it.
-- The **drawer** is a right-side popover listing every source, grouped by type. Each
-  entry has publisher · host · date, the title ↗, why, a "In the source's words"
-  fold, and "Cited in …".
+- The **drawer** is a right-side popover listing every source, grouped by type under
+  sticky headings. Each entry has publisher · host · date, the title ↗, why, an "In
+  the source's words" fold, and "Cited in …". `#sources` and `#sN` open it on that
+  row.
+
+**Reader-facing copy never says "record"** (owner). Readers see a *problem*: "This
+problem: 2 of 3.", "Found by the register's market check". "Record" is the
+register's internal word, for code and rulebooks only.
 
 **Phone (≤640px)** (owner: *"simple rows: left label, right value"*):
-- The head stays on the left edge. The art shrinks to 120px and the title to 26px.
-- The fact row becomes full-width rows on hairlines, label left and value right.
-- A peek card becomes a **bottom sheet** with a grab handle, and so do the Details
-  modals. The drawer goes full width.
-- The rail is one column after main, and receipts stack figure over line with the
-  pill on the right.
+- The head stays on the left edge. The drawing shrinks to 96px and the title to 26px.
+- The facts become full-width rows on hairlines, label left and value right, followed
+  by the score list.
+- Peek cards, sheets and the drawer take the full width. Peeks and sheets become
+  **bottom sheets** with a grab handle.
+- The easier and harder lists stack. The rail follows main in one column.
+
+**Print:** no bar, buttons or tooltips. Every sheet prints in place, and the drawer
+prints as the source list.
 
 ## 8. Motion and hover
 
@@ -336,8 +453,12 @@ lighter. The level is never re-derived on the page: the record carries it and
   black (owner: *"flashing through black on hover"*). A wash is always painted, and
   only its opacity fades. A hover otherwise changes one thing: an opacity, or one
   gray to another gray.
-- **Entrance:** tooltips, peeks and menus fade in with a 3px rise, about 140ms
-  ease-out. **Exit is instant.** The sources drawer slides 24px at 180ms.
+- **Entrance:** tooltips, peeks, section sheets and menus fade in with a 3px rise,
+  about 140ms ease-out. **Exit is instant.** The sources drawer slides 24px at 180ms.
+- **Scroll-driven, not timed:** the contents stepper and a sheet's compact bar title
+  follow scroll position through CSS scroll-driven animations. They still change
+  only opacity and transform (and a label's gray), and where the browser lacks
+  support they simply stay at rest.
 - **`prefers-reduced-motion: reduce`:** opacity fade only, no movement (or no
   transition at all).
 - Menus and country hovers change instantly, with no fade.
@@ -350,12 +471,15 @@ Owner decision, 2026-09-16: client JavaScript is allowed **for the named progres
 enhancements below, and nothing else**. SPEC §5 and §7 carry the same list.
 
 1. **The source-peek hover script** (`PeekHover`, a `"use client"` component with one
-   document-level listener set and no per-pill hydration): hover-intent (~140ms)
-   opens a peek, the card stays open while the pointer is inside it, Tab onto a pill
-   opens it, and a click pins it.
+   document-level listener set and no per-pill hydration). Hover-intent (~140ms)
+   opens a peek, the card stays open while the pointer is inside it, and a click pins
+   it. Focus alone opens nothing (audit B13). Escape hides a showing rail tooltip. A
+   `#sources` or `#sN` URL opens the drawer on that row, and an Evidence type row
+   opens the drawer scrolled to its group.
 2. **Native popovers and CSS**, which aren't scripts but are sanctioned devices:
-   `popovertarget` peeks, Details modals, the sources drawer, the country menu, CSS
-   hover/focus tooltips, and `<details>` folds.
+   `popovertarget` peeks and figure dots, section sheets, the sources drawer, the
+   country menu, CSS hover/focus tooltips, `<details>` folds, and scroll-driven
+   animations (the contents stepper).
 3. The gazette-era relative-dates and table-sort scripts stay only while their
    gazette routes exist, and go with them.
 
@@ -373,8 +497,11 @@ Rules for all of it:
 ## 10. The anti-slop NEVER list
 
 1. NEVER a second font family, and never a mono or serif face for figures or data.
-2. NEVER a hue that doesn't encode one of the three meanings in §3. No brand accent,
-   purple, gradient, glow or coloured shadow.
+2. NEVER a hue that doesn't encode one of the three meanings in §3. The one
+   exception is the score scale (teal `#3f8f7f` at full marks, amber `#b58a2e` at
+   half or more, brick `#c4564f` below half), and only as a score dot or a badge's
+   7% tint. No brand accent, purple, gradient, glow, coloured shadow, or category
+   colour fade.
 3. NEVER a fourth text style on a row card, and never bold inside the story.
 4. NEVER a label inline with its text, and never colons or bullet glyphs on a card.
 5. NEVER a generic tooltip. Every hover card says something about *this* record, or
@@ -385,13 +512,13 @@ Rules for all of it:
    an exit animation, never ignore reduced-motion.
 9. NEVER emoji, flag emoji, or an outlined stock icon set. Small glyphs are solid and
    drawn for this site. Category drawings are line illustrations.
-10. NEVER marketing chrome: no hero stats, counts line, "trusted by", badges, CTA
-    buttons or exclamation marks. "Problem" is never softened to "challenge".
+10. NEVER marketing chrome: no hero stats, counts line, "trusted by" or award
+    badges, filled CTA buttons or exclamation marks. "Problem" is never softened to "challenge".
 11. NEVER a verdict word (PRIME, STRONG, …) on a public page. Bands are number ranges
     with plain words.
 12. NEVER ↗ on an in-page link, and never an external link without ↗.
-13. NEVER an empty figure, a boxed figure, or a caption stated twice. Thin data draws
-    nothing or states the absence.
+13. NEVER an empty figure, a boxed figure, a caption, a legend or an explanatory
+    paragraph under a figure. Thin data draws nothing or states the absence.
 14. NEVER a title or paragraph ending on a lone word, and never horizontal page
     scroll at 320–375px.
 15. NEVER a text gray under 4.5:1 on its ground. `--l-text-4` is for non-text only.
@@ -399,28 +526,31 @@ Rules for all of it:
     never add a rung, band or gate the rubric doesn't have.
 17. NEVER edit `assets/style.css` or `web/shared.css`. They are the frozen gazette
     stylesheet, kept only for the private `/sources` page.
+18. NEVER "record" in reader-facing copy. Readers see a problem.
+19. NEVER more than three items, or one figure, under a section's answer line on
+    the page. NEVER the same company, fact or list twice in one sheet.
+20. NEVER sum Execution difficulty into the total, and never show a record-page
+    total that differs from the front page's /12.
 
-## 11. Not yet ruled: settle these in the migration
+## 11. Not yet ruled
 
-These gaps are known from the 2026-09-16 audit. They aren't rules yet, so don't
-invent answers in a content run; the migration checklist owns them. Other sessions
-were already closing some of them the same day (anchor aliases, metadata), so
-**check the code before acting on an item**. When one is settled, move its answer
-into the sections above and delete the bullet.
+These are known open questions. They aren't rules yet, so don't invent answers in a
+content or page run. **Check the code and the named docs before acting on an item.**
+When one is settled, move its answer into the sections above and delete the bullet.
 
-- **Print:** the modern CSS has no `@media print`, and a printed record carries no
-  sources (audit B12). Whether "photocopies beautifully" survives is an open owner
-  question.
-- **Record head vs row card:** the record head renders `brief` and `good_for` as
-  dotted bullets with an inline "Good for:" label. The row card rule (labels on their
-  own line, no colons, no bullets) doesn't hold there yet.
-- **Record page contrast:** `problem.css` doesn't yet scope `--l-text-3` the way
-  `front.css` does (audit B13). Keyboard: tabbing onto a pill opens its card, and the
-  rail comes after main in DOM order.
-- **Hover rows in the rail** (`.ls-dim`, `.ls-mixrow`) transition `background-color`
-  from an unpainted state, which conflicts with §8.
-- **Record content cuts** (audit D9): `entry.why`, the gates list, the comps ledger
-  links, the whenline, past urgency receipts, the corrections link.
+- **Scoring v2.** The section scores, their judgement words, the Willing to pay
+  points (still public-money proximity) and Execution difficulty as a /3 are the
+  prototype in `lib/site/score-proto.ts`. The owner hasn't yet decided the new
+  rungs, the total, its bands, or whether difficulty becomes a scored dimension
+  (`docs/scoring-v2/`). When those decisions land: replace `score-proto.ts`, reword
+  the About this section and tooltip copy from the new SCORING.md, and recheck the
+  score scale's thresholds in §3.
+- **The other records.** The p-0008 design renders on every record, but only p-0008
+  is written for it. The writing rules for answer lines, keyed lists, first moves and
+  in-page links, and the `check-records.py` invariants that enforce them, are being
+  codified in `data/RECORD-TEMPLATE.md`, `pipeline/REWRITE.md` and
+  `scripts/check-records.py` now. Until each record is rewritten, its outline is
+  whatever its current prose yields.
 
 ## 12. Implementation
 
