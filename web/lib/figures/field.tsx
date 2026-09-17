@@ -11,8 +11,9 @@
 // how proven. Only the "sells this × established" cell takes the space.
 //
 // Both are pure: no hooks, no client code, `null` when the data is too thin.
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { extractDate, type Problem } from "../data";
+import { EXT, ExtArrow } from "../site/cite";
 import { scoreRead } from "../scorecard";
 import { median, packRows, shortName, textW, yearFrac } from "./text";
 
@@ -196,5 +197,183 @@ export function FieldGrid({ p }: { p: Problem }): ReactNode {
       <p className="lk-read lk-read--sm">{scoreRead(p, "gap")}.</p>
       <figcaption className="lk-cap">Only an established player that sells this takes the space; the other cells never move Local opportunity.</figcaption>
     </figure>
+  );
+}
+
+// ---- WHO ALREADY SELLS THIS: the count strip (record-page redesign, D4 / §5.2)
+//
+// Counts and maturity only, NEVER names: each company appears once on the page,
+// as its row, and the rows draw the same `MaturityDot` so strip and rows agree.
+// HTML, not SVG. Rows, always in this order:
+//   In Czechia · sells this             locals competes: direct (always shown)
+//   In Czechia · sells something nearby locals competes: adjacent (omitted when empty)
+//   Abroad                              comps[] (omitted when empty)
+// Teal ink only where it is in the builder's favour: the Czechia "sells this"
+// read when nobody there is established, and the Abroad read when proof >= 2.
+
+/** `null` = maturity not on file (comps[] carries none yet). */
+export type Maturity = "established" | "early" | null;
+
+/** 10px mark: filled = established, ring = early, gray fill = not on file. */
+export function MaturityDot({ m }: { m: Maturity }): ReactNode {
+  const cls = m === "established" ? "lk-dot is-est" : m === "early" ? "lk-dot is-early" : "lk-dot is-none";
+  return <span className={cls} aria-hidden="true" />;
+}
+
+const companies = (n: number) => `${n} ${n === 1 ? "company" : "companies"}`;
+
+/** "4 · all early" / "3 · all established" / "5 · 2 established". */
+function localRead(xs: readonly { maturity: "established" | "early" }[]) {
+  const est = xs.filter((l) => l.maturity === "established").length;
+  const tail = est === 0 ? "all early" : est === xs.length ? (xs.length === 1 ? "established" : "all established") : `${est} established`;
+  return { est, tail: xs.length === 1 && est === 0 ? "early" : tail };
+}
+
+/** The tail of `scoreRead(p, "proof")`, without its leading count. */
+function proofTail(p: Problem): string {
+  const r = scoreRead(p, "proof");
+  const m = r.match(/^\d+ compan(?:y|ies) abroad, (.+)$/);
+  if (m) return m[1];
+  if (/^one established company abroad/.test(r)) return "established";
+  return "maturity not on file";
+}
+
+type StripRow = { key: string; label: string; marks: Maturity[]; read: string; sr: string; teal: boolean };
+
+export function FieldStrip({ p }: { p: Problem }): ReactNode {
+  const comps = p.comps ?? [];
+  const locals = p.locals ?? [];
+  if (comps.length === 0 && locals.length === 0) return null;
+  const direct = locals.filter((l) => l.competes === "direct");
+  const adjacent = locals.filter((l) => l.competes === "adjacent");
+  const rows: StripRow[] = [];
+
+  if (direct.length === 0) {
+    rows.push({ key: "direct", label: "In Czechia · sells this", marks: [], read: "Nobody sells this here yet", sr: "Nobody in Czechia sells this yet.", teal: true });
+  } else {
+    const { est, tail } = localRead(direct);
+    rows.push({
+      key: "direct", label: "In Czechia · sells this", marks: direct.map((l) => l.maturity),
+      read: `${direct.length} · ${tail}`,
+      sr: `${companies(direct.length)} in Czechia ${direct.length === 1 ? "sells" : "sell"} this, ${tail}.`,
+      teal: est === 0,
+    });
+  }
+  if (adjacent.length > 0) {
+    const { tail } = localRead(adjacent);
+    rows.push({
+      key: "adjacent", label: "In Czechia · sells something nearby", marks: adjacent.map((l) => l.maturity),
+      read: `${adjacent.length} · ${tail}`,
+      sr: `${companies(adjacent.length)} in Czechia ${adjacent.length === 1 ? "sells" : "sell"} something nearby, ${tail}.`,
+      teal: false,
+    });
+  }
+  if (comps.length > 0) {
+    const tail = proofTail(p);
+    rows.push({
+      key: "abroad", label: "Abroad", marks: comps.map(() => null),
+      read: `${comps.length} · ${tail}`,
+      sr: `${companies(comps.length)} abroad, ${tail}.`,
+      teal: p.scores.proof >= 2,
+    });
+  }
+
+  return (
+    <div className="lk lk-strip">
+      {locals.length > 0 && (
+        <p className="lk-strip-key" aria-hidden="true">
+          In Czechia: <MaturityDot m="established" /> established <MaturityDot m="early" /> early
+        </p>
+      )}
+      <ul className="lk-strip-rows">
+        {rows.map((r) => (
+          <li key={r.key} className={`lk-strip-row lk-strip-row--${r.key}`}>
+            <span className="lk-sr">{r.sr}</span>
+            <span className="lk-strip-label" aria-hidden="true">{r.label}</span>
+            <span className="lk-strip-dots" aria-hidden="true">
+              {r.marks.map((m, i) => <MaturityDot key={i} m={m} />)}
+            </span>
+            <span className={r.teal ? "lk-strip-read lk-teal" : "lk-strip-read"} aria-hidden="true">{r.read}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// ---- DotPeek: one company as a dot that opens a small card (owner,
+// 2026-09-17: "just place dots there, so that I can hover them and see more").
+//
+// Shared by LocalMatrix and CompMap. The dot is a native trigger, the card a
+// native popover, and both borrow the source peek's classes so they read as
+// one system and ride the same machinery:
+//   · `data-peek` on the button: PeekHover's selector, so hover-intent, the
+//     stay-open-inside-the-card grace and click-to-pin come for free
+//   · `ls-peek` on the card: its look, its anchor placement and, at ≤640px,
+//     its bottom sheet (problem.css). kit.css only retimes the motion.
+// Without JS, click, tap or Enter opens the card and Escape closes it.
+// Sources are not drawn here: the figure has no page citation context, and a
+// peek inside a peek is exactly the complexity this replaces. The card points
+// to Read more, where every company row carries its pills.
+
+const MARKERS = /\s*\[S\d+(?:\s*,\s*S?\d+)*\](?!\()/g;
+
+/** The first sentence (or `;`-clause) of a ledger line, markers stripped. */
+export function firstLine(s: string): string {
+  const t = s.replace(MARKERS, "").replace(/\s+/g, " ").trim().split(/;\s+/)[0];
+  const m = t.match(/^.+?(?<!\b(?:incl|e\.g|i\.e|approx|vs|Inc|Ltd|Co|St|Dr|No|resp))[.!?](?=\s+[A-Z(„"]|\s*$)/);
+  const out = m ? m[0] : t;
+  return /[.!?…]$/.test(out) ? out : `${out}.`;
+}
+
+export type DotPeekProps = {
+  id: string;
+  /** The button's whole accessible name: "Secfix, Germany, since 2021". */
+  label: string;
+  name: string;
+  href?: string;
+  m: Maturity;
+  /** The card's quiet head line, joined with " · ". */
+  head: string[];
+  line: string;
+  className?: string;
+  style?: CSSProperties;
+  /** The mark inside the button; the MaturityDot by default. */
+  mark?: ReactNode;
+  /** `data-i` on the button, for a figure's own :has() highlight. */
+  index?: number;
+};
+
+export function DotPeek(o: DotPeekProps): ReactNode {
+  const anchor = `--${o.id}`;
+  const cls = o.m === "established" ? "is-est" : o.m === "early" ? "is-early" : "is-none";
+  return (
+    <>
+      <button
+        type="button"
+        className={`lk-pin ${cls}${o.className ? ` ${o.className}` : ""}`}
+        popoverTarget={o.id}
+        aria-label={o.label}
+        data-peek=""
+        data-i={o.index}
+        style={{ ...o.style, anchorName: anchor } as CSSProperties}
+      >
+        {o.mark ?? <MaturityDot m={o.m} />}
+      </button>
+      <div id={o.id} popover="auto" role="dialog" aria-label={o.name} className="ls-peek lk-pk" style={{ positionAnchor: anchor } as CSSProperties}>
+        <span className="ls-pk-entry">
+          <span className="ls-pk-head">
+            <MaturityDot m={o.m} />
+            <span className="ls-pk-pub">{o.head[0]}</span>
+            {o.head.length > 1 && <span className="ls-pk-host">{o.head.slice(1).join(" · ")}</span>}
+          </span>
+          {o.href
+            ? <a className="ls-pk-title" href={o.href} {...EXT}>{o.name}<ExtArrow /></a>
+            : <span className="ls-pk-title">{o.name}</span>}
+          <span className="ls-pk-why">{o.line}</span>
+          <span className="ls-pk-foot">Sources and the full note are in Read more.</span>
+        </span>
+      </div>
+    </>
   );
 }

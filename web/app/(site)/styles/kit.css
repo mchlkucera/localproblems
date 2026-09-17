@@ -91,23 +91,148 @@
 .lk-g-names { font-size: 11px; line-height: 1.35; color: var(--l-text-2); overflow-wrap: anywhere; }
 .lk-g-keyk { margin-top: auto; padding-top: 4px; font-size: 10px; font-weight: 500; color: var(--l-text-3); }
 
-/* ---- CompMap (article, 680px) --------------------------------------- */
-.lk-map-row { display: grid; grid-template-columns: 416px minmax(0, 1fr); gap: 24px; align-items: start; }
+/* ---- CompMap: the full column, a numbered dot per company, the list as key
+   Based in = the darker shade, also sells in = the lighter one; the list's
+   column heads carry both swatches, so the map needs no caption. */
+.lk-map { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.lk-map-svg { position: relative; }
 .lk-map .geomap { display: block; width: 100%; max-width: none; height: auto; margin: 0; }
-.lk-map .geomap path { fill: #efeff2; stroke: var(--l-bg); stroke-width: .6; }
+.lk-map .geomap path { fill: #efeff2; stroke: var(--l-bg); stroke-width: .8; vector-effect: non-scaling-stroke; }
 .lk-map .geomap .comp { fill: #b6b8be; }
-.lk-map .geomap .home { fill: var(--l-bg); stroke: var(--l-text-1); stroke-width: 1.1; }
-.lk-map .geomap .lbl { font: 600 9px var(--l-font); fill: var(--l-text-1); text-anchor: middle; letter-spacing: .02em; }
-.lk-map .geomap .lbl-home { fill: var(--l-text-1); }
-.lk-map .geomap .inset { fill: var(--l-bg); stroke: var(--l-line-2); stroke-width: 1; }
-.lk-map-key { display: flex; flex-direction: column; gap: 14px; padding-top: 6px; }
-.lk-band { display: flex; flex-direction: column; gap: 6px; }
-.lk-band-k { font-size: 11.5px; font-weight: 500; color: var(--l-text-4); }
-.lk-band-l { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
-.lk-band-l li { display: flex; flex-direction: column; gap: 1px; }
-.lk-cty { font-size: 12.5px; font-weight: 500; color: var(--l-text-1); }
-.lk-cty-n { font-size: 12px; line-height: 1.4; color: var(--l-text-2); }
-.lk-dim, .lk-off { color: var(--l-text-4); font-weight: 400; }
+.lk-map .geomap .comp.mkt { fill: #dcdde1; }
+.lk-map .geomap .home { fill: var(--l-bg); stroke: var(--l-text-1); stroke-width: 1.4; }
+/* --lk-u = crop width / 680 (set on the figure): the code reads 13px at the
+   full column. The dots now mark the countries, so only Czechia keeps its code */
+.lk-map .geomap .lbl { font: 600 calc(13px * var(--lk-u, .66)) var(--l-font); fill: var(--l-text-1); text-anchor: middle; letter-spacing: .02em; paint-order: stroke; stroke: rgba(255, 255, 255, .7); stroke-width: 2.5px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.lk-map .geomap .lbl:not(.lbl-home) { display: none; }
+.lk-map .geomap .inset { fill: var(--l-bg); stroke: var(--l-line-2); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.lk-map-dots, .lk-map-hl { position: absolute; inset: 0; }
+.lk-map-hl { width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+
+/* one company's countries, brought up by its dot, its row or its open card */
+.lk-hl { opacity: 0; }
+.lk-hl path { stroke: var(--l-text-1); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.lk-hl-hq path { fill: #8e9097; }
+.lk-hl-mk path { fill: #cfd1d6; stroke: var(--l-text-3); }
+.lk-hl-ln { stroke: var(--l-text-2); stroke-width: 1; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+.lk-map:has(.lk-pin:is(:hover, :focus-visible), .lk-pin + :popover-open, .lk-map-t tbody tr:is(:hover, :focus-within)) .geomap .comp { fill: #e6e7ea; }
+.lk-map:has([data-i="0"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="0"] + :popover-open) .lk-hl[data-i="0"],
+.lk-map:has([data-i="1"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="1"] + :popover-open) .lk-hl[data-i="1"],
+.lk-map:has([data-i="2"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="2"] + :popover-open) .lk-hl[data-i="2"],
+.lk-map:has([data-i="3"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="3"] + :popover-open) .lk-hl[data-i="3"],
+.lk-map:has([data-i="4"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="4"] + :popover-open) .lk-hl[data-i="4"],
+.lk-map:has([data-i="5"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="5"] + :popover-open) .lk-hl[data-i="5"],
+.lk-map:has([data-i="6"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="6"] + :popover-open) .lk-hl[data-i="6"],
+.lk-map:has([data-i="7"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="7"] + :popover-open) .lk-hl[data-i="7"],
+.lk-map:has([data-i="8"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="8"] + :popover-open) .lk-hl[data-i="8"],
+.lk-map:has([data-i="9"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="9"] + :popover-open) .lk-hl[data-i="9"],
+.lk-map:has([data-i="10"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="10"] + :popover-open) .lk-hl[data-i="10"],
+.lk-map:has([data-i="11"]:is(:hover, :focus-visible, :focus-within), .lk-pin[data-i="11"] + :popover-open) .lk-hl[data-i="11"] { opacity: 1; }
+
+.lk-num {
+  position: relative; display: grid; place-items: center; width: 17px; height: 17px; border-radius: 50%;
+  background: var(--l-text-1); color: var(--l-bg); box-shadow: 0 0 0 1.5px var(--l-bg);
+  font: 600 10px/1 var(--l-font); font-variant-numeric: tabular-nums;
+}
+
+.lk-map-t { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 20px; color: var(--l-text-2); }
+.lk-map-t th { padding: 0 12px 6px 0; text-align: left; font-size: 12px; font-weight: 500; color: #6e7077; white-space: nowrap; }
+.lk-map-t td { padding: 8px 12px 8px 0; vertical-align: top; border-top: 1px solid var(--l-line); overflow-wrap: anywhere; }
+.lk-map-t th:last-child, .lk-map-t td:last-child { padding-right: 0; }
+.lk-map-t .lk-map-tn { width: 17px; padding-right: 10px; }
+.lk-map-t .lk-map-tn .lk-num { margin-top: 1.5px; box-shadow: none; }
+.lk-map-tc { font-weight: 500; white-space: nowrap; }
+.lk-map-t td:nth-child(3) { white-space: nowrap; }
+.lk-map-tc a { color: var(--l-text-1); text-decoration: none; }
+.lk-map-tc a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.lk-map-tc a:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 1px; border-radius: 2px; }
+.lk-map-t td.is-none, .lk-map-off { color: var(--l-text-4); }
+.lk-sw { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 2px; vertical-align: -1px; }
+.lk-sw.is-hq { background: #b6b8be; }
+.lk-sw.is-mk { background: #dcdde1; }
+@media (max-width: 640px) {
+  .lk-map .geomap .lbl { font-size: calc(22px * var(--lk-u, .66)); }
+  .lk-map-t { font-size: 12.5px; }
+}
+
+/* ---- LocalMatrix: the Czech players, 2×2 ------------------------------
+   Columns: y-axis gutter · early · established. Rows: sells this · nearby ·
+   x-axis labels. The inner cross is two hairlines; the axes are the left and
+   bottom edges, each ending in a small solid arrowhead. Teal only on
+   .is-favour (a 3% wash and the ink label). */
+.lk-mx { display: flex; flex-direction: column; gap: 12px; min-width: 0; container-type: inline-size; }
+.lk-mx-grid {
+  display: grid; grid-template-columns: 18px minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+}
+.lk-mx-q {
+  position: relative; display: flex; flex-direction: column; gap: 8px; min-width: 0; min-height: 168px;
+  padding: 10px 8px 10px 10px; background: var(--l-bg);
+}
+.lk-mx-q.is-favour { background: #f4f9f7; }
+.lk-mx-q.is-early { border-left: 1px solid var(--l-text-4); border-right: 1px solid var(--l-line); }
+.lk-mx-q.is-direct { border-bottom: 1px solid var(--l-line); }
+.lk-mx-q.is-adjacent { border-bottom: 1px solid var(--l-text-4); }
+/* arrowheads: solid, 7×6, at the far end of each axis */
+.lk-mx-q.is-direct.is-early::before, .lk-mx-q.is-adjacent.is-established::after {
+  content: ""; position: absolute; width: 7px; height: 6px; background: var(--l-text-4);
+}
+.lk-mx-q.is-direct.is-early::before { left: -4px; top: -5px; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.lk-mx-q.is-adjacent.is-established::after { right: -5px; bottom: -4px; width: 6px; height: 7px; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+/* the dots' box: rows of 42px, 12px clear of every edge so a dot never clips */
+.lk-mx-plot { position: relative; flex: 1; min-height: calc(var(--rows, 1) * 42px + 16px); margin: 0 -2px; }
+.lk-mx-plot > .lk-pin { left: calc(12px + (100% - 24px) * var(--x)); top: calc(8px + (100% - 16px) * var(--y)); }
+.lk-mx-none { margin: 0; font-size: 13px; line-height: 18px; font-weight: 500; color: #6e7077; }
+.lk-mx-q.is-favour .lk-mx-none { color: var(--lk-teal); }
+.lk-mx-y {
+  grid-column: 1; align-self: center; justify-self: start;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: 11px; line-height: 14px; font-weight: 500; color: #6e7077; white-space: nowrap;
+}
+.lk-mx-y.is-direct { grid-row: 1; }
+.lk-mx-y.is-adjacent { grid-row: 2; }
+.lk-mx-x { grid-row: 3; padding: 6px 10px 0; font-size: 11px; line-height: 14px; font-weight: 500; color: #6e7077; }
+.lk-mx-x.is-early { grid-column: 2; }
+.lk-mx-x.is-est { grid-column: 3; }
+/* ---- DotPeek: a company as a dot that opens a card ---------------------
+   The button is a 24px target centred on its point; the mark is the 10px
+   MaturityDot. Hover lays a gray halo under it (an opacity, nothing else);
+   an open card keeps the halo; focus is the page's 2px gray ring. The card
+   is `.ls-peek` (problem.css): its look, anchor and phone bottom sheet. Only
+   the motion is retimed here, to §8: 140ms fade and 3px rise in, out at once. */
+.lk-pin {
+  appearance: none; position: absolute; z-index: 1; display: grid; place-items: center;
+  width: 24px; height: 24px; margin: 0; padding: 0; border: 0; border-radius: 50%;
+  background: none; cursor: pointer;
+  transform: translate(calc(-50% + var(--dx, 0) * 21px), calc(-50% + var(--dy, 0) * 21px));
+}
+.lk-pin::before {
+  content: ""; position: absolute; inset: 2px; border-radius: 50%; background: var(--l-bg-3);
+  box-shadow: inset 0 0 0 1px var(--l-line-2); opacity: 0; transition: opacity .12s;
+}
+.lk-pin:hover::before, .lk-pin:has(+ :popover-open)::before { opacity: 1; }
+.lk-pin:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 1px; }
+.lk-pin > .lk-dot, .lk-pin > .lk-num { position: relative; }
+.lk-map-dots > .lk-pin { left: calc(var(--x) * 100%); top: calc(var(--y) * 100%); }
+.lk-mx-q.is-favour .lk-pin > .lk-dot.is-early { background: #f4f9f7; }
+
+.ls-peek.lk-pk { transition: none; }
+.ls-peek.lk-pk:popover-open { transition: opacity .14s ease-out, transform .14s ease-out; }
+.lk-pk .ls-pk-head .lk-dot { width: 9px; height: 9px; }
+.lk-pk .ls-pk-foot { margin-top: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  /* opacity only: the card is already in place when it fades in */
+  .ls-peek.lk-pk:popover-open { transition: opacity .14s ease-out; }
+  .lk-pin::before { transition: none; }
+}
+
+/* ---- LkPair: matrix and map side by side; stacked when narrow --------- */
+.lk-pair { container-type: inline-size; }
+.lk-pair-in { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 40px; }
+.lk-pair-in > :only-child { grid-column: 1 / -1; }
+@container (min-width: 620px) {
+  .lk-pair-in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 32px; align-items: start; }
+}
 
 /* ---- ProcessToday (article, 680px) ---------------------------------- */
 .lk-proc { display: flex; flex-direction: column; gap: 14px; }
@@ -207,6 +332,155 @@
     transform: rotate(135deg);
   }
   .lk-scroll > .lk-svg { min-width: 600px; }
-  .lk-map-row { grid-template-columns: minmax(0, 1fr); }
   .lk-tally { flex-direction: column; gap: 2px; }
+}
+
+/* ======================================================================
+   Record-page redesign (docs/record-page-redesign.md §5): ProcessSteps,
+   FieldStrip, MaturityDot. HTML only, no legend, no cards.
+   ====================================================================== */
+.lk-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ---- MaturityDot: 10px, the same mark in the strip and the rows ------- */
+.lk-dot { display: inline-block; flex: none; width: 10px; height: 10px; border-radius: 50%; vertical-align: -1px; box-sizing: border-box; }
+.lk-dot.is-est { background: var(--l-text-1); }
+.lk-dot.is-early { background: var(--l-bg); box-shadow: inset 0 0 0 1.5px var(--l-text-1); }
+.lk-dot.is-none { background: var(--l-text-3); }
+
+/* ---- FieldStrip ------------------------------------------------------- */
+.lk-strip { display: flex; flex-direction: column; gap: 8px; }
+.lk-strip-key { align-self: flex-end; display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; color: var(--l-text-3); }
+.lk-strip-key .lk-dot + .lk-dot { margin-left: 8px; }
+.lk-strip-rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.lk-strip-row {
+  position: relative; display: grid; grid-template-columns: 200px auto minmax(0, 1fr); column-gap: 16px; align-items: center;
+  padding: 8px 0; border-top: 1px solid var(--l-line);
+}
+.lk-strip-row:last-child { border-bottom: 1px solid var(--l-line); }
+.lk-strip-label { font-size: 13px; line-height: 20px; font-weight: 500; color: var(--l-text-2); }
+.lk-strip-dots { display: flex; flex-wrap: wrap; gap: 6px; max-width: 220px; }
+.lk-strip-dots:empty { display: none; }
+.lk-strip-read { font-size: 13px; line-height: 20px; color: var(--l-text-2); font-variant-numeric: tabular-nums; }
+.lk-strip-dots:empty + .lk-strip-read { grid-column: 2 / -1; }
+
+/* ---- ProcessSteps: one figure, two lanes ------------------------------
+   Desktop: step columns, lanes as rows (label row + node row each).
+   Phone: the axes swap — steps as rows, the two lanes side by side.
+   Items carry --c/--c2 (column lines) and --r/--r2 (row lines, +1 for the
+   phone head row), so one set of inline vars places them both ways. */
+.lk-pd { display: flex; flex-direction: column; gap: 16px; }
+.lk-pd-grid {
+  display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  grid-template-rows: auto auto auto auto; column-gap: 12px;
+}
+.lk-pd-lane { grid-column: 1 / -1; padding-bottom: 8px; font-size: 12px; line-height: 16px; font-weight: 500; color: #6e7077; }
+.lk-pd-lane.is-l1 { grid-row: 1; }
+.lk-pd-lane.is-l2 { grid-row: 3; padding-top: 24px; }
+.lk-pd-rule, .lk-pd-band, .lk-pd-bandlabel, .lk-pd-node { grid-column: var(--c) / var(--c2); }
+.lk-pd-rule.is-l1, .lk-pd-node.is-l1 { grid-row: 2; }
+.lk-pd-rule.is-l2, .lk-pd-band, .lk-pd-bandlabel, .lk-pd-node.is-l2 { grid-row: 4; }
+/* the run of the sequence: one hairline through each lane, behind the nodes */
+.lk-pd-rule { grid-column: 1 / -1; position: relative; }
+.lk-pd-rule::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--l-line-2); }
+.lk-pd-node {
+  position: relative; z-index: 1; display: flex; align-items: center; min-width: 0; min-height: 60px;
+  padding: 8px 10px; border: 1px solid var(--l-line-2); border-radius: 8px; background: var(--l-bg);
+  font-size: 12.5px; line-height: 17px; font-weight: 500; color: var(--l-text-1);
+  text-wrap: pretty; overflow-wrap: anywhere; hyphens: auto;
+}
+/* a step nobody does, or one the solution adds: an empty slot */
+.lk-pd-node.is-empty { border: 1px dashed var(--l-text-4); font-weight: 400; color: #6e7077; }
+/* an actor we don't know: no box, a muted word */
+.lk-pd-node.is-unknown { border-color: transparent; background: var(--l-bg); font-weight: 400; color: #6e7077; }
+/* a step the solution leaves alone */
+.lk-pd-node.is-stays { font-weight: 400; color: #6e7077; }
+.lk-pd-node.is-over { margin: 7px 5px; min-height: 46px; }
+.lk-pd-node.is-over.is-unknown { border-color: var(--lk-teal-line); }
+/* the suggested solution: ONE box under every step it changes */
+.lk-pd-band {
+  position: relative; z-index: 0; min-height: 60px;
+  border: 1px solid var(--lk-teal-line); border-radius: 10px; background: var(--lk-teal-tint);
+}
+.lk-pd-bandlabel {
+  position: relative; z-index: 1; align-self: center; padding: 8px 12px;
+  font-size: 13px; line-height: 18px; font-weight: 500; color: var(--lk-teal); text-wrap: balance;
+}
+.lk-pd-q { display: flex; flex-direction: column; gap: 2px; }
+.lk-pd-q p { margin: 0; font-size: 13px; line-height: 20px; color: #6e7077; text-wrap: pretty; }
+
+@media (max-width: 640px) {
+  .lk-pd-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto repeat(var(--n), auto);
+    column-gap: 10px; row-gap: 8px;
+  }
+  .lk-pd-lane { grid-column: auto; grid-row: 1; padding: 0 0 2px; }
+  .lk-pd-lane.is-l1 { grid-column: 1; }
+  .lk-pd-lane.is-l2 { grid-column: 2; grid-row: 1; padding-top: 0; }
+  .lk-pd-grid > .lk-pd-band, .lk-pd-grid > .lk-pd-bandlabel, .lk-pd-grid > .lk-pd-node { grid-row: var(--r) / var(--r2); }
+  .lk-pd-rule.is-l1, .lk-pd-node.is-l1 { grid-column: 1; }
+  .lk-pd-rule.is-l2, .lk-pd-band, .lk-pd-bandlabel, .lk-pd-node.is-l2 { grid-column: 2; }
+  .lk-pd-rule.is-l1, .lk-pd-rule.is-l2 { grid-row: 2 / -1; }
+  .lk-pd-rule::before { left: 50%; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1px solid var(--l-line-2); }
+  .lk-pd-node, .lk-pd-band { min-height: 48px; }
+  .lk-pd-node.is-over { margin: 5px 6px; min-height: 36px; }
+  .lk-pd-bandlabel { align-self: start; }
+  .lk-strip-key { align-self: flex-start; }
+  .lk-strip-row { grid-template-columns: auto minmax(0, 1fr); row-gap: 4px; padding: 10px 0; }
+  .lk-strip-label { grid-column: 1 / -1; }
+  .lk-strip-dots:empty + .lk-strip-read { grid-column: 1 / -1; }
+}
+
+/* ---- pay ---- (lib/figures/pay.tsx: PayDots on the page, PayTimeline in
+   the Willing to pay sheet). Gray dots only: a dot is one purchase or price,
+   never a verdict. Each dot is a <button data-peek> opening an `ls-peek` card;
+   hover and open change one gray to another, instantly, never via transparent. */
+.lk-pay { display: flex; flex-direction: column; min-width: 0; }
+.lk-pay-lane { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: 16px; align-items: center; }
+.lk-pay-lane + .lk-pay-lane:not(.lk-pay-axis) { border-top: 1px solid var(--l-line); }
+.lk-pay-ll { margin: 0; font-size: 13px; line-height: 18px; color: var(--l-text-2); text-wrap: balance; }
+.lk-pay-track { position: relative; height: calc(var(--rows, 1) * 18px + 20px); }
+.lk-pay-grid { position: absolute; top: 0; bottom: 0; left: calc(var(--x) * 100%); border-left: 1px solid var(--l-line); }
+/* rows of a crowded lane fan out around the lane's middle */
+.lk-pay-at { position: absolute; left: calc(var(--x) * 100%); top: calc(50% + (var(--row, 0) - (var(--rows, 1) - 1) / 2) * 18px); margin: -9px 0 0 -9px; display: flex; }
+.lk-pay-dot {
+  position: relative; display: block; flex: none; width: 18px; height: 18px;
+  margin: 0; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer;
+}
+.lk-pay-dot::before {
+  content: ""; position: absolute; inset: 4px; border-radius: 50%;
+  background: var(--l-text-3); box-shadow: 0 0 0 1.5px var(--l-bg);
+}
+.lk-pay-dot:hover::before, .lk-pay-dot:has(+ :popover-open)::before { background: var(--l-text-1); }
+.lk-pay-dot:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 0; }
+.lk-pay-axis { align-items: start; padding-top: 6px; border-top: 1px solid var(--l-line-2); }
+.lk-pay-axis > span { font-size: 11px; line-height: 14px; color: var(--l-text-3); }
+.lk-pay-ticks { position: relative; height: 14px; }
+.lk-pay-tick {
+  position: absolute; left: calc(var(--x) * 100%); transform: translateX(-50%);
+  font-size: 11px; line-height: 14px; color: var(--l-text-3); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+/* the card: the figure first, then who and what, then the source link */
+.lk-pay-amt { display: block; font-size: 18px; line-height: 24px; font-weight: 600; color: var(--l-text-1); font-variant-numeric: tabular-nums; }
+.lk-pay-unit { font-size: 13px; font-weight: 400; color: var(--l-text-3); }
+
+/* PayTimeline: one column per month, a dot per contract or tender */
+.lk-payt-cols { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); grid-auto-columns: auto; grid-auto-flow: column; column-gap: 4px; align-items: start; }
+.lk-payt-col { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.lk-payt-stack {
+  display: flex; flex-direction: column-reverse; align-items: center; justify-content: flex-start; gap: 0;
+  align-self: stretch; height: calc(var(--tall) * 16px + 6px); padding-bottom: 4px;
+  border-bottom: 1px solid var(--l-line-2);
+}
+.lk-payt-stack > .lk-pay-dot { width: 16px; height: 16px; }
+.lk-payt-stack > .lk-pay-dot::before { inset: 3px; }
+.lk-payt-m { margin: 6px 0 0; font-size: 11px; line-height: 14px; color: var(--l-text-3); text-align: center; white-space: nowrap; }
+.lk-payt-y { display: block; }
+.lk-payt-grants { margin-left: 12px; padding-left: 16px; border-left: 1px solid var(--l-line); }
+
+@media (max-width: 640px) {
+  .lk-pay-lane { grid-template-columns: 72px minmax(0, 1fr); column-gap: 10px; }
+  .lk-pay-ll { font-size: 12px; line-height: 16px; }
+  .lk-payt-cols { column-gap: 2px; }
+  .lk-payt-grants { margin-left: 6px; padding-left: 8px; }
+  .lk-payt-m { font-size: 10.5px; }
 }

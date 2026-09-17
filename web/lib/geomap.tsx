@@ -46,7 +46,17 @@ const INSET = { x: 2, y: 2, w: NA.vw + 8, h: NA.vh + 8, pad: 4 };
     the countries it demonstrably sells into (filled, never labelled). */
 export type CompGeo = { geo: string; markets?: string[] };
 
-export function EuropeMap({ comps, home }: { comps: CompGeo[]; home: string }) {
+/** Inset scale inside a crop, relative to the crop's own scale: a crop is a
+    zoom, and a full-size inset would cover a third of it. */
+export const INSET_IN_CROP = 0.72;
+
+/** A crop of the Europe frame, in its user units. The North-America inset
+    rides in the crop's top-left corner, scaled with it. */
+export type MapView = { x: number; y: number; w: number; h: number };
+
+export function EuropeMap({ comps, home, titleId = "geomap-title", view }: { comps: CompGeo[]; home: string; titleId?: string; view?: MapView }) {
+  const v = view ?? { x: 0, y: 0, w: EU.vw, h: EU.vh };
+  const k = view ? (v.w / EU.vw) * INSET_IN_CROP : 1;
   const homeIso = home.toUpperCase();
   const dedupe = (xs: string[]) =>
     [...new Set(xs.map((c) => c.toUpperCase()))].filter((c) => c !== homeIso);
@@ -62,17 +72,17 @@ export function EuropeMap({ comps, home }: { comps: CompGeo[]; home: string }) {
   return (
     <svg
       className="geomap"
-      viewBox={`0 0 ${EU.vw} ${EU.vh}`}
-      width={EU.vw}
-      height={EU.vh}
+      viewBox={`${v.x} ${v.y} ${v.w} ${v.h}`}
+      width={v.w}
+      height={v.h}
       role="img"
-      aria-labelledby="geomap-title"
+      aria-labelledby={titleId}
     >
-      <title id="geomap-title">{title}</title>
+      <title id={titleId}>{title}</title>
       {[...EU.shapes].map(([iso, s]) =>
         iso === homeIso || shaded.includes(iso) ? null : <path key={iso} d={s.d} />,
       )}
-      {shaded.map((iso) => <path key={iso} className="comp" d={EU.shapes.get(iso)!.d} />)}
+      {shaded.map((iso) => <path key={iso} className={hqs.includes(iso) ? "comp" : "comp mkt"} d={EU.shapes.get(iso)!.d} />)}
       {EU.shapes.has(homeIso) && <path className="home" d={EU.shapes.get(homeIso)!.d} />}
       {shaded.filter((c) => hqs.includes(c)).map((iso) => {
         const { x, y } = EU.shapes.get(iso)!.anchor;
@@ -89,13 +99,13 @@ export function EuropeMap({ comps, home }: { comps: CompGeo[]; home: string }) {
         </text>
       )}
       {naShaded.length > 0 && (
-        <g>
+        <g transform={`translate(${v.x} ${v.y}) scale(${k})`}>
           <rect className="inset" x={INSET.x} y={INSET.y} width={INSET.w} height={INSET.h} />
           <g transform={`translate(${INSET.x + INSET.pad} ${INSET.y + INSET.pad})`}>
             {[...NA.shapes].map(([iso, s]) =>
               naShaded.includes(iso) ? null : <path key={iso} d={s.d} />,
             )}
-            {naShaded.map((iso) => <path key={iso} className="comp" d={NA.shapes.get(iso)!.d} />)}
+            {naShaded.map((iso) => <path key={iso} className={hqs.includes(iso) ? "comp" : "comp mkt"} d={NA.shapes.get(iso)!.d} />)}
             {naShaded.filter((c) => hqs.includes(c)).map((iso) => {
               const { x, y } = NA.shapes.get(iso)!.anchor;
               return <text key={iso} className="lbl" x={x} y={y} dy="0.35em">{iso}</text>;
