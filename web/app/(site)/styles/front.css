@@ -23,6 +23,9 @@
   --lf-gap: 56px;            /* rail → text edge */
   --lf-row-in: 28px;         /* a row's box, before the text edge */
   --lf-bleed: 0px;           /* how far strips and washes pass the content box: none on desktop */
+  --lf-fold-in: 16px;        /* by category: content edge → drawing ("more left space next to image") */
+  --lf-fold-lead: 96px;      /* by category: the drawing */
+  --lf-fold-gap: 16px;       /* by category: drawing → name ("less right space") */
   --lf-measure: 640px;       /* one measure for the title and the solution */
   --lf-fs-title: 18px;
   --lf-lh-title: 26px;
@@ -284,16 +287,18 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf .lf-entries { list-style: none; padding: 0; }
 
 /* ---- by category: an index of closed folds (front.tsx CategoryFold) -------------
-   One row per category on the rail grid: the drawing in the rail, the name
-   (title style) and "N problems" on the text edge, a caret at the end. The
-   summary spans the content box and washes on hover. Open, its rows follow on
-   the text edge like the opportunity rows, and the summary sticks under the
-   tabs — the same box open or closed. */
+   Its own tighter grid, not the rail (owner, 2026-09-17: "for the categories
+   the previous version was better"): 16px, a 96px drawing, 16px, then the
+   name (title style) with "N problems" under it, a caret at the end. The
+   summary spans the content box and washes on hover. Open, its rows sit on
+   the name's edge, 128px in, and each row's rule and wash span the whole
+   content box, drawing column included; the summary sticks under the tabs —
+   the same box open or closed. */
 .lf-fold + .lf-fold { border-top: 1px solid var(--l-line); }
 .lf-fold:last-of-type { border-bottom: 1px solid var(--l-line); }
 .lf-fold-h {
   position: relative; z-index: 0;
-  display: grid; grid-template-columns: var(--lf-rail) minmax(0, 1fr) auto; column-gap: var(--lf-gap); align-items: center;
+  display: grid; grid-template-columns: calc(var(--lf-fold-in) + var(--lf-fold-lead)) minmax(0, 1fr) auto; column-gap: var(--lf-fold-gap); align-items: center;
   padding-top: var(--l-4); padding-bottom: var(--l-4); list-style: none; cursor: pointer;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -305,9 +310,7 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 .lf-fold-h:hover::before { opacity: 1; }
 .lf-fold-h:focus-visible { outline: none; }
 .lf-fold-h:focus-visible::before { opacity: 1; box-shadow: 0 0 0 1.5px var(--l-text-2); }
-/* the drawings sit centred in a 240-wide box with ~40 units of air each side;
-   the negative margin puts the ink, not the box, on the page edge */
-.lf .lf-fold-art { display: block; width: 96px; height: auto; margin: -4px 0 -4px -16px; color: #c3c4c9; transition: color .15s ease-out; }
+.lf .lf-fold-art { display: block; width: var(--lf-fold-lead); height: auto; margin: -4px 0 -4px var(--lf-fold-in); color: #c3c4c9; transition: color .15s ease-out; }
 .lf-fold-h:hover .lf-fold-art { color: var(--l-text-4); }
 .lf-fold-text { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .lf .lf-fold-name {
@@ -319,7 +322,7 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
 /* the caret keeps 16px inside the wash's right edge */
 .lf-fold-h .lf-more-caret { width: 12px; height: 12px; margin-right: var(--l-4); color: var(--l-text-3); }
 .lf-fold[open] > .lf-fold-h .lf-more-caret { transform: rotate(180deg); }
-.lf .lf-fold-list { padding-left: calc(var(--lf-rail) + var(--lf-gap)); }
+.lf .lf-fold-list { --lf-row-in: calc(var(--lf-fold-in) + var(--lf-fold-lead) + var(--lf-fold-gap)); padding-left: var(--lf-row-in); }
 .lf-fold-list .lf-entry:first-child { padding-top: var(--l-6); }
 
 /* an entry is one hit area (owner, 2026-09-16: "make the whole page
@@ -579,7 +582,7 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
   .lf-fold-h { display: flex; gap: var(--l-3); padding-top: 14px; padding-bottom: 14px; }
   .lf-fold-text { flex: 1; }
   .lf-fold-h .lf-more-caret { margin-right: 0; }
-  .lf .lf-fold-list { padding-left: 0; }
+  .lf .lf-fold-list { padding-left: 0; --lf-row-in: var(--lf-pad); }
   .lf-fold-list .lf-entry:first-child { padding-top: 20px; }
 
   /* THE FOLDED ENTRY (owner, 2026-09-17: "just heading, small peek, and

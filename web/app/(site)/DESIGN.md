@@ -141,11 +141,14 @@ Change a value here and in the CSS together.
   bottom rule the list's first rule; band labels stick under them. ("By
   opportunity/category should be also sticky", 2026-09-17)
 - Category grouping is an INDEX first, at every width: each category is a
-  native `<details>`, closed by default. Summary row: the drawing (96px) in
-  the rail (the solid glyph on phone), the name in the title style on the text
-  edge, meta "N problems" only ("remove the opportunity up to X in
+  native `<details>`, closed by default. Summary row, on its own tighter grid
+  (not the rail; "for the categories the previous version was better"): 16px,
+  the drawing (96px), 16px ("more left space next to image, less right
+  space"), then the name in the title style at 128px (the solid glyph before
+  it on phone), meta "N problems" only ("remove the opportunity up to X in
   categories", 2026-09-17), caret at the end; hover washes it like a row. Open,
-  its rows follow on the text edge, titles on the name's edge, without their
+  its rows sit 128px in, on the name's edge, their rules and washes spanning
+  the whole content box, without their
   category item or drawing, and the summary sticks under the tabs. ("make the
   by category all hidden first so that we can see the category list first!
   Both on desktop and mobile", 2026-09-17)
