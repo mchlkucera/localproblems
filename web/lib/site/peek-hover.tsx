@@ -19,6 +19,10 @@
 //   · a URL fragment naming the drawer (`#sources`) or a row inside it
 //     (`#s12`, the live record's anchors) opens the drawer on that row, on
 //     load and on every hash change — a closed popover cannot be scrolled to.
+//   · a rail Evidence row (`[data-src-group]`) opens the drawer scrolled so
+//     that type's group heading sits at the top of its list (a group near the
+//     end gets bottom padding while the drawer is open). Without JS the
+//     drawer still opens, just at the top.
 // One document-level listener set; no per-pill hydration.
 import { useEffect } from "react";
 
@@ -30,6 +34,8 @@ export function PeekHover() {
     let openT = 0;
     let closeT = 0;
     let cur: { btn: HTMLElement; pop: HTMLElement; mode: Mode } | null = null;
+    let srcGroup = ""; // drawer group to land on once the drawer reports open
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const popFor = (btn: HTMLElement) => {
       const id = btn.getAttribute("popovertarget");
@@ -113,6 +119,8 @@ export function PeekHover() {
         const pop = popFor(btn);
         if (pop && !isOpen(pop)) cur = { btn, pop, mode: "pinned" };
       }
+      const row = e.target instanceof Element ? e.target.closest("[data-src-group]") : null;
+      if (row) srcGroup = row.getAttribute("data-src-group") ?? "";
       // following an in-page link out of a card or the drawer closes it
       const a = e.target instanceof Element ? e.target.closest("[data-peek-close]") : null;
       const host = a?.closest("[popover]") as HTMLElement | null;
@@ -121,6 +129,21 @@ export function PeekHover() {
     const onToggle = (e: Event) => {
       const el = e.target as HTMLElement;
       if ((e as ToggleEvent).newState === "closed" && cur?.pop === el) cur = null;
+      if (!el.classList?.contains("ls-drawer")) return;
+      const body = el.querySelector<HTMLElement>(".ls-drawer-body");
+      if ((e as ToggleEvent).newState === "closed" && body) body.style.paddingBottom = "";
+      if (!srcGroup) return;
+      const group = document.getElementById(srcGroup);
+      srcGroup = "";
+      if ((e as ToggleEvent).newState !== "open" || !group || !body || !body.contains(group)) return;
+      // scroll only the drawer's list, never the page, so the group heading
+      // sits at its top; a group near the end gets bottom room to scroll into
+      window.requestAnimationFrame(() => {
+        const top = body.scrollTop + group.getBoundingClientRect().top - body.getBoundingClientRect().top;
+        const short = top - (body.scrollHeight - body.clientHeight);
+        if (short > 0) body.style.paddingBottom = `${parseFloat(getComputedStyle(body).paddingBottom) + short}px`;
+        body.scrollTo({ top, behavior: still.matches ? "instant" : "smooth" });
+      });
     };
 
     // ---- `#sources` and `#sN`: open the drawer that holds the target -------

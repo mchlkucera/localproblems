@@ -284,7 +284,7 @@ Change a value here and in the CSS together.
 - Citation pills: focus alone opens nothing. Tab focuses the pill; Enter,
   Space, click or hover (~140ms) opens its card; only an open card's links
   join the Tab order; Escape closes it and returns focus to the pill.
-- The rail (Opportunity, Who is here, Evidence) comes BEFORE `main` in the
+- The rail (Opportunity, Evidence) comes BEFORE `main` in the
   source, so it is reached right after the head (tab stop 5 on p-0008).
   Grid areas keep it drawn in the right column; at ≤1080px, where it is drawn
   after main, `reading-flow: grid-rows` makes focus follow the drawn order.
@@ -298,7 +298,8 @@ Change a value here and in the CSS together.
   16px, `--l-text-3`, 2px above) with the words under it. No bullets, no
   run-in "Good for:", no bold. One body style for both (17px / 1.6,
   `--l-text-2`; 15.5px on phone), story → label 14px. The block is
-  left-aligned, centred under the centred title; the facts rows are unchanged.
+  left-aligned on the main column's edge, like the art, title and facts above
+  and below it (owner, 2026-09-16: the centred head "got all over the place").
 
 ## Whole row is one target
 - The title's link is stretched over the row (`::after`); hover or focus

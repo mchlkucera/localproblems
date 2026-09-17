@@ -117,7 +117,7 @@ as a filled badge. Category icons are gray (`#919399`).
   labels and category drawings on the page edge; every title and line of copy on
   the text edge; a row's rule and hover wash are one box (owner, 2026-09-17:
   *"simplify the grid"*).
-- **Record page:** a full-width centred head, then a 680px main column and a 272px
+- **Record page:** a full-width head on the main column's left edge, then a 680px main column and a 272px
   rail with an 88px gap. It becomes one column at ≤1080px (rail after main, two
   rail cards side by side) and phone rules apply at ≤640px.
 - **Top bar**, 48px, sticky, hairline bottom. It holds the brand, "/", and the
@@ -235,9 +235,10 @@ as a filled badge. Category icons are gray (`#919399`).
 
 ## 7. The record page
 
-**Head: centred, with air.** The category drawing (216px, very light gray; 120px on
-phone), the title, and the headline copy (`brief`, `good_for`) as one left-aligned
-block centred under the title. Then the **fact row**: Category · Locality · Window ·
+**Head: one left edge, with air** (owner, 2026-09-16: the centred head "got all over
+the place"; *"make it all left"*). The category drawing (216px, very light gray;
+120px on phone), the title, the headline copy (`brief`, `good_for`) and the fact row
+all start on the main column's left edge, at every width. The **fact row**: Category · Locality · Window ·
 Entry · Verified. Each fact appears once, with a small label over its value and
 hairline dividers between facts. Window shows only when there is no `brief`, because
 a brief already says why it is urgent. The Entry value is the level dot and word, and
@@ -275,7 +276,8 @@ lighter. The level is never re-derived on the page: the record carries it and
 
 **Figures** come from the kit:
 - ProcessToday, ProcessAfter, CompMap, FieldTimeline and MoneyScale go in the main
-  column. FieldGrid goes in the rail.
+  column. FieldGrid is not on the record page (owner, 2026-09-16: *"remove the Who
+  is here from the right sidebar"*).
 - Each is a server function that returns `null` when its data is thin, so **call it
   before the JSX and test it** before drawing anything around it.
 - A figure belongs to the section it explains. It gets air and nothing else: it's
@@ -296,7 +298,6 @@ lighter. The level is never re-derived on the page: the record carries it and
     anywhere.**
   - these tips are CSS only (hover or keyboard focus, short delay) and must not
     change wording from SCORING.md: restate the rungs, add nothing
-- **Who is here** (FieldGrid) when locals exist.
 - **Evidence card:** source count, a mix of source types as small gray bars (each
   with a plain note), and "View all N sources →", which opens the sources drawer.
 
@@ -319,9 +320,8 @@ lighter. The level is never re-derived on the page: the record carries it and
   entry has publisher · host · date, the title ↗, why, a "In the source's words"
   fold, and "Cited in …".
 
-**Phone (≤640px)** (owner: *"simple rows: left label, right value"*, then *"keep the
-illustration and heading centered, the rows below are wonderful"*):
-- The art and title stay centred. The art shrinks to 120px and the title to 26px.
+**Phone (≤640px)** (owner: *"simple rows: left label, right value"*):
+- The head stays on the left edge. The art shrinks to 120px and the title to 26px.
 - The fact row becomes full-width rows on hairlines, label left and value right.
 - A peek card becomes a **bottom sheet** with a grab handle, and so do the Details
   modals. The drawer goes full width.

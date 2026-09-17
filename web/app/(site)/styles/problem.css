@@ -15,8 +15,8 @@
   --ls-main: 680px;
   --ls-rail: 272px;
   --ls-bar: 48px;
-  --ls-sec-gap: 88px;           /* between sections */
-  --ls-para-gap: 22px;          /* between paragraphs */
+  --ls-sec-gap: 120px;          /* between sections (redesign D12: 88 → 120) */
+  --ls-para-gap: 16px;          /* between blocks inside a section */
 
   /* COLOUR ENCODES, NEVER DECORATES (owner, round 3). Three hues, all low
      saturation; every text use passes WCAG AA on white (4.7–6.8:1).
@@ -60,8 +60,7 @@
   position: sticky; top: 0; z-index: 5;
   display: flex; align-items: center;
   height: var(--ls-bar); padding: 0 var(--l-5);
-  background: rgb(255 255 255 / .86);
-  backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  background: var(--l-bg);
   border-bottom: 1px solid var(--l-line);
   font-size: var(--l-fs-md); color: var(--l-text-3);
 }
@@ -84,26 +83,41 @@
 .ls-main { grid-area: main; min-width: 0; }
 .ls-rail { grid-area: rail; }
 
-/* ---- head: art, title, facts — centered, with air ----------------------- */
+/* ---- head: art, title, facts — one left edge, with air ------------------ */
+/* Owner, 2026-09-16: the centred head read as "all over the place": centred
+   art, a ragged centred title, a left-aligned brief block centred on its own
+   axis, centred facts, then a body starting somewhere else again. Everything
+   in the head now starts on the main column's left edge (the head spans main
+   + rail, so its left edge IS main's), at every width. */
 .ls-head {
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, var(--ls-main)) var(--ls-rail);
+  column-gap: 88px; align-items: start;
+  text-align: left;
   padding: 72px 0 104px;
 }
+.ls-head > * { grid-column: 1; }
+/* the record facts sit in the rail's column beside the title (owner,
+   2026-09-16: "move [the facts] to the right somewhere"), as label-left /
+   value-right rows on hairlines */
+.ls-head > .ls-facts-row { grid-column: 2; grid-row: 2; }   /* level with the brief, not the title (owner) */
+/* with the category drawing switched back on (SHOW_HEAD_ART), the brief is row 3 */
+.ls-head:has(> .ls-art) > .ls-facts-row { grid-row: 3; }
 .ls-art {
-  display: block; width: 216px; height: auto;
+  display: block; width: 128px; height: auto;   /* owner, 2026-09-16: kept, smaller */
   color: #c3c4c9;               /* between --l-line-2 and --l-text-4: present, never loud */
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
+.ls-head:has(> .ls-art) { padding-top: 48px; }
+
 .ls-h1 {
-  max-width: 760px;
+  max-width: var(--ls-main);
   font-size: 40px; line-height: 1.14; font-weight: 600;
   letter-spacing: -0.028em; color: var(--l-text-1);
   text-wrap: balance;
 }
 /* the headline copy under the title: the brief's one sentence, then "Good
-   for", one left-aligned block centred under the title (a centred paragraph
-   has no left edge to read down). THE FRONT PAGE'S CARD RULES (DESIGN.md
+   for", on the title's left edge. THE FRONT PAGE'S CARD RULES (DESIGN.md
    "Row card", "Labels", "Exactly three text styles"): the story a plain
    paragraph, no bullets; the label on its own line in the meta style (12px /
    16px, --l-text-3, 2px above its words), never run in; the story and the
@@ -111,7 +125,7 @@
    The body is the head's lead size, 17px (15.5px on phone). */
 .ls .ls-brief {
   margin: 28px 0 0 !important;
-  max-width: 680px; text-align: left;
+  max-width: var(--ls-main); text-align: left;
   font-size: 17px; line-height: 1.6; color: var(--l-text-2); text-wrap: pretty;
 }
 .ls .ls-brief-story + .ls-brief-item { margin-top: 14px !important; }
@@ -129,14 +143,13 @@
   white-space: nowrap;
 }
 .ls-brief strong { font-weight: 400; color: inherit; }
-.ls-facts-row {
-  display: flex; flex-wrap: wrap; justify-content: center;
-  margin: 44px 0 0 !important;
+.ls-facts-row { margin: 28px 0 0 !important; border-top: 1px solid var(--l-line); }   /* = .ls-brief's top margin */
+.ls-facts-row > div {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--l-4);
+  padding: 10px 0; border-bottom: 1px solid var(--l-line);
 }
-.ls-facts-row > div { padding: 0 28px; }
-.ls-facts-row > div + div { border-left: 1px solid var(--l-line); }
-.ls-facts-row dt { font-size: var(--l-fs-sm); font-weight: 500; color: var(--l-text-3); }
-.ls-facts-row dd { margin: 6px 0 0; font-size: var(--l-fs-base); color: var(--l-text-1); white-space: nowrap; }
+.ls-facts-row dt { font-size: var(--l-fs-md); font-weight: 400; color: var(--l-text-3); }
+.ls-facts-row dd { margin: 0; font-size: var(--l-fs-md); color: var(--l-text-1); text-align: right; white-space: nowrap; }
 .ls-facts-link { border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent); }
 .ls-facts-link:hover { border-bottom-color: currentColor; }
 
@@ -161,27 +174,64 @@
 .ls-main > .ls-sec:first-child { margin-top: 0; }
 .ls-h2 {
   display: flex; align-items: baseline; gap: var(--l-2);
-  margin: 0 0 20px !important;
-  font-size: 18px !important; line-height: 1.35 !important; font-weight: 600 !important;
+  margin: 0 0 16px !important;
+  font-size: 20px !important; line-height: 28px !important; font-weight: 600 !important;
   letter-spacing: -0.014em; color: var(--l-text-1);
 }
 .ls-h2-count { font-size: var(--l-fs-md); font-weight: 500; color: var(--l-text-3); font-variant-numeric: tabular-nums; }
 
 .ls-p, .ls-steps, .ls-ul {
-  font-size: var(--ls-fs-prose); line-height: 1.78; color: var(--ls-prose);
+  font-size: var(--ls-fs-prose); line-height: 24px; color: var(--ls-prose);
   text-wrap: pretty;
 }
 .ls-p + .ls-p { margin-top: var(--ls-para-gap) !important; }
+
+/* ---- section anatomy (redesign §3.2): h2 → answer line → at most one short
+   paragraph → ONE scan block → folds. Four levels, and the air between them. */
+.ls .ls-answer {
+  max-width: 62ch;
+  font-size: 17px; line-height: 26px; font-weight: 500; color: var(--l-text-1);
+  text-wrap: pretty;
+}
+.ls-answer + .ls-p { margin-top: var(--ls-para-gap) !important; }
+/* a scan block: 32px above (and so below, before the next block) */
+.ls-sec > :is(.ls-keyed, .ls-ul, .ls-steps, .ls-fig, .ls-block, .ls-strip-slot, .ls-field):not(:first-child),
+.ls-sec > .ls-absent:not(:first-child) { margin-top: 32px !important; }
+.ls-sec > .ls-answer + .ls-steps { margin-top: 24px !important; }
+.ls-sec > .ls-strip-slot + .ls-field { margin-top: 24px !important; }
+.ls-sec > .ls-field + .ls-field { margin-top: 0 !important; }
+
+/* the keyed list: key column 148px, value text-2, 10px between rows; also
+   the "What one buyer pays" table and the public money fold */
+.ls .ls-keyed { display: grid; row-gap: 10px; margin: 0; font-size: var(--ls-fs-prose); line-height: 24px; }
+.ls-keyed-row { display: grid; grid-template-columns: 148px minmax(0, 1fr); column-gap: 16px; }
+.ls .ls-keyed-k { position: relative; font-weight: 500; color: var(--l-text-1); font-variant-numeric: tabular-nums; }
+.ls .ls-keyed-v { margin: 0; color: var(--l-text-2); text-wrap: pretty; }
+.ls-row-meta { color: var(--l-text-3); font-size: var(--l-fs-md); }
+/* a date inside the next six months: the warm dot hangs in the gutter, so
+   the dates stay on one edge */
+.ls-keyed-k.ls-soon::before { position: absolute; left: -14px; top: 9px; margin: 0; }
+.ls-block-h { font-size: var(--l-fs-md); line-height: 20px; font-weight: 500; color: var(--l-text-2); margin-bottom: 10px !important; }
+/* one computed line saying what a block's rows are (Public money nearby) */
+.ls .ls-block-h + .ls-block-intro { margin: -6px 0 14px !important; font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-3); text-wrap: pretty; }
 .ls-p--why { color: var(--l-text-2); margin-top: 28px !important; }
 .ls-lead { color: var(--l-text-1); font-weight: 500; }
 .ls-p strong, .ls-steps strong { font-weight: 600; color: var(--l-text-1); }
 .ls-link { color: var(--ls-ink); text-decoration: underline !important; text-decoration-color: color-mix(in srgb, var(--ls-ink) 30%, transparent) !important; text-underline-offset: 3px; }
 .ls-link:hover { text-decoration-color: var(--ls-ink) !important; }
-.ls-ul { padding-left: 20px !important; margin-top: var(--l-4) !important; }
+/* plain bullets (owner, 2026-09-16: The problem's key/value columns became
+   bullets): 15/24 text-2, a small drawn gray dot, 8px between items */
+.ls .ls-ul { list-style: none; padding: 0 !important; margin-top: var(--l-4) !important; color: var(--l-text-2); }
+.ls-ul > li { position: relative; padding-left: 18px; }
+.ls-ul > li + li { margin-top: 8px; }
+.ls-ul > li::before {
+  content: ""; position: absolute; left: 3px; top: 10px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--l-text-4);
+}
 
 .ls-steps { list-style: none; padding: 0 !important; counter-reset: step; }
 .ls-steps > li { position: relative; padding-left: 40px; counter-increment: step; }
-.ls-steps > li + li { margin-top: 28px; }
+.ls-steps > li + li { margin-top: 20px; }
 .ls-steps > li::before {
   content: counter(step);
   position: absolute; left: 0; top: 3px;
@@ -259,12 +309,15 @@ a.ls-pk-title:hover { text-decoration: underline !important; text-decoration-col
 
 /* ---- the suggested solution -------------------------------------------- */
 .ls-solution {
-  margin-top: 56px;
+  margin-top: 64px;
   padding: 20px 24px 22px;
   background: var(--l-bg-2); border: 1px solid var(--l-line); border-radius: 12px;
 }
-.ls-solution-k { font-size: var(--l-fs-sm); font-weight: 500; color: var(--l-text-3); margin-bottom: 8px !important; }
-.ls-solution-v { font-size: var(--ls-fs-prose); line-height: 1.7; color: var(--l-text-1); text-wrap: pretty; }
+/* the box carries a real section heading, the same h2 as every section
+   (owner, 2026-09-17: "Suggested solution could use a bigger heading") */
+.ls-solution > .ls-h2 { margin-bottom: 12px !important; }
+.ls-solution-v { font-size: var(--ls-fs-prose); line-height: 24px; color: var(--l-text-1); text-wrap: pretty; }
+.ls .ls-solution-after { margin-top: 8px; font-size: var(--ls-fs-prose); line-height: 24px; color: var(--l-text-2); text-wrap: pretty; }
 
 /* ---- ledgers inside sections (comps, locals, receipts) --------------- */
 .ls-group-h { font-size: var(--l-fs-sm); font-weight: 500; color: var(--l-text-3); margin-bottom: var(--l-2) !important; }
@@ -297,15 +350,21 @@ a.ls-pk-title:hover { text-decoration: underline !important; text-decoration-col
 .ls-receipt-meta { font-size: var(--l-fs-sm); color: var(--l-text-3); white-space: nowrap; }
 
 
-.ls-absent { font-size: var(--l-fs-md); color: var(--l-text-3); margin-top: var(--l-5) !important; }
+.ls-absent { font-size: var(--l-fs-md); color: var(--l-text-3); }
 .ls-group { margin-top: 36px !important; }
 
 /* ---- companies: a label column beside its entries (as /lab/modern) ----- */
 .ls .ls-grp {
-  display: grid; grid-template-columns: 132px minmax(0, 1fr); column-gap: 24px;
-  margin-top: 32px; border-top: 1px solid var(--l-line-2);
+  display: grid; grid-template-columns: 160px minmax(0, 1fr); column-gap: 24px;
+  border-top: 1px solid var(--l-line-2);
 }
-.ls .ls-grp + .ls-grp { margin-top: 12px; }
+.ls .ls-field + .ls-field > .ls-grp:first-child, .ls .ls-grp + .ls-grp { margin-top: 12px; }
+.ls .ls-grp--fold { border-top: 0; margin-top: 0 !important; }
+.ls .ls-grp-rest { padding: 4px 0 12px; }
+.ls .ls-grp-rest > * + * { margin-top: var(--ls-para-gap); }
+.ls .ls-grp-lead { padding: 14px 0 2px; font-size: var(--ls-fs-prose); line-height: 24px; color: var(--l-text-2); text-wrap: pretty; }
+.ls .ls-grp-lead + .ls-absent { margin-top: 8px; }
+.ls-field { scroll-margin-top: calc(var(--ls-bar) + 32px); }
 .ls-grp-h { padding-top: 15px; }
 .ls .ls-grp-t { font-size: var(--l-fs-md); line-height: 20px; font-weight: 600; color: var(--l-text-1); }
 .ls .ls-grp-n { font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-3); font-variant-numeric: tabular-nums; }
@@ -319,6 +378,11 @@ a.ls-pk-title:hover { text-decoration: underline !important; text-decoration-col
 }
 .ls-ent + .ls-ent { border-top: 1px solid var(--l-line); }
 .ls-ent-id { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 10px; min-width: 0; line-height: 22px; }
+.ls-ent-id > .lk-dot, .ls-ent-id > .ls-mdot { align-self: center; margin-right: -2px; }
+/* the local fallback of the kit's MaturityDot (same meaning, same size) */
+.ls-mdot { display: inline-block; flex: none; width: 10px; height: 10px; border-radius: 50%; box-sizing: border-box; background: var(--l-text-3); }
+.ls-mdot[data-m="established"] { background: var(--l-text-1); }
+.ls-mdot[data-m="early"] { background: none; border: 1.5px solid var(--l-text-1); }
 .ls-ent-name { font-weight: 500; color: var(--l-text-1); overflow-wrap: anywhere; }
 .ls-ent-name:hover { text-decoration: underline !important; text-decoration-color: var(--l-line-2) !important; text-underline-offset: 3px; }
 .ls-ent-id .ls-tag { align-self: center; }
@@ -326,7 +390,7 @@ a.ls-pk-title:hover { text-decoration: underline !important; text-decoration-col
 .ls-ent-src { align-self: start; display: flex; justify-content: flex-end; padding-top: 2px; }
 .ls .ls-ent-sum {
   grid-column: 1; font-size: 13.5px; line-height: 1.55; color: var(--l-text-2);
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  text-wrap: pretty;   /* one sentence, never clamped mid-word */
 }
 .ls-ent-more {
   grid-column: 2; align-self: start; justify-self: end;
@@ -336,6 +400,7 @@ a.ls-pk-title:hover { text-decoration: underline !important; text-decoration-col
   transition: background-color .12s, color .12s;
 }
 .ls-ent-more:hover, .ls-ent:has(> .ls-modal:popover-open) .ls-ent-more { background: var(--l-bg-3); color: var(--l-text-1); }
+.ls .ls-ent-note { grid-column: 1; font-size: var(--l-fs-sm); line-height: 18px; color: var(--l-text-3); }
 .ls-nosrc { font-size: var(--l-fs-sm); line-height: 18px; color: var(--l-text-3); white-space: nowrap; }
 
 /* the Details modal — a native popover: Escape and an outside click close it */
@@ -376,14 +441,155 @@ a.ls-modal-src-t:hover { text-decoration: underline !important; text-decoration-
 .ls-modal-src-why { font-size: var(--l-fs-md); line-height: 1.5; color: var(--l-text-2); }
 .ls .ls-modal-none { margin-top: 8px; font-size: var(--l-fs-md); color: var(--l-text-2); }
 
+
+/* ---- the section sheet: "Read more" opens the whole section on paper -----
+   Owner, 2026-09-16: "Easy to scan - read more into paper like modal with
+   heading that presents". The page shows each section's outline; the sheet,
+   a native `popover="auto"` (no script: Escape and an outside click close
+   it), holds the whole section under a presenting heading. It enters with
+   the peeks' 140ms fade and 3px rise and leaves at once: the transition lives
+   only on the open state, so closing has none. */
+.ls .ls-readmore {
+  appearance: none; border: 0; background: none; cursor: pointer;
+  display: flex; width: fit-content; margin: 24px 0 0; padding: 2px 0;
+  font: 500 var(--l-fs-md)/20px var(--l-font); color: var(--l-text-2);
+  text-decoration: underline; text-decoration-color: var(--l-line-2); text-underline-offset: 4px;
+}
+.ls .ls-readmore:hover { color: var(--l-text-1); text-decoration-color: var(--l-text-3); }
+.ls-readmore:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 2px; border-radius: 3px; }
+.ls-solution > .ls-readmore { margin-top: 16px; }
+.ls-sec > .ls-ul:not(:first-child) { margin-top: 20px !important; }
+.ls-moves-page .ls-step-body { font-weight: 500; color: var(--l-text-1); }
+.ls-sec > .ls-moves-page { margin-top: 0; }
+.ls-moves-page > .ls-answer + .ls-steps { margin-top: 24px; }
+.ls-solution > .ls-fig { margin-top: 24px; }
+
+.ls-sheet {
+  width: min(720px, calc(100vw - 48px)); max-height: calc(100dvh - 72px);
+  margin: auto; padding: 0; border: 0; border-radius: 8px;
+  background: var(--l-bg); color: var(--l-text-1);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / .07), 0 2px 8px rgb(0 0 0 / .04), 0 28px 72px rgb(0 0 0 / .14);
+  font: 400 var(--l-fs-base)/1.5 var(--l-font); font-feature-settings: "cv11";
+  text-align: left; white-space: normal; letter-spacing: normal;
+  overflow: auto; overscroll-behavior: contain;
+}
+.ls-sheet:popover-open {
+  display: block; opacity: 1; transform: none;
+  transition: opacity .14s ease-out, transform .14s ease-out;
+}
+@starting-style { .ls-sheet:popover-open { opacity: 0; transform: translateY(3px); } }
+.ls-sheet::backdrop { background: rgb(20 20 24 / .32); }
+/* the sticky bar: the close ×, and a compact title that fades in once the
+   presenting heading has scrolled away (scroll-driven; opacity only) */
+.ls-sheet-bar {
+  position: sticky; top: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  height: 52px; padding: 0 12px 0 56px; background: var(--l-bg);
+}
+.ls-sheet-bar::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--l-line);
+}
+.ls .ls-sheet-mini {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: var(--l-fs-md); font-weight: 600; color: var(--l-text-1);
+}
+@supports (animation-timeline: scroll()) {
+  .ls .ls-sheet-mini, .ls-sheet-bar::after {
+    opacity: 0;
+    animation: ls-sheet-mini linear both;
+    animation-timeline: scroll(nearest block);
+    animation-range: 64px 112px;
+  }
+}
+@keyframes ls-sheet-mini { to { opacity: 1; } }
+.ls-sheet-bar > .ls-x { margin-left: auto; flex: none; }
+.ls-sheet-page { padding: 4px 56px 56px; }
+.ls-sheet-hd { margin-bottom: 20px; }
+.ls .ls-sheet-rec {
+  font-size: var(--l-fs-sm); line-height: 16px; color: var(--l-text-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ls .ls-sheet-t {
+  margin: 8px 0 0 !important;
+  font-size: 30px !important; line-height: 1.2 !important; font-weight: 600 !important;
+  letter-spacing: -0.024em; color: var(--l-text-1); text-wrap: balance;
+}
+/* the answer line is the sheet's lede */
+.ls .ls-sheet-body > .ls-answer:first-child { font-size: 19px; line-height: 28px; max-width: none; }
+.ls .ls-sheet-body > * + * { margin-top: var(--ls-para-gap) !important; }
+.ls .ls-sheet-body > :is(.ls-keyed, .ls-ul, .ls-steps, .ls-fig, .ls-block, .ls-strip-slot, .ls-field, .ls-absent):not(:first-child) { margin-top: 32px !important; }
+.ls .ls-sheet-body > .ls-field + .ls-field { margin-top: 12px !important; }
+.ls .ls-sheet-body > .ls-strip-slot + .ls-field { margin-top: 24px !important; }
+.ls .ls-sheet-body > .ls-entry-level + .ls-entry-why { margin-top: 10px !important; }
+.ls .ls-sheet .ls-keyed-row { grid-template-columns: 132px minmax(0, 1fr); }
+/* LIST / PARAGRAPH RHYTHM IN SHEETS (owner, 2026-09-17: too little space
+   between a list and the paragraph after it in Who pays). A paragraph that
+   introduces a list sits close to it; a paragraph after a list steps away
+   from it, so each list reads as one group with its lead-in. */
+.ls .ls-sheet-body > :is(.ls-factors):not(:first-child) { margin-top: 28px !important; }
+.ls .ls-sheet-body > :is(.ls-p, .ls-answer) + :is(.ls-ul, .ls-keyed, .ls-steps) { margin-top: 14px !important; }
+.ls .ls-sheet-body > :is(.ls-ul, .ls-keyed, .ls-steps) + :is(.ls-p, .ls-answer, .ls-ul, .ls-keyed) { margin-top: 32px !important; }
+.ls .ls-sheet .ls-ul > li + li { margin-top: 10px; }
+.ls .ls-sheet .ls-grp { grid-template-columns: 136px minmax(0, 1fr); column-gap: 20px; }
+/* ABOUT THIS SECTION (owner, 2026-09-17): under the sheet's presenting
+   header, what the section shows and why it matters to a builder. Quiet:
+   the subtle surface, a hairline, text-2 lines; it never competes with the
+   section below it. */
+.ls .ls-about {
+  margin: 0 0 32px; padding: 14px 20px 16px;
+  background: var(--l-bg-2); border: 1px solid var(--l-line); border-radius: 10px;
+}
+.ls .ls-about-h {
+  margin: 0 0 6px !important; font-size: 13px !important; line-height: 20px !important;
+  font-weight: 600 !important; letter-spacing: 0; color: var(--l-text-1);
+}
+.ls .ls-about-dl { margin: 0 !important; padding: 0 !important; }
+.ls .ls-about-dl > div { display: grid; grid-template-columns: 184px minmax(0, 1fr); column-gap: 16px; align-items: baseline; }
+.ls .ls-about-dl > div + div { margin-top: 6px; }
+.ls .ls-about-dl dt { margin: 0; font-size: 13px; line-height: 24px; font-weight: 600; color: var(--l-text-1); }
+.ls .ls-about-dl dd { margin: 0; font-size: 15px; line-height: 24px; color: var(--l-text-2); text-wrap: pretty; }
+@media (max-width: 640px) {
+  .ls .ls-about { margin-bottom: 28px; padding: 12px 16px 14px; }
+  .ls .ls-about-dl > div { grid-template-columns: minmax(0, 1fr); }
+  .ls .ls-about-dl > div + div { margin-top: 10px; }
+  .ls .ls-about-dl dt { line-height: 20px; }
+}
+
+@media (max-width: 640px) {
+  /* a full-height bottom sheet with a grab handle, as the Details modals */
+  .ls-sheet {
+    inset: auto 0 0 0; margin: 0; width: 100%; max-width: none;
+    height: calc(100dvh - 16px); max-height: none;
+    border-radius: 16px 16px 0 0;
+  }
+  .ls-sheet-bar { height: 48px; padding: 0 8px 0 20px; }
+  .ls-sheet-bar::before {
+    content: ""; position: absolute; top: 6px; left: 50%; translate: -50% 0;
+    width: 36px; height: 4px; border-radius: 2px; background: var(--l-line-2);
+  }
+  .ls-sheet-page { padding: 4px 20px calc(40px + env(safe-area-inset-bottom)); }
+  .ls .ls-sheet-t { font-size: 26px !important; }
+  .ls .ls-sheet-body > .ls-answer:first-child { font-size: 17px; line-height: 26px; }
+  .ls .ls-sheet .ls-keyed-row { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* ---- difficulty to enter: the level, one reason, one quiet line ------- */
 .ls-entry-level { font-size: 22px; line-height: 1.25; font-weight: 600; letter-spacing: -0.02em; }
 /* the reason and the Already-here line are ONE voice (owner, round 4:
    "typographically consistent"): same size, weight and leading; the note is
    only a step lighter in colour */
-.ls-entry-why, .ls-entry-note { font-size: var(--ls-fs-prose); line-height: 1.7; font-weight: 400; text-wrap: pretty; }
-.ls-entry-why { margin-top: 10px !important; color: var(--ls-prose); }
-.ls-entry-note { margin-top: 4px !important; color: var(--l-text-2); }
+.ls-entry-why { margin-top: 10px !important; font-size: var(--ls-fs-prose); line-height: 24px; font-weight: 400; color: var(--ls-prose); text-wrap: pretty; }
+
+/* what makes entry easier and what harder (owner, 2026-09-17): two short
+   bullet groups under meta-weight labels, side by side on the page and in the
+   sheet, stacked on phone. The bullets stay gray: the warm hue is the level's
+   dot only. */
+.ls-sec > .ls-entry-level + .ls-factors { margin-top: 20px; }
+.ls-factors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; row-gap: 20px; }
+.ls .ls-factor-col > .ls-block-h { margin-bottom: 6px !important; }
+.ls .ls-factor-col > .ls-ul { margin-top: 0 !important; }
+.ls .ls-factor-col > .ls-absent { line-height: 24px; }
+.ls .ls-sheet-body > .ls-factors + .ls-absent { margin-top: 28px !important; }
 
 /* the entry level on its four-step scale: a dot in the step's hue, the word
    in the same hue's darker ink. Used for the Entry fact and this heading. */
@@ -463,6 +669,165 @@ a.ls-modal-src-t:hover { text-decoration: underline !important; text-decoration-
   outline: 2px solid var(--l-text-2); outline-offset: 1px; border-radius: 4px;
 }
 
+/* ---- PROTOTYPE (2026-09-17): the scores as a table of contents -------
+   Every section in page order. A scored row: label, bars, n/max, and the
+   judgement word on a second line.
+
+   THE STEPPER (owner, 2026-09-17: "Instead of line showing which is open, why
+   dont we do something cleaner like dots or a line? try it"). A hairline runs
+   down the left of the list with one dot per section on it. The section in
+   view fills its dot (text-1, 6 → 8px by a transform) and darkens its label;
+   sections already read keep a gray dot, so the list reads as progress. No
+   bar, no background. CSS scroll-driven animations only: each section names a
+   view timeline, .ls-shell lifts the names to a common ancestor, and each row
+   runs animations: --ls-toc-a turns on once ITS section's top passes a line
+   30% down the viewport, --ls-toc-b once the NEXT section's does, and
+   --ls-toc-e in the page's last 24px. Current = a − max(b, e) and past =
+   max(b, e); the list's last row is current at max(a, e). Exactly one row is current at any scroll, with no
+   overlap and no dependence on the gaps between sections (the old per-section
+   ranges overlapped wherever a gap was not --ls-sec-gap, so two rows lit near
+   Suggested solution). Where unsupported, a and b stay 0: every dot hollow. */
+.ls-toc-list { position: relative; }
+.ls-toc-list > li { position: relative; }
+/* the hairline: each dot draws the segment down to the next dot */
+.ls-toc-list > li:not(:last-child)::before {
+  content: ""; position: absolute; left: 11px; top: 13px; bottom: -13px; width: 1px;
+  background: var(--l-line-2);
+}
+.ls-toc-row {
+  position: relative; z-index: 0;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto 28px; align-items: center;
+  column-gap: 12px; row-gap: 0;
+  width: 100%; min-height: 26px; padding: 4px 8px 4px 26px; border-radius: 7px;
+  line-height: 18px; color: var(--l-text-2); text-align: left;
+  transition: color .12s;
+}
+.ls-toc-row:is(:hover, :focus-visible) { z-index: 1; color: var(--l-text-1); }
+/* the hover wash starts right of the stepper, so the line never breaks */
+.ls-toc-row::before {
+  content: ""; position: absolute; inset: 0 0 0 20px; z-index: -1;
+  border-radius: inherit; background-color: var(--l-bg-3);
+  opacity: 0; transition: opacity .12s;
+}
+.ls-toc-row:is(:hover, :focus-visible)::before { opacity: 1; }
+.ls-toc-row:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 1px; border-radius: 4px; }
+.ls-toc-row:not(.is-scored) { grid-template-columns: minmax(0, 1fr); }
+.ls-toc-suf { color: var(--l-text-3); }
+.ls-toc-word { grid-column: 1 / -1; font-size: var(--l-fs-sm); line-height: 16px; color: var(--l-text-3); }
+/* the label carries the colour: `.lab a { color: inherit }` outranks a bare
+   .ls-toc-row, so a colour set on the link itself never lands */
+.ls-toc-row .ls-dim-l { color: var(--l-text-2); transition: color .12s; }
+.ls-toc-row.is-zero .ls-dim-l { color: var(--l-text-3); }
+.ls-toc-row:is(:hover, :focus-visible) .ls-dim-l { color: var(--l-text-1); }
+/* the dot: an 8px disc drawn at .75 (6px), centred on the label's line. At
+   rest a hollow ring; ::before is the "read" fill, ::after the "in view"
+   fill. Every layer is always painted; only opacity and transform change. */
+@property --ls-toc-a { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --ls-toc-b { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --ls-toc-e { syntax: "<number>"; inherits: true; initial-value: 0; }
+.ls-toc-dot {
+  position: absolute; left: 7.5px; top: 9px; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--l-bg); box-shadow: inset 0 0 0 1.5px var(--l-text-4);
+  transform: scale(calc(.75 + .25 * var(--ls-toc-cur, 0)));
+}
+.ls-toc-dot::before, .ls-toc-dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; }
+.ls-toc-dot::before { background: var(--l-text-4); opacity: var(--ls-toc-past, 0); }
+.ls-toc-dot::after { background: var(--l-text-1); opacity: var(--ls-toc-cur, 0); }
+@keyframes ls-toc-a { from { --ls-toc-a: 0; } to { --ls-toc-a: 1; } }
+@keyframes ls-toc-b { from { --ls-toc-b: 0; } to { --ls-toc-b: 1; } }
+@keyframes ls-toc-e { from { --ls-toc-e: 0; } to { --ls-toc-e: 1; } }
+.ls-shell {
+  timeline-scope: --toc-opportunity, --toc-solution, --toc-why-now, --toc-willing-to-pay,
+    --toc-validated-abroad, --toc-competition, --toc-execution-difficulty, --toc-first-moves;
+}
+@supports (animation-timeline: view()) {
+  .ls-main > :is(#opportunity, #solution, #why-now, #willing-to-pay, #validated-abroad, #competition, #execution-difficulty, #first-moves) {
+    view-timeline-axis: block;
+    /* a thin band 30% down the viewport: a section "starts" when its top crosses it */
+    view-timeline-inset: 30% 69%;
+  }
+  #opportunity { view-timeline-name: --toc-opportunity; }
+  #solution { view-timeline-name: --toc-solution; }
+  #why-now { view-timeline-name: --toc-why-now; }
+  #willing-to-pay { view-timeline-name: --toc-willing-to-pay; }
+  #validated-abroad { view-timeline-name: --toc-validated-abroad; }
+  #competition { view-timeline-name: --toc-competition; }
+  #execution-difficulty { view-timeline-name: --toc-execution-difficulty; }
+  #first-moves { view-timeline-name: --toc-first-moves; }
+  /* a 1px step at the moment a section's top crosses the band; e turns on in
+     the last 24px of the page, so a closing section too short to reach the
+     band still becomes current at the bottom (it wins, every other row yields) */
+  .ls-toc-row {
+    --ls-toc-past: max(var(--ls-toc-b), var(--ls-toc-e));
+    --ls-toc-cur: calc(var(--ls-toc-a) - var(--ls-toc-past));
+    animation: ls-toc-a linear both, ls-toc-b linear both, ls-toc-e linear both;
+    animation-range: cover 0% cover 1px, cover 0% cover 1px, calc(100% - 24px) 100%;
+  }
+  .ls-toc-list > li:last-child > .ls-toc-row {
+    --ls-toc-past: 0;
+    --ls-toc-cur: max(var(--ls-toc-a), var(--ls-toc-e));
+  }
+  .ls-toc-row .ls-dim-l { color: color-mix(in srgb, var(--l-text-1) calc(var(--ls-toc-cur) * 100%), var(--l-text-2)); }
+  .ls-toc-row.is-zero .ls-dim-l { color: color-mix(in srgb, var(--l-text-1) calc(var(--ls-toc-cur) * 100%), var(--l-text-3)); }
+  .ls-toc-row:is(:hover, :focus-visible) .ls-dim-l { color: var(--l-text-1); }
+  /* the first section is current from the top of the page */
+  .ls-toc-row[data-toc="opportunity"] {
+    --ls-toc-a: 1;
+    animation: ls-toc-b linear both, ls-toc-e linear both;
+    animation-timeline: --toc-solution, scroll(root block);
+    animation-range: cover 0% cover 1px, calc(100% - 24px) 100%;
+  }
+  .ls-toc-row[data-toc="solution"] { animation-timeline: --toc-solution, --toc-why-now, scroll(root block); }
+  .ls-toc-row[data-toc="why-now"] { animation-timeline: --toc-why-now, --toc-willing-to-pay, scroll(root block); }
+  .ls-toc-row[data-toc="willing-to-pay"] { animation-timeline: --toc-willing-to-pay, --toc-validated-abroad, scroll(root block); }
+  .ls-toc-row[data-toc="validated-abroad"] { animation-timeline: --toc-validated-abroad, --toc-competition, scroll(root block); }
+  .ls-toc-row[data-toc="competition"] { animation-timeline: --toc-competition, --toc-execution-difficulty, scroll(root block); }
+  /* a record with no first moves has no such timeline: b stays 0, and this
+     row is the list's last */
+  .ls-toc-row[data-toc="execution-difficulty"] { animation-timeline: --toc-execution-difficulty, --toc-first-moves, scroll(root block); }
+  .ls-toc-row[data-toc="first-moves"] {
+    animation: ls-toc-a linear both, ls-toc-e linear both;
+    animation-timeline: --toc-first-moves, scroll(root block);
+    animation-range: cover 0% cover 1px, calc(100% - 24px) 100%;
+  }
+}
+
+/* THE RAIL FITS THE VIEWPORT (2026-09-17: at 1440×900 the Evidence card ran
+   off the bottom). Rows are compressed above and here; and where the rail is
+   sticky and its tips are fixed-position (anchor positioning, so a scrolling
+   rail cannot clip them), a rail taller than the viewport scrolls inside it. */
+@media (min-width: 1081px) {
+  .ls-mixrow { min-height: 30px; }
+  .ls-card-hd { margin-bottom: 10px; }
+  @supports (position-area: left) {
+    .ls-rail {
+      max-height: calc(100dvh - var(--ls-bar) - 48px);
+      overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;
+    }
+  }
+}
+
+/* the score line under a scored section's heading (owner, 2026-09-17: "below
+   the heading, bigger fontsize, bigger weight, gray … easy to read") */
+.ls .ls-h2:has(+ .ls-h2-chip) { margin-bottom: 2px !important; }
+.ls .ls-h2-chip {
+  margin: 0 0 16px !important;
+  font-size: 15px; line-height: 22px; font-weight: 500; letter-spacing: 0;
+  color: var(--l-text-2); font-variant-numeric: tabular-nums;
+}
+
+/* a sheet's sub-group: a real heading, never a meta label (owner, 2026-09-17:
+   "CLEARLY with bigger heading separate") */
+.ls .ls-sheet-group { margin-top: 48px; }
+.ls .ls-sheet-h3 {
+  margin: 0 0 8px; padding-bottom: 10px; border-bottom: 1px solid var(--l-line);
+  font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.014em; color: var(--l-text-1);
+}
+.ls .ls-sheet-body > .ls-ents--sheet { margin-top: 32px; border-top: 1px solid var(--l-line); }
+
+/* phone only: the scores in brief after the head facts */
+.ls-toc-mini { display: none; }
+
 /* ---- tooltips: CSS only, hover or keyboard focus, short delay --------- */
 .ls-tip-host { position: relative; }
 .ls-tip {
@@ -540,9 +905,15 @@ a.ls-modal-src-t:hover { text-decoration: underline !important; text-decoration-
 }
 .ls-x:hover { background: var(--l-bg-3); color: var(--l-text-1); }
 .ls-drawer-body { flex: 1; overflow: auto; overscroll-behavior: contain; padding: 4px 20px 32px; }
-.ls-drawer-group > .ls-group-h { margin: 20px 0 2px !important; }
 .ls-drawer-group .ls-srcs { margin-top: 0 !important; }
-.ls-drawer-group > .ls-group-h { margin: 24px 0 4px !important; }
+/* the type heading sticks while its group scrolls under it (owner,
+   2026-09-16: "make sure headings are sticky"), then its group's end pushes it
+   out. Full bleed over the body's 20px padding, painted ground, one hairline. */
+.ls-drawer-group > .ls-group-h {
+  position: sticky; top: -4px; z-index: 1;   /* -4px: the body's top padding, which sticky honours */
+  margin: 16px -20px 4px !important; padding: 10px 20px 8px;
+  background: var(--l-bg); border-bottom: 1px solid var(--l-line);
+}
 .ls-srcs { list-style: none; padding: 0 !important; margin: 0 !important; }
 .ls-src {
   display: grid; grid-template-columns: 24px minmax(0, 1fr); column-gap: var(--l-3);
@@ -605,6 +976,8 @@ a:hover > .ls-ext { opacity: 1; }
        last: focus and reading follow the drawn order here instead */
     reading-flow: grid-rows;
   }
+  .ls-head { grid-template-columns: minmax(0, 1fr); }
+  .ls-head > .ls-facts-row, .ls-head:has(> .ls-art) > .ls-facts-row { grid-column: 1; grid-row: auto; margin-top: 36px !important; }
   .ls-rail { position: static; z-index: auto; margin-top: var(--ls-sec-gap); display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
   /* in one column the tooltip opens under its row, never off the left edge */
   .ls-tip { right: auto; left: 0; top: calc(100% + 8px); translate: none; width: min(320px, calc(100vw - 32px)); transform: translateY(-4px); }
@@ -616,15 +989,20 @@ a:hover > .ls-ext { opacity: 1; }
 
 /* PHONE (owner, round 3: "make sure the central view looks nice on phone …
    simple rows: left label, right value"; then "keep the illustration and
-   heading centered, the rows below are wonderful"). Art and title stay
-   centered at every width; the art shrinks to spare the first screen, and
+   heading centered, the rows below are wonderful"; superseded 2026-09-16 by
+   the one left edge above). The art shrinks to spare the first screen, and
    the facts become full-width rows on hairlines, label left, value right. */
 @media (max-width: 640px) {
-  .ls { --ls-fs-prose: 15.5px; --ls-sec-gap: 60px; --ls-para-gap: 18px; }
+  .ls { --ls-fs-prose: 15.5px; --ls-sec-gap: 72px; --ls-para-gap: 16px; }
+  .ls .ls-answer { font-size: 16.5px; line-height: 25px; }
+  /* labels on their own line: the key above its value */
+  .ls-keyed-row { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
+  .ls-keyed-k.ls-soon::before { position: static; display: inline-block; margin-right: 7px; }
   .ls-bar { padding: 0 var(--l-4); }
   .ls-shell { padding: 0 var(--l-4) 88px; }
   .ls-head { padding: 24px 0 52px; }
-  .ls-art { width: 120px; margin-bottom: 20px; }
+  .ls-art { width: 96px; margin-bottom: 16px; }
+  .ls-head:has(> .ls-art) { padding-top: 24px; }
   .ls-h1 { font-size: 26px; line-height: 1.22; letter-spacing: -0.022em; }
   /* balance gives up past six lines (Chrome), which a title over ~120
      characters reaches at 26px on a 375px phone, and then leaves one word on
@@ -633,20 +1011,24 @@ a:hover > .ls-ext { opacity: 1; }
   .ls-h1--long { text-wrap: pretty; }
   .ls .ls-brief { width: 100%; margin-top: 20px !important; font-size: 15.5px; line-height: 1.55; }
 
-  .ls-facts-row { display: block; width: 100%; margin-top: 28px !important; border-top: 1px solid var(--l-line); text-align: left; }
-  .ls-facts-row > div {
-    display: flex; align-items: baseline; justify-content: space-between; gap: var(--l-4);
-    padding: 11px 0; border-bottom: 1px solid var(--l-line);
+  .ls-head > .ls-facts-row { margin-top: 28px !important; }
+  .ls-toc-mini { display: block; margin-top: 28px; }
+  .ls-toc-mini-hd { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 6px !important; font-size: var(--l-fs-md); font-weight: 500; color: var(--l-text-2); }
+  .ls-toc-mini-hd .ls-score b { font-size: 18px; }
+  .ls-toc-mini ul { list-style: none; padding: 0 !important; margin: 0 !important; border-top: 1px solid var(--l-line); }
+  .ls-toc-mini li + li { border-top: 1px solid var(--l-line); }
+  .ls-toc-mini a {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto 28px; column-gap: 10px; align-items: baseline;
+    padding: 9px 0; font-size: var(--l-fs-md); color: var(--l-text-1);
   }
-  .ls-facts-row > div + div { border-left: 0; }
-  .ls-facts-row dt { font-size: var(--l-fs-md); font-weight: 400; color: var(--l-text-3); }
-  .ls-facts-row dd { margin: 0; text-align: right; }
-  .ls-solution { margin-top: 44px; padding: 16px 18px 18px; }
+  .ls-toc-mini-w { color: var(--l-text-3); font-size: var(--l-fs-sm); text-align: right; }
+  .ls-solution { margin-top: 48px; padding: 16px 18px 18px; }
   .ls-rail { grid-template-columns: 1fr; gap: 16px; }
   .ls-fig { margin-top: 26px; }
   .ls-fig--head { margin-bottom: 30px; }
   .ls-card { padding: 16px 16px 14px; }
   .ls-entry-level { font-size: 20px; }
+  .ls-factors { grid-template-columns: minmax(0, 1fr); }
   .ls-receipt { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; }
   .ls-receipt-meta { grid-column: 1; grid-row: 2; }
   .ls-receipt .ls-row-end { grid-column: 2; grid-row: 1 / span 2; }
@@ -687,13 +1069,21 @@ a:hover > .ls-ext { opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   .ls-peek, .ls-drawer, .ls-tip { transition: none; }
+  /* the sheet: opacity only, no rise */
+  .ls-sheet:popover-open { transition: opacity .14s ease-out; }
 }
 
 /* ---- print: the record reads on paper, its sources listed in full ------------------
    Minimal by design: no chrome, no dead buttons, one column, and the sources drawer
    (a closed popover on screen) printed in place as the record's source list. */
 @media print {
-  .ls-bar, .ls-tip, .ls-peek, .ls-modal, .ls-all-link, .ls-x, .ls-foot { display: none !important; }
+  .ls-bar, .ls-tip, .ls-peek, .ls-modal, .ls-all-link, .ls-x, .ls-foot, .ls-readmore, .ls-sheet-bar { display: none !important; }
+  /* on paper every sheet prints in place: the whole section under its outline */
+  .ls-sheet {
+    display: block !important; position: static; inset: auto; width: auto; height: auto; max-height: none;
+    margin: 24px 0 0; box-shadow: none; overflow: visible; opacity: 1; transform: none;
+  }
+  .ls-sheet-page { padding: 0; }
   .ls-shell { display: block; padding: 0; }
   .ls-head { padding: 0 0 24px; }
   .ls-art { width: 96px; }

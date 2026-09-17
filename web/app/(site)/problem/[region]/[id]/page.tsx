@@ -9,26 +9,240 @@
 import type { Metadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { extractDate, getProblems, getSignal, localHref, priceReceipts, signalHref, urgencySplit, type Problem, type ProblemSource } from "../../../../../lib/data";
+import { extractDate, getProblems, getSignal, localHref, priceReceipts, signalHref, urgencySplit, type PriceUnit, type Problem, type ProblemSource } from "../../../../../lib/data";
 import { splitBody, splitLead, capitalize } from "../../../../../lib/sections";
 import {
-  ENTRY_BUYER_LABELS, ENTRY_INCUMBENT_LABELS, ENTRY_INTEGRATION_LABELS, ENTRY_LEVEL_LABELS,
-  ENTRY_MONEY_LABELS, ENTRY_PERMISSION_LABELS, PRICE_BASIS_LABELS, PRICE_UNIT_LABELS,
-  categoryLabel, countryName, czk, entryGates, euro, localityLong,
+  ENTRY_BUYER_LABELS, ENTRY_INTEGRATION_LABELS, ENTRY_LEVEL_LABELS,
+  ENTRY_MONEY_LABELS, ENTRY_PERMISSION_LABELS, PRICE_BASIS_LABELS,
+  categoryLabel, countryName, czk, entryGates, euro,
 } from "../../../../../lib/format";
-import { MAX, SCORE_ROWS, dimRefs, scoreRead, type Dim } from "../../../../../lib/scorecard";
+import { dimRefs, type Dim } from "../../../../../lib/scorecard";
+import { protoScores, protoTotal, type ProtoKey, type ProtoScore } from "../../../../../lib/site/score-proto";
 import { EXT, ExtArrow, cite, newCtx, type CiteCtx } from "../../../../../lib/site/cite";
 import { Prose, inline, type ProseOpts } from "../../../../../lib/site/prose";
 import { fmtDate, labSources, typeNote, type LabSource } from "../../../../../lib/site/sources";
 import { PeekHover } from "../../../../../lib/site/peek-hover";
 import { CORRECTIONS_MAILTO } from "../../../../../lib/chrome";
 import { CategoryArt } from "../../../../../lib/art/category-art";
-// The approved figure kit. Every component returns null when its data is
-// too thin, so each is CALLED before the JSX and tested before anything is
-// drawn around it: no record shows an empty figure or a dangling caption.
-import { CompMap, FieldGrid, FieldTimeline, MoneyScale, ProcessAfter, ProcessToday } from "../../../../../lib/figures";
+// The figure kit (record-page redesign, 2026-09-16: ProcessSteps, MaturityDot;
+// 2026-09-17: LocalMatrix and CompMap, imported by name). Read through the namespace, by name: a component that is not
+// exported, or that throws, draws nothing (or the fallback below), never a crash.
+import * as Kit from "../../../../../lib/figures";
+import { CompMap, LocalMatrix, PayDots, PayTimeline } from "../../../../../lib/figures";
 import "../../../styles/kit.css";
 import "../../../styles/problem.css";
+
+/** OPEN OWNER QUESTIONS (2026-09-16), each a one-line switch:
+    · the head's category drawing (redesign D10 removed it; the owner kept it,
+      smaller, 2026-09-16)
+    · the process: the existing Today / After figures in their old slots
+      ("figures"), or the spec's How it works section with the step table
+      ("steps") once the owner picks it and WP2's ProcessSteps lands. */
+const SHOW_HEAD_ART = true;   // owner, 2026-09-16: keep it, smaller
+const PROCESS_VIEW: "figures" | "steps" = "steps";   // coordinator, 2026-09-16: the two-lane diagram landed
+
+/** THE ONE DRILL-DOWN: THE SECTION SHEET (owner, 2026-09-16: "Easy to scan -
+    read more into paper like modal with heading that presents"; "Make the
+    without modal really short and scannable, all detail goes in the modal
+    which is in-depth"). The page shows each section's outline; its "Read
+    more" opens a sheet of paper holding the WHOLE section, the outline
+    included. Native `popover="auto"` opened by `popovertarget`, so it works
+    with every script stripped; Escape and an outside click close it. A
+    section with nothing beyond its outline gets no sheet. There is no deep
+    link: a closed popover cannot be opened from a URL without script. */
+/** ABOUT THIS SECTION (owner, 2026-09-17: "Under Read more … there should be
+    explanation about the section and why is it relevant for builders — should
+    be below each read more of each section"). One constant map, the same copy
+    on every record: what the section shows, why it matters to a builder, and
+    for a scored section how its number reads. The wording simplifies DIM_INFO
+    and the prototype words in lib/site/score-proto.ts; it restates their rungs
+    and adds none. Willing to pay says plainly that its points still come from
+    public money nearby (SCORING.md MONEY), not from a price paid. */
+type About = { shows: string; why: string; score?: string };
+const SECTION_ABOUT: Record<"opportunity" | "solution" | "why-now" | "willing-to-pay" | "validated-abroad" | "competition" | "execution-difficulty" | "first-moves", About> = {
+  opportunity: {
+    shows: "The problem as it is today: what goes wrong, and who it costs.",
+    why: "Documented pain means you will not have to convince buyers the problem exists before you can sell them the fix.",
+    score: "2/2 means clear, recurring pain: documented complaints, a petition or industry pressure. Scattered complaints make it 1/2.",
+  },
+  solution: {
+    shows: "One way to solve the problem, and how the work would run with it.",
+    why: "It is a starting point to test with buyers, not a plan. The sections below are the evidence for and against it.",
+  },
+  "why-now": {
+    shows: "The dated rules and events that push buyers to act, soonest first.",
+    why: "A dated rule turns “nice to have” into “must buy by”, and tells you how long the window stays open.",
+    score: "A compliance date within 18 months gives 2 points, one further out 1, and evidence under 90 days old adds 1 more, up to 3/3.",
+  },
+  "willing-to-pay": {
+    shows: "Who already spends money on this problem, how much, and how they buy.",
+    why: "If people already pay for this, even by hand or through a consultant, you are replacing a spend, not creating a budget.",
+    score: "2/2 means already paying. For now the points come from public money moving nearby, which shows a budget, not a buyer for this product.",
+  },
+  "validated-abroad": {
+    shows: "Companies abroad that already sell a solution, and how far along they are.",
+    why: "Established companies selling it in other markets show that buyers will pay, so you are not betting on an untested idea.",
+    score: "3/3 means established in two or more markets, one of them near Czechia. 2/3 is one established company, 1/3 only early players.",
+  },
+  competition: {
+    shows: "Czech companies that already sell this, and firms nearby that sell something else.",
+    why: "A mature Czech seller means taking customers from an incumbent. Firms nearby still matter: the buyer may already pay them.",
+    score: "More points mean less competition. 2/2 means no Czech company sells this, 1/2 only early ones do, 0/2 a mature one does.",
+  },
+  "execution-difficulty": {
+    shows: "What stands between you and the first sale: who buys, what permission selling needs, what it must plug into, and whether it needs outside money.",
+    why: "It tells you whether a small team can start selling soon, or needs a licence, a certification or funding first.",
+    score: "More points mean easier to enter: 3/3 is easy, 0/3 very hard. It is not added to the Opportunity total, and competition does not count here.",
+  },
+  "first-moves": {
+    shows: "A few concrete steps to start with.",
+    why: "They are cheap ways to learn whether buyers will pay, before you build much.",
+  },
+};
+
+function AboutSection({ about, id }: { about: About; id: string }) {
+  return (
+    <section className="ls-about" aria-labelledby={`${id}-about`}>
+      <h3 className="ls-about-h" id={`${id}-about`}>About this section</h3>
+      <dl className="ls-about-dl">
+        <div><dt>What this shows</dt><dd>{about.shows}</dd></div>
+        <div><dt>Why it matters to a builder</dt><dd>{about.why}</dd></div>
+        {about.score && <div><dt>How to read the score</dt><dd>{about.score}</dd></div>}
+      </dl>
+    </section>
+  );
+}
+
+function Sheet({ id, title, rec, about, children }: { id: string; title: string; rec: string; about: About; children: ReactNode }) {
+  const sid = `sheet-${id}`;
+  return (
+    <>
+      <button type="button" className="ls-readmore" popoverTarget={sid} aria-label={`Read more: ${title}`}>
+        Read more
+      </button>
+      <div id={sid} popover="auto" role="dialog" aria-labelledby={`${sid}-h`} className="ls-sheet">
+        <div className="ls-sheet-bar">
+          <p className="ls-sheet-mini" aria-hidden="true">{title}</p>
+          <button type="button" className="ls-x" popoverTarget={sid} popoverTargetAction="hide" aria-label="Close">×</button>
+        </div>
+        <div className="ls-sheet-page">
+          <header className="ls-sheet-hd">
+            <p className="ls-sheet-rec">{rec}</p>
+            <h2 id={`${sid}-h`} className="ls-sheet-t">{title}</h2>
+          </header>
+          <AboutSection about={about} id={sid} />
+          <div className="ls-sheet-body">{children}</div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+/** THE PAGE CAP (owner, 2026-09-16: "the page never shows a list longer than
+    3 items"). Page code only; the data is never trimmed. */
+const PAGE_CAP = 3;
+const LIST_LINE = /^(?:- |\d+\.\s)/;
+
+/** A section's markdown → its outline for the page: the first sentence of
+    the first paragraph (the answer line), then the first list after it,
+    capped at PAGE_CAP items. `list` hands the list lines to a caller that
+    picks its own rows (Why now); `more` says the sheet holds anything else. */
+function outline(md: string): { answer: string; list: string[]; more: boolean; toMd: (rows: string[]) => string } {
+  const blocks = md.split(/\n{2,}/)
+    .map((b) => b.split("\n").map((l) => l.trim()).filter((l) => l && l !== "---"))
+    .filter((b) => b.length);
+  let answer = "";
+  const toMd = (rows: string[]) => [answer, rows.join("\n")].filter(Boolean).join("\n\n");
+  if (!blocks.length) return { answer, list: [], more: false, toMd };
+  const b0 = blocks[0];
+  let k = 0;
+  const para: string[] = [];
+  while (k < b0.length && !LIST_LINE.test(b0[k])) para.push(b0[k++]);
+  const tail = b0.slice(k);
+  let mixed = tail.some((l) => !LIST_LINE.test(l));
+  let list = mixed ? tail.slice(0, tail.findIndex((l) => !LIST_LINE.test(l))) : tail;
+  let used = 1;
+  if (!list.length && !mixed && blocks[1]?.every((l) => LIST_LINE.test(l))) { list = blocks[1]; used = 2; }
+  // Prose joins list-only blocks that follow into the same list
+  while (!mixed && list.length && blocks[used]?.every((l) => LIST_LINE.test(l))) { list = [...list, ...blocks[used]]; used++; }
+  const { lead, rest } = para.length ? splitLead(para.join(" ")) : { lead: "", rest: "" };
+  answer = lead;
+  if (rest) mixed = true;
+  return { answer, list, more: mixed || blocks.length > used || list.length > PAGE_CAP, toMd };
+}
+
+type KitFn = (props: Record<string, unknown>) => ReactNode;
+function kitCall(name: string, props: Record<string, unknown>): ReactNode {
+  const fn = (Kit as unknown as Record<string, unknown>)[name];
+  if (typeof fn !== "function") return null;
+  try { return (fn as KitFn)(props); } catch { return null; }
+}
+const hasKit = (name: string) => typeof (Kit as unknown as Record<string, unknown>)[name] === "function";
+
+/** The maturity mark shared by the strip and the rows. The kit's MaturityDot
+    when it exists; until then a local dot with the same meaning. */
+type Maturity = "established" | "early" | null;
+function Dot({ m }: { m: Maturity }): ReactNode {
+  if (hasKit("MaturityDot")) return kitCall("MaturityDot", { m });
+  return <span className="ls-mdot" data-m={m ?? "none"} aria-hidden="true" />;
+}
+
+/** A section's markdown → its first sentence and everything after it (the
+    rest of that paragraph, then any list or later paragraph), for the answer
+    line and the "More detail" fold. */
+function splitAnswer(md: string): { first: string; rest: string } {
+  if (!md.trim()) return { first: "", rest: "" };
+  const blocks = md.split(/\n{2,}/);
+  const lines = blocks[0].split("\n");
+  const para: string[] = [];
+  let i = 0;
+  while (i < lines.length && !/^\s*(?:- |\d+\.\s)/.test(lines[i])) para.push(lines[i++].trim());
+  const tail = [lines.slice(i).join("\n"), ...blocks.slice(1)].filter((s) => s.trim()).join("\n\n");
+  if (!para.length) return { first: "", rest: md };
+  const { lead, rest } = splitLead(para.join(" "));
+  return { first: lead, rest: [rest, tail].filter(Boolean).join("\n\n") };
+}
+
+/** Page-local unit words for the "What one buyer pays" table. */
+const UNIT_SHORT: Record<PriceUnit, string> = {
+  "one-off": "once", "per-seat-month": "a month", "per-year": "a year",
+  "per-case": "per case", "per-project": "per project", "per-hour": "an hour",
+};
+const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const monthLabel = (iso: string) => {
+  const [y, m] = iso.split("-").map(Number);
+  return y && m ? `${MON[m - 1]} ${y}` : iso;
+};
+
+/** A Why now key as a period: `17 Dec 2026` (one day) or `Dec 2026` (the
+    month). Anything else (`Late 2026`, `Since July 2026`) is not a date. */
+const MONTH_NAMES = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+function keyPeriod(key: string): { start: number; end: number } | null {
+  const m = key.trim().match(/^(?:(\d{1,2})\s+)?([A-Za-z]{3,9})\.?\s+(\d{4})$/);
+  if (!m) return null;
+  const w = m[2].toLowerCase();
+  const mi = MONTH_NAMES.findIndex((n) => n.startsWith(w) && (w.length === 3 || w === n));
+  if (mi < 0) return null;
+  const y = Number(m[3]);
+  if (m[1]) { const t = Date.UTC(y, mi, Number(m[1])); return { start: t, end: t }; }
+  return { start: Date.UTC(y, mi, 1), end: Date.UTC(y, mi + 1, 0) };
+}
+
+/** For picking the page's Why now rows only: a season of a year (`Late
+    2026`) as its third of the year, on top of keyPeriod. Never used for the
+    warm dot, which stays on exact months and days. */
+const SEASONS: Record<string, [number, number]> = { early: [0, 3], mid: [4, 7], late: [8, 11] };
+function loosePeriod(key: string): { start: number; end: number } | null {
+  const exact = keyPeriod(key);
+  if (exact) return exact;
+  const m = key.trim().match(/^(early|mid|late)\s+(\d{4})$/i);
+  if (!m) return null;
+  const [a, b] = SEASONS[m[1].toLowerCase()];
+  const y = Number(m[2]);
+  return { start: Date.UTC(y, a, 1), end: Date.UTC(y, b + 1, 0) };
+}
+/** A keyed bullet, as lib/site/prose.tsx reads one. */
+const KEYED_LINE = /^- \*\*([^*]{1,40}?):\*\*\s+/;
 
 export const dynamicParams = false;
 
@@ -59,7 +273,7 @@ const metaText = (s: string) =>
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { region, id } = await params;
   const p = find(region, id);
-  if (!p) return { title: "Record not found" };
+  if (!p) return { title: "Problem not found" };
   // the description is the record's own `brief`, its markers stripped;
   // a record without one falls back to its suggested solution (audit B14)
   const brief = (p as { brief?: string }).brief;
@@ -69,33 +283,19 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 // ---- deadlines (deterministic against extractDate, never the wall clock) ---
 const DAY = 86_400_000;
-const daysAfter = (iso: string, from: string) => Math.round((Date.parse(iso) - Date.parse(from)) / DAY);
-function relativeOut(from: string, to: string): string {
-  const days = daysAfter(to, from);
-  if (days <= 0) return "now";
-  const months = Math.round(days / 30.44);
-  if (months < 1) { const w = Math.max(1, Math.round(days / 7)); return `~${w} ${w === 1 ? "week" : "weeks"} out`; }
-  if (months < 12) return `~${months} months out`;
-  const years = Math.round((months / 12) * 10) / 10;
-  return `~${years % 1 === 0 ? years.toFixed(0) : years} years out`;
-}
-function futureDate(s: ProblemSource, extract: string): string | null {
-  if (s.date > extract) return s.date;
-  const sig = s.signal ? getSignal(s.signal) : undefined;
-  return sig && sig.date > extract ? sig.date : null;
-}
-
 
 /** `alias`: an older anchor for the same section, so deep links written
-    against the live record page still land (audit B5: `#how-big` → Who pays). */
-function Section({ id, alias, title, count, children }: { id: string; alias?: string; title: string; count?: ReactNode; children: ReactNode }) {
+    against the live record page still land (audit B5: `#how-big` → Who pays).
+    No count beside the title (redesign §3.2). */
+function Section({ id, alias, title, chip, children }: { id: string; alias?: string | string[]; title: string; chip?: string; children: ReactNode }) {
+  const aliases = alias === undefined ? [] : Array.isArray(alias) ? alias : [alias];
   return (
     <section className="ls-sec" id={id} aria-labelledby={`${id}-h`}>
-      {alias && <span id={alias} className="ls-alias" aria-hidden="true" />}
-      <h2 className="ls-h2" id={`${id}-h`}>
-        {title}
-        {count != null && <span className="ls-h2-count">{count}</span>}
-      </h2>
+      {aliases.map((a) => <span key={a} id={a} className="ls-alias" aria-hidden="true" />)}
+      <h2 className="ls-h2" id={`${id}-h`}>{title}</h2>
+      {/* PROTOTYPE score line (lib/site/score-proto.ts): under the heading,
+          readable, gray (owner, 2026-09-17) */}
+      {chip && <p className="ls-h2-chip">{chip}</p>}
       {children}
     </section>
   );
@@ -120,7 +320,7 @@ const DIM_INFO: Record<Dim, { ask: string; why: string; ladder: string[] }> = {
   },
   urgency: {
     ask: "Is something forcing buyers to act soon?",
-    why: "A dated rule, such as a new regulation or a compliance deadline, turns “nice to have” into “must buy by”; recent evidence shows the problem is live now.",
+    why: "A dated rule, such as a new regulation or a compliance deadline, turns “nice to have” into “must buy by”.",
     ladder: [
       "no dated rule forcing action",
       "a compliance date more than 18 months away",
@@ -138,7 +338,7 @@ const DIM_INFO: Record<Dim, { ask: string; why: string; ladder: string[] }> = {
   },
   money: {
     ask: "Is public money already moving near this problem?",
-    why: "Tenders, grants and budget lines show buyers with budgets nearby. It is not proof they will buy this; what a buyer actually pays is under Who pays.",
+    why: "Tenders, grants and budget lines show buyers with budgets nearby. It is not proof they will buy this; what a buyer actually pays is under Willing to pay.",
     ladder: [
       "no public money nearby",
       "a relevant tender or grant exists",
@@ -155,15 +355,6 @@ const DIM_INFO: Record<Dim, { ask: string; why: string; ladder: string[] }> = {
     ],
   },
 };
-
-/** The total's bands, in plain words — SCORING.md's four bands without the
-    verdict words, which render nowhere but the production scorecard. */
-const BANDS: { min: number; range: string; text: string }[] = [
-  { min: 10, range: "10–12", text: "backed on nearly every check" },
-  { min: 8, range: "8–9", text: "strong enough to lead with" },
-  { min: 5, range: "5–7", text: "a real case with open gaps" },
-  { min: 0, range: "0–4", text: "thin evidence so far" },
-];
 
 /** The four gates that SET the entry level and their weights, restated from
     SCORING.md ("DIFFICULTY TO ENTER IS NOT A SCORE"). web/lib/format.ts holds
@@ -189,6 +380,83 @@ const GATE_CLAUSE = {
   integration: { software: "it is plain software", "national-system": "it must plug into a national system or hardware", certified: "it must be a certified product" },
   money: { bootstrap: "it can be bootstrapped", "outside-money": "it needs outside money before the first sale" },
 } as const;
+
+/** WHAT MAKES ENTRY EASIER, AND WHAT HARDER (owner, 2026-09-17: "explain
+    more … which is making it easier and which harder"). Each gate value in
+    plain words, short for the page and whole for the sheet. A gate at weight
+    0 opens the door; any weight above 0 narrows it. The words restate
+    data/CONVENTIONS.md's definitions of each value and add nothing; the level
+    is still the record's own, never re-derived. `incumbents` is not a gate
+    here by rule (SCORING.md): competition is priced under Who already sells
+    this. */
+const GATE_WORDS = {
+  buyer: {
+    "small-firms": ["Small firms buy it", "Small firms buy it, with no public tender to win first."],
+    "large-firms": ["The buyers are large firms", "The first contract is with a large firm, not a small one."],
+    public: ["The buyers are public bodies", "The buyers are public bodies, so the first sale goes through public procurement."],
+  },
+  permission: {
+    none: ["No licence is needed", "Nothing beyond a trade licence is needed to start selling."],
+    registration: ["It needs a registration first", "Selling needs a registration or certification first, usually a matter of weeks."],
+    licence: ["It needs a licence to sell", "The law requires a licence to sell the product itself."],
+  },
+  integration: {
+    software: ["It is plain software", "It is plain software, with no state system or hardware to plug into."],
+    "national-system": ["It must plug into a state system or hardware", "It cannot work without connecting to a state or EU system, or without hardware or crews in the field."],
+    certified: ["The product must be certified", "The product itself must pass a certification or audit before anyone can use it."],
+  },
+  money: {
+    bootstrap: ["It can start on your own money", "A small team can reach its first paying customer on its own money."],
+    "outside-money": ["It needs outside money first", "It needs outside money before the first sale."],
+  },
+} as const;
+
+/** Public money rows (owner, 2026-09-17: "make it explanatory: these are the
+    towns that already paid in this date"). The kinds of buyer are read from
+    each row's own words; a row naming none counts as "other public bodies". */
+const BUYER_KINDS: [string, RegExp][] = [
+  ["hospitals", /hospital|nemocnic/i],
+  ["towns", /\b(?:city|cities|town|towns|municipal\w*|region\w*|village)\b|měst|obec|kraj/i],
+  ["state agencies", /\b(?:agency|agencies|ministry|authority)\b|ministerstv|úřad/i],
+  ["utilities", /\butilit\w*|ČEZ|vodárn|water compan/i],
+  ["schools", /universit|school|škol/i],
+  ["care homes", /care home|social[- ]care|domov/i],
+];
+/** A free-text entry reason written as "Easier: a, b, and c. Harder: x, and
+    y." (the p-0008 rewrite, 2026-09-17) → its two lists, split at top-level
+    semicolons, else at ", and " and at commas that start a new item (never at
+    ", so …", ", which …": those continue the item). Null when the reason is
+    plain prose, which then reads as one paragraph in the sheet. */
+function splitItems(t: string): string[] {
+  const out: string[] = [];
+  const semi = /;/.test(t.replace(/\[[^\]]*\]|\([^)]*\)/g, ""));
+  let depth = 0, from = 0;
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    if (ch === "[" || ch === "(") depth++;
+    else if (ch === "]" || ch === ")") depth = Math.max(0, depth - 1);
+    else if (depth === 0 && (semi ? ch === ";" : ch === "," && t[i + 1] === " ")) {
+      const next = t.slice(i + 1).trimStart();
+      if (!semi && /^(?:so|which|who|because|but|while|though|since|as|or|when|where|until)\b/i.test(next)) continue;
+      out.push(t.slice(from, i));
+      from = i + 1;
+    }
+  }
+  out.push(t.slice(from));
+  return out.map((x) => x.trim().replace(/^and\s+/i, "").replace(/[.;,\s]+$/, "")).filter(Boolean);
+}
+function parseEntryWhy(why: string): { easier: string[]; harder: string[] } | null {
+  const e = why.match(/(?:^|\s)Easier:\s*([\s\S]*?)(?=\s+Harder:|$)/);
+  const h = why.match(/(?:^|\s)Harder:\s*([\s\S]*?)(?=\s+Easier:|$)/);
+  if (!e && !h) return null;
+  return { easier: e ? splitItems(e[1]) : [], harder: h ? splitItems(h[1]) : [] };
+}
+/** The page's compact form of one reason: up to its first continuing clause. */
+const compactItem = (t: string) => t.split(/,\s+(?=(?:so|which|who|because|but|while)\b)/i)[0];
+
+const PURCHASE_TYPES = new Set(["contract", "tender", "tenders"]);
+const MONEY_KIND: Record<string, string> = { contract: "Signed contract", tender: "Tender", tenders: "Tender", subsidy: "Grant call" };
+const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 
 const joinClauses = (c: string[]) =>
   c.length <= 1 ? c.join("") : `${c.slice(0, -1).join(", ")}, and ${c[c.length - 1]}`;
@@ -297,207 +565,236 @@ export default async function LabRecord({ params }: Params) {
   };
   const draftLawNode = draftLaw ? inline(closeLine(draftLaw), ctx, opts, "draftlaw") : null;
 
-  const problemNode = prose("The problem", sections.problem);
-  // Built HERE, while ctx.section is still "The problem": the step pills
-  // share the page's citation counter, so their peeks cannot collide and
-  // the drawer's "Cited in" lines name this section. Null until a record
-  // carries the new `process` field.
-  const processTodayFig = ProcessToday({ process: p.process, sources: p.sources, ctx });
+  // THE PAGE IS THE OUTLINE, THE SHEET IS THE SECTION (owner, 2026-09-16).
+  // A section with a sheet is built twice, outline then whole section, in
+  // reading order, so both halves' pills are recorded against the section
+  // before the drawer's "Cited in" lines are drawn.
+  const rec = `${p.id.toUpperCase()} · ${p.title}`;
+  const leadProse = (md: string) => (md ? Prose(md, ctx, { ...opts, lead: true }) : null);
+
+  // ---- 1. The problem: page = answer line + the first list (capped); sheet =
+  //      the whole section, and the Today figure in "figures" mode
+  const steps = PROCESS_VIEW === "steps" && hasKit("ProcessSteps");
+  const probOut = outline(sections.problem);
+  ctx.section = "The opportunity";
+  const problemPage = leadProse(probOut.toMd(probOut.list.slice(0, PAGE_CAP)));
+  const problemFull = prose("The opportunity", sections.problem);
+  // built while ctx.section is still "The opportunity" so its pills share the page counter
+  const processTodayFig = steps ? null : kitCall("ProcessToday", { process: p.process, sources: p.sources, ctx });
+  const problemMore = probOut.more || !!processTodayFig;
+
+  // ---- 2. Suggested solution: page = the sentence and the process figure;
+  //      the "after" paragraph (never cited: markers stripped) is sheet-only
   ctx.section = "Suggested solution";
   const solutionNode = inline(p.solution, ctx, opts, "sol");
-  // The proposal half is never cited (kit/process.tsx strips markers), so
-  // it takes no ctx. compact: it sits inside the Suggested solution box.
-  const processAfterFig = ProcessAfter({ process: p.process, sources: p.sources });
+  const afterLine = p.process?.summary?.after ? stripMarkers(p.process.summary.after).trim() : "";
+  const pageProcess = p.process?.summary ? { ...p.process, summary: { ...p.process.summary, after: "" } } : p.process;
+  const processAfterFig = steps ? null : kitCall("ProcessAfter", { process: pageProcess, sources: p.sources });
+  // "steps" (coordinator, 2026-09-16): the one two-lane ProcessSteps diagram
+  // is this box's scan block on the page, and How it works is not a section
+  // of its own; the today summary and the after paragraph are sheet-only
+  const stepsFig = steps ? kitCall("ProcessSteps", { process: p.process, sources: p.sources, ctx }) : null;
+  const todayMd = steps && p.process?.summary?.today ? p.process.summary.today.trim() : "";
+  const solutionMore = !!afterLine || !!todayMd;
+  const processAfterFull = !steps && afterLine ? kitCall("ProcessAfter", { process: p.process, sources: p.sources }) : null;
+  const solutionSheet = solutionMore ? (
+    <>
+      <p className="ls-answer">{inline(p.solution, ctx, opts, "sol-s")}</p>
+      {todayMd && <p className="ls-p">{inline(todayMd, ctx, opts, "sol-today")}</p>}
+      {processAfterFull ? <div className="ls-fig">{processAfterFull}</div> : afterLine && <p className="ls-p">{afterLine}</p>}
+      {steps && (() => { const f = kitCall("ProcessSteps", { process: p.process, sources: p.sources, ctx }); return f ? <div className="ls-fig">{f}</div> : null; })()}
+    </>
+  ) : null;
 
-  const solvedNode = prose("Proven abroad", sections.solved);
-  // Where the comparables are based and sell. Null with no drawable country.
-  const compMapFig = CompMap({ p });
-  // ---- companies: one row each, sources on the row, the long text behind
-  //      "Details" in a modal. Built here, in reading order, so every pill
-  //      and every [Sn] in the modal text is recorded like any citation.
-  const entity = (o: {
-    id: string; group: string; name: string; href: string; tag?: string;
-    meta: string[]; text: string; mode: "sentence" | "clause"; back: Backing;
-  }) => {
-    const { lead, rest } = splitLead(o.text, o.mode);
-    const plain = stripMarkers(rest ? lead : o.text);
-    const needsDetails = !!rest || plain.length > 150;
-    const mid = `ls-m-${o.id}`;
-    const pills = o.back.tier === "none"
-      ? <span className="ls-nosrc">No source on file</span>
-      : cite(o.back.ns, ctx);
-    const srcList = o.back.ns.map((n) => sources[n - 1]);
-    return (
-      <li key={o.id} className="ls-ent">
-        <div className="ls-ent-id">
-          <a className="ls-ent-name" href={o.href} {...EXT}>{o.name}<ExtArrow /></a>
-          {o.tag && <span className="ls-tag ls-tag--cap">{o.tag}</span>}
-          {o.meta.length > 0 && <span className="ls-ent-meta">{o.meta.join(" · ")}</span>}
-        </div>
-        <div className="ls-ent-src">{pills}</div>
-        <p className="ls-ent-sum">{capitalize(plain)}</p>
-        {needsDetails && (
-          <button type="button" className="ls-ent-more" popoverTarget={mid} aria-label={`Details: ${o.name}`}>
-            Details
-          </button>
-        )}
-        {needsDetails && (
-          <div id={mid} popover="auto" role="dialog" aria-labelledby={`${mid}-h`} className="ls-modal">
-            <div className="ls-modal-hd">
-              <p className="ls-modal-k">{o.group}</p>
-              <button type="button" className="ls-x" popoverTarget={mid} popoverTargetAction="hide" aria-label="Close">×</button>
-            </div>
-            <div className="ls-modal-body">
-              <h3 id={`${mid}-h`} className="ls-modal-t">
-                <a href={o.href} {...EXT}>{o.name}<ExtArrow /></a>
-              </h3>
-              <p className="ls-modal-meta">
-                {o.tag && <span className="ls-tag ls-tag--cap">{o.tag}</span>}
-                {o.meta.length > 0 && <span>{o.meta.join(" · ")}</span>}
-              </p>
-              <p className="ls-modal-text">{inline(o.text, ctx, opts, `${mid}-t`)}</p>
-              <p className="ls-modal-k ls-modal-k--src">
-                {o.back.tier === "found" ? "Found by the register’s market check" : o.back.tier === "none" ? "Sources" : o.back.ns.length === 1 ? "Source" : `Sources · ${o.back.ns.length}`}
-              </p>
-              {srcList.length ? (
-                <ul className="ls-modal-srcs">
-                  {srcList.map((s) => (
-                    <li key={s.n}>
-                      <span className="ls-mono" aria-hidden="true">{s.mono}</span>
-                      <span className="ls-modal-src">
-                        <span className="ls-modal-src-top">{s.publisher} · {s.dateLabel}</span>
-                        {s.url
-                          ? <a className="ls-modal-src-t" href={s.url} {...EXT}>{s.title}<ExtArrow /></a>
-                          : <span className="ls-modal-src-t">{s.title}</span>}
-                        {s.why && <span className="ls-modal-src-why">{s.why}</span>}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="ls-modal-none">No source on file for this entry. The line above is the register’s own note.</p>
-              )}
-            </div>
-          </div>
-        )}
-      </li>
-    );
+  // ---- 3. Why now: page = answer line + at most three dated rows, the
+  //      nearest still ahead of extractDate() (never the wall clock), soonest
+  //      first; sheet = the whole keyed list. A date inside the next six
+  //      months carries the warm dot in both.
+  const fromMs = Date.parse(extract);
+  const keyedSoon = (key: string) => {
+    const per = keyPeriod(key);
+    return !!per && per.end >= fromMs && per.start <= fromMs + 183 * DAY;
   };
+  const nowOut = outline(sections.window);
+  let nowRows = nowOut.list.slice(0, PAGE_CAP);
+  if (nowOut.list.length && nowOut.list.every((l) => KEYED_LINE.test(l))) {
+    const dated = nowOut.list.map((l, i) => ({ l, i, per: loosePeriod(l.match(KEYED_LINE)![1]) }));
+    const ahead = dated.filter((d) => d.per && d.per.end >= fromMs).sort((x, y) => x.per!.start - y.per!.start || x.i - y.i);
+    nowRows = (ahead.length ? ahead : dated.slice(-PAGE_CAP)).slice(0, PAGE_CAP).map((d) => d.l);
+  }
+  const nowMore = nowOut.more || nowRows.length < nowOut.list.length;
+  ctx.section = "Why now";
+  const windowPage = sections.window ? Prose(nowOut.toMd(nowRows), ctx, { ...opts, lead: true, keyedSoon }) : null;
+  const windowNode = sections.window && nowMore ? Prose(sections.window, ctx, { ...opts, lead: true, keyedSoon }) : null;
 
+  // ---- 4. Willing to pay (was Who pays): page = answer line + the keyed money facts (capped);
+  //      sheet = all of it, the buyer table, where to look, public money
+  const whoPaysMd = sections.dek && sections.howbig
+    ? `${sections.dek}${/^\s*(?:- |\d+\.\s)/.test(sections.howbig) ? "\n" : " "}${sections.howbig}`
+    : sections.dek || sections.howbig;
+  const payOut = outline(whoPaysMd);
+  ctx.section = "Willing to pay";
+  const whoPaysPage = leadProse(payOut.toMd(payOut.list.slice(0, PAGE_CAP)));
+  const whoPaysNode = prose("Willing to pay", whoPaysMd);
+  const priceRows = [...prices].sort((a, b) => a.s.amount_czk - b.s.amount_czk).map(({ n, s }) => (
+    <div key={`pr${n}`} className="ls-keyed-row">
+      <dt className="ls-keyed-k">{czk(s.amount_czk)} {UNIT_SHORT[s.unit]}</dt>
+      <dd className="ls-keyed-v">
+        {capitalize(s.payer)}<span className="ls-row-meta"> · {PRICE_BASIS_LABELS[s.basis]} · {monthLabel(s.date)}</span>{" "}
+        {cite([n], ctx)}
+      </dd>
+    </div>
+  ));
+  // PUBLIC MONEY NEARBY, EXPLAINED (owner, 2026-09-17): a heading that says
+  // what the rows are and how many, one intro line computed from them (who
+  // bought, between which months), and each row as one plain sentence: who
+  // paid, for what, then how much (the key) and when (the meta). Purchases
+  // (contracts, tenders) first, then grant calls, each largest first.
+  const moneyData = moneyRows.map((n) => {
+    const src = p.sources[n - 1];
+    const sig = src.signal ? getSignal(src.signal) : undefined;
+    const s = sources[n - 1];
+    return { n, eur: sig?.money_eur ?? null, type: src.type, date: src.date, s };
+  });
+  const purchases = moneyData.filter((m) => PURCHASE_TYPES.has(m.type));
+  const grants = moneyData.filter((m) => m.type === "subsidy");
+  const otherMoney = moneyData.length - purchases.length - grants.length;
+  function rowSentence(s: LabSource) {
+    const src = s.why ?? s.gist ?? s.title;
+    const first = splitLead(stripMarkers(src).replace(/~\s?/g, "about ")).lead.split(/\s+[—–]\s+/)[0].replace(/[\s,;:]+$/, "");
+    return sentence(capitalize(first));
+  }
+  // the kinds of buyer are read from the row's own title, gist and sentence
+  const wordsOf = (s: LabSource) => `${s.title} ${s.gist ?? ""} ${rowSentence(s)}`;
+  const moneyHead = (() => {
+    const nC = purchases.filter((m) => m.type === "contract").length;
+    const nT = purchases.length - nC;
+    const parts: string[] = [];
+    if (nC && nT) parts.push(`${purchases.length} public contracts and tenders`);
+    else if (nC) parts.push(plural(nC, "signed public contract", "signed public contracts"));
+    else if (nT) parts.push(plural(nT, "public tender", "public tenders"));
+    if (grants.length) parts.push(plural(grants.length, "grant call", "grant calls"));
+    if (otherMoney) parts.push(plural(otherMoney, "other sign of public money", "other signs of public money"));
+    const head = parts.length > 1 ? `${parts.slice(0, -1).join(", ")}, plus ${parts[parts.length - 1]}` : parts[0] ?? "";
+    return capitalize(head.replace(/^1 /, "One "));
+  })();
+  const moneyIntro = (() => {
+    const lines: string[] = [];
+    if (purchases.length) {
+      const counts = BUYER_KINDS.map(([kind, re]) => ({ kind, n: purchases.filter((m) => re.test(wordsOf(m.s))).length }))
+        .filter((k) => k.n > 0).sort((a, b) => b.n - a.n);
+      const unmatched = purchases.filter((m) => !BUYER_KINDS.some(([, re]) => re.test(wordsOf(m.s)))).length;
+      const kinds = counts.slice(0, 3).map((k) => k.kind);
+      const others = unmatched > 0 || counts.length > 3;
+      if (!kinds.length) kinds.push("public bodies");
+      else if (others) kinds.push("other public bodies");
+      const hasC = purchases.some((m) => m.type === "contract");
+      const hasT = purchases.some((m) => m.type !== "contract");
+      const verb = hasC && hasT ? "signed or tendered" : hasC ? "signed contracts" : "put work out to tender";
+      const months = purchases.map((m) => m.date.slice(0, 7)).sort();
+      const [a, b] = [monthLabel(months[0]), monthLabel(months[months.length - 1])];
+      const when = a === b ? `in ${a}` : a.slice(-4) === b.slice(-4) ? `between ${a.slice(0, 3)} and ${b}` : `between ${a} and ${b}`;
+      const who = kinds.length <= 1 ? kinds.join("") : `${kinds.slice(0, -1).join(", ")} and ${kinds[kinds.length - 1]}`;
+      lines.push(`${capitalize(who)} that ${verb} ${when}.`);
+    }
+    if (grants.length) lines.push(grants.length === 1 ? "The grant call can pay for this work." : "The grant calls can pay for this work.");
+    return lines.join(" ");
+  })();
+  const moneyRow = ({ n, eur, type, date, s }: (typeof moneyData)[number]) => (
+    <div key={`m${n}`} className="ls-keyed-row">
+      <dt className="ls-keyed-k">{eur ? euro(eur) : ""}</dt>
+      <dd className="ls-keyed-v">
+        {rowSentence(s)}<span className="ls-row-meta"> · {MONEY_KIND[type] ?? s.typeLabel} · {monthLabel(date)}</span>{" "}
+        {cite([n], ctx)}
+      </dd>
+    </div>
+  );
+  const byEur = (a: { eur: number | null }, b: { eur: number | null }) => (b.eur ?? -1) - (a.eur ?? -1);
+  const moneyRowNodes = [
+    ...[...purchases].sort(byEur),
+    ...[...grants].sort(byEur),
+    ...moneyData.filter((m) => !PURCHASE_TYPES.has(m.type) && m.type !== "subsidy").sort(byEur),
+  ].map(moneyRow);
+  const payMore = payOut.more || priceRows.length > 0 || moneyRowNodes.length > 0 || !!p.price_search;
+
+  // ---- 5 and 6. Validated abroad, then Competition (owner, 2026-09-17:
+  //      "separate abroad and in Czechia"): each section its own answer line,
+  //      its own figure and its own sheet, and no company in both.
+  const comp = splitAnswer(sections.competition);
+  const solved = splitAnswer(sections.solved);
+  const matrixFig = LocalMatrix({ p });
+  const mapFig = CompMap({ p });
+  // the sheet copies take their own scope, so the dots' popover ids never collide
+  const matrixFigS = LocalMatrix({ p, scope: "s" });
+  const mapFigS = CompMap({ p, scope: "s" });
+  // Willing to pay: what buyers already pay (page) and when they bought (sheet)
+  const payDots = PayDots({ p });
+  const payDotsS = PayDots({ p, scope: "s" });
+  const payTimeline = PayTimeline({ p, scope: "s" });
+
+  const entity = (o: {
+    id: string; name: string; href: string; m: Maturity;
+    meta: string[]; text: string; back: Backing;
+  }) => (
+    <li key={o.id} className="ls-ent">
+      <div className="ls-ent-id">
+        <Dot m={o.m} />
+        {o.m && <span className="ls-sr">{o.m === "established" ? "Established: " : "Early: "}</span>}
+        <a className="ls-ent-name" href={o.href} {...EXT}>{o.name}<ExtArrow /></a>
+        {o.meta.length > 0 && <span className="ls-ent-meta">{o.meta.join(" · ")}</span>}
+      </div>
+      <div className="ls-ent-src">
+        {o.back.tier === "none" ? <span className="ls-nosrc">No source on file</span> : cite(o.back.ns, ctx)}
+      </div>
+      <p className="ls-ent-sum">{inline(capitalize(o.text), ctx, opts, `ent-${o.id}`)}</p>
+      {o.back.tier === "found" && <p className="ls-ent-note">Found by the register’s market check</p>}
+    </li>
+  );
+
+  ctx.section = "Validated abroad";
+  const abroadAnswer = solved.first ? inline(solved.first, ctx, opts, "abroad") : null;
+  const abroadSheetAnswer = solved.first ? inline(solved.first, ctx, opts, "abroad-s") : null;
   const compRows = comps.map((c, i) => entity({
-    id: `c${i}`, group: "Proven abroad", name: c.name, href: c.url,
+    id: `c${i}`, name: c.name, href: c.url, m: null,
     meta: [countryName(c.geo), `since ${c.since}`],
-    text: c.traction, mode: "clause",
+    text: c.traction,
     back: backing(p.sources, { name: c.name, url: c.url, signal: c.signal, text: c.traction }, false),
   }));
+  const solvedRest = solved.rest ? Prose(solved.rest, ctx, opts) : null;
+  const abroadMore = comps.length > 0 || !!solvedRest;
 
-  // The field on one year axis — it bridges Proven abroad and Local
-  // competition, so it opens the section. Null with fewer than two dated
-  // players, where an axis would carry a single dot.
-  const fieldFig = FieldTimeline({ p });
-  const competitionNode = prose("Local competition", sections.competition);
+  ctx.section = "Competition";
+  const compAnswer = comp.first ? inline(comp.first, ctx, opts, "comp") : null;
+  const compSheetAnswer = comp.first ? inline(comp.first, ctx, opts, "comp-s") : null;
   const localGroups = (["direct", "adjacent"] as const).map((competes) => {
     const group = locals.filter((l) => l.competes === competes);
     if (!group.length) return null;
-    const label = competes === "direct" ? "Sells this" : "Nearby";
-    const count = competes === "direct"
-      ? `${group.length} ${group.length === 1 ? "player" : "players"}`
-      : `${group.length} selling something else`;
     return (
-      <div key={competes} className="ls-grp">
-        <div className="ls-grp-h"><p className="ls-grp-t">{label}</p><p className="ls-grp-n">{count}</p></div>
+      <div key={competes} className="ls-sheet-group">
+        <h3 className="ls-sheet-h3">
+          {competes === "direct" ? "Sells this" : "Sells something nearby"} <span className="ls-count">{group.length}</span>
+        </h3>
         <ul className="ls-ents">
           {group.map((l, i) => entity({
-            id: `l${competes[0]}${i}`, group: `Local competition · ${label}`, name: l.name, href: localHref(l),
-            tag: l.maturity,
+            id: `l${competes[0]}${i}`, name: l.name, href: localHref(l), m: l.maturity,
             meta: [l.since && `since ${l.since}`, l.ico && `IČO ${l.ico}`].filter(Boolean) as string[],
-            text: l.evidence, mode: "sentence",
+            text: l.evidence,
             back: backing(p.sources, { name: l.name, url: l.url, text: l.evidence }, true),
           }))}
         </ul>
       </div>
     );
   });
+  const compRest = comp.rest ? Prose(comp.rest, ctx, opts) : null;
+  const compMore = locals.length > 0 || !!compRest;
 
-  const whoPaysMd = [sections.dek, sections.howbig].filter(Boolean).join(" ");
-  const whoPaysNode = prose("Who pays", whoPaysMd);
-  // One log scale for both ledgers below. Null with fewer than two marks.
-  const moneyFig = MoneyScale({ p });
-  const priceRows = [
-    ...prices.map(({ n, s }) => (
-      <li key={`pr${n}`} className="ls-receipt">
-        <span className="ls-receipt-main">
-          <span className="ls-receipt-fig">{czk(s.amount_czk)}</span>{" "}
-          <span className="ls-receipt-unit">{PRICE_UNIT_LABELS[s.unit]}</span>
-          <span className="ls-receipt-who">{s.payer}</span>
-        </span>
-        <span className="ls-receipt-meta">{PRICE_BASIS_LABELS[s.basis]} · {fmtDate(s.date)}</span>
-        <span className="ls-row-end">{cite([n], ctx)}</span>
-      </li>
-    )),
-  ];
-  const moneyRowNodes = [
-    ...moneyRows.map((n) => {
-      const s = sources[n - 1];
-      const sig = p.sources[n - 1].signal ? getSignal(p.sources[n - 1].signal!) : undefined;
-      return (
-        <li key={`m${n}`} className="ls-receipt">
-          <span className="ls-receipt-main">
-            {sig?.money_eur ? <span className="ls-receipt-fig">{euro(sig.money_eur)}</span> : null}
-            <span className="ls-receipt-who">{s.gist ? capitalize(s.gist) : s.title}</span>
-          </span>
-          <span className="ls-receipt-meta">{s.typeLabel} · {s.dateLabel}</span>
-          <span className="ls-row-end">{cite([n], ctx)}</span>
-        </li>
-      );
-    }),
-  ];
+  // ---- 7 and 8 (Difficulty to enter, Suggested first moves) are built after
+  //      the entry level below, still in reading order
 
-  const windowNode = prose("Why now", sections.window);
-  const deadlineRows = refs.urgency
-    .map((n) => ({ n, d: futureDate(p.sources[n - 1], extract) }))
-    .filter((x): x is { n: number; d: string } => x.d !== null)
-    .sort((a, b) => a.d.localeCompare(b.d))
-    .map(({ n, d }) => {
-      const s = sources[n - 1];
-      return (
-        <li key={`d${n}`} className="ls-receipt">
-          <span className="ls-receipt-main">
-            <span className="ls-receipt-fig">{fmtDate(d)}</span>
-            <span className="ls-receipt-who">{s.gist ? capitalize(s.gist) : s.title}</span>
-          </span>
-          <span className="ls-receipt-meta">{s.typeLabel}</span>
-          <span className="ls-row-end">{cite([n], ctx)}</span>
-        </li>
-      );
-    });
-  const windowFact = refs.urgency
-    .map((n) => futureDate(p.sources[n - 1], extract))
-    .filter((d): d is string => d !== null)
-    .sort()[0];
-
-  const movesNode = prose("First moves", sections.firstmoves);
-
-  const hasCompetition = locals.length > 0 || !!sections.competition;
-  const anchors: Record<Dim, string> = {
-    proof: "#proven-abroad",
-    gap: hasCompetition ? "#local-competition" : "#problem",
-    demand: "#problem",
-    money: "#who-pays",
-    urgency: "#why-now",
-  };
-
-  // ---- opportunity: most filled bars first, then the LONGER bar (its max),
-  //      then the fixed order (owner, round 3: "Why now should be mentioned
-  //      second — it has 3 bars max; longer bars are first"). Never the ratio.
-  const dimRows = SCORE_ROWS.map((r, i) => ({ ...r, i }))
-    .sort((a, b) => p.scores[b.dim] - p.scores[a.dim] || MAX[b.dim] - MAX[a.dim] || a.i - b.i);
-  const uSplit = urgencySplit(p);
-  const band = BANDS.find((b) => p.score >= b.min)!;
-  // rail, under the Opportunity card: who is in the room, as the gap rule
-  // reads it. Null when no local player is on file.
-  const fieldGridFig = FieldGrid({ p });
-
+  // ---- the scores as a table of contents (PROTOTYPE, lib/site/score-proto.ts)
+  const proto = protoScores(p);
+  const protoBy = Object.fromEntries(proto.map((r) => [r.key, r])) as Record<ProtoKey, ProtoScore>;
+  const protoSum = protoTotal(proto);
   // ---- evidence mix — what KIND of sources hold this record up ------------
   const mix = [...sources.reduce((m, s) => {
     const row = m.get(s.typeLabel) ?? { n: 0, type: s.type };
@@ -524,8 +821,73 @@ export default async function LabRecord({ params }: Params) {
     : capitalize(topW === 0
       ? `nothing gates it: ${joinClauses(gates.map((x) => x.clause))}.`
       : `${joinClauses(setters.map((x) => x.clause))}.`);
-  // "Close" is the owner's "under ~6 months": the only time Window is tinted.
-  const windowSoon = windowFact ? daysAfter(windowFact, extract) < 183 : false;
+
+  // ---- 7. Difficulty to enter: page = the level, then what makes entry
+  //      easier and what harder, in short words; sheet = the level, the
+  //      problem's own reason (else the one sentence naming the gates that set
+  //      the level), the same two lists in whole sentences, and where
+  //      competition is counted instead. The warm hue is the level's dot only.
+  ctx.section = "Execution difficulty";
+  const entryWhy = typeof entry.why === "string" && entry.why.trim() ? entry.why.trim() : "";
+  const factors = gates
+    .map((x) => ({ ...x, words: (GATE_WORDS[x.g] as Record<string, readonly [string, string]>)[entry[x.g]] }))
+    .filter((x) => !!x.words);
+  // the problem's own reason, when it is written as the two lists, IS the two
+  // lists (said once); otherwise the gates speak and the reason is a paragraph
+  const whyLists = entryWhy ? parseEntryWhy(entryWhy) : null;
+  const groups = (full: boolean): [string, { k: string; node: ReactNode }[]][] => {
+    if (whyLists) {
+      const item = (t: string, i: number, side: string) => {
+        const text = sentence(capitalize(full ? t : stripMarkers(compactItem(t))));
+        return { k: `${side}${i}`, node: full ? inline(text, ctx, opts, `entry-${side}${i}`) : text };
+      };
+      return [
+        ["Makes it easier", whyLists.easier.slice(0, full ? undefined : PAGE_CAP).map((t, i) => item(t, i, "e"))],
+        ["Makes it harder", whyLists.harder.slice(0, full ? undefined : PAGE_CAP).map((t, i) => item(t, i, "h"))],
+      ];
+    }
+    const pick = (list: typeof factors) => list.map((x) => ({ k: x.g, node: full ? x.words[1] : `${x.words[0]}.` }));
+    return [
+      ["Makes it easier", pick(factors.filter((x) => x.w === 0))],
+      ["Makes it harder", pick(factors.filter((x) => x.w > 0).sort((a, b) => b.w - a.w))],
+    ];
+  };
+  const factorLists = (full: boolean) => (
+    <div className="ls-factors">
+      {groups(full).map(([h, list]) => (
+        <div key={h} className="ls-factor-col">
+          <p className="ls-block-h">{h}</p>
+          {list.length
+            ? <ul className="ls-ul">{list.map((x) => <li key={x.k}>{x.node}</li>)}</ul>
+            : <p className="ls-absent">Nothing.</p>}
+        </div>
+      ))}
+    </div>
+  );
+  // page first, then sheet: reading order for the pills
+  const entryPage = factorLists(false);
+  const entrySheet = (
+    <>
+      <p className="ls-entry-level ls-level" data-level={entry.level}>{ENTRY_LEVEL_LABELS[entry.level]}</p>
+      {!whyLists && <p className="ls-entry-why">{entryWhy ? inline(entryWhy, ctx, opts, "entry-why") : entryReason}</p>}
+      {factorLists(true)}
+      <p className="ls-absent">
+        Competition does not change this level. It is covered under Competition.
+      </p>
+    </>
+  );
+
+  // ---- 8. Suggested first moves: page = each move's lead sentence (capped);
+  //      sheet = the whole list, every explanation and link
+  const movesOut = outline(sections.firstmoves);
+  const moveLeads = movesOut.list.slice(0, PAGE_CAP).map((l) => {
+    const m = l.match(/^(- |\d+\.\s+)(.*)$/)!;
+    return `${m[1]}${splitLead(m[2]).lead}`;
+  });
+  const movesMore = movesOut.more || movesOut.list.some((l) => !!splitLead(l.replace(LIST_LINE, "")).rest);
+  ctx.section = "Suggested first moves";
+  const movesPage = leadProse(movesOut.toMd(moveLeads));
+  const movesNode = movesMore ? prose("Suggested first moves", sections.firstmoves) : null;
 
   // one row of the full list — it lives only in the drawer now. Its id is the
   // live record's `s1…sN`, the same index as `sources[]` (audit B5), so an
@@ -563,6 +925,25 @@ export default async function LabRecord({ params }: Params) {
     );
   };
 
+  // the rail's table of contents, in page order; the ladders are DIM_INFO's,
+  // and Execution difficulty's is the four entry levels, easiest scoring most
+  const EXEC_INFO = {
+    ask: "How hard is it to start selling?",
+    why: "Set by who buys, what permission selling needs, what it must plug into, and whether it needs outside money before the first sale.",
+    ladder: ["very hard to enter", "hard to enter", "moderate to enter", "easy to enter"],
+  };
+  const toc: { id: string; title: string; score?: ProtoScore; info?: { ask: string; why: string; ladder: string[] } }[] = [
+    { id: "opportunity", title: "The opportunity", score: protoBy.opportunity, info: DIM_INFO.demand },
+    { id: "solution", title: "Suggested solution" },
+    { id: "why-now", title: "Why now", score: protoBy["why-now"], info: DIM_INFO.urgency },
+    { id: "willing-to-pay", title: "Willing to pay", score: protoBy["willing-to-pay"], info: DIM_INFO.money },
+    { id: "validated-abroad", title: "Validated abroad", score: protoBy["validated-abroad"], info: DIM_INFO.proof },
+    { id: "competition", title: "Competition", score: protoBy.competition, info: DIM_INFO.gap },
+    { id: "execution-difficulty", title: "Execution difficulty", score: protoBy["execution-difficulty"], info: EXEC_INFO },
+    ...(movesPage ? [{ id: "first-moves", title: "Suggested first moves" }] : []),
+  ];
+  const chip = (k: ProtoKey) => `${protoBy[k].n}/${protoBy[k].max} · ${protoBy[k].word}`;
+
   const typeGroups = mix.map(([t]) => ({ t, list: sources.filter((s) => s.typeLabel === t) }));
 
   return (
@@ -571,14 +952,20 @@ export default async function LabRecord({ params }: Params) {
         <nav className="ls-crumbs" aria-label="Breadcrumb">
           <a href="/">Problems</a>
           <span className="ls-sep" aria-hidden="true">/</span>
+          {/* one register per country; Czechia is the only one with data, so
+              its list is the front page (owner, 2026-09-16: "Problems /
+              Czechia / P-…") */}
+          <a href="/">Czechia</a>
+          <span className="ls-sep" aria-hidden="true">/</span>
           <span className="ls-crumb-id">{p.id.toUpperCase()}</span>
         </nav>
       </header>
 
       <div className="ls-shell">
-        {/* The head: art, title, and every record fact — each stated once. */}
+        {/* The head: art, title, and every record fact — each stated once, all on
+            the main column's left edge. */}
         <header className="ls-head">
-          <CategoryArt category={p.category} className="ls-art" />
+          {SHOW_HEAD_ART && <CategoryArt category={p.category} className="ls-art" />}
           {/* a long title is marked so a phone can wrap it `pretty` instead of
               `balance` — see .ls-h1--long in problem.css */}
           <h1 className={p.title.length > 120 ? "ls-h1 ls-h1--long" : "ls-h1"}>{p.title}</h1>
@@ -605,33 +992,32 @@ export default async function LabRecord({ params }: Params) {
           )}
           <dl className="ls-facts-row">
             <div><dt>Category</dt><dd>{categoryLabel(p.category)}</dd></div>
-            <div><dt>Locality</dt><dd>{localityLong(p.geo)}</dd></div>
-            {/* A brief states why it is urgent by definition, so beside one the
-                Window would say the same thing twice; without one, it stays. */}
-            {windowFact && !brief && (
-              <div>
-                <dt>Window</dt>
-                <dd>
-                  <time
-                    className={windowSoon ? "ls-soon" : undefined}
-                    dateTime={windowFact}
-                    title={`Nearest deadline: ${fmtDate(windowFact)}${windowSoon ? " — under six months away" : ""}`}
-                  >
-                    {relativeOut(extract, windowFact)}
-                  </time>
-                </dd>
-              </div>
-            )}
             <div>
               <dt>Entry</dt>
               <dd>
-                <a className="ls-facts-link ls-level" data-level={entry.level} href="#difficulty-to-enter">
+                <a className="ls-facts-link ls-level" data-level={entry.level} href="#execution-difficulty">
                   {ENTRY_LEVEL_LABELS[entry.level]}
                 </a>
               </dd>
             </div>
             <div><dt>Verified</dt><dd><time dateTime={p.updated}>{fmtDate(p.updated)}</time></dd></div>
           </dl>
+          {/* PHONE ONLY (≤640px): the scores in brief, right after the facts,
+              each a link to its section; the full table of contents follows main */}
+          <nav className="ls-toc-mini" aria-label="Scores">
+            <p className="ls-toc-mini-hd"><span>Opportunity</span><span className="ls-score"><b>{protoSum.n}</b>/{protoSum.max}</span></p>
+            <ul>
+              {proto.map((r) => (
+                <li key={r.key}>
+                  <a href={`#${r.key}`}>
+                    <span className="ls-toc-mini-l">{r.label}{r.labelSuffix ? ` · ${r.labelSuffix}` : ""}</span>
+                    <span className="ls-toc-mini-w">{r.word}</span>
+                    <span className="ls-dim-n">{r.n}/{r.max}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </header>
 
         {/* THE RAIL BEFORE MAIN IN THE SOURCE (audit B13): a keyboard reaches
@@ -639,80 +1025,76 @@ export default async function LabRecord({ params }: Params) {
             Grid areas keep it drawn in the right column; in one column
             (problem.css ≤1080px) reading-flow puts it back after main. */}
         <aside className="ls-rail" aria-label="Opportunity and evidence">
-          {/* the card carries the total's anchor: its tip hangs off the card's
-              edge, level with the header, never over the rows */}
-          <section className="ls-card" aria-labelledby="ls-opp-h" style={{ anchorName: "--ls-t-total" } as CSSProperties}>
+          {/* THE TABLE OF CONTENTS WITH SCORES (owner, 2026-09-17): every
+              section in page order; a scored row carries its bars, n/max and
+              its judgement word. A stepper runs down its left edge: a hairline
+              with one dot per section. The section in view fills its dot and
+              darkens its label, sections already read keep a gray dot, all
+              from CSS scroll-driven animations only (problem.css "toc");
+              where they are unsupported every dot stays hollow. */}
+          <section className="ls-card ls-toc" aria-labelledby="ls-opp-h" style={{ anchorName: "--ls-t-total" } as CSSProperties}>
             <div className="ls-card-hd">
               <h2 id="ls-opp-h" className="ls-eyebrow">Opportunity</h2>
               <span className="ls-score ls-tip-host" tabIndex={0} aria-describedby="ls-tip-total">
-                <b>{p.score}</b>/12
+                <b>{protoSum.n}</b>/{protoSum.max}
                 <span className="ls-tip" id="ls-tip-total" aria-hidden="true" style={{ positionAnchor: "--ls-t-total" } as CSSProperties}>
                   <span className="ls-tip-t">Opportunity</span>
-                  <span className="ls-tip-p">The sum of five checks, each point backed by a source.</span>
-                  <span className="ls-ladder ls-ladder--bands">
-                    {BANDS.map((b) => (
-                      <span key={b.range} className={b === band ? "ls-rung is-here" : "ls-rung"}>
-                        <span className="ls-rung-n">{b.range}</span>{b.text}
-                      </span>
-                    ))}
-                  </span>
-                  <span className="ls-tip-here">This record: {p.score} of 12.</span>
+                  <span className="ls-tip-p">The sum of the six scored sections below. Each point is read from the evidence in that section.</span>
+                  <span className="ls-tip-here">This problem: {protoSum.n} of {protoSum.max}.</span>
                 </span>
               </span>
             </div>
-            <ul className="ls-dims">
-              {dimRows.map(({ dim, label: l }) => {
-                const info = DIM_INFO[dim];
-                const n = p.scores[dim];
-                // urgency's rung is its deadline part; freshness is its own line
-                const rung = dim === "urgency" ? uSplit.deadline : n;
+            <ul className="ls-dims ls-toc-list">
+              {toc.map(({ id: sid, title, score, info }) => {
+                const tid = `ls-tip-toc-${sid}`;
+                if (!score) {
+                  return (
+                    <li key={sid}>
+                      <a href={`#${sid}`} className="ls-toc-row" data-toc={sid}>
+                        <span className="ls-toc-dot" aria-hidden="true" />
+                        <span className="ls-dim-l">{title}</span>
+                      </a>
+                    </li>
+                  );
+                }
                 return (
-                  <li key={dim}>
+                  <li key={sid}>
                     <a
-                      href={anchors[dim]}
-                      className={n === 0 ? "ls-dim ls-tip-host is-zero" : "ls-dim ls-tip-host"}
-                      aria-describedby={`ls-tip-${dim}`}
-                      style={{ anchorName: `--ls-t-${dim}` } as CSSProperties}
+                      href={`#${sid}`}
+                      className={score.n === 0 ? "ls-toc-row is-scored ls-tip-host is-zero" : "ls-toc-row is-scored ls-tip-host"}
+                      data-toc={sid}
+                      aria-describedby={info ? tid : undefined}
+                      style={{ anchorName: `--ls-t-${sid}` } as CSSProperties}
                     >
-                      <span className="ls-dim-l">{l}</span>
+                      <span className="ls-toc-dot" aria-hidden="true" />
+                      <span className="ls-dim-l">{title}{score.labelSuffix && <span className="ls-toc-suf"> · {score.labelSuffix}</span>}</span>
                       <span className="ls-pips" aria-hidden="true">
-                        {Array.from({ length: MAX[dim] }, (_, i) => (
-                          <span key={i} className={i < n ? "on" : undefined} />
+                        {Array.from({ length: score.max }, (_, i) => (
+                          <span key={i} className={i < score.n ? "on" : undefined} />
                         ))}
                       </span>
-                      <span className="ls-dim-n">{n}/{MAX[dim]}</span>
-                      <span className="ls-tip" id={`ls-tip-${dim}`} aria-hidden="true" style={{ positionAnchor: `--ls-t-${dim}` } as CSSProperties}>
-                        <span className="ls-tip-t">{l}</span>
-                        <span className="ls-tip-p"><b>{info.ask}</b> {info.why}</span>
-                        <span className="ls-ladder">
-                          {info.ladder.map((text, i) => (
-                            <span key={i} className={i === rung ? "ls-rung is-here" : "ls-rung"}>
-                              <span className="ls-rung-n">{i}</span>{text}
-                            </span>
-                          ))}
-                          {dim === "urgency" && (
-                            <span className={uSplit.freshness ? "ls-rung is-here" : "ls-rung"}>
-                              <span className="ls-rung-n">+1</span>the newest evidence is under 90 days old
-                            </span>
-                          )}
+                      <span className="ls-dim-n">{score.n}/{score.max}</span>
+                      <span className="ls-toc-word">{score.word}</span>
+                      {info && (
+                        <span className="ls-tip" id={tid} aria-hidden="true" style={{ positionAnchor: `--ls-t-${sid}` } as CSSProperties}>
+                          <span className="ls-tip-t">{title}</span>
+                          <span className="ls-tip-p"><b>{info.ask}</b> {info.why}</span>
+                          <span className="ls-ladder">
+                            {info.ladder.map((text, i) => (
+                              <span key={i} className={i === score.n ? "ls-rung is-here" : "ls-rung"}>
+                                <span className="ls-rung-n">{i}</span>{text}
+                              </span>
+                            ))}
+                          </span>
+                          <span className="ls-tip-here">This problem: {sentence(score.reason)} {score.n} of {score.max}.</span>
                         </span>
-                        <span className="ls-tip-here">This record: {sentence(scoreRead(p, dim))} {n} of {MAX[dim]}.</span>
-                      </span>
+                      )}
                     </a>
                   </li>
                 );
               })}
             </ul>
           </section>
-
-          {fieldGridFig && (
-            <section className="ls-card" aria-labelledby="ls-field-h">
-              <div className="ls-card-hd">
-                <h2 id="ls-field-h" className="ls-eyebrow">Who is here</h2>
-              </div>
-              {fieldGridFig}
-            </section>
-          )}
 
           <section className="ls-card" aria-labelledby="ls-ev-h">
             <div className="ls-card-hd">
@@ -729,6 +1111,7 @@ export default async function LabRecord({ params }: Params) {
                       type="button"
                       className="ls-mixrow ls-tip-host"
                       popoverTarget="sources"
+                      data-src-group={`src-type-${t.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                       aria-describedby={note ? tid : undefined}
                       style={{ anchorName: `--ls-t-ev-${type}` } as CSSProperties}
                     >
@@ -753,89 +1136,114 @@ export default async function LabRecord({ params }: Params) {
         </aside>
 
         <main className="ls-main">
-          <Section id="problem" title="The problem">
-            {problemNode}
-            {processTodayFig && <div className="ls-fig">{processTodayFig}</div>}
+          {/* THE PAGE IS THE OUTLINE: heading → answer line → one short scan
+              block (never more than PAGE_CAP rows) → "Read more". The sheet
+              beside each is the whole section. Order and names: owner,
+              2026-09-17; every older anchor stays as an alias. */}
+          <Section id="opportunity" alias="problem" title="The opportunity" chip={chip("opportunity")}>
+            {problemPage}
+            {problemMore && (
+              <Sheet id="problem" title="The opportunity" rec={rec} about={SECTION_ABOUT.opportunity}>
+                {problemFull}
+                {processTodayFig && <div className="ls-fig">{processTodayFig}</div>}
+              </Sheet>
+            )}
           </Section>
 
-          <aside className="ls-solution" aria-label="Suggested solution">
-            <p className="ls-solution-k">Suggested solution</p>
+          {/* a real section heading, the same h2 as every section (owner,
+              2026-09-17: "Suggested solution could use a bigger heading") */}
+          <section className="ls-solution" id="solution" aria-labelledby="solution-h">
+            {steps && <span id="how-it-works" className="ls-alias" aria-hidden="true" />}
+            <h2 className="ls-h2" id="solution-h">Suggested solution</h2>
             <p className="ls-solution-v">{solutionNode}</p>
+            {stepsFig && <div className="ls-fig">{stepsFig}</div>}
             {processAfterFig}
-          </aside>
+            {solutionSheet && <Sheet id="solution" title="Suggested solution" rec={rec} about={SECTION_ABOUT.solution}>{solutionSheet}</Sheet>}
+          </section>
 
-          <Section id="proven-abroad" title="Proven abroad" count={comps.length || undefined}>
-            {solvedNode}
-            {compMapFig && <div className="ls-fig">{compMapFig}</div>}
-            {comps.length > 0 ? (
-              <div className="ls-grp">
-                <div className="ls-grp-h">
-                  <p className="ls-grp-t">Abroad</p>
-                  <p className="ls-grp-n">{comps.length} {comps.length === 1 ? "company" : "companies"}</p>
-                </div>
-                <ul className="ls-ents">{compRows}</ul>
-              </div>
-            ) : <p className="ls-absent">No verified foreign comparable on file.</p>}
+          <Section id="why-now" title="Why now" chip={chip("why-now")}>
+            {windowPage ?? <p className="ls-absent">No dated rule on file.</p>}
+            {windowNode && <Sheet id="why-now" title="Why now" rec={rec} about={SECTION_ABOUT["why-now"]}>{windowNode}</Sheet>}
           </Section>
 
-          {hasCompetition && (
-            <Section id="local-competition" title="Local competition" count={locals.length || undefined}>
-              {fieldFig && <div className="ls-fig ls-fig--head">{fieldFig}</div>}
-              {competitionNode}
-              {localGroups}
+          <Section id="willing-to-pay" alias={["who-pays", "how-big"]} title="Willing to pay" chip={chip("willing-to-pay")}>
+            {whoPaysPage}
+            {payDots}
+            {!payMore && <p className="ls-absent">No price paid by a Czech buyer is on file yet.</p>}
+            {payMore && (
+              <Sheet id="who-pays" title="Willing to pay" rec={rec} about={SECTION_ABOUT["willing-to-pay"]}>
+                {whoPaysNode}
+                {payDotsS}
+                {priceRows.length > 0 ? (
+                  <div className="ls-block">
+                    <p className="ls-block-h">What one buyer pays</p>
+                    <dl className="ls-keyed ls-keyed--table">{priceRows}</dl>
+                  </div>
+                ) : (
+                  <p className="ls-absent">No price paid by a Czech buyer is on file yet.</p>
+                )}
+                {priceRows.length === 0 && p.price_search && (
+                  <div className="ls-block">
+                    <p className="ls-block-h">Where to look</p>
+                    <p className="ls-p">{p.price_search}</p>
+                  </div>
+                )}
+                {moneyRowNodes.length > 0 && (
+                  <div className="ls-block">
+                    <p className="ls-block-h">{moneyHead}</p>
+                    {payTimeline}
+                    {moneyIntro && <p className="ls-block-intro">{moneyIntro}</p>}
+                    <dl className="ls-keyed ls-keyed--table">{moneyRowNodes}</dl>
+                  </div>
+                )}
+              </Sheet>
+            )}
+          </Section>
+
+          {/* ONE home per company: abroad here, Czechia under Competition */}
+          <Section id="validated-abroad" alias={["proven-abroad", "who-sells-this"]} title="Validated abroad" chip={chip("validated-abroad")}>
+            {abroadAnswer && <p className="ls-answer">{abroadAnswer}</p>}
+            {mapFig && <div className="ls-fig">{mapFig}</div>}
+            {!abroadMore && <p className="ls-absent">No verified foreign comparable on file.</p>}
+            {abroadMore && (
+              <Sheet id="validated-abroad" title="Validated abroad" rec={rec} about={SECTION_ABOUT["validated-abroad"]}>
+                {abroadSheetAnswer && <p className="ls-answer">{abroadSheetAnswer}</p>}
+                {mapFigS && <div className="ls-fig">{mapFigS}</div>}
+                {comps.length > 0
+                  ? <ul className="ls-ents ls-ents--sheet">{compRows}</ul>
+                  : <p className="ls-absent">No verified foreign comparable on file.</p>}
+                {solvedRest && <div className="ls-grp-rest">{solvedRest}</div>}
+              </Sheet>
+            )}
+          </Section>
+
+          <Section id="competition" alias="local-competition" title="Competition" chip={chip("competition")}>
+            {compAnswer && <p className="ls-answer">{compAnswer}</p>}
+            {matrixFig && <div className="ls-fig">{matrixFig}</div>}
+            {!compMore && <p className="ls-absent">No Czech seller on file.</p>}
+            {compMore && (
+              <Sheet id="competition" title="Competition" rec={rec} about={SECTION_ABOUT.competition}>
+                {compSheetAnswer && <p className="ls-answer">{compSheetAnswer}</p>}
+                {matrixFigS && <div className="ls-fig">{matrixFigS}</div>}
+                {localGroups}
+                {compRest && <div className="ls-grp-rest">{compRest}</div>}
+              </Sheet>
+            )}
+          </Section>
+
+          {/* The level, then what makes entry easier and what harder. */}
+          <Section id="execution-difficulty" alias="difficulty-to-enter" title="Execution difficulty" chip={chip("execution-difficulty")}>
+            {/* the level word is already in the score line under the heading */}
+            {entryPage}
+            <Sheet id="difficulty-to-enter" title="Execution difficulty" rec={rec} about={SECTION_ABOUT["execution-difficulty"]}>{entrySheet}</Sheet>
+          </Section>
+
+          {movesPage && (
+            <Section id="first-moves" title="Suggested first moves">
+              <div className="ls-moves-page">{movesPage}</div>
+              {movesNode && <Sheet id="first-moves" title="Suggested first moves" rec={rec} about={SECTION_ABOUT["first-moves"]}>{movesNode}</Sheet>}
             </Section>
           )}
-
-          <Section id="who-pays" alias="how-big" title="Who pays">
-            {whoPaysNode}
-            {moneyFig && <div className="ls-fig">{moneyFig}</div>}
-            {priceRows.length > 0 && (
-              <div className="ls-group">
-                <p className="ls-group-h">What buyers pay</p>
-                <ul className="ls-receipts">{priceRows}</ul>
-              </div>
-            )}
-            {moneyRowNodes.length > 0 && (
-              <details className="ls-group ls-more">
-                <summary className="ls-group-h">
-                  Public money nearby <span className="ls-count">{moneyRowNodes.length}</span>
-                </summary>
-                <ul className="ls-receipts">{moneyRowNodes}</ul>
-              </details>
-            )}
-            {priceRows.length === 0 && moneyRowNodes.length === 0 && (
-              <p className="ls-absent">No sized figure on file.</p>
-            )}
-            {prices.length === 0 && p.score >= 7 && (
-              <p className="ls-absent">
-                No Czech buyer has priced this yet.{p.price_search && ` Where to look: ${p.price_search}`}
-              </p>
-            )}
-          </Section>
-
-          <Section id="why-now" title="Why now">
-            {windowNode}
-            {p.scores.urgency > 0 && deadlineRows.length > 0 && (
-              <div className="ls-group">
-                <p className="ls-group-h">Dates on file</p>
-                <ul className="ls-receipts">{deadlineRows}</ul>
-              </div>
-            )}
-          </Section>
-
-          {/* A LEVEL DECIDED BY FOUR GATES — answer first, then what sets it,
-              then the gates with their weights, then the one gate that is
-              context only, then the record's own reasoning. */}
-          <Section id="difficulty-to-enter" title="Difficulty to enter">
-            <p className="ls-entry-level ls-level" data-level={entry.level}>{ENTRY_LEVEL_LABELS[entry.level]}</p>
-            <p className="ls-entry-why">{entryReason}</p>
-            <p className="ls-entry-note">
-              Already here: {ENTRY_INCUMBENT_LABELS[entry.incumbents]}. That counts under{" "}
-              {hasCompetition ? <a className="ls-link" href="#local-competition">Local competition</a> : "Local opportunity"}, not in this level.
-            </p>
-          </Section>
-
-          {movesNode && <Section id="first-moves" title="First moves">{movesNode}</Section>}
         </main>
 
       </div>
@@ -859,7 +1267,7 @@ export default async function LabRecord({ params }: Params) {
         </div>
         <div className="ls-drawer-body">
           {typeGroups.map(({ t, list }) => (
-            <div key={t} className="ls-drawer-group">
+            <div key={t} id={`src-type-${t.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className="ls-drawer-group">
               <p className="ls-group-h">{t} <span className="ls-count">{list.length}</span></p>
               <ol className="ls-srcs ls-srcs--compact">
                 {list.map((s) => ledgerRow(s))}
