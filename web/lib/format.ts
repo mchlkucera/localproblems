@@ -15,18 +15,6 @@ export function euro(v: number | null): string {
   return `€${v}`;
 }
 
-/** Zero-padding is the house tic. */
-export const pad2 = (n: number) => String(n).padStart(2, "0");
-
-/** ISO-8601 week number of an ISO date string. */
-export function isoWeek(date: string): number {
-  const d = new Date(`${date}T00:00:00Z`);
-  const day = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - day);
-  const yearStart = Date.UTC(d.getUTCFullYear(), 0, 1);
-  return Math.ceil(((d.getTime() - yearStart) / 86_400_000 + 1) / 7);
-}
-
 const CATEGORY_LABELS: Record<string, string> = {
   "b2b": "B2B",
   "legal-compliance": "Legal",
@@ -152,15 +140,6 @@ export const ENTRY_MONEY_LABELS: Record<EntryMoney, string> = {
   "outside-money": "outside money before the first sale",
 };
 
-/** The level as a SORT KEY: 0 easy · 1 moderate · 2 hard · 3 very hard. The
-    register table's Entry cell carries it as `data-sort`, because the labels
-    sort alphabetically (Easy, Hard, Moderate, Very hard) and that order is
-    nonsense — SortScript reads `data-sort` before a cell's text for exactly
-    this case. */
-export function entryRank(level: EntryLevel): number {
-  return ENTRY_LEVELS_ORDER.indexOf(level);
-}
-const ENTRY_LEVELS_ORDER: EntryLevel[] = ["easy", "moderate", "hard", "very-hard"];
 
 /** The gates that SET the level and their weights, as the contract states them
     (owner, 2026-09-15, as amended the same day): buyer 0/1/2 · permission
@@ -194,12 +173,6 @@ export function entryGates(e: Entry): string {
   return weighed.filter((g) => g.w === top).map((g) => g.label).join(" · ");
 }
 
-/** Register locality display. Unknown codes render as recorded (mono truth). */
-export function localityLabel(geo: string): string {
-  if (geo === "CZ-national") return "Czechia";
-  if (geo === "EU") return "EU";
-  return geo;
-}
 export function localityLong(geo: string): string {
   if (geo === "CZ-national") return "Czechia · national";
   return geo;

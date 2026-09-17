@@ -10,8 +10,8 @@ archived unchanged at `skills/design-language-gazette-archive/`.
 
 > **Live since the migration of 2026-09-16.** The modern pages are the public routes
 > (`/`, `/by-category`, `/problem/…`, `/category/…`, `/signals/…`, `/how-it-works`,
-> the 404). The gazette stylesheet `assets/style.css` and its copy `web/shared.css`
-> remain only for the private `/sources` admin page; `check-css` still locks the pair.
+> the 404) and the private `/sources` admin page, the last to move (2026-09-17). No
+> gazette stylesheet remains; the archive holds its only copy.
 
 ## Why this file exists
 
@@ -480,8 +480,6 @@ enhancements below, and nothing else**. SPEC §5 and §7 carry the same list.
    `popovertarget` peeks and figure dots, section sheets, the sources drawer, the
    country menu, CSS hover/focus tooltips, `<details>` folds, and scroll-driven
    animations (the contents stepper).
-3. The gazette-era relative-dates and table-sort scripts stay only while their
-   gazette routes exist, and go with them.
 
 Rules for all of it:
 - **The page reads fully with every `<script>` stripped.** All text renders, and
@@ -524,8 +522,8 @@ Rules for all of it:
 15. NEVER a text gray under 4.5:1 on its ground. `--l-text-4` is for non-text only.
 16. NEVER restate SCORING.md or CONVENTIONS.md vocabulary in different words, and
     never add a rung, band or gate the rubric doesn't have.
-17. NEVER edit `assets/style.css` or `web/shared.css`. They are the frozen gazette
-    stylesheet, kept only for the private `/sources` page.
+17. NEVER bring back gazette CSS, fonts or chrome. The retired design lives only in
+    `skills/design-language-gazette-archive/`, as history.
 18. NEVER "record" in reader-facing copy. Readers see a problem.
 19. NEVER more than three items, or one figure, under a section's answer line on
     the page. NEVER the same company, fact or list twice in one sheet.
@@ -557,15 +555,13 @@ When one is settled, move its answer into the sections above and delete the bull
 - **Modern CSS:** `assets/tokens.css` (the `--l-*` tokens), copied verbatim to
   `web/app/(site)/styles/tokens.css` and locked by `web/scripts/check-css.mjs`:
   edit the asset, then copy it. The per-page sheets in `web/app/(site)/styles/`
-  (`front.css`, `problem.css`, `signals.css`, `category.css`, `how-it-works.css`,
-  `not-found.css`, `kit.css`) are not locked; their rules live here and in
+  (`front.css`, `problem.css`, `signals.css`, `sources.css`, `category.css`,
+  `how-it-works.css`, `not-found.css`, `kit.css`) are not locked; their rules live here and in
   `web/app/(site)/DESIGN.md`. Selectors are prefixed per page (`lf-`, `ls-`,
-  `lg-`, `lc-`, `lh-`, `lk-`, `lnf-`).
+  `lg-`, `lsr-`, `lc-`, `lh-`, `lk-`, `lnf-`).
 - **Static contract:** `web/scripts/check-site.mjs` fails the build on
   `searchParams`/`cookies(`/`headers(`, a `"use client"` outside its allow-list,
   `href="/lab/`, a rejected record's page, and a record page without `id="sN"`.
-- **Gazette CSS:** `assets/style.css` = `web/shared.css`, locked by
-  `web/scripts/check-css.mjs`. It stays while the private `/sources` page uses it.
 - **Verify every page change** with screenshots at 1440 and 375 on real data (both
   groupings, several records, one long title), with scripts stripped once, and
   against the NEVER list.

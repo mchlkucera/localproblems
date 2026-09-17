@@ -39,3 +39,6 @@ data/register.db-shm
 __pycache__/
 *.pyc
 .vercel
+
+# Agent worktrees (git worktree add under .claude/) are local by nature.
+.claude/worktrees/

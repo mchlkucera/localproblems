@@ -2,14 +2,19 @@
 
 *Proposal, 2026-09-17. Answers the owner's request to name the sections and the scores
 the same way, taking ideabrowser.com as the model, and to consider a 1–10 scale.
-**Nothing here is built.** No code, data or rulebook was edited. Already decided and
+**Status (updated 2026-09-17):** the presentation half is live as a prototype. The
+sections carry the new names, the rail is a table of contents with section scores, and
+each scored heading has a badge; `web/lib/site/score-proto.ts` maps the unchanged rubric
+onto them (`skills/design-language/SKILL.md` §7). The rubric itself (labels in
+`SCORING.md`, a 1–10 scale, new ladders) is still undecided; see `docs/scoring-v2/`.
+When written, this proposal edited no code, data or rulebook. Already decided and
 taken as given: the rail's Opportunity card becomes a **table of contents with
 scores**. It lists the sections in page order, scored sections show their score, and
 CSS alone highlights the current section while the reader scrolls.*
 
 Evidence used: `SCORING.md`, `pipeline/MATCH.md` §0–1, `CLAUDE.md`, the evidence
 doctrine (memory), `skills/design-language/SKILL.md` §6, §7 and §10,
-`docs/record-page-redesign.md`, `web/lib/scorecard.ts`, `web/lib/data.ts`
+`docs/record-page-redesign.md` (since deleted; its rules now live in `SKILL.md` §7), `web/lib/scorecard.ts`, `web/lib/data.ts`
 (`urgencySplit`), `scripts/check-records.py`, the live page `/problem/cz/p-0008`
 (read 2026-09-17), ideabrowser.com's idea of the day for 2026-09-17 (*Recovery Desk*,
 read in full), and its previous-ideas list. Older idea pages are paywalled, so the
@@ -134,8 +139,9 @@ authority on Abroad and In Czechia, and only MATCH's judgment on the other three
 is no worse than the number shown today, but a label reads as a claim, so §5.4 adds
 the Why now check. Money and demand stay as they are, recorded as a known gap.
 
-**C5. Say it once.** `record-page-redesign.md` §4 gives a score or rung one home: the
-rail. A score repeated inside every section heading breaks that rule, except where the
+**C5. Say it once.** The record-page spec of the time (§4 of the since-deleted
+`docs/record-page-redesign.md`) gave a score or rung one home: the rail. (The owner
+later put a badge beside each scored heading; `SKILL.md` §7 is the current rule.) A score repeated inside every section heading breaks that rule, except where the
 rail isn't beside the heading (≤1080px, where the rail drops below main).
 
 **C6. `SKILL.md` §10 rule 16.** Never restate `SCORING.md` vocabulary in different
@@ -346,7 +352,7 @@ and word after it (`▮▮ ▮▮▮ ▮▯ ▮▮ ▮▮▮ 11/12 · ● Hard`)
 | `SKILL.md` §7 | The rail becomes the TOC in page order, and "sorted most-filled first" is deleted. Add the ≤1080px heading chip. | Same. | Same, plus the fit group. |
 | `SKILL.md` §10 rule 11 | Reword: "NEVER a band verdict word (PRIME, STRONG, …) or a judgment adjective (Exceptional, Perfect, Strong). A rung label from `SCORING.md` `labels`, verbatim, is allowed." | Same. | Same, and the fit rows fall under it too. |
 | `SKILL.md` §10 rule 16 | Unchanged. It now covers the labels, which is the point. | Same. | Same. |
-| Other | `record-page-redesign.md` §4 (a score's home: rail, plus the chip at ≤1080px). The `RECORD-TEMPLATE.md` comments on `scores:`. The string lists in `web/lib/site/sources.ts`, `web/lib/figures/field.tsx` and `web/lib/figures/money.tsx`. How it works copy. `npm --prefix web run parity`. | A, and How it works has to explain the mapping. | A, plus `MATCH.md` laws and new ingest for go-to-market evidence. |
+| Other | The `RECORD-TEMPLATE.md` comments on `scores:`. The string lists in `web/lib/site/sources.ts`. How it works copy. `npm --prefix web run parity`. | A, and How it works has to explain the mapping. | A, plus `MATCH.md` laws and new ingest for go-to-market evidence. |
 | **Size** | **About one work package**, plus the deadline-date pass on 16 records. | One and a half, plus a band decision. | Several, and blocked on research. |
 
 ---
@@ -467,8 +473,7 @@ invariants are clean. Until then, the Why now line shows "n/3" with no label wor
 `SCORING.md` (labels, and the deadline field paragraph) · `data/RECORD-TEMPLATE.md`
 (`scores:` comments → the new public names; `scores_detail`) · `SKILL.md` §6
 (meter), §7 (rail = TOC, heading chip), §10 rule 11 (wording in §4.2) ·
-`web/app/(site)/DESIGN.md` (meter grouping, rail rows) ·
-`docs/record-page-redesign.md` §4 (a score's home) · `scripts/check-records.py`
+`web/app/(site)/DESIGN.md` (meter grouping, rail rows) · `scripts/check-records.py`
 (§5.4) · `web/lib/scorecard.ts` (build-time assertion extended to `LABELS`). Gates:
 `npm --prefix web run build`, then `npm --prefix web run parity`.
 

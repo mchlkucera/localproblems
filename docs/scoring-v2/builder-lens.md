@@ -6,7 +6,8 @@ small agency asks when choosing a problem, and can a reader take them in at a gl
 **Nothing here is built.** No code, data or rulebook was edited.*
 
 Read for this: `SCORING.md`, `docs/scoring-presentation-options.md` (the earlier Option A
-proposal), `docs/record-page-redesign.md`, the live page `/problem/cz/p-0008` (read
+proposal), `docs/record-page-redesign.md` (since deleted; its rules now live in
+`skills/design-language/SKILL.md` §7), the live page `/problem/cz/p-0008` (read
 2026-09-17), and `data/problems/cz/p-0008-*.md`. Outside sources are listed in §7.
 
 ---

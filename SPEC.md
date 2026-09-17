@@ -308,8 +308,6 @@ Discipline keeps it exactly as simple as a static generator:
   2. **Native popovers** (`popovertarget` peeks, Details modals, the sources drawer, the
      country menu), CSS hover/focus tooltips and `<details>` folds. These are
      browser-native, not scripts.
-  3. The gazette relative-dates and table-sort snippets, **only while their gazette
-     routes exist**.
 
   **Every page must still read fully with all JavaScript off:** all text renders, and
   every popover opens on click, tap or Enter. Anything beyond this list is a §10
@@ -328,14 +326,14 @@ Discipline keeps it exactly as simple as a static generator:
 |---|---|
 | `/` | the front page, grouped by opportunity: the header, then the non-rejected problems as row cards (title · brief · Suggested · Good for · opportunity meter · category). |
 | `/by-category` | the same front page grouped by category — a second static path, never `?group=`. |
-| `/problem/[region]/[id]` | one record page for every **non-rejected** problem: head (art, title, brief, facts), The problem · Suggested solution · Proven abroad · Local competition · Who pays (`#how-big` alias) · Why now · Difficulty to enter · First moves; the Opportunity / Who is here / Evidence rail; source pills that peek; the sources drawer (`#sources`, rows `#s1…sN`); a footer with the corrections link. Rejected records return 404 (below). |
+| `/problem/[region]/[id]` | one record page for every **non-rejected** problem: head (art, title, brief, facts), The opportunity · Suggested solution · Why now · Willing to pay · Validated abroad · Competition · Execution difficulty · Suggested first moves, each an outline on the page with a Read more sheet (older anchors such as `#problem`, `#who-pays`, `#how-big` stay as aliases); the rail's contents card with section scores ("Opportunity n/12") and its evidence card; source pills that peek; the sources drawer (`#sources`, rows `#s1…sN`); a footer with the corrections link. Rejected records return 404 (below). |
 | `/category/[slug]` | one page per category (all 12, SSG; slug = category id): that category's problems as row cards, grouped by opportunity; an empty category says so plainly. |
 | `/how-it-works` | what the register is and how it works, in the owner's words. `/about` redirects here (308). |
 | `/signals/[type]`, `/signals/[type]/[page]` | the evidence ledgers (funded · regulation · tenders · demand · hiring · asks), 100 rows a page, newest first, one compact line per signal with its summary in a native disclosure; each row's id is its signal id — the provenance target. **A registered type with no records renders an empty ledger rather than 404ing.** Derived from `EVIDENCE_TYPES`. |
-| `/sources` | PRIVATE, built only with `LP_ADMIN=1` (else 404): the feeds registry beside the observed health ledger. The last page in the gazette design. |
+| `/sources` | PRIVATE, built only with `LP_ADMIN=1` (else 404): the feeds registry beside the observed health ledger, in the signal ledgers' compact layout (modern design since 2026-09-17). |
 | 404 | the modern 404: "Record not found", check the address, back to Problems. |
 
-The routes are `app/(site)` (modern) and `app/(gazette)` (`/sources` only). `web/app/lab/`
+Every route lives in `app/(site)`, `/sources` included. `web/app/lab/`
 holds local prototypes, gated by `LP_ADMIN`; `check-site` fails the build if one is emitted.
 
 The problem register and the evidence ledgers are two clearly separated surfaces: site
@@ -381,9 +379,9 @@ pre-renders all 8 rejected records (p-0012–p-0016, p-0019–p-0021).
   - dates read "4 Sep 2026", not ISO
 
   **Locks:** `web/app/(site)/styles/tokens.css` is a verbatim copy of
-  `skills/design-language/assets/tokens.css`, and `web/shared.css` of the gazette
-  `skills/design-language/assets/style.css` while `/sources` uses it; `check-css` asserts
-  both. `check-site` asserts the static contract above (no request-time APIs, the client
+  `skills/design-language/assets/tokens.css`; `check-css` asserts it. The gazette
+  stylesheet and its lock were deleted with the last gazette page (2026-09-17).
+  `check-site` asserts the static contract above (no request-time APIs, the client
   allow-list, no `/lab` links, rejected records absent, record anchors present). Inter is
   self-hosted through `next/font`.
 - **Deploy:** Vercel project `localproblems` (live: https://localproblems.vercel.app);
@@ -406,8 +404,7 @@ filler. **Draft only — a human reviews and sends. Nothing is ever auto-sent.**
 - **Claiming** — cut entirely (owner, 2026-08-13). No claim UI. Revisit only if the
   register earns an audience. Lifecycle statuses live in data frontmatter only.
 - **Client-side JavaScript** beyond the named progressive enhancements in §5: the
-  `PeekHover` source-peek script, native popovers, and the gazette snippets while their
-  routes last. No hydration-dependent UI: a page must read fully with JS off, and no
+  `PeekHover` source-peek script and native popovers. No hydration-dependent UI: a page must read fully with JS off, and no
   page reads request-time data. (Amended by owner decision, 2026-09-16, with the modern
   design. It previously read "beyond the sanctioned relative-dates snippet — no client
   components".)
@@ -558,9 +555,8 @@ this table, never something smuggled into the pipeline docs.
 | `docs/feeds-status.md` | per-feed measurement: does each feed work right now, and how far is it from being automated — advisory, regenerated from probes |
 | `data/feeds.json` | the feeds registry + per-feed contracts and ToS verdicts — binding |
 | `data/feed_health.json` | observed per-feed health — generated by ingest, never hand-edited |
-| `skills/design-language/` | the design system — binding; the modern design since 2026-09-16 (owner). Exact values for the front page, row card and ledgers live in `web/app/(site)/DESIGN.md`, which the skill points to. `assets/tokens.css` is locked to the site's tokens; `assets/style.css` is the gazette stylesheet, kept only for the private `/sources` page |
+| `skills/design-language/` | the design system — binding; the modern design since 2026-09-16 (owner). Exact values for the front page, row card and ledgers live in `web/app/(site)/DESIGN.md`, which the skill points to. `assets/tokens.css` is locked to the site's tokens |
 | `skills/design-language-gazette-archive/` | the retired gazette design skill — read-only history (retired 2026-09-16) |
-| `docs/modern-migration.md` | the checklist the modern migration followed (2026-09-16); history once merged |
 | `docs/architecture-v3.md` | the ingest architecture — the DB, feeds, runners, receipts and feed-health design this spec points at |
 | `docs/sources-catalog.md` | candidate sources and their priority — advisory, not binding |
 | `docs/archive/` | superseded research & drafts — read-only history |

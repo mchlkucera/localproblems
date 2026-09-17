@@ -340,6 +340,20 @@ fit more on the page, more compact. Love the blue you've chosen.")
 - Unchanged: row ids (= signal ids), 100 rows per page, the pager, the honest
   empty state.
 
+## Sources (private, LP_ADMIN only)
+`/sources` is the signals ledger's compact ledger with its own columns
+(`styles/sources.css`, scoped `.lsr`, on top of `signals.css`).
+- Columns: feed (flexible) · Type 88 · Cadence · runner 120 · Last run 60 (right) ·
+  7 days 60 (right) · Status 64 · State 64 · Last success 88 (right). At ≤1000px
+  Type and Cadence go; on a phone the cells name themselves ("Last run 78").
+- Feed name ink blue with ↗ when it has a URL; plain `--l-text-1` when not.
+- The `<details>` caret opens what the feed yields, then Access · Blocker · Last
+  run · Script · Last known good as a 112px label column.
+- Status (intent) and State (observed) stay two columns. No alarm hue exists:
+  a BROKEN state is 600 `--l-text-1`.
+- Blockers, Errors on last run, and unregistered health rows follow as 16/24 600
+  headings over key 160 · text · status 72 lists; the key links to its row.
+
 ## Record page: grid
 The p-0008 design, owner-approved 2026-09-16/17 and live on every record page.
 - `.ls-shell`: main 680px (`--ls-main`) · gap 88px · rail 272px (`--ls-rail`),

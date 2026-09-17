@@ -9,7 +9,7 @@
 import type { Metadata } from "next";
 import type { CSSProperties, ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { extractDate, getProblems, getSignal, localHref, priceReceipts, signalHref, urgencySplit, type PriceUnit, type Problem, type ProblemSource } from "../../../../../lib/data";
+import { extractDate, getProblems, getSignal, localHref, priceReceipts, signalHref, type PriceUnit, type Problem, type ProblemSource } from "../../../../../lib/data";
 import { splitBody, splitLead, capitalize } from "../../../../../lib/sections";
 import {
   ENTRY_BUYER_LABELS, ENTRY_INTEGRATION_LABELS, ENTRY_LEVEL_LABELS,
@@ -24,22 +24,13 @@ import { fmtDate, labSources, typeNote, type LabSource } from "../../../../../li
 import { PeekHover } from "../../../../../lib/site/peek-hover";
 import { CORRECTIONS_MAILTO } from "../../../../../lib/chrome";
 import { CategoryArt } from "../../../../../lib/art/category-art";
-// The figure kit (record-page redesign, 2026-09-16: ProcessSteps, MaturityDot;
-// 2026-09-17: LocalMatrix and CompMap, imported by name). Read through the namespace, by name: a component that is not
-// exported, or that throws, draws nothing (or the fallback below), never a crash.
-import * as Kit from "../../../../../lib/figures";
-import { CompMap, LocalMatrix, PayDots, PayTimeline } from "../../../../../lib/figures";
+// The figure kit, imported by name so every use is visible to grep and tsc.
+import { CompMap, LocalMatrix, MaturityDot, PayDots, PayTimeline, ProcessSteps, type Maturity } from "../../../../../lib/figures";
 import "../../../styles/kit.css";
 import "../../../styles/problem.css";
 
-/** OPEN OWNER QUESTIONS (2026-09-16), each a one-line switch:
-    · the head's category drawing (redesign D10 removed it; the owner kept it,
-      smaller, 2026-09-16)
-    · the process: the existing Today / After figures in their old slots
-      ("figures"), or the spec's How it works section with the step table
-      ("steps") once the owner picks it and WP2's ProcessSteps lands. */
-const SHOW_HEAD_ART = true;   // owner, 2026-09-16: keep it, smaller
-const PROCESS_VIEW: "figures" | "steps" = "steps";   // coordinator, 2026-09-16: the two-lane diagram landed
+/** The head's category drawing: the owner kept it, smaller (2026-09-16). */
+const SHOW_HEAD_ART = true;
 
 /** THE ONE DRILL-DOWN: THE SECTION SHEET (owner, 2026-09-16: "Easy to scan -
     read more into paper like modal with heading that presents"; "Make the
@@ -169,22 +160,6 @@ function outline(md: string): { answer: string; list: string[]; more: boolean; t
   answer = lead;
   if (rest) mixed = true;
   return { answer, list, more: mixed || blocks.length > used || list.length > PAGE_CAP, toMd };
-}
-
-type KitFn = (props: Record<string, unknown>) => ReactNode;
-function kitCall(name: string, props: Record<string, unknown>): ReactNode {
-  const fn = (Kit as unknown as Record<string, unknown>)[name];
-  if (typeof fn !== "function") return null;
-  try { return (fn as KitFn)(props); } catch { return null; }
-}
-const hasKit = (name: string) => typeof (Kit as unknown as Record<string, unknown>)[name] === "function";
-
-/** The maturity mark shared by the strip and the rows. The kit's MaturityDot
-    when it exists; until then a local dot with the same meaning. */
-type Maturity = "established" | "early" | null;
-function Dot({ m }: { m: Maturity }): ReactNode {
-  if (hasKit("MaturityDot")) return kitCall("MaturityDot", { m });
-  return <span className="ls-mdot" data-m={m ?? "none"} aria-hidden="true" />;
 }
 
 /** A section's markdown → its first sentence and everything after it (the
@@ -598,36 +573,30 @@ export default async function LabRecord({ params }: Params) {
   const leadProse = (md: string) => (md ? Prose(md, ctx, { ...opts, lead: true }) : null);
 
   // ---- 1. The problem: page = answer line + the first list (capped); sheet =
-  //      the whole section, and the Today figure in "figures" mode
-  const steps = PROCESS_VIEW === "steps" && hasKit("ProcessSteps");
+  //      the whole section
   const probOut = outline(sections.problem);
   ctx.section = "The opportunity";
   const problemPage = leadProse(probOut.toMd(probOut.list.slice(0, PAGE_CAP)));
   const problemFull = prose("The opportunity", sections.problem);
-  // built while ctx.section is still "The opportunity" so its pills share the page counter
-  const processTodayFig = steps ? null : kitCall("ProcessToday", { process: p.process, sources: p.sources, ctx });
-  const problemMore = probOut.more || !!processTodayFig;
+  const problemMore = probOut.more;
 
   // ---- 2. Suggested solution: page = the sentence and the process figure;
   //      the "after" paragraph (never cited: markers stripped) is sheet-only
   ctx.section = "Suggested solution";
   const solutionNode = inline(p.solution, ctx, opts, "sol");
   const afterLine = p.process?.summary?.after ? stripMarkers(p.process.summary.after).trim() : "";
-  const pageProcess = p.process?.summary ? { ...p.process, summary: { ...p.process.summary, after: "" } } : p.process;
-  const processAfterFig = steps ? null : kitCall("ProcessAfter", { process: pageProcess, sources: p.sources });
-  // "steps" (coordinator, 2026-09-16): the one two-lane ProcessSteps diagram
-  // is this box's scan block on the page, and How it works is not a section
-  // of its own; the today summary and the after paragraph are sheet-only
-  const stepsFig = steps ? kitCall("ProcessSteps", { process: p.process, sources: p.sources, ctx }) : null;
-  const todayMd = steps && p.process?.summary?.today ? p.process.summary.today.trim() : "";
+  // the one two-lane ProcessSteps diagram (owner, 2026-09-16) is this box's
+  // scan block on the page, and How it works is not a section of its own;
+  // the today summary and the after paragraph are sheet-only
+  const stepsFig = ProcessSteps({ process: p.process, sources: p.sources, ctx });
+  const todayMd = p.process?.summary?.today ? p.process.summary.today.trim() : "";
   const solutionMore = !!afterLine || !!todayMd;
-  const processAfterFull = !steps && afterLine ? kitCall("ProcessAfter", { process: p.process, sources: p.sources }) : null;
   const solutionSheet = solutionMore ? (
     <>
       <p className="ls-answer">{inline(p.solution, ctx, opts, "sol-s")}</p>
       {todayMd && <p className="ls-p">{inline(todayMd, ctx, opts, "sol-today")}</p>}
-      {processAfterFull ? <div className="ls-fig">{processAfterFull}</div> : afterLine && <p className="ls-p">{afterLine}</p>}
-      {steps && (() => { const f = kitCall("ProcessSteps", { process: p.process, sources: p.sources, ctx }); return f ? <div className="ls-fig">{f}</div> : null; })()}
+      {afterLine && <p className="ls-p">{afterLine}</p>}
+      {(() => { const f = ProcessSteps({ process: p.process, sources: p.sources, ctx }); return f ? <div className="ls-fig">{f}</div> : null; })()}
     </>
   ) : null;
 
@@ -763,7 +732,7 @@ export default async function LabRecord({ params }: Params) {
   }) => (
     <li key={o.id} className="ls-ent">
       <div className="ls-ent-id">
-        <Dot m={o.m} />
+        <MaturityDot m={o.m} />
         {o.m && <span className="ls-sr">{o.m === "established" ? "Established: " : "Early: "}</span>}
         <a className="ls-ent-name" href={o.href} {...EXT}>{o.name}<ExtArrow /></a>
         {o.meta.length > 0 && <span className="ls-ent-meta">{o.meta.join(" · ")}</span>}
@@ -1166,7 +1135,6 @@ export default async function LabRecord({ params }: Params) {
             {problemMore && (
               <Sheet id="problem" title="The opportunity" rec={rec} about={SECTION_ABOUT.opportunity}>
                 {problemFull}
-                {processTodayFig && <div className="ls-fig">{processTodayFig}</div>}
               </Sheet>
             )}
           </Section>
@@ -1174,11 +1142,10 @@ export default async function LabRecord({ params }: Params) {
           {/* a real section heading, the same h2 as every section (owner,
               2026-09-17: "Suggested solution could use a bigger heading") */}
           <section className="ls-solution" id="solution" aria-labelledby="solution-h">
-            {steps && <span id="how-it-works" className="ls-alias" aria-hidden="true" />}
+            <span id="how-it-works" className="ls-alias" aria-hidden="true" />
             <h2 className="ls-h2" id="solution-h">Suggested solution</h2>
             <p className="ls-solution-v">{solutionNode}</p>
             {stepsFig && <div className="ls-fig">{stepsFig}</div>}
-            {processAfterFig}
             {solutionSheet && <Sheet id="solution" title="Suggested solution" rec={rec} about={SECTION_ABOUT.solution}>{solutionSheet}</Sheet>}
           </section>
 

@@ -218,11 +218,11 @@ draft_law: '<OPTIONAL — ≤ 12 words: the unpassed law and its status [Sn]; ON
 score: 7                      # MUST equal the sum of the five below
 scores:
   proof: 2                    # → "Validated abroad"   (0-3)
-  gap: 1                      # → "Local opportunity"  (0-2) high = field open
-  demand: 1                   # → "Demand signal"      (0-2)
-  money: 0                    # → "Money nearby"       (0-2) public budget near this — NOT who pays
+  gap: 1                      # → "Competition"        (0-2) high = field open
+  demand: 1                   # → "The opportunity"    (0-2)
+  money: 0                    # → "Willing to pay"     (0-2) public budget near this — NOT who pays
   urgency: 3                  # → "Why now"            (0-3)
-entry:                        # DIFFICULTY TO ENTER — required on EVERY record
+entry:                        # → "Execution difficulty" — required on EVERY record
   level: hard                 # easy | moderate | hard | very-hard   (DERIVED, see below)
   buyer: public               # small-firms | large-firms | public
   permission: licence         # none | registration | licence

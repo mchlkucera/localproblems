@@ -95,14 +95,16 @@ MONEY (0-2)     is public budget nearby?
                 records at rung 1 wrote "adjacent" in their own notes; two at
                 rung 2 scored there on spend by a party who is not their
                 buyer. The number never carried the caveat, so the words now
-                do: the row reads "Money nearby" and its reads say "near".
+                do: its reads say "near". (The public row and section are
+                named "Willing to pay"; the section's About panel states that
+                these points still come from public money nearby.)
 
                 THE RUNGS DID NOT MOVE, AND NO SIXTH DIMENSION WAS ADDED. By
                 rule #1 — one field, one meaning — the other question gets its
                 own field, not a re-score: a `type: price` source, the PRICE
                 RECEIPT, records what a named Czech buyer pays for this product
                 or its manual equivalent (payer · amount_czk · unit · basis ·
-                date; data/CONVENTIONS.md). It renders under How big as its own
+                date; data/CONVENTIONS.md). It renders under Willing to pay as its own
                 ledger and cites money only when tagged `dims: [money]`. MONEY
                 alone never claims "who pays and how much".
 

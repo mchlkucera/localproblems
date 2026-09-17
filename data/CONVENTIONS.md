@@ -334,7 +334,7 @@ of crowns; `0` is a real receipt where a free incumbent sets the price), `unit`
 `buyer-interview` · `manual-equivalent`) and `date` — and a price source
 missing any of them FAILS the build (`scripts/check-records.py`, and zod in
 `web/lib/data.ts`); the same fields on any other type fail too, because they
-would render nothing. It renders under **How big** as one mono ledger line,
+would render nothing. It renders under **Willing to pay** as one mono ledger line,
 `<payer> pays <amount> CZK <unit> · <basis> · <date>`, linked to the source; a
 record scoring ≥ 7 with no price receipt prints the house line `No Czech buyer
 has priced this yet.` A price receipt cites **money** only when tagged
@@ -490,7 +490,7 @@ between the two is what let a bug ship: 69 foreign comparables carried
 structured `since` + `traction` while every local player lived as PROSE inside a
 gap-check `note:`. A machine could read the foreign half of the register and not
 the local half, so `gap` could not be audited and `gap: 0` silently meant two
-opposite things. Rendered as a ledger under **Local competition** — in two
+opposite things. Rendered as a ledger under **Competition** — in two
 labelled groups, `direct` first — with the `Existing non-solutions:` paragraph
 underneath it:
 - `name` — the company

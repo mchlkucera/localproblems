@@ -53,10 +53,6 @@
    ladder rung) 4.50, --l-bg-2 #fbfbfc (the solution box) 4.78, white 4.95.
    --l-text-4 (2.5:1) is for non-text only: dots, rules, bars, chevrons. */
 .lab.ls { --l-text-3: #6e7077; }
-/* the figure kit (../parts/figures/kit/kit.css) sets small labels in
-   --l-text-4; on this page they are text, so they take the meta gray */
-.ls .lk-tick, .ls .lk-ls, .ls .lk-none:not(.is-open), .ls .lk-gut-t, .ls .lk-sn { fill: var(--l-text-3); }
-.ls .lk-g-ch, .ls .lk-g-cell.is-empty .lk-g-n, .ls .lk-band-k, .ls .lk-dim, .ls .lk-off { color: var(--l-text-3); }
 /* the gazette's global element rules must not reach in */
 .ls time { font: inherit; }
 .ls h1, .ls h2, .ls h3 { font-family: var(--l-font); }
@@ -394,11 +390,7 @@ a.ls-pk-title:hover { text-decoration: underline !important; text-decoration-col
 }
 .ls-ent + .ls-ent { border-top: 1px solid var(--l-line); }
 .ls-ent-id { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 10px; min-width: 0; line-height: 22px; }
-.ls-ent-id > .lk-dot, .ls-ent-id > .ls-mdot { align-self: center; margin-right: -2px; }
-/* the local fallback of the kit's MaturityDot (same meaning, same size) */
-.ls-mdot { display: inline-block; flex: none; width: 10px; height: 10px; border-radius: 50%; box-sizing: border-box; background: var(--l-text-3); }
-.ls-mdot[data-m="established"] { background: var(--l-text-1); }
-.ls-mdot[data-m="early"] { background: none; border: 1.5px solid var(--l-text-1); }
+.ls-ent-id > .lk-dot { align-self: center; margin-right: -2px; }
 .ls-ent-name { font-weight: 500; color: var(--l-text-1); overflow-wrap: anywhere; }
 .ls-ent-name:hover { text-decoration: underline !important; text-decoration-color: var(--l-line-2) !important; text-underline-offset: 3px; }
 .ls-ent-id .ls-tag { align-self: center; }

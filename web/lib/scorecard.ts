@@ -2,7 +2,7 @@
 // time against ../SCORING.md — drift breaks the build, not the page (SPEC.md §5).
 import { readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { extractDate, type Problem, type ProblemSource, urgencySplit } from "./data";
+import { type Problem, type ProblemSource, urgencySplit } from "./data";
 
 export const DIMS = ["proof", "money", "urgency", "demand", "gap"] as const;
 export type Dim = (typeof DIMS)[number];
@@ -27,7 +27,6 @@ export const VERDICTS: Record<Dim, string[]> = {
 export const BANDS: [number, string][] = [
   [10, "PRIME"], [8, "STRONG"], [5, "FAIR"], [0, "FAINT"],
 ];
-export const bandWord = (score: number) => BANDS.find(([min]) => score >= min)![1];
 
 // ---- the PUBLIC scorecard: plain labels + plain reads (owner, 2026-08-24) ---
 // The record page no longer shows the SCORING.md verdict words (UNPROVEN, FAINT,
@@ -35,7 +34,7 @@ export const bandWord = (score: number) => BANDS.find(([min]) => score >= min)![
 // with a plain, builder-facing label and one plain line, and the whole card is
 // headed "Opportunity {sum}/12". Polarity is consistent: on EVERY row more is
 // better (gap high = the field is open, not "more competition"). The Build line
-// is separate — it is feasibility, not opportunity. VERDICTS/criterion above
+// is separate — it is feasibility, not opportunity. VERDICTS/BANDS above
 // stay in the module: they remain the vocabulary the build asserts against
 // SCORING.md (lib layout.tsx `assertScoringVocabulary`), just not rendered.
 
@@ -195,48 +194,6 @@ export function scoreRead(p: Problem, dim: Dim): string {
   }
 
   return READS[dim][p.scores[dim]];
-}
-
-// Rubric criteria, quoted from SCORING.md — the rundown drawers state the
-// criterion for the achieved level, never invented prose.
-const CRITERIA: Record<Dim, string[]> = {
-  proof: [
-    "no foreign solution on file",
-    "EARLY foreign players only (prototype, pre-customer, seed)",
-    "one ESTABLISHED foreign player",
-    "ESTABLISHED in 2+ markets, at least one CEE-adjacent",
-  ],
-  money: [
-    "no public budget nearby",
-    "a relevant tender or grant exists near this problem",
-    "an OPEN tender or grant ≥ ~5M CZK for this or its neighbour, or recurring annual spend",
-  ],
-  urgency: [], // composed from the deadline + freshness sub-scores below
-  demand: [
-    "pain assumed, not documented",
-    "scattered complaints",
-    "recurring documented complaints, petition, or industry pressure",
-  ],
-  gap: [
-    "an ESTABLISHED local player already sells this (competes: direct, named in locals[])",
-    "local players sell this (competes: direct) but all are EARLY",
-    "checked against Czech-language surfaces and no local player sells this",
-  ],
-};
-
-const DEADLINE_CRITERIA = [
-  "no regulatory trigger",
-  "compliance date >18mo out",
-  "compliance date <18mo (forcing function live)",
-];
-const FRESHNESS_CRITERION = "newest source < 90 days";
-
-export function criterion(p: Problem, dim: Dim): string {
-  if (dim !== "urgency") return CRITERIA[dim][p.scores[dim]];
-  const { deadline, freshness } = urgencySplit(p);
-  const parts = [`${DEADLINE_CRITERIA[deadline]} (${deadline}/2)`];
-  if (freshness) parts.push(`${FRESHNESS_CRITERION} (1/1)`);
-  return parts.join("; ");
 }
 
 // ---- source refs per dimension (docs/archive/05 §4 rules) ----------------

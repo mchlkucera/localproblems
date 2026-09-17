@@ -172,7 +172,7 @@ The reader is deciding what to build this quarter. Write for them:
   `regulation` source. Gated in `check-records.py`; rules in `data/RECORD-TEMPLATE.md`.
 - **Dek**: explain every acronym and Czech term in plain English on first use.
 - **`solution:`**: one sentence stating what would likely solve the problem —
-  REQUIRED on every record, and always shown as "Likely solution", so describe the
+  REQUIRED on every record, and always shown as "Suggested solution", so describe the
   product and never claim the outcome ("will solve", "the only", "guarantees" fail
   the build). Where an incumbent already sells the answer, describe that product
   neutrally; whether the field is open is the gap score's job, not this line's.

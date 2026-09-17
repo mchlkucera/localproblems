@@ -36,7 +36,7 @@
 //                   signal's money_eur (0 = none stated), at a flat 25 CZK/EUR
 //                   for the axis only; the card prints the euro figure
 //   open grant      type subsidy whose signal is a `dotace-` call (the
-//                   dotace-scan prefix; money.tsx's rule) and whose date (the
+//                   dotace-scan prefix) and whose date (the
 //                   closing date) is on or after extractDate(). A `subsidy`
 //                   without such a signal is ambiguous (a paid application, a
 //                   programme page) and is drawn in neither figure.
