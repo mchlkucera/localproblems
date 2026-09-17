@@ -30,6 +30,12 @@
   --lf-fs-title: 18px;
   --lf-lh-title: 26px;
   --lf-favour: #3f8f7f;      /* = problem.css --ls-favour: a filled opportunity point */
+  /* THE SCORE SCALE, copied from problem.css (--ls-score-good/mid/bad, keep
+     the two in step): the score dot in the meter's card, as on the record
+     rail. n = max good, n/max ≥ .5 medium, under .5 (0 included) bad. */
+  --lf-score-good: #3f8f7f;
+  --lf-score-mid: #b58a2e;
+  --lf-score-bad: #c4564f;
 }
 /* CONTRAST (audit B13): every text gray passes WCAG AA, 4.5:1, wherever it
    sits. tokens.css's --l-text-3 (#8a8c93) is 3.4:1 on white, so the modern
@@ -195,7 +201,11 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
   font-size: var(--l-fs-lg); line-height: 1.55; color: var(--l-text-2); text-wrap: pretty;
 }
 /* the figure: its box is the grid cell; the card hangs from its bottom edge */
-.lf-venn-fig { grid-area: venn; align-self: center; position: relative; width: 344px; max-width: 100%; }
+/* z 16: the figure's cards hang over the tabs below the header, and the tabs
+   are z 15 and later in the source, so at the tie they painted over the card.
+   16 is safe while not hovered too: the tabs stick only once the whole figure
+   has scrolled up under the bar (z 20), so the figure never covers stuck tabs. */
+.lf-venn-fig { grid-area: venn; align-self: center; position: relative; z-index: 16; width: 344px; max-width: 100%; }
 .lf-venn { display: block; width: 100%; height: auto; color: var(--l-text-3); overflow: visible; }
 .lf-venn-part { outline: none; cursor: help; }
 /* every fade below changes ONE thing: an opacity, or a gray to another gray.
@@ -334,6 +344,33 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
    card lies over the next entry. */
 .lf-entry { position: relative; z-index: 0; padding: 36px 0 40px; }
 .lf-entry:is(:hover, :focus-within) { z-index: 1; }
+/* AN OPEN CARD ALWAYS WINS (owner, 2026-09-17: "there are some overlap
+   problems on mainpage"). The card lives inside its entry's stacking context,
+   so it is only as high as the entry. Lifting on hover alone was not enough:
+   a card held open by focus (a tap on a touch screen, the keyboard on the
+   Draft law badge) sat in a row at z 1 while the pointer hovered the NEXT row,
+   also z 1 and later in the source, which painted its title and text over the
+   card. So the row whose card is showing rises to 2, over every hovered row.
+   A card near a group's end also hangs over the LATER groups' headers (a
+   one-problem category is shorter than the card), which are sticky strips at
+   z 10 on a phone and open categories' summaries at every width: while a card
+   is open, every header after its group drops to 1. None of them is stuck
+   then — a header sticks only once everything above it has scrolled up under
+   the tabs — so no stuck strip is ever uncovered, and a row scrolling under
+   its OWN strip stays under it. Keep these selectors in step with the card's
+   show rules below. The row under the pointer goes one higher still (3):
+   its card is the one showing (one card at a time, below), and a focused row
+   later in the page must not cover it. */
+.lf-entry:has(.lf-m:is(:hover, :focus-visible)) { z-index: 2; }
+.lf-entry:has(.lf-m:hover) { z-index: 3; }
+.lf-sec:has(.lf-m:is(:hover, :focus-visible)) ~ .lf-sec > .lf-sec-h,
+.lf-fold:has(.lf-m:is(:hover, :focus-visible)) ~ .lf-fold > .lf-fold-h { z-index: 1; }
+@media (hover: none) {
+  .lf-entry:has(.lf-m:focus) { z-index: 2; }
+  .lf-sec:has(.lf-m:focus) ~ .lf-sec > .lf-sec-h,
+  .lf-fold:has(.lf-m:focus) ~ .lf-fold > .lf-fold-h { z-index: 1; }
+}
+
 .lf-entry + .lf-entry::after {
   content: ""; position: absolute; top: 0; right: calc(var(--lf-bleed) * -1); left: calc(var(--lf-row-in) * -1);
   border-top: 1px solid var(--l-line);
@@ -432,9 +469,9 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
    favour teal, the rest the chip gray — the record page's Opportunity card
    pips (problem.css .ls-pips), drawn small enough to sit in a 12px line.
    Nothing on it fades: its colours are the same at rest and on hover */
-.lf-meter, .lf-pips { flex: none; display: inline-flex; gap: 2px; }
-.lf-meter > span, .lf-pips > span { display: block; width: 4px; height: 8px; border-radius: 1px; background: var(--l-bg-4); }
-.lf-meter > span.on, .lf-pips > span.on { background: var(--lf-favour); }
+.lf-meter { flex: none; display: inline-flex; gap: 2px; }
+.lf-meter > span { display: block; width: 4px; height: 8px; border-radius: 1px; background: var(--l-bg-4); }
+.lf-meter > span.on { background: var(--lf-favour); }
 /* on the hover wash (#f6f6f8) the empty chip gray still needs to show */
 .lf-entry:hover .lf-meter > span:not(.on) { background: #e3e3e7; }
 .lf-m:is(:hover, :focus-visible) { color: var(--l-text-1); }
@@ -481,25 +518,42 @@ a.lf-cc-item:hover { background: var(--l-bg-3); }
   font-size: var(--l-fs-md); line-height: 20px; font-weight: 400; color: var(--l-text-2);
   font-variant-numeric: normal; text-wrap: pretty; white-space: normal; cursor: default;
 }
+/* the register's LAST row opens its card upward: hanging down, it would run
+   past the footer and off the end of the page. Front page only, above 720px —
+   a category page can hold one short row, and a folded phone row is too short:
+   upward, its card would slide under the band's sticky strip and the tabs. */
+@media (min-width: 721px) {
+  .lf:not(.lc) .lf-wrap > :last-child .lf-entry:last-child .lf-m-tip { top: auto; bottom: calc(100% + var(--l-2)); }
+}
 .lf-m-tip strong { display: block; font-weight: 600; color: var(--l-text-1); font-variant-numeric: tabular-nums; }
 .lf-m-tip--wide { width: min(380px, calc(100vw - 40px)); padding-bottom: 6px; }
 
-/* the opportunity card: one block per check — label, its bars, its score on
-   one line; this record's own read under it */
+/* the opportunity card: the record rail's rows (problem.css .ls-toc-row.is-scored),
+   one block per check — the label over its judgement word on the left, n/max
+   and the score dot on the right, centred on both lines — and this record's
+   one-line reason under the word. The five summed checks, then Execution
+   difficulty apart under a quiet note, as the record page keeps it out of the total. */
 .lf-opp { display: block; margin-top: var(--l-2); }
 .lf-opp-row {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto 28px; column-gap: 10px; align-items: center;
-  padding: 7px 0 8px; border-top: 1px solid var(--l-line);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto 8px; column-gap: 8px; align-items: center;
+  padding: 6px 0 7px; border-top: 1px solid var(--l-line);
 }
-.lf-opp-l { font-weight: 500; color: var(--l-text-1); }
-.lf-opp-row .lf-pips { gap: 3px; }
-.lf-opp-row .lf-pips > span { width: 12px; height: 4px; border-radius: 2px; }
-.lf-opp-n { font-size: var(--l-fs-sm); color: var(--l-text-3); text-align: right; font-variant-numeric: tabular-nums; }
-.lf-opp-read { grid-column: 1 / -1; font-size: var(--l-fs-sm); line-height: 17px; color: var(--l-text-2); }
-.lf-opp-row.is-zero .lf-opp-l { color: var(--l-text-3); }
+.lf-opp-l { grid-column: 1; grid-row: 1; font-weight: 500; color: var(--l-text-1); }
+.lf-opp-suf { font-weight: 400; color: var(--l-text-3); }
+.lf-opp-w { grid-column: 1; grid-row: 2; font-size: var(--l-fs-sm); line-height: 17px; color: var(--l-text-2); }
+.lf-opp-n { grid-column: 2; grid-row: 1 / span 2; font-size: var(--l-fs-sm); color: var(--l-text-3); text-align: right; font-variant-numeric: tabular-nums; }
+.lf-sdot { grid-column: 3; grid-row: 1 / span 2; display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--lf-score-bad); }
+.lf-sdot.is-good { background: var(--lf-score-good); }
+.lf-sdot.is-mid { background: var(--lf-score-mid); }
+.lf-opp-read { grid-column: 1 / -1; grid-row: 3; font-size: var(--l-fs-sm); line-height: 17px; color: var(--l-text-3); }
+.lf-opp-row.is-zero .lf-opp-l { color: var(--l-text-2); }
+.lf-opp--apart { margin-top: var(--l-2); }
+.lf-opp-note { display: block; padding: 6px 0 4px; border-top: 1px solid var(--l-line-2); font-size: var(--l-fs-sm); line-height: 16px; color: var(--l-text-3); }
+.lf-opp-note + .lf-opp-row { border-top: 0; padding-top: 2px; }
 .lf-m:is(:hover, :focus-visible) .lf-m-tip { display: block; }
-/* one card at a time: the item under the pointer wins over one still focused */
-.lf-meta:has(.lf-m:hover) .lf-m:not(:hover) .lf-m-tip { display: none; }
+/* one card on the page at a time: the item under the pointer wins over any
+   card still open for focus, in this row or another */
+.lf:has(.lf-m:hover) .lf-m:not(:hover) .lf-m-tip { display: none; }
 /* touch screens have no hover: a tap focuses the part or item (tabindex), and
    its card stays until the reader taps elsewhere */
 @media (hover: none) {

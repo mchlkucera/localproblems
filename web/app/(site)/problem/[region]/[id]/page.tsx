@@ -1063,7 +1063,7 @@ export default async function LabRecord({ params }: Params) {
                 <b>{protoSum.n}</b>/{protoSum.max}
                 <span className="ls-tip" id="ls-tip-total" aria-hidden="true" style={{ positionAnchor: "--ls-t-total" } as CSSProperties}>
                   <span className="ls-tip-t">Opportunity</span>
-                  <span className="ls-tip-p">The sum of the six scored sections below. Each point is read from the evidence in that section.</span>
+                  <span className="ls-tip-p">The sum of five scored sections below: The opportunity, Why now, Willing to pay, Validated abroad and Competition. Execution difficulty is shown beside it, never added in. Each point is read from the evidence in that section.</span>
                   <span className="ls-tip-here">This problem: {protoSum.n} of {protoSum.max}.</span>
                 </span>
               </span>

@@ -66,7 +66,10 @@
 .ls-bar {
   position: sticky; top: 0; z-index: 30;   /* above the sticky rail (z 6), which rises under it at the page end */
   display: flex; align-items: center;
-  height: var(--ls-bar); padding: 0 var(--l-5);
+  /* the crumb starts on the content's left edge (owner): the shell's centred
+     grid width is main + gap + rail, and never closer than its own padding */
+  height: var(--ls-bar);
+  padding: 0 max(var(--l-6), calc((100% - var(--ls-main) - 88px - var(--ls-rail)) / 2));
   background: var(--l-bg);
   border-bottom: 1px solid var(--l-line);
   font-size: var(--l-fs-md); color: var(--l-text-3);
@@ -1004,6 +1007,7 @@ a:hover > .ls-ext { opacity: 1; }
 
 /* ---- narrow: one column; the rail follows the brief ------------------- */
 @media (max-width: 1080px) {
+  .ls-bar { padding: 0 max(var(--l-5), calc((100% - var(--ls-main)) / 2)); }
   .ls-shell {
     grid-template-columns: minmax(0, var(--ls-main));
     grid-template-areas: "head" "main" "rail";

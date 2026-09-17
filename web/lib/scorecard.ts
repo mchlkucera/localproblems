@@ -39,21 +39,23 @@ export const bandWord = (score: number) => BANDS.find(([min]) => score >= min)![
 // stay in the module: they remain the vocabulary the build asserts against
 // SCORING.md (lib layout.tsx `assertScoringVocabulary`), just not rendered.
 
-/** Dimension order and plain label on the public card — proof first, urgency
-    ("why now") last, exactly as the owner's exemplar reads. */
+/** Dimension order and plain label on the public card: the record page's
+    section names and order (2026-09-17, lib/site/score-proto.ts) — The
+    opportunity, Why now, Willing to pay, Validated abroad, Competition. The
+    three retired labels (the old demand, money and gap names) must not come
+    back on any public page. Internal dimension keys are unchanged.
+    The front page's card reads protoScores() directly; this list names the
+    same five for anything that still iterates dimensions. */
 export const SCORE_ROWS: { dim: Dim; label: string }[] = [
-  { dim: "proof", label: "Validated abroad" },
-  { dim: "gap", label: "Local opportunity" },
-  { dim: "demand", label: "Demand signal" },
-  // "Money nearby", not "Money available" (owner ruling, 2026-09-03): the
-  // MONEY ladder measures proximity to a public budget — a tender, a grant, a
-  // recurring line near the problem — and never asked whose pocket it leaves
-  // or whether it buys this. What a Czech buyer actually pays is the PRICE
-  // RECEIPT ledger under How big, which this row links to. Same rungs, same
-  // numbers; only the words stopped over-claiming. Fits the 8.5rem label
-  // column, which clears VALIDATED ABROAD at sixteen characters.
-  { dim: "money", label: "Money nearby" },
+  { dim: "demand", label: "The opportunity" },
   { dim: "urgency", label: "Why now" },
+  // The MONEY ladder still measures proximity to a public budget (a tender, a
+  // grant, a recurring line near the problem); the price receipts are what a
+  // buyer actually pays. The label follows the record page's section name.
+  { dim: "money", label: "Willing to pay" },
+  { dim: "proof", label: "Validated abroad" },
+  // more points = less competition
+  { dim: "gap", label: "Competition" },
 ];
 
 /** One plain line per dimension level. Indexed by the raw sub-score; higher is
@@ -136,7 +138,7 @@ export function scoreRead(p: Problem, dim: Dim): string {
     if (p.scores.proof === 1) return `${companies(n)} abroad, all still early`;
     // proof 0 with comps under it: the ledger wins, and check-records.py has
     // already made this an ERROR on the new ladder.
-    return `${n} comparable${plural(n)} on file — see Proven abroad`;
+    return `${n} comparable${plural(n)} on file — see Validated abroad`;
   }
 
   if (dim === "gap") {
@@ -174,7 +176,7 @@ export function scoreRead(p: Problem, dim: Dim): string {
       // No parenthetical: a third of the corpus names its incumbent with one
       // already ("STORMWARE (POHODA)"), and nested parens read as a typo.
       return rest === 0
-        ? `${oldest.name} has sold this${since} — see Local competition`
+        ? `${oldest.name} has sold this${since} — see Competition`
         : `${oldest.name} has sold this${since}, and ${rest} more sell it locally`;
     }
     if (direct.length > 0)
@@ -183,7 +185,7 @@ export function scoreRead(p: Problem, dim: Dim): string {
         // gap 0 without an established seller, or gap 2 with any seller at all:
         // both are contradictions check-records.py fails the build on. For as
         // long as one can exist the read reports the LEDGER, never the score.
-        : `${sell(direct.length)} — see Local competition`;
+        : `${sell(direct.length)} — see Competition`;
     // NOBODY ON FILE SELLS THIS. At rung 2 that is the score's own claim; at 0
     // or 1 it is the ledger contradicting the score. Either way the adjacent
     // players get named rather than denied — "the field is open" printed above

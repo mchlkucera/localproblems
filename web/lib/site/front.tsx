@@ -25,14 +25,15 @@
 // Every word is derived, never written for this page: title = the record
 // title, the solution = `p.solution`, the brief and "Good for" = the record's
 // own optional `brief` / `good_for`, the meter and its card = `p.scores` read
-// through lib/scorecard (the record page's own words), the bands = the
+// through lib/site/score-proto (the record page's own names, order, words and
+// reasons), the bands = the
 // SCORING.md thresholds as numbers.
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { registerRows, type Problem } from "../data";
 import { categoryLabel } from "../format";
-import { capitalize } from "../sections";
-import { BANDS, MAX, SCORE_ROWS, scoreRead } from "../scorecard";
+import { BANDS } from "../scorecard";
+import { protoScores, protoTotal, type ProtoScore } from "./score-proto";
 import { CORRECTIONS_MAILTO } from "../chrome";
 import { CategoryArt } from "../art/category-art";
 import { TopBar } from "./bar";
@@ -319,29 +320,49 @@ function Pips({ n, max, className }: { n: number; max: number; className: string
   );
 }
 
-/** THIS record's five checks (owner, 2026-09-16: "on hover show specific
-    information, not generic"): each check's plain label, its own bars, its
-    score and the one-line read the record page prints for it — ordered as the
-    record page orders them, most filled bars first, then the longer bar. */
+/** A score's tone, the record page's one rule (page.tsx scoreTone,
+    owner-approved 2026-09-17): full marks good, at least half medium, under
+    half (0 included) bad. */
+const scoreTone = (n: number, max: number) =>
+  max > 0 && n >= max ? "good" : max > 0 && n / max >= 0.5 ? "mid" : "bad";
+
+/** One check: the record rail's row — label over its judgement word on the
+    left, n/max and the score dot on the right — with this record's one-line
+    reason under the word. */
+function OppRow({ r }: { r: ProtoScore }) {
+  return (
+    <span className={r.n === 0 ? "lf-opp-row is-zero" : "lf-opp-row"}>
+      <span className="lf-opp-l">{r.label}{r.labelSuffix && <span className="lf-opp-suf"> · {r.labelSuffix}</span>}</span>
+      <span className="lf-opp-n">{r.n}/{r.max}</span>
+      <span className={`lf-sdot is-${scoreTone(r.n, r.max)}`} aria-hidden="true" />
+      <span className="lf-opp-w">{r.word}</span>
+      <span className="lf-opp-read">{r.reason}</span>
+    </span>
+  );
+}
+
+/** THIS record's checks (owner, 2026-09-16: "on hover show specific
+    information, not generic"), as the record page scores them (owner,
+    2026-09-17: "make sure the scoring changes are written to mainpage as
+    well"): the five summed checks in the record page's order, then Execution
+    difficulty apart, shown beside the total and never added in. Names, words
+    and reasons all come from lib/site/score-proto — nothing is re-derived. */
 function OpportunityCard({ p }: { p: Problem }) {
-  const rows = SCORE_ROWS.map((r, i) => ({ ...r, i }))
-    .sort((a, b) => p.scores[b.dim] - p.scores[a.dim] || MAX[b.dim] - MAX[a.dim] || a.i - b.i);
+  const rows = protoScores(p);
+  const total = protoTotal(rows);
+  const apart = rows.filter((r) => !r.inTotal);
   return (
     <>
-      <strong>Opportunity {p.score} of 12</strong>
+      <strong>Opportunity {total.n} of {total.max}</strong>
       <span className="lf-opp">
-        {rows.map(({ dim, label }) => {
-          const n = p.scores[dim];
-          return (
-            <span key={dim} className={n === 0 ? "lf-opp-row is-zero" : "lf-opp-row"}>
-              <span className="lf-opp-l">{label}</span>
-              <Pips n={n} max={MAX[dim]} className="lf-pips" />
-              <span className="lf-opp-n">{n}/{MAX[dim]}</span>
-              <span className="lf-opp-read">{capitalize(scoreRead(p, dim))}</span>
-            </span>
-          );
-        })}
+        {rows.filter((r) => r.inTotal).map((r) => <OppRow key={r.key} r={r} />)}
       </span>
+      {apart.length > 0 && (
+        <span className="lf-opp lf-opp--apart">
+          <span className="lf-opp-note">Not added to the total</span>
+          {apart.map((r) => <OppRow key={r.key} r={r} />)}
+        </span>
+      )}
     </>
   );
 }
