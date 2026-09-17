@@ -1,14 +1,15 @@
-// Build gate: each locked stylesheet must be a verbatim copy of its
+// Build gate: the locked stylesheet must be a verbatim copy of its
 // design-language skill asset. The skill is the single design source (SPEC §5).
 //
-//   1. MODERN TOKENS (the public site): web/app/(site)/styles/tokens.css ==
-//      skills/design-language/assets/tokens.css. Only the tokens are locked —
-//      the gray ramp, type scale, grid, radius and shadow every page builds on.
-//      The per-page sheets (front, problem, signals, …) are not: their rules
-//      live in the skill and web/app/(site)/DESIGN.md.
-//   2. GAZETTE (the private /sources admin page only): web/shared.css ==
-//      skills/design-language/assets/style.css, for as long as a route under
-//      app/(gazette) loads it. Delete this clause with the last gazette route.
+//   MODERN TOKENS: web/app/(site)/styles/tokens.css ==
+//   skills/design-language/assets/tokens.css. Only the tokens are locked —
+//   the gray ramp, type scale, grid, radius and shadow every page builds on.
+//   The per-page sheets (front, problem, signals, sources, …) are not: their
+//   rules live in the skill and web/app/(site)/DESIGN.md.
+//
+// The gazette clause (web/shared.css == assets/style.css) went with the last
+// gazette page, /sources, on 2026-09-17. LOCKS stays a list so a second lock is
+// one line.
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -19,7 +20,6 @@ const repo = (p) => resolve(import.meta.dirname, "../..", p);
 
 const LOCKS = [
   { app: web("app/(site)/styles/tokens.css"), skill: repo("skills/design-language/assets/tokens.css") },
-  { app: web("shared.css"), skill: repo("skills/design-language/assets/style.css") },
 ];
 
 let failed = false;

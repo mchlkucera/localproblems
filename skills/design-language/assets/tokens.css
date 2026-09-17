@@ -3,8 +3,8 @@
    a page. This file is a verbatim copy of skills/design-language/assets/tokens.css
    (the check-css gate asserts it): edit the skill asset and copy it here. */
 
-/* the page ground. Scoped to pages that carry `.lab`, so the private gazette
-   /sources page, which shares the root layout, keeps its own body rules. */
+/* the page ground. Scoped to pages that carry `.lab`, which every page does,
+   /sources and the 404 included. */
 html:has(.lab) { background: var(--l-bg, #fff); }
 body:has(.lab) {
   margin: 0; padding: 0;

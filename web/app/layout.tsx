@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { assertScoringVocabulary } from "../lib/scorecard";
 
-// THE ROOT LAYOUT CARRIES NO DESIGN, only the font. Each route group brings its
-// own stylesheet (docs/modern-migration.md step 3, audit B9): `(site)/layout.tsx`
-// loads the modern tokens and `(gazette)/layout.tsx` loads web/shared.css for
-// the private /sources page. A stylesheet imported here would reach every page,
-// which is how the modern pages came to load the gazette sheet and both font
-// stacks.
+// THE ROOT LAYOUT CARRIES NO DESIGN, only the font. `(site)/layout.tsx` loads
+// the modern tokens and each page imports its own sheet (audit B9). A
+// stylesheet imported here would reach every page, which is how the modern
+// pages once came to load the gazette sheet and both font stacks. The gazette
+// route group is gone since 2026-09-17: /sources is a modern page.
 //
 // INTER IS SELF-HOSTED (next/font): the files are downloaded at BUILD time and
 // served from this site, so no reader's browser ever requests Google Fonts. It

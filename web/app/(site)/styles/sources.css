@@ -1,0 +1,78 @@
+/* /sources — the private feeds page. Builds on ./front.css (the bar, the page
+   wrap, the footer) and ./signals.css (the compact ledger: header, column heads,
+   rows, the <details> caret); everything new is scoped under .lsr.
+
+   The ledger's grid with this page's columns: feed · type · cadence and runner ·
+   last run · 7 days · status (intent) · state (observed) · last success. No hue
+   but the ledger's ink blue: the design has no alarm colour, so a BROKEN state
+   is set in weight, not red. */
+
+.lg.lsr {
+  --lg-cols: minmax(0, 1fr) 88px 120px 60px 60px 64px 64px 88px;
+}
+
+.lsr .lsr-meta {
+  margin-top: var(--l-3);
+  font-size: var(--l-fs-sm); line-height: 18px; color: var(--l-text-3); font-variant-numeric: tabular-nums;
+}
+
+/* a feed with no URL: the same weight, in text gray, since it opens nothing */
+.lsr .lsr-plain { display: inline-flex; max-width: 100%; color: var(--l-text-1); }
+
+.lsr-c-num { text-align: right; }
+.lsr .lsr-broken { color: var(--l-text-1); font-weight: 600; }
+
+/* the column names ride in the cells for assistive tech on the desk, and show
+   on a phone, where there are no column heads */
+.lsr-k { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---- inside a row's disclosure ------------------------------------------------- */
+.lsr .lsr-dl { margin: 6px 0 0; display: grid; gap: 2px; }
+.lsr .lsr-dl > div { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: var(--l-4); }
+.lsr .lsr-dl dt { font-size: var(--l-fs-sm); line-height: 20px; font-weight: 500; color: var(--l-text-3); }
+.lsr .lsr-dl dd {
+  margin: 0; font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-2);
+  text-wrap: pretty; overflow-wrap: anywhere;
+}
+.lsr .lsr-dl code { font: inherit; }
+.lsr .lsr-quiet { color: var(--l-text-3); }
+
+.lsr .lsr-note {
+  margin-top: var(--l-3); padding-top: var(--l-2); border-top: 1px solid var(--l-line-2);
+  font-size: var(--l-fs-sm); line-height: 18px; color: var(--l-text-3);
+}
+
+/* ---- blockers, errors, unregistered health rows ------------------------------- */
+.lsr-sec { margin-top: var(--l-7); }
+.lsr .lsr-sec h2 {
+  scroll-margin-top: calc(var(--lf-bar-h) + 16px);
+  padding-bottom: 6px; border-bottom: 1px solid var(--l-line-2);
+  font-size: var(--l-fs-lg); line-height: 24px; font-weight: 600; letter-spacing: -0.01em; color: var(--l-text-1);
+}
+.lsr .lsr-none { padding: 10px 0; font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-2); }
+.lsr .lsr-facts { list-style: none; padding: 0; }
+.lsr-facts li {
+  display: grid; grid-template-columns: 160px minmax(0, 1fr) 72px; column-gap: var(--l-4); align-items: baseline;
+  padding: 7px 0;
+}
+.lsr-facts li + li { border-top: 1px solid var(--l-line); }
+.lsr-fk { font-size: var(--l-fs-md); line-height: 20px; font-weight: 500; color: var(--l-text-1); overflow-wrap: anywhere; }
+.lsr-fk a:hover { text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.lsr-ft { font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-2); text-wrap: pretty; overflow-wrap: anywhere; }
+.lsr-fs { font-size: var(--l-fs-sm); line-height: 20px; color: var(--l-text-3); text-align: right; }
+
+/* ---- tablet: type and cadence go; the row's disclosure still carries both ----- */
+@media (max-width: 1000px) {
+  .lg.lsr { --lg-cols: minmax(0, 1fr) 56px 56px 64px 64px 84px; }
+  .lsr .lsr-c-type, .lsr .lsr-c-cad { display: none; }
+}
+
+/* ---- phone: signals.css makes each row two lines; here the cells name themselves */
+@media (max-width: 720px) {
+  .lsr .lsr-c-type, .lsr .lsr-c-cad { display: none; }
+  .lsr .lsr-c-num { text-align: left; }
+  .lsr-k { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+  .lsr .lsr-dl > div { grid-template-columns: 1fr; }
+  .lsr-facts li { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; }
+  .lsr-ft { grid-column: 1 / -1; grid-row: 2; }
+}

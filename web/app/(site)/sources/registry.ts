@@ -199,11 +199,10 @@ export function sourcesView(): SourcesView {
 
 /** The house relative-date ladder, computed SERVER-SIDE against `anchor`.
  *
- *  Deliberately NOT the `time.rel` client script (sanctioned exception 2): that
- *  one measures against the browser's wall clock, which is exactly what §7.5
- *  forbids here. Rendering the relative text at build time and omitting the
- *  `rel` class keeps the script's hands off these dates and keeps the page
- *  reproducible from a commit. The ISO date stays in `datetime` + `title`. */
+ *  Never a client script measuring against the browser's wall clock, which is
+ *  exactly what §7.5 forbids here. Rendering the relative text at build time
+ *  keeps the page reproducible from a commit. The ISO date stays in `datetime`,
+ *  the full date in `title`. */
 export function since(date: string, anchor: string): string {
   const days = Math.round((Date.parse(anchor) - Date.parse(date)) / 86_400_000);
   if (days <= 0) return "today";

@@ -34,8 +34,8 @@ it, `check-site html`. Then `npm --prefix web run parity` proves the SQLite and
 JSONL loaders produce byte-identical HTML.
 
 `check-css` locks the modern tokens (`web/app/(site)/styles/tokens.css`) to the skill
-asset, and the gazette `web/shared.css` to `skills/design-language/assets/style.css`
-for as long as the private `/sources` page (the last gazette route) loads it.
+asset. The gazette stylesheet and its lock are gone: every page, the private
+`/sources` included, is in the modern design.
 `check-site` fails the build on: `searchParams` / `cookies(` / `headers(` in any page,
 `"use client"` outside its allow-list, any `href="/lab/`, a public page for a rejected
 record (or a missing page for a live one), a record page without `id="s1…sN"`, and a
