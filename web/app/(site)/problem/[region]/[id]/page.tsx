@@ -287,21 +287,43 @@ const DAY = 86_400_000;
 /** `alias`: an older anchor for the same section, so deep links written
     against the live record page still land (audit B5: `#how-big` → Who pays).
     No count beside the title (redesign §3.2). */
-function Section({ id, alias, title, chip, chipLevel, children }: { id: string; alias?: string | string[]; title: string; chip?: string; chipLevel?: string; children: ReactNode }) {
+function Section({ id, alias, title, score, children }: { id: string; alias?: string | string[]; title: string; score?: ProtoScore; children: ReactNode }) {
   const aliases = alias === undefined ? [] : Array.isArray(alias) ? alias : [alias];
   return (
     <section className="ls-sec" id={id} aria-labelledby={`${id}-h`}>
       {aliases.map((a) => <span key={a} id={a} className="ls-alias" aria-hidden="true" />)}
-      <h2 className="ls-h2" id={`${id}-h`}>{title}</h2>
-      {/* PROTOTYPE score line (lib/site/score-proto.ts): under the heading,
-          readable, gray (owner, 2026-09-17) */}
-      {/* the difficulty line keeps its level hue: a dot and the word in its ink (owner) */}
-      {chip && (chipLevel
-        ? <p className="ls-h2-chip ls-level" data-level={chipLevel}>{chip}</p>
-        : <p className="ls-h2-chip">{chip}</p>)}
+      {/* PROTOTYPE score badge (lib/site/score-proto.ts): beside the heading
+          (owner, 2026-09-17: "try putting the badges next to the heading"),
+          a quiet pill: a faint tint and the dot in the score's tone, the text
+          gray. A sibling of the h2, so it stays out of the heading's name;
+          it wraps under the title where the line is too narrow. */}
+      {score ? (
+        <div className="ls-h2-row">
+          <h2 className="ls-h2" id={`${id}-h`}>{title}</h2>
+          <p className={`ls-h2-chip is-${scoreTone(score.n, score.max)}`}>
+            <ScoreDot n={score.n} max={score.max} />
+            <span>{score.n}/{score.max} · {score.word}</span>
+          </p>
+        </div>
+      ) : (
+        <h2 className="ls-h2" id={`${id}-h`}>{title}</h2>
+      )}
       {children}
     </section>
   );
+}
+
+/** A score's tone, one rule everywhere (owner-approved 2026-09-17): full
+    marks good, at least half medium, under half (0 included) bad. */
+function scoreTone(n: number, max: number): "good" | "mid" | "bad" {
+  if (max > 0 && n >= max) return "good";
+  return max > 0 && n / max >= 0.5 ? "mid" : "bad";
+}
+
+/** A solid dot in the score's tone (owner, 2026-09-17: "lets use dots
+    instead of the circles"). Decorative: n/max text always sits beside it. */
+function ScoreDot({ n, max }: { n: number; max: number }) {
+  return <span className={`ls-sdot is-${scoreTone(n, max)}`} aria-hidden="true" />;
 }
 
 /** Each opportunity check as a builder needs it (owner, round 3: "expand on
@@ -945,8 +967,6 @@ export default async function LabRecord({ params }: Params) {
     { id: "execution-difficulty", title: "Execution difficulty", score: protoBy["execution-difficulty"], info: EXEC_INFO },
     ...(movesPage ? [{ id: "first-moves", title: "Suggested first moves" }] : []),
   ];
-  const chip = (k: ProtoKey) => `${protoBy[k].n}/${protoBy[k].max} · ${protoBy[k].word}`;
-
   const typeGroups = mix.map(([t]) => ({ t, list: sources.filter((s) => s.typeLabel === t) }));
 
   return (
@@ -1016,6 +1036,7 @@ export default async function LabRecord({ params }: Params) {
                     <span className="ls-toc-mini-l">{r.label}{r.labelSuffix ? ` · ${r.labelSuffix}` : ""}</span>
                     <span className="ls-toc-mini-w">{r.word}</span>
                     <span className="ls-dim-n">{r.n}/{r.max}</span>
+                    <ScoreDot n={r.n} max={r.max} />
                   </a>
                 </li>
               ))}
@@ -1029,8 +1050,8 @@ export default async function LabRecord({ params }: Params) {
             (problem.css ≤1080px) reading-flow puts it back after main. */}
         <aside className="ls-rail" aria-label="Opportunity and evidence">
           {/* THE TABLE OF CONTENTS WITH SCORES (owner, 2026-09-17): every
-              section in page order; a scored row carries its bars, n/max and
-              its judgement word. A stepper runs down its left edge: a hairline
+              section in page order; a scored row carries its judgement word
+              and a dot in its tone, with n/max shown on hover or focus. A stepper runs down its left edge: a hairline
               with one dot per section. The section in view fills its dot and
               darkens its label, sections already read keep a gray dot, all
               from CSS scroll-driven animations only (problem.css "toc");
@@ -1071,13 +1092,10 @@ export default async function LabRecord({ params }: Params) {
                     >
                       <span className="ls-toc-dot" aria-hidden="true" />
                       <span className="ls-dim-l">{title}{score.labelSuffix && <span className="ls-toc-suf"> · {score.labelSuffix}</span>}</span>
-                      <span className="ls-pips" aria-hidden="true">
-                        {Array.from({ length: score.max }, (_, i) => (
-                          <span key={i} className={i < score.n ? "on" : undefined} />
-                        ))}
-                      </span>
-                      <span className="ls-dim-n">{score.n}/{score.max}</span>
                       <span className="ls-toc-word">{score.word}</span>
+                      {/* n/max stays in the DOM for screen readers; it shows on hover or focus */}
+                      <span className="ls-dim-n">{score.n}/{score.max}</span>
+                      <ScoreDot n={score.n} max={score.max} />
                       {info && (
                         <span className="ls-tip" id={tid} aria-hidden="true" style={{ positionAnchor: `--ls-t-${sid}` } as CSSProperties}>
                           <span className="ls-tip-t">{title}</span>
@@ -1143,7 +1161,7 @@ export default async function LabRecord({ params }: Params) {
               block (never more than PAGE_CAP rows) → "Read more". The sheet
               beside each is the whole section. Order and names: owner,
               2026-09-17; every older anchor stays as an alias. */}
-          <Section id="opportunity" alias="problem" title="The opportunity" chip={chip("opportunity")}>
+          <Section id="opportunity" alias="problem" title="The opportunity" score={protoBy.opportunity}>
             {problemPage}
             {problemMore && (
               <Sheet id="problem" title="The opportunity" rec={rec} about={SECTION_ABOUT.opportunity}>
@@ -1164,12 +1182,12 @@ export default async function LabRecord({ params }: Params) {
             {solutionSheet && <Sheet id="solution" title="Suggested solution" rec={rec} about={SECTION_ABOUT.solution}>{solutionSheet}</Sheet>}
           </section>
 
-          <Section id="why-now" title="Why now" chip={chip("why-now")}>
+          <Section id="why-now" title="Why now" score={protoBy["why-now"]}>
             {windowPage ?? <p className="ls-absent">No dated rule on file.</p>}
             {windowNode && <Sheet id="why-now" title="Why now" rec={rec} about={SECTION_ABOUT["why-now"]}>{windowNode}</Sheet>}
           </Section>
 
-          <Section id="willing-to-pay" alias={["who-pays", "how-big"]} title="Willing to pay" chip={chip("willing-to-pay")}>
+          <Section id="willing-to-pay" alias={["who-pays", "how-big"]} title="Willing to pay" score={protoBy["willing-to-pay"]}>
             {whoPaysPage}
             {payDots}
             {!payMore && <p className="ls-absent">No price paid by a Czech buyer is on file yet.</p>}
@@ -1204,7 +1222,7 @@ export default async function LabRecord({ params }: Params) {
           </Section>
 
           {/* ONE home per company: abroad here, Czechia under Competition */}
-          <Section id="validated-abroad" alias={["proven-abroad", "who-sells-this"]} title="Validated abroad" chip={chip("validated-abroad")}>
+          <Section id="validated-abroad" alias={["proven-abroad", "who-sells-this"]} title="Validated abroad" score={protoBy["validated-abroad"]}>
             {abroadAnswer && <p className="ls-answer">{abroadAnswer}</p>}
             {mapFig && <div className="ls-fig">{mapFig}</div>}
             {!abroadMore && <p className="ls-absent">No verified foreign comparable on file.</p>}
@@ -1220,7 +1238,7 @@ export default async function LabRecord({ params }: Params) {
             )}
           </Section>
 
-          <Section id="competition" alias="local-competition" title="Competition" chip={chip("competition")}>
+          <Section id="competition" alias="local-competition" title="Competition" score={protoBy.competition}>
             {compAnswer && <p className="ls-answer">{compAnswer}</p>}
             {matrixFig && <div className="ls-fig">{matrixFig}</div>}
             {!compMore && <p className="ls-absent">No Czech seller on file.</p>}
@@ -1235,7 +1253,7 @@ export default async function LabRecord({ params }: Params) {
           </Section>
 
           {/* The level, then what makes entry easier and what harder. */}
-          <Section id="execution-difficulty" alias="difficulty-to-enter" title="Execution difficulty" chip={chip("execution-difficulty")} chipLevel={entry.level}>
+          <Section id="execution-difficulty" alias="difficulty-to-enter" title="Execution difficulty" score={protoBy["execution-difficulty"]}>
             {/* the level word is already in the score line under the heading */}
             {entryPage}
             <Sheet id="difficulty-to-enter" title="Execution difficulty" rec={rec} about={SECTION_ABOUT["execution-difficulty"]}>{entrySheet}</Sheet>

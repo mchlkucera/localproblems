@@ -464,40 +464,62 @@
   .lk-strip-dots:empty + .lk-strip-read { grid-column: 1 / -1; }
 }
 
-/* ---- pay ---- (lib/figures/pay.tsx: PayDots on the page, PayTimeline in
-   the Willing to pay sheet). Gray dots only: a dot is one purchase or price,
-   never a verdict. Each dot is a <button data-peek> opening an `ls-peek` card;
-   hover and open change one gray to another, instantly, never via transparent. */
+/* ---- pay ---- (lib/figures/pay.tsx: PayDots, a column chart, on the page;
+   PayTimeline in the Willing to pay sheet). Marks are TEAL (owner, 2026-09-17:
+   "use some other color for the graph not gray"): money already being paid is
+   in the builder's favour. Gridlines and labels stay gray. Each mark is a
+   <button data-peek> opening an `ls-peek` card; hover, focus and open darken
+   it to the teal ink, instantly, never via transparent. */
 .lk-pay { display: flex; flex-direction: column; min-width: 0; margin: 40px 0 36px; }   /* air above and below (owner: "cramped") */
-.lk-pay-lane { display: grid; grid-template-columns: 128px minmax(0, 1fr); column-gap: 24px; align-items: center; }
-.lk-pay-lane + .lk-pay-lane:not(.lk-pay-axis) { border-top: 1px solid var(--l-line); }
-.lk-pay-ll { margin: 0; font-size: 13px; line-height: 18px; color: var(--l-text-2); text-wrap: balance; }
-.lk-pay-track { position: relative; height: calc(var(--rows, 1) * 24px + 40px); }
-.lk-pay-grid { position: absolute; top: 0; bottom: 0; left: calc(var(--x) * 100%); border-left: 1px solid var(--l-line); }
-/* rows of a crowded lane fan out around the lane's middle */
-.lk-pay-at { position: absolute; left: calc(var(--x) * 100%); top: calc(50% + (var(--row, 0) - (var(--rows, 1) - 1) / 2) * 24px); margin: -9px 0 0 -9px; display: flex; }
+/* PayDots: gutter for the CZK ticks, then one group per unit behind a gap */
+.lk-payc { --H: 168px; --gut: 52px; position: relative; }
+.lk-payc-grid { position: absolute; left: 0; right: 0; top: 0; height: var(--H); pointer-events: none; }
+.lk-payc-line { position: absolute; left: 0; right: 0; bottom: calc(var(--f) * 100%); border-top: 1px solid var(--l-line); }
+.lk-payc-tick { position: absolute; left: 0; bottom: 3px; font-size: 11px; line-height: 13px; color: var(--l-text-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lk-payc-groups { display: flex; align-items: flex-start; gap: 28px; margin-left: var(--gut); }
+.lk-payc-group { flex: var(--k) 1 0; min-width: 64px; display: grid; grid-template-columns: repeat(var(--k), minmax(0, 1fr)); }
+.lk-payc-slot { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.lk-payc-col {
+  position: relative; display: block; width: 100%; height: var(--H);
+  margin: 0; padding: 0; border: 0; border-bottom: 1px solid var(--l-line-2); border-radius: 0;
+  background: none; cursor: pointer;
+}
+.lk-payc-col::before {
+  content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: clamp(6px, 56%, 22px); height: max(3px, calc(var(--f) * 100%));
+  border-radius: 2px 2px 0 0; background: var(--lk-teal-mark);
+}
+/* a recurring price (per month, per case …) is its own group: the same teal,
+   lighter, so it never reads as a column to add to the purchases */
+.lk-payc-group.is-unit .lk-payc-col::before { background: color-mix(in srgb, var(--lk-teal-mark) 60%, var(--l-bg)); }
+.lk-payc .lk-payc-col:hover::before, .lk-payc .lk-payc-col:focus-visible::before,
+.lk-payc .lk-payc-col:has(+ :popover-open)::before { background: var(--lk-teal); }
+.lk-payc-col:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 2px; }
+.lk-payc-who {
+  margin-top: 6px; padding: 0 2px; max-width: 100%;
+  font-size: 11px; line-height: 13px; color: var(--l-text-3); text-align: center;
+  text-wrap: balance; hyphens: auto;
+}
+.lk-payc-gl {
+  grid-column: 1 / -1; margin: 8px 0 0; padding-top: 6px; border-top: 1px solid var(--l-line);
+  font-size: 11px; line-height: 14px; color: var(--l-text-3); text-wrap: balance;
+}
+.lk-payc.is-dense .lk-payc-who { display: none; }
+/* the card: the figure first, then who and what, then the source link */
+.lk-pay-amt { display: block; font-size: 18px; line-height: 24px; font-weight: 600; color: var(--l-text-1); font-variant-numeric: tabular-nums; }
+.lk-pay-unit { font-size: 13px; font-weight: 400; color: var(--l-text-3); }
+
+/* PayTimeline: one column per month, a dot per contract or tender */
 .lk-pay-dot {
   position: relative; display: block; flex: none; width: 18px; height: 18px;
   margin: 0; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer;
 }
 .lk-pay-dot::before {
   content: ""; position: absolute; inset: 4px; border-radius: 50%;
-  background: var(--l-text-3); box-shadow: 0 0 0 1.5px var(--l-bg);
+  background: var(--lk-teal-mark); box-shadow: 0 0 0 1.5px var(--l-bg);
 }
-.lk-pay-dot:hover::before, .lk-pay-dot:has(+ :popover-open)::before { background: var(--l-text-1); }
+.lk-pay-dot:hover::before, .lk-pay-dot:focus-visible::before, .lk-pay-dot:has(+ :popover-open)::before { background: var(--lk-teal); }
 .lk-pay-dot:focus-visible { outline: 2px solid var(--l-text-2); outline-offset: 0; }
-.lk-pay-axis { align-items: start; padding-top: 10px; border-top: 1px solid var(--l-line-2); }
-.lk-pay-axis > span { font-size: 11px; line-height: 14px; color: var(--l-text-3); }
-.lk-pay-ticks { position: relative; height: 14px; }
-.lk-pay-tick {
-  position: absolute; left: calc(var(--x) * 100%); transform: translateX(-50%);
-  font-size: 11px; line-height: 14px; color: var(--l-text-3); font-variant-numeric: tabular-nums; white-space: nowrap;
-}
-/* the card: the figure first, then who and what, then the source link */
-.lk-pay-amt { display: block; font-size: 18px; line-height: 24px; font-weight: 600; color: var(--l-text-1); font-variant-numeric: tabular-nums; }
-.lk-pay-unit { font-size: 13px; font-weight: 400; color: var(--l-text-3); }
-
-/* PayTimeline: one column per month, a dot per contract or tender */
 .lk-payt-cols { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); grid-auto-columns: auto; grid-auto-flow: column; column-gap: 4px; align-items: start; }
 .lk-payt-col { display: flex; flex-direction: column; align-items: center; min-width: 0; }
 .lk-payt-stack {
@@ -513,8 +535,10 @@
 
 @media (max-width: 640px) {
   .lk-pay { margin: 32px 0 28px; }
-  .lk-pay-lane { grid-template-columns: 72px minmax(0, 1fr); column-gap: 12px; }
-  .lk-pay-ll { font-size: 12px; line-height: 16px; }
+  .lk-payc { --H: 140px; --gut: 44px; }
+  .lk-payc-groups { gap: 16px; }
+  .lk-payc-group { min-width: 56px; }
+  .lk-payc.is-many .lk-payc-who { display: none; }
   .lk-payt-cols { column-gap: 2px; }
   .lk-payt-grants { margin-left: 6px; padding-left: 8px; }
   .lk-payt-m { font-size: 10.5px; }

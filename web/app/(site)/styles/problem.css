@@ -31,6 +31,13 @@
   --ls-lvl-hard: #d0763f;       --ls-lvl-hard-ink: #a3542a;
   --ls-lvl-veryhard: #c4564f;   --ls-lvl-veryhard-ink: #a8413c;
   --ls-soon: #b58a2e;           --ls-soon-ink: #8a6414;
+  /* owner-approved 2026-09-17: score rings use a green/amber/red scale;
+     SKILL.md §3 to be updated in codify. (Drawn as dots and tinted badges
+     since the same day.) n = max good, n/max ≥ .5 medium, under .5 (0
+     included) bad (page.tsx scoreTone). */
+  --ls-score-good: #3f8f7f;
+  --ls-score-mid: #b58a2e;
+  --ls-score-bad: #c4564f;
   --ls-ink: #3d5a96;            /* links, 6.8:1 */
   --ls-ink-text: #54607c;       /* pill text on --ls-ink-bg, 5.6:1 */
   --ls-ink-bg: #eef1f7;
@@ -676,8 +683,8 @@ a.ls-modal-src-t:hover { text-decoration: underline !important; text-decoration-
 }
 
 /* ---- PROTOTYPE (2026-09-17): the scores as a table of contents -------
-   Every section in page order. A scored row: label, bars, n/max, and the
-   judgement word on a second line.
+   Every section in page order. A scored row: label, the judgement word on a
+   second line, and a dot in its tone (n/max on hover).
 
    THE STEPPER (owner, 2026-09-17: "Instead of line showing which is open, why
    dont we do something cleaner like dots or a line? try it"). A hairline runs
@@ -722,6 +729,21 @@ a.ls-modal-src-t:hover { text-decoration: underline !important; text-decoration-
 .ls-toc-row:not(.is-scored) .ls-toc-dot { top: calc(50% - 4px); }   /* a one-line row: the dot on its centred line */
 .ls-toc-suf { color: var(--l-text-3); }
 .ls-toc-word { grid-column: 1 / -1; font-size: var(--l-fs-sm); line-height: 16px; color: var(--l-text-3); }
+/* THE SCORE DOT (owner, 2026-09-17: "lets use dots instead of the circles").
+   A scored row: label over word on the left; n/max and the dot on the right,
+   both centred on the whole row. n/max is always in the DOM (screen readers
+   read it) and only fades in, by opacity, on hover or keyboard focus. */
+.ls-toc-row.is-scored { grid-template-columns: minmax(0, 1fr) auto 8px; column-gap: 8px; }
+.ls-toc-row.is-scored .ls-dim-l { grid-column: 1; grid-row: 1; }
+.ls-toc-row.is-scored .ls-toc-word { grid-column: 1; grid-row: 2; }
+.ls-toc-row.is-scored .ls-dim-n { grid-column: 2; grid-row: 1 / span 2; opacity: 0; transition: opacity .12s; }
+.ls-toc-row.is-scored:is(:hover, :focus-visible) .ls-dim-n { opacity: 1; }
+.ls-toc-row .ls-sdot { grid-column: 3; grid-row: 1 / span 2; }
+/* the tone, set once on the dot and on the badge (page.tsx scoreTone) */
+.ls-sdot, .ls-h2-chip { --tone: var(--ls-score-bad); }
+:is(.ls-sdot, .ls-h2-chip).is-good { --tone: var(--ls-score-good); }
+:is(.ls-sdot, .ls-h2-chip).is-mid { --tone: var(--ls-score-mid); }
+.ls-sdot { flex: none; display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--tone); }
 /* the label carries the colour: `.lab a { color: inherit }` outranks a bare
    .ls-toc-row, so a colour set on the link itself never lands */
 .ls-toc-row .ls-dim-l { color: var(--l-text-2); transition: color .12s; }
@@ -815,15 +837,21 @@ a.ls-modal-src-t:hover { text-decoration: underline !important; text-decoration-
   }
 }
 
-/* the score line under a scored section's heading (owner, 2026-09-17: "below
-   the heading, bigger fontsize, bigger weight, gray … easy to read") */
-.ls .ls-h2:has(+ .ls-h2-chip) { margin-bottom: 2px !important; }
-.ls .ls-h2-chip.ls-level { color: var(--lvl-ink); }   /* the difficulty line in its level ink (owner) */
+/* the score badge beside a scored section's heading (owner, 2026-09-17:
+   "Make the badge colors more subtle. try putting the badges next to the
+   heading"). One flex line, the badge centred on the title's text and 12px
+   after it; too narrow a line wraps it under the title. Quiet: a 7% tint and
+   the dot carry the tone, the text stays gray (text-2 on each tint ≥ 5.6:1). */
+.ls .ls-h2-row { display: flex; flex-wrap: wrap; align-items: center; column-gap: 12px; row-gap: 6px; margin: 0 0 16px; }
+.ls .ls-h2-row > .ls-h2 { margin: 0 !important; }
 .ls .ls-h2-chip {
-  margin: 0 0 16px !important;
-  font-size: 15px; line-height: 22px; font-weight: 500; letter-spacing: 0;
+  display: flex; align-items: center; gap: 6px; width: fit-content;
+  margin: 0 !important; padding: 3px 10px 3px 8px;
+  border-radius: 999px; background: color-mix(in srgb, var(--tone) 7%, var(--l-bg));
+  font-size: 13px; line-height: 18px; font-weight: 500; letter-spacing: 0;
   color: var(--l-text-2); font-variant-numeric: tabular-nums;
 }
+.ls .ls-h2-chip > .ls-sdot { width: 7px; height: 7px; }
 
 /* a sheet's sub-group: a real heading, never a meta label (owner, 2026-09-17:
    "CLEARLY with bigger heading separate") */
@@ -1027,7 +1055,8 @@ a:hover > .ls-ext { opacity: 1; }
   .ls-toc-mini ul { list-style: none; padding: 0 !important; margin: 0 !important; border-top: 1px solid var(--l-line); }
   .ls-toc-mini li + li { border-top: 1px solid var(--l-line); }
   .ls-toc-mini a {
-    display: grid; grid-template-columns: minmax(0, 1fr) auto 28px; column-gap: 10px; align-items: baseline;
+    /* label, word, n/max (kept visible: a phone has no hover), dot */
+    display: grid; grid-template-columns: minmax(0, 1fr) auto 28px 8px; column-gap: 10px; align-items: center;
     padding: 9px 0; font-size: var(--l-fs-md); color: var(--l-text-1);
   }
   .ls-toc-mini-w { color: var(--l-text-3); font-size: var(--l-fs-sm); text-align: right; }

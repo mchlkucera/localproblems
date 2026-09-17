@@ -1,24 +1,31 @@
-// lib/figures — Willing to pay: two dot figures, no legend, no caption.
+// lib/figures — Willing to pay: a column chart and a dot timeline, no legend,
+// no caption.
 //
 // THE QUESTION (owner, 2026-09-17): "are people willing to pay for this right
 // now?" Public money only raises that willingness; it is not a sale.
 //
 // WHAT WAS WEIGHED
-//   (a) what buyers already pay, one dot per price or purchase on a log CZK
-//       axis   → PayDots, ON THE PAGE. It is the builder's first question (how
-//       much does one buyer spend?) and the data carries it: 11 live records
-//       draw two or more dots. Rows are units ("Per month", "One purchase"),
-//       so a monthly fee and a hospital tender share an axis without ever being
-//       added up, and the row name is the only label a dot needs.
+//   (a) what buyers already pay → PayDots, ON THE PAGE. It is the builder's
+//       first question (how much does one buyer spend?) and the data carries
+//       it: 11 live records draw two or more marks. Since 2026-09-17 (owner:
+//       "could we choose another graph? maybe columns") it is a COLUMN chart:
+//       one gray column per price or purchase, height on a log CZK scale, the
+//       lowest to the left, a word or two under each ("Hospital", "Town").
+//       Each unit is its own group behind a gap and a small group label ("Per
+//       seat, monthly", "One purchase"), so a monthly fee never stands in a
+//       row it could be added to. (The export keeps its old name so the page
+//       needs no change.)
 //   (b) buying over time, dots stacked per month → PayTimeline, IN THE SHEET.
 //       It answers "right now" (a column of dots in the last months), and it
 //       COUNTS purchases, so a tender with no stated value still counts and no
 //       money is summed. Open grant calls sit in one last column after the
 //       months: they close in the future, and they raise willingness without
 //       being a purchase. 9 live records draw it.
-//   (c) who is buying, by buyer type: rejected. Buyers are free text; the kind
-//       would be a regex guess drawn as if it were data. The sheet's intro line
-//       already says it in words.
+//   (c) who is buying, COUNTED by buyer type: rejected. Buyers are free text,
+//       so a count per kind would be a regex guess drawn as data. The column
+//       labels in (a) use the same words only as a reading aid under ONE
+//       purchase each; a purchase that names no kind falls back to what it is
+//       ("Tender", "List price"), never a guess.
 //   (d) the grant pot as a lower cost: rejected as a graph. The support rate
 //       lives only in prose (`why`), so a drawn "50%" would be parsed, not
 //       recorded. The grant's own card shows the sentence instead.
@@ -81,6 +88,9 @@ type Mark = {
   line: string;
   date: string;
   label: string;
+  /** the column label: a buyer kind read from the payer or title, else what
+      the mark is ("Tender", "List price") */
+  who: string;
   /** a real purchase: a contract, a tender, or a receipt taken from one (the
       timeline counts these) */
   buy: boolean;
@@ -102,6 +112,7 @@ function marks(p: Problem): { paid: Mark[]; grants: Mark[] } {
       line: `Paid by ${lower(s.payer)}.`,
       date: s.date,
       label: `${czk(s.amount_czk)} ${unit}, paid by ${s.payer}, ${monthLabel(s.date)}`,
+      who: kindOf([s.payer]) ?? cap(PRICE_BASIS_LABELS[s.basis]),
       // a receipt lifted from a contract or tender line is that purchase
       buy: buyUrls.has(s.url) || s.basis === "signed-contract" || s.basis === "tender-line",
     };
@@ -124,6 +135,7 @@ function marks(p: Problem): { paid: Mark[]; grants: Mark[] } {
         meta: [kind, ls.publisher, monthLabel(s.date)].join(" · "),
         title: ls.title, href: ls.url, line, date: s.date,
         label: `${kind}${eur ? `, ${euro(eur)}` : ", no amount stated"}, ${monthLabel(s.date)}: ${ls.title}`,
+        who: kindOf([ls.title, line]) ?? (s.type === "contract" ? "Contract" : "Tender"),
         buy: true,
       });
     } else if (s.type === "subsidy" && sig?.id.startsWith("dotace-") && s.date >= from) {
@@ -133,6 +145,7 @@ function marks(p: Problem): { paid: Mark[]; grants: Mark[] } {
         meta: ["Grant call", ls.publisher, `closes ${dayLabel(s.date)}`].join(" · "),
         title: ls.title, href: ls.url, line, date: s.date,
         label: `Open grant call${eur ? `, ${euro(eur)}` : ""}, closes ${dayLabel(s.date)}: ${ls.title}`,
+        who: "Grant call",
         buy: false,
       });
     }
@@ -140,21 +153,45 @@ function marks(p: Problem): { paid: Mark[]; grants: Mark[] } {
   return { paid, grants };
 }
 
+/** One or two words for the buyer, read from the payer or the title first (a
+    `why` often mentions OTHER buyers, so it is only the fallback). First match
+    wins; the order puts the narrower kind first ("Domov pro seniory" is a care
+    home before it is anything in a town). */
+const KINDS: [string, RegExp][] = [
+  ["Care home", /care home|domov\b|domov pro|senior|disability|social[- ]care|sociáln/i],
+  ["Hospital", /hospital|nemocnic|\bFN\b|Motol|Homolka|clinic|klinik/i],
+  ["University", /universit|univerzit/i],
+  ["School", /\bschool|škol/i],
+  ["Utility", /ČEZ|utilit|distribuc|vodárn|water compan|teplárn/i],
+  ["Broadcaster", /televi|rozhlas|radio/i],
+  ["Region", /\bregion\b|\bkraj\b|krajsk/i],
+  ["Town", /\bměst|\bmesto|\btown|\bcity\b|\bobec|municipal|district|Praha|Prague/i],
+  ["State body", /agency|ministr|institut|ústav|authority|úřad|NAKIT|\bstate\b|national/i],
+  ["Company", /compan|firm|business|\bSME|e-?shop|installer|s\.r\.o|a\.s\./i],
+];
+function kindOf(texts: string[]): string | null {
+  for (const t of texts) {
+    const k = KINDS.find(([, re]) => re.test(t));
+    if (k) return k[0];
+  }
+  return null;
+}
+
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 /** "Město Český Brod, a town …" stays; "An obligated Czech company" → "an …" */
 const lower = (s: string) => (/^(?:A|An|The|One|Each|Every)\s/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s);
 
-function Dot({ id, m }: { id: string; m: Mark }): ReactNode {
+function Dot({ id, m, cls = "lk-pay-dot", style }: { id: string; m: Mark; cls?: string; style?: CSSProperties }): ReactNode {
   const anchor = `--${id}`;
   return (
     <>
       <button
         type="button"
-        className="lk-pay-dot"
+        className={cls}
         popoverTarget={id}
         aria-label={m.label}
         data-peek=""
-        style={{ anchorName: anchor } as CSSProperties}
+        style={{ ...style, anchorName: anchor } as CSSProperties}
       />
       <div id={id} popover="auto" role="dialog" aria-label={m.title} className="ls-peek lk-pay-pk" style={{ positionAnchor: anchor } as CSSProperties}>
         <span className="ls-pk-entry">
@@ -173,56 +210,53 @@ function Dot({ id, m }: { id: string; m: Mark }): ReactNode {
   );
 }
 
-/** What buyers already pay: one dot per price or purchase with an amount, on
-    one log CZK axis, one row per unit. `null` under two dots. */
+/** What buyers already pay: one gray column per price or purchase with an
+    amount, height on a log CZK scale, lowest first, one group per unit.
+    `null` under two columns. */
 export function PayDots({ p, scope = "" }: { p: Problem; scope?: string }): ReactNode {
-  const dots = marks(p).paid.filter((m): m is Mark & { czk: number } => !!m.czk && m.czk > 0);
-  if (dots.length < 2) return null;
+  const bars = marks(p).paid.filter((m): m is Mark & { czk: number } => !!m.czk && m.czk > 0);
+  if (bars.length < 2) return null;
 
-  const logs = dots.map((d) => Math.log10(d.czk));
-  let lo = Math.floor(Math.min(...logs));
-  let hi = Math.ceil(Math.max(...logs));
-  if (hi - lo < 2) { lo -= hi - lo === 0 ? 1 : 0; hi = lo + 2; }
-  const x = (v: number) => 0.03 + ((Math.log10(v) - lo) / (hi - lo)) * 0.94;
-  const decades = Array.from({ length: hi - lo + 1 }, (_, i) => lo + i);
-  const every = decades.length > 7 ? 2 : 1;
+  const logs = bars.map((d) => Math.log10(d.czk));
+  // the floor sits a little under the smallest amount, so no column is flat
+  const lo = Math.floor(Math.min(...logs) - 0.3);
+  // the top sits just over the largest amount, so the tallest column fills the plot
+  const hi = Math.max(Math.max(...logs) + 0.12, lo + 2);
+  const f = (v: number) => (Math.log10(v) - lo) / (hi - lo);
+  // two or three labelled gridlines, counted down from the highest decade inside
+  const step = Math.max(1, Math.ceil((hi - lo) / 3));
+  const lines: number[] = [];
+  for (let d = Math.floor(hi); d > lo && lines.length < 3; d -= step) lines.push(d);
 
-  const lanes = LANES.map((lane) => {
-    // beeswarm: left to right, each dot takes the first row with room
-    const ends: number[] = [];
-    const placed = dots.filter((d) => d.lane === lane).sort((a, b) => a.czk - b.czk).map((d) => {
-      const at = x(d.czk);
-      let row = ends.findIndex((e) => at - e >= 0.06);
-      if (row < 0) { row = ends.length; ends.push(at); } else ends[row] = at;
-      return { d, at, row };
-    });
-    return { lane, placed, rows: ends.length };
-  }).filter((l) => l.placed.length > 0);
+  const groups = LANES.map((lane) => ({
+    lane,
+    items: bars.filter((d) => d.lane === lane).sort((a, b) => a.czk - b.czk),
+  })).filter((g) => g.items.length > 0);
 
   return (
-    <figure className="lk lk-pay" aria-label="What buyers already pay, in CZK on a log scale">
-      {lanes.map(({ lane, placed, rows }) => (
-        <div key={lane} className="lk-pay-lane">
-          <p className="lk-pay-ll">{LANE_NAME[lane]}</p>
-          <div className="lk-pay-track" style={{ "--rows": rows } as CSSProperties}>
-            {decades.map((dd) => <span key={dd} className="lk-pay-grid" style={{ "--x": x(10 ** dd) } as CSSProperties} aria-hidden="true" />)}
-            {placed.map(({ d, at, row }) => (
-              <span key={d.n} className="lk-pay-at" style={{ "--x": at, "--row": row } as CSSProperties}>
-                <Dot id={`lk-pay${scope}-d${d.n}`} m={d} />
-              </span>
+    <figure
+      className={`lk lk-pay lk-payc${bars.length > 8 ? " is-many" : ""}${bars.length > 16 ? " is-dense" : ""}`}
+      aria-label="What buyers already pay: one column per price or purchase, in CZK on a log scale"
+    >
+      <div className="lk-payc-grid" aria-hidden="true">
+        {lines.map((d) => (
+          <span key={d} className="lk-payc-line" style={{ "--f": f(10 ** d) } as CSSProperties}>
+            <span className="lk-payc-tick">{czkShort(10 ** d)}{d === lines[0] ? " CZK" : ""}</span>
+          </span>
+        ))}
+      </div>
+      <div className="lk-payc-groups">
+        {groups.map(({ lane, items }) => (
+          <div key={lane} className={`lk-payc-group${lane === "purchase" ? "" : " is-unit"}`} style={{ "--k": items.length } as CSSProperties}>
+            {items.map((d) => (
+              <div key={d.n} className="lk-payc-slot">
+                <Dot id={`lk-pay${scope}-d${d.n}`} m={d} cls="lk-payc-col" style={{ "--f": f(d.czk) } as CSSProperties} />
+                <span className="lk-payc-who" aria-hidden="true">{d.who}</span>
+              </div>
             ))}
+            <p className="lk-payc-gl">{LANE_NAME[lane]}</p>
           </div>
-        </div>
-      ))}
-      <div className="lk-pay-lane lk-pay-axis" aria-hidden="true">
-        <span>CZK</span>
-        <div className="lk-pay-ticks">
-          {decades.map((dd, i) => (
-            <span key={dd} className="lk-pay-tick" style={{ "--x": x(10 ** dd) } as CSSProperties}>
-              {i % every === 0 || i === decades.length - 1 ? czkShort(10 ** dd) : ""}
-            </span>
-          ))}
-        </div>
+        ))}
       </div>
     </figure>
   );
