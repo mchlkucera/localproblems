@@ -19,15 +19,25 @@ type Tok =
   | { k: "link"; text: string; href: string; auto?: number }
   | { k: "cite"; nums: number[] };
 
+// A link target is absolute (https?://), site-relative (/…) or an in-page
+// `#anchor` (record-page redesign, 2026-09-16). An anchor link gets no EXT and
+// no ↗: it stays on the page.
 const INLINE =
-  /\*\*([^*]+)\*\*|\[([^\]]+)\]\(((?:https?:\/\/|\/)[^\s)]+)\)|\[S(\d+)((?:\s*,\s*S?\d+)*)\](?!\()|(https?:\/\/[^\s<)]*[^\s<).,;:])/g;
+  /\*\*([^*]+)\*\*|\[([^\]]+)\]\(((?:https?:\/\/|\/)[^\s)]+|#[a-z0-9-]+)\)|\[S(\d+)((?:\s*,\s*S?\d+)*)\](?!\()|(https?:\/\/[^\s<)]*[^\s<).,;:])/g;
 
 const norm = (u: string) => u.replace(/\/+$/, "");
 
 export type ProseOpts = {
   /** Resolve `/sources/<type>#<id>` ledger links to their paged ledger row. */
   resolveLedger: (id: string, type: string) => string;
+  /** Keyed lists: return true for a key that should carry the `ls-soon` mark
+      (e.g. a Why now date that is still ahead). Called once per key. */
+  keyedSoon?: (key: string) => boolean;
 };
+
+/** A keyed bullet: `- **About €33M:** what the line says`. A bullet block
+    renders as a keyed list only when EVERY line matches. */
+const KEYED = /^- \*\*([^*]{1,40}?):\*\*\s+(.+)$/;
 
 function tokenize(s: string, ctx: CiteCtx): Tok[] {
   const byUrl = new Map<string, number>();
@@ -153,15 +163,46 @@ function withLead(s: string, ctx: CiteCtx, opts: ProseOpts, key: string): ReactN
 const OL = /^\d+\.\s+/;
 
 /** Body markdown → blocks. `lead`: the first paragraph's opening sentence and
-    each numbered step's are set as run-in leads (the production v1.19 rule). */
+    each numbered step's are set as run-in leads (the production v1.19 rule);
+    a first paragraph that is exactly ONE sentence is instead the section's
+    answer line, `<p class="ls-answer">`. A bullet block whose every line is
+    `- **Key:** value` renders as `<dl class="ls-keyed">` (rows `ls-keyed-row`,
+    `dt.ls-keyed-k` [+ `ls-soon` via `opts.keyedSoon`], `dd.ls-keyed-v`). */
 export function Prose(md: string, ctx: CiteCtx, opts: ProseOpts & { lead?: boolean }): ReactNode {
   const out: ReactNode[] = [];
-  let ul: ReactNode[] | null = null;
+  // bullets are held as raw lines + keys until flush, which decides between a
+  // keyed list (every line keyed) and a plain one
+  let ul: { l: string; k: string }[] | null = null;
   let ol: ReactNode[] | null = null;
   let led = !opts.lead;
   let b = 0;
+  const flushUl = (items: { l: string; k: string }[]) => {
+    const keyed = items.map(({ l }) => l.match(KEYED));
+    if (keyed.every(Boolean)) {
+      out.push(
+        <dl key={`d${b++}`} className="ls-keyed">
+          {items.map(({ k }, i) => {
+            const m = keyed[i] as RegExpMatchArray;
+            const soon = opts.keyedSoon?.(m[1]) ?? false;
+            return (
+              <div key={k} className="ls-keyed-row">
+                <dt className={soon ? "ls-keyed-k ls-soon" : "ls-keyed-k"}>{m[1]}</dt>
+                <dd className="ls-keyed-v">{inline(m[2], ctx, opts, k)}</dd>
+              </div>
+            );
+          })}
+        </dl>,
+      );
+    } else {
+      out.push(
+        <ul key={`u${b++}`} className="ls-ul">
+          {items.map(({ l, k }) => <li key={k}>{inline(l.slice(2), ctx, opts, k)}</li>)}
+        </ul>,
+      );
+    }
+  };
   const flush = () => {
-    if (ul) out.push(<ul key={`u${b++}`} className="ls-ul">{ul}</ul>);
+    if (ul) flushUl(ul);
     if (ol) out.push(<ol key={`o${b++}`} className="ls-steps">{ol}</ol>);
     ul = ol = null;
   };
@@ -177,7 +218,7 @@ export function Prose(md: string, ctx: CiteCtx, opts: ProseOpts & { lead?: boole
   md.split(/\n{2,}/).forEach((block, bi) => {
     const lines = block.split("\n").map((l) => l.trim()).filter(Boolean);
     if (!lines.length || lines.every((l) => l === "---")) return flush();
-    const bullet = (l: string, k: string) => <li key={k}>{inline(l.slice(2), ctx, opts, k)}</li>;
+    const bullet = (l: string, k: string) => ({ l, k });
     // a block of only bullets / only steps continues the open list
     if (lines.every((l) => l.startsWith("- "))) {
       if (ol) flush();
@@ -202,7 +243,12 @@ export function Prose(md: string, ctx: CiteCtx, opts: ProseOpts & { lead?: boole
     if (para.length) {
       const text = para.join(" ");
       const k = `p${bi}`;
-      out.push(<p key={k} className="ls-p">{led ? inline(text, ctx, opts, k) : withLead(text, ctx, opts, k)}</p>);
+      if (!led && splitLead(text).rest === "") {
+        // the answer line: a first paragraph that is exactly one sentence
+        out.push(<p key={k} className="ls-answer">{inline(text, ctx, opts, k)}</p>);
+      } else {
+        out.push(<p key={k} className="ls-p">{led ? inline(text, ctx, opts, k) : withLead(text, ctx, opts, k)}</p>);
+      }
       led = true;
     }
     flush();

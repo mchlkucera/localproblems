@@ -92,11 +92,40 @@ export function splitLead(
   return { lead: s, rest: "" };
 }
 
-/** First sentence of a paragraph: ends at the first ". " or the final ".". */
+/** First sentence of a paragraph: ends at the first ". " or "." + newline, or
+    the final ".". The newline case matters since the record-page redesign
+    (2026-09-16): a "Who pays:" answer sentence followed directly by its keyed
+    list lines ("…[S1,S9].\n- **About €33M:** …") has no ". " before the list,
+    so the dek would swallow the list. The rest keeps its newlines, so the list
+    below still parses as a list. */
 export function splitFirstSentence(s: string): { first: string; rest: string } {
-  const i = s.indexOf(". ");
-  if (i === -1) return { first: s, rest: "" };
+  const m = /\.[ \n]/.exec(s);
+  if (!m) return { first: s, rest: "" };
+  const i = m.index;
   return { first: s.slice(0, i + 1), rest: s.slice(i + 2).trim() };
+}
+
+/** Prose split at its first sentence boundary, for the record page's "More
+    detail" folds: `first` stays in view, `rest` folds. Same boundary rules as
+    `splitLead` (40-char floor, no split inside [brackets] or (parens), stock
+    abbreviations are not boundaries), except that a "." followed by a NEWLINE
+    also ends the sentence, so a sentence followed directly by list lines
+    splits before the list. `rest` keeps its markdown structure (newlines and
+    blank lines) and is only trimmed; it is "" when nothing follows. */
+export function splitProse(md: string): { first: string; rest: string } {
+  const s = md.trim();
+  let depth = 0;
+  for (let i = 0; i < s.length - 1; i++) {
+    const ch = s[i];
+    if (ch === "[" || ch === "(") depth++;
+    else if (ch === "]" || ch === ")") depth = Math.max(0, depth - 1);
+    else if (depth === 0 && ch === "." && (s[i + 1] === " " || s[i + 1] === "\n")) {
+      if (i + 1 < 40) continue;
+      if (ABBR.test(s.slice(0, i))) continue;
+      return { first: s.slice(0, i + 1), rest: s.slice(i + 2).trim() };
+    }
+  }
+  return { first: s, rest: "" };
 }
 
 const stripLead = (p: string, lead: RegExp) => capitalize(p.replace(lead, "").trim());
