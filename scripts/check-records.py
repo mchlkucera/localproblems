@@ -1288,7 +1288,7 @@ def established(since, evidence, year, ico=None):
 # BODY_V2_WAIVERS: a known, reported defect on an enforced record, printed as a
 # warning until it is fixed. It is a debt list, never a way to pass a rewrite:
 # a new entry needs the owner's say-so, recorded in that record's Revisions.
-BODY_V2_ENFORCED = frozenset({"p-0008"})
+BODY_V2_ENFORCED = frozenset({"p-0008", "p-0036"})
 BODY_V2_WAIVERS: dict[str, frozenset[str]] = {
     # Empty. p-0008's three waivers (ANSWER_WORDS, MOVE_EVIDENCE, PRICE_RESTATED)
     # were cleared by content on 2026-09-17; see its Revisions entry.
