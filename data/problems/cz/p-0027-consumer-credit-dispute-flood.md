@@ -13,11 +13,11 @@ price_search: 'No public buyer pays for this, so ask the head of legal or compli
   case-handling software, and the MS2021+ index has nothing on it.'
 category: fintech
 geo: CZ-national
-score: 7
+score: 9
 scores:
   proof: 2
   money: 0
-  urgency: 1
+  urgency: 3
   demand: 2
   gap: 2
 status: candidate
@@ -300,8 +300,54 @@ sources:
     - 'outsourcing vyřizování stížností a mimosoudních sporů klientů pro finanční instituce Česko služba compliance nebankovní věřitel'
   checked: [google-cz, ares, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
+- type: regulation
+  name: "ADR directive 2025/2647 — the financial arbiter's law to be amended (planned)"
+  gist: "the arbiter's rules, rewritten for 2028"
+  why: "Two planned Czech bills bring an EU directive on out-of-court consumer disputes into Czech law, one of them amending the Financial Arbiter Act. From 20 September 2028 a trader contacted by a dispute body must say within 20 working days whether it will take part."
+  url: https://vlada.gov.cz/assets/media-centrum/dulezite-dokumenty/1234_2026_priloha_c-_2.pdf
+  note: 'reg-adr-spotrebitelske-spory-2028 (reg-scan, 2026-09-18), linked in MATCH 2026-09-18.
+    Plán legislativních prací vlády 2026, annex 2: MPO-2 amends the Consumer Protection Act
+    634/1992 and MF-3 the Financial Arbiter Act 229/2002 to transpose Directive (EU) 2025/2647,
+    government deadline 2027 Q2, planned effect 09.2028. EUR-Lex Art 5(1), per the signal:
+    adopt by 20 Mar 2028, apply from 20 Sep 2028; the new paragraph 9 makes a trader contacted
+    by an ADR entity say within at most 20 working days (30 for complex disputes) whether it
+    agrees to take part. DRAFT on the Czech side, date at risk; the EU dates are fixed. Backs
+    urgency at deadline 1 on its own (over 18 months out); the deadline point is carried by S9.'
+  date: '2028-09-01'
+  signal: reg-adr-spotrebitelske-spory-2028
+- type: regulation
+  name: "CCD2 — the EU consumer-credit directive applies from 20 November 2026"
+  gist: "the EU credit rules, from November"
+  why: "The EU's new consumer-credit directive applies from 20 November 2026: buy-now-pay-later, interest-free deferred payment and loans under €200 come under consumer-credit law, with a duty to check that the borrower can repay."
+  url: https://eur-lex.europa.eu/eli/dir/2023/2225/oj
+  note: 'reg-ccd2-consumer-credit (ledger signal, not new this run), linked in MATCH 2026-09-18
+    on the coordinator''s instruction to check the CCD2 signals against this record. Directive
+    (EU) 2023/2225, verified on EUR-Lex Art 48 per the signal: transposition by 20 Nov 2025,
+    measures apply from 20 Nov 2026. Scope extends to BNPL, interest-free deferred payment and
+    loans under EUR 200, with mandatory creditworthiness assessment. WHY IT MOVES URGENCY: the
+    creditworthiness check is the duty most arbiter claims say was broken (S1), and its new rules
+    bind lenders in under 18 months, so the deadline sub-score goes 0 to 2. S6, the Czech bill,
+    had been held as undated context because its VeKLEP record carried no date; S10 shows that
+    bill takes effect on this same EU date. That more claims will follow the wider scope is an
+    inference, not a finding of this source.'
+  date: '2026-11-20'
+  signal: reg-ccd2-consumer-credit
+- type: regulation
+  name: "Finance ministry — the Czech CCD2 bill and its effective date"
+  gist: "the Czech bill, due by November"
+  why: "The finance ministry's amendment of the Consumer Credit Act brings the EU directive into Czech law with effect on the binding EU date, 20 November 2026. It predates the October 2025 election and still has to pass, so the Czech date can slip."
+  url: https://mf.gov.cz/cs/financni-trh/spotrebitelske-uvery/aktuality/2025/meziresortni-pripominkove-rizeni-k-navrhu-novely-z-58892
+  note: 'reg-ccd2-bnpl-2026 (ledger signal, not new this run), linked in MATCH 2026-09-18. MF
+    amendment to Consumer Credit Act 257/2016, inter-ministerial comments Feb 2025, the same
+    bill S6 records on VeKLEP (KORNDDVFVG8B, since 14 Feb 2025; the fr-algoan signal of
+    2026-09-18 ties the two). Transposes CCD2 with effect on 20 Nov 2026; BNPL, interest-free
+    credit and small short-term loans enter scope, with stricter creditworthiness assessment and
+    advertising rules. Stage: draft; the bill predates the 10/2025 election and must be
+    (re)passed by 11/2026; date at risk.'
+  date: '2026-11-20'
+  signal: reg-ccd2-bnpl-2026
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-18'
 ---
 
 Complaints to the state's financial arbiter, mostly about consumer loans, more than quadrupled from 2023 to 2025, and law firms answer them by hand [S1,S4].
@@ -328,17 +374,20 @@ Ten Czech vendors turned up, and none handles a case at the arbiter [S7]:
 - No Czech product was found keeping an arbiter docket, running a deadline clock on each proceeding, deciding which cases to settle, or assembling the answer from the loan file [S7].
 - Searches also returned the arbiter's own pages, consumer advice sites and law firms working cases by hand [S4].
 
-Why now: Lenders face a claims industry that files in bulk, while each case takes months and is answered one at a time [S1].
+Why now: Lenders already answer bulk claims one at a time, and from 20 November 2026 the repayment check those claims turn on covers more loans [S1,S9].
 
 - Claims firms now file at mass scale, not as one-off grievances [S1].
 - Each case takes 167 days on average, tying up the lender's lawyers [S1].
 - 83% of concluded cases end in a settlement [S1].
 
-The law behind most claims is also in motion [S6]:
+The EU rules behind most claims change on 20 November 2026, and the arbiter's own rules follow in 2028 [S8,S9]:
 
 - The finance ministry is revising the Consumer Credit Act, Act No. 257/2016, and its draft has been on the government's legislative portal since 14 February 2025 [S6].
 - That act sets the duty to check that a borrower can repay, the duty most claims say was broken [S1,S6].
-- The draft carries no dated obligation yet [S6].
+- The draft brings the EU's new consumer-credit directive into Czech law, and the directive applies from 20 November 2026 [S9,S10].
+- From that date the repayment check also covers buy-now-pay-later, interest-free deferred payment and loans under €200 [S9].
+- The Czech bill predates the October 2025 election and still has to pass, so the Czech date can slip [S10].
+- From 20 September 2028 a second EU directive rewrites out-of-court consumer disputes, and the finance ministry plans to amend the Financial Arbiter Act for it [S8]. A trader contacted by a dispute body must then say within 20 working days whether it will take part [S8].
 
 Who pays: Lenders must answer every case, and a Czech firm sells them that work, but no buyer or price for it is public [S1,S5].
 
@@ -385,4 +434,4 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` telling the situation, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Complaints about Czech consumer loans have quadrupled, all handled by hand". Previous solution, verbatim: "Case software for lenders answering complaints at the Financial Arbitrator: pull the loan file, draft the response, hold every deadline, and flag which cases to settle." No brief or good_for existed before. Checked against the sources while writing. "All handled by hand" is gone from the title: it rests on a search that found no Czech product and on law firms seen working cases manually [S4,S7], which is a not-found and no count of how every case is answered. "Quadrupled" became "more than 4 times since 2023", the arbiter's own growth from 2,660 new cases in 2023 to 12,050 in 2025 and, for consumer credit alone, from 2,097 to 11,386 [S1]. The 12,050 is every new case at the arbiter, not only loan cases, so the brief says "mostly against lenders" — consumer credit is ~92% of the running caseload and creditworthiness claims dominate it [S1] — rather than calling all of them loan complaints. "Nearly 50 a working day" is 12,050 divided by roughly 250 Czech working days. The dek's "lenders must produce documents and take a legal position on every case" was not carried into the brief: it is a reading of the procedure, and [S1]'s note does not state it. The solution's "as companies abroad do" rests on Casap, which automates bank payment disputes in the US [S3]; nobody on file does it for consumer-credit disputes, so the line names payment disputes and not this. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Brief before: "Customers filed 12,050 complaints with the state's financial arbiter in 2025, nearly 50 a working day, mostly against lenders they say didn't check they could repay [S1]. Another 8,200 came by May 2026, and cases stay open 167 days on average [S1]." After: "Borrowers say lenders didn't check they could repay, and take them to the state's financial arbiter [S1]. It got 12,050 complaints last year, mostly against lenders, and cases drag on for months [S1]." Solution before: "Build case software that pulls a lender's loan file, drafts its reply to the arbiter and tracks deadlines, as companies abroad do for payment disputes." After: "Build case software for lenders that pulls the loan file, drafts the reply to the arbiter and tracks deadlines." "Nearly 50 a working day", the 8,200 by May 2026 and "167 days on average" were cut to keep one number, the 12,050; 167 days is put as "months" [S1]. "Mostly against lenders" stays because the 12,050 counts every case at the arbiter [S1]. The payment-disputes comparison abroad was cut for length. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed. Same date, pain-point pass: title "Complaints about Czech consumer loans have grown more than 4 times since 2023" → "Czech lenders now fight more than 4 times as many loan complaints as in 2023". Why: the old headline was a growth figure with no one named. The new one names who carries it: lenders, who must answer every case the arbiter opens, by hand, in cases averaging 167 days [S1,S4]. The figure is unchanged: 2,660 new proceedings in 2023 against 12,050 in 2025 [S1]. Brief unchanged. No score, status, source, note or body sentence changed. Same date, owner-approved card: title "Czech lenders now fight more than 4 times as many loan complaints as in 2023" became "Czech lenders pay lawyers by the hour to answer loan complaints that have quadrupled since 2023"; brief "Borrowers say lenders didn't check they could repay, and take them to the state's financial arbiter [S1]. It got 12,050 complaints last year, mostly against lenders, and cases drag on for months [S1]." became "Borrowers take lenders to the state's financial arbiter, mostly saying nobody checked they could repay [S1]. Every case needs documents and a legal answer written by hand, and this year is heading for about 20,000 [S1,S4]."; good_for "Someone who'd like to build software for banks and lenders." became "Someone who can build legal software and sell to banks and lenders.". Sources: 2,660 cases in 2023 to 12,050 in 2025 is 4.5x, so "quadrupled" [S1]; 8,200 by May 2026 puts the year on track for about 20,000, the arbiter's own pace [S1]; answered by in-house legal teams and law firms billed by the hour [S1,S4].
 
-2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the caseload more than quadrupling and holds the yearly counts, and gained from the notes the 15,446 running cases [S1] and the industry and trade ministry's count of about 18,700 arbiter filings from 2020 to mid-2025 among 45,000+ consumer disputes, the first time [S2] is cited in the body. Why now opens on the claims industry filing in bulk, with 167 days and the 83% settlement rate as pain items [S1], and gained the Consumer Credit Act draft, on the legislative portal since 14 February 2025 with no dated obligation, the first time [S6] is cited in the body. Willing to pay answers that lenders must answer every case and a Czech firm sells that work, with no buyer or price public [S1,S5]. Competition describes all ten Czech vendors by what they sell, grouped as the one service firm, the three on the collecting side and the six general law-office tools, and holds the four capabilities no Czech product was found doing [S5,S7]. Validated abroad describes the three foreign companies without names or figures, which stay in their ledger rows, and restores Avallon AI, Basepilot and Amera from [S3]'s note. Every comps[] and locals[] name left the body and the moves. The moves lost every [Sn] marker and figure for links; move 1 now contacts one lender's head of legal instead of selling. `entry.why` was rewritten as "Easier: … Harder: …" with the same gates. A `process:` block was added, four steps from sources already cited: the borrower or a claims firm filing in bulk [S1], a law firm or outsourced service writing each answer by hand [S4,S5], how a lender tracks deadlines marked unknown, and most concluded cases settling [S1]; the record should join `PROCESS_PHRASE_ENFORCED` with the body gate. Corrected against the sources: old move 1 said non-bank lenders "carry about 92% of the arbiter's caseload", but [S1]'s note says consumer credit is ~92% of the running proceedings, banks included, so the move now says consumer credit is almost all of the caseload; the Casap sentence carried [S3], whose note does not mention Casap (its figures come from the comps ledger), so the marker is gone with the figures; "tens of thousands of cases a year" became "about 20,000", the 2026 projection in [S1]'s note; "people, billed by the hour [S4]" became "law firms handle these cases by hand", since [S4]'s note records manual handling and nothing about hourly billing (the title's "pay lawyers by the hour" rests on the same note and is left to the owner); and "Nobody sells the defending side a product [S7]" became "no Czech product was found", in [S7]'s own not-found terms. Flagged as inference: that lenders must produce documents, take a legal position and decide whether to settle on every case, a reading of the procedure that [S1]'s note does not state; that in-house legal teams answer cases, which no note says, and that the law firms in [S4]'s note work for the lender; that cases are answered one at a time and tie up the lender's lawyers [S1]; that the arbiter could be a third buyer; and, in `entry.why`, that lenders' lawyers must trust software with case files. No score, status, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the caseload more than quadrupling and holds the yearly counts, and gained from the notes the 15,446 running cases [S1] and the industry and trade ministry's count of about 18,700 arbiter filings from 2020 to mid-2025 among 45,000+ consumer disputes, the first time [S2] is cited in the body. Why now opens on the claims industry filing in bulk, with 167 days and the 83% settlement rate as pain items [S1], and gained the Consumer Credit Act draft, on the legislative portal since 14 February 2025 with no dated obligation, the first time [S6] is cited in the body. Willing to pay answers that lenders must answer every case and a Czech firm sells that work, with no buyer or price public [S1,S5]. Competition describes all ten Czech vendors by what they sell, grouped as the one service firm, the three on the collecting side and the six general law-office tools, and holds the four capabilities no Czech product was found doing [S5,S7]. Validated abroad describes the three foreign companies without names or figures, which stay in their ledger rows, and restores Avallon AI, Basepilot and Amera from [S3]'s note. Every comps[] and locals[] name left the body and the moves. The moves lost every [Sn] marker and figure for links; move 1 now contacts one lender's head of legal instead of selling. `entry.why` was rewritten as "Easier: … Harder: …" with the same gates. A `process:` block was added, four steps from sources already cited: the borrower or a claims firm filing in bulk [S1], a law firm or outsourced service writing each answer by hand [S4,S5], how a lender tracks deadlines marked unknown, and most concluded cases settling [S1]; the record should join `PROCESS_PHRASE_ENFORCED` with the body gate. Corrected against the sources: old move 1 said non-bank lenders "carry about 92% of the arbiter's caseload", but [S1]'s note says consumer credit is ~92% of the running proceedings, banks included, so the move now says consumer credit is almost all of the caseload; the Casap sentence carried [S3], whose note does not mention Casap (its figures come from the comps ledger), so the marker is gone with the figures; "tens of thousands of cases a year" became "about 20,000", the 2026 projection in [S1]'s note; "people, billed by the hour [S4]" became "law firms handle these cases by hand", since [S4]'s note records manual handling and nothing about hourly billing (the title's "pay lawyers by the hour" rests on the same note and is left to the owner); and "Nobody sells the defending side a product [S7]" became "no Czech product was found", in [S7]'s own not-found terms. Flagged as inference: that lenders must produce documents, take a legal position and decide whether to settle on every case, a reading of the procedure that [S1]'s note does not state; that in-house legal teams answer cases, which no note says, and that the law firms in [S4]'s note work for the lender; that cases are answered one at a time and tie up the lender's lawyers [S1]; that the arbiter could be a third buyer; and, in `entry.why`, that lenders' lawyers must trust software with case files. No score, status, source, `note:`, `sources[]` order, title, brief, solution or good_for changed. Same date, later pass, merged here: re-scored on regulation added. The EU consumer-credit directive behind the Czech bill in [S6] applies from 20 November 2026 and extends the repayment check most claims turn on to buy-now-pay-later, interest-free deferred payment and loans under €200 [S9]; the bill takes effect that day but still has to pass [S10]. That is a compliance date under 18 months, so the deadline sub-score goes 0 to 2: `scores.urgency` 1 → 3 and `score` 7 → 9. The planned amendment of the Financial Arbiter Act for a second directive, applying from 20 September 2028, was added too [S8]. Corrected: "The draft carries no dated obligation yet [S6]" is withdrawn, because [S10] dates the same bill. Why now's answer sentence was "Lenders face a claims industry that files in bulk, while each case takes months and is answered one at a time [S1]." and now names the November date. Flagged as inference: that the wider scope will bring new claims. Not linked: the fr-algoan signal, which sells lenders the repayment check itself rather than dispute handling.

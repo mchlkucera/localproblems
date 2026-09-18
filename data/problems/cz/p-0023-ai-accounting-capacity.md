@@ -54,6 +54,13 @@ comps:
   traction: 'YC Spring 2025; profitable (london.edu); trusted by 15+ UK accounting
     firms incl. Blick Rothenberg (Startup Intros)'
   signal: yc-combinely
+- name: Integral
+  url: https://group.integral.de/
+  geo: DE
+  since: 2024
+  traction: '€18M Series A, over €30M raised in total (Tech.eu, Sep 2026); AI agents prepare
+    the books end to end for more than half of its clients'
+  signal: de-integral
 locals:
 - name: Účtárna.ai
   url: https://www.uctarna.ai/
@@ -121,6 +128,16 @@ locals:
     of the pipeline, not the firm that runs the whole ledger and signs off the return [S2,S9].
     Trading since 9 September 2019; it names nobody who has bought it and publishes no count,
     so how widely it is used is unknown.
+- name: Adconta
+  url: https://adconta.cz/
+  ico: '17982847'
+  since: 2023
+  competes: direct
+  maturity: established
+  evidence: 'It sells the same service: a digital accounting office in Zlín that keeps books,
+    payroll and tax for client firms, reads documents with AI and shows the work in a client
+    portal [S12]. Its operator, Adoptimal Technology s.r.o., has traded since 26 January 2023,
+    and its site names clients such as B & M WOOD s.r.o. and LEVEL 02, a.s.'
 sources:
 - type: arbitrage
   name: "Skalar"
@@ -272,8 +289,51 @@ sources:
   amount_czk: 5000
   unit: per-seat-month
   basis: list-price
+- type: arbitrage
+  name: "Integral"
+  gist: "the Berlin €18M Series A"
+  why: "Berlin, founded 2024: an accounting firm where AI agents do the bookkeeping, payroll and tax groundwork and licensed advisers at an affiliated tax firm review and sign off. It raised an €18M Series A on 16 September 2026."
+  url: https://tech.eu/2026/09/16/integral-lands-eur18m-series-a-for-ai-native-accounting-and-tax-services/
+  note: 'de-integral (arb-scan, 2026-09-18), linked in MATCH 2026-09-18: Integral (Berlin,
+    founded 2024 by Lukas Zörner and Anil Can Baykal) raised a EUR 18M Series A on 16 Sep 2026,
+    total funding over EUR 30M (tech.eu). AI agents reconcile invoices and bank lines, post
+    entries and prepare payroll and tax filings; licensed professionals at Integral Tax review
+    and sign off. It says agents prepare bookkeeping end to end for more than half of its clients
+    and its professionals doubled the clients each can serve this year. Company site
+    group.integral.de, linked from the article. EARLY under the established test (founded 2024,
+    under three years selling, although Series A), so proof stays 1. CZ side, from the signal''s
+    own check (queries, google-cz, ares, own-funded-ledger, Wultra control passed): Účtárna.ai and
+    Trivi re-found (already direct and established here), E-Consulting still live, Digitoo
+    adjacent; two new names. Adconta: read by MATCH 2026-09-18 at adconta.cz, "digitální účetní
+    kancelář" with AI document processing ("až 25krát rychlejší"), financial and payroll
+    accounting, tax advice and a client portal; operator Adoptimal Technology s.r.o., IČO
+    17982847, ARES datumVzniku 2023-01-26, Zlín; testimonials name client firms (B & M WOOD
+    s.r.o., LEVEL 02 a.s., Na Maledivy s.r.o., KSkovo s.r.o., BIfactory s.r.o., TOGRE s.r.o.),
+    so it passes the established test at three years and is ledgered direct and established;
+    gap was already 0 and does not move. UcetniAi.cz NOT LEDGERED: on 2026-09-18 the domain
+    served a registrar placeholder ("úspěšně zaregistrována a čeká na nahrání svého obsahu")
+    over http and https could not be reached from here, so nothing about it can be verified;
+    named here, not claimed.'
+  date: '2026-09-16'
+  signal: de-integral
+- type: regulation
+  name: "Tax package 2028 — one administration for income tax and contributions (planned)"
+  gist: "the planned 2028 payroll overhaul"
+  why: "The government's 2026 legislative plan has the finance ministry merge how personal income tax and social and health contributions are administered, and add self-assessment, from January 2028. It is only a plan item so far, so the date can slip."
+  url: https://vlada.gov.cz/assets/media-centrum/dulezite-dokumenty/1234_2026_priloha_c-_2.pdf
+  note: 'reg-jednotne-inkaso-samovymereni-2028 (reg-scan, 2026-09-18), linked in MATCH
+    2026-09-18: Plán legislativních prací vlády 2026, annex 2, task MF-2 — unify the
+    administration of personal income tax and the public insurance contributions (social and
+    health), rebuild the contribution rules on tax-law terms, and write self-assessment into the
+    Tax Procedure Code. Government deadline 2027 Q2, planned effect 01.2028, RIA yes. DRAFT: a
+    plan item only, not yet a bill; date at risk. Who must act, per the signal: employers and
+    payroll bureaus, the self-employed, tax advisers, health insurers, ČSSZ and the Financial
+    Administration. Distinct from S6 (one monthly report to one agency, in force). Deadline
+    already 2 on S6, so it moves no score; urgency 3 unchanged.'
+  date: '2028-01-01'
+  signal: reg-jednotne-inkaso-samovymereni-2028
 created: '2026-08-13'
-updated: '2026-09-04'
+updated: '2026-09-18'
 ---
 
 A new Czech accounting law, planned for 2028, would force every accountant to retrain and the main bookkeeping programs to be rewritten [S3].
@@ -292,7 +352,7 @@ Existing non-solutions: The AI-first accounting firm already trades in Czechia, 
 - Another sells bookkeeping with its own accountants, tax advisers and bank feeds [S9].
 - A third says its technology now posts up to 85% of transactions automatically [S9].
 
-The first publishes its prices; they are under [Willing to pay](#willing-to-pay) [S9]. Neither of the first two is new: one has traded since 2008, and the other's owner since 2012 [S9]. A fourth seller posts most bank movements automatically by rule, with a client portal and an AI assistant on top [S9].
+The first publishes its prices; they are under [Willing to pay](#willing-to-pay) [S9]. Neither of the first two is new: one has traded since 2008, and the other's owner since 2012 [S9]. A fourth seller posts most bank movements automatically by rule, with a client portal and an AI assistant on top [S9]. A fifth, a digital accounting office in Zlín trading since 2023, reads client documents with AI [S12].
 
 Others sell one piece of the job:
 
@@ -317,6 +377,7 @@ The dates behind this:
 - On 21 September 2026 the state's knowledge-transfer grant stops taking applications [S8].
 - Until 30 April 2027 the state's innovation vouchers stay open, on a rolling basis [S7].
 - On 1 January 2028 the new law is planned to take effect, but it is not yet passed and the date can slip [S3].
+- From January 2028 the finance ministry also plans to merge how income tax and social and health contributions are filed and paid, which would change every employer's payroll; it is only a plan so far [S13].
 
 Who pays: Yes: small Czech firms already pay a monthly fee for bookkeeping done by software and checked by licensed accountants [S9].
 
@@ -335,6 +396,8 @@ Solved elsewhere: Young AI accounting companies are funded in Germany, Sweden, B
 - A second Munich company raised about €2.9M weeks later, for larger firms' accounting [S4].
 
 The first firm's AI does the bookkeeping, payroll and tax groundwork, and it sells against Germany's shortage of tax advisers [S1]. The second builds AI agents that automate accounting inside larger companies, and its backers are Lightspeed, Y Combinator (a US startup programme) and Gradient [S4]. In Germany, a duty to issue e-invoices from 2027 is making accounting automation something firms must buy, and an EU plan for digital VAT points Czechia the same way [S4].
+
+A Berlin firm of the same kind, started in 2024, raised an €18M Series A on 16 September 2026, the largest round here [S12]. Its AI agents prepare the books end to end for more than half of its clients, and licensed advisers at an affiliated tax firm sign off [S12].
 
 A Swedish company and a British one, both started in 2024, sell AI tools to accounting firms rather than keeping books themselves [S5]. Billow AI Labs came out of Y Combinator in summer 2026, pitching an AI accounting firm to replace the Big Four, the four largest audit firms [S5].
 
@@ -365,4 +428,4 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewrit
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as three lines under the headline: a `brief:` on who is stuck and what forces it now, the `solution:` as a call to action starting "Build", and a new `good_for:` line. Previous title, verbatim: "Czech accountants are scarce, and the rules change in 2028". Previous solution, verbatim: "An accounting firm run as an AI document pipeline with licensed accountants on top, starting with the single monthly payroll report every Czech employer has had to file since April 2026." There was no previous brief or good_for. Checked against the sources before writing, and two claims in the old headline did not survive. "Czech accountants are scarce" is gone: this record's own body says no Czech figure for the shortage exists, and the one hiring receipt on file counts administrative and clerical vacancies, not accountants [S10]. "The rules change in 2028" became "a new accounting law is planned for 2028", because the Act is not yet passed and its date can slip [S3]. The headline now leads with the one clock actually running, the monthly employer report [S6]. "Payroll offices had to rework their software" is the report signal's own finding that every payroll system and outside payroll bureau had to retool in 2026 [S6]. "As companies already do in Germany" rests on Skalar and Finto, both young [S1,S4]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Every Czech employer now files a payroll report each month, and a new accounting law is planned for 2028" After: "Czech employers now report payroll monthly, with a new accounting law planned for 2028". Brief before: "Since April 2026 the monthly report has replaced up to 25 forms, and payroll offices had to rework their software to file it [S6]. The 2028 law, not yet passed, would change bookkeeping software again and retrain every accountant [S3]." After: "The new monthly report replaced up to 25 forms, and payroll offices had to rework their software [S6]. A planned law would change bookkeeping software again and retrain every accountant [S3]." Solution before: "Build an accounting firm where software reads client documents and licensed accountants check the work, starting with the monthly payroll report, as companies already do in Germany." After: "Build an accounting firm where software reads client documents and licensed accountants check the work, starting with payroll." "Since April 2026" left the brief to keep one number, the 25 forms [S6]; the law stays "planned" and "would" because it is not passed [S3]. "As companies already do in Germany" was cut for length. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed. Same date, pain-point pass: title "Czech employers now report payroll monthly, with a new accounting law planned for 2028" → "Every Czech accountant would have to retrain under a new law planned for 2028"; brief "The new monthly report replaced up to 25 forms, and payroll offices had to rework their software [S6]. A planned law would change bookkeeping software again and retrain every accountant [S3]." → "Payroll offices already had to rework their software this year for a new monthly report [S6]. The planned law would also change the software firms keep their books on [S3].". Why: the old headline stated a new filing rhythm and a planned law, with no one hurting; a report that replaces 25 forms can even read as relief. The new pain is the work the rules put on accountants: retraining for every accountant under the planned Accounting Act [S3], after payroll offices already reworked their software for the monthly report [S6]. "Would" and "planned" stay because the act is not passed and its date can slip [S3]. The brief was reordered to back the new headline; "up to 25 forms" was cut, so it carries no number, and no claim was added. No score, status, source, note or body sentence changed. Same date, draft law: added `draft_law:` for the "Draft law" badge. The headline's pain — every accountant retraining and the bookkeeping software rewritten — comes from the new Accounting Act, sent to parliament in December 2025 and not enacted [S3]; the monthly employer report is in force [S6] but is the lesser clock, and the record states no sourced shortage figure of its own. Status re-checked on 2026-09-16: the finance ministry reports the first reading on 12 March 2026, and no later stage was found (mf.gov.cz press release, 2026). No other field changed.
 
-2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the planned Accounting Act and holds the monthly employer report, the Czech sellers already trading and the missing shortage figure [S3,S6,S9,S10]. Why now opens on the payroll offices' new report and the retraining the law would bring, with the law, report and grant dates below as plain bullets [S3,S6,S7,S8]. Willing to pay now answers yes, from the Czech sellers' own client counts, and holds the public money that sat in move 5 [S7,S8,S9]. Competition describes the Czech sellers by what they sell and took the "displace, not fill a void" point from move 6 [S2,S3,S9]. The German funding moved from Why now to Validated abroad [S1,S4]. Every `comps[]` and `locals[]` name left the body and the moves; Billow AI Labs and ÚOL, which are not on a ledger, stay named. First moves went from six to five, with no markers or figures: move 4 (pre-sell, and ask the chamber of tax advisers) and move 6 (displace) were folded into moves 1 and 4, and move 5 lost its two links to the private sources pages but keeps both grants. `entry.why` became "Easier: … Harder: …" with the same gates. Detail added from sources already on file, none of it new evidence: the retroactive January–March filings [S6], the Act's submission date of 12 December 2025 [S3], the August 2026 vacancy count [S10], Germany's tax-adviser shortage, its 2027 e-invoicing duty and the EU digital-VAT plan [S1,S4], and Finto's backers [S4]. S10 gained a name, gist and why, and four source `why` lines were cleaned: S3 lost "ecosystem" and glosses IFRS, S6 names the social-security administration and drops "the payroll capacity that is already short", which no source supports, and S7 and S8 say small firms instead of SMEs. Corrected against the sources rather than against the old sentences: "Czech accountants are scarce" and "the same scarcity is here" are gone from the body, as they left the headline on 2026-09-16, because no Czech count of the shortage was found [S9] and the one hiring figure counts clerical jobs [S10]; "functional-currency accounting" is gone, because neither the [S3] note nor the EY article it links mentions it (the article, read 2026-09-18, speaks of widening IFRS use and bringing Czech practice closer to IFRS); Finto's round now cites its own source, about €2.9M [S4], where the body had cited Skalar's source [S1] for "$3.4M", which stays in Finto's ledger row; the Swedish and British companies are now said to sell AI tools to accounting firms, as their ledger rows show, rather than to be AI-first accounting firms [S5]; Combinely's profitability left the body because no source note carries it, and it stays in its ledger row; "the software vendors will ship compliance updates" became "will have to rewrite them", which is what [S3] says; and "small firms that cannot find an accountant" became "small firms", since no source shows they cannot find one. Flagged as inference: that the 2028 switch could loosen clients' ties to their accountants and accountants' ties to their software [S3]; that larger firms could follow if the law passes [S3]; and that the two ways to charge are service fees or switch-over tools, which is our reading, not a source's. No `process` block was added: no source on file says who does which bookkeeping or payroll step today, only that every employer files the report [S6] and that Czech sellers put accountants over software [S9]. No score, status, entry gate value, source, `note:`, `sources[]` order, title, brief, solution, good_for or draft_law changed.
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the planned Accounting Act and holds the monthly employer report, the Czech sellers already trading and the missing shortage figure [S3,S6,S9,S10]. Why now opens on the payroll offices' new report and the retraining the law would bring, with the law, report and grant dates below as plain bullets [S3,S6,S7,S8]. Willing to pay now answers yes, from the Czech sellers' own client counts, and holds the public money that sat in move 5 [S7,S8,S9]. Competition describes the Czech sellers by what they sell and took the "displace, not fill a void" point from move 6 [S2,S3,S9]. The German funding moved from Why now to Validated abroad [S1,S4]. Every `comps[]` and `locals[]` name left the body and the moves; Billow AI Labs and ÚOL, which are not on a ledger, stay named. First moves went from six to five, with no markers or figures: move 4 (pre-sell, and ask the chamber of tax advisers) and move 6 (displace) were folded into moves 1 and 4, and move 5 lost its two links to the private sources pages but keeps both grants. `entry.why` became "Easier: … Harder: …" with the same gates. Detail added from sources already on file, none of it new evidence: the retroactive January–March filings [S6], the Act's submission date of 12 December 2025 [S3], the August 2026 vacancy count [S10], Germany's tax-adviser shortage, its 2027 e-invoicing duty and the EU digital-VAT plan [S1,S4], and Finto's backers [S4]. S10 gained a name, gist and why, and four source `why` lines were cleaned: S3 lost "ecosystem" and glosses IFRS, S6 names the social-security administration and drops "the payroll capacity that is already short", which no source supports, and S7 and S8 say small firms instead of SMEs. Corrected against the sources rather than against the old sentences: "Czech accountants are scarce" and "the same scarcity is here" are gone from the body, as they left the headline on 2026-09-16, because no Czech count of the shortage was found [S9] and the one hiring figure counts clerical jobs [S10]; "functional-currency accounting" is gone, because neither the [S3] note nor the EY article it links mentions it (the article, read 2026-09-18, speaks of widening IFRS use and bringing Czech practice closer to IFRS); Finto's round now cites its own source, about €2.9M [S4], where the body had cited Skalar's source [S1] for "$3.4M", which stays in Finto's ledger row; the Swedish and British companies are now said to sell AI tools to accounting firms, as their ledger rows show, rather than to be AI-first accounting firms [S5]; Combinely's profitability left the body because no source note carries it, and it stays in its ledger row; "the software vendors will ship compliance updates" became "will have to rewrite them", which is what [S3] says; and "small firms that cannot find an accountant" became "small firms", since no source shows they cannot find one. Flagged as inference: that the 2028 switch could loosen clients' ties to their accountants and accountants' ties to their software [S3]; that larger firms could follow if the law passes [S3]; and that the two ways to charge are service fees or switch-over tools, which is our reading, not a source's. No `process` block was added: no source on file says who does which bookkeeping or payroll step today, only that every employer files the report [S6] and that Czech sellers put accountants over software [S9]. No score, status, entry gate value, source, `note:`, `sources[]` order, title, brief, solution, good_for or draft_law changed. Same date, later pass, merged here: evidence added from the monthly scans. Integral, a Berlin AI-first accounting firm, raised an €18M Series A on 16 September 2026 and joins comps[] [S12]; it was founded in 2024, so it is early and proof stays 1. The same check named Adconta, a Zlín digital accounting office; its operator dates from January 2023 in ARES and its site names clients, so it joins locals[] as direct and established. Gap was already 0 and does not move. UcetniAi.cz was not ledgered: its domain served only a registrar placeholder. The finance ministry's planned 2028 merger of income-tax and contribution filing was added to the Why now dates [S13]; urgency was already 3. No score or status changed.
