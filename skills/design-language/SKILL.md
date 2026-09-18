@@ -385,11 +385,21 @@ provisional. The display rules below stand.
   prices form a **separate, lighter group**, so they never read as something to add
   to the purchases. Nothing is summed. **PayTimeline** (purchases stacked by month,
   open grant calls last) appears only in the Willing to pay sheet.
-- **ProcessSteps** (Suggested solution) has **two lanes**: Today above With the
-  suggested solution. A step nobody does is an **empty dashed slot**, and the steps
-  the solution changes sit under one teal band. There are **no "Not known" boxes**
-  (owner, 2026-09-17). A step with an unknown actor gets no column, and its open
-  question is one line under the figure.
+- **ProcessSteps** (Suggested solution) is **the hub** (owner, 2026-09-18: *"The
+  hub is good"*; *"imagine this person has to interact here, this there, this there
+  vs how they interact with one provider"*). Two blocks, stacked at every width,
+  each heading telling its half of the story ("**Today** · each person works
+  separately, in their own place"; "**With the suggested solution** · everyone works
+  in one system"). Today each person is **wired to their own place**, named in the
+  step's own words; after, everyone is **wired by one bracket into ONE teal box**,
+  named from the record's words ("Hospital system with report templates"), which
+  also lists what the system now does itself. When the solution is a provider, the
+  buyer is the hub: one wire per seller today, one wire to one provider after.
+  **The wires are one grid**: ticks start at one x, the bracket runs exactly from the
+  first tick to the last, the join leaves it at the box's centre (equal rows). An
+  unknown actor is **never drawn as a person**: each open question is one plain
+  "Not known: …" line under the figure. Only work nobody does today is a dashed
+  "Nobody does this today" box. Glyphs are gray, teal only in the one box.
 - A figure **rendered twice** (page and sheet) takes a **`scope`**, so popover ids
   stay unique.
 - Each figure is a server function that returns `null` when its data is thin. **Call
@@ -508,8 +518,10 @@ Rules for all of it:
 7. NEVER `searchParams`, `cookies()`, `headers()` or any request-time data.
 8. NEVER transition from or to `transparent`, never animate a layout property, never
    an exit animation, never ignore reduced-motion.
-9. NEVER emoji, flag emoji, or an outlined stock icon set. Small glyphs are solid and
-   drawn for this site. Category drawings are line illustrations.
+9. NEVER emoji, flag emoji, or a stock icon set (outlined or not). Small glyphs are
+   solid and drawn for this site: the category icons and the process figure's role
+   and object glyphs (`web/lib/figures/role-icons.tsx`, one bust plus one detail,
+   on the category icons' 16-unit grid). Category drawings are line illustrations.
 10. NEVER marketing chrome: no hero stats, counts line, "trusted by" or award
     badges, filled CTA buttons or exclamation marks. "Problem" is never softened to "challenge".
 11. NEVER a verdict word (PRIME, STRONG, …) on a public page. Bands are number ranges

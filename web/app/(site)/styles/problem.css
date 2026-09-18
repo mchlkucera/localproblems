@@ -116,8 +116,12 @@
 }
 .ls-head:has(> .ls-art) { padding-top: 48px; }
 
+/* the title runs wider than the reading column (owner, 2026-09-18: "make the
+   heading go more columns"): it spans main + rail, so a long title takes two
+   or three lines instead of four. The facts sit a row below it. */
+.ls-head > .ls-h1 { grid-column: 1 / -1; }
 .ls-h1 {
-  max-width: var(--ls-main);
+  max-width: 920px;
   font-size: 40px; line-height: 1.14; font-weight: 600;
   letter-spacing: -0.028em; color: var(--l-text-1);
   text-wrap: balance;

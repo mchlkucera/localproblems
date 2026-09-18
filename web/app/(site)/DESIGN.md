@@ -593,16 +593,23 @@ page passes `scope` (`"s"` in sheets) so its popover ids stay unique.
   (2 on phone), 16px teal dots stacked from a `--l-line-2` baseline, month 11px
   `--l-text-3` 6px under it; open grant calls as a last group behind a hairline,
   12px + 16px in (6 + 8 on phone).
-- **ProcessSteps** (Suggested solution): step columns 12px apart; lane labels
-  "Today" and "With the suggested solution" 12px / 16px 500 `#6e7077`, the second
-  24px under the first lane. Nodes min-height 60px (48 on phone), padding 8px
-  10px, 1px `--l-line-2`, radius 8, 12.5px / 17px 500 `--l-text-1`. A step nobody
-  does, or not done today: an empty slot, 1px dashed `--l-text-4`, 400 `#6e7077`.
-  The steps the solution changes sit under one band (1px `#9fcbc1`, `#f0f7f5`,
-  radius 10; label 13px / 18px 500 teal ink). A step that stays is 400 `#6e7077`.
-  An unknown actor gets no column (no "Not known" box); its question is one
-  13px / 20px `#6e7077` line under the figure. Phone: steps run down, the lanes
-  sit side by side, 10px apart.
+- **ProcessSteps** (Suggested solution): **the hub** (owner, 2026-09-18). Two
+  blocks stacked at every width, the second under a `--l-line` rule (22px above,
+  20 below). Headings 13px / 18px `--l-text-2` with the block name in 600
+  `--l-text-1` ("Today · …", "With the suggested solution · …"). Each block is a
+  three-column grid: people `minmax(0,1fr)`, a 32px wire column (24 on phone),
+  places `minmax(0,.62fr)` (`.5fr / 1fr` when the buyer is the hub). Wires are 1px
+  `#c9cbd0` (teal `--lk-teal-line` into the one box): every tick starts at the wire
+  column's left edge, the bracket sits 16px in (12 on phone) and runs from the
+  first tick to the last, and bracketed blocks use equal rows so the join to the one
+  box leaves the bracket's midpoint at the box's centre. A person is a 22px gray
+  (`#919399`) glyph, name 13px / 18px 600, line 12.5px / 17px `--l-text-2` (teal ink
+  after). A place is a white box, 1px `--l-line-2`, radius 8, 16px object glyphs and
+  its words 12.5px 500. The one box is 1px `--lk-teal-line` on `--lk-teal-tint`,
+  radius 10, a 24px teal-mark glyph, its name 13px 600 `--lk-teal`, then what it
+  does itself 12.5px `--lk-teal`. "Nobody does this today" is a dashed box and a
+  dashed tick. Open questions: one "Not known: …" line each, 12.5px / 18px
+  `#6e7077`, 16px under the picture.
 - Figure placement on the page and in the sheet: 32px above (26 on phone), no box.
 
 ## Record page: sources drawer

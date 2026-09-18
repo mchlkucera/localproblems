@@ -150,21 +150,44 @@
 }
 .lk-mx-q.is-direct.is-early::before { left: -4px; top: -5px; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
 .lk-mx-q.is-adjacent.is-established::after { right: -5px; bottom: -4px; width: 6px; height: 7px; clip-path: polygon(0 0, 100% 50%, 0 100%); }
-/* the dots' box: rows of 42px, 12px clear of every edge so a dot never clips */
-.lk-mx-plot { position: relative; flex: 1; min-height: calc(var(--rows, 1) * 42px + 16px); margin: 0 -2px; }
-.lk-mx-plot > .lk-pin { left: calc(12px + (100% - 24px) * var(--x)); top: calc(8px + (100% - 16px) * var(--y)); }
+/* the labelled dots: a short list, oldest first, so labels never overlap.
+   Dot + name + muted year is ONE button. */
+.lk-mx-l { list-style: none; margin: 0 -5px; padding: 4px 0 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.lk-mx-i { max-width: 100%; }
+.lk-mx .lk-pin.lk-mx-pin {
+  position: relative; display: inline-flex; align-items: flex-start; gap: 7px;
+  width: auto; height: auto; max-width: 100%; margin: 0; padding: 3px 5px; border-radius: 6px;
+  transform: none; text-align: left; font: 500 13px/18px var(--l-font); color: var(--l-text-1);
+}
+.lk-mx .lk-pin.lk-mx-pin::before { inset: 0; border-radius: 6px; box-shadow: none; }
+/* on the teal quadrant the hover wash is a deeper teal of the same ground,
+   never a gray fighting it (owner, 2026-09-18) */
+.lk-mx-q.is-favour .lk-pin.lk-mx-pin::before { background: #e3f0eb; }
+.lk-mx-pin > .lk-dot { margin-top: 4px; }
+.lk-mx-t { position: relative; min-width: 0; overflow-wrap: break-word; }
+.lk-mx-s { font-weight: 400; color: #6e7077; white-space: nowrap; font-variant-numeric: tabular-nums; }
+/* a crowded quadrant (6+) in a wide matrix: two short columns */
+@container (min-width: 560px) {
+  .lk-mx-l.is-many { display: block; columns: 2; column-gap: 8px; }
+  .lk-mx-l.is-many > li { margin-bottom: 2px; break-inside: avoid; }
+}
+@container (max-width: 480px) {
+  .lk-mx.is-crowded .lk-mx-s { display: none; }
+}
 .lk-mx-none { margin: 0; font-size: 13px; line-height: 18px; font-weight: 500; color: #6e7077; }
 .lk-mx-q.is-favour .lk-mx-none { color: var(--lk-teal); }
 .lk-mx-y {
-  grid-column: 1; align-self: center; justify-self: start;
+  grid-column: 1; justify-self: start; padding: 6px 0;
   writing-mode: vertical-rl; transform: rotate(180deg);
   font-size: 11px; line-height: 14px; font-weight: 500; color: #6e7077; white-space: nowrap;
 }
-.lk-mx-y.is-direct { grid-row: 1; }
-.lk-mx-y.is-adjacent { grid-row: 2; }
+/* one short word at each END of each axis: "Sells this" at the top,
+   "Sells nearby" at the foot, "New" at the left, "Established" at the right */
+.lk-mx-y.is-direct { grid-row: 1; align-self: start; }
+.lk-mx-y.is-adjacent { grid-row: 2; align-self: end; }
 .lk-mx-x { grid-row: 3; padding: 6px 10px 0; font-size: 11px; line-height: 14px; font-weight: 500; color: #6e7077; }
-.lk-mx-x.is-early { grid-column: 2; }
-.lk-mx-x.is-est { grid-column: 3; }
+.lk-mx-x.is-early { grid-column: 2; justify-self: start; }
+.lk-mx-x.is-est { grid-column: 3; justify-self: end; padding-right: 0; }
 /* ---- DotPeek: a company as a dot that opens a card ---------------------
    The button is a 24px target centred on its point; the mark is the 10px
    MaturityDot. Hover lays a gray halo under it (an opacity, nothing else);
@@ -212,71 +235,103 @@
 .lk-dot.is-early { background: var(--l-bg); box-shadow: inset 0 0 0 1.5px var(--l-text-1); }
 .lk-dot.is-none { background: var(--l-text-3); }
 
-/* ---- ProcessSteps: one figure, two lanes ------------------------------
-   Desktop: step columns, lanes as rows (label row + node row each).
-   Phone: the axes swap — steps as rows, the two lanes side by side.
-   Items carry --c/--c2 (column lines) and --r/--r2 (row lines, +1 for the
-   phone head row), so one set of inline vars places them both ways. */
-.lk-pd { display: flex; flex-direction: column; gap: 16px; }
-.lk-pd-grid {
-  display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr));
-  grid-template-rows: auto auto auto auto; column-gap: 12px;
+/* ---- ProcessSteps: THE HUB ----------------------------------------------
+   Owner, 2026-09-18 ("The hub is good"): Today, each person wired to their
+   own place; With the suggested solution, everyone wired by one bracket into
+   ONE teal box. Two blocks, stacked at every width (lib/figures/process.tsx).
+   THE WIRES ARE ONE GRID: people · a --w wire column · places. Ticks start at
+   the wire column's left edge; the bracket (the trunk, at --t) runs from the
+   first tick to the last; the join to the one box leaves it at the box's own
+   vertical centre. Bracketed blocks have equal rows (grid-auto-rows: 1fr), so
+   the trunk's midpoint is the centre of the rows it spans, where the box sits.
+   Glyphs are gray #919399 (the category-icon gray), teal only in the box. */
+.lk-hb { display: flex; flex-direction: column; gap: 16px; --w: 32px; --t: 16px; --wire: #c9cbd0; --lk-ground: var(--l-bg-2, #fbfbfc); }
+.lk-glyph { display: block; flex: none; }
+.lk-hb-pic { display: flex; flex-direction: column; }
+.lk-hb-block.is-after { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--l-line); }
+.lk-hb-h { margin: 0 0 10px !important; font-size: 13px; line-height: 18px; color: var(--l-text-2); text-wrap: pretty; }
+.lk-hb-h b { font-weight: 600; color: var(--l-text-1); }
+.lk-hb-grid { display: grid; grid-template-columns: minmax(0, 1fr) var(--w) minmax(0, .62fr); }
+.lk-hb-grid.is-tree, .lk-hb-grid.is-fan { grid-auto-rows: 1fr; }
+.lk-hb-grid.is-fan { grid-template-columns: minmax(0, .5fr) var(--w) minmax(0, 1fr); }
+.lk-hb-grid.is-quiet { margin-top: 12px; }
+.lk-hb-row { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: center; }
+.lk-hb-row > .lk-hb-p { grid-column: 1; padding: 7px 12px 7px 0; }
+.lk-hb-row > .lk-hb-p:only-child { grid-column: 1 / -1; }
+.lk-hb-cell { grid-column: 3; display: flex; align-items: center; min-width: 0; padding: 4px 0; }
+.lk-hb-cell.is-p { grid-column: 1; padding: 7px 12px 7px 0; }
+.lk-hb-cell.is-one { position: relative; align-self: center; }
+/* the wires: 1px borders, never a box edge, so they meet exactly */
+.lk-hb-c { grid-column: 2; position: relative; align-self: stretch; --c: var(--wire); }
+.lk-hb-c::before, .lk-hb-c::after { content: ""; position: absolute; }
+.lk-hb-c::before { top: 50%; height: 0; border-top: 1px solid var(--c); }
+.lk-hb-c.is-dash::before { border-top: 1px dashed var(--l-text-4); }
+.lk-hb-c.is-pair::before { left: 0; right: 0; }
+/* into the one box: tick → trunk; the box's own join leaves the trunk */
+.lk-hb-c.is-tree { --c: var(--lk-teal-line); }
+.lk-hb-c.is-tree::before { left: 0; width: var(--t); }
+.lk-hb-c.is-tree::after { left: calc(var(--t) - 1px); top: 0; bottom: 0; border-left: 1px solid var(--c); }
+.lk-hb-cell.is-one::before {
+  content: ""; position: absolute; top: 50%; left: calc(var(--t) - var(--w)); width: calc(var(--w) - var(--t));
+  border-top: 1px solid var(--lk-teal-line);
 }
-.lk-pd-lane { grid-column: 1 / -1; padding-bottom: 8px; font-size: 12px; line-height: 16px; font-weight: 500; color: #6e7077; }
-.lk-pd-lane.is-l1 { grid-row: 1; }
-.lk-pd-lane.is-l2 { grid-row: 3; padding-top: 24px; }
-.lk-pd-rule, .lk-pd-band, .lk-pd-bandlabel, .lk-pd-node { grid-column: var(--c) / var(--c2); }
-.lk-pd-rule.is-l1, .lk-pd-node.is-l1 { grid-row: 2; }
-.lk-pd-rule.is-l2, .lk-pd-band, .lk-pd-bandlabel, .lk-pd-node.is-l2 { grid-row: 4; }
-/* the run of the sequence: one hairline through each lane, behind the nodes */
-.lk-pd-rule { grid-column: 1 / -1; position: relative; }
-.lk-pd-rule::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--l-line-2); }
-.lk-pd-node {
-  position: relative; z-index: 1; display: flex; align-items: center; min-width: 0; min-height: 60px;
-  padding: 8px 10px; border: 1px solid var(--l-line-2); border-radius: 8px; background: var(--l-bg);
-  font-size: 12.5px; line-height: 17px; font-weight: 500; color: var(--l-text-1);
-  text-wrap: pretty; overflow-wrap: anywhere; hyphens: auto;
+/* out of the hub: the hub's join → trunk → a tick to each place */
+.lk-hb-hub { grid-column: 1; align-self: center; justify-self: end; position: relative; padding: 4px 0; }
+.lk-hb-hub::after {
+  content: ""; position: absolute; top: 50%; right: calc(var(--t) - var(--w)); width: calc(var(--w) - var(--t));
+  border-top: 1px solid var(--wire);
 }
-/* a step nobody does, or one the solution adds: an empty slot */
-.lk-pd-node.is-empty { border: 1px dashed var(--l-text-4); font-weight: 400; color: #6e7077; }
-/* an actor we don't know: no box, a muted word */
-.lk-pd-node.is-unknown { border-color: transparent; background: var(--l-bg); font-weight: 400; color: #6e7077; }
-/* a step the solution leaves alone */
-.lk-pd-node.is-stays { font-weight: 400; color: #6e7077; }
-.lk-pd-node.is-over { margin: 7px 5px; min-height: 46px; }
-.lk-pd-node.is-over.is-unknown { border-color: var(--lk-teal-line); }
-/* the suggested solution: ONE box under every step it changes */
-.lk-pd-band {
-  position: relative; z-index: 0; min-height: 60px;
-  border: 1px solid var(--lk-teal-line); border-radius: 10px; background: var(--lk-teal-tint);
+.lk-hb-c.is-fan::before { left: var(--t); right: 0; }
+.lk-hb-c.is-fan::after { left: var(--t); top: 0; bottom: 0; border-left: 1px solid var(--wire); }
+.lk-hb-c.is-teal { --c: var(--lk-teal-line); }
+/* the trunk runs from the first tick to the last, never past them */
+.lk-hb-c.is-first::after { top: 50%; }
+.lk-hb-c.is-last::after { bottom: calc(50% - 1px); }
+.lk-hb-c.is-only::after { display: none; }
+.lk-hb-c.is-tree.is-only::before { width: auto; right: 0; }
+.lk-hb-c.is-fan.is-only::before { left: 0; }
+.lk-hb-hub { padding-right: 12px; }
+.lk-hb-hub::after { right: calc(var(--t) - var(--w)); }
+/* a person: glyph, name, what they do */
+.lk-hb-p { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.lk-hb-ic { display: flex; flex: none; color: #919399; }
+.lk-hb-tx { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.lk-hb-tx b { font-size: 13px; line-height: 18px; font-weight: 600; color: var(--l-text-1); text-wrap: pretty; }
+.lk-hb-tx span { font-size: 12.5px; line-height: 17px; color: var(--l-text-2); text-wrap: pretty; }
+.lk-hb-p.is-teal .lk-hb-tx span { color: var(--lk-teal); }
+.lk-hb-p.is-dash .lk-hb-ic { color: var(--l-text-4); }
+.lk-hb-p.is-dash .lk-hb-tx span, .lk-hb-grid.is-quiet .lk-hb-tx span { color: #6e7077; }
+/* a place today: its own small box, named in the step's own words */
+.lk-hb-place {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; width: 100%; min-height: 36px;
+  padding: 7px 10px; border: 1px solid var(--l-line-2); border-radius: 8px; background: var(--l-bg); --lk-ground: var(--l-bg);
 }
-.lk-pd-bandlabel {
-  position: relative; z-index: 1; align-self: center; padding: 8px 12px;
-  font-size: 13px; line-height: 18px; font-weight: 500; color: var(--lk-teal); text-wrap: balance;
+.lk-hb-place.is-dash { border-style: dashed; border-color: var(--l-text-4); background: none; }
+.lk-hb-objs { display: flex; gap: 3px; flex: none; color: #919399; }
+.lk-hb-pw { flex: 1 1 80px; font-size: 12.5px; line-height: 17px; font-weight: 500; color: var(--l-text-2); text-wrap: pretty; }
+.lk-hb-spoke {
+  display: flex; width: 100%; padding: 8px 10px; border: 1px solid var(--l-line-2); border-radius: 8px;
+  background: var(--l-bg); --lk-ground: var(--l-bg);
 }
-.lk-pd-q { display: flex; flex-direction: column; gap: 2px; }
-.lk-pd-q p { margin: 0; font-size: 13px; line-height: 20px; color: #6e7077; text-wrap: pretty; }
+.lk-hb-spoke.is-dash { border-style: dashed; border-color: var(--l-text-4); background: none; --lk-ground: var(--l-bg-2, #fbfbfc); }
+/* the ONE box: what the solution brings, and what it now does itself */
+.lk-hb-one {
+  display: flex; flex-direction: column; gap: 5px; width: 100%; padding: 10px 12px;
+  border: 1px solid var(--lk-teal-line); border-radius: 10px; background: var(--lk-teal-tint); --lk-ground: var(--lk-teal-tint);
+}
+.lk-hb-oh { display: flex; align-items: center; gap: 8px; color: var(--lk-teal-mark); }
+.lk-hb-oh b { font-size: 13px; line-height: 18px; font-weight: 600; color: var(--lk-teal); text-wrap: pretty; }
+.lk-hb-od { font-size: 12.5px; line-height: 17px; color: var(--lk-teal); text-wrap: pretty; }
+/* the open questions: one plain "Not known:" line each, under the picture */
+.lk-hb-q { display: flex; flex-direction: column; gap: 4px; }
+.lk-hb-q p { margin: 0; font-size: 12.5px; line-height: 18px; color: #6e7077; text-wrap: pretty; }
 
 @media (max-width: 640px) {
-  .lk-pd-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto repeat(var(--n), auto);
-    column-gap: 10px; row-gap: 8px;
-  }
-  .lk-pd-lane { grid-column: auto; grid-row: 1; padding: 0 0 2px; }
-  .lk-pd-lane.is-l1 { grid-column: 1; }
-  .lk-pd-lane.is-l2 { grid-column: 2; grid-row: 1; padding-top: 0; }
-  .lk-pd-grid > .lk-pd-band, .lk-pd-grid > .lk-pd-bandlabel, .lk-pd-grid > .lk-pd-node { grid-row: var(--r) / var(--r2); }
-  .lk-pd-rule.is-l1, .lk-pd-node.is-l1 { grid-column: 1; }
-  .lk-pd-rule.is-l2, .lk-pd-band, .lk-pd-bandlabel, .lk-pd-node.is-l2 { grid-column: 2; }
-  .lk-pd-rule.is-l1, .lk-pd-rule.is-l2 { grid-row: 2 / -1; }
-  .lk-pd-rule::before { left: 50%; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1px solid var(--l-line-2); }
-  .lk-pd-node, .lk-pd-band { min-height: 48px; }
-  .lk-pd-node.is-over { margin: 5px 6px; min-height: 36px; }
-  .lk-pd-bandlabel { align-self: start; }
-  .lk-strip-key { align-self: flex-start; }
-  .lk-strip-row { grid-template-columns: auto minmax(0, 1fr); row-gap: 4px; padding: 10px 0; }
-  .lk-strip-label { grid-column: 1 / -1; }
-  .lk-strip-dots:empty + .lk-strip-read { grid-column: 1 / -1; }
+  .lk-hb { --w: 24px; --t: 12px; }
+  .lk-hb-grid { grid-template-columns: minmax(0, 1fr) var(--w) minmax(0, .8fr); }
+  .lk-hb-grid.is-fan { grid-template-columns: minmax(0, .6fr) var(--w) minmax(0, 1fr); }
+  .lk-hb-p { gap: 7px; }
+  .lk-hb-ic .lk-glyph { width: 20px; height: 20px; }
 }
 
 /* ---- pay ---- (lib/figures/pay.tsx: PayDots, a column chart, on the page;

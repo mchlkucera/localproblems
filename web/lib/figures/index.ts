@@ -12,12 +12,15 @@
 //   {stepsFig && <div className="ls-fig">{stepsFig}</div>}
 //
 // The slots on the record page (skills/design-language/SKILL.md §7):
-//   ProcessSteps   article column 680px   Suggested solution: the two-lane
-//                                          process diagram (owner, 2026-09-16),
-//                                          Today above With the suggested
-//                                          solution; the lanes sit side by side
-//                                          on a phone. Props {process, sources,
-//                                          ctx}; null under 2 steps
+//   ProcessSteps   article column 680px   Suggested solution: THE HUB (owner,
+//                                          2026-09-18). Today, each person
+//                                          wired to their own place; with the
+//                                          solution, everyone wired into ONE
+//                                          teal box. Two stacked blocks at
+//                                          every width; role and object glyphs
+//                                          from role-icons.tsx. Props {process,
+//                                          sources, ctx}; null under 2 drawable
+//                                          steps
 //   MaturityDot    inline, 10px           each company row, so figures and rows match
 //   LocalMatrix    ~330px or 680px        Competition: the Czech players as a 2x2
 //                                          (maturity x competes), one dot each.
