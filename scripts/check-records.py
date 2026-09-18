@@ -642,6 +642,45 @@ def extra_sentences(text):
     return n
 
 
+# PROCESS STEP TEXT IS A SHORT PHRASE (owner, 2026-09-18: "the texts could be
+# shorter, it's kinda long now, too wide"). The hub figure (lib/figures/
+# process.tsx) prints each drawn step's `today` and `after` VERBATIM beside its
+# person, so each is a phrase of about 4-8 words; detail belongs in
+# `summary.today` / `summary.after` (the Read more sheet) or the body. Counted
+# on what the hub draws: `today` of a step with a known actor, `after` of a step
+# the solution changes or adds. A '?' step's `today` is the open question, a
+# sentence under the figure, and is exempt. An ERROR on a record in
+# PROCESS_PHRASE_ENFORCED (shortened already); a WARNING on every other one.
+# A record joins the set in the same change that shortens its steps.
+PROCESS_STEP_WORDS_MAX = 10
+PROCESS_PHRASE_ENFORCED = frozenset({"p-0036"})
+
+
+def check_process_phrases(doc):
+    """Drawn process step text over PROCESS_STEP_WORDS_MAX words. -> [messages]."""
+    proc = doc.get("process")
+    if not isinstance(proc, dict) or not isinstance(proc.get("steps"), list):
+        return []
+    out = []
+    for i, s in enumerate(proc["steps"], 1):
+        if not isinstance(s, dict):
+            continue
+        who = str(s.get("who") or "").strip()
+        drawn = []
+        if who != "?" and isinstance(s.get("today"), str):
+            drawn.append(("today", s["today"]))
+        if s.get("change") in ("changes", "new") and isinstance(s.get("after"), str):
+            drawn.append(("after", s["after"]))
+        for key, text in drawn:
+            n = len(_MARKER_ANY.sub("", text).split())
+            if n > PROCESS_STEP_WORDS_MAX:
+                out.append(f"process step {i} '{who}' `{key}` is {n} words (max "
+                           f"{PROCESS_STEP_WORDS_MAX}; aim for 4-8) — the hub prints it "
+                           f"verbatim beside its person; move detail to `summary.{key}` "
+                           f"or the body (data/RECORD-TEMPLATE.md, Writing the body)")
+    return out
+
+
 def check_process(doc, n_sources, comps, locals_):
     """The `process:` figure, asserted. -> [error strings].
 
@@ -1676,6 +1715,8 @@ def check(path, year):
     # nobody checked. `known` is where that uncertainty lives, and these are
     # the rules that stop it collapsing back into confidence.
     errors.extend(check_process(doc, len(sources), comps, locals_))
+    for msg in check_process_phrases(doc):
+        (errors if pid in PROCESS_PHRASE_ENFORCED else warns).append(msg)
 
     # ---- the headline block (owner, 2026-09-16) ---------------------------
     # OPTIONAL `brief:` (at most two sentences) and `good_for:` line. The brief

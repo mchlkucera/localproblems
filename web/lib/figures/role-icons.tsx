@@ -39,12 +39,15 @@ const ROLE_TABLE: readonly [RegExp, Role][] = [
 ];
 export const roleOf = (who: string): Role => ROLE_TABLE.find(([re]) => re.test(who.trim()))?.[1] ?? "person";
 
-/** Where a step happens, in the step's OWN words: the matched text is the
-    label, so the figure never names a product the record does not. */
+/** Where a step happens, in the step's OWN words: the matched text (or its
+    first group) is the label, so the figure never names a product the record
+    does not. */
 const PLACE_TABLE: readonly [RegExp, Obj][] = [
   [/\bfree text\b/i, "document"],
   [/\b(?:the )?(?:cancer )?registry\b/i, "registry"],
-  [/\bthe report\b/i, "document"],
+  // the report is a place only where someone READS it; a doctor writing it
+  // writes it in "free text"
+  [/\b(?:re-?)?reads\s+(the report)\b/i, "document"],
   [/\bphones?\b/i, "phone"],
   [/\be-?mail\b/i, "email"],
   [/\b(?:old )?(?:dispatch )?software\b/i, "software"],
@@ -56,9 +59,8 @@ export function placeOf(text: string): { objs: Obj[]; words: string } | null {
   const hits: { obj: Obj; w: string; at: number }[] = [];
   for (const [re, obj] of PLACE_TABLE) {
     const m = re.exec(text);
-    if (m && !hits.some((h) => h.w.toLowerCase() === m[0].toLowerCase())) {
-      hits.push({ obj, w: m[0].replace(/^the /i, ""), at: m.index });
-    }
+    const w = (m?.[1] ?? m?.[0] ?? "").replace(/^the /i, "");
+    if (m && !hits.some((h) => h.w.toLowerCase() === w.toLowerCase())) hits.push({ obj, w, at: m.index });
   }
   if (!hits.length) return null;
   hits.sort((a, b) => a.at - b.at);

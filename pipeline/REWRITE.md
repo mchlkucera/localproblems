@@ -64,6 +64,10 @@ Tick every line before calling a record done.
 - [ ] Willing to pay: the answer says whether people pay now; the items are prices,
       contracts or paid consultants, not only public money.
 
+- [ ] Process steps (if any): each drawn `today` / `after` is a phrase of about 4–8
+      words (max 10); detail moved to `process.summary` or the body; the record joins
+      `PROCESS_PHRASE_ENFORCED` in `scripts/check-records.py`.
+
 **Language**
 - [ ] Every acronym, agency and law is explained where it first appears, or left out.
 - [ ] Short sentences; no fluff words; at most one aside per sentence.

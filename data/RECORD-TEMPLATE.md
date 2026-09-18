@@ -56,6 +56,12 @@ Solved elsewhere: <ONE answer sentence [Sn]>
 2026-09-17 · <tag> — <what changed and why>
 ```
 
+- **Process step text is a short phrase, about 4–8 words** (owner, 2026-09-18: *"the
+  texts could be shorter, it's kinda long now, too wide"*). The hub figure prints each
+  step's `today` and `after` verbatim beside its person ("Writes the report as free
+  text", "Confirms the proposed insurer codes"). Detail goes in `process.summary.today`
+  / `summary.after` (the Read more sheet) or the body. `check_process_phrases` warns
+  over 10 words, and errors on a record in `PROCESS_PHRASE_ENFORCED`.
 - **The lead-ins stay literal.** `Who pays:` is still the key for the section the page
   now titles **Willing to pay**. `## First moves` is still the key for **Suggested first
   moves**.

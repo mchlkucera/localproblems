@@ -251,9 +251,11 @@
 .lk-hb-block.is-after { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--l-line); }
 .lk-hb-h { margin: 0 0 10px !important; font-size: 13px; line-height: 18px; color: var(--l-text-2); text-wrap: pretty; }
 .lk-hb-h b { font-weight: 600; color: var(--l-text-1); }
-.lk-hb-grid { display: grid; grid-template-columns: minmax(0, 1fr) var(--w) minmax(0, .62fr); }
+/* capped columns (owner, 2026-09-18: "too wide"): a person's line stops at
+   260px and a place at 240px, so the picture reads as one compact unit */
+.lk-hb-grid { display: grid; grid-template-columns: minmax(0, 260px) var(--w) minmax(0, 240px); justify-content: start; }
 .lk-hb-grid.is-tree, .lk-hb-grid.is-fan { grid-auto-rows: 1fr; }
-.lk-hb-grid.is-fan { grid-template-columns: minmax(0, .5fr) var(--w) minmax(0, 1fr); }
+.lk-hb-grid.is-fan { grid-template-columns: minmax(0, 180px) var(--w) minmax(0, 340px); }
 .lk-hb-grid.is-quiet { margin-top: 12px; }
 .lk-hb-row { grid-column: 1 / -1; display: grid; grid-template-columns: subgrid; align-items: center; }
 .lk-hb-row > .lk-hb-p { grid-column: 1; padding: 7px 12px 7px 0; }
@@ -298,7 +300,9 @@
 .lk-hb-tx { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .lk-hb-tx b { font-size: 13px; line-height: 18px; font-weight: 600; color: var(--l-text-1); text-wrap: pretty; }
 .lk-hb-tx span { font-size: 12.5px; line-height: 17px; color: var(--l-text-2); text-wrap: pretty; }
-.lk-hb-p.is-teal .lk-hb-tx span { color: var(--lk-teal); }
+/* with the suggested solution, the whole person is teal: glyph, name, line */
+.lk-hb-p.is-teal .lk-hb-ic { color: var(--lk-teal-mark); }
+.lk-hb-p.is-teal .lk-hb-tx b, .lk-hb-p.is-teal .lk-hb-tx span { color: var(--lk-teal); }
 .lk-hb-p.is-dash .lk-hb-ic { color: var(--l-text-4); }
 .lk-hb-p.is-dash .lk-hb-tx span, .lk-hb-grid.is-quiet .lk-hb-tx span { color: #6e7077; }
 /* a place today: its own small box, named in the step's own words */
