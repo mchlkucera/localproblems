@@ -110,11 +110,12 @@
 /* with the category drawing switched back on (SHOW_HEAD_ART), the brief is row 3 */
 .ls-head:has(> .ls-art) > .ls-facts-row { grid-row: 3; }
 .ls-art {
-  display: block; width: 128px; height: auto;   /* owner, 2026-09-16: kept, smaller */
-  color: #c3c4c9;               /* between --l-line-2 and --l-text-4: present, never loud */
-  margin-bottom: 24px;
+  /* owner, 2026-09-18: "a bit bigger and more contrast and space around" */
+  display: block; width: 160px; height: auto;
+  color: #9fa1a8;               /* a clear mid-gray line: reads, still quieter than text */
+  margin: 8px 0 40px;
 }
-.ls-head:has(> .ls-art) { padding-top: 48px; }
+.ls-head:has(> .ls-art) { padding-top: 64px; }
 
 /* the title runs wider than the reading column (owner, 2026-09-18: "make the
    heading go more columns"): it spans main + rail, so a long title takes two
@@ -1038,8 +1039,8 @@ a:hover > .ls-ext { opacity: 1; }
   .ls-bar { padding: 0 var(--l-4); }
   .ls-shell { padding: 0 var(--l-4) 88px; }
   .ls-head { padding: 24px 0 52px; }
-  .ls-art { width: 96px; margin-bottom: 16px; }
-  .ls-head:has(> .ls-art) { padding-top: 24px; }
+  .ls-art { width: 120px; margin: 4px 0 28px; }
+  .ls-head:has(> .ls-art) { padding-top: 32px; }
   .ls-h1 { font-size: 26px; line-height: 1.22; letter-spacing: -0.022em; }
   /* balance gives up past six lines (Chrome), which a title over ~120
      characters reaches at 26px on a 375px phone, and then leaves one word on
