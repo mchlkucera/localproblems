@@ -22,7 +22,7 @@ entry:
   incumbents: adjacent
   integration: software
   money: bootstrap
-  why: 'A care home buys shift cover out of the agency budget it already spends, but placing a worker on someone else''s shift needs an agency-employment licence under the employment act, and established shift marketplaces — Flecto, Grason — run next door in factories and canteens.'
+  why: 'Easier: over half of care services are short of workers, and no Czech firm sells them outside cover for one shift. Harder: placing a worker on another employer''s shift needs an agency licence; EU rules presume platform workers are employees from December 2026; and two established shift marketplaces run next door.'
 comps:
 - name: ShiftKey
   url: https://www.shiftkey.com/
@@ -141,6 +141,34 @@ locals:
   evidence: It brokers household caregivers to families, selling to consumers rather than shifts
     to facilities [S8]. Domelie s.r.o. has traded only since 5 March 2025 and publishes no count
     of families it has served.
+process:
+  summary:
+    today: 'A home''s shift app offers a spare shift only to its own staff, and agencies place nurses and carers into posts by phone, not into single shifts [S8,S9].'
+  steps:
+  - who: The home's shift app
+    today: 'Offers a spare shift to its own staff'
+    known: documented
+    cites: [8, 9]
+    change: changes
+    after: 'Also offers it to vetted outside carers'
+  - who: '?'
+    today: 'Who covers a shift no staff member takes is not known'
+    known: unknown
+    cites: []
+    change: changes
+    after: 'A vetted outside carer books that one shift'
+  - who: A staffing agency
+    today: 'Places nurses and carers into posts by phone'
+    known: documented
+    cites: [9]
+    change: stays
+    after: 'Unchanged: agencies still fill permanent posts'
+  - who: The shift marketplace
+    today: null
+    known: inferred
+    cites: [9]
+    change: new
+    after: 'Vets each carer before their first shift'
 sources:
 - type: arbitrage
   name: "ShiftKey"
@@ -294,6 +322,9 @@ sources:
   checked: [google-cz, ares, zivnostensky-rejstrik, company-job-feed, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
 - type: hiring
+  name: "Labour Office — August 2026 care hiring"
+  gist: "316 care vacancies in August"
+  why: "222 residential-care employers posted 316 new direct-care vacancies, 528 seats in all, through the Labour Office in August 2026, the second month running after July."
   url: https://data.mpsv.cz/web/data/otevrena-data
   note: 'mpsv-2026-08-health-care: August 2026 MPSV open-data aggregate — 316 direct-care
     vacancies in residential care (528 seats, 222 employers), the second consecutive monthly
@@ -308,7 +339,7 @@ sources:
   url: https://eur-lex.europa.eu/eli/dir/2024/2831/oj
   name: Directive (EU) 2024/2831 on platform work
   gist: presumption of employment, Dec 2026
-  why: The EU platform-work directive must be transposed by 2 December 2026 and presumes an employment relationship wherever a platform directs and controls the work — it dates the worker-status precondition this record's build note names, and it runs against a marketplace that would direct carers' shifts.
+  why: The EU platform-work directive must be transposed by 2 December 2026 and presumes an employment relationship wherever a platform directs and controls the work — it dates the question of who employs the worker, and it runs against a marketplace that would direct carers' shifts.
   note: 'Directive (EU) 2024/2831 of 23 October 2024 on improving working conditions in platform
     work: in force 1 December 2024, transposition deadline 2 December 2026, art. 5 legal
     presumption of employment where facts indicate control and direction. Filed 2026-09-03 after
@@ -339,22 +370,68 @@ created: '2026-08-25'
 updated: '2026-09-04'
 ---
 
-Czech social services are short more than 3,000 workers, and over half of 625 surveyed facilities report unfilled posts [S3]. In July 2026 alone, 262 employers posted 380 new general-nurse vacancies through the Labour Office [S4]. Providers cover the holes with overtime, agency staff and word of mouth.
+Czech care services are short of workers, and nobody sells a care home cover for a single shift [S3,S9].
 
-Why now: the ministry's models add roughly 34,700 long-term-care beds by 2035, every one needing staff [S5]. Since 1 July 2026 care services may legally handle routine health tasks such as help with medication, widening what a qualified flexible worker may cover in a shift [S6]. One regional government, Královéhradecký kraj, is paying €2.19M to expand personal-assistance capacity [S7].
+- More than 3,000 workers are missing from Czech social services [S3].
+- Over half of 625 surveyed care services report a shortage of workers [S3].
+- Shift apps offer a spare shift only to a home's own staff [S8,S9].
 
-Who pays: care providers pay per filled shift, out of money already going to staffing agencies. The July 2026 nurse postings alone carry an annualised wage floor of €10.8 million [S4]; a matching fee on a fraction of that flow is the business. Workers come for shifts they choose.
+The survey was run in January 2025 by the association of social-services providers [S3]. What a home can do about an empty shift today:
 
-Existing non-solutions: the Czech field is mature and points elsewhere. Směny.cz, Chytrá organizace, Plánuj směny and VeruApp schedule staff a provider already employs; Shiftiary does it inside hospitals, across about fifty facilities and three hundred departments; Dayswaps sells the same to more than 100 companies in five countries [S9]. Flecto runs the marketplace shape — workers booking single shifts — for Continental, Aramark and Promens; Grason runs it for restaurants, warehouses and supermarkets, and its own live job feed carries gastronomy postings only [S9]. Neither names a health or social-care buyer in public [S9]. Providers fall back on people: sestrycz.eu brokers nurses and carers into posts by phone, Přehlednější zdravotnictví advertises vacancies, and Domelie sells household carers to families [S9]. Nobody sells a care home the shift it needs tomorrow night. Whoever does must decide who employs the carer first: the EU platform-work directive, due in Czech law by 2 December 2026, presumes employment wherever a platform directs the work [S11].
+- Shift apps sold to care providers offer the shift only to the staff the provider already employs [S8,S9].
+- Agencies place nurses and carers into posts by phone, and job boards advertise vacancies; neither covers a single shift [S9].
+- No Czech firm sells a care home an outside carer for the shift it needs tomorrow night [S9].
+- How a home covers a shift that none of its own staff takes is not known.
 
-Solved elsewhere: two markets, both sellers a decade in. ShiftKey has run since 2016 on $300M raised at a valuation above $2 billion, with licensed professionals bidding on single shifts at more than 10,000 facilities, skilled nursing first [S1]. Florence has run since 2017 on a £28.5M Series B, matching shifts and bundling training for 90,000 care professionals and 2,000+ care organisations [S2]. Both make their money on the margin an agency takes today. Nothing of the kind operates in Central Europe [S1,S2].
+Existing non-solutions: Established Czech firms sell shift apps and single-shift work, but none sells care homes cover from outside their own staff [S9].
+
+Each firm's name, customers and dates are in its row. What they sell:
+
+- Four Czech rota tools, none naming its customers, plan the shifts of staff a care provider already employs [S8,S9].
+- An established one does the same inside hospitals, for about fifty facilities and three hundred departments in Czechia and Slovakia [S9].
+- Another established one sells it to more than 100 companies in five countries, and its open-shift feature offers a spare shift only to the employer's own team [S9].
+- Two established Czech marketplaces let workers book single shifts, one in manufacturing and catering, the other in restaurants, warehouses and supermarkets [S9]. The second one's own live job feed carries gastronomy postings only [S9].
+- Neither marketplace names a health or social-care buyer in public [S9].
+- A healthcare staffing agency places nurses, carers and physiotherapists into posts by phone, and publishes no per-shift price [S9].
+- A job board sells health employers vacancy adverts, and a young firm places household carers with families rather than shifts with care homes [S8,S9].
+
+Whoever sells outside cover must first decide who employs the carer [S11]. The EU platform-work directive, due in Czech law by 2 December 2026, presumes employment wherever a platform directs and controls the work [S11].
+
+Why now: Care homes are short of staff today, and the state's own models call for about 34,700 more care beds by 2035 [S3,S5].
+
+- Care services say the shortage deepened between 2023 and 2025 [S3].
+- Employers posted 380 nurse vacancies in July and 316 care vacancies in August [S4,S10].
+- Each new bed must be staffed from a sector already short of workers [S3,S5].
+
+Behind those three items are the monthly vacancy data, the models and a change in what carers may do:
+
+- In July 2026, 262 employers posted 380 new general-nurse vacancies through the Labour Office [S4].
+- In August 2026, 222 residential-care employers posted 316 new direct-care vacancies, 528 seats in all [S10].
+- The labour ministry and the health-statistics institute model residential clients rising from 93,536 to 135,624 by 2035, and beds from 76,761 to 111,503 [S5].
+- Since 1 July 2026 Act No. 92/2026 lets home-care services help with medication, without breaking the skin, and handle stoma and urine bags [S6]. That widens what a qualified flexible worker may cover in one shift [S6].
+
+Who pays: Care homes pay wages to staff their shifts and use agencies to hire, but no Czech price for a single shift is on file [S4,S9].
+
+- Employers advertised 651 general-nurse seats through the Labour Office in July 2026 [S4].
+- The Královéhradecký region tendered €2.19M in January 2026 for personal-assistance services [S7].
+- Agencies placing nurses and carers publish no price for a single shift [S9].
+
+What those July nurse seats cost in wages a year is in the table of what one buyer pays. A marketplace would earn a fee on a share of that wage bill, and no Czech per-shift rate is on file to set it [S9]. Abroad, workers bid on the shifts they want, and one marketplace says it cuts out agency middlemen [S1,S2].
+
+Solved elsewhere: Two marketplaces abroad, each about a decade old, let vetted nurses and carers book single shifts at care homes [S1,S2].
+
+In the US a Dallas company founded in 2016 lets licensed health workers bid on single shifts at more than 10,000 facilities, skilled-nursing and long-term-care homes first [S1]. It raised $300M led by Lorient Capital at a valuation above $2 billion, announced in January 2023 [S1].
+
+In Britain a London company founded in 2017 by a doctor from the National Health Service matches care homes with shifts and bundles in training, for 90,000 care professionals and more than 2,000 care organisations, with 100,000 people on its e-learning [S2]. It raised a £28.5M Series B led by AXA Venture Partners (the insurer AXA's venture fund) in June 2022, and says its app cuts out agency middlemen so shifts are filled directly [S2].
+
+No Central European example is on file [S1].
 
 ## First moves
 
-1. Sell first to homes already paying an agency. More than 3,000 workers are missing from Czech social services, and over half of 625 surveyed facilities report unfilled posts [S3]. What a home uses today is sestrycz.eu and agencies like it, brokering people into posts by phone, with no per-shift price published anywhere [S9]. Your fee comes out of what the home already pays.
-2. Build the worker side first, in one region. A shift only sells if someone qualified takes it, and two facts widen who that can be. Since 1 July 2026 care services may legally cover routine health tasks such as help with medication [S6]. And 262 employers posted 380 new general-nurse vacancies through the Labour Office in July 2026 alone — an annualised €10.8M chasing staff who mostly already have a job [S4].
-3. Open with the number that is not a cycle. The ministry's models add roughly 34,700 long-term-care beds by 2035 [S5], every one to be staffed, in a sector already short more than 3,000 people [S3]. The shortage a home has this month is the smallest it will be.
-4. Watch Flecto and Grason. Flecto has run this exact shape since 2021 — workers booking single shifts at partner employers — for Continental, Aramark and Promens, with no care employer among them [S9]. Grason runs it for restaurants, warehouses and supermarkets, at roughly 350 businesses and 4,500 workers, and its own live job feed carries gastronomy postings only [S9]. Either could move into care; neither has.
+1. Build the worker side first: a pool of vetted nurses and carers in one region who want to pick up single shifts at care homes. A shift only sells if someone qualified takes it, and a law in force since this summer lets care workers cover more routine health tasks, which widens who can take one; see [Why now](#why-now). Decide before the first shift who employs each carer, because the EU's platform-work rules presume employment where a platform directs the work, as [Competition](#competition) explains; the licence this needs is under [Execution difficulty](#execution-difficulty).
+2. Call the managers of care homes in one region that already use a staffing agency, and ask what one uncovered shift costs them. Agencies place people into posts by phone and publish no per-shift price, so nobody outside knows what a shift costs a home; see [Competition](#competition) and [Willing to pay](#willing-to-pay). Your fee has to come out of what the home already pays, so find that number before you set a price.
+3. Open every talk with a care home on the long-term staffing gap, not this month's vacancies. The ministry's bed models, every bed to be staffed, meet a sector already short of workers; see [Why now](#why-now). The shortage a home has this month is the smallest it will be.
+4. Watch the two Czech shift marketplaces that serve factories, canteens and restaurants, because either could open a care line. Both already let workers book single shifts, and neither names a care buyer yet; see [Competition](#competition). Move into care homes before they do.
 
 ## Revisions
 
@@ -376,3 +453,5 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 2026-09-04 · price receipt — The July 2026 nurse postings already on file are now also recorded as a price: an annual wage floor of about 271M CZK across 262 employers, converted from the euro figure at the rate that signal itself states [S12]. It is what the buyers pay to staff those shifts today, not a fee anyone charges. No score, status, gap or existing marker moved.
 
 2026-09-16 · headline copy — The headline was rewritten for a general builder as three lines under the title: a `brief:` on what is happening and why it matters now, the `solution:` as a call to action, and a new `good_for:` line. New copy, verbatim — title: "Czech care homes posted 316 new carer jobs in August"; brief: "No Czech service books them an outside carer for one shift [S9]. Shift apps only offer spare shifts to a home's own staff, and agencies fill jobs, not shifts [S8,S9]."; solution: "Build an app where vetted nurses and carers pick up single shifts at care homes, as companies already do abroad."; good_for: "Someone ready to recruit carers and handle Czech employment rules.". Previous title, verbatim: "Czech care providers are short thousands of workers and fill shifts by overtime and word of mouth — no staffing marketplace serves care". Previous solution, verbatim: "A marketplace where vetted nurses and carers pick up open shifts at care homes, and the home pays a fee for every shift filled.". There was no previous brief or good_for. Rewritten from the agent draft, which predated the owner's framing rules, and cut to the owner's length limits. 316 counts new Labour Office postings for direct-care workers in residential care in August 2026, across 222 employers [S10]. The absence rests on the controlled second sweep: no Czech operator sells per-shift cover from outside a provider's own payroll, rota tools offer open shifts to the employer's own staff, and agencies place employees rather than shifts [S8,S9]. Cut for length: the January 2025 survey's 3,000-worker shortage [S3]. Dropped as unsourced, as the old title carried them: "overtime and word of mouth", and the per-shift fee paid by the home. The 1 July 2026 amendment is past and is not framed as upcoming. "As companies already do abroad" rests on ShiftKey and Florence [S1,S2]. The good_for line rests on two entry facts: a marketplace needs carers on its books, and entry.why names an agency-employment licence, which has no [Sn] on file; the EU platform-work directive, due in Czech law by 2 December 2026, presumes employment where a platform directs the work [S11]. No score, status, source, note, marker or body sentence changed. Same date, pain-point pass: title "Czech care homes posted 316 new carer jobs in August" → "Czech care homes are short of carers, and can't book cover for a single shift"; brief "No Czech service books them an outside carer for one shift [S9]. Shift apps only offer spare shifts to a home's own staff, and agencies fill jobs, not shifts [S8,S9]." → "More than half of surveyed Czech care services report being short of workers [S3]. Shift apps only offer spare shifts to a home's own staff, and agencies fill jobs, not shifts [S8,S9].". Why: the old headline was a vacancy count, with no one hurting. The new one names the homes and the pain: short of carers, per the providers' association survey in which more than half of 625 facilities report a shortage [S3], and with no way to book an outside carer for one shift [S8,S9]. The brief's first sentence, which repeated that last point, now carries the survey's finding instead; the 316 vacancies stay on the record [S10]. No score, status, source, note or body sentence changed. Same date, abroad count (owner: fill "do abroad" with "X companies do in Y countries"): solution "…pick up single shifts at care homes, as companies already do abroad." became "…pick up single shifts at care homes, as 2 companies already do in 2 other countries." Counted from comps[] only: ShiftKey (comps[0], geo US), licensed professionals bidding on single shifts at 10,000+ facilities, skilled nursing first [S1]; Florence (comps[1], geo GB), care homes filling shifts directly from 90,000 vetted professionals [S2]. None excluded.
+
+2026-09-18 · body rewritten to the writing rules, process figure added — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the shortage and the missing single-shift cover, with the survey's two figures and the shift apps as its items and what a home can do about an empty shift as detail [S3,S8,S9]. Competition opens on the established firms that sell something else and describes all eleven `locals[]` players by what they sell, leaving names, customers and dates to their rows; the platform-work directive stays there [S8,S9,S11]. Why now opens on today's shortage and the 34,700 beds, with the deepening survey result, the July and August vacancy counts and the bed-staffing point as its items, and the vacancy detail, the bed models and the 1 July law below them [S3,S4,S5,S6,S10]. Willing to pay says homes pay wages and use agencies but no single-shift price is on file, lists the nurse seats, the regional tender and the agencies' missing price, and links the wage-bill receipt instead of restating it [S4,S7,S9]. Validated abroad describes both `comps[]` companies without their names [S1,S2]. The moves lost every [Sn] marker, figure and company name for links; move 1 now builds the worker pool (old move 2) and move 2 calls care-home managers (old move 1, which sold). `entry.why` was rewritten as "Easier: … Harder: …" [S3,S9,S11]. S11.why no longer says "this record", and S10, the only source without a public face, gained a `name`, `gist` and `why` beside its untouched note. Detail added from sources already on file, none of it new evidence: the August vacancies [S10], the survey's date and body [S3], the bed and client models [S5], what the 1 July law lets home-care services do [S6], the region's tender date [S7], and the two foreign companies' cities, core market, founders and e-learners [S1,S2]. Corrected against the sources rather than the old sentences: "providers cover the holes with overtime, agency staff and word of mouth" has no source, as the 2026-09-16 headline pass already found, so the opportunity now lists what the sources show a home can do and says how a home covers an untaken shift is not known [S8,S9]; "report unfilled posts" became "report a shortage of workers", the survey's own words [S3]; "care providers pay per filled shift, out of money already going to staffing agencies" and the old `entry.why`'s "the agency budget it already spends" rest on no Czech price or agency fee, since the agencies publish none [S9]; the €10.8M wage floor [S4] is the wage-bill receipt [S12], so the body links it rather than restating it; "workers come for shifts they choose" is not shown for Czechia and now reads "abroad, workers bid on the shifts they want" [S1]; "both make their money on the margin an agency takes" is stated by neither source, and only the British company's own page (florence.co.uk/resources/blog/series-b, read 2026-09-18) says its app cuts out agency middlemen [S2]; "nothing of the kind operates in Central Europe" [S1,S2] cannot rest on a US and a British source, and now reads "no Central European example is on file" [S1]; the 1 July law lets home-care services help with medication without breaking the skin and handle stoma and urine bags [S6], narrower than the old "care services may legally handle routine health tasks"; and old move 2's "staff who mostly already have a job" had no source and was dropped. Flagged as inference: "a marketplace would earn a fee on a share of that wage bill", the old "matching fee on a fraction of that flow", which no price on file sets [S9]; "that widens what a qualified flexible worker may cover in one shift", the [S6] note's own reading; "each new bed must be staffed from a sector already short of workers", which joins [S3] and [S5]; move 3's "the shortage a home has this month is the smallest it will be", carried from the old move; and the agency-employment licence in `entry.why`, which has no [Sn] on file, as the 2026-09-16 entry noted, and stays because it is the `permission: licence` gate. The new `process` block draws the home's shift app offering a spare shift to its own staff [S8,S9] and the agency placing people into posts by phone [S9], marks who covers an untaken shift as unknown, and adds the marketplace's vetting as a new step whose `inferred` rests on [S9] finding no Czech operator selling per-shift cover from outside a provider's payroll; every step phrase is 4–8 words. The coordinator may add p-0033 to `PROCESS_PHRASE_ENFORCED`. No score, status, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.

@@ -28,7 +28,7 @@ entry:
   incumbents: open
   integration: software
   money: bootstrap
-  why: 'Employers and the relocation agencies buy this directly out of the per-case fees they pay today, no regulator has to let an entrant in, the seven Czech providers all sell the work by hand rather than as software, and the filing itself is paper.'
+  why: 'Easier: employers already pay a fee for every case, no licence or regulator stands in the way, and the seven Czech providers all do the work by hand. Harder: the filing itself is still on paper, and no provider publishes its fee, so the price has to be learned one conversation at a time.'
 comps:
 - name: Gale
   url: https://galevisa.com/
@@ -126,6 +126,34 @@ locals:
     for staffing agencies, which it says most of its competitors will not touch. It is people
     doing the filing — no portal, no case status a client can open, no expiry watch — and the
     company, registered in September 2020, names nobody it has filed for.'
+process:
+  summary:
+    today: 'An agency or law firm prepares each employee-card file by hand, the interior ministry decides it, and no Czech provider offers software that tracks the case or its expiry date [S4,S5].'
+  steps:
+  - who: An agency or law firm
+    today: 'Prepares each permit file by hand'
+    known: documented
+    cites: [4, 7]
+    change: changes
+    after: 'Prepares the file in shared software'
+  - who: Interior ministry
+    today: 'Decides each case; some sit untouched'
+    known: documented
+    cites: [5]
+    change: stays
+    after: 'Unchanged: the ministry still decides'
+  - who: '?'
+    today: 'How an employer follows its case today is not known'
+    known: unknown
+    cites: []
+    change: changes
+    after: 'The employer sees where each case stands'
+  - who: An agency, for clients who pay for it
+    today: 'Watches permit expiry dates by hand'
+    known: documented
+    cites: [4]
+    change: changes
+    after: 'Software warns before each permit expires'
 sources:
 - type: arbitrage
   name: "Gale"
@@ -207,7 +235,7 @@ sources:
 - type: gap-check
   name: "Market scan — the same question, an in-domain control"
   gist: "the in-domain control check"
-  why: "A Czech query written the way an employer would ask surfaced the agencies — including one this record had missed — and no software: the method finds providers in this market when they are there, and there is no product among them."
+  why: "A Czech query written the way an employer would ask surfaced the agencies — including one an earlier search had missed — and no software: the method finds providers in this market when they are there, and there is no product among them."
   url: https://workking.cz/sluzby/vyrizeni-zamestnanecke-karty/
   note: 'Gap check 2026-08-25, run because the rung-2 claim needed a control INSIDE this market:
     the 2026-08-20 control was Softlink CEM Smart and Ringil, real Czech incumbents but in metering
@@ -262,24 +290,69 @@ created: '2026-08-13'
 updated: '2026-09-03'
 ---
 
-Czech employers hire from Ukraine, the Philippines and India through government quota programmes [S1,S2]. The employee card — the work and residence permit each foreign hire needs — is slow and paper-based [S1]. Agencies and law firms file it by hand; no software prepares the application, tracks it, or watches renewals and reporting deadlines [S2].
+A worker hired from outside the EU needs an employee card to work and live here, and agencies prepare each file by hand [S4,S7].
 
-Why now: Gale (YC W25) automates the corporate visa pipeline; Mayflower (YC F25) and LegalOS (YC W26) followed inside a year [S1]. Their model — software coordinating independent attorneys, not replacing them — fits Czechia, where this work sits with law firms [S1,S3].
+- About 82,000 employee-card cases went through the interior ministry in 2024 [S5].
+- Each renewal or job change means a new file, prepared by hand [S5,S7].
+- No Czech software prepares the file, tracks it or watches its deadlines [S4,S7].
 
-Who pays: employers who hire abroad every year — manufacturing, logistics, healthcare, IT — and pay an agency per case today [S2]. Agencies are the second buyer.
+Czech employers hire from Ukraine, the Philippines and India through government quota programmes [S1,S2]. Getting an employee card is slow and runs on paper [S1,S2]. After it is issued come renewals and the employer's reporting duties, and no Czech product watches those dates for the employer [S4].
 
-The interior ministry counted about 82,000 employee-card proceedings in 2024: 14,287 new applications, 44,869 extensions, 22,793 employer changes [S5]. The quota ceiling is roughly 45,300 a year, and most countries never reach it [S6]. None of nine Czech providers publishes a per-case fee [S4,S7]; pricing needs a vendor conversation. The state fee alone is 1,000 CZK at an embassy [S5]. From 1 January 2028 the same hire may need a second dossier: Czechia is to gain its first route for assessing a qualification earned outside the EU, because recognising the diploma is often not enough to enter a regulated profession [S8].
+- The 82,000 were 14,287 new applications filed at embassies, 44,869 extensions and 22,793 changes of employer or position [S5]. 12,843 new cards were granted that year [S5].
+- A government decree caps new applications at about 45,300 a year across the listed embassies, and most countries never come close [S6].
+- Ukraine used about 10% of its 11,000 places in 2024, and only for India and Kazakhstan is the quota the real limit [S6].
 
-Existing non-solutions: zamestnaneckekarty.cz, the top Czech result, is the law firm Spring Walk — no portal, no tracking [S4]. Foreigners.cz, ReloCzech, Expat Support, Principio, DMPF Expat Assistant and Workking sell the same agenda by the case — people, not a portal [S4,S7]. The state business register lists nine "Relocation" and fifteen "Expat" companies, all service, tax or consulting firms [S4]. Ministry pages, permit.cz guides and law firms such as ARROWS round out the field — everyone here sells staff, not software [S2].
+Existing non-solutions: Seven Czech agencies and law firms sell this work by hand, and none sells software that tracks a case [S4,S7].
 
-Solved elsewhere: Localyze (Germany, ten European markets) and Jobbatical (Estonia, clients including N26 and Personio) have sold employer-side immigration case handling for years, both funded at Series A or later. Gale and LegalOS are the newest layer, both US, both two years old [S1,S3]. The procedure is national and paper-bound, which is the local builder's moat.
+Each sells a person doing the paperwork, case by case, with no portal, dashboard or status a client can open [S4,S7].
+
+- The top Czech search result for the process belongs to a law practice in Brno and Prague that handles each case by hand [S4].
+- One agency watches clients' permit expiry dates as a service: a person watching the dates, not software [S4].
+- One agency in Prague and Brno also files cards for staffing-agency workers, which it says comparable firms rarely do [S7].
+- A corporate services firm files employers' reports on their foreign staff by hand [S7].
+- The state business register lists nine "Relocation" and fifteen "Expat" companies, all service, tax or consulting firms [S4].
+- Ministry pages, form-filling guides such as permit.cz and general law firms such as ARROWS (a Czech law firm) make up the rest, and none of them is software that does the work [S2].
+- The only self-service tracking of the Czech process sits inside Deel, a foreign platform that employs staff on a company's behalf [S4].
+
+Why now: Foreign staff wait on stalled permit cases, and every renewal or job change means a new file prepared by hand [S5,S7].
+
+- 3,518 complaints in 2024 said foreigners' cases sat untouched, and 40.6% were upheld [S5].
+- 44,869 extensions and 22,793 job changes in 2024 each needed a new file [S5].
+- Employers pay agencies high fees for each file done by hand [S2].
+
+A draft law would add a second file for some of these hires from 2028 [S8]:
+
+- From 1 January 2028 Czechia is to get its first route for assessing a professional qualification earned outside the EU [S8].
+- Today such a diploma can be recognised, but that is often not enough to enter a regulated profession [S8]. So a hire into one needs a second file beside the employee card [S8].
+- The European Commission counts 365 regulated professions in Czechia, the second most in the EU [S8].
+- The draft comes from the education ministry and went out for comment in August 2026 [S8]. It is the first full revision since 2004 of the act on recognising qualifications, and it answers a ruling of the EU Court of Justice against Czechia [S8].
+
+Who pays: Employers already pay agencies and law firms to prepare each file by hand, but no Czech provider publishes its fee [S2,S4].
+
+- Agencies charge high fees for files they prepare by hand [S2].
+- A Brno and Prague law practice of over fifty people does this work [S4].
+- One agency sells watching clients' permit expiry dates as a service [S4].
+
+What the work costs is not public:
+
+- None of nine Czech agencies and law firms publishes a per-case fee, so the price has to be asked for [S4,S7].
+- The state fee alone is 1,000 CZK at an embassy [S5].
+- Agencies are a likely second buyer, for software that lets the same staff handle more cases.
+
+Solved elsewhere: Funded companies in Germany, Estonia and the US already handle employers' work-permit cases with software [S1,S3].
+
+A German company and an Estonian one have sold employer-side immigration case handling for years, both funded at Series A or later, and the Estonian one names well-known European tech firms among its clients.
+
+In the US, a company with a $2.7M seed round automates the corporate work-visa pipeline: application prep, compliance and links to the company's personnel systems [S1]. It coordinates independent attorneys rather than replacing them [S1]. Two more US companies followed within about a year: Mayflower, which screens hires for immigration issues for personnel teams, and an AI-native immigration law firm [S1,S3]. Y Combinator, the US startup accelerator, backed all three, in its batches from winter 2025 to winter 2026 [S1]. The work-visa company and the law firm both started in 2024 [S1,S3].
+
+That model fits Czechia, where this work sits with agencies and law firms [S1,S3]. A service firm run on software, rather than software sold to a firm, is the form that fits a paper-based process best [S3]. The Czech procedure is national and runs on paper, which is a local builder's edge [S1,S2].
 
 ## First moves
 
-1. Lead with renewals, not new hires. Of about 82,000 employee-card proceedings in 2024, 44,869 were extensions and 22,793 were employer or position changes; only 14,287 were new applications filed at embassies [S5]. Extensions repeat, run to deadlines and happen inside Czechia — and somebody in the company is already tracking them on a spreadsheet.
-2. Build the expiry watch before the filing. Principio sells expiry monitoring as a service — a person watching dates [S4]. Automating that carries no filing and no liability, and nothing local sells it as a product: the only self-service tracking of this process sits inside Deel, a foreign employer-of-record platform [S4].
-3. Open the sales call with the ministry's own count. In 2024 it recorded 3,518 complaints that these proceedings were sitting untouched, and upheld 40.6% [S5]. Ask how many of last year's starts slipped, and who found out first. The cost is not the agency fee, it is the hire who does not start.
-4. Sell the agencies second. Spring Walk runs the cards from a Brno and Prague practice of over fifty people; Workking takes the cases most rivals refuse, staffing agencies included [S4,S7]. Throughput is their margin. Go in knowing no Czech provider publishes a per-case fee [S4,S7] — the state fee alone is 1,000 CZK at an embassy [S5].
+1. Build a simple deadline watch that warns an employer before each foreign worker's employee card or permit runs out. It files nothing and carries no legal risk, so it can ship before any filing feature. Today one agency sells this as a person watching the dates, and no Czech product does it; the only self-service tracking sits inside a foreign platform, as [Competition](#competition) shows. Give an employer one screen with every worker's dates and a warning well before each one, and let the agency it already uses see the same screen.
+2. Point the first version at renewals and job changes rather than new hires, because they are most of the cases and they keep coming back. The ministry's own counts, under [The opportunity](#opportunity), show extensions and changes of employer far outnumber new applications filed at embassies. Renewals run to fixed dates and are filed inside Czechia, so someone at the employer has to watch every one of them. That person is the user to design for.
+3. Call the heads of personnel at employers who hire from outside the EU, and open with the ministry's count of complaints about stalled cases. The count and the share upheld are under [Why now](#why-now). Ask how many of last year's hires started late, and who found out first. The cost that matters to them is less the agency fee than the worker who cannot start on time, and their answers show which warning to build next.
+4. Offer the same software to the agencies and law firms that prepare these files, so the same staff can handle more cases. One of them is a large law practice in Brno and Prague, and another also takes staffing-agency workers, which it says comparable firms rarely do; see [Competition](#competition). More cases per person is their margin, so show them the time saved per file. Go in knowing that none of them publishes a per-case fee, so ask what they charge before you set your own price; see [Willing to pay](#willing-to-pay).
 
 ## Revisions
 
@@ -290,3 +363,5 @@ Solved elsewhere: Localyze (Germany, ten European markets) and Jobbatical (Eston
 2026-09-02 · plain-language pass — Seven terms glossed or replaced: employee card, kvóty, advokát, ARROWS [S2], DMPF and ARES, now the state business register [S4], HR as somebody in the company, and SMB in the build note. Argument tightened 413 → 323 words, every [Sn] marker, figure and named company kept. First moves rewritten in the plain house voice; a gist added to all seven sources. No score, status, note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` on who is stuck and what is happening, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Czech employers hiring foreign workers push zaměstnanecká karta applications through a notoriously slow paper process via manual relocation agencies and law firms". Previous solution, verbatim: "Software that files a Czech employee card — the work-and-residence permit for a foreign hire — end to end for the employer: documents, submission and status tracking, instead of a per-case agency fee." The record carried no brief and no good_for before this pass. Every claim was checked against this record's sources first. 82,000 is the sum of the interior ministry's 2024 counts, 14,287 new applications, 44,869 extensions and 22,793 employer or position changes, and about 68,000 of them are extensions and changes [S5]. The 3,518 inaction complaints, upheld in 40.6% of cases, are the ministry's figure for foreigners' proceedings, not shown to be employee cards alone, so the brief says "foreigners' cases" [S5]. "No Czech software tracks them" is the 2026-08-25 check with an in-domain positive control [S7]; the only self-service tracking found sits inside a foreign platform [S4]. The old title's "notoriously slow paper process" rests only on the harvest note behind [S1] and was not repeated. There is no dated trigger on this record, so the headline states the problem without one. No score, status, source, note, marker or body sentence changed. Simplified for the front page: title "Czechia handled 82,000 work-permit cases for foreign staff in 2024, and no Czech software tracks them" → "Czechia handled 82,000 work-permit cases in 2024, and no Czech software tracks them"; brief "About 68,000 were renewals and job changes, and the interior ministry got 3,518 complaints that foreigners' cases sat untouched, upholding 4 in 10 [S5]. Agencies and law firms do the paperwork by hand, case by case [S4,S7]." → "Agencies and law firms do each foreign worker's paperwork by hand, case by case [S4,S7]. The interior ministry got 3,518 complaints that foreigners' cases sat untouched [S5]."; solution "Build software for employers and their agencies that prepares work-permit files, tracks each case and warns before permits expire, as companies already do in Germany." → "Build software for employers and their agencies that prepares work-permit files, tracks each case and warns before permits expire.". The 68,000 renewals-and-changes figure and the 4-in-10 upheld rate were cut from the brief; "for foreign staff" left the headline; "as companies already do in Germany" was cut from the solution. Same date, pain-point pass: title "Czechia handled 82,000 work-permit cases in 2024, and no Czech software tracks them" → "Czech work permits for foreign staff get stuck, and agencies still do every file by hand"; brief "Agencies and law firms do each foreign worker's paperwork by hand, case by case [S4,S7]. The interior ministry got 3,518 complaints that foreigners' cases sat untouched [S5]." → "Every renewal or job change means a new file, prepared case by case [S5,S7]. The ministry got 3,518 complaints in 2024 that foreigners' cases sat untouched [S5].". Why: the owner asked of the old headline "Why is that a problem? I don't see the pain point there." — a volume and a missing product, no one hurting. The owner-approved card is applied. Markers checked: renewals (44,869 extension applications) and job changes (22,793 employer or position changes) are counted in the ministry's 2024 report [S5], and the case-by-case manual handling is the two Czech market scans [S4,S7], so the first sentence carries [S5,S7]. "Get stuck" rests on the same report's 3,518 complaints of inaction, upheld in 40.6% of cases [S5]; "every file by hand" on the scans that found only manual providers [S4,S7]. The approved draft said "last year", but those complaints are in the 2024 report and today is 2026-09-16, so the brief says "in 2024". The 82,000 figure stays in the body [S5]. No score, status, source, note or body sentence changed.
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the employee card prepared by hand and holds the ministry's 2024 counts, now with the 12,843 cards granted from the same note, and the quota ceiling with Ukraine's 10% use and the India and Kazakhstan exception from its note [S5,S6]. Why now was the US startups' timing, which is not pain; it now opens on staff waiting and every renewal or job change needing a new file, with the 3,518 complaints, the renewal counts and the agency fees as its first items and the 2028 qualification law as dated detail, gaining the 365 regulated professions, the comment procedure and the Court of Justice ruling from its note [S2,S5,S7,S8]. The US timing, with the Y Combinator batches, moved to Validated abroad [S1,S3]. The unpublished fee, the state fee and the agencies as a second buyer moved under Willing to pay. Every comps[] and locals[] name left the body and the moves: each company is described by what it sells, and its name, year, funding, market count and named clients (N26, TravelPerk, Personio) stay in its ledger row. The move-only facts now have a home: the expiry watch sold as a service and Deel's tracking under Competition [S4], the practice of over fifty people under Willing to pay [S4], and the renewal counts under The opportunity [S5]. The moves lost every [Sn] marker and figure for links, move 1 now builds the deadline watch (the old move 2), and the old move 1 on renewals is move 2. `entry.why` was rewritten as "Easier: … Harder: …" with the same gates. S7's `why` said "this record"; it now says "an earlier search". A `process:` block was added, four steps, each from sources already cited: the agency or law firm preparing each file by hand [S4,S7], the interior ministry deciding, with complaints of cases left untouched [S5], how an employer follows its case marked unknown, and an agency watching expiry dates as a paid service [S4]; the record should join `PROCESS_PHRASE_ENFORCED` with the body gate. Corrected against the sources: the Who pays sectors "manufacturing, logistics, healthcare, IT" appear in neither [S2]'s note nor the signal behind [S1], so they were cut; the claim that one agency "takes the cases most rivals refuse" now says what its page says, that it also files cards for staffing-agency workers, which it calls uncommon among comparable firms (page read 2026-09-18) [S7]; and "somebody in the company is already tracking them on a spreadsheet" in the old move 1 had no source, so move 2 now says only that someone has to watch each renewal. Flagged, kept: "The state fee alone is 1,000 CZK at an embassy [S5]" is not in [S5]'s note, and "none of nine Czech agencies and law firms publishes a per-case fee [S4,S7]" rests on the 2026-08-25 research in commit 5bff299, not on either note; the one provider page re-read on 2026-09-18 publishes no price [S7], and both claims need a receipt. Flagged as inference: that employers are the ones paying the agencies' high fees [S2]; that agencies are a likely second buyer; that renewals are filed inside Czechia and that a deadline watch carries no legal risk (moves 1 and 2); that the real cost is the worker who cannot start on time (move 3); and that a national, paper-based procedure is a local builder's edge [S1,S2]. No score, status, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.

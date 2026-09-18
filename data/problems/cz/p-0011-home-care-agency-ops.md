@@ -22,7 +22,7 @@ entry:
   incumbents: direct
   integration: software
   money: bootstrap
-  why: 'Home-care agencies sign for themselves, nothing licences voice intake, and it sits beside the records software the agency already runs, Cygnus DP. e-Sestřička and pecovatelska.cz have sold the coordination layer for years, so the field is held — the door is open.'
+  why: 'Easier: agencies buy for themselves, no licence is needed to answer their calls, and the assistant plugs into software the agency already runs. Harder: two Czech vendors have sold planning and coordination software to these agencies for years, and the assistant must work with whichever system each agency runs.'
 comps:
 - name: Sage Care
   url: https://www.sagecare.ai/
@@ -103,7 +103,7 @@ sources:
 - type: arbitrage
   name: "Sage Care"
   gist: "the closest US template"
-  why: "AI intake and client records for US home-care agencies (YC S24), claiming over 100 minutes saved per intake — exactly the operations layer this record is about."
+  why: "AI intake and client records for US home-care agencies (YC S24), claiming over 100 minutes saved per intake — exactly the operations layer this problem is about."
   url: https://www.ycombinator.com/companies/sagecare
   note: 'yc-sagecare: Sage Care (YC S24) automates home-care agency operations with AI — intake,
     communication, scheduling busywork; Cova (S26, AI-native home care agency) shows the model
@@ -165,7 +165,7 @@ sources:
 - type: regulation
   name: "Social services amendment 92/2026 Sb."
   gist: "the law widening care tasks"
-  why: "Since 1 July 2026 pečovatelské services may take on routine health-adjacent tasks — the agencies this record covers absorb more work per scarce nurse."
+  why: "Since 1 July 2026 community care services (pečovatelské služby) may help clients take medicines and handle stoma and urine bags, so the same scarce staff carry more tasks."
   url: https://e-sbirka.gov.cz/sb/2026/92
   note: 'reg-soc-sluzby-92-2026: zákon č. 92/2026 Sb., main provisions in force 1 Jul 2026 —
     care services may help with taking medication (without breaking skin integrity) and with
@@ -177,7 +177,7 @@ sources:
 - type: hiring
   name: "Labour Office — July 2026 nurse hiring wave"
   gist: "the 380-vacancy hiring month"
-  why: "262 employers posted 380 new general-nurse vacancies in one month — the shortage this record's capacity argument rests on, now measured monthly by a state dataset."
+  why: "262 employers posted 380 new general-nurse vacancies in July 2026 — the nurse shortage, now measured every month by a state dataset."
   url: https://data.mpsv.cz/od/soubory/volna-mista-prirustek/
   note: 'mpsv-2026-07-health-care: 380 new general-nurse vacancies across 262 employers (651
     seats), annualised wage floor €10.8M, July 2026 — among the first records of the hiring
@@ -202,6 +202,9 @@ sources:
   signal: hlidac-36430740
   dims: [money]
 - type: arbitrage
+  name: "Evergrove"
+  gist: "US voice agents for care"
+  why: "A Y Combinator company, listed in August 2026, that sells voice agents to speed up care coordination in US workers' compensation insurance, on the insurer's side rather than the agency's."
   url: https://www.ycombinator.com/companies/evergrove
   note: 'yc-evergrove: YC-funded (13 Aug 2026) US company selling voice agents for care
     coordination — exactly the Czech-language voice-intake wedge this record names above the
@@ -230,15 +233,61 @@ created: '2026-08-13'
 updated: '2026-09-03'
 ---
 
-Hundreds of Czech home-care agencies — agentury domácí péče and pečovatelské služby, from Včelka to charity providers — book, move and confirm visits by phone and paper [S1,S2]. Under a chronic nurse shortage, time on intake calls is clinical capacity lost [S1]. Czech vendors already sell that coordination layer [S4].
+Czech home-care agencies still book and move visits by phone and on paper, while nurses are scarce [S1,S2].
 
-Why now: the Labour Office logged 380 new general-nurse vacancies across 262 employers in July 2026 alone [S6]. Since 1 July 2026, amendment 92/2026 Sb. lets care services take on routine health-adjacent tasks — medication, stoma and urine bags — adding work per scarce nurse [S5]. Three US care-operations firms were funded in two years: Sage Care (YC S24), Cova (S26), TakeCareOS (Spring 2026) [S1,S3].
+- Hundreds of home-nursing agencies and community care services work this way [S1].
+- Intake calls, new clients and visit changes run on phone and paper [S1].
+- Their records software bills the care already given, and takes no calls [S2].
 
-Who pays: the agencies buy capacity, not savings — automated intake and coordination lets the same nurses carry more reimbursed care. The state's health-statistics institute (ÚZIS) signed ~€5.4M for KOMPAS — classification, recommended practices and cost models for home nursing care [S7]. Delivery money keeps arriving at the same providers: the labour ministry opened 100M CZK for autism-spectrum services to this buyer class, closing 23 November 2026 [S9].
+They include home-nursing agencies, called agentury domácí péče in Czech, and community care services, called pečovatelské služby [S1]. They range from Včelka to charity providers [S1]. Czech vendors already sell planning software above the records system; see [Competition](#competition).
 
-Existing non-solutions: Cygnus DP (IRESOFT) records and bills care already given, but does not answer the phone or rebuild a cancelled day [S2]. The layer above it is taken [S4]. VeruApp plans each caregiver's day from the client's digital record; e-Sestřička covers home and palliative care on nursing billing codes 925, 720 and 926; pecovatelska.cz (Petr Zajíc software) runs community social-care services at 200+ sites; and Ústecký kraj is putting the E-péče field app into 39 providers on EU money [S4].
+Existing non-solutions: Czech vendors already sell planning and coordination software to these agencies, and two of them have done so for years [S4].
 
-Solved elsewhere: Birdie (Britain) and AlayaCare (Canada) have sold care-agency operations software for over a decade, and neither sells in continental Europe. The model is proven, but never under Czechia's reimbursement rules. The US cluster above them is newer and AI-native [S1,S3]. The opening is not the occupied operations layer [S4] but Czech-language voice intake above whoever holds the scheduling and records seat.
+- One cloud system covers home and palliative nursing; three named providers use it [S4].
+- One community-care system runs at 200+ sites, bought as a one-off licence [S4].
+- A newer app builds each carer's daily plan from the client's digital record [S4].
+
+What each does, and what else is in the field:
+
+- The cloud system works under the insurers' nursing billing codes 925, 720 and 926 [S4].
+- The community-care system runs at more than 200 sites across Czechia, sold once rather than as a subscription [S4].
+- The newer app plans the day automatically, and adds a field app for logging tasks, re-planning around sudden events, client billing and statutory reporting [S4].
+- A regional project in Ústecký kraj is putting a field app into 39 care providers on EU money; it is a grant project, not a product for sale [S4].
+- The records and billing software the agencies run writes down and bills the care that happened; it does not answer the phone, book or move a visit, or rebuild a day when a client cancels [S2].
+
+Why now: Agencies short of nurses lose care hours to phone admin, and since July 2026 their care staff may take on health tasks too [S1,S5].
+
+- Czech employers posted 380 new general-nurse vacancies in July 2026 alone [S6].
+- With nurses scarce, every hour of intake calls is care capacity lost [S1].
+- Care services may now also help with medicines and stoma bags [S5].
+
+The 380 vacancies cover 651 places at 262 employers [S6]. They count every Czech employer, not home-care agencies alone [S6].
+
+The change behind the third item is Act No. 92/2026, an amendment to the social services act, in force since 1 July 2026 [S5]. Care services may now help a client take a medicine, as long as the skin is not broken, and handle stoma and urine bags [S5]. That widens the work flowing through the same scarce staff and the same phone-and-paper coordination [S5].
+
+The labour ministry's grant for autism-spectrum services closes on 23 November 2026 [S9].
+
+Who pays: Agencies already pay for care software, and the state is paying to work out what home nursing care costs [S4,S7].
+
+- More than 200 sites bought one Czech care system as a one-off licence [S4].
+- The state health-statistics institute signed about €5.4M to model home-nursing care [S7].
+- The labour ministry opened 100M CZK for autism-spectrum care, open to these providers [S9].
+
+What an agency gains is capacity, not savings: time freed from intake and coordination lets the same nurses deliver more of the care the insurers pay for [S1,S4].
+
+The state project is KOMPAS, run by ÚZIS (the state health-statistics institute) [S7]. It builds a classification, recommended practices and cost models for home and community nursing care, and its partnership agreement was signed on 14 July 2026 [S7].
+
+The 100M CZK is call 112 of OPZ+ (the labour ministry's employment programme) [S9]. It is open to non-governmental organisations and registered social-service providers, and it pays for care services, not for software [S9]. Its closing date is under [Why now](#why-now).
+
+Solved elsewhere: Care-agency software has sold for years in Britain and Canada, and US start-ups now add AI for intake and scheduling [S1,S3].
+
+A British and a Canadian company sell operations software to care agencies; their rows give their funding and customer counts.
+
+In the US, a Y Combinator company from the summer 2024 batch uses AI to handle a home-care agency's intake, client communication and scheduling [S1]. A second, from the spring 2026 batch, builds an AI operating system for long-term care providers [S3]. Cova, from the summer 2026 batch, runs a home-care agency built around AI [S1]. That makes three US companies on care operations in two years, so the model is being copied rather than tried once [S1,S3].
+
+Evergrove, another Y Combinator company, sells voice agents that speed up care coordination in US workers' compensation insurance [S8]. It works for the insurer rather than the agency, but it is the closest template for voice intake [S8].
+
+The opening left in Czechia is Czech-language voice intake on top of whichever planning and records system an agency already runs, since the planning layer is sold here already [S4].
 
 ## Revisions
 
@@ -249,3 +298,5 @@ Solved elsewhere: Birdie (Britain) and AlayaCare (Canada) have sold care-agency 
 2026-09-02 · plain-language pass — Eight trade terms glossed or replaced at first use: agentury domácí péče, pečovatelské služby, Cygnus DP [S2], odbornosti (now nursing billing codes), domácí a paliativní péče, terénní sociální služby [S4], ÚZIS [S7], AI-ops. Argument tightened from 433 words to 300, keeping every figure, date, name and [Sn] marker. A gist added to all seven sources. The lead-in restored to the literal "Existing non-solutions:", which had been swallowing prose. No score, status, note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as three lines under the headline: a `brief:` on who is stuck and what forces it now, the `solution:` as a call to action starting "Build", and a new `good_for:` line. Previous title, verbatim: "Czech home-care agencies burn scarce nurse time on phone-and-paper intake, scheduling and coordination". Previous solution, verbatim: "Czech-speaking voice intake for home-care agencies — the calls that book, move and confirm visits answered automatically, on top of the scheduling system the agency already runs." There was no previous brief or good_for. Checked against the sources before writing: "burn scarce nurse time" left the headline, because no source says nurses are the ones answering the booking calls — the signal behind [S1] says agencies run on phone and paper under a nurse shortage, so the headline now puts those two facts side by side. The 380 vacancies are general-nurse vacancies posted by all Czech employers in July 2026, not by home-care agencies alone, and the brief says "Czech employers" for that reason [S6]. The July 2026 change is stated as already in force, never as upcoming [S5]. No urgency was added: the record has no dated deadline. "As companies already do in the US" rests on Sage Care and TakeCareOS [S1,S3]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: title "Czech home-care agencies run on phone calls and paper while nurses are hard to find" → "Czech home-care agencies run on phones and paper while nurses are scarce"; brief "Agencies book, move and confirm visits by phone, while Czech employers posted 380 new nurse vacancies in July 2026 alone [S1,S6]. Since July 2026, care services may also help clients take medicines and handle stoma bags [S5]." → "Agencies book, move and confirm visits by phone, while Czech employers posted 380 new nurse vacancies in one month [S1,S6]. Care services may now also help with medicines and stoma bags [S5]."; solution "Build a Czech-speaking phone assistant that books, moves and confirms home-care visits in the agency's own scheduling software, as companies already do in the US." → "Build a Czech-speaking phone assistant that books, moves and confirms visits in the home-care agency's own scheduling software.". The July 2026 dates and the "alone" were cut; "380 new nurse vacancies in one month" keeps its marker [S6]; "as companies already do in the US" was cut.
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the phone-and-paper booking under a nurse shortage, with the hundreds of agencies, the intake and visit work, and the records software as its first three items; the Czech names of the two kinds of provider and the Včelka-to-charity range are its detail [S1,S2]. Competition opens on the Czech vendors that already sell the planning layer, and describes each by what it sells, with short items first and the billing codes, the one-off licence, the newer app's features, the regional grant project and the records software's limits below [S2,S4]. Why now opens on the care hours lost to phone admin and the July 2026 change, with the vacancies, the lost capacity and the new health tasks as its first three items and the amendment's detail below [S1,S5,S6]. Willing to pay now answers whether anyone pays: agencies buy care software, and the state pays to cost home nursing care [S4,S7,S9]. Validated abroad became one answer sentence and short paragraphs [S1,S3,S8]. Every comps[] and locals[] company left the body (Cygnus DP and IRESOFT, VeruApp, e-Sestřička, pecovatelska.cz and Petr Zajíc software, E-péče, Sage Care, TakeCareOS, Birdie, AlayaCare); each is described by what it sells, and its name, year and customers stay in its row. Detail added from sources already on file, none of it new evidence: the 651 places behind the 380 vacancies, and that they count every Czech employer [S6]; what the amendment allows, medicines without breaking the skin and stoma and urine bags [S5]; KOMPAS's signing date and ÚZIS glossed [S7]; the OPZ+ call's number and applicants, and that it pays for care, not software [S9]; and Evergrove, whose source S8 the body never cited, as the closest template for voice intake [S8]. `entry.why` was rewritten as "Easier: … Harder: …" from the same gates, and it no longer names Cygnus DP, e-Sestřička or pecovatelska.cz. Four source lines changed: S1's, S5's and S6's why said "this record", and S8 gained a public name, gist and why, written from its note and signal. No `process:` block was added: the sources say agencies run intake and scheduling on phone, paper and a records system [S1,S2], but none says who takes the calls or books the visits (the 2026-09-16 headline pass already found no source saying nurses do), so the steps could not name who does what without inventing it. Corrected against the sources rather than against the old sentences: the amendment was said to add "work per scarce nurse", but it widens what care services, which are carers rather than nurses, may do, and S5's note says "the same scarce staff", so the body and S5's why now say that [S5]; "Birdie (Britain) and AlayaCare (Canada) have sold … for over a decade" was wrong for Birdie, founded in 2017, so it now says "for years"; "neither sells in continental Europe" and "the model is proven, but never under Czechia's reimbursement rules" had no source on file and were cut; "the agencies buy capacity" became "what an agency gains is capacity", since no source records an agency buying for that reason. Flagged as inference: that freed time lets nurses deliver more of the care the insurers pay for, which rests on S1's note that admin time converts to capacity and on the insurers' nursing billing codes [S1,S4]; and that the opening left in Czechia is Czech-language voice intake on top of an agency's existing system, since no search on file looked for a Czech voice-intake seller [S4]. No score, status, source order, `note:`, title, brief, solution or good_for changed.

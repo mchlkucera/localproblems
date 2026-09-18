@@ -22,7 +22,7 @@ entry:
   incumbents: direct
   integration: national-system
   money: outside-money
-  why: 'The gate is money: trained crews, blowing equipment and the state renovation subsidy handled in-house are paid for before the first fixed-price job. Homeowners sign directly and no licence is needed. IP Polná has insulated a claimed 30,100 buildings since 1997.'
+  why: 'Easier: homeowners sign directly, no licence is needed, and the state subsidy already co-pays the work. Harder: trained crews in the field, blowing equipment and in-house subsidy handling are paid for before the first fixed-price job; and a national installer has insulated roofs and lofts with its own crews since 1997.'
 comps:
 - name: VARM
   url: https://www.varm.earth/
@@ -102,6 +102,34 @@ locals:
     not the standardised crew-and-fixed-price operator an entrant here would run; it claims 500+
     customer renovations delivered, by a firm [S6] describes as 25 years old, which dates the
     start of trading to about 2001.
+process:
+  summary:
+    today: 'One firm surveys and prices the roof and loft, another the facade, and the homeowner can pay a third for the energy assessment and subsidy application [S6,S7].'
+  steps:
+  - who: A roof-and-loft installer
+    today: 'Surveys and quotes the roof and loft'
+    known: documented
+    cites: [7]
+    change: changes
+    after: 'One firm quotes the whole house at one price'
+  - who: A facade firm
+    today: 'Surveys and quotes the facade separately'
+    known: documented
+    cites: [7]
+    change: goes
+    after: null
+  - who: A paid subsidy desk
+    today: 'Does the energy assessment and subsidy application'
+    known: documented
+    cites: [6]
+    change: changes
+    after: 'The same firm handles it, inside its price'
+  - who: The installers' crews
+    today: 'Each insulates only its own part'
+    known: documented
+    cites: [7]
+    change: changes
+    after: 'One set of crews insulates roof, loft and walls'
 sources:
 - type: arbitrage
   name: "VARM"
@@ -235,6 +263,9 @@ sources:
   checked: [ares, google-cz]
   expires: '2026-11-23'
 - type: arbitrage
+  name: "Craftwork"
+  gist: "the US home-painting template"
+  why: "A YC-funded US home-painting company run as one software-run business: the same model in another trade, without a subsidy to handle."
   url: https://www.ycombinator.com/companies/craftwork
   note: 'yc-craftwork: YC-funded US digital-native home-painting franchise — the verticalised,
     software-run home trade this record''s thesis rests on, funded in a second market and a
@@ -264,17 +295,59 @@ created: '2026-08-13'
 updated: '2026-09-04'
 ---
 
-Insulating a Czech family home means picking one of thousands of small regional firms [S3,S6], waiting for a quote, and hoping the subsidy paperwork gets filed. One is not like the rest: IP Polná (own crews, thirty years) has insulated a claimed 30,000+ Czech buildings [S7]. The subsidy that co-pays the work runs continuously, pre-validating household demand [S2].
+Insulating a Czech family house can mean several firms, each surveying and pricing it, plus paid help with the subsidy paperwork [S6,S7].
 
-Why now: VARM (Berlin) raised €17.5M in June 2026 to train career-changers as certified installers, standardize the job to one day at a fixed ~€5k price, and run the operation on software [S1]. That is Woltair's Czech playbook — vertical integration of a subsidized energy trade — applied to the trade Woltair skipped [S3]. It attacks labor supply rather than selling software to firms too small to buy it [S1].
+- Homeowners choose among many small regional firms, and wait for each quote [S3,S7].
+- The roof and the walls can need different firms [S7].
+- The state renovation subsidy co-pays the work, and runs continuously [S2].
 
-Who pays: homeowners, part-funded by the state renovation subsidy Nová zelená úsporám [S2], and later the apartment-owner associations and housing cooperatives that run multi-unit buildings. The fixed-price one-day job is the wedge [S1]; handling the subsidy in-house removes the paperwork objection.
+The subsidy is Nová zelená úsporám ("New Green Savings"), which co-pays insulation alongside heat pumps and solar panels [S2]. Because it is a standing programme, households already apply for this work [S2]. One national installer stands out from the small firms; see [Competition](#competition) [S7].
 
-EPBD — the EU buildings-energy directive — is the legal driver behind the same work: Czech transposition is overdue, the Commission opened infringement in July 2026, and minimum-efficiency trajectories for homes are dated 2030 and 2033 [S5]. [EPBD pressure](/problem/cz/p-0024) is upstream demand [S5]; execution capacity is the bottleneck.
+Existing non-solutions: The Czech field is taken at the top and scattered below, and no firm was found selling the whole house at one price [S7].
 
-Existing non-solutions: taken at the top, fragmented underneath. IP Polná sells the blown-in half nationally with subsidy help — everything VARM sells bar the fixed price and the software — but never the facade [S7]. Facades go to regional specialists: ZOFI (five cities) files the subsidy under power of attorney and prices every house on survey [S7]. Below them is the long tail — Fouknuto and hundreds like it, one crew, one region, a free quote [S6,S7]. Nobody sells the whole envelope at one fixed price, and Woltair still sells no insulation [S3].
+- A national installer blows insulation into roofs and lofts, but does no facades [S7].
+- Regional firms insulate facades and file the subsidy, pricing each house on survey [S7].
+- Below them sit many one-region crews that quote job by job [S6,S7].
 
-Solved elsewhere: Berlin funded the demand side a month after the supply side — dsb Deutsche Sanierungsberatung (€10M Series A) packages consulting, subsidy applications and contractor delivery for homeowners [S4]. VARM has installed since 2023 across seven German sites, Enter has sold homeowner audits and delivery since 2020 on €40M raised, and dsb opened only in 2024 [S1,S4]. All one country: find the homeowner, handle the subsidy, deliver at a fixed price — proven next door, nowhere else yet.
+The national installer uses its own technicians and helps with the subsidy, so it sells everything a fixed-price crew firm sells except the fixed price and the software [S7]. It too prices each house on survey [S7].
+
+- A manufacturer sells insulation material through its own application centre and partner firms, which supplies installers rather than selling the installed job [S6].
+- A general contractor paired with a subsidy agency sells turnkey renovation, facade insulation included; it is a building firm with a subsidy desk, not a standard crew job at a fixed price [S6].
+- Woltair proved in Czechia that one firm can sell heat pumps and solar panels with its own installers, and it is not shown selling insulation [S3,S6].
+- Schlieger, a Czech installer with 23,000+ installations, handles the subsidy in-house but sells no insulation either [S6].
+- No firm was found doing the whole house, facade included, at a published fixed price, nationally, with the subsidy handled [S7]. Not finding one does not prove none exists [S6].
+
+Why now: Homeowners wait for separate surveys and quotes today, and Czechia is already late with EU rules that push homes toward renovation [S5,S7].
+
+- Each firm surveys the house and prices it separately [S7].
+- A homeowner can pay a firm extra to do the subsidy paperwork [S6].
+- The EU has already warned Czechia over its late building-energy rules [S5].
+
+The rules are the EU's revised directive on the energy performance of buildings [S5]. It sets a renovation path for homes and minimum energy standards for other buildings [S5]. The same rules drive [a related problem for public buildings](/problem/cz/p-0024) [S5].
+
+- On 29 May 2026 the deadline passed for putting the revised directive into Czech law [S5].
+- On 15 July 2026 the European Commission sent formal warnings to all 27 EU countries, Czechia among them, the first step of a case against a country [S5].
+- By 2030 and 2033 the directive's first renovation dates fall due, and the Czech dates are not yet set [S5].
+- In June and July 2026 two German firms raised money to sell this model at home; see [Validated abroad](#validated-abroad) [S1,S4].
+
+Who pays: Homeowners already pay installers house by house, and the state renovation subsidy pays part of the bill [S2,S7].
+
+- Installers price each house after a survey, and the homeowner pays per job [S7].
+- A Czech firm charges homeowners to assess the house and file the subsidy [S6].
+- The state subsidy co-pays insulation, alongside heat pumps and solar panels [S2].
+
+That firm's fee covers the assessment as well as the subsidy application; its amount is in the table of what one buyer pays [S6].
+
+- A fixed-price job done in one day is the way in, as the German crew firm shows [S1]. Handling the subsidy in-house takes the paperwork off the homeowner.
+- Apartment-owner associations and housing cooperatives, which run blocks of flats, could be later buyers.
+
+Solved elsewhere: Three German firms already sell this: one insulates with its own crews at a fixed price, two handle the subsidy and the delivery [S1,S4].
+
+- The crew firm insulates a house in one day at a fixed price [S1].
+- The second firm packages advice, subsidy applications and delivery for homeowners [S4].
+- The third sells digital energy audits, subsidy handling and renovation delivery.
+
+The crew firm trains career-changers as certified installers and runs the operation on software, so it trains its own installers rather than selling software to installers [S1]. The second firm delivers through contractors, and was funded a month after the crew firm [S4]. All three are in Germany [S1,S4]. In the US a funded firm runs home painting the same way, as one software-run business, without a subsidy to handle [S8].
 
 ## Revisions
 
@@ -298,3 +371,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 5 `locals[].evidence` lines were rewrit
 2026-09-04 · price receipt — The subsidy-desk fee already on file is now recorded as a price: 10,000 CZK on signing and 40,000 CZK on approval, paid by the homeowner [S9]. The German figure on this record is foreign and is not recorded as a Czech price. No score, status, note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as three lines under the headline: a `brief:` on who is stuck, the `solution:` as a call to action starting "Build", and a new `good_for:` line. Previous title, verbatim: "Czech home insulation runs through one-man firms nobody can vet". Previous solution, verbatim: "The whole house at one fixed price — facade included, own trained crews, and the state renovation subsidy handled — where today the roof, the walls and the paperwork mean three firms and three quotes." There was no previous brief or good_for. Checked against the sources before writing, and the old headline did not survive it. "Nobody can vet" had already been cut from the body on 2026-08-24 as unreceipted ("quality is unverifiable"), and "one-man firms" no longer describes the field once a national installer with its own crews sits on the ledger [S7]; the headline now says what the checks show, many small firms quoting each house on survey [S3,S6,S7]. "Three firms and three quotes" became "the roof and the walls may need different firms", because the national roof-and-loft installer does no facades [S7], while a general contractor on the ledger sells turnkey renovation including the facade [S6]. The 50,000 CZK is one firm's published fee, 10,000 CZK up front and 40,000 CZK on approval, and it covers the survey, design and energy assessment as well as the subsidy paperwork, so the brief says "can cost" and names the assessment [S9]. No urgency was added: the EU renovation dates on file are 2030 and 2033 and the Czech dates are unset [S5]. "As companies already do in Germany" rests on VARM and dsb Deutsche Sanierungsberatung [S1,S4]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Czech home insulation is done by many small firms, each quoting house by house" After: "Czech home insulation is done by many small firms, quoting house by house". Brief before: "A homeowner waits for a survey and a quote, and the roof and the walls may need different firms [S7]. Paying a firm to do the energy assessment and state subsidy paperwork can cost 50,000 CZK [S9]." After: "A homeowner waits for a survey and a quote, and the roof and walls may need different firms [S7]. Help with the energy assessment and subsidy paperwork can cost 50,000 CZK [S9]." Solution before: "Build an insulation company with trained crews that insulates the whole house at one fixed price and handles the subsidy, as companies already do in Germany." After: "Build an insulation company whose own crews insulate the whole house at one fixed price and handle the subsidy." "Can cost" and the named energy assessment stay, because the 50,000 CZK fee covers more than paperwork [S9]. "As companies already do in Germany" was cut for length. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed. Same date, pain-point pass: title "Czech home insulation is done by many small firms, quoting house by house" → "Czech homeowners wait for quotes and may need separate firms to insulate one house". Why: the old headline described the trade's structure, not anyone's pain. The new one names the homeowner, the wait for a survey and quote, and the split between roof and facade firms — nobody sells the whole envelope [S7] — which the unchanged brief already tells, with the 50,000 CZK subsidy-desk fee [S9]. No score, status, source, note or body sentence changed. Same date, owner-approved card: title "Czech homeowners wait for quotes and may need separate firms to insulate one house" became "Insulating a Czech house is a patchwork of firms, quotes and paid paperwork"; brief "A homeowner waits for a survey and a quote, and the roof and walls may need different firms [S7]. Help with the energy assessment and subsidy paperwork can cost 50,000 CZK [S9]." became "The roof often goes to one firm and the walls to another, each surveying and pricing the house [S7]. Then comes the energy assessment and subsidy application, which a homeowner can pay a firm to handle [S9]."; solution "Build an insulation company whose own crews insulate the whole house at one fixed price and handle the subsidy." became "Build an insulation company whose own crews insulate the whole house at one fixed price and handle the subsidy, as 3 companies already do in Germany.". Sources: IP Polná blows in roof and attic insulation nationally but never does facades, which go to regional specialists that price every house on survey [S7]; one firm publishes a fee for survey, energy assessment and subsidy paperwork [S9], hence "can pay". Abroad count: VARM (fixed-price insulation with its own crews), dsb Deutsche Sanierungsberatung and Enter (subsidy handling plus delivery), all Germany; "companies" plural makes no claim that one does both halves.
+
+2026-09-18 · body rewritten to the writing rules, and a process figure — Every section now opens with ONE answer sentence and its three most important items, with the rest below as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the patchwork of firms, surveys and paid paperwork, with the subsidy's name and what it co-pays below [S2,S3,S6,S7]. Competition names no ledger company: the national roof-and-loft installer, the regional facade firm and the one-region crews are described by what each sells, and their building count, years, cities, application count and company numbers stay in their `locals[]` rows [S7]; the two adjacent ledger firms (the manufacturer's partner channel, the contractor with a subsidy desk) now appear in the detail from the sweep that found them [S6], beside Woltair and Schlieger, the Czech heat-pump and solar installers that sell no insulation [S3,S6]. Why now opens on the separate surveys and the late EU rules, then three pain items (each firm surveys and prices separately, the paid subsidy paperwork, the EU warning), then the directive's dates and the two German rounds as plain bullets [S1,S4,S5,S6,S7]. Willing to pay says homeowners already pay installers per job and the subsidy pays part [S2,S7]; the subsidy desk's fee is described without its amount, which lives in its price receipt [S6,S9]. Validated abroad names none of the three German firms: their rounds, prices, sites, partner counts and years stay in their `comps[]` rows, and the body keeps what each sells and that the second was funded a month after the first [S1,S4]. `entry.why` is now "Easier: … Harder: …" with the same gates (homeowners sign directly, no licence, crews in the field, money spent before the first job) plus the established installer, whose name and building count left it for its ledger row. S8 gained a public name, gist and why, and is now cited in the body [S8]. Added from sources already on file: Schlieger [S6], the adjacent ledger firms [S6], and from S5's page, read at its URL on 2026-09-18, the 29 May 2026 deadline and the letters sent to all 27 EU countries [S5]. Corrected against the sources rather than the old sentences: "thousands of small regional firms" and "hundreds like it" became "many", because no source counts them [S3,S6]; "the Commission opened infringement" against Czechia became formal warnings sent to all 27 EU countries, Czechia among them, which is what S5's page says [S5]; "minimum-efficiency trajectories for homes" became a renovation path for homes and minimum energy standards for other buildings, as S5's page splits them, and the 2030 and 2033 dates are kept from S5's note because the page itself gives no years [S5]; "Nobody sells the whole envelope at one fixed price" became "No firm was found", with the sweep's own caveat [S6,S7]; "Woltair still sells no insulation" became "is not shown selling insulation", because the deeper sweep records Woltair as not verified either way [S3,S6]; "selling software to firms too small to buy it" lost "too small to buy it", which no source supports [S1]; "execution capacity is the bottleneck" was cut, as the 2026-08-24 pass cut the other labour-capacity claims, and the link to the public-buildings problem stays [S5]; "proven next door, nowhere else yet" became "All three are in Germany", because no source says the model exists nowhere else and a US firm on file runs home painting the same way [S1,S4,S8]. Flagged as inference: "Because it is a standing programme, households already apply for this work" is a plain reading of S2's "pre-validates household demand" [S2]; the one-day fixed-price job as "the way in", and in-house subsidy handling taking the paperwork off the homeowner, are our reading of the German crew firm [S1]; apartment-owner associations and housing cooperatives as later buyers rests on no source. New `process` block, four steps, every today step documented: the roof-and-loft installer and the facade firm each survey and quote their own part, a paid subsidy desk does the energy assessment and the subsidy application, and each firm's crew insulates only its own part [S6,S7]. The figure draws the paperwork before the work, following the brief's order; no source says which comes first. No score, status, `entry` gate value, `sources[]` order, `note:`, title, brief, solution or good_for changed.

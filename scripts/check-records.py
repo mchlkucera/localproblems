@@ -653,7 +653,7 @@ def extra_sentences(text):
 # PROCESS_PHRASE_ENFORCED (shortened already); a WARNING on every other one.
 # A record joins the set in the same change that shortens its steps.
 PROCESS_STEP_WORDS_MAX = 10
-PROCESS_PHRASE_ENFORCED = frozenset({"p-0036"})
+PROCESS_PHRASE_ENFORCED = frozenset({"p-0002", "p-0003", "p-0004", "p-0005", "p-0007", "p-0009", "p-0010", "p-0025", "p-0027", "p-0031", "p-0032", "p-0033", "p-0036"})
 
 
 def check_process_phrases(doc):
@@ -1327,7 +1327,10 @@ def established(since, evidence, year, ico=None):
 # BODY_V2_WAIVERS: a known, reported defect on an enforced record, printed as a
 # warning until it is fixed. It is a debt list, never a way to pass a rewrite:
 # a new entry needs the owner's say-so, recorded in that record's Revisions.
-BODY_V2_ENFORCED = frozenset({"p-0008", "p-0036", "p-0001", "p-0028", "p-0035", "p-0037"})
+# every live record, rewritten to the body rules by 2026-09-18
+BODY_V2_ENFORCED = frozenset({
+    "p-0001", "p-0002", "p-0003", "p-0004", "p-0005", "p-0006", "p-0007", "p-0008", "p-0009", "p-0010", "p-0011", "p-0017", "p-0018", "p-0022", "p-0023", "p-0024", "p-0025", "p-0026", "p-0027", "p-0028", "p-0029", "p-0030", "p-0031", "p-0032", "p-0033", "p-0034", "p-0035", "p-0036", "p-0037",
+})
 BODY_V2_WAIVERS: dict[str, frozenset[str]] = {
     # Empty. p-0008's three waivers (ANSWER_WORDS, MOVE_EVIDENCE, PRICE_RESTATED)
     # were cleared by content on 2026-09-17; see its Revisions entry.

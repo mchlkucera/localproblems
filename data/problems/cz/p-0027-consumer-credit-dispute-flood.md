@@ -28,7 +28,7 @@ entry:
   incumbents: open
   integration: software
   money: bootstrap
-  why: 'Banks and non-bank lenders sign the first contract, and software for the side answering a complaint needs no licence. Nobody established holds the position: none of the ten Czech vendors found handles a case at the Financial Arbitrator.'
+  why: 'Easier: no licence is needed, none of the ten Czech vendors found handles arbiter cases, and the caseload keeps growing. Harder: the buyers are banks and lenders whose lawyers must trust software with case files, a Czech firm already sells this work to non-bank lenders, and the credit law behind the claims is changing.'
 comps:
 - name: ClaimSorted
   url: https://www.claimsorted.com/
@@ -144,6 +144,34 @@ locals:
   evidence: It sells generic case and record management to companies, with no financial-arbiter
     docket in it [S5]. Trading since 30 August 2005; it names nobody who has bought it and publishes
     no count.
+process:
+  summary:
+    today: 'Borrowers, many through claims firms filing in bulk, take complaints to the financial arbiter, and law firms or an outsourced service answer each one for the lender by hand [S1,S4].'
+  steps:
+  - who: A borrower, or a claims firm filing in bulk
+    today: 'Files a complaint with the arbiter'
+    known: documented
+    cites: [1]
+    change: stays
+    after: 'Unchanged: the borrower still files'
+  - who: A law firm or outsourced service, for the lender
+    today: 'Writes each answer to the arbiter by hand'
+    known: documented
+    cites: [4, 5]
+    change: changes
+    after: 'Checks a reply drafted from the loan file'
+  - who: '?'
+    today: 'How a lender tracks each case''s deadlines is not known'
+    known: unknown
+    cites: []
+    change: changes
+    after: 'Software tracks every case deadline'
+  - who: The lender and the borrower
+    today: 'Settle most of the cases that end'
+    known: documented
+    cites: [1]
+    change: stays
+    after: 'Unchanged: settling stays their call'
 sources:
 - type: complaint
   name: "Financial arbiter — 2025 annual report"
@@ -276,22 +304,67 @@ created: '2026-08-13'
 updated: '2026-09-02'
 ---
 
-The Kancelář finančního arbitra — the out-of-court forum for consumer disputes with banks and lenders — took 2,660 new cases in 2023, 5,683 in 2024, 12,050 in 2025 and 8,200 more by May 2026, on track for about 20,000 [S1]. Consumer credit is 92% of the running caseload, mostly claims the lender never checked the borrower could repay (úvěruschopnost) [S1].
+Complaints to the state's financial arbiter, mostly about consumer loans, more than quadrupled from 2023 to 2025, and law firms answer them by hand [S1,S4].
 
-Why now: the arbiter reports claims filed at mass scale — a claims industry, not one-off grievances — while lenders answer one at a time [S1]. Cases average 167 days; 83% of those concluded settle [S1].
+- 12,050 new cases reached the arbiter in 2025, against 2,660 in 2023 [S1].
+- 8,200 more came by May 2026, on track for about 20,000 this year [S1].
+- Consumer credit is about 92% of the cases still running [S1].
 
-Who pays: non-bank lenders and banks, who must produce documents, take a legal position and decide whether to settle on every case the arbiter opens [S1]. At 2026 volumes that is tens of thousands of cases a year, answered by hand by in-house legal teams and outside law firms [S1,S4]. The arbiter, at 167 days a case, is a third buyer [S1].
+The arbiter, the Kancelář finančního arbitra, is the out-of-court forum for consumer disputes with banks and lenders [S1]. Most claims say the lender never checked that the borrower could repay, a duty the law calls creditworthiness assessment [S1].
 
-Existing non-solutions: people, billed by the hour [S4]. aCompliance takes the job off the lender, handling complaints and arbiter disputes for non-bank lenders as a service rather than software [S5]. Czech software points elsewhere: ePohledávky.cz, Barrister and Evolio chase debtors for creditors, while SingleCase, Praetor, Advokátní spis, E-OFFICE Advokát, ISAK and Aptien sell general law-office tooling — files, deadlines, billing — with nothing for an arbiter case [S7]. Nobody sells the defending side a product [S7].
+- In 2024 there were 5,683 new cases, so 2025 more than doubled it [S1].
+- 15,446 cases were running when the 2025 report came out [S1].
+- The industry and trade ministry counts about 18,700 filings at the arbiter from 2020 to mid-2025, strongly rising [S2]. They sit among more than 45,000 out-of-court consumer disputes across all sectors [S2].
+- So the caseload recurs year after year; it is not a one-year spike [S2].
 
-Solved elsewhere: Casap has automated the bank payment-dispute cycle since 2023 on a $25M Series A at a $105M valuation — the one seller old enough to prove the model [S3]. ClaimSorted, London 2024, handles claims for twenty-plus insurers on $13.3M; Audun is four people in Oslo building AI debt collection [S3]. All three sit one vertical away; nobody is recorded building consumer-credit dispute response [S3].
+Existing non-solutions: Law firms and one service firm handle these cases by hand, and no Czech software for the lender's side was found [S4,S7].
+
+Ten Czech vendors turned up, and none handles a case at the arbiter [S7]:
+
+- One firm takes the job off non-bank lenders, handling their complaints and arbiter disputes as a service, with people rather than software [S5].
+- Three sell software for the other side of the relationship, the creditor chasing a debtor, one of them by filing payment orders in bulk [S5,S7].
+- Six sell general law-office or company tooling, such as files, deadlines and billing, with nothing for an arbiter case [S5,S7].
+- The widest-selling Czech case-management system for law firms is among those six, and it is the one best placed to add an arbiter docket [S7].
+- No Czech product was found keeping an arbiter docket, running a deadline clock on each proceeding, deciding which cases to settle, or assembling the answer from the loan file [S7].
+- Searches also returned the arbiter's own pages, consumer advice sites and law firms working cases by hand [S4].
+
+Why now: Lenders face a claims industry that files in bulk, while each case takes months and is answered one at a time [S1].
+
+- Claims firms now file at mass scale, not as one-off grievances [S1].
+- Each case takes 167 days on average, tying up the lender's lawyers [S1].
+- 83% of concluded cases end in a settlement [S1].
+
+The law behind most claims is also in motion [S6]:
+
+- The finance ministry is revising the Consumer Credit Act, Act No. 257/2016, and its draft has been on the government's legislative portal since 14 February 2025 [S6].
+- That act sets the duty to check that a borrower can repay, the duty most claims say was broken [S1,S6].
+- The draft carries no dated obligation yet [S6].
+
+Who pays: Lenders must answer every case, and a Czech firm sells them that work, but no buyer or price for it is public [S1,S5].
+
+- Every case needs the lender's documents and a legal answer, written by hand [S1,S4].
+- A Czech firm markets arbiter-dispute handling to non-bank lenders as a service [S5].
+- Law firms work these cases by hand [S4].
+
+Banks and non-bank lenders must produce documents, take a legal position and decide whether to settle on every case the arbiter opens [S1].
+
+- At this year's pace that is about 20,000 cases, answered by in-house legal teams and outside law firms [S1,S4].
+- The arbiter itself, at 167 days a case, could be a third buyer [S1].
+
+Solved elsewhere: A US company automates bank payment disputes, and funded firms abroad automate insurance claims and debt collection, one step from this [S3].
+
+The US company has sold software for the payment-dispute cycle of banks and credit unions since 2023, on a Series A raised in 2025. It is the only one of these sellers with three years of selling behind it.
+
+A London company founded in 2024 and backed by Y Combinator, the US startup accelerator, processes claims for insurers [S3]. In Norway, a small team backed by the same accelerator builds AI debt collection [S3]. In US insurance, Avallon AI, Basepilot and Amera also sell claims operations built on AI [S3].
+
+All of them sit one market away, and no funded company was found doing dispute response for consumer credit [S3].
 
 ## First moves
 
-1. Sell to non-bank lenders first — they carry about 92% of the arbiter's caseload [S1]. Every case is answered by hand today, in-house or by outside law firms [S4]. Shadow one lender for a week, count the lawyer hours a case burns, and price against that.
-2. Build the settlement call first. 83% of concluded cases settle, so that is the decision a lender actually makes [S1]. Then add the deadline clock on each proceeding and the response pack assembled from the loan file: nothing sold in Czech does any of the three [S7].
-3. Open with the trend line. Filings ran 2,660 in 2023, 5,683 in 2024 and 12,050 in 2025, with 8,200 more by May 2026 and the average case at 167 days [S1].
-4. Watch the two who could move in. aCompliance sells this exact job today, but as a firm doing the work, and it has traded since 2014 [S5]. Praetor, from Wolters Kluwer's Czech arm, is the widest-selling case-management system in Czech law firms and one product decision away [S7]. Ten Czech vendors turned up in that sweep and not one handles a case at the arbiter [S7].
+1. Contact the head of legal at one non-bank lender and shadow its arbiter cases for a week, counting the lawyer hours each case burns. Consumer credit is almost all of the arbiter's caseload, and each case is answered by hand; see [The opportunity](#opportunity) and [Competition](#competition). The hours you count are what your software saves, so price against them. Start with non-bank lenders, because a Czech firm already markets this work to them, which shows they are the ones looking for help; see [Willing to pay](#willing-to-pay).
+2. Build the settlement call first: a tool that tells a lender, from the loan file, whether a case is worth fighting or settling. Most concluded cases settle, so that is the decision a lender actually makes; see [Why now](#why-now). Then add a deadline clock on each proceeding and the answer pack assembled from the loan file. No Czech product was found doing any of the three; see [Competition](#competition).
+3. Open every sales call with the arbiter's own count of new cases, which more than quadrupled in two years. The yearly counts and this year's pace are under [The opportunity](#opportunity), and the months each case takes are under [Why now](#why-now). A lender's head of legal already feels the load; the counts show it is the whole market and not bad luck, and it keeps coming back every year.
+4. Watch the two Czech players who could move into this: the firm that sells the work as a service, and the leading law-office software. The service firm does this exact job for non-bank lenders, with people rather than software, and has traded for years. The software vendor sells the widest-selling case-management system in Czech law firms and is one product decision away; see [Competition](#competition). None of the Czech vendors found handles an arbiter case yet, so move before either of them does.
 
 ## Revisions
 
@@ -311,3 +384,5 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 2026-09-02 · plain-language pass — Three trade terms glossed at first use: E-OFFICE Advokát and ISAK now sit inside a plain description of what law-office software does, and Wolters Kluwer ČR reads as Wolters Kluwer's Czech arm. Argument cut from 450 words to 300, every figure, named firm and [Sn] marker kept. A gist added to all seven sources. First moves rewritten verbs-first. No score, status, note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` telling the situation, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Complaints about Czech consumer loans have quadrupled, all handled by hand". Previous solution, verbatim: "Case software for lenders answering complaints at the Financial Arbitrator: pull the loan file, draft the response, hold every deadline, and flag which cases to settle." No brief or good_for existed before. Checked against the sources while writing. "All handled by hand" is gone from the title: it rests on a search that found no Czech product and on law firms seen working cases manually [S4,S7], which is a not-found and no count of how every case is answered. "Quadrupled" became "more than 4 times since 2023", the arbiter's own growth from 2,660 new cases in 2023 to 12,050 in 2025 and, for consumer credit alone, from 2,097 to 11,386 [S1]. The 12,050 is every new case at the arbiter, not only loan cases, so the brief says "mostly against lenders" — consumer credit is ~92% of the running caseload and creditworthiness claims dominate it [S1] — rather than calling all of them loan complaints. "Nearly 50 a working day" is 12,050 divided by roughly 250 Czech working days. The dek's "lenders must produce documents and take a legal position on every case" was not carried into the brief: it is a reading of the procedure, and [S1]'s note does not state it. The solution's "as companies abroad do" rests on Casap, which automates bank payment disputes in the US [S3]; nobody on file does it for consumer-credit disputes, so the line names payment disputes and not this. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Brief before: "Customers filed 12,050 complaints with the state's financial arbiter in 2025, nearly 50 a working day, mostly against lenders they say didn't check they could repay [S1]. Another 8,200 came by May 2026, and cases stay open 167 days on average [S1]." After: "Borrowers say lenders didn't check they could repay, and take them to the state's financial arbiter [S1]. It got 12,050 complaints last year, mostly against lenders, and cases drag on for months [S1]." Solution before: "Build case software that pulls a lender's loan file, drafts its reply to the arbiter and tracks deadlines, as companies abroad do for payment disputes." After: "Build case software for lenders that pulls the loan file, drafts the reply to the arbiter and tracks deadlines." "Nearly 50 a working day", the 8,200 by May 2026 and "167 days on average" were cut to keep one number, the 12,050; 167 days is put as "months" [S1]. "Mostly against lenders" stays because the 12,050 counts every case at the arbiter [S1]. The payment-disputes comparison abroad was cut for length. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed. Same date, pain-point pass: title "Complaints about Czech consumer loans have grown more than 4 times since 2023" → "Czech lenders now fight more than 4 times as many loan complaints as in 2023". Why: the old headline was a growth figure with no one named. The new one names who carries it: lenders, who must answer every case the arbiter opens, by hand, in cases averaging 167 days [S1,S4]. The figure is unchanged: 2,660 new proceedings in 2023 against 12,050 in 2025 [S1]. Brief unchanged. No score, status, source, note or body sentence changed. Same date, owner-approved card: title "Czech lenders now fight more than 4 times as many loan complaints as in 2023" became "Czech lenders pay lawyers by the hour to answer loan complaints that have quadrupled since 2023"; brief "Borrowers say lenders didn't check they could repay, and take them to the state's financial arbiter [S1]. It got 12,050 complaints last year, mostly against lenders, and cases drag on for months [S1]." became "Borrowers take lenders to the state's financial arbiter, mostly saying nobody checked they could repay [S1]. Every case needs documents and a legal answer written by hand, and this year is heading for about 20,000 [S1,S4]."; good_for "Someone who'd like to build software for banks and lenders." became "Someone who can build legal software and sell to banks and lenders.". Sources: 2,660 cases in 2023 to 12,050 in 2025 is 4.5x, so "quadrupled" [S1]; 8,200 by May 2026 puts the year on track for about 20,000, the arbiter's own pace [S1]; answered by in-house legal teams and law firms billed by the hour [S1,S4].
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the caseload more than quadrupling and holds the yearly counts, and gained from the notes the 15,446 running cases [S1] and the industry and trade ministry's count of about 18,700 arbiter filings from 2020 to mid-2025 among 45,000+ consumer disputes, the first time [S2] is cited in the body. Why now opens on the claims industry filing in bulk, with 167 days and the 83% settlement rate as pain items [S1], and gained the Consumer Credit Act draft, on the legislative portal since 14 February 2025 with no dated obligation, the first time [S6] is cited in the body. Willing to pay answers that lenders must answer every case and a Czech firm sells that work, with no buyer or price public [S1,S5]. Competition describes all ten Czech vendors by what they sell, grouped as the one service firm, the three on the collecting side and the six general law-office tools, and holds the four capabilities no Czech product was found doing [S5,S7]. Validated abroad describes the three foreign companies without names or figures, which stay in their ledger rows, and restores Avallon AI, Basepilot and Amera from [S3]'s note. Every comps[] and locals[] name left the body and the moves. The moves lost every [Sn] marker and figure for links; move 1 now contacts one lender's head of legal instead of selling. `entry.why` was rewritten as "Easier: … Harder: …" with the same gates. A `process:` block was added, four steps from sources already cited: the borrower or a claims firm filing in bulk [S1], a law firm or outsourced service writing each answer by hand [S4,S5], how a lender tracks deadlines marked unknown, and most concluded cases settling [S1]; the record should join `PROCESS_PHRASE_ENFORCED` with the body gate. Corrected against the sources: old move 1 said non-bank lenders "carry about 92% of the arbiter's caseload", but [S1]'s note says consumer credit is ~92% of the running proceedings, banks included, so the move now says consumer credit is almost all of the caseload; the Casap sentence carried [S3], whose note does not mention Casap (its figures come from the comps ledger), so the marker is gone with the figures; "tens of thousands of cases a year" became "about 20,000", the 2026 projection in [S1]'s note; "people, billed by the hour [S4]" became "law firms handle these cases by hand", since [S4]'s note records manual handling and nothing about hourly billing (the title's "pay lawyers by the hour" rests on the same note and is left to the owner); and "Nobody sells the defending side a product [S7]" became "no Czech product was found", in [S7]'s own not-found terms. Flagged as inference: that lenders must produce documents, take a legal position and decide whether to settle on every case, a reading of the procedure that [S1]'s note does not state; that in-house legal teams answer cases, which no note says, and that the law firms in [S4]'s note work for the lender; that cases are answered one at a time and tie up the lender's lawyers [S1]; that the arbiter could be a third buyer; and, in `entry.why`, that lenders' lawyers must trust software with case files. No score, status, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.

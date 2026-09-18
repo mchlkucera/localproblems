@@ -22,9 +22,7 @@ entry:
   incumbents: direct
   integration: national-system
   money: outside-money
-  why: 'Small water companies buy through public tenders, five long-standing Czech sellers such as
-      Softlink and VODÁRENSKÁ AKCIOVÁ SPOLEČNOST already run metering as a service, and meters and
-      radio readers go in the ground before a first reading is billed.'
+  why: 'Easier: no licence is needed to sell the service, and small water utilities keep signing metering deals of their own. Harder: the buyers are public utilities, so each sale is a tender, meters and readers go in the ground before the first reading is billed, and five Czech firms with utility customers already sell this.'
 comps: []
 locals:
 - name: Softlink (CEM Smart)
@@ -109,7 +107,7 @@ sources:
 - type: contract
   name: "Registr smluv — VaK Židlochovicko (~8.4M CZK)"
   gist: "supply plus operation, same day"
-  why: "One utility signed two contracts the same day — meters and readers, then system operation and support — the supply-plus-managed-operation split this record is about."
+  why: "One utility signed two contracts the same day: one for meters and readers, one for running and supporting the system."
   url: https://smlouvy.gov.cz/smlouva/39041762
   note: 'hlidac-39041762: VaK Židlochovicko signed two contracts on 30 Jul 2026 — meter/reader
     supply (~4.8M CZK) plus system operation & support (~3.6M CZK) — a FOURTH distinct small-utility
@@ -181,7 +179,7 @@ sources:
 - type: gap-check
   name: "Czech water-metering supply — coverage recorded"
   gist: "the Czech supplier sweep"
-  why: "The earlier checks named the incumbents but never wrote down what was searched. This one does, and it widens the picture: VAS sells remote meter reading as a published service, ČEVAK runs eMR Fusion 2.0, and AQUA SERVIS, VODÁRNA PLZEŇ, OVAK and KAPKA vodoměry all operate the same thing."
+  why: "A Czech search for remote water-meter reading run as a service: VAS sells it as a published service, ČEVAK runs eMR Fusion 2.0, AQUA SERVIS, VODÁRNA PLZEŇ and OVAK run or pilot remote reading, and KAPKA vodoměry supplies the readout."
   note: 'Coverage receipt 2026-08-25. [S6] and [S7] named real incumbents but recorded no
     queries, so gap 0 rested on a check whose reach nobody could judge; this entry supplies the
     coverage rather than a new verdict. A plain descriptive Czech query for remote water-meter
@@ -220,15 +218,58 @@ created: '2026-08-13'
 updated: '2026-09-04'
 ---
 
-Czech water supply runs on hundreds of municipal utilities and water associations — the VaK companies and svazky, most of them small [S2]. Each digitizes metering one infrastructure tender at a time. Three bought inside ten weeks of 2026: Kroměříž about €1.3M for network smart metering, Bruntál a water data dispatch [S2], Ivančice a €1.2M competition [S1] — each buying its own hardware, radio links, platform and integration.
+Czech water utilities that fit smart meters each buy them alone, one tender at a time [S5,S8].
 
-Why now: these associations cannot staff a data platform, and buy one anyway — Benešov's Společná voda paid €5,987 in July 2026 for a 112-sensor pilot, one of about fifteen small municipal meter orders on file [S8]. Each buy embeds years of dependence on whichever integrator won.
+- Czechia has hundreds of water utilities and town water associations [S2].
+- 7 of them signed or tendered separate metering deals in summer 2026 [S2,S5].
+- Each signs its own contracts, for meters, software or running the system [S3,S5].
 
-Who pays: the utilities themselves, out of public budgets and on the public record. Seven buyers contracted supply, licences and operation separately by August 2026; Židlochovicko alone signed 8.4M CZK across two contracts in one day [S3,S5].
+Utilities buy metering as one-off infrastructure projects [S2]. Three bought or tendered in the same ten weeks of 2026, each on its own; their deals are under [Willing to pay](#willing-to-pay) [S1,S2].
 
-Existing non-solutions: the managed-service position is taken, and not by newcomers. Softlink has sold since 2003; its CEM Smart platform — remote meter reading as a service — has read Pražské vodovody a kanalizace meters since 2016, about a million transactions a day [S6,S7]. VODÁRENSKÁ AKCIOVÁ SPOLEČNOST, trading since 1993, runs Židlochovicko's metering as a service [S6,S7]. Popron Systems licenses SMG Water — its metering platform — to VaK Pardubice; Severočeské vodovody a kanalizace sold the town of Most a Smart Metering service [S5]. SUEZ Water CZ supplies VaK Břeclav's remote-readout devices — a framework amended June 2026 [S4]. Techem sells submetering to apartment buildings, not to utilities [S6].
+- A deal covers some mix of the same pieces: meters and radio readers, the software that collects the readings, and someone to run and support it [S3,S5].
+- A water association is a group of towns that runs its water and sewers together [S1].
 
-Solved elsewhere: no foreign comparable is on file, so there is nothing to import. The domestic evidence runs the other way: Czech suppliers selling for two and three decades already hold the position a small utility would buy [S6,S7].
+Existing non-solutions: Five Czech firms already sell or run smart metering for water utilities, each with a named customer [S5,S7].
+
+- Four of the five have traded for more than twenty years [S6,S7].
+- Between them they sell devices, software licences and metering run as a service [S4,S5].
+- One runs metering as a service for smaller water companies [S6,S7].
+- That one publishes its service with online consumption, leak detection and alerts [S9].
+- A sixth firm sells heat and water submetering and billing to apartment buildings and their managers, not to water utilities [S6].
+- Other Czech water companies run or pilot remote meter reading on their own networks, in Plzeň and Ostrava among others [S9].
+- A Czech meter supplier sells water-meter readout over two radio standards [S9].
+- So the service a small utility would buy is already on sale here, and not from newcomers [S6,S7].
+
+Why now: Small water utilities kept signing metering deals this summer, each buying alone and paying its own supplier [S3,S8].
+
+- A water association signed a €5,987 pilot with 112 remote-reading sensors [S8].
+- About 15 small town meter orders turned up in one August search [S8].
+- One utility signed for meters and for running them the same day [S3].
+
+The detail behind those three, and what follows a first purchase:
+
+- The pilot is Benešov's: its water association, Společná voda, signed it in July 2026, with 2 antennas to pick up the readings [S8].
+- The August 2026 search found meter orders and framework agreements from Říčany, Hlučín, Turnov and two Brno districts, among others [S8].
+- The same-day contracts are Židlochovicko's, signed on 30 July 2026: one for meters and readers, one for running and supporting the system; their total is under [Willing to pay](#willing-to-pay) [S3].
+- A first purchase can lead to more contracts with the same supplier. Pardubice's water company amended its software licence in June 2026, and Břeclav's amended its framework contract for readout devices and support the same month [S4,S5]. In August 2026 the town of Most added a smart-metering service from the firm already running its water system [S5].
+
+Who pays: Yes: water utilities are paying for smart metering now, for meters, software licences and the running of the system [S3,S5].
+
+- Kroměříž's water company signed about 21.4M CZK for network smart metering [S2].
+- Ivančice's water association tendered about €1.2M, some 29M CZK, for smart meters [S1].
+- Bruntál's water company tendered a water data dispatch for about €0.5M [S2].
+
+Each of those is one utility buying on its own [S1,S2]:
+
+- Kroměříž's contract followed an award of about €1.3M in June 2026, to build smart metering on its water network [S2].
+- Ivančice's open competition ran in June and July 2026, to fit smart meters on its water network [S1].
+- Bruntál's tender came in July 2026 [S2].
+- The 7 deals signed or tendered by August 2026 took different shapes: tenders, a supply contract, a software licence, a framework contract, and a service added by the firm already running the water system [S4,S5].
+- The utilities are public buyers, so these contracts are filed in the state contracts register [S3,S5].
+
+Solved elsewhere: No foreign company selling this is on file, and at home, Czech firms with decades of trading already sell it [S6,S7].
+
+So there is no foreign model to copy; the Czech sellers are under [Competition](#competition).
 
 ## Revisions
 
@@ -252,3 +293,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewrit
 2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from build.note, the existing non-solutions paragraph and locals[]. No claim, score or source changed.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` telling the situation, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Small Czech water utilities each buy smart metering alone". Previous solution, verbatim: "Remote water-meter reading run as a service for small water utilities: one supplier fits the meters and radio readers, runs the data platform and reports consumption back to the utility." No brief or good_for existed before. Checked against the sources while writing: the body's "most of them small" is not used, because the signal behind [S2] says hundreds of utilities and associations but does not say most are small, so "small" also left the title. The seven buyers in [S5] include two tenders, a licence amendment and a service add-on, so the brief says "signed or tendered" rather than "bought". The size figure is the largest SIGNED contract, Kroměříž at about 21.4M CZK [S2], not Ivančice's ~29M CZK tender estimate [S1]. No foreign comparable is on file, so the solution says "as several Czech firms already do", which is what the five established direct sellers in `locals[]` show, instead of pointing abroad. The domestic field is taken (gap 0, status watching); the headline claims no urgency because the record holds none. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Czech water utilities each buy their smart water meters on their own" After: "Czech water utilities each buy smart meters on their own". Brief before: "Czech water supply is split across hundreds of utilities, and those installing smart meters buy the meters, radio readers and software each on their own [S2]. This summer 7 signed or tendered separate deals, the largest contract about 21M CZK [S2,S5]." After: "Czechia has hundreds of water utilities, and those fitting smart meters buy the meters, radio readers and software alone [S2]. This summer 7 signed or tendered separate deals [S2,S5]." Solution before: "Build a service that fits smart meters on small water utilities' networks and reads them remotely, as several Czech firms already do." After: "Build a service that fits smart meters for small water utilities and reads them remotely, as Czech firms already do." Good for before: "Someone who can run crews installing meters and win public tenders from water utilities." After: "Someone who can run meter-fitting crews and win water utility tenders." The largest-contract figure (about 21M CZK) left the brief to keep one number, the 7 deals [S2,S5]; "signed or tendered" stays. The solution still says Czech firms already do this, because the field is taken. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed.
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on each utility buying alone, keeps the hundreds of utilities [S2], the 7 deals [S2,S5] and the pieces each deal covers [S3,S5], and glosses a water association. The Kroměříž, Ivančice and Bruntál deals moved to Willing to pay with their figures, including the ~21.4M CZK signed Kroměříž contract and Bruntál's ~€0.5M, both from S2's note [S1,S2]. Competition opens on the five Czech sellers and describes them by what they sell; Softlink, VODÁRENSKÁ AKCIOVÁ SPOLEČNOST, Popron Systems, SUEZ Water CZ, Severočeské vodovody a kanalizace, Techem and their products left the body, and each one's years, customer and product stay in its `locals[]` row; the S9 sweep's findings (the published service with leak detection and alerts, other water companies in Plzeň and Ostrava, a meter supplier's radio readout) are new to the body, without the names its gloss rule would flag [S9]. Why now opens on the summer's buying, with the Benešov pilot [S8], the August search [S8] and Židlochovicko's same-day contracts [S3] first; the Židlochovicko total left the body for a link to its price receipt. `entry.why` is now "Easier: … Harder: …" and names no company. S3's `why` said "this record" and now just says the thing; S9's `why` opened on how the earlier checks were run, which is our process, and said all four others "operate the same thing", while its note has one piloting and one supplying readout, so it now says each one's part. No process figure was added: the sources show what utilities buy and from whom, but no source describes how meters are read today or who reads them, so drawing the work would mean inventing it. Corrected against the sources: "most of them small" was cut, since S2's signal says hundreds but not that most are small (the brief dropped it for the same reason on 2026-09-16); "Three bought" became "bought or tendered", since Ivančice and Bruntál tendered [S1,S2]; "hardware, radio links, platform and integration" became the pieces the contracts name, meters and readers, software and running [S3,S5]; "these associations cannot staff a data platform" was cut, resting only on the harvest note behind S1 ("no in-house IT"), which no receipt backs; "each buy embeds years of dependence on whichever integrator won" had no source and became the follow-on contracts on file, the Pardubice licence amendment, the Břeclav framework amendment and the Most add-on, written as "can lead to" [S4,S5]; "Seven buyers contracted" became "signed or tendered", since two of the seven are tenders [S5]; and "one of about fifteen small municipal meter orders on file" is now "about 15 … turned up in one August search", as S8's note has it [S8]. Flagged as inference: that the utilities are public buyers, so their contracts are in the state contracts register, rests on `entry.buyer` and on S3–S5 being register entries [S3,S5]. No score, status, entry gate, source order, `note:`, title, brief, solution or good_for changed.

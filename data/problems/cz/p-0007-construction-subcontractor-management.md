@@ -22,7 +22,7 @@ entry:
   incumbents: adjacent
   integration: software
   money: bootstrap
-  why: 'General contractors hire crews themselves, matching a subcontractor firm needs no agency-employment licence, and the marketplace is ordinary software. Established neighbours fill the room — Stavario runs the site diary for 5,900+ firms — but none of that gates entry.'
+  why: 'Easier: contractors hire crews themselves, matching a subcontractor firm needs no staffing-agency licence, and the marketplace is ordinary software. Harder: established Czech firms already sell contractors their site diary, payroll and leads; and licensed staffing agencies already lease out crews with papers in order.'
 comps:
 - name: CoCrafter
   url: https://www.cocrafter.com/
@@ -140,6 +140,34 @@ locals:
     papers are in order", sold as a service with a margin on every hour — the contractor
     engages no subcontractor and buys no software — and it is one of hundreds of holders of
     this licence, naming none of the firms it staffs.'
+process:
+  summary:
+    today: 'Contractors find Ukrainian and Balkan crews in Facebook groups and through brokers, nobody checks the crews'' papers, and their pay runs on general payroll software or at an outside accountant [S2,S3].'
+  steps:
+  - who: Contractor
+    today: 'Finds crews in Facebook groups or via brokers'
+    known: documented
+    cites: [3]
+    change: changes
+    after: 'Gets a crew with checked papers'
+  - who: Nobody
+    today: 'Checks the crew''s papers'
+    known: documented
+    cites: [3]
+    change: changes
+    after: 'Checks the papers before the hire'
+  - who: The office or an outside accountant
+    today: 'Pays the crew on general payroll software'
+    known: documented
+    cites: [2]
+    change: changes
+    after: 'Runs the crew''s pay in the same system'
+  - who: '?'
+    today: 'Who handles A1 papers for workers posted abroad is not known'
+    known: unknown
+    cites: []
+    change: changes
+    after: 'Keeps each worker''s A1 papers'
 sources:
 - type: arbitrage
   name: "CoCrafter"
@@ -218,7 +246,7 @@ sources:
 - type: gap-check
   name: "Market scan — a control first, then the two wedges"
   gist: "the controlled Czech sweep"
-  why: "A Czech query in a builder's own words returned a dozen small Czech site-diary and attendance vendors, which is proof the method sees this kind of firm — and then found no crew marketplace and no construction payroll behind the same method."
+  why: "A Czech search in a builder's own words returned seven small Czech site-diary and attendance vendors, so the search does see firms like these, and it still found no crew marketplace and no construction payroll."
   url: https://stavario.com/cs/
   note: 'Gap check 2026-08-25, run because the 2026-08-20 sweep recorded no positive control and
     rung 2 cannot be claimed without one. POSITIVE CONTROL FIRST, and it passed hard: the
@@ -258,6 +286,9 @@ sources:
   checked: [ares, google-cz, own-funded-ledger]
   expires: '2026-11-23'
 - type: hiring
+  name: "Labour Office — August 2026 building-trade vacancies"
+  gist: "the 2,313-vacancy month"
+  why: "1,629 Czech employers posted 2,313 new vacancies for building construction and maintenance workers, 6,866 places in all, in August 2026. These are job vacancies, not a count of subcontracted crews."
   url: https://data.mpsv.cz/web/data/otevrena-data
   note: 'mpsv-2026-08-manual-trades: August 2026 MPSV open-data aggregate — 2,313
     building-construction and maintenance vacancies (6,866 seats, 1,629 employers). The first
@@ -271,15 +302,58 @@ created: '2026-08-13'
 updated: '2026-09-03'
 ---
 
-Czech construction employs about 400,000 people, runs on subcontracting and is short of labour — 2,313 open building-trade vacancies at 1,629 employers in August 2026 alone [S1,S2,S7]. Contractors find Ukrainian and Balkan crews in Facebook groups and through brokers; nobody's papers get checked [S3]. Those firms then pay crews across sites, hire through staffing agencies and file A1 certificates (proof of which country insures a worker sent abroad) on general payroll software — Vema, Pamica — or at an accountant [S2]. Two ends of one problem: finding crews with papers in order, and paying them.
+Czech builders are short of workers, and crews found through Facebook groups and brokers come with nobody checking their papers [S3,S7].
 
-Why now: Germany subcontracts the same way, and CoCrafter (Munich, YC W24) already has 3,000+ small and mid-sized German construction firms on a marketplace matching contractors with vetted crews [S1].
+- Czech construction employs about 400,000 people and runs on subcontracted crews [S1,S2].
+- Contractors find Ukrainian and Balkan crews in Facebook groups and through brokers [S3].
+- Nobody checks those crews' papers [S3].
 
-Who pays: general contractors and mid-sized construction firms, charged per crew hired and per worker paid. The marketplace side earns on the match and the document check; the payroll side is a monthly fee per worker.
+Paying the crews is the other end of the same problem [S2]:
 
-Existing non-solutions: Wilio and Nejřemeslníci are consumer marketplaces — a household posts a job, tradesmen bid [S3]. Stavario and PlanRadar keep the site diary and attendance, not pay or papers; wages run on general payroll software [S2,S4]. NejStav and ePoptávka sell leads and check nobody's documents [S6]. Only a licensed staffing agency delivers a crew with papers in order — by leasing out workers on its own payroll [S6]. No Czech marketplace matches contractors with vetted crews, and no payroll product is built for construction [S3,S6].
+- Payroll runs on general payroll software or at an outside accountant [S2].
+- Construction firms also hire workers through staffing agencies [S2].
+- They must handle A1 certificates, the proof of which country insures a worker sent to work abroad [S2].
 
-Solved elsewhere: CoCrafter (Germany) sells the sourcing half [S1]; Hammr (US, YC W23) the paying half — construction payroll, staff records and compliance [S2]. conmeet, also Munich, raised €6M in August 2026 for construction back-office software — same buyer, neither wedge [S4]. Each half is proven in one market only.
+So the problem has two ends: finding a crew whose papers are in order, and paying it.
+
+Existing non-solutions: Only licensed staffing agencies deliver a crew with papers in order, and they do it by leasing out workers on their own payroll [S6].
+
+The agencies recruit Ukrainian workers, employ them, and handle their wages, insurance and papers [S6]. Everything else stops short of the crew:
+
+- Consumer marketplaces let a household post a job for tradesmen to bid on, which is not a contractor hiring a crew [S3].
+- Lead portals sell building jobs to firms, check nobody's documents and move no money [S6].
+- Site-diary apps keep the diary and attendance for the crew a contractor already has, not its pay or its papers [S2,S4].
+- Payroll software is sold to every industry, and none of it is built for construction [S2,S5].
+- An Austrian documentation tool, sold here since spring 2025, tracks subcontractors only once they are already on a live project [S5].
+- The closest Czech platform runs a contracting firm's whole office, from leads and quotes to purchasing and cashflow, but does no crew sourcing, vetting or payroll [S5].
+- The state's list of qualified suppliers and the certified-contractor schemes serve public tenders, not a contractor hiring a crew [S6].
+- One building catalogue checks a tradesman's company number against the state business register at signup, and PwC screens business partners inside SAP (the business software many large firms run); neither vets a crew for the contractor hiring it [S6].
+- No Czech marketplace matching contractors with checked crews has been found, and no payroll product built for construction [S3,S6].
+
+Why now: Building firms are short of workers today, with 2,313 building-trade vacancies posted by 1,629 employers in August 2026 alone [S7].
+
+- The labour shortage in Czech construction is chronic [S1,S3].
+- Crews hired via Facebook groups or brokers come with unchecked papers [S3].
+- To get papers in order, a contractor leases workers from a staffing agency [S6].
+
+The 2,313 vacancies cover 6,866 places [S7]. They are job vacancies at the labour office, so they count employees wanted, not subcontracted crews [S7].
+
+Who pays: Contractors already pay staffing agencies for crews with papers in order, and pay for general payroll software or an accountant [S2,S6].
+
+- Licensed staffing agencies lease out workers with wages, insurance and papers handled [S6].
+- Construction firms run payroll on general software or pay an outside accountant [S2].
+
+The buyers would be general contractors and mid-sized construction firms. A product could charge per crew hired and per document check on the marketplace side, and a monthly fee per worker on the payroll side.
+
+Solved elsewhere: Each half already sells abroad: crew matching in Germany, and construction payroll in the US [S1,S2].
+
+In Germany, a Munich marketplace from Y Combinator's winter 2024 batch matches general contractors with vetted subcontractors, foreign crews and their compliance documents included [S1]. More than 3,000 small and mid-sized German construction firms are on it [S1]. The German market it serves also runs on general contractors hiring subcontractor crews [S1].
+
+In the US, a Y Combinator company from the winter 2023 batch sells payroll, staff records and compliance built for construction firms [S2].
+
+A second Munich company raised €6M in August 2026 for software that runs a trades or construction firm's office, from purchasing to invoicing, at firms of 10 to 500 staff [S4]. It serves the same buyer, but sells neither half [S4].
+
+Each half is proven in one country only.
 
 ## Revisions
 
@@ -290,3 +364,5 @@ Solved elsewhere: CoCrafter (Germany) sells the sourcing half [S1]; Hammr (US, Y
 2026-09-02 · plain-language pass — Three trade terms gone from the prose at first use: SMB and GC replaced with plain words, HR spelled out, and the A1 certificate glossed where it is named. Argument 290 → 285 words, every [Sn] marker, figure and named firm kept; the dek is now a standalone sentence and conmeet's €6M seed is named where the comparables are [S4]. A gist added to all six sources. No score, status, note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` on who is stuck and what is happening, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Czech builders hire crews through Facebook, with no vetting". Previous solution, verbatim: "A marketplace for vetted building crews: the contractor hires a subcontractor whose papers are already checked, and the compliance documents and the pay run are handled in the same place." The record carried no brief and no good_for before this pass. Every claim was checked against this record's sources first. The old title's "through Facebook, with no vetting" rests only on the harvest note behind [S3], which carries no receipt of its own, so it is not repeated. The headline now states what the evidence does show: 2,313 new building-worker vacancies at 1,629 employers in August 2026 [S7], which are labour-office job vacancies and not a count of subcontracted crews, and a check with a passing positive control that found no Czech marketplace matching contractors with vetted crews, only staffing agencies and lead portals [S6]. "As companies already do abroad" covers both halves, each proven in one market: crew sourcing in Germany [S1] and construction payroll in the US [S2]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: title "Czech builders are short of site workers, and no Czech marketplace offers crews with checked papers" → "Czech builders are short of workers, and no marketplace offers crews with checked papers"; brief "In August 2026 alone, 1,629 Czech employers listed 2,313 new building-worker vacancies with the labour office [S7]. A contractor needing a crew with papers in order can lease one from a staffing agency or use lead websites that check no documents [S6]." → "Czech employers listed 2,313 new building-worker vacancies in a single month [S7]. Contractors who need crews with papers in order can lease them from agencies or use websites that check no documents [S6]."; solution "Build an online marketplace where contractors hire building crews with checked papers, then handle their documents and pay, as companies already do abroad." → "Build an online marketplace where contractors hire building crews with checked papers, then handle their documents and pay.". The employer count and the August 2026 date were cut, leaving 2,313 new vacancies "in a single month" [S7]; "as companies already do abroad" was cut. Same date, pain-point pass: title "Czech builders are short of workers, and no marketplace offers crews with checked papers" → "Czech builders are short of workers, and crews found online come with unchecked papers". Why: the shortage half was already a pain, but the second half was a missing product. It now says what that means for the builder: crews found through Facebook groups, brokers and lead websites come with nobody checking their papers [S3,S6]. Brief unchanged; it already says the websites check no documents [S6]. No score, status, source, note or body sentence changed.
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the shortage and the unchecked crews, lists the 400,000 workers, the Facebook-and-broker sourcing and the missing check first, and holds the paying end (general payroll software or an accountant, staffing agencies, A1 certificates) as detail [S1,S2,S3]. Competition opens on the staffing agencies as the one trade that delivers a crew with papers in order, then lists what stops short: consumer marketplaces, lead portals, site-diary apps, horizontal payroll, the Austrian documentation tool, the closest Czech contractor platform, the state's qualification lists and the two partial checks (a catalogue's company-number check and PwC's screening inside SAP), all described by what they sell rather than by name [S2,S3,S4,S5,S6]. Why now opens on the vacancies as the pain, with the German comparable moved out of it to Validated abroad, where it belongs [S1,S7]. Willing to pay now answers whether anyone pays: contractors pay staffing agencies and payroll software or accountants today [S2,S6]. Validated abroad became one answer sentence and short paragraphs, one per company [S1,S2,S4]. Every comps[] and locals[] company left the body (CoCrafter, Hammr, conmeet, Wilio, Nejřemeslníci, Stavario, PlanRadar, NejStav, Vema, Pamica, Bildix); each stays in its own row. Detail added from sources already on file, none of it new evidence: the 6,866 places behind the 2,313 vacancies and what they count [S7]; the agencies recruiting, employing and paying the workers, the state's qualification lists, the catalogue's company-number check and PwC's SAP screening [S6]; the Austrian tool's spring-2025 Czech entry and the closest Czech platform's scope [S5]; the Y Combinator batches and conmeet's 10–500-staff buyer [S1,S2,S4]. `entry.why` was rewritten as "Easier: … Harder: …" from the same gates (no licence, ordinary software, contractors buying for themselves; established neighbours and the staffing agencies), and it no longer names Stavario. A `process:` block was added, because the sources on file say who does each step today: contractors find crews in Facebook groups and through brokers, and nobody checks the papers [S3]; pay runs on general payroll software or at an outside accountant [S2]. Who handles the A1 papers for posted workers is marked unknown: the yc-hammr signal names A1 compliance as part of the market, and nothing on file says who does it. Two source lines changed: S6's why said the control query returned "a dozen" site-diary vendors, and its note counts seven, so it now says seven; S7 gained a public name, gist and why, written from its note. Corrected against the sources rather than against the old sentences: the old body said firms "file A1 certificates … on general payroll software — Vema, Pamica — or at an accountant [S2]", but the signal behind S2 lists A1 compliance and generic payroll as two separate facts, and Vema's own row says it carries no A1 paperwork, so the body now states them apart and the process marks the A1 step unknown; "Germany subcontracts the same way" became what S1 supports, a German marketplace matching general contractors with subcontractor crews. Kept, and flagged: the 400,000 workforce figure and "runs on subcontracted crews" rest on the transfer notes of the signals behind S1 and S2 (yc-cocrafter, yc-hammr), not on a primary statistic. Flagged as inference: that the office runs the payroll software, in the process step's who (the source says only "generic software or external accountants") [S2]; and the pricing line under Willing to pay (per crew hired, per document check, a monthly fee per worker), which was always a proposal with no source and is now written as "could". No score, status, source order, `note:`, title, brief, solution or good_for changed.

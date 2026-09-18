@@ -28,7 +28,7 @@ entry:
   incumbents: adjacent
   integration: national-system
   money: outside-money
-  why: 'Every buyer is a town, so each sale runs under procurement law, and the first fee is more than a year out on municipal joint-purchasing clocks, so money goes in before any comes back. eCENTRE and SMS ČR already pool energy buying for hundreds of towns.'
+  why: 'Easier: no licence is needed, the solar subsidy already allows joint projects, and unions of towns may buy for their members. Harder: every buyer is a town buying under procurement law, crews must fit panels on real roofs, and the first fee comes only after a pooled tender closes, so money goes in first.'
 comps:
 - name: iChoosr
   url: https://ichoosr.com/
@@ -111,6 +111,35 @@ locals:
     cover several connection points [S7]. It moves the paper, not the purchase — each town still
     runs its own tender at the end of it; no start year is published and it names no town that
     has hired it.'
+process:
+  summary:
+    today: 'Each town writes its own design-build tender for its own roof, installers bid lot by lot, and some towns publish the same tender again, for reasons no source gives [S1,S2].'
+    after: 'One buying service puts many towns'' roofs into one tender with one specification, and installers bid once for the whole pool.'
+  steps:
+  - who: The town
+    today: 'Writes a tender for its own roof'
+    known: documented
+    cites: [1]
+    change: changes
+    after: 'Joins one tender with other towns'
+  - who: Installers
+    today: 'Bid on one small lot at a time'
+    known: documented
+    cites: [1, 7]
+    change: changes
+    after: 'Bid once for many towns'' roofs'
+  - who: The town
+    today: 'Publishes the same tender again'
+    known: documented
+    cites: [2, 9]
+    change: changes
+    after: 'Any re-run happens once, for the pool'
+  - who: The winning installer
+    today: 'Builds and services the panels'
+    known: documented
+    cites: [3]
+    change: stays
+    after: 'Unchanged: each roof is still built and serviced'
 sources:
 - type: tender
   name: "TED — South Moravia rooftop PV (~€1.0M), and the wave around it"
@@ -287,7 +316,7 @@ sources:
 - type: regulation
   name: "Zákon o obcích novela — společenství obcí as a shared-services platform"
   gist: "the buying vehicle, deepened"
-  why: "The interior ministry's bill widens the společenství obcí — the municipal union this record's pooled tender would run through — into a shared-services platform with state-budget support behind it, proposed to take effect on 1 January 2027."
+  why: "The interior ministry's bill widens the společenství obcí — the municipal union a pooled tender would run through — into a shared-services platform with state-budget support behind it, proposed to take effect on 1 January 2027."
   url: https://odok.gov.cz/portal/services/download/attachment/KORNDWGFEZO3/
   note: 'reg-obce-spolecenstvi-sdilene-agendy: Závěrečná zpráva RIA to the interior ministry
     bill amending act 128/2000 (obce), the draft the scripted feed holds as
@@ -312,24 +341,66 @@ created: '2026-08-13'
 updated: '2026-09-03'
 ---
 
-Between June and August 2026, 53 Czech public buyers — towns, regions, schools, hospitals, a zoo, wastewater plants — ran about 80 separate rooftop-solar tenders worth roughly €60M [S1]. Almost every lot is a bespoke design-build tender for a standard product: panels on a public roof, €120k to €1M, each with its own documentation, evaluation and contract [S1].
+Czech towns and other public bodies each tender their own solar panels, one small lot at a time [S1].
 
-Why now: RES+ (the state's renewable-energy subsidy line, from the Modernizační fond) pays municipal solar money out on fixed call deadlines, so the tenders keep coming [S4]. Špindlerův Mlýn published the same wastewater-plant solar tender three times in ten weeks; Hrabová and Nymburk re-ran identical lots [S2]. Small lots struggle to attract bidders, and every re-run burns months against a subsidy clock [S2].
+- 53 public buyers put out about 80 solar procurement notices this summer [S1].
+- Most lots cost between €120k and €1M each [S1].
+- Several towns published the same tender again [S2,S9].
 
-Who pays: municipalities pay in procurement overhead and failed procedures on lots too small to interest an efficient supplier [S2]. The state pays again, administering subsidies for hundreds of micro-projects.
+Between June and August 2026 those notices were worth roughly €60M together [S1]. The buyers were towns, school districts, zoos, wastewater plants and regional governments [S1].
 
-Existing non-solutions: towns do get pooled, but nobody sells the pooling. Brno pools its city districts through one framework for 36 photovoltaic plants ("36 FVE"), run by SAKO — the city's waste company; regions package their own buildings; RES+ permits a joint project across up to three neighbouring municipalities [S4,S6]. Each is a buyer aggregating for itself, or a subsidy rule. iKomunita, ADS Energy and Enado each sell one town a turnkey installation (design, panels, battery); Grantex sells the subsidy paperwork [S7]. eCENTRE pools hundreds of towns into one electricity and gas auction, including the purchase run for SMS ČR — the small-municipalities association — but sells no solar procurement [S6,S7]. 53 buyers still tendered alone in one summer [S1].
+- Almost every lot is a bespoke design-build tender for a standard product: panels on a public roof [S1]. So each carries its own documents, its own evaluation and its own contract [S1].
+- Czechia has 6,254 municipalities, averaging 1,710 inhabitants, against an average of 10,250 across the OECD (the club of developed economies) [S10].
 
-No buyer-side complaint is documented, so the case rests on ~€60M a quarter of duplicated small-lot procurement [S1]. No company sells that pooling to a town without a framework of its own [S6,S7].
+Existing non-solutions: Towns can already pool their buying, but no company sells a town the pooling of its solar roofs [S6,S7].
 
-Solved elsewhere: iChoosr has pooled demand into single tendered contracts from the Netherlands since 2008, and more than 200 British councils run it as Solar Together [S5]. Its site lists ten operating countries — Poland, Germany and Austria among them — with no participant figures for any [S5].
+- Brno's waste company pools the city's districts into one 36-plant solar framework [S4].
+- Regions package solar for their own buildings into design-build packages [S4].
+- The state's solar subsidy lets up to three neighbouring towns apply jointly [S7].
+
+The subsidy is RES+ (the state's renewable-energy subsidy line, paid from the Modernisation Fund), and it explicitly funds joint projects across several municipal sites [S4].
+
+- A union of towns may buy centrally for its members, through a framework agreement or a standing list of pre-qualified suppliers [S7].
+- Each of these is a buyer pooling for itself, or a rule a town must use on its own; none is a company a town can hire [S7].
+- Installers sell one town at a time a turnkey installation: design, panels and a battery [S7]. The closest offers to build one plant that several towns share, which is one shared asset and not many towns' roofs in one tender [S7].
+- A subsidy consultant sells the application work, and each town still runs its own tender after it [S7].
+- One Czech operator pools many towns, households and firms into one electricity and gas auction, including the small-municipalities association's joint purchase, but it sells no solar procurement [S6,S7].
+
+53 public buyers still tendered separately in one summer [S1]. No town's complaint has been found, so the case rests on those separate small tenders [S1].
+
+Why now: Towns lose time whenever a solar tender runs again, and several have already re-run theirs this summer [S2,S9].
+
+- Špindlerův Mlýn published the same solar tender three times in ten weeks [S2].
+- Two months later that town was still tendering work on the same site [S8].
+- Jince re-issued its solar tender one day after the first attempt [S9].
+
+Hrabová and Nymburk also re-ran identical lots [S2]. A notice published again shows that the tender ran again, not why [S2,S9]. That small lots attract few bidders is a reading of those re-runs, not something a source states [S2].
+
+- Špindlerův Mlýn's tender was for panels on its wastewater plant; in August 2026 it tendered changes to the plant's building so the panels can go on, a fourth procurement action on one site [S2,S8].
+- Jince's first attempt, on 26 August 2026, was worth about €680k, and the re-issue on 27 August about €760k [S9].
+- In 2024 a change to the municipalities act let unions of towns buy centrally for their members [S7].
+- A bill from the interior ministry, proposed to take effect on 1 January 2027, would widen those unions into platforms for work a small town cannot run alone, with state-budget support [S10]. The government approved the package in July 2026 [S10].
+
+Who pays: Public bodies already spend on the solar itself, about €60M of tenders this summer, but nobody sells them the pooling yet [S1,S7].
+
+- South Moravia opened a competition of about €1.0M for solar with batteries [S1].
+- Jindřichův Hradec signed about 2.5M CZK to build and service one roof's solar [S3].
+- More than 200 customers already buy energy through one joint purchase [S6].
+
+The region's competition covers panels and battery storage on its own buildings, and was open to any bidder [S1]. Jindřichův Hradec's contract, below the EU tender threshold, bundles the build with servicing afterwards [S3].
+
+That joint purchase is run for a small-municipalities association, covers 2026 and 2027, and is open to towns that are not members; each town pays its supplier directly [S6]. Each town's solar project is also its own subsidy application, unless neighbouring towns apply jointly [S7].
+
+Solved elsewhere: A Dutch company has pooled demand into single tendered contracts since 2008, and over 200 British councils have run it [S5].
+
+The British councils run it under the name Solar Together [S5]. Its site lists ten operating countries, Poland, Germany and Austria among them, with no participant figures for any [S5]. What it pools is mostly households' demand; what matches this problem is the one tendered contract it runs with each council [S5].
 
 ## First moves
 
-1. Sell first to the towns whose tenders have already failed. Špindlerův Mlýn published the same wastewater-plant solar tender three times in ten weeks; Hrabová and Nymburk re-ran identical lots [S2]. Each has a subsidy clock running and a lot too small to interest a supplier. They are the cheapest first customers in the wave.
-2. Build the pooled tender, not an installation business. One catalogue specification, one fixed price per installed kilowatt, many towns' roofs inside a single procedure — the model iChoosr has run from the Netherlands since 2008 and more than 200 British councils buy as Solar Together [S5]. No new law is needed. RES+ already permits a joint project spanning up to three neighbouring municipalities, and the společenství obcí — municipal unions created by the 2024 amendment to the municipalities act — may buy centrally for their members, through a framework agreement or a dynamic purchasing system (a standing list of pre-qualified suppliers) [S7]. That vehicle is about to get stronger: a further amendment, proposed to take effect on 1 January 2027, turns the společenství into a shared-services platform with state-budget support, in a country of 6,254 municipalities averaging 1,710 inhabitants against an average of 10,250 across the OECD — the club of developed economies [S10].
-3. Open the first conversation with the size of the duplication. Between June and August 2026, 53 public buyers ran about 80 separate rooftop-solar procurements worth roughly €60M, most lots between €120k and €1M, each carrying its own documentation, its own evaluation and its own contract administration [S1].
-4. Watch eCENTRE, and move first. It pools municipalities, households and firms into one negotiated contract, runs the SMS ČR joint purchase, names Ostrava, Svitavy and Frýdlant nad Ostravicí as customers, and has aggregated buying since 2006 [S7]. What it pools is electricity and gas, and its site offers no solar procurement at all [S7]. It is one product decision away.
+1. Call the town clerks of the towns that ran the same solar tender again, and ask what the re-runs cost them. They are named under [Why now](#why-now). Each has a tender that has already run more than once. Ask how long it took and what they paid to have it administered, then offer to put their roof into one tender with other towns.
+2. Build one pooled tender that puts many towns' solar roofs into a single procedure, with one specification and one fixed price per installed kilowatt. The model already runs abroad, as [Validated abroad](#validated-abroad) shows. No new law is needed: the state's solar subsidy already allows a joint project for neighbouring towns, and unions of towns may already buy for their members; see [Competition](#competition). A bill would make those unions stronger still, as [Why now](#why-now) explains.
+3. Open every conversation with how many public bodies tendered the same thing separately this summer. The count and the money are under [The opportunity](#opportunity). Each of those tenders carried its own documents, its own evaluation and its own contract, which is work a pooled tender does once.
+4. Move before the Czech operator that already pools towns' electricity and gas buying adds solar to what it sells. It already runs one contract for many towns, households and firms, including the small-municipalities association's joint purchase, but it offers no solar procurement; see [Competition](#competition). It is one product decision away, so win the first towns before it makes it.
 
 ## Revisions
 
@@ -349,3 +420,5 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 2026-09-02 · plain-language pass — Glossed at first use: SAKO as Brno's waste company, "36 FVE" as its 36-plant framework [S4], SMS ČR as the small-municipalities association [S6], RES+ as the state's renewable-energy subsidy line. TED, WWTP, PV, obce, kraje and UK replaced with plain words. Argument cut 448 to 352 words, every [Sn] marker, figure and company kept. First moves rewritten verbs-first; a gist added to all seven sources. No score, status, note: field or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` telling the situation, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Czech towns buy rooftop solar one by one, and overpay for it". Previous solution, verbatim: "An aggregator that pools many towns' rooftop-solar projects into one fixed-price contract, so the lots stop being too small for a supplier to bid on." No brief or good_for existed before. Checked against the sources while writing. "And overpay for it" is gone from the title: no price receipt or source on file shows a town paying more than it would in a pooled tender, and the record itself says no buyer-side complaint is documented. The old solution's "so the lots stop being too small for a supplier to bid on" is gone too: that small lots draw too few bidders is our reading of the re-published notices [S2], not something a source states, so the brief puts the re-runs down as a fact — at least 4 buyers re-ran the same tender, Špindlerův Mlýn 3 times in 10 weeks [S2,S9] — without the cause. The dek's "about 80 separate tenders" became "about 80 tenders": [S1] counts ~80 procurement records, and re-published notices are among them. "Most of them €120k to €1M" is [S1]'s own "most lots". "As companies already do abroad" rests on iChoosr, which has pooled demand into single tendered contracts from the Netherlands since 2008 [S5]. No urgency is claimed; the record holds none. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Czech towns and other public bodies buy solar panels one small tender at a time" After: "Czech public bodies buy solar panels one small tender at a time". Brief before: "This summer, 53 Czech public bodies put out about 80 solar-panel tenders worth about €60M, most of them €120k to €1M each [S1]. At least 4 re-ran the same tender, one of them 3 times in 10 weeks [S2,S9]." After: "This summer, Czech towns and other public bodies put out about 80 solar-panel tenders, most of them small [S1]. Several ran the same tender again [S2,S9]." Good for before: "Someone who knows public tenders and would like to work with towns on solar." After: "Someone who knows public tenders and likes working with towns on solar." The 53 buyers, the €60M, the €120k to €1M lot range and "one of them 3 times in 10 weeks" were cut to keep one number, the 80 tenders [S1]; "at least 4" became "several" [S2,S9], and re-runs are still stated without a cause. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed. Same date, pain-point pass: title "Czech public bodies buy solar panels one small tender at a time" → "Czech towns' small solar-panel tenders fail, and several must run them again". Why: the old headline described a buying pattern, not a cost to anyone. The new pain is the repeat work the record receipts: Špindlerův Mlýn published the same tender 3 times in 10 weeks, Hrabová and Nymburk re-ran identical lots [S2], and Jince re-issued its own a day after the first attempt [S9]. "Several" is the count on file; no town is named in the headline. Brief unchanged. No score, status, source, note or body sentence changed. Same date, coordinator check of the pain-point pass: title "Czech towns' small solar-panel tenders fail, and several must run them again" became "Czech towns keep re-running their small solar-panel tenders" — "fail" is not in the sources: a re-published notice shows a tender ran again, not that it failed or why [S2,S9]. Same date, abroad count (owner: fill "do abroad" with "X companies do in Y countries"): solution "…into one fixed-price tender, as companies already do abroad." became "…into one fixed-price tender, as 1 company already does in the Netherlands." The plural was never true of this record: comps[] holds one company. Counted: iChoosr (comps[0], geo NL), which pools demand into one tendered contract run with councils, 200+ British councils as Solar Together [S5]. Its traction line counts households served (2.5M+), so the roofs it pools are mostly residents' and not a town's own buildings; it is counted for the pooled fixed-price tender run with councils, which is the mechanism this solution names. None excluded. The country is where iChoosr is based, not the ten markets its site lists. Same date, owner-approved simplification: title "Czech towns keep re-running their small solar-panel tenders" became "Czech towns buy solar panels one by one, and waste months doing it"; brief "This summer, Czech towns and other public bodies put out about 80 solar-panel tenders, most of them small [S1]. Several ran the same tender again [S2,S9]." became "Every town writes its own tender for the same thing: panels on a public roof [S1]. Small tenders attract few bidders, and some have to run again [S2]."; solution "Build a buying service that pools many towns' rooftop-solar projects into one fixed-price tender, as 1 company already does in the Netherlands." became "Build a buying service that pools many towns' solar roofs into one tender, as 1 company already does in the Netherlands.".
+
+2026-09-18 · body rewritten to the writing rules, process figure added — Every section now opens with ONE answer sentence, each first list carries its three most important items, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on towns tendering their solar one lot at a time, with the 53 buyers, the lot sizes and the re-runs as its items, and gained the municipalities count from move 2 (6,254 averaging 1,710 inhabitants, against 10,250 across the OECD) [S1,S2,S9,S10]. Competition opens on the missing seller and describes every player without naming it: Brno's waste company, the regions' own packages, the joint-project rule, the union of towns, the installers, the subsidy consultant and the energy-pooling operator; names, dates, named customers and IČOs stay in their `locals[]` rows, so eCENTRE's customers and its 2006 start, which lived in move 4, now live only in its row [S4,S6,S7]. Why now opens on the time towns lose to re-runs, with the 2024 municipalities-act change and the interior ministry's bill (moved from move 2) below as dated bullets [S7,S10]. Willing to pay now answers whether anyone pays: public bodies spend on the solar itself, and nobody sells them the pooling [S1,S7]. Validated abroad opens on the Dutch company without naming it; its name and traction stay in `comps[]`. The moves lost every marker, figure and company name for links; move 1 now calls the clerks of the towns whose tenders ran again instead of selling to them. `entry.why` was rewritten as "Easier: … Harder: …" and names the same gates. `S10.why` said "this record's pooled tender", which a reader sees; it now says "a pooled tender". Added from sources already on file: Špindlerův Mlýn's August tender to change its plant's building [S8], Jince's re-issue a day after its first attempt and both values [S9], the region's competition being open to any bidder [S1], Jindřichův Hradec's contract bundling build and servicing below the EU threshold [S3], the joint energy purchase being open to non-members with each town paying its supplier directly [S6], and the government's July 2026 approval of the bill [S10]. Corrected against the sources rather than against the old sentences: [S1] lists towns, school districts, zoos, wastewater plants and regional governments, not hospitals, so hospitals are gone from the buyer list; "about 80 separate rooftop-solar tenders" became "about 80 solar procurement notices", since [S1] counts procurement records and re-published notices are among them; "RES+ pays out on fixed call deadlines, so the tenders keep coming" was cited to [S4], which says only that RES+ funds joint multi-site municipal projects, so the deadlines and the cause are cut; "small lots struggle to attract bidders" and "every re-run burns months against a subsidy clock" are not in [S2], so the re-runs are stated as facts, the time lost is shown by Špindlerův Mlýn's ten weeks and its August building tender [S2,S8], and the bidder claim is written as a reading; "failed procedures on lots too small to interest an efficient supplier" became the spending the sources show, since no source says a procedure failed or why; and "the state pays again, administering subsidies for hundreds of micro-projects" carried no source and no source counts the projects, so the count is cut. Flagged as inference: that towns lose time whenever a tender runs again [S2,S8,S9]; that each town's solar project is its own subsidy application unless neighbouring towns apply jointly, read from the joint-project rule [S7]; that what the Dutch company pools is mostly households' demand, read from its households-served figure [S5]; and in `entry.why`, that the first fee comes only after a pooled tender closes. Not changed, and reported: the owner-approved brief says "Small tenders attract few bidders" [S2], which the body now calls a reading. PROCESS FIGURE ADDED, four steps, each backed by sources already cited: the town writes a tender for its own roof [S1]; installers bid on one small lot at a time [S1,S7]; the town publishes the same tender again [S2,S9]; the winning installer builds and services the panels [S3]. Why the tenders ran again is not known, and `summary.today` says so rather than drawing a guess; no actor or system was invented. No score, status, source, `note:`, `sources[]` order, title, brief, solution, good_for or `entry` gate value changed.

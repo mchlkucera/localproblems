@@ -22,7 +22,7 @@ entry:
   incumbents: direct
   integration: software
   money: bootstrap
-  why: 'Distributors and suppliers sign for themselves, no licence gates the work, and writing an order into the buyer''s own Pohoda, Helios or ABRA accounting system is ordinary software plumbing. Apertia Tech and Dativery already sell it, so the field is crowded rather than closed.'
+  why: 'Easier: wholesalers and suppliers sign for themselves, no licence is needed, and writing an order into the buyer''s own accounting system is ordinary software work. Harder: three Czech firms already sell this into the same accounting systems, so the field is crowded, and two of them have traded for ten years or more.'
 comps:
 - name: Mercura
   url: https://www.mercura.ai/
@@ -74,6 +74,30 @@ locals:
   maturity: early
   evidence: 'Extracts receipts, invoices and purchase orders into Helios, Pohoda and Abra. Redque
     s.r.o. was incorporated in April 2022 and names nobody using it.'
+process:
+  summary:
+    today: 'An order arrives as an e-mail, a PDF or a spreadsheet, and someone in sales reads it, looks up each item''s code and types the order into the accounting system [S1,S4].'
+    after: 'The software matches each line to the wholesaler''s own item codes and writes the order into its system, and staff check the order instead of typing it.'
+  steps:
+  - who: Customer
+    today: 'Sends an order by e-mail, PDF or Excel'
+    known: documented
+    cites: [1, 4]
+    change: stays
+    after: 'Unchanged: customers order the way they do now'
+  - who: Sales staff
+    today: 'Read each order and look up every item'
+    known: documented
+    cites: [1, 4]
+    change: changes
+    after: 'Check the items the software matched'
+  - who: Sales staff
+    today: 'Type the order into the accounting system'
+    known: documented
+    cites: [4]
+    reenters: true
+    change: goes
+    after: null
 sources:
 - type: arbitrage
   name: "Mercura"
@@ -135,6 +159,9 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 - type: arbitrage
+  name: "Asakana"
+  gist: "the food-distributor order entry"
+  why: "A US company listed by Y Combinator in August 2026 that turns e-mailed and texted orders into entries in food distributors' business systems: the same product, sold to a different trade."
   url: https://www.ycombinator.com/companies/asakana
   note: 'yc-asakana: YC-funded (31 Aug 2026) US company doing AI order entry from e-mail and
     text into ERP for food distributors — this record''s exact product shape, freshly funded
@@ -147,15 +174,53 @@ created: '2026-08-13'
 updated: '2026-09-03'
 ---
 
-Quote requests (RFQs) and orders reach Czech wholesalers and manufacturing suppliers as e-mail, PDF and Excel; staff re-type them into Pohoda, Helios and ABRA — the ERP packages (accounting and stock software) they run on [S1]. Re-typing is slow, error-prone, and caps how many quotes a desk turns around [S1].
+Quote requests and orders reach Czech wholesalers as e-mails, PDFs and spreadsheets, and staff type them into their accounting software by hand [S1,S4].
 
-Why now: AI document extraction is commodity and the model proven one border away — Mercura (YC W25, Bavaria) sells this to construction-supply distributors, with Comena (S25) and Seals AI (S24) on the same job in the US [S1].
+- Staff read each order and look up every item's code themselves [S1,S4].
+- Wholesalers and manufacturing suppliers both work this way [S1].
+- Their systems include Pohoda, Helios and ABRA — Czech accounting and stock software [S1,S4].
 
-Who pays: distributors and suppliers buy this themselves, because a quote returned first wins the order. Integration with Pohoda, Helios and ABRA was the planned defence [S1]; three Czech vendors already hold it [S4].
+A Czech seller of software for this lists the hand steps it replaces: reading each e-mailed request, searching the product database by name or code, matching each line to the firm's own item code, and filling in the order form [S4].
 
-Existing non-solutions: manual entry, agencies (Appmine) writing one-off scripts, and foreign tools (WizCommerce, turian) with no Czech integrations or language handling [S2]. A Czech product already sells this [S2]. **Apertia Tech s.r.o.** (Prague) ships "B2B Objednávky pomocí AI": it reads an e-mail's products and specifications, matches them to the customer's catalogue and item codes, writes the order into the ERP and replies with a delivery date [S4]. Apertia names dozens of completed integrations with Pohoda, ABRA, ABRA Flexi, Money S3/S5, Helios and K2 [S4]. Its worked example is a velkoobchod se stavebními materiály — the construction-supply distributor Mercura sells to in Bavaria [S1,S4]. **Alice by Redque** and **Dativery** sell the same extraction into the same systems [S4].
+- In that seller's worked example, a building-materials wholesaler gets an e-mail listing bricks, mortar and lintels, and each line has to be matched to one of its own item codes [S4]. It is the same kind of buyer the Bavarian company under [Validated abroad](#validated-abroad) sells to [S1].
+- The Bavarian company describes the same job at distributors: staff read each request, compare it with the product catalogue and pick the products by hand [S1].
+- No source counts how many Czech wholesalers still type orders by hand, and no complaint from one has been found.
 
-Solved elsewhere: the product is funded in Germany and the US [S1,S3], but the companies are young — only Workist, on a €9M Series A led by Earlybird, is three years in and past seed. Funding buys no empty field here — Czech vendors already sell this [S4]. No complaint is documented: the demand case is structural, not evidenced.
+Existing non-solutions: Three Czech firms already sell software that reads orders into these accounting systems, and two have traded for ten years or more [S4].
+
+- The oldest reads an order e-mail and writes it into the accounting system [S4].
+- Its integrations cover Money and K2 as well as Pohoda, Helios and ABRA [S4].
+- The other two read orders and invoices into the same systems [S4].
+- On the way, the oldest matches each item to the buyer's catalogue and item codes, then replies with a confirmation and a delivery date [S4].
+- So connecting to the Czech accounting systems gives a newcomer no head start: these firms already do it [S4].
+- Generic Czech AI agencies such as Appmine also turn up in a web search for this, and so do foreign tools such as WizCommerce and one of the German companies under [Validated abroad](#validated-abroad) [S2].
+
+Why now: A wholesaler's sales staff lose time on every order they type, and a slow reply can cost the sale [S1,S4].
+
+- One Czech seller says each e-mailed request took 10–15 minutes by hand [S4].
+- Typing each line again brings mistakes into the order [S1,S4].
+- More orders mean more staff, because each one is typed by hand [S4].
+
+The same seller counts a slow reply to the customer among the costs [S4]. The Bavarian company says the hand work keeps sales staff from selling and puts revenue at risk [S1].
+
+Software for this keeps being funded abroad. Y Combinator, the US startup programme, backed teams for it in 2024 and 2025 [S1]. It backed two more in 2026, the latest listed in August [S3,S5].
+
+Who pays: Yes: Czech firms already buy this from local vendors, and one vendor names dozens of completed customer integrations [S4].
+
+- Wholesalers and suppliers decide and buy for themselves.
+- Until they buy, they pay in staff time for every typed order [S1,S4].
+- Abroad, distributors already pay for the same software; see [Validated abroad](#validated-abroad).
+
+Solved elsewhere: Young, funded companies in Germany and the US already sell this software to distributors [S1,S3].
+
+- A Bavarian company of about 20 people sells this to construction-supply distributors [S1].
+- Comena and Seals AI, from Y Combinator too, do this in the US [S1].
+- A two-person US team sells order entry that plugs into the distributor's system [S3].
+- The Bavarian company came from Y Combinator's early-2025 batch, and handles quote requests as well as orders [S1].
+- The US team came from the early-2026 batch, and handles quotes too [S3].
+- Asakana, listed by Y Combinator in August 2026, turns e-mailed and texted orders into entries in US food distributors' business systems [S5].
+- Of the four companies listed above, only the oldest has a funding round beyond seed money on record.
+- Funding abroad opens no empty field here: three Czech firms already sell this [S4]; see [Competition](#competition).
 
 ## Revisions
 
@@ -170,3 +235,5 @@ Solved elsewhere: the product is funded in Germany and the US [S1,S3], but the c
 2026-09-10 · likely solution — Added the one-sentence `solution:`, now required on every record and always shown as the likely solution, compressed from the existing non-solutions paragraph, locals[], build.note and the solved-elsewhere paragraph. No claim, score or source changed.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` on who is stuck and what is happening, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Czech SMB distributors and manufacturing suppliers re-type inbound RFQs and orders from e-mail, PDF and Excel into their ERPs by hand". Previous solution, verbatim: "Software for wholesalers and suppliers that reads quote requests and orders arriving by e-mail, PDF or Excel, matches each line to the firm's own item codes, and enters the order into its Pohoda, Helios or ABRA accounting and stock system." The record carried no brief and no good_for before this pass. Every claim was checked against this record's sources first. No source on file measures how much re-typing happens: the workflow rests on the harvest note behind [S1], and the Czech products sold to automate it [S4] show the work exists without counting it; this record scores demand 0. The copy therefore carries no "most", "many", count, cost or date, and names no deadline because the record has none. The old title's "SMB", "RFQs" and "ERPs" are replaced with plain words. Three Czech vendors already sell this, two of them established [S4]; the solution describes the product neutrally. No score, status, source, note, marker or body sentence changed. Simplified for the front page: title "Czech wholesalers type orders from e-mails, PDFs and spreadsheets into their systems by hand" → "Czech wholesalers type incoming orders into their systems by hand"; brief "Orders and quote requests reach Czech wholesalers and suppliers as e-mails, PDFs and spreadsheets, and staff type each line into accounting and stock software such as Pohoda, Helios or ABRA [S1,S4]." → "Orders reach Czech wholesalers as e-mails, PDFs and spreadsheets, and staff type each line into their accounting software [S1,S4]."; solution "Build software that reads orders arriving by e-mail, PDF or Excel and enters them into the wholesaler's accounting system, as companies already do in Germany." → "Build software that reads orders arriving by e-mail, PDF or Excel and enters them into the wholesaler's accounting system."; good_for "Someone who'd like to work with wholesalers and the accounting software they run on." → "Someone who'd like to work with wholesalers and their accounting software.". The named accounting products and "quote requests" were cut; no claim was added.
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the hand typing and keeps the three accounting systems with their gloss [S1,S4]; the "no complaint is documented" line moved there from Solved elsewhere, reworded without "the demand case is structural". Competition opens on the three Czech sellers and describes them by what they sell, with their names, years and the Digitoo link left to their `locals[]` rows; the product steps, the integration list and the building-materials worked example stay [S4]; "integration ... was the planned defence" became "connecting to the Czech accounting systems gives a newcomer no head start" [S4]. Why now opens on who loses time and the sale, with the funding abroad below as detail [S1,S3,S5]. Validated abroad describes each foreign company without its name; Mercura, turian, Workist and Ventura left the body for their `comps[]` rows, Workist's €9M Series A with them, and Apertia Tech, Alice by Redque and Dativery left it for `locals[]`. `entry.why` is now "Easier: … Harder: …" and names no company. S5 gained a public `name`, `gist` and `why` beside its unchanged note, and is now cited [S5]. Added from the pages behind sources already on file, both read on this date and neither in its note: the hand steps the Czech seller lists ("Manuální čtení každého e-mailu s poptávkou", "Ruční vyhledávání produktů v databázi podle názvu nebo kódu", "Ruční vyplňování objednávkových formulářů", "Lidské chyby při přepisování dat", "Zdlouhavá reakce na zákazníky", "Nemožnost zpracovat větší objem poptávek bez navyšování týmu"), its worked example's bricks, mortar and lintels, and its "Každá poptávka vyžadovala 10-15 minut manuální práce", written as the seller's own claim [S4]; and the Y Combinator page's description of inside sales teams reading each request against the catalogue by hand, delaying replies and risking revenue [S1]. Process figure added, three steps, all `documented`: the customer sends the order [S1,S4]; sales staff read it and look up each item [S1,S4]; sales staff type it into the accounting system, marked `reenters` and `goes` [S4]. The "sales staff" role is S1's page's word; S4's page names no role. Corrected against the sources: "A Czech product already sells this" cited [S2], the first sweep, which found none, so it now cites [S4]; "caps how many quotes a desk turns around" was cited to [S1], whose page says the hand work keeps staff from selling, and the capacity point is S4's page, now cited there [S1,S4]; "a quote returned first wins the order" has no source and became S1's "delaying responses … risk of lost revenue" and S4's slow reply; "AI document extraction is commodity" has no source and was cut, the funding dates standing in its place [S1,S3,S5]; S2's note says only that searches returned Appmine, WizCommerce and turian, so "writing one-off scripts" and "no Czech integrations or language handling" were cut; and "only Workist … is three years in and past seed" carried no marker and Ventura's funding beyond Y Combinator is undisclosed, so the body now says only the oldest has a round beyond seed "on record". Flagged as inference: that Czech firms already buy this rests on S4's "dozens of completed customer integrations", with no price or contract on file [S4]; that distributors abroad pay for it rests on the `comps[]` traction lines, not on a source; and that wholesalers decide and buy for themselves rests on `entry.buyer`. No score, status, entry gate, source order, `note:`, title, brief, solution or good_for changed.

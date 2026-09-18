@@ -28,7 +28,7 @@ entry:
   incumbents: adjacent
   integration: software
   money: bootstrap
-  why: 'Families pay the fee themselves, nothing licences the work, and the job is coaching and paperwork rather than a system to plug into. Free help sits alongside it — Rodinný průvodce writes appeals for nothing — but no door has to be opened first.'
+  why: 'Easier: nothing licences the work, the job is coaching and paperwork rather than a system to plug into, and families decide for themselves without a tender. Harder: free advisers already write appeals for nothing, so a paid service has to carry the whole claim; and no Czech family is yet known to pay for this help.'
 comps:
 - name: Oma Care
   url: https://www.omacare.com/
@@ -98,6 +98,35 @@ locals:
     of resolved cases and 150+ new customers a month. Its care-allowance page is an article
     that routes the reader to general representation in court; it does not file the
     application, attend the assessment visit or run the appeal as something a family can buy.'
+process:
+  summary:
+    today: 'The family files the claim at the labour office itself, goes through the assessment that sets the grade, and appeals with a free adviser''s help where it finds one [S3,S9].'
+    after: 'An online service files the claim with the family, prepares it for the home visit and runs any appeal.'
+  steps:
+  - who: Family
+    today: 'Files the claim at the labour office'
+    known: documented
+    cites: [6, 9]
+    change: changes
+    after: 'Has the service file the claim'
+  - who: Family
+    today: 'Goes through the assessment that sets the grade'
+    known: documented
+    cites: [3]
+    change: changes
+    after: 'Is coached for the home visit first'
+  - who: Family
+    today: 'Appeals a grade with a free adviser''s help'
+    known: documented
+    cites: [6, 9]
+    change: changes
+    after: 'Hands the appeal to the service'
+  - who: '?'
+    today: 'How often a grade is appealed, and how often an appeal wins, is not known'
+    known: unknown
+    cites: []
+    change: stays
+    after: 'Unknown: nothing on file counts appeals'
 sources:
 - type: arbitrage
   name: "Oma Care"
@@ -261,22 +290,62 @@ created: '2026-08-13'
 updated: '2026-09-03'
 ---
 
-Roughly 380,000 dependent Czechs draw the state care allowance, příspěvek na péči [S2]. Families deliver most of the care it funds, unpaid: around 100,000 Czech informal carers, mostly women, report being unable to work full-time because of care duties, and only 8.3 percent of public long-term-care spending goes to home care against an EU average of 28.8 percent [S10]. Winning it at the right level takes an application, a home assessment that sets the dependency grade (hodnocení stupně závislosti) and usually an appeal — bureaucratic and opaque [S3]. Get it wrong and the family gives the care anyway, for less state money.
+Families caring for a sick relative must win the state care allowance through an application, a home assessment and sometimes an appeal [S3].
 
-Why now: the money riding on each claim keeps rising. The allowance went up in 2024-25 [S2], and grades I and II rose again on 1 January 2026 — an adult at grade I from 880 to 1,300 CZK a month [S7]. Nobody has built the layer that carries a family through it [S3].
+- 374,000 people drew the allowance in December 2024 [S5].
+- The assessment sets one of four grades, and the grade sets the money [S2,S7].
+- The application, the assessment and the appeal are described as bureaucratic and opaque [S3].
 
-Who pays: families themselves, on a flat or success fee for winning the award — the way Oma Care charges US families for caregiver support and training [S1]. 374,000 people drew the allowance in December 2024; 41.3bn CZK was paid through it that year [S5]. Home-care providers and insurers are the channel: a correctly funded family can afford their services.
+The allowance is příspěvek na péči, and it is paid to the person who needs care, not to the carer [S2]. The home assessment is the hodnocení stupně závislosti, the dependency grading [S3]. A family whose relative lands on too low a grade still gives the care, with less state money for it [S7].
 
-Existing non-solutions: pece.cz and the labour ministry's guides publish information and stop there [S3]. No Czech company files, tracks or improves a claim [S3]. The help that exists is free: pece.cz, run by the insurer NN Životní pojišťovna — calculator, articles, advice column — then the family goes to the labour office alone [S6]. Registered social counselling (odborné sociální poradenství) drafts appeals, free [S6]. Online law firms sell court representation by the case, not a route through the benefit [S9].
+Existing non-solutions: The help a Czech family gets is free advice, and no company files, chases or appeals the claim for a fee [S6,S9].
 
-Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) are a US cluster getting family caregivers trained and paid out of state programmes [S1]. Validation is US-only; the money here is the příspěvek na péči budget itself [S2].
+- An insurer's free site has a calculator, then sends families to file alone [S6].
+- The labour ministry and labour office publish guides and forms, and stop there [S3,S6].
+- Registered counselling services help draft appeals for free, as a social service [S6].
+
+The insurer's site also carries articles and an advice column, and the family then files at the labour office itself [S9]. The counselling services are odborné sociální poradenství, social counselling registered with the state, and they help as a social service rather than as a product [S6].
+
+- One of them writes appeals in a single region, and a carers' association runs a free legal helpline [S9].
+- A home-care company folds help with benefit forms into its free counselling [S9].
+- An online law firm's care-allowance page points to court representation rather than to the claim [S9].
+
+Why now: A family on too low a grade can lose thousands of crowns a month, and the two lowest grades pay more since January 2026 [S7].
+
+- Adults get 5,400 CZK monthly on the second grade, 1,300 on the lowest [S7].
+- Around 100,000 carers, mostly women, say they cannot work full-time because of care [S10].
+- Home care gets 8.3% of public long-term-care money; the EU average is 28.8% [S10].
+
+The dates behind this:
+
+- In 2024–25 the allowance was raised [S2].
+- On 1 January 2026 Act No. 360/2025 raised the two lowest grades again: for adults from 880 to 1,300 CZK and from 4,900 to 5,400 CZK a month, for children from 3,300 to 4,900 CZK and from 7,400 to 8,200 CZK [S7]. The two highest grades stayed the same [S7].
+- On 17 March 2026 MPs filed a bill amending both the social-services act the allowance lives in and the disability-benefits act, so the rules families work through are moving again [S8].
+- On 3 June 2026 the European Commission published the carer figures in its country report on Czechia; the home-care share is for 2022 [S10].
+
+Who pays: No family is known to pay for this yet: the help on offer is free, though a higher grade is worth thousands a month [S9,S7].
+
+- An online law firm sells fixed-price consultations, but not the claim itself [S9].
+- The state paid out 41.3bn CZK through the allowance in 2024 [S5].
+- The labour ministry's June 2026 benefits IT framework is worth about €74.7M [S4].
+
+A flat or success fee on the award is the suggested model, and no source on file shows one charged in Czechia [S9]. The US start-ups on file help carers get paid by state programmes, and how they charge is not on file [S1].
+
+- An insurer already runs a free information site on the allowance, and a home-care firm helps with benefit forms for free, so both could be a sales channel [S9].
+- The ministry's framework buys back-office IT for benefits, with related notices of about €19.8M and about €65M in June–August 2026, and none of it is built for the family filing the claim [S4].
+
+Solved elsewhere: US start-ups already help family carers get paid from state programmes, and nobody sells that help in Czechia yet [S1,S9].
+
+The closest, from Y Combinator's winter 2024 intake, enrols US family carers into Medicaid programmes that pay them up to $28 an hour [S1]. Medicaid is the US public health programme for people on low incomes, and Y Combinator is a US programme that funds start-ups. CareOasis, from its summer 2023 intake, works on the same model [S1]. The US has 53 million family carers, by the first start-up's count [S1].
+
+The Czech version would be paid from a state benefit rather than from Medicaid: the money at stake is the care allowance itself [S2].
 
 ## First moves
 
-1. Take the cases the free services turn away. Moravskoslezský kruh runs a free legal line — two lawyers, one hour per caller — and Rodinný průvodce writes appeals free, but only in the Moravskoslezský region [S9]. Both stop where the work starts: the claim still has to be filed, chased and defended. Ask them to hand those families on.
-2. Build for the assessment visit, nothing else. The grade set at that visit is the product: from 1 January 2026 an adult at grade I draws 1,300 CZK a month, at grade II 5,400 CZK [S7]. Coach the family on what the assessor asks, what gets recorded, what to write down before the visit [S3]. Build no portal until that works.
-3. Open with the size of the pot. 374,000 people drew the allowance in December 2024, and 41.3bn CZK was paid out through it that year [S5]. Grades I and II were raised again on 1 January 2026 [S7]. The family in front of you is on the right grade or paying the difference itself.
-4. Charge for the outcome. Dostupný advokát sells a 390 CZK consultation and reports 150+ new customers a month, but its care-allowance page routes to court representation, not to the claim [S9]. Nobody sells a family the claim itself for a fee [S9]. A flat or success fee on the award is the open position.
+1. Build a short guide that prepares a family for the home assessment that sets its relative's care-allowance grade. The grade decides the money, and one grade up is worth much more each month; see [Why now](#why-now). Coach the family on what the assessment covers and what to note down before the visit, because the process is described as bureaucratic and opaque; see [The opportunity](#opportunity). Build no portal until the coaching works.
+2. Contact the free carers' advice services and ask them to pass on the families whose claims they cannot carry through. They give advice or write an appeal, and stop there; see [Competition](#competition). The claim still has to be filed, chased and defended, which is the work a family would pay someone to do, and the advisers are glad to have somewhere to send them.
+3. Open each sales conversation with how much the allowance pays out and how much one grade is worth. The state pays out billions through it every year, as [Willing to pay](#willing-to-pay) shows, and the lower grades were raised again this year; see [Why now](#why-now). The family in front of you is either on the right grade or paying the difference itself.
+4. Charge for the outcome, a flat or success fee on the award, because nobody in Czechia sells a family the claim itself. An online law firm already sells fixed-price consultations but sends care-allowance cases to court representation; see [Competition](#competition). What no one sells is the whole claim, from the application through the home visit to the appeal, so price that.
 
 ## Revisions
 
@@ -289,3 +358,5 @@ Solved elsewhere: Oma Care (YC W24) and CareOasis (YC S23) are a US cluster gett
 2026-09-02 · plain-language pass — Four terms glossed at first use in the body: příspěvek na péči, hodnocení stupně závislosti, odborné sociální poradenství, and NN Životní pojišťovna, named as an insurer. Argument tightened 307 → 299 words with every figure, named company and [Sn] marker kept; How big now states the ČSÚ recipient and spend figures [S5]. First moves rewritten verbs-first. A gist added to all nine sources. No score, status, source note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` on who is stuck and what is happening, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Families caring for ~380,000 dependent Czechs must obtain and defend příspěvek na péči through an opaque, bureaucratic process". Previous solution, verbatim: "A guided service that gets a family through the Czech care allowance (příspěvek na péči) — the application, the assessment visit and the appeal — for a flat or success fee." The record carried no brief and no good_for before this pass. Every claim was checked against this record's sources first. 374,000 is the statistics office's count for December 2024, the latest on file [S5]; the old title's ~380,000 came from a harvest note the 2026-08-13 fact check had already corrected. The grade amounts are the adult rates in force since 1 January 2026, and "over 4 times" is 5,400 against 1,300 CZK [S7]. "No Czech company handles the whole claim for a fee" is the 2026-08-25 check with a passing positive control [S9], and the free advisers who draft appeals are stated beside it [S6]. The body's "usually an appeal" and "families deliver most of the care" were not used: no source on file counts appeals or measures the share of care families give. There is no dated trigger on this record, so the headline states the problem without one. No score, status, source, note, marker or body sentence changed. Simplified for the front page: brief "For an adult, grade II pays 5,400 CZK a month, over 4 times as much as grade I, so the grade matters a lot [S7]. Free advisers help with appeals, but no Czech company handles the whole claim for a fee [S6,S9]." → "One grade higher can pay an adult over 4 times as much a month [S7]. Free advisers help families appeal, but no Czech company handles the whole claim for a fee [S6,S9]."; solution "Build an online service that files a family's care-allowance claim, prepares them for the assessment and runs any appeal, as companies already do abroad." → "Build an online service that files a family's care-allowance claim, prepares them for the assessment and runs any appeal."; good_for "Someone who'd like to work with families caring for a sick or elderly relative." → "Someone who'd like to work with families caring for a relative.". "One grade higher can pay over 4 times as much" is the grade I to grade II adult step, 1,300 against 5,400 CZK [S7]; the headline was already short and is unchanged. Same date, pain-point pass: title "374,000 Czechs get a state care allowance, and an assessment decides how much" → "About 100,000 Czech family carers can't work full-time, and one assessment sets their relative's allowance". Why: the old headline was a count of recipients, with no one hurting. The new pain is the European Commission's own finding that around 100,000 Czech informal carers cannot work full-time because of care duties [S10]; "their relative's allowance" because the allowance is paid to the person cared for, not the carer [S2]. The unchanged brief carries the money at stake, one grade worth over 4 times as much [S7]. The 374,000 figure stays in the body [S5]. No score, status, source, note or body sentence changed. Same date, owner-approved card: title "About 100,000 Czech family carers can't work full-time, and one assessment sets their relative's allowance" became "Czech families caring for a sick relative can miss out on state money in a confusing claim"; brief "One grade higher can pay an adult over 4 times as much a month [S7]. Free advisers help families appeal, but no Czech company handles the whole claim for a fee [S6,S9]." became "A home visit sets the grade, and one grade higher can pay over 4 times as much a month [S7]. Guides describe the process as bureaucratic and opaque [S3]."; solution "Build an online service that files a family's care-allowance claim, prepares them for the assessment and runs any appeal." became "Build an online service that files a family's care-allowance claim, prepares them for the home visit and handles any appeal."; good_for "Someone who'd like to work with families caring for a relative." became "Someone who'd like to help families caring for a sick or elderly relative.". Two words of the approved draft were corrected before writing because no source backs them: "a social worker's home visit" became "a home visit" (S3 documents a home assessment; who performs it is not on file), and "Families describe the process" became "Guides describe the process" (S3 is a sweep of advice articles and government pages, not families' own words).
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the claim a family has to win, with the recipient count, the four grades and the "bureaucratic and opaque" finding as its items [S2,S3,S5,S7]. Competition opens on the free help and the missing paid service, and describes pece.cz, Rodinný průvodce, Moravskoslezský kruh, Chytrá Péče and Dostupný advokát by what each does, leaving their names, owners, prices and customer counts to their `locals[]` rows [S6,S9]. Why now opens on the money a family loses on too low a grade, with the grade amounts, the Commission's 100,000 carers and the 8.3 against 28.8 percent home-care share as its items, and the raises and the bill below as dated bullets [S2,S7,S8,S10]. Willing to pay answers that no family is known to pay yet, then holds the law firm's fixed-price consultations, the 41.3bn CZK paid out in 2024 and the ministry's IT framework [S4,S5,S9]. Validated abroad lost the ledger name Oma Care for a description; CareOasis, not on the ledger, stays named [S1]. The moves lost every [Sn] marker and figure for links, and the move-only facts now live in their sections: the free services' limits in Competition and their rows [S9], the adult grade amounts in Why now [S7], the recipient count and the spend under The opportunity and Willing to pay [S5], and the law firm's price and customer count in its row [S9]. Move 1 now builds the home-assessment guide (it was move 2); the old move 1, taking the cases the free services turn away, is move 2 and now contacts them. `entry.why` was rewritten as "Easier: … Harder: …" and no longer names Rodinný průvodce, whose row carries it. Detail added from sources already on file, none of it new evidence: the four grades [S2]; the grade raise's Act number, both adult steps, both children's steps and the unchanged top two grades [S7]; MPs' bill of 17 March 2026 [S8]; the date of the Commission's report and the 2022 year of its spending figure [S10]; and the ministry's €74.7M framework and its related €19.8M and €65M notices, which the body had never cited [S4]. Grades are written as "the two lowest" and "the second" rather than in Roman numerals. Process block added (none before): the family files the claim at the labour office, goes through the assessment that sets the grade and appeals with a free adviser's help (all three change), and an unknown fourth step, how often a grade is appealed and how often an appeal wins; each drawn step is backed by S3, S6 or S9, and who carries out the assessment is not written in, because no source on file says. Corrected against the sources rather than against the old sentences: "Roughly 380,000 dependent Czechs" became 374,000 in December 2024, the figure the 2026-08-13 fact check and the statistics office confirm [S5]; "families deliver most of the care it funds, unpaid" and "usually an appeal" were cut, as the 2026-09-16 entry already found that no source on file measures the share of care families give or counts appeals, and the body now says "sometimes an appeal" and states only what S10 measures; "the way Oma Care charges US families for caregiver support and training" is not in S1 or its signal, which say only that it gets carers trained and paid, so the body now says how the US start-ups charge is not on file [S1]; "Validation is US-only" contradicted the ledger, which lists a British firm, so it was cut and the answer now says only what S1 and S9 support; "Nobody has built the layer that carries a family through it [S3]" moved to Competition, cited to the later paid-side check [S9]; and the insurer site's articles and advice column are now cited to S9, which lists them, rather than S6. Flagged as inference: that a family on too low a grade still gives the care with less state money, which rests on the grade amounts [S7]; that an insurer and a home-care firm could be a sales channel, which rests on S9 showing each already giving this help for free, and replaces the unsourced "Home-care providers and insurers are the channel"; that a flat or success fee is the model, which is our suggestion, not a source's; and, in move 2, that the free advisers would be glad to refer families on. No score, status, source, `note:`, `sources[]` order, entry level, title, brief, solution or good_for changed.

@@ -10,7 +10,9 @@
 //       it: 11 live records draw two or more marks. Since 2026-09-17 (owner:
 //       "could we choose another graph? maybe columns") it is a COLUMN chart:
 //       one gray column per price or purchase, height on a log CZK scale, the
-//       lowest to the left, a word or two under each ("Hospital", "Town").
+//       lowest to the left, a word or two under each: the buyer's short name
+//       ("Motol", "Olomouc", "VFN Praha"; owner, 2026-09-18: four columns all
+//       reading "Hospital" told the reader nothing), else what was bought.
 //       Each unit is its own group behind a gap and a small group label ("Per
 //       seat, monthly", "One purchase"), so a monthly fee never stands in a
 //       row it could be added to. (The export keeps its old name so the page
@@ -23,9 +25,11 @@
 //       being a purchase. 9 live records draw it.
 //   (c) who is buying, COUNTED by buyer type: rejected. Buyers are free text,
 //       so a count per kind would be a regex guess drawn as data. The column
-//       labels in (a) use the same words only as a reading aid under ONE
-//       purchase each; a purchase that names no kind falls back to what it is
-//       ("Tender", "List price"), never a guess.
+//       labels in (a) are a reading aid under ONE purchase each, cut from the
+//       recorded name (the payer, the signal's `parties: buyer=`, the source's
+//       own name; see nameOf), falling back to a kind ("Hospital") and then to
+//       what the mark is ("Tender", "List price"), never a guess. Two columns
+//       that still read alike get their date as a second line.
 //   (d) the grant pot as a lower cost: rejected as a graph. The support rate
 //       lives only in prose (`why`), so a drawn "50%" would be parsed, not
 //       recorded. The grant's own card shows the sentence instead.
@@ -88,8 +92,9 @@ type Mark = {
   line: string;
   date: string;
   label: string;
-  /** the column label: a buyer kind read from the payer or title, else what
-      the mark is ("Tender", "List price") */
+  /** the column label: the buyer's short name ("Motol", "Olomouc"), else the
+      head of the source's own name, else a buyer kind, else what the mark is
+      ("Tender", "List price"). See nameOf. */
   who: string;
   /** a real purchase: a contract, a tender, or a receipt taken from one (the
       timeline counts these) */
@@ -112,7 +117,9 @@ function marks(p: Problem): { paid: Mark[]; grants: Mark[] } {
       line: `Paid by ${lower(s.payer)}.`,
       date: s.date,
       label: `${czk(s.amount_czk)} ${unit}, paid by ${s.payer}, ${monthLabel(s.date)}`,
-      who: kindOf([s.payer]) ?? cap(PRICE_BASIS_LABELS[s.basis]),
+      // a named payer; a generic one ("An obligated Czech company") gives way
+      // to what was bought, the head of the receipt's own name
+      who: nameOf(s.payer, true) ?? headOf(ls.title) ?? kindOf([s.payer]) ?? cap(PRICE_BASIS_LABELS[s.basis]),
       // a receipt lifted from a contract or tender line is that purchase
       buy: buyUrls.has(s.url) || s.basis === "signed-contract" || s.basis === "tender-line",
     };
@@ -135,7 +142,7 @@ function marks(p: Problem): { paid: Mark[]; grants: Mark[] } {
         meta: [kind, ls.publisher, monthLabel(s.date)].join(" · "),
         title: ls.title, href: ls.url, line, date: s.date,
         label: `${kind}${eur ? `, ${euro(eur)}` : ", no amount stated"}, ${monthLabel(s.date)}: ${ls.title}`,
-        who: kindOf([ls.title, line]) ?? (s.type === "contract" ? "Contract" : "Tender"),
+        who: nameOf(buyerOf(sig), true) ?? headOf(ls.title) ?? kindOf([ls.title, line]) ?? (s.type === "contract" ? "Contract" : "Tender"),
         buy: true,
       });
     } else if (s.type === "subsidy" && sig?.id.startsWith("dotace-") && s.date >= from) {
@@ -175,6 +182,116 @@ function kindOf(texts: string[]): string | null {
     if (k) return k[0];
   }
   return null;
+}
+
+/** The buyer a signal names: the `parties: buyer=NAME [ICO]` line (the stable
+    grammar scripts/normalize.py party_line() writes and scripts/db.py
+    parse_parties() reads), else a `buyer NAME` clause of the money note. */
+function buyerOf(sig: ReturnType<typeof getSignal>): string | null {
+  const party = sig?.notes?.match(/^\s*parties:.*?\bbuyer=([^;\n]+)/m)?.[1];
+  const note = sig?.money_note?.match(/(?:^|;\s*)buyer ([^;]+)/)?.[1];
+  return (party ?? note)?.trim() || null;
+}
+
+/** The head of a source's display name, the part a reader would say:
+    "TED — Fakultní nemocnice Olomouc, 24 medicine …" → "Fakultní nemocnice
+    Olomouc"; "NIS2 Průvodce — the Czech subscription" → "NIS2 Průvodce". */
+function headOf(title: string): string | null {
+  const t = title.replace(/^(?:TED|NEN|VVZ|Registr smluv|Hlídač státu)\s+—\s+/, "");
+  return nameOf(t.split(/\s+—\s+|,|\s\(|\s\/\s|:/)[0], false);
+}
+
+// Place names as a Czech official name spells them after "v"/"ve" (the
+// locative), back to the nominative the reader knows. A place not listed is
+// not guessed: the name falls through to the next label.
+const LOCATIVE: Record<string, string> = {
+  Praze: "Praha", Brně: "Brno", Ostravě: "Ostrava", Plzni: "Plzeň", Olomouci: "Olomouc",
+  Motole: "Motol", Liberci: "Liberec", Pardubicích: "Pardubice", Zlíně: "Zlín", Jihlavě: "Jihlava",
+  Opavě: "Opava", Kladně: "Kladno", "Hradci Králové": "Hradec Králové",
+  "Českých Budějovicích": "České Budějovice", "Karlových Varech": "Karlovy Vary",
+};
+// The institution-type words a Czech (or English) official name opens with;
+// what follows them is the name people use ("Fakultní nemocnice Bulovka" →
+// "Bulovka"). The initials of a stripped type are kept when only a place is
+// left ("Všeobecná fakultní nemocnice v Praze" → "VFN Praha").
+const TYPE = new RegExp(
+  "^(?:(?:(?:všeobecná|krajská|oblastní|městská|okresní|fakultní)\\s+)*nemocnice|FN|" +
+    "(?:statutární\\s+|hlavní\\s+)?město|městská\\s+část|městys|obec|" +
+    "(?:domov|dům)\\s+(?:pro\\s+seniory|seniorů)|(?:city|town|municipality|district)\\s+of)(?:\\s+|$)",
+  "iu",
+);
+const LEGAL = /\s+(?:a\.\s?s\.|s\.\s?r\.\s?o\.|spol\.\s+s\s+r\.\s?o\.|s\.\s?p\.|z\.\s?ú\.|o\.\s?p\.\s?s\.|p\.\s?o\.)$/iu;
+const isCap = (w: string) => /^\p{Lu}/u.test(w);
+const LINK = new Set(["u", "nad", "pod", "of", "the"]);
+const JOIN = new Set(["a", "&", "+", "and"]);
+
+/** One or two words for a name, cut from the recorded name itself and never
+    made up: the legal form, the IČO and the institution type go, what the
+    name then leads with stays. `official` marks a buyer's registered name,
+    which may shorten to its initials ("Státní zdravotní ústav" → "SZÚ",
+    "Národní agentura pro komunikační a informační technologie" → "NAKIT");
+    a headline never does. `null` for a generic payer ("An obligated Czech
+    company") or a name that does not open with one. */
+function nameOf(raw: string | null | undefined, official: boolean): string | null {
+  if (!raw) return null;
+  let s = raw.split(",")[0].replace(/\[[^\]]*\]/g, "").replace(/\s\(.*$/, "").trim().replace(LEGAL, "").trim();
+  if (!s || /^(?:a|an|the|one|each|every|any|some|all)\s/i.test(s)) return null;
+  const type = s.match(TYPE)?.[0] ?? "";
+  if (type) s = s.slice(type.length).trim();
+  // a name the register shouts ("ČESKÁ TELEVIZE", "JINCE") is written as a name
+  if (s.length > 4 && s === s.toUpperCase()) s = s.charAt(0) + s.slice(1).toLowerCase();
+  // only a place is left: "v Praze" → the type's initials and the place
+  const loc = s.match(/^ve?\s+(.+)$/u)?.[1];
+  if (loc !== undefined) {
+    const place = LOCATIVE[loc];
+    if (!place) return null;
+    const ini = type.split(/\s+/).filter((w) => w.length > 2).map((w) => w.charAt(0).toUpperCase()).join("");
+    return ini.length > 1 ? `${ini} ${place}` : place;
+  }
+  // a trailing "v Brně" is where it sits, not what it is called
+  s = s.replace(/\s+ve?\s+\p{Lu}\S*(?:\s+\p{Lu}\S*)?$/u, "");
+  const w = s.split(/\s+/).filter(Boolean);
+  if (!w.length || !isCap(w[0])) return null;
+  if (w.length <= 2) return w.join(" ");
+  // the leading run of capitalised words, through "u", "nad", "of the"
+  let end = 1;
+  for (let i = 1; i < w.length; i++) {
+    if (isCap(w[i])) end = i + 1;
+    else if (!LINK.has(w[i])) break;
+  }
+  const run = w.slice(0, end);
+  const caps = run.filter(isCap).length;
+  if (caps > 3) return null;
+  // "Motol a Homolka": the first of a pair is the name people use
+  if (caps > 1 || (JOIN.has(w[1]) && isCap(w[2]))) return run.join(" ");
+  // one capital, then a later one: "Psychiatrická léčebna Petrohrad"
+  const later = w.findIndex((x, i) => i > 0 && isCap(x));
+  if (later > 0) return w.slice(later, later + 2).filter(isCap).join(" ");
+  if (official) {
+    const ini = w.filter((x) => x.length > 3 || x === x.toUpperCase()).map((x) => x.charAt(0).toUpperCase()).join("");
+    if (ini.length >= 3) return ini;
+  }
+  return w[0];
+}
+
+/** Two columns may still read alike ("Praha" twice): each then gets its date
+    as a second line, the year when the years differ, else the month, else the
+    day. */
+function whens(items: Mark[]): Map<number, string> {
+  const out = new Map<number, string>();
+  const by = new Map<string, Mark[]>();
+  for (const m of items) by.set(m.who, [...(by.get(m.who) ?? []), m]);
+  for (const ms of by.values()) {
+    if (ms.length < 2) continue;
+    const years = new Set(ms.map((m) => m.date.slice(0, 4)));
+    const months = new Set(ms.map((m) => m.date.slice(0, 7)));
+    for (const m of ms) {
+      out.set(m.n, years.size === ms.length ? m.date.slice(0, 4)
+        : months.size === ms.length ? monthLabel(m.date).split(" ")[0]
+        : dayLabel(m.date, true));
+    }
+  }
+  return out;
 }
 
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -232,6 +349,7 @@ export function PayDots({ p, scope = "" }: { p: Problem; scope?: string }): Reac
     lane,
     items: bars.filter((d) => d.lane === lane).sort((a, b) => a.czk - b.czk),
   })).filter((g) => g.items.length > 0);
+  const when = whens(bars);
 
   return (
     <figure
@@ -251,7 +369,10 @@ export function PayDots({ p, scope = "" }: { p: Problem; scope?: string }): Reac
             {items.map((d) => (
               <div key={d.n} className="lk-payc-slot">
                 <Dot id={`lk-pay${scope}-d${d.n}`} m={d} cls="lk-payc-col" style={{ "--f": f(d.czk) } as CSSProperties} />
-                <span className="lk-payc-who" aria-hidden="true">{d.who}</span>
+                <span className="lk-payc-who" aria-hidden="true">
+                  <span className="lk-payc-name" lang="cs">{d.who}</span>
+                  {when.has(d.n) && <span className="lk-payc-when">{when.get(d.n)}</span>}
+                </span>
               </div>
             ))}
             <p className="lk-payc-gl">{LANE_NAME[lane]}</p>

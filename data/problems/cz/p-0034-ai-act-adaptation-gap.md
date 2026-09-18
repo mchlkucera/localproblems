@@ -22,9 +22,9 @@ entry:
   incumbents: adjacent
   integration: software
   money: bootstrap
-  why: 'Small Czech firms buy the check themselves and no permission is needed to sell it; the
-      established neighbour, Seyfor, sells accounting and business software and publishes guidance
-      rather than a check of the AI tools a company runs.'
+  why: 'Easier: small firms buy the check themselves, no licence is needed to sell it, and the one
+      established firm nearby publishes guidance rather than a check. Harder: three young Czech
+      products already sell the check, and no Czech buyer is known to have paid for one yet.'
 comps:
 - name: Deeploy
   url: https://deeploy.ml/
@@ -82,7 +82,7 @@ sources:
 - type: regulation
   name: "VeKLEP — návrh zákona o umělé inteligenci (MPO)"
   gist: "the Czech bill, still draft"
-  why: "The Czech adaptation bill itself: MPO's draft law on artificial intelligence, through interministerial comments and last moved June 2026, with the state-authored RIA problem definition attached."
+  why: "The Czech adaptation bill itself: the industry ministry's draft law on artificial intelligence, through the ministries' comments and last changed in June 2026, with the state's own impact assessment attached."
   url: https://odok.gov.cz/portal/veklep/material/KORNDLSJSEUC/
   note: 'veklep-KORNDLSJSEUC: Návrh zákona o umělé inteligenci a o změně některých souvisejících
     zákonů, MPO čj. 100789/2025, OVA 503/26. Materiál page verified live 2026-08-25: authorized
@@ -95,7 +95,7 @@ sources:
 - type: regulation
   name: "LeitnerLaw — the adaptation act's competences and sanctions"
   gist: "the enforcers and the fines"
-  why: "Law-firm analysis of the draft: ČTÚ takes general (residual) AI oversight, ČNB the financial sector, ÚOOÚ sensitive high-risk systems; ČAS runs the regulatory sandbox and fines follow the AI Act's turnover-scaled model."
+  why: "Law-firm analysis of the draft: the telecoms regulator takes general AI oversight, the central bank the financial sector and the data-protection office sensitive high-risk systems; the standards agency runs a supervised test space, and fines follow the AI Act's turnover-scaled model."
   url: https://www.leitnerlaw.cz/novinky/ai-act-v-praxi-cesky-adaptacni-zakon-vymezuje-kompetence-postupy-a-sankce/
   note: 'Verified 2026-08-25: draft completed interministerial review, awaiting government;
     designates ČTÚ (general residual competence), ČNB (regulated financial institutions),
@@ -120,7 +120,7 @@ sources:
 - type: regulation
   name: "MPO — the enforcement gap"
   gist: "the missed designation deadline"
-  why: "The ministry's own announcement of the lean adaptation act — and the record that Czechia missed the EU deadline for designating national AI authorities while obligations phase in."
+  why: "The industry ministry's own announcement of the short adaptation law, and the evidence that Czechia missed the EU deadline for naming national AI authorities while the duties phase in."
   url: https://mpo.gov.cz/cz/rozcestnik/pro-media/tiskove-zpravy/mpo-pripravilo-navrh-zakona-o-umele-inteligenci--cilem-je-vytvorit-co-nejlepsi-prostredi-pro-rozvoj-ai-v-cesku--289653/
   note: 'reg-ai-act-cz-dozor: MPO''s ~26-paragraph adaptation act plugs AI Act enforcement
     into market-surveillance act 87/2023 Sb.; the planned July 2026 effectiveness already
@@ -131,7 +131,7 @@ sources:
 - type: arbitrage
   name: "Deeploy"
   gist: "the funded Dutch analog"
-  why: "Utrecht — public EU capital (up to €7.5M EIC blended finance) behind a platform selling exactly the explainability and compliance layer the AI Act's high-risk duties demand."
+  why: "Utrecht: up to €7.5M of EU innovation-council money behind a platform that sells the explainability and compliance layer the AI Act's high-risk duties demand."
   url: https://deeploy.ml/europe-invests-in-deeploy/
   note: 'round-deeploy: Deeploy B.V. (Utrecht, founded 2020) selected for EIC blended finance
     (Feb 2025, up to €7.5M per Silicon Canals) for a human-centric MLOps platform positioned
@@ -195,15 +195,65 @@ created: '2026-08-25'
 updated: '2026-09-03'
 ---
 
-Since 2 August 2026 the EU AI Act's transparency rules bind every Czech firm putting AI in front of customers: a chatbot must say it is a machine, AI-made content must be labelled [S3]. The industry ministry's bill naming its enforcer has awaited the government since June 2026 [S1,S2], and Czechia missed the EU deadline for designating national AI authorities [S4]. The government's own legislative plan had the bill taking effect in July 2026 and flags it, with twenty other files, for EU infringement exposure [S8].
+Since 2 August 2026, EU rules say a chatbot must tell people it is a machine, and AI-made content must be labelled [S3].
 
-Why now: the draft gives general oversight to ČTÚ (the telecoms regulator), financial firms to ČNB (the central bank) and sensitive high-risk systems to ÚOOÚ (the data-protection office), with turnover-scaled fines and a sandbox at ČAS (the standards agency) [S2]. None of it operates yet. The Digital Omnibus pushed high-risk deadlines to December 2027 and August 2028 [S3], so transparency is the wave already here.
+- Both the makers and the users of AI carry duties, with exceptions [S3].
+- The Czech law naming who checks and fines firms is still a draft [S1,S2].
+- Czechia missed the EU's deadline for naming its national AI authorities [S4].
 
-Who pays: Czech companies using AI, not the ones building it. A small firm with a customer-facing chatbot or AI-written content is caught by the transparency rules first [S3]. Firms selling systems the act calls high-risk buy readiness for the 2027 and 2028 deadlines [S3]. No Czech tender or grant is on file, so no budget is claimed.
+The rules come from the EU AI Act, the EU's regulation on artificial intelligence, so they already bind firms here without a Czech law [S3,S4].
 
-Existing non-solutions: PwC Czechia sells an AI Compliance Tool in Czech, AIshield.cz a self-serve exposure scan, Brain a set of Czech-language compliance modules; Adastra and Seyfor publish guidance only [S7]. None has been on sale three years — the duty they answer began on 2 August 2026 [S3]. The field is contested, not closed.
+- The Czech bill comes from the industry ministry. It is short, and plugs AI oversight into the existing Czech law on market surveillance [S1,S4].
+- The ministries have settled their comments on it, and it has awaited the government since June 2026 [S1,S2].
+- The government's own legislative plan marks it, and 20 other bills, as at risk of EU proceedings against Czechia for being late [S8].
 
-Solved elsewhere: thinly. Deeploy has sold from Utrecht since 2020 and took up to €7.5M of EU innovation-council money for a machine-learning platform built on the act's explainability duties, but names no customer and raised nothing labelled Series A [S5]. Trustpath (Croatia) is a Credo Ventures pre-seed with no public traction [S6]. Nothing proven to import, nobody established to displace.
+Existing non-solutions: Three young Czech products already sell this check, and none says how many firms have bought one [S7].
+
+- A big audit firm's Czech arm sells a compliance tool, in Czech [S7].
+- A self-serve scan shows what a Czech website must disclose under the act [S7].
+- A third seller offers Czech-language compliance modules that reflect Czech law [S7].
+
+The audit firm's tool keeps the documentation and an audit trail against the act [S7]. None of the three has had three years to sell, because the duty it answers is new; see [Why now](#why-now) [S3,S7]. So no established seller holds the field: it is contested, not closed.
+
+Two more firms publish guidance on the act, and neither sells a check [S7]. One is an established accounting and business-software house, the other a data and AI consultancy [S7].
+
+Why now: A firm that does not disclose its chatbot or AI-made content can already break EU rules, and a Czech draft sets fines [S2,S3].
+
+- Fines would be a share of a firm's turnover or a fixed sum [S2].
+- Makers of existing AI tools must mark AI-made output by 2 December 2026 [S3].
+- No Czech regulator is working yet, though the EU duties already apply [S4].
+
+The draft says who would check and fine firms, and none of it operates yet [S2,S4]:
+
+- ČTÚ (the telecoms regulator) would oversee most firms [S2].
+- ČNB (the central bank) would oversee financial firms [S2].
+- ÚOOÚ (the data-protection office) would oversee sensitive high-risk systems, such as those used by the police, the courts, elections and migration [S2].
+- ČAS (the standards agency) would run a sandbox, a place where firms can test AI under supervision [S2].
+- The fines would follow the EU act's model, with a lower ceiling for small firms [S2].
+
+The dates come from the EU act and from the Czech government's plan [S3,S8]:
+
+- On 2 February 2025 the act's bans began to apply, and on 2 August 2025 its duties for general-purpose AI models [S3].
+- In July 2026 the Czech law was planned to take effect, but in August the bill still awaited the government [S1,S8].
+- On 2 August 2026 the transparency rules began to apply [S3].
+- On 2 December 2026 the grace period ends for marking the output of AI tools already on sale [S3].
+- On 2 December 2027 and 2 August 2028 the duties for high-risk AI systems begin [S3]. The EU's Digital Omnibus, a package of rule changes agreed in May 2026, moved them back, so the transparency rules are the ones already here [S3].
+
+Who pays: No Czech firm is known to have paid for this check yet, and no Czech tender or grant for it is on file [S7].
+
+- The buyers would be Czech firms that use AI with their customers [S3].
+- A small firm with a chatbot or AI-written content is caught first [S3].
+- Firms selling high-risk AI systems face later deadlines; see [Why now](#why-now) [S3].
+
+The makers of AI tools have duties of their own, such as marking what their tools produce [S3]. The sellers under [Competition](#competition) publish no count of who has bought from them, so no budget is claimed [S7].
+
+Solved elsewhere: Only thinly: a Dutch platform backed by EU innovation money and a Croatian pre-seed startup, neither with public customers [S5,S6].
+
+The Dutch company has sold from Utrecht since 2020 [S5]. It took up to €7.5M of EU innovation-council money for a machine-learning platform that explains AI decisions, as the act demands of high-risk AI [S5]. It names no customer and has raised nothing labelled Series A [S5]. What it sells covers high-risk systems, not the transparency check [S5].
+
+Trustpath, from Croatia, is a pre-seed company backed by the investor Credo Ventures [S6]. It sells larger firms AI risk management with EU AI Act compliance built in, and publishes no traction [S6].
+
+So nothing abroad is yet proven enough to import [S5,S6].
 
 ## Revisions
 
@@ -219,3 +269,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 5 `locals[].evidence` lines were rewrit
 2026-09-02 · plain-language pass — Seven acronyms glossed or replaced at first use: MPO, ČTÚ, ČNB, ÚOOÚ, ČAS, ČR and EIC now read as the industry ministry, the telecoms regulator, the central bank, the data-protection office, the standards agency, PwC Czechia and EU innovation-council money. Argument cut 377 → 298 words, every [Sn] marker, date and figure kept. A gist added to all seven sources. No score, status, note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` telling the situation, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Czech firms run live EU AI transparency duties with no national supervisor yet". Previous solution, verbatim: "A fixed-price check of every AI tool a small Czech company uses — does the chatbot say it is a machine, is the AI-made content labelled — repeated each time the rules or the regulator move." No brief or good_for existed before. Checked against the sources while writing. The date has passed and the copy says so: the transparency rules apply since 2 August 2026 [S3]. The dek's "bind every Czech firm putting AI in front of customers" was not carried over: the transparency duties are split between the makers and the users of an AI system, with exceptions, so the brief states what the rules require of a chatbot and of AI-made content rather than claiming every firm is bound [S3]. "No Czech regulator checks it yet" and "still a draft, past the EU's deadline" rest on the bill awaiting the government since June 2026 [S1], the law-firm reading of who it would appoint and what it would fine [S2] and the missed EU deadline for naming national AI authorities [S4]; they are true as of the record's last check of the bill page on 2026-08-25, and must be re-checked if the bill passes. The solution names no comparable abroad: the only one on file, Deeploy, sells a platform for high-risk AI systems, not this check [S5]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Since August, chatbots in Czechia must say they are AI. No Czech regulator checks it yet." After: "Since August, chatbots in Czechia must tell customers they are AI". Brief before: "Since 2 August 2026, EU rules say a chatbot must tell customers it is a machine and AI-made content must be labelled [S3]. The Czech law naming who checks and fines firms is still a draft, past the EU's deadline [S1,S2,S4]." After: "AI-made content must now be labelled too [S3]. Yet the Czech law naming who checks and fines firms is still a draft, past the EU's deadline [S1,S2,S4]." Solution before: "Build an online check that finds the chatbots and AI-made content on a small firm's website and shows what must be disclosed or labelled." After: "Build an online check that scans a small firm's website for chatbots and AI-made content that must be disclosed." Good for before: "Someone who'd like to help small firms use AI within the new rules." After: "Someone who'd like to help small firms follow the new AI rules." "No Czech regulator checks it yet" moved from the headline into the brief, which keeps "still a draft" [S1,S2,S4]. The passed date stays passed ("since August") [S3]. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed. Same date, pain-point pass: title "Since August, chatbots in Czechia must tell customers they are AI" → "Czech firms must now say their chatbots are AI, and a draft law sets fines". Why: the old headline stated a duty with no one hurting and nothing at stake. The new one names the firms and the risk: the Czech adaptation bill carries turnover-scaled fines on the AI Act's model [S2], and the transparency duty applies since 2 August 2026 [S3]. "A draft law" because the bill still awaits the government [S1,S4], which the unchanged brief says. No score, status, source, note or body sentence changed.
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on what the transparency rules require, with the draft Czech law, the missed EU deadline, the bill's origin in the industry ministry, its settled comments and the government plan's infringement flag as detail [S1,S2,S3,S4,S8]. Why now opens on the firm that can already break the rules, with the fine model, the 2 December 2026 marking deadline and the missing regulator as its three items, and the draft's four enforcers and the act's dates below as plain bullets [S2,S3,S4,S8]. Willing to pay answers that no Czech firm is known to have paid, and keeps who would buy and who is caught first [S3,S7]. Competition and Validated abroad describe each company by what it sells; every `locals[]` name and the one `comps[]` name left the body, and Trustpath, which is not on the ledger, stays named [S5,S6,S7]. `entry.why` became "Easier: … Harder: …" and no longer names a ledger company. The page items were cut to 14 words or fewer and the four Czech agency acronyms now carry their gloss after them. Detail added from sources already on file, none of it new evidence: the bill's short length and its hook into the market-surveillance law [S1,S4]; the data-protection office's areas, police, courts, elections and migration, and the lower fine ceiling for small firms [S2]; the act's 2025 dates, the 2 December 2026 grace period for marking existing tools' output, and the Digital Omnibus's May 2026 agreement [S3]; and Trustpath's product [S6]. Corrected against the sources rather than against the old sentences: "bind every Czech firm putting AI in front of customers" became what the rules require of a chatbot and of AI-made content, with the duties split between the makers and the users of AI, with exceptions, as the 2026-09-16 headline pass had already found [S3]; "Czech companies using AI, not the ones building it" now names the users as the buyers and says the makers carry duties of their own [S3]; and "firms selling systems the act calls high-risk buy readiness" became "face later deadlines", since no source on file shows anyone buying that readiness [S3]. Deeploy's platform is now said to cover high-risk systems, not the transparency check, as its source describes it [S5]. Flagged as inference: that no established seller holds the field rests on every direct seller's product being younger than three years, read from the ledger and from the duty's start date [S3,S7]; and "No Czech firm is known to have paid for this check" rests on no seller publishing a buyer count and no tender or grant being on file [S7]. Four source `why` lines were rewritten for plain words: S1 and S5 lost the MPO, RIA and EIC acronyms, S2 names the agencies in words, and S4 no longer says "the record". No `process` block was added: the problem is a new duty, and no source on file describes a workflow anyone runs today. No score, status, entry gate value, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.

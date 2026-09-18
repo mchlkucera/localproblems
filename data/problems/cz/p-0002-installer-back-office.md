@@ -22,7 +22,7 @@ entry:
   incumbents: direct
   integration: software
   money: bootstrap
-  why: 'Small installation firms buy per seat out of their own money, no licence gates the work, and the tool is ordinary software. RAYNET has sold quoting and state-subsidy paperwork to Czech solar firms since 2004, so the room is crowded — but the door itself is open.'
+  why: 'Easier: small installation firms buy per seat out of their own money, no licence gates the work, and the tool is ordinary software. Harder: four Czech vendors already sell installer software and the subsidy paperwork, one of them to about 20 solar firms, and the subsidy rules were redesigned in June 2026.'
 comps:
 - name: autarc
   url: https://www.autarc.energy/
@@ -78,6 +78,40 @@ locals:
   evidence: 'A CRM with a payback calculator sold to heat-pump and photovoltaic dealers. Infina
     company s.r.o. has traded since 2018 but names no dealer running it and publishes no
     funding.'
+process:
+  summary:
+    today: 'An installer sizes each system, prices the job and prepares the subsidy paperwork, and a firm without installer software likely does these in a maker''s sizing tool, spreadsheets and forms filled in by hand [S1,S3].'
+  steps:
+  - who: The installer
+    today: 'Sizes the system in a maker''s tool'
+    known: inferred
+    cites: [3]
+    change: changes
+    after: 'Sizes it in the same app'
+  - who: The installer
+    today: 'Writes the quote for the job'
+    known: documented
+    cites: [1, 6]
+    change: changes
+    after: 'Prices the job from the sizing'
+  - who: The installer
+    today: 'Prepares the subsidy forms'
+    known: documented
+    cites: [1, 6]
+    change: changes
+    after: 'Checks forms pre-filled from the quote'
+  - who: An accredited specialist
+    today: 'Writes the renovation pass'
+    known: documented
+    cites: [5]
+    change: stays
+    after: 'Unchanged: the pass stays a specialist''s job'
+  - who: '?'
+    today: 'Who files each application with the subsidy fund is not known'
+    known: unknown
+    cites: []
+    change: stays
+    after: 'Unchanged: the app prepares the forms, not the filing'
 sources:
 - type: arbitrage
   name: "autarc"
@@ -165,6 +199,9 @@ sources:
   checked: [google-cz, own-funded-ledger]
   expires: '2026-11-18'
 - type: arbitrage
+  name: "Jasmine Energy"
+  gist: "the US incentive-claims company"
+  why: "A US company backed by Y Combinator that sells solar incentive claims drafted by AI: the subsidy-filing half of the job, funded in a second market."
   url: https://www.ycombinator.com/companies/jasmine-energy
   note: 'yc-jasmine-energy: YC-funded US company selling AI-drafted solar incentive claims —
     the subsidy-filing half of this record''s thesis (the NZÚ paperwork), funded in a second
@@ -176,7 +213,7 @@ sources:
   url: https://wue.cz/
   name: "Wue — the installer list price"
   gist: "650 Kč a seat a month"
-  why: "A Czech solar and heat-pump installation firm pays 650 CZK per user a month for the back office this record describes, and 200 CZK more for the heat-pump module."
+  why: "A Czech solar and heat-pump installation firm pays 650 CZK per user a month for installer back-office software, and 200 CZK more for the heat-pump module."
   note: 'Price receipt lifted from the 2026-08-20 gap re-check already on this ledger, which
     read wue.cz: priced per seat at 650 Kč/user/month plus 200 Kč for the TČ module. Recorded
     at the base seat price, with the module stated in why. dims omitted: backs no score.
@@ -191,24 +228,69 @@ created: '2026-08-13'
 updated: '2026-09-04'
 ---
 
-Hundreds of small Czech installation firms fit the tens of thousands of heat pumps and solar arrays paid for each year by NZÚ — Nová zelená úsporám, the state home-renovation subsidy [S1,S2]. They run site survey, heat-load calculation, quoting, subsidy applications and project tracking on spreadsheets, manufacturer sizing tools and hand-filled NZÚ forms [S1].
+Small Czech installation firms size, price and file the subsidy paperwork for the heat pumps and solar panels the state subsidises [S1,S2].
 
-Why now: subsidy volume keeps the long tail of installers at capacity [S2], and Germany already has the tool: autarc (Y Combinator, 2024) runs this stack in Berlin with about 30 people, for installers whose paperwork mirrors Czechia's [S1]. The forms are Czech, so no foreign tool transfers without being rebuilt around NZÚ, and that rebuild protects a local entrant.
+- The state subsidy drives tens of thousands of these installs a year [S2].
+- Hundreds of small installation firms fit them [S1].
+- The installers carry the subsidy paperwork for subsidised jobs [S1,S6].
 
-Who pays: the installation firms themselves, per seat or per job, because faster quotes and correctly filed subsidy applications are billable work. Manufacturers and distributors are the second buyer — the long tail is their sales channel.
+The subsidy is Nová zelená úsporám, or NZÚ (the state home-renovation subsidy) [S2]. Its paperwork is part of the installer's job, beside the work of sizing and pricing the system [S1].
 
-Existing non-solutions: the software position is taken. Wue sells quoting plus NZÚ documentation to solar and heat-pump firms at 650 Kč per seat a month, 200 Kč more for the heat-pump module [S6]. RAYNET — a Czech sales-software vendor trading since 2004 — generates NZÚ and distributor forms out of its solar vertical, adds a field app for fitting crews, and runs at about 20 installer firms, per its implementation partner [S6]. AutoERP and Infina sell customer and order software into the same firms [S6]. Manufacturer sizing tools (Master Therm) only size [S3]. Woltair installs rather than selling software — it competes with the long tail [S3].
+- The work runs from a site survey and a heat-load calculation, which says how much heat a house needs, to the quote, the subsidy application and tracking the job [S1].
+- Heat-pump makers such as Master Therm offer sizing tools, and those only size the system [S3].
+- A firm without installer software likely does all of this with a maker's sizing tool, spreadsheets and forms filled in by hand [S1,S3].
 
-Solved elsewhere: autarc in Germany is the funded analog [S1]. What it proves now is depth — heat-load calculation and digital site survey, which the Czech tools barely touch [S6] — not an open field. NZÚ volume is the engine underneath [S2].
+Existing non-solutions: Four Czech vendors already sell installer software, including the subsidy paperwork, and one of them is well established [S6].
+
+- One sells quoting and the subsidy documents per seat [S6].
+- One, trading since 2004, builds the subsidy forms from its solar module [S6].
+- Two more sell customer and order software to the same firms [S6].
+
+The first also writes contracts and handover papers, bundles a roof configurator for solar panels and charges extra for a heat-pump module; its price is under [Willing to pay](#willing-to-pay) [S6]. The second is a Czech sales-software vendor, and it also builds the grid operators' forms, with a field app for fitting crews and a dispatcher calendar [S6]. One of the last two adds a payback calculator [S6].
+
+- None of the four is described as doing a heat-load calculation or a digital site survey [S6].
+- Woltair installs heat pumps itself rather than selling software, so it competes with the small installers instead of serving them [S3].
+
+The subsidy forms are Czech, so a foreign tool would have to be rebuilt around them before it could compete here.
+
+Why now: Since June 2026 only poorer households get the state's advance grant, and retrofit money now needs a renovation pass first [S4,S5].
+
+- Homeowners who are not low-income now get a loan, not a grant [S4].
+- Retrofit money now needs a renovation pass, a paid expert assessment [S4,S5].
+- Installers handle that paperwork while sizing and pricing each job [S1,S6].
+
+The dates behind the change come from the redesigned subsidy and a recovery-plan grant for the pass [S4,S5]:
+
+- On 25 June 2026 the redesigned subsidy opened [S4]. Advance grants of up to 400,000 CZK now go to low-income and vulnerable households, for insulation and heat sources, and other owners get zero-interest loans instead [S4].
+- On 30 November 2026 the recovery-plan grant for renovation passes stops taking applications [S5].
+- Until 31 October 2029, or until the money runs out, the redesigned subsidy takes applications [S4].
+
+Who pays: Czech installer firms already buy installer software, sold per seat, and the state pays for renovation passes [S5,S6].
+
+- One Czech tool sells per seat, per month, with the heat-pump module extra [S6].
+- About 20 solar installer firms run another vendor's solar module [S6].
+- The state pays up to 50,000 CZK toward a family house's renovation pass [S5].
+
+The count of 20 comes from that vendor's implementation partner, Bubble Development [S6].
+
+The pass grant is call 2/2026 of the national recovery plan [S5]. It pays up to 50,000 CZK per family house and 100,000 CZK per apartment building for the assessment, which specialists accredited by the State Environmental Fund carry out [S5]. Neither the pass grant nor the redesigned subsidy pays for installer software [S4,S5].
+
+Firms would pay per seat or per job, because faster quotes and correctly filed applications are work they bill for. Heat-pump makers and distributors could be a second buyer, since the small installers are how they sell.
+
+Solved elsewhere: A Berlin company sells heat-pump and solar installers one tool, from heat-load calculation to the subsidy paperwork [S1].
+
+It has about 30 people and joined Y Combinator in 2024 [S1]. Its funding and customer count are in its row above, beside a second German company that sells installers sales, planning and operations software in several countries. Installer work and subsidy paperwork in Germany are described as mirroring Czechia's [S1].
+
+Jasmine Energy, a US company backed by Y Combinator, sells solar incentive claims drafted by AI: the subsidy-filing half alone, funded in a second market [S7].
+
+What the German tool shows now is depth, a heat-load calculation and a digital site survey, not an open field here [S1,S6].
 
 ## First moves
 
-1. Interview ten small heat-pump and solar firms and time two numbers each: hours per quote, hours per NZÚ application [S2]. That number is the admin cost you price against.
-2. Do not start with the subsidy paperwork. It is taken: Wue builds the NZÚ documents out of quote data, and RAYNET builds the NZÚ and distributor forms out of its solar vertical [S6]. Buy both, push a real job through each, and write down what they do badly.
-3. Test the volume assumption with the same ten firms. The redesigned [NZÚ 2026+](/sources/tenders#dotace-nzu-2026-zranitelne-domacnosti) opened 25 June 2026: advance grants up to 400k CZK now go to vulnerable households only, every other owner gets a zero-interest loan and a mandatory renovation pass, and applications close **2029-10-31** [S4]. Ask whether their paperwork survives that.
-4. Then go where the Czech tools are thin — heat-load calculation and digital site survey — so a firm quotes from one tool instead of a Master Therm-style sizing tool plus spreadsheets [S3].
-5. Automate the renovation pass next. The state's recovery-plan [call 2/2026](/sources/tenders#dotace-npo-2-2026-renovacni-pas) pays up to 50k CZK per family house and 100k per apartment building for the assessment, deadline **2026-11-30**, and the pass now gates NZÚ retrofit money [S5]. No call on file pays for the software itself — that is commercial revenue.
-6. Expect competition, not a green field. **Wue**, **RAYNET**, **AutoERP** (Apertia Tech) and **Infina** all sell into these firms [S6]; **Master Therm**-style sizing tools size only, and **Woltair** installs rather than selling software [S3].
+1. Sit with ten small heat-pump and solar installers and time how long one quote and one subsidy application take each. That time is the admin cost you price against. Ask each firm, too, whether its paperwork changed when the subsidy was redesigned this summer, and whether the new renovation pass has added work; see [Why now](#why-now).
+2. Buy the two leading Czech installer tools, push one real job through each, and write down what they do badly. The subsidy paperwork is already sold to these firms, so don't start there; see [Competition](#competition). What they do badly is where a new tool can win.
+3. Build the heat-load calculation and the digital site survey first, so a firm can size, price and file from one tool. The Czech tools barely touch those steps, while the German company sells them; see [Competition](#competition) and [Validated abroad](#validated-abroad). Today a firm sizes the system in a maker's tool and prices it somewhere else, so one tool saves it a step on every job.
+4. Add the renovation pass next, because it now stands between a homeowner and the retrofit money. The state pays for the assessment, which accredited specialists carry out, as [Willing to pay](#willing-to-pay) shows, but no state money pays for the software, so the firm itself is the customer.
 
 ## Revisions
 
@@ -221,3 +303,5 @@ Solved elsewhere: autarc in Germany is the funded analog [S1]. What it proves no
 2026-09-04 · price receipt — The seat price already read in the 2026-08-20 sweep is now recorded as a price of its own: 650 CZK per user a month, 200 CZK more for the heat-pump module [S8]. No score, status, note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` on who is stuck and what is happening, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Hundreds of small Czech heat-pump and solar installation firms drown in quoting, heat-load calculation and NZÚ subsidy paperwork". Previous solution, verbatim: "One tool for small heat-pump and solar firms: size the system, price the job and fill in the state renovation-subsidy forms from the same quote, instead of a manufacturer's sizing tool plus spreadsheets." The record carried no brief and no good_for before this pass. Every claim was checked against this record's sources first. The old title's "drown in" paperwork and the "hundreds of small firms" count rest only on the harvest note behind [S1], which carries no receipt of its own, so neither is repeated; the headline now says what the firms do, which the Czech installer software already on sale confirms [S6], and that manufacturer sizing tools only size [S3]. The redesigned subsidy opened on 25 June 2026 [S4], a date already past, so it is stated as a change and not as a deadline; the renovation pass as the new gate to the money is [S5]. Four Czech vendors already sell installer software, one of them established [S6]; the solution describes the product neutrally. No score, status, source, note, marker or body sentence changed. Simplified for the front page: title "Small Czech heat-pump and solar firms size jobs, price them and file subsidy forms in separate tools" → "Czech solar and heat-pump installers quote jobs and file subsidies in separate tools"; brief "Since June 2026, state grants for home heating and insulation go only to poorer households, other owners get interest-free loans, and a renovation pass is now required [S4,S5]. Installers handle that subsidy paperwork alongside sizing and pricing their jobs [S1,S6]." → "Since June 2026, state heating and insulation grants go only to poorer households, and a renovation pass is now required [S4,S5]. Installers handle that paperwork while sizing and pricing each job [S1,S6]."; solution "Build an app for heat-pump and solar installers that sizes the system, prices the job and fills in the subsidy forms, as companies already do in Germany." → "Build an app for heat-pump and solar installers that sizes the system, prices the job and fills in the subsidy forms.". Headline "quote jobs" stands for the sizing and pricing the old headline named; the loans half of the June change, and "as companies already do in Germany", were cut for length. Same date, pain-point pass: title "Czech solar and heat-pump installers quote jobs and file subsidies in separate tools" → "Czech heat-pump and solar installers do subsidy paperwork by hand while quoting jobs". Why: the old headline named two tools and no one hurting. The new one names the installers and the manual paperwork, which is the body's own sourced claim (hand-filled subsidy forms beside quoting [S1]) and what the unchanged brief already tells [S1,S6]. Brief unchanged. No score, status, source, note or body sentence changed.
+
+2026-09-18 · body rewritten to the writing rules, process figure added — Every section now opens with ONE answer sentence, each first list carries its three most important items, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on what the installers do for the subsidised installs, with the install volume, the firm count and the paperwork as its items [S1,S2,S6], and the workflow, the makers' sizing tools and Master Therm (from move 6) as detail [S1,S3]. Competition opens on the four Czech vendors and describes each by what it sells; their names, years and IČOs stay in their `locals[]` rows, the seat price stays in its receipt [S8], and the non-ledger names (Master Therm, Woltair, Bubble Development) stay named [S3,S6]. Why now no longer opens on the German comparable, which moved to Validated abroad; it opens on the pain of the June 2026 redesign, a loan instead of a grant for better-off homeowners and a renovation pass before retrofit money, with the dates below as plain bullets [S4,S5]. Willing to pay now says what is spent: firms buy installer software per seat, one vendor's solar module runs at about 20 firms, and the state pays for renovation passes [S5,S6]. Validated abroad opens on the Berlin company without naming it, keeps its size and batch [S1], and gains the US incentive-claims company that sat only in the sources [S7]. The moves went from six to four: old moves 1 and 3 (time the firms, test the redesign) merged, old move 6 (the named competitors) folded into move 2, old move 5's figures moved to Why now and Willing to pay, and every marker, figure, company name and bold was dropped for links. Old move 3 and move 5 linked to `/sources/tenders#…`, the private sources page; those links are gone and their facts are in the body [S4,S5]. `entry.why` was rewritten as "Easier: … Harder: …" with the same gates, and no longer names the established vendor. `S8.why` said "the back office this record describes", which a reader sees; it now says "installer back-office software". [S7] gained the public name, gist and why it lacked; its note is untouched. PROCESS FIGURE ADDED, five steps: the installer sizes the system in a maker's tool (inferred from [S3], which found makers' configurators and no installer tool, so it is drawn dashed); writes the quote [S1,S6]; prepares the subsidy forms [S1,S6]; an accredited specialist writes the renovation pass, unchanged [S5]; and who files each application with the subsidy fund is marked unknown. No actor or system was invented. Corrected against the sources rather than against the old sentences: "they run … on spreadsheets, manufacturer sizing tools and hand-filled NZÚ forms [S1]" — [S1] names the tasks and the paperwork burden, not spreadsheets or hand-filled forms, so it is now written as a likely picture for a firm without installer software [S1,S3]; "subsidy volume keeps the long tail of installers at capacity [S2]" — [S2] gives tens of thousands of installs a year and says nothing of capacity, so the capacity claim is cut; "that rebuild protects a local entrant" had no source and now reads only that a foreign tool would have to be rebuilt around the Czech forms; "manufacturers and distributors are the second buyer" had no source and now reads "could be"; and old move 1 cited [S2] for hours per quote, which [S2] does not measure. Flagged as inference: the likely spreadsheets and hand-filled forms [S1,S3]; the foreign-tool rebuild; that firms would pay per seat or per job; the makers and distributors as a possible second buyer; the sizing step in the figure [S3]; and "what the German tool shows now is depth", read from no Czech vendor being described as doing a heat-load calculation or a site survey [S6]. "Hundreds of small installation firms" is kept with [S1], whose note carries it from the funding signal, as the 2026-09-16 entry already noted. Added from sources already on file: the dispatcher calendar, the roof configurator and the payback calculator [S6], the loans for other owners and the 31 October 2029 end date [S4], the 100,000 CZK apartment-building cap and the State Environmental Fund's accreditation [S5], and the US company [S7]. No score, status, source, `note:`, `sources[]` order, title, brief, solution, good_for or `entry` gate value changed.

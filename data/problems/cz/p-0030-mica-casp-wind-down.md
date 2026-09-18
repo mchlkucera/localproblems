@@ -22,7 +22,7 @@ entry:
   incumbents: adjacent
   integration: software
   money: bootstrap
-  why: 'The firms winding down buy for themselves, nothing has to be authorised before selling them the help, and the work is notices, transfers and records rather than a system to plug into. Finreg Partners sells the licence application next door, not the exit.'
+  why: 'Easier: departing firms buy for themselves; no licence is needed to sell them the help; the established adviser nearby sells licences, not exits; and the work is notices, transfers and records, not a system to plug into. Harder: a Czech law firm already offers to guide the exit, and no price for the job is published.'
 comps: []
 locals:
 - name: SCHEJBAL&PARTNERS
@@ -257,15 +257,65 @@ created: '2026-08-13'
 updated: '2026-09-02'
 ---
 
-Czechia let crypto services run on a plain trade licence: roughly 30,000 subjects registered [S5]. MiCA, the EU crypto rulebook, ended that on 1 July 2026 — only holders of a CASP licence (crypto-asset service provider) may serve clients, and ČNB (the Czech National Bank) has granted eleven [S1,S2]. The rest must stop and move customer coins and cash to a licensed provider or the customer's own wallet [S1] — a wind-down most have never run.
+Only 11 Czech crypto firms won the new EU licence, and every other provider must stop serving clients [S1,S2].
 
-Why now: the deadline is behind us, not ahead. Trading unlicensed now risks fines above CZK 100M [S1]. ČNB assessed 251 applications and granted 11 [S2,S4]; of the 184 first-instance proceedings closed in 2025, 171 were terminated on procedural defects [S5].
+- About 30,000 people and firms held the old, free crypto trade licence [S5].
+- 188 of them kept the right to trade until July 2026 [S5].
+- Each firm without a licence must move its clients' coins and cash out [S1].
 
-Who pays: the firms leaving the market, on a clock, for customer notices, asset transfers, and records and tax closed defensibly. 188 subjects kept the right to trade through the transitional period; eleven came out licensed [S5,S2] — roughly 175 one-off exits. The eleven need the opposite, recurring work: safeguarding client assets, DORA (the EU's financial IT-resilience rules) and AML (anti-money-laundering) reporting at MiCA standard [S1,S3]. No Czech firm publishes a price for either job [S6], so no revenue figure is claimed. A third buyer: licensed incumbents acquiring orphaned customer books.
+Czechia let crypto services run on a plain trade licence, and about 5,000 of its holders were companies [S5]. The new rules are MiCA, the EU's rulebook for crypto-assets [S1]. Under it a firm needs a licence as a crypto-asset service provider, and in Czechia the central bank grants it [S1,S2].
 
-Existing non-solutions: licensing advisory. Finreg Partners stands behind three of the eleven licences; ARROWS, Kopečný & Partners, AMS Europe, Key2Law and PROFI Poradenství sell the same job — licence applications and compliance policies, on law-firm economics [S3,S7]. Their menus cover getting licensed, not getting out [S7]. One exception: since June 2026 SCHEJBAL&PARTNERS has told departing providers to prepare a wind-down plan, named its four duties and offered to guide them through [S7] — weeks old, billed by the hour. Nothing here is packaged, priced or repeatable [S6,S7].
+A firm without that licence must stop the service and move its customers' coins and cash to a licensed provider or to the customer's own wallet [S1]. The central bank's warning asks it to stop the service, not to close the company [S1].
 
-Solved elsewhere: nothing. No foreign comparable is on file at any maturity, and nobody anywhere is documented selling crypto wind-down or customer-asset migration as a product. The MiCA tooling that exists sells to firms staying in business: MarketGuard, AMLBot, KYC-Chain (identity checks at sign-up), Sigma360 and CertiK cover onboarding, AML and transaction monitoring EU-wide — none Czech, none an exit product [S4]. This wedge rides a live deadline, not a proven template.
+Existing non-solutions: Czech advisers sell getting licensed, not getting out, and one law firm has offered since June 2026 to guide an exit [S3,S7].
+
+- One established adviser stands behind 3 of the 11 licences granted [S3].
+- Five more law and advisory firms sell licence applications and compliance policies [S3,S7].
+- Their service menus cover getting licensed, not getting out [S7].
+
+They all sell it on law-firm terms, as advice rather than a product [S3,S7]. The established adviser has added due-diligence advice for firms buying a crypto provider, which serves the buyer of a departing firm's customers rather than the firm leaving [S7].
+
+The one exception published an article in June 2026 telling departing providers to prepare a wind-down plan [S7]. It set out the plan's four duties and offered to guide firms through them, by the hour [S7]. The offer is weeks old, because the duty is [S7].
+
+Nothing here is packaged, priced or repeatable [S6,S7].
+
+Why now: The deadline is behind them: since 1 July 2026 an unlicensed crypto firm must stop serving clients and move their coins and cash out [S1].
+
+- A firm that keeps serving clients unlicensed risks a fine above 100M CZK [S1].
+- A departing firm must tell every client in time how settlement will run [S7].
+- A departing firm's anti-money-laundering duties last to its final day [S7].
+
+It must also move every client's assets out, as [The opportunity](#opportunity) says, and be ready to report the settlement to the central bank on request [S7]. Those are the four duties of a wind-down [S7].
+
+Most applicants never had their licence judged on its merits [S5]. Of the 184 licence proceedings the central bank closed in 2025, it stopped 171, 117 of them because the application was incomplete [S5]. Binance was among the applicants that failed [S4].
+
+The dates behind this:
+
+- In 2025 the central bank received 245 licence applications, 210 of them by 31 July 2025 and 205 in July alone, and granted none that year [S5].
+- On 1 July 2026 the transitional period ended, and only licensed firms may now serve clients [S1].
+- By August 2026 the central bank had assessed 251 applications, 204 of them filed inside the transitional period, and granted 11 [S2,S4].
+
+Who pays: No Czech price for a wind-down is published yet: the one law firm offering it bills by the hour [S6,S7].
+
+- The buyers are the firms that traded until July without winning a licence [S1,S5].
+- Firms already pay law firms and advisers to get licensed, the opposite job [S3].
+- Licensed firms that take over departing firms' customers may pay too [S7].
+
+Not every licensed firm need have been among the 188, so the number of firms leaving is not simply the difference [S2,S5]. The departing firms are on a clock [S1]. The job is customer notices, asset transfers, and records and tax closed so that they hold up.
+
+The 11 licensed firms need the opposite, recurring work [S1,S3]. That means keeping client assets safe and separate, meeting DORA (the EU's rules on IT resilience in finance), and anti-money-laundering reporting to the new EU standard [S1,S3].
+
+Four Czech advisers' pages show no price for either job, so no revenue figure is claimed [S6].
+
+Solved elsewhere: Nobody abroad is known to sell a crypto firm's wind-down as a product, so there is no template to copy [S4,S7].
+
+No foreign company has been found selling it, young or established, and nobody is known to sell the move of customer assets as a product either [S7]. The EU crypto-rule tools that exist sell to firms staying in business [S4]:
+
+- MarketGuard, AMLBot, Sigma360 and CertiK cover sign-up checks, anti-money-laundering and transaction monitoring across the EU [S4].
+- KYC-Chain (identity checks at sign-up) covers the same ground [S4].
+- None of them is Czech, and none sells an exit [S4].
+
+This opportunity rides a live deadline, not a proven template.
 
 ## Revisions
 
@@ -285,3 +335,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 9 `locals[].evidence` lines were rewrit
 2026-09-02 · plain-language pass — Six trade terms glossed at first use: CASP and ČNB where the 1 July 2026 duty is stated [S1,S2], then MiCA, DORA, AML and KYC. Caps-styled law-firm names ARROWS, AMS Europe and PROFI Poradenství now sit in a clause saying what they sell [S3,S7]. Argument cut from 436 to 364 words, every marker and figure kept; the restated three-outcomes sentence went. A gist added beside all seven sources. No score, status, note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` telling the situation, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Only eleven Czech crypto firms got licensed; the rest must wind down". Previous solution, verbatim: "A packaged wind-down for the crypto firms that did not get licensed: notify customers, move their coins and cash to a licensed provider, and close the records and the tax to a standard the regulator will accept." No brief or good_for existed before. Checked against the sources while writing. The deadline is behind us, and both lines say so: the transitional period ended on 1 July 2026 [S1], so the title reads "since July" and the brief "until July". "The rest must wind down" became "must stop serving clients", which is what ČNB's warning requires — cease the crypto-asset service and move customer crypto and funds to a licensed provider or the customer's own wallet [S1]; it does not require the firm itself to close. The brief puts 188 providers that kept the right to trade through the transition [S5] beside the 11 licences granted [S2] rather than subtracting them: the dek's "roughly 175 one-off exits" assumes every licensee was among the 188, which no source on file confirms. The dek's "a wind-down most have never run" carries no marker and was not used. The fine is stated for whom it applies to, a provider that keeps trading without a licence, at ČNB's own "above 100M CZK" [S1]. The solution names no comparable abroad because `comps[]` is empty. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Only 11 Czech crypto firms got a licence. Since July, the rest must stop serving clients." After: "Since July, all but 11 Czech crypto firms must stop serving clients". Brief before: "Until July, 188 Czech crypto providers could trade on an old licence; only 11 got the new one [S1,S2,S5]. The rest must stop and hand customers' coins and cash to a licensed firm or back, or risk fines above 100M CZK [S1]." After: "Unlicensed firms must hand their customers' coins and cash to a licensed firm or back to the customer [S1]. Those that keep trading risk fines above 100M CZK [S1]." Solution before: "Build a fixed-price service that winds down an unlicensed crypto firm: it tells customers, moves their coins and cash out, and closes the records." After: "Build a fixed-price service that winds down an unlicensed crypto firm: tells customers, moves their coins and cash, closes the records." Good for before: "Someone who knows how crypto wallets and exchanges work and likes careful paperwork." After: "Someone who knows crypto wallets and exchanges and likes careful paperwork." The passed date stays passed ("since July") [S1]; the 188 providers on the old licence [S5] were cut to keep one number in the brief, the fine [S1], and the 11 licences stay in the headline [S2] without subtracting from the 188. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed.
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the 11 licences and holds the old trade licence's 30,000 holders, the 188 that kept trading rights and the duty to move clients' coins and cash, with MiCA, the licence and the central bank explained in plain words below [S1,S2,S5]. Why now opens on the passed deadline, with the fine and the wind-down's four duties as its items and the 2025 application funnel and the dates below as plain bullets [S1,S2,S4,S5,S7]. Willing to pay answers that no Czech price for a wind-down is published and names the three kinds of buyer [S1,S3,S5,S6,S7]. Competition and Validated abroad describe each ledger firm by what it sells; every `locals[]` name left the body, and MarketGuard, AMLBot, KYC-Chain, Sigma360, CertiK and Binance, which are not on a ledger, stay named [S3,S4,S7]. `entry.why` became "Easier: … Harder: …", with semicolons in the Easier half because one of its items carries its own comma list, and no longer names a ledger firm. Detail added from sources already on file, none of it new evidence: the 5,000 companies among the old licence holders and the 2025 funnel of 245 applications, 210 by 31 July 2025 and none granted that year [S5]; the four wind-down duties [S7]; the established adviser's due-diligence advice for firms buying a crypto provider [S7]; and Binance among the applicants that failed [S4]. Corrected against the sources rather than against the old sentences: "171 were terminated on procedural defects" became "it stopped 171, 117 of them because the application was incomplete", because the central bank's 2025 supervision report, Box 5, read 2026-09-18, lists 17 withdrawals among the 171, and a withdrawal is not a defect [S5]; "roughly 175 one-off exits" is gone, because it subtracts the 11 licences from the 188 and no source says every licensed firm was among the 188, as the 2026-09-16 headline pass had already found [S2,S5]; "a wind-down most have never run" is gone, because it carried no marker and no source supports it; and "No Czech firm publishes a price" now says what [S6] checked, four Czech advisers' pages. "The rest must stop" now says the warning asks a firm to stop the service, not to close the company, as the 2026-09-16 pass read [S1]. Flagged as inference: that licensed firms taking over departing firms' customers may pay for help rests on one adviser selling due diligence to such buyers [S7]; and that the 11 licensed firms need recurring compliance work rests on the compliance jobs the licensing-advisory check names [S3]. No `process` block was added: the wind-down is a one-off duty that began on 1 July 2026, and the sources say what a departing firm owes, not who does each step today or how [S1,S7]. No score, status, entry gate value, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.

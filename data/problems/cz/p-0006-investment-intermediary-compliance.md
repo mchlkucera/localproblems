@@ -22,10 +22,7 @@ entry:
   incumbents: adjacent
   integration: software
   money: bootstrap
-  why: 'The first buyers are the advice networks, where one compliance officer signs for hundreds
-      of tied agents, and the software vendor itself needs no authorisation from the central bank;
-      the established Czech neighbour, Resistant AI, sells fraud detection to banks rather than
-      this.'
+  why: 'Easier: the seller needs no central-bank licence, a network buys for all its tied agents at once, and a fixed EU date pushes firms to act. Harder: a Czech anti-money-laundering platform already sells client checks to these firms, so a newcomer must connect to it or beat it; and the buyers are large networks.'
 comps:
 - name: Saturn
   url: https://www.saturnos.com/
@@ -119,7 +116,7 @@ sources:
 - type: gap-check
   name: "AML Proof"
   gist: "the first Czech entrant"
-  why: "A Czech cloud AML platform sold self-serve from 25 CZK a credit to the very buyer this record names — client screening, beneficial owners, internal policies and FAÚ reporting. The MiFID II half of the stack is still empty."
+  why: "A Czech cloud AML platform sold self-serve from 25 CZK a credit to investment intermediaries and financial advisers — client screening, beneficial owners, internal policies and FAÚ reporting. The MiFID II half of the stack is still empty."
   url: https://amlproof.ai/cs/aml-software
   note: 'Gap re-check 2026-08-20: OCCUPIED on the AML side. Looked for a Czech regtech SaaS
     selling AMLR-ready KYC, beneficial-owner verification, internal policies and reporting
@@ -169,22 +166,58 @@ created: '2026-08-13'
 updated: '2026-09-04'
 ---
 
-Thousands of Czech investment intermediaries, their tied agents and the networks they sell through — Broker Consulting, Partners, independents — answer to ČNB (the Czech central bank) [S1,S3]. The paperwork keeps growing: suitability tests, client identity checks, regulatory reporting under MiFID II — the EU rulebook for investment services [S1,S3]. They run it on Word templates and outside consultants, not software [S1].
+Czech investment intermediaries and their tied agents answer to the central bank for a growing pile of compliance paperwork [S1,S3].
 
-Why now: the EU's anti-money-laundering regulation 2024/1624 applies directly from 10 July 2027, replacing most of Czech act 253/2008 with one rulebook under AMLA — a new EU supervisor [S2]. Every firm in scope redoes its client due diligence, beneficial-owner verification and internal policies before that date [S2]. Crowdfunding, most crypto services and luxury-goods traders enter scope for the first time [S2].
+- The paperwork covers suitability tests, client identity checks and regulatory reporting [S1,S3].
+- Big advice networks such as Broker Consulting and Partners work beside independent advisers [S1].
+- Thousands of tied agents and intermediaries work in this market [S1].
 
-Who pays: the advisory networks and mid-sized firms first, where one subscription spreads across hundreds of tied agents and a licence rides on the paperwork. Independents follow through the networks. The regulation names the product: beneficial-owner verification APIs and reporting built to the new rulebook [S2].
+The supervisor is ČNB (the Czech National Bank), and much of the paperwork comes from MiFID II — the EU rulebook for investment services [S1,S3]. A tied agent sells investments on behalf of one licensed firm. A suitability test records why an investment suits the client it is sold to.
 
-Existing non-solutions: Comply, aCompliance and the law firms sell one-off reviews; internal policies still get written in Word [S3]. AML Proof (Praha 1, IČO 23791497) sells a Czech cloud platform to the firms the law obliges, named as financial advisers and intermediaries: client identification, sanctions and politically-exposed-person screening, beneficial-owner verification, risk scoring, internal policies, reporting to FAÚ — the financial intelligence unit — and ten-year archiving, self-serve from 25 CZK a credit [S4]. AML solutions s.r.o. and AML Basic sell screening beside it; Resistant AI (Prague, USD 25M Series B) sells document-fraud detection to banks and fintechs [S4]. AML Proof, s.r.o. was incorporated in October 2025 [S4] — a first entrant, not a settled incumbent. Nothing Czech covers the MiFID II half: suitability questionnaires, the record of the advice meeting, product-governance records, tied-agent oversight, ČNB reporting [S4]. The nearest is Broker Trust's advisor stack, built for one network rather than sold [S4].
+Existing non-solutions: Consultants sell compliance as a service, and Czech software covers only the anti-money-laundering half, not the investment-advice half [S3,S4].
 
-Solved elsewhere: three funded firms sell this abroad, none in Central Europe. Saturn (YC S24, London) runs a compliance system for wealth managers across 600+ British advisory firms [S1]. Muinmos (Denmark) sells regulatory onboarding to banks and investment firms; Apiax (Switzerland) turns compliance rules into machine-readable checks.
+Compliance consultancies and law firms sell services rather than a product, and internal policies still get written in Word [S3].
+
+- A Czech cloud platform, selling since October 2025, offers anti-money-laundering checks to the advisers and intermediaries the law obliges [S4]. It is a first entrant, not a settled incumbent [S4].
+- A second Czech firm screens clients against sanctions lists and lists of politically exposed people for the same firms, and AML Basic — another screening service — sells it too [S4].
+- A funded Prague company sells document-fraud and financial-crime detection to banks and fintechs, a different job for a different buyer [S4].
+- Nothing Czech covers the investment-advice half: suitability questionnaires, notes from the advice meeting, product-governance records, tied-agent oversight and central-bank reporting [S4].
+- The nearest is one broker network's platform for its own tied advisers, which no firm outside that network can buy [S4].
+
+Why now: Investment advisers the anti-money-laundering law covers must redo client checks and internal policies before an EU rulebook applies in July 2027 [S2,S4].
+
+- Each covered firm has under 10 months to rewrite its internal policies [S2].
+- The rewrite lands on top of central-bank paperwork that keeps growing [S1,S3].
+- Firms still pay consultants and fill in Word templates to keep up [S3].
+
+The dates behind this:
+
+- On 10 July 2027 EU Regulation 2024/1624 applies directly and replaces much of the Czech anti-money-laundering act, No. 253/2008 [S2].
+- From that date one rulebook sets client checks, beneficial-owner checks and internal policies across the EU, under AMLA — the EU's new anti-money-laundering authority [S2].
+- From that date crowdfunding platforms, most crypto services and luxury-goods traders come under the rules for the first time [S2].
+
+Who pays: Firms pay compliance consultants and law firms today, and a Czech platform already sells anti-money-laundering checks per client [S3,S4].
+
+- Consultancies such as Comply and aCompliance sell compliance work as a service [S3].
+- Law firms sell the same kind of compliance work [S3].
+- A Czech platform sells anti-money-laundering checks self-serve, per client check [S4].
+
+The likely first buyers are the advice networks and mid-sized firms, where one subscription can cover many tied agents and the firm's licence depends on its paperwork. Independent advisers would follow through the networks.
+
+The new rulebook creates demand for tools that check who really owns a client company, and for reporting built to the rulebook [S2]. No public contract or grant for this work is on file.
+
+Solved elsewhere: Compliance software for wealth managers already sells abroad, one product on the platform of over 600 British advisory firms [S1].
+
+It comes from a London start-up of about 18 people, from the summer 2024 intake of Y Combinator, a US programme that funds start-ups [S1]. It automates client identity checks, suitability and regulatory reporting for wealth managers, and the advisory firm buys it for its advisers [S1].
+
+The three sellers listed here are based in Britain, Denmark and Switzerland, and none is based in Central Europe.
 
 ## First moves
 
-1. Sell to the networks, not the independents. Broker Consulting, Partners and their peers each carry hundreds of tied agents, and the network's compliance officer is the one who can spread a subscription across all of them [S1,S3]. Saturn sells that way in Britain: the firm buys, its advisers use it [S1].
-2. Build the MiFID II half. Plug into the anti-money-laundering half rather than rebuild it: AML Proof already sells client identification, sanctions and politically-exposed-person screening, beneficial-owner verification, internal policies and reporting to the financial intelligence unit, from 25 CZK a credit [S4]. Nobody sells the suitability questionnaire, the record of the advice meeting, product-governance records, tied-agent oversight or central-bank reporting [S4].
-3. Open with the date. The rulebook applies from 10 July 2027, and every firm in scope rewrites its client due diligence and internal policies before then [S2]. Ask what they plan to do. Today the answer is a consultant and a Word template [S1,S3].
-4. Watch Broker Trust. It has run the Bety 2.0 and BT Invest platform for its own tied advisers since March 2001 — the closest thing on the market to what is missing, and no intermediary outside that network can buy it at any price [S4]. The day it goes on sale, this opening closes.
+1. Build software for the investment-advice half of compliance: the suitability questionnaire, notes from each advice meeting, tied-agent oversight and central-bank reports. No Czech product sells that half yet, while the anti-money-laundering half already has Czech sellers; see [Competition](#competition). Connect to their client checks, screening and reporting rather than rebuild them, so a firm keeps what it already uses. Start with the suitability questionnaire, which records why an investment suits each client.
+2. Contact the compliance officers of the big advice networks, such as Broker Consulting and Partners, and show them the suitability tool. One network's compliance officer can put all its tied agents on one subscription, where an independent adviser buys only for itself; see [Willing to pay](#willing-to-pay). That is how the London start-up sells in Britain: the firm buys, and its advisers use it; see [Validated abroad](#validated-abroad).
+3. Open each conversation with the date the EU anti-money-laundering rulebook applies, and ask the firm what it plans to do before then. Every covered firm has to rewrite its client checks and internal policies by that date; see [Why now](#why-now). Today the answer is a consultant and a Word template, so offer the software that replaces both.
+4. Watch the one broker network that runs this paperwork on its own platform, because if it starts selling it, this opening closes. Its platform has run for years inside that one network and is the closest thing on the market to what is missing, but no outside firm can buy it today; see [Competition](#competition).
 
 ## Revisions
 
@@ -203,3 +236,5 @@ Solved elsewhere: three funded firms sell this abroad, none in Central Europe. S
 2026-09-04 · price receipt — The self-serve price already read in the 2026-08-20 sweep is now recorded as a price of its own: from 25 CZK a client check [S5]. No score, status, note or marker touched.
 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` on who is stuck and what is happening, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Thousands of Czech investment intermediaries and advisors face growing ČNB/MiFID paperwork today and a directly applicable EU AML rulebook from July 2027". Previous solution, verbatim: "Compliance software for investment-advice firms covering the half nobody sells here yet: client-suitability paperwork, tied-agent oversight and the reporting the Czech central bank requires." The record carried no brief and no good_for before this pass. Every claim was checked against this record's sources first. 10 July 2027 is the application date verified on EUR-Lex, under 10 months from this pass [S2]. "Replaces much of" follows the source's own wording rather than the body's "most" [S2]. That the rulebook reaches advisers rests on today's Czech regime, under which a Czech anti-money-laundering platform sells to financial advisers and intermediaries as firms the law obliges [S4]. The old title's "thousands" of intermediaries and the "Word templates" rest only on the harvest note behind [S1], so neither is repeated. The headline's urgency is the anti-money-laundering date, while the suggested product is the suitability and reporting half no Czech product covers [S4], because the anti-money-laundering half already has a Czech entrant [S4]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: title "Czech investment advisers have under 10 months before a new EU anti-money-laundering law applies" → "A new EU anti-money-laundering law hits Czech investment advisers in under 10 months"; brief "From 10 July 2027 one EU rulebook replaces much of Czech anti-money-laundering law, so covered firms must update client checks and internal policies [S2,S4]. That comes on top of the investment-advice paperwork the central bank already requires [S1,S3]." → "From July 2027, an EU rulebook replaces much of Czech anti-money-laundering law, so firms it covers must update client checks and policies [S2,S4]. That comes on top of the central bank's paperwork [S1,S3]."; solution "Build compliance software for advice networks that records why an investment suits each client and files central-bank reports, as companies already do in Britain." → "Build compliance software for advice networks that records why an investment suits each client and files central-bank reports.". "Under 10 months" is unchanged from the old headline [S2]; "covered firms" became "firms it covers"; the exact day 10 July and "as companies already do in Britain" were cut.
+
+2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the central-bank paperwork, with its contents, the advice networks and the "thousands" of tied agents and intermediaries as its items, and ČNB, MiFID II, tied agent and suitability test explained in the detail [S1,S3]. Competition opens on consultants plus Czech software that covers only the anti-money-laundering half, and describes AML Proof, AML solutions, Resistant AI and Broker Trust by what each sells, leaving their names, IČOs, prices, funding and dates to their `locals[]` rows [S3,S4]; AML Basic, not on the ledger, stays named. Why now opens on the covered advisers who must redo client checks and policies before July 2027, with the under-10-months window, the growing central-bank paperwork and the consultants and Word templates as its items, and the regulation's dates below as plain bullets [S1,S2,S3]. Willing to pay answers that firms pay consultants and law firms today and a Czech platform sells checks per client, with Comply and aCompliance, not on the ledger, named there [S3,S4]; the 25 CZK price stays in its receipt [S5]. Validated abroad lost the ledger names Saturn, Muinmos and Apiax for a description of the London product [S1], with the other two left to their `comps[]` rows. The moves lost every [Sn] marker, figure and ledger name for links; move 1 now builds the investment-advice half (it was move 2), and the old "Sell to the networks" is move 2 and now contacts the networks' compliance officers. The move-only facts already had homes: the AML Proof feature list and price in its row and receipt [S4,S5], Broker Trust's platforms and March 2001 start in its row [S4], and the 10 July 2027 date under Why now [S2]. `entry.why` was rewritten as "Easier: … Harder: …" and no longer names Resistant AI, whose row carries it. S4.why no longer says "the very buyer this record names". Process block: none added. No source on file says who fills in the suitability questionnaire, oversees the tied agents or files the central-bank reports today; S3 records only that consultants and Word templates are used, so there is no documented step to draw. Corrected against the sources rather than against the old sentences: "replacing most of Czech act 253/2008" became "much of", the source's own wording, as the 2026-09-16 entry had already done for the brief [S2]; "The regulation names the product: beneficial-owner verification APIs and reporting" was wrong, since the regulation names no product and the signal behind S2 says only that it creates demand for such tooling, and the body now says that [S2]; "Comply, aCompliance and the law firms sell one-off reviews" became "services rather than a product", which is what S3 records; "They run it on Word templates and outside consultants" is now cited to S3, which records it, rather than S1 alone; "three funded firms sell this abroad, none in Central Europe" dropped "funded", because Muinmos's row says its raise is undisclosed, and now says none is BASED in Central Europe, because the same row says Muinmos sells globally; and "hundreds of tied agents" per network, in Who pays, move 1 and `entry.why`, is in no source, so each now says "many" or "all its" tied agents. Flagged as inference: that the advice networks and mid-sized firms are the likely first buyers, that a firm's licence depends on its paperwork and that independents would follow through the networks (Who pays, unsourced before and still our reading); that the British advisory firms buy the London product for their advisers, which rests on S1 counting the firms on its platform; and that "thousands" of tied agents and intermediaries rests only on the harvest note behind S1, as the 2026-09-16 entry already recorded. No score, status, source, `note:`, `sources[]` order, entry level, title, brief, solution or good_for changed.
