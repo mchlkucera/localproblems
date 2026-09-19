@@ -8,11 +8,11 @@ good_for: 'Developers who know content moderation and can sell to Czech marketpl
 price_search: 'Ask the Czech law firms under Market gap what they charge to set up report handling, removal reasons and the yearly report for one platform, or ask the person who handles reported posts at a mid-size Czech marketplace what the work costs in staff time; the public contracts register holds no such contract because the buyers are private.'
 category: legal-compliance
 geo: CZ-national
-score: 8
+score: 6
 scores:
   proof: 2
   money: 0
-  urgency: 3
+  urgency: 1
   demand: 1
   gap: 2
 status: candidate
@@ -366,3 +366,5 @@ See [Validated abroad](#validated-abroad).
 ## Revisions
 
 2026-09-19 · record created — Created from fr-tremau and reg-dsa-cz, finishing a pass that stopped before its Czech-language check. Scores (v1 ladders, the set this checker runs): proof 2, two established sellers in France and Britain, none in a neighbouring market [S9,S10]; money 0, no public budget near the buyer's work and no price receipt; urgency 3, the rules apply now and the fining bill is at its last lower-house stage, plus fresh sources [S1,S2,S3]; demand 1, complaints recur but mostly target very large platforms [S4,S5]; gap 2, nobody sells the software, controls passed [S11]. Read under the 2026-09-19 ladders it would be money 0 and urgency 1, since the 2024 duty is older than 12 months and the fining law is still a bill, so 6. No draft-law badge: the EU rules bind platforms today, as on the AI Act problem, and the bill only adds fines [S1,S3]. Our readings, flagged: 44 is our sum of the study's medium and large rows [S6]; the 22 Czech services were picked by name [S8]; "few" rests on that count. The earlier pass's foreign monthly price could not be read at source and is left out [S10]. Abroad count: both comps sell report handling and yearly reports; the British one's page names no reason letters or database filing, so it counts on that half [S9,S10]. Czech check: Seznam and the web-search tool, both logged as google-cz for want of a Seznam token; the market control passed on Seznam and the Ringil control on the web-search tool, while Seznam missed Ringil and Wultra [S11].
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 3 → 1 and the total 8 → 6; the band falls from STRONG to FAIR. Willing to pay stays 0. This is the reading the creation entry above already gave. Why now: the old 3 was deadline 2 plus the freshness point, which is retired. The EU rules [S1] bind the platforms and are enacted, but they have applied since 17 February 2024, more than 12 months ago, so they are the status quo. No enforcement receipt within 12 months is on file: the regulator could not inspect or fine through 2025 [S4,S5], and the Commission's May 2025 referral [S7] is older than 12 months and targets the state, not the platforms. The newer change, the fines, rests on sněmovní tisk 69 [S2,S3], which awaits its last lower-house vote, so it fails REAL. So rung 1, not the worksheet's alternative reading of 2. Willing to pay, tagging pass: no source on file shows anyone paying for this job. The Cisek law firm's monthly plans (from 14,700 CZK, in the gap check [S11]) are general legal support, not this work. PwC's 2024 study [S6] was bought by the regulator, the other side of the counter, and maps the market rather than doing the work. Checkstep's monthly prices were never read at source and are not a Czech buyer's [S10]. So 0, and no receipt was added. The record has no `[Competition](#competition)` link, and its Why now and Willing to pay prose already matched the new numbers. `updated` was already 2026-09-19. No other score, status, source, note, marker or `entry` gate changed.

@@ -7,11 +7,11 @@ solution: 'Build an online guest check-in that files each guest once to the fore
 good_for: 'Someone who can connect software to state systems and likes working with hosts.'
 category: retail-services
 geo: CZ-national
-score: 7
+score: 6
 scores:
   proof: 2
   money: 1
-  urgency: 2
+  urgency: 1
   demand: 2
   gap: 0
 status: watching
@@ -160,8 +160,9 @@ sources:
     training 30M CZK, "kolem 190 000 000 Kč" one-off. Register run by MMR: data environment 1.3M
     CZK, operation about 960,000 CZK a month, 30M CZK from the National Recovery Plan. ORP towns
     get about 44,709,620 CZK or about 47,970,000 CZK (the RIA gives both). The RIA gives no hours or
-    CZK per host per year ("nelze určit obecně"). Effect 1 January 2028; still a draft, so the
-    deadline scores 1. The state''s own statement of the duplicate burden also backs demand.'
+    CZK per host per year ("nelze určit obecně"). Effect 1 January 2028; still a draft, so it
+    fails REAL and Why now stops at rung 1. The state''s own statement of the duplicate burden
+    also backs demand.'
   date: '2028-01-01'
   signal: reg-eturista-registr-ubytovani-2028
   dims: [urgency, demand]
@@ -243,10 +244,11 @@ sources:
     Ministerstvo pro místní rozvoj to InQool, a.s. (IČO 29222389), 28,424,650 CZK excl. VAT,
     34,393,827 CZK incl. VAT; amendments 1–5 to 6 May 2026 (Hlídač state search "eTurista", 11
     contracts, including a 64M CZK cloud-services framework of 8 August 2025, registr smluv
-    34407937). MONEY 1: public money is moving on this problem, but it builds the state''s own
-    register and pays no host or vendor for this product.'
+    34407937). Public money is moving on this problem, but it builds the state''s own register and
+    pays no host or vendor for this product, so it backs no score (rescore 2026-09-19: dims
+    emptied; it was the old money 1).'
   date: '2024-11-15'
-  dims: [money]
+  dims: []
 - type: gap-check
   name: "Czech guest-reporting software — taken by an established hotel system"
   gist: "the taken Czech field"
@@ -314,12 +316,14 @@ sources:
   gist: "10 CZK a check-in"
   why: "A Czech online check-in that also reports foreign guests to the police charges 10 CZK for each completed check-in, with no monthly fee."
   note: 'bestguest.cz/cenik, read 2026-09-18: "Platíte 10 Kč za každý dokončený check-in hosta.
-    Žádné měsíční paušály". dims omitted: backs no score.'
+    Žádné měsíční paušály". Tagged dims: [money] on 2026-09-19 (rescore): a published price for
+    this job, an asking receipt.'
   date: '2026-09-18'
   payer: 'Czech hosts and hotels using an online check-in'
   amount_czk: 10
   unit: per-case
   basis: list-price
+  dims: [money]
 - type: price
   url: https://www.previo.cz/en/pricelist/
   name: "Previo — hotel software licence"
@@ -334,7 +338,7 @@ sources:
   unit: one-off
   basis: list-price
 created: '2026-09-18'
-updated: '2026-09-18'
+updated: '2026-09-19'
 ---
 
 Czech hotels, guesthouses and private hosts send the same guest details to several authorities, each in its own way [S1].
@@ -353,7 +357,7 @@ The state's own impact assessment calls this repeated entry of the same data an 
 
 Existing non-solutions: The most used Czech hotel software and several small Czech check-in apps already send foreign guests to the police [S9].
 
-The hotel software is established, with thousands of clients; the apps are young and publish no customer counts; see [Competition](#competition) [S9]. A Spanish check-in service also sells police filing and the planned register on its Czech page [S10]. Prices run from a charge per check-in to a licence with a monthly fee; see [Willing to pay](#willing-to-pay).
+The hotel software is established, with thousands of clients; the apps are young and publish no customer counts; see [Market gap](#competition) [S9]. A Spanish check-in service also sells police filing and the planned register on its Czech page [S10]. Prices run from a charge per check-in to a licence with a monthly fee; see [Willing to pay](#willing-to-pay).
 
 - None of these tools removes the separate duties themselves, which only the law can merge [S1].
 - No Czech seller or contract was found for helping towns find hosts who do not pay the fee [S9].
@@ -387,9 +391,11 @@ It was founded in Seville in 2017 and names filing for Spain, Italy, Portugal an
 ## First moves
 
 1. Build a phone check-in for private apartment hosts that reads a guest's passport and files the police report. Private hosts letting through platforms appear in no register today, as [The opportunity](#opportunity) shows, and the police report has the shortest deadline; see [Why now](#why-now). Start with that one report, then add the town's fee records.
-2. Call guesthouse owners who still retype guests by hand, and ask what they would pay to stop. Hotel software already covers most hotels, as [Competition](#competition) shows, so the hosts left are small ones without it. The prices they will compare you with are under [Willing to pay](#willing-to-pay).
+2. Call guesthouse owners who still retype guests by hand, and ask what they would pay to stop. Hotel software already covers most hotels, as [Market gap](#competition) shows, so the hosts left are small ones without it. The prices they will compare you with are under [Willing to pay](#willing-to-pay).
 3. Offer the move to the state register as part of the price, once the state publishes how software connects to it. Every hotel system will need its own connection, as [Willing to pay](#willing-to-pay) shows, so a host who already uses your check-in is spared that upgrade. The bill's date is under [Why now](#why-now).
 
 ## Revisions
 
 2026-09-18 · record created — Minted from the eTurista bill and its impact assessment [S1,S4] and the EU short-term rental regulation [S2]. Demand 2 on the state's own statement of the duplicate burden [S1], hoteliers' statements [S5] and the ministry's figures on unpaid fees [S6]. Money 1 on the ministry's contract to build the register, which is public money on this problem but pays for the state's own system [S8]. Urgency 2: the bill's 1 January 2028 date is under 18 months away but it is still a draft, so the deadline scores 1, plus sources fresher than 90 days [S4,S7]. Proof 2 on one established Spanish comparable [S10]. Gap 0 and status watching: the most used Czech hotel software already files foreign guests to the police automatically, and the Spanish comparable sells the same in Czech [S9,S10]. Correction to the signal: the ministry's plan date of 1 January 2027 could not be confirmed from a primary source; the bill itself says 1 January 2028 [S4]. No draft-law badge: hosts file several ways today whatever happens to the bill. The web search budget ran out during this pass, so the standing positive controls were run on Seznam and missed; an in-market control passed [S9].
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 2 → 1 and the total 7 → 6; the band stays FAIR. Willing to pay stays 1, now on a price receipt instead of public money. Why now: the old 2 was deadline 1 for the eTurista bill plus the freshness point, which is retired. The bill [S1,S4] is still a draft, so it fails REAL. The EU short-term-rental rule [S2] puts its duties on platforms and on a national registration scheme Czechia does not run, so it reaches hosts only indirectly. The 3-working-day police report [S3] is the status quo. Rung 1. Willing to pay: the old 1 rested on the ministry's contract to build the state register [S8]. That buys the state's own system, not this job, so its dims are now empty and its note no longer claims money 1. Tagging pass: Best Guest's list price, 10 CZK per completed check-in [S11], is a published price for an online check-in that files the police report. That is this job, so it is now tagged money: an asking receipt, rung 1. Not tagged or restated: Previo's 9,490 CZK setup fee [S12] buys a whole hotel system, of which the police filing is one feature. Of the other prices in the gap check [S9], Trevlix's "from 90 CZK a month" and Ubytovačka's 69 CZK a month are the entry tiers of booking systems. Neither page, re-read 2026-09-19, shows that the tier includes the police filing. Checkinn.cz's price is given only as "about 590 CZK a month", and whether ubytovaci-kniha.cz files to the police at all is unconfirmed. No price for this job has been paid on file, so there is no paid receipt, and hosts are private buyers with no public contract to find. Body: the 2 `[Competition](#competition)` links now read `[Market gap](#competition)`. The Why now and Willing to pay prose already matched the new numbers and is unchanged. S1's note no longer names the deadline sub-score. No other score, status, marker or `entry` gate changed.

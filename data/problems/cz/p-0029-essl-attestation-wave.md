@@ -13,10 +13,10 @@ solution: 'Build a migration service that moves a public body''s records into ce
 good_for: 'Someone who can migrate office data and sell through public tenders.'
 category: govtech
 geo: CZ-national
-score: 7
+score: 5
 scores:
   proof: 2
-  money: 2
+  money: 0
   urgency: 3
   demand: 0
   gap: 0
@@ -113,7 +113,10 @@ sources:
     period for public-law originators (state organizational units, contributory organisations,
     state enterprises) to run attested systems ends 31 Dec 2026. Verified via legal commentary
     2026-08-13. Compliance date <18 months with the supply-side ban already in force: deadline
-    sub-score 2.'
+    sub-score 2.
+    Rescored 2026-09-19: the deadline sub-score is retired. On the 2026-09-19 ladder the duty is
+    REAL (enacted, binds the public body) and CLOSE; S9 carries the date and the fine, so urgency
+    is 3.'
   date: '2026-12-31'
 - type: tender
   name: "TED — SÚKL records system (~€1.4M), and the wave around it"
@@ -124,7 +127,11 @@ sources:
     (Jun 2026) — open tender ≥5M CZK: money 2. It sits in a wave of ~28 records-management
     procurement records from ~19 distinct public buyers (~€17M) in the Jun–Aug TED window:
     SÚRAO published its certified-eSSL tender four times, Nemocnice Pardubického kraje three
-    times, OZP twice — repeat publications signalling procedures that struggle to close.'
+    times, OZP twice — repeat publications signalling procedures that struggle to close.
+    Rescored 2026-09-19: "open tender ≥5M CZK: money 2" is the retired rung. An open competition
+    for a records system is public money nearby on the
+    2026-09-19 ladder and earns no point; it buys the software, not the migration this record
+    sells, and no award in the wave is on file restated as a price for the move.'
   date: '2026-06-17'
   signal: ted-415250-2026
 - type: tender
@@ -153,7 +160,11 @@ sources:
   why: "The university buyer type inside the same wave, bought with service support attached."
   url: https://ted.europa.eu/en/notice/-/detail/442243-2026
   note: 'ted-442243-2026: Ostravská univerzita awarded ~€408k for a records management system
-    incl. service support (Jun 2026) — the university buyer type in the same wave.'
+    incl. service support (Jun 2026) — the university buyer type in the same wave.
+    Rescore tagging pass 2026-09-19: the TED notice at this url, read on that date, buys the
+    supply and implementation of an attested eSSL plus support, training, development and exit
+    services (estimated 10M CZK); it names no migration of existing records, so it is not
+    restated as a price receipt for this job and stays public money nearby.'
   date: '2026-06-29'
   signal: ted-442243-2026
 - type: tender
@@ -163,7 +174,11 @@ sources:
   url: https://ted.europa.eu/en/notice/-/detail/529246-2026
   note: 'ted-529246-2026: Czech State Forests (Lesy ČR) awarded ~€1.1M for an electronic records
     management system (Jul 2026) — the state-enterprise buyer type, and one of the larger
-    single awards in the wave.'
+    single awards in the wave.
+    Rescore tagging pass 2026-09-19: the TED notice at this url, read on that date, buys the
+    supply and implementation of an eSSL integrated with the buyer''s other systems, awarded to
+    Seyfor at 27,771,072 CZK; it names no migration of existing records, so it is not restated
+    as a price receipt for this job and stays public money nearby.'
   date: '2026-07-30'
   signal: ted-529246-2026
 - type: tender
@@ -247,10 +262,13 @@ sources:
     the same ČAS page also carries a stale section giving 1 January 2026 — an internal
     inconsistency on the issuing agency''s own page. The 2027 date is the one tied to the
     transitional provision and the one every Czech source in the 2026-08-25 scan reports.
-    Deadline sub-score unchanged at 2, under 18 months either way, so urgency stays 3.'
+    Deadline sub-score unchanged at 2, under 18 months either way, so urgency stays 3.
+    Rescored 2026-09-19: the deadline sub-score and freshness are retired. On the 2026-09-19
+    ladder this is REAL (Act 499/2004 and decree 259/2012, binding the public body), CLOSE (1 Jan
+    2027) and has TEETH (the fine up to 200,000 CZK above): rung 3.'
   date: '2027-01-01'
 created: '2026-08-13'
-updated: '2026-09-02'
+updated: '2026-09-19'
 ---
 
 Every Czech public body must keep its official records in state-certified software from 1 January 2027 [S9].
@@ -290,7 +308,7 @@ A health insurer published its tender twice [S2]. A notice published again shows
 - From 1 January 2027 a public body must run its records in a certified system, and one that does not risks the fine [S9].
 - The agency that issues the certificates gives the 1 January 2027 date, citing the transition rule in decree No. 259/2012 [S9]. An older section of the same page still gives 1 January 2026; the 2027 date is the one tied to the rule [S9].
 
-Who pays: Public bodies pay now: this summer they tendered about €17M for records systems, and one ministry bought years of support [S2,S4].
+Who pays: Public bodies pay for records systems and support, about €17M tendered this summer, but they buy the software, not a move of old records [S2,S6].
 
 - Czech State Forests awarded about €1.1M for an electronic records system [S6].
 - Ostrava University awarded about €408k for one, with service support [S5].
@@ -301,7 +319,8 @@ The €17M is about 28 procurement notices from about 19 public buyers between J
 - The state drug agency ran an open competition for a records system worth about €1.4M [S2].
 - Prague awarded about €3.3M for development of one certified system, including modules and training, its third records award in the window [S3].
 - Prague also awarded about €275k for development of another certified system, under a framework [S7].
-- The Interior Ministry's contract runs from 2025 to 2028 and buys support rather than a licence [S4]. So a body pays first to move onto a certified system, then again each year for support [S4].
+- The university's and the state forests' notices buy the supply and implementation of a new records system; neither names moving the old records into it [S5,S6].
+- The Interior Ministry's contract runs from 2025 to 2028 and buys support rather than a licence [S4]. So a body pays first for a certified system, then again each year for support [S4].
 
 A rough estimate: if ten weeks' €17M held all year, visible spending would be about €90M a year [S2]. Smaller purchases below the EU tender threshold are not in that count.
 
@@ -314,10 +333,10 @@ Its funding and growth are in its row above. It shows a national certificate can
 ## First moves
 
 1. Call the IT heads of the public bodies that published their records-system tender more than once, and ask why it had to run again. They are named under [Why now](#why-now). A body that is tendering again still has its budget and its deadline ahead of it. Listen to what went wrong with the last attempt, then offer to take the move to a certified system off their hands.
-2. Build a migration service that moves a public body's records, every file and its history, off an uncertified system and onto a certified one. About a dozen Czech records systems still lack the certificate, as [Competition](#competition) shows, and a body running one has to move before the date under [Why now](#why-now), unless its supplier is certified first. The certified vendors already sell the software, so sell the move, not another records system.
+2. Build a migration service that moves a public body's records, every file and its history, off an uncertified system and onto a certified one. About a dozen Czech records systems still lack the certificate, as [Market gap](#competition) shows, and a body running one has to move before the date under [Why now](#why-now), unless its supplier is certified first. The certified vendors already sell the software, so sell the move, not another records system.
 3. Open every conversation with the date and the fine, because both come straight from the law. They are under [Why now](#why-now). A body that is not ready does not need to be persuaded that it has a problem, only shown how the move gets done in time.
-4. Offer the same migration work to the records-software vendors that do not hold a certificate yet. A certificate runs for two years and covers one version of one product, so even the certified vendors renew on a clock, and the uncertified ones must win a certificate or lose their public customers; see [Competition](#competition). Either way, their customers' records have to end up in a certified system.
-5. Don't compete on the price of the software, because the smallest towns can already get a records system free. That free system has the Interior Ministry behind it; see [Competition](#competition). Sell the move and the help with the certificate, not the licence.
+4. Offer the same migration work to the records-software vendors that do not hold a certificate yet. A certificate runs for two years and covers one version of one product, so even the certified vendors renew on a clock, and the uncertified ones must win a certificate or lose their public customers; see [Market gap](#competition). Either way, their customers' records have to end up in a certified system.
+5. Don't compete on the price of the software, because the smallest towns can already get a records system free. That free system has the Interior Ministry behind it; see [Market gap](#competition). Sell the move and the help with the certificate, not the licence.
 
 ## Revisions
 
@@ -343,3 +362,5 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` telling the situation, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Czech public bodies must replace their records systems by the end of 2026". Previous solution, verbatim: "A migration service that moves a ministry, hospital or town hall off a records system without the state certificate onto a certified one before 1 January 2027, records and metadata intact." No brief or good_for existed before. Checked against the sources while writing. The title's "by the end of 2026" became "until January", counted from today: the obligation bites from 1 January 2027 [S9], a little over three months out. The old title also said bodies "must replace their records systems", which overstates it: a body already on one of the certified products does not have to replace anything, so the new title says they must move their records onto certified software. The fine of up to 200,000 CZK falls on the public body that is not compliant, which is who the brief names [S9]. The tender wave is stated as two facts side by side, 19 public bodies tendering for records software worth about €17M between June and August 2026 [S2], and not as caused by the deadline; the dek's "they are failing to close" was not carried over, because a re-published notice [S2] shows a re-run and not why. The certified field is held by four established Czech vendors (gap 0, status watching); the brief does not name them and the solution sells the move rather than another system. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Czech public bodies have until January to move their records onto state-certified software" After: "Czech public bodies must keep records in state-certified software from January". Brief before: "From 1 January 2027, Czech ministries, hospitals, universities and other public bodies must keep official records in state-certified software or risk fines up to 200,000 CZK [S9]. This summer 19 of them tendered for records software worth about €17M [S2]." After: "Ministries, hospitals and universities that miss the date risk a fine [S9]. This summer 19 public bodies tendered for records software [S2]." Solution before: "Build a migration service that moves a public body's records from uncertified software into a certified system before January, every file and its history intact." After: "Build a migration service that moves a public body's records into certified software, every file and its history intact." Good for before: "Someone who can move data between office systems and sell through public tenders." After: "Someone who can migrate office data and sell through public tenders." The 1 January 2027 date moved to the headline as "from January" [S9]; the 200,000 CZK fine and the €17M were cut to keep one number, the 19 buyers [S2], who are named "public bodies" because not all are ministries, hospitals or universities. The tenders still sit beside the deadline, not as caused by it. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed.
 
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, each first list carries its three most important items, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the 1 January 2027 duty and explains the records service, the archives act, who counts as a public-law originator and what the certificate is [S1,S8,S9]. Competition opens on the four certified vendors and the free system for the smallest towns, and describes them without naming them: their names, certificate numbers, dates and buyers stay in their `locals[]` rows; the three uncertified systems that are not on the ledger (Munis, VERA Radnice, KEO4) are still named [S8]. Why now now opens on the pain, the fine and the re-published tenders, with the law dates below as plain bullets; the 200,000 CZK fine, which lived only in move 3, now has its home there [S9]. Willing to pay opens on what public bodies spend now and lists every award on file, adding the state drug agency's open competition [S2] and Prague's two development awards [S3,S7], which the body used to mention only as "winning the wave". Validated abroad became one answer sentence; the Norwegian company's founding year, funding and growth stay in its `comps[]` row. The moves lost every marker, figure and company name for links to the sections holding the evidence; move 1 now contacts the bodies whose tenders ran again instead of selling to them. `entry.why` was rewritten as "Easier: … Harder: …" and names the same gates (public buyer, the state certificate, money before revenue). Corrected against the sources rather than against the old sentences: "they are failing to close" and "a body on its fourth publication has … no bid" became "published its tender four times": a re-published notice shows the tender ran again, not why, and no source counts bids [S2]; "awards run from ~€408k to ~€1.1M" ignored Prague's ~€3.3M and ~€275k awards on file, so each award is now listed on its own [S3,S5,S6,S7]; the claim that one certificate covers one product version was cited to [S1], whose note does not say it, and is now cited to [S8], which does; "attestation this strict is otherwise a Czech construction" was cited to [S1], which covers only Czech law, so it now reads "no second country with a records certificate this strict has been found"; the Norwegian company's facts carried [S1] although no source on file backs them, so the body drops them for its `comps[]` row, whose traction line keeps its attribution, and "Oslo" is not repeated, since neither that row nor the company's own site (read 2026-09-18) states the city; and "GINIS and e-spis are winning the wave" became what the sources show, Prague buying development on both [S3,S7]. Flagged as inference: that a body on an uncertified system must move unless its supplier is certified first joins the duty [S9] to the list of certified products [S8]; "the certificate is scarce, not the software" is our reading of four certified products against about a dozen uncertified ones [S8]; that a body pays each year for support rests on the ministry's multi-year support contract [S4]; the roughly €90M a year is our arithmetic on ten weeks of tenders [S2]; and that the Norwegian certificate "can become the thing a seller builds on" is our reading of the company's growth on its `comps[]` row. Added from sources already on file: the health insurer's two publications [S2], the stale 1 January 2026 date on the agency's own page [S9], and the certificates being published by the Czech Agency for Standardization [S8]. No process block was added: this is a new duty with no documented step-by-step workflow in the sources. No score, status, source, `note:`, `sources[]` order, title, brief, solution, good_for or `entry` gate value changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Tagging pass first: every source on file was read for someone paying for this job, moving a public body's records, every file and its history, into certified software, and none is. The two awards the worksheet singled out were read at their own TED notices on this date. Ostrava University's buys the supply and implementation of a certified records system with support, training, development and exit services [S5]; the state forests' buys the supply and implementation of a records system tied into its other systems, awarded to a certified vendor at 27,771,072 CZK [S6]. Neither names moving the old records, so by the owner's rule, it counts only if it buys this job, neither is restated as a price. The rest buy the software, not the move: the drug agency's open competition [S2], Prague's two development awards [S3,S7] and the Interior Ministry's support contract [S4]. All six stay public money nearby. `scores.money` 2 → 0: no price receipt for the migration is on file, and public money nearby earns no point on its own. `scores.urgency` stays 3, now on the new ladder: the duty to keep records in a certified system from 1 January 2027 is enacted and binds the public body, it is 3.5 months out, and a fine of up to 200,000 CZK is named [S9]. `score` 7 → 5, FAIR unchanged. The notes on S1, S2 and S9 named retired rungs ("deadline sub-score 2", "open tender ≥5M CZK: money 2") and gained a dated rescore line, and S5 and S6 record the scope read; every original note is left as written. Three `[Competition](#competition)` links now read `[Market gap](#competition)`. Prose re-read against the new numbers. Willing to pay's answer was "Public bodies pay now: this summer they tendered about €17M for records systems, and one ministry bought years of support [S2,S4]." and now reads "Public bodies pay for records systems and support, about €17M tendered this summer, but they buy the software, not a move of old records [S2,S6]."; a detail bullet says what the two award notices buy [S5,S6]; and "So a body pays first to move onto a certified system" became "pays first for a certified system", since no source shows anyone paying for the move [S4]. Why now already leads on the 1 January 2027 date and the fine [S9] and stands. The `price_search:` line stays: a district town's migration cost is still the receipt to look for. No other score, status, source order, marker or headline field changed.

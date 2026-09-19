@@ -8,11 +8,11 @@ good_for: 'Accountants who like software, or engineers with an accountant co-fou
 draft_law: 'New Czech accounting law, still before parliament [S3]'
 category: b2b
 geo: CZ-national
-score: 4
+score: 3
 scores:
   proof: 1
-  money: 0
-  urgency: 3
+  money: 1
+  urgency: 1
   demand: 0
   gap: 0
 status: watching
@@ -167,7 +167,10 @@ sources:
   note: 'reg-accounting-act-cz: nový zákon o účetnictví submitted to the Chamber 12 Dec 2025,
     planned effectiveness 1 Jan 2028 (12-month vacatio legis; NOT yet enacted — date can slip).
     IFRS-aligned concepts force rewrites across the Pohoda/Money/ABRA/Helios ecosystem and
-    retraining for every accountant. Deadline 1 (>18mo, pending).'
+    retraining for every accountant. Deadline 1 (>18mo, pending).
+    Rescored 2026-09-19: the deadline sub-score is retired. On the 2026-09-19 ladder this bill
+    fails REAL (not enacted, and the record carries draft_law:), so it backs urgency 1 at most.
+    1 January 2028 is inside 18 months of 2026-09-19, so the ">18mo" above is out of date.'
   date: '2028-01-01'
   signal: reg-accounting-act-cz
 - type: arbitrage
@@ -202,7 +205,11 @@ sources:
     CZ employer files a single monthly electronic report to ČSSZ from 1 Apr 2026, replacing
     up to 25 forms; Jan–Mar 2026 filed retroactively. In force with a recurring monthly clock:
     a live forcing function on exactly the payroll/accounting capacity this record is about
-    — deadline sub-score 2, urgency 2→3.'
+    — deadline sub-score 2, urgency 2→3.
+    Rescored 2026-09-19: the deadline sub-score and the freshness point are retired. On the
+    2026-09-19 ladder this act is REAL (enacted, binds every employer, so the small-firm buyer)
+    and CLOSE (in force 2026-04-01, under 12 months before updated), with no sanction on file:
+    rung 2 on its own. The record carries draft_law:, so URGENCY_DRAFT holds urgency at 1.'
   date: '2026-04-01'
   signal: reg-cz-jmhz
 - type: subsidy
@@ -283,8 +290,12 @@ sources:
     employee per month. "From" is a lower bound and why says so; the seat is the client firm.
     dims omitted: backs no score.
     Verified 2026-09-04: uctarna.ai still prints od 5 000 Kč měsíčně for účetnictví a DPH
-    and 300 Kč měsíčně za zaměstnance for mzdy.'
+    and 300 Kč měsíčně za zaměstnance for mzdy.
+    Rescored 2026-09-19: now tagged dims: [money]. It prices this job, bookkeeping done by
+    software and checked by licensed accountants, sold to a small firm: an ASKING receipt
+    (list-price), so money 1.'
   date: '2026-08-20'
+  dims: [money]
   payer: 'A small Czech firm buying outsourced bookkeeping'
   amount_czk: 5000
   unit: per-seat-month
@@ -329,11 +340,13 @@ sources:
     plan item only, not yet a bill; date at risk. Who must act, per the signal: employers and
     payroll bureaus, the self-employed, tax advisers, health insurers, ČSSZ and the Financial
     Administration. Distinct from S6 (one monthly report to one agency, in force). Deadline
-    already 2 on S6, so it moves no score; urgency 3 unchanged.'
+    already 2 on S6, so it moves no score; urgency 3 unchanged.
+    Rescored 2026-09-19: the deadline sub-score is retired. A plan item with no bill fails REAL,
+    so on the 2026-09-19 ladder it backs urgency 1 at most; urgency is 1.'
   date: '2028-01-01'
   signal: reg-jednotne-inkaso-samovymereni-2028
 created: '2026-08-13'
-updated: '2026-09-18'
+updated: '2026-09-19'
 ---
 
 A new Czech accounting law, planned for 2028, would force every accountant to retrain and the main bookkeeping programs to be rewritten [S3].
@@ -342,7 +355,7 @@ A new Czech accounting law, planned for 2028, would force every accountant to re
 - Employers now file one monthly payroll report instead of up to 25 forms [S6].
 - Czech firms already sell bookkeeping done by software and checked by licensed accountants [S9].
 
-The new law is the Accounting Act. It moves Czech rules closer to IFRS (the international accounting standards) and lets more firms use them [S3]. It would force rewrites of the programs Czech firms keep their books on: the two established ones under [Competition](#competition), and ABRA and Helios (two more Czech business programs) [S3].
+The new law is the Accounting Act. It moves Czech rules closer to IFRS (the international accounting standards) and lets more firms use them [S3]. It would force rewrites of the programs Czech firms keep their books on: the two established ones under [Market gap](#competition), and ABRA and Helios (two more Czech business programs) [S3].
 
 No Czech count of an accountant shortage has been found [S9]. The nearest figure counts 540 office, clerical and finance-support vacancies, 791 places at 416 employers, in August 2026, and those are not accountants [S10]. So the case for demand rests on Germany, where the same kind of firm sells against a shortage of tax advisers [S1].
 
@@ -401,14 +414,14 @@ A Berlin firm of the same kind, started in 2024, raised an €18M Series A on 16
 
 A Swedish company and a British one, both started in 2024, sell AI tools to accounting firms rather than keeping books themselves [S5]. Billow AI Labs came out of Y Combinator in summer 2026, pitching an AI accounting firm to replace the Big Four, the four largest audit firms [S5].
 
-None of them has traded for three years, so abroad the market is still being proven, which makes it a fair moment to join [S1,S5]. At home the seat is already held by firms that have sold for a decade or more; see [Competition](#competition).
+None of them has traded for three years, so abroad the market is still being proven, which makes it a fair moment to join [S1,S5]. At home the seat is already held by firms that have sold for a decade or more; see [Market gap](#competition).
 
 ## First moves
 
 1. Call a handful of payroll bureaus and small accounting firms, and ask what filing the new monthly employer report costs them. Every Czech employer now files this report each month, as [Why now](#why-now) explains, and payroll offices had to rework their software for it. Ask each bureau how long one filing takes and what it costs, and write the answers down: that is the demand figure nobody has, since no Czech count of the shortage has been found, as [The opportunity](#opportunity) says. Ask the chamber of tax advisers, the Komora daňových poradců, for its own statement on the shortage too.
 2. Automate the monthly employer report from start to finish for one payroll bureau, before touching the rest of the bookkeeping. It is the one clock running now, while the new accounting law is still only planned; see [Why now](#why-now). The report replaced a stack of separate forms, so a bureau feels the saving every month, and a working report gives you a reference to show the next bureau.
-3. Hire one licensed Czech accountant as the founding professional, to check what the software posts. Abroad, one professional serves many clients this way, as [Validated abroad](#validated-abroad) shows, so the first hire buys reach rather than headcount. The Czech firms already selling this also put licensed accountants over their software; see [Competition](#competition).
-4. Offer small firms a monthly bookkeeping service that competes with the established sellers on price, a niche, or the switch to the new law. Czech firms already pay monthly fees for this, as [Willing to pay](#willing-to-pay) shows, and established sellers hold the field, so plan to take clients from them rather than to fill an empty space; see [Competition](#competition). Remember that the switch to the new law is still only planned and can slip.
+3. Hire one licensed Czech accountant as the founding professional, to check what the software posts. Abroad, one professional serves many clients this way, as [Validated abroad](#validated-abroad) shows, so the first hire buys reach rather than headcount. The Czech firms already selling this also put licensed accountants over their software; see [Market gap](#competition).
+4. Offer small firms a monthly bookkeeping service that competes with the established sellers on price, a niche, or the switch to the new law. Czech firms already pay monthly fees for this, as [Willing to pay](#willing-to-pay) shows, and established sellers hold the field, so plan to take clients from them rather than to fill an empty space; see [Market gap](#competition). Remember that the switch to the new law is still only planned and can slip.
 5. Let public money pay part of the build, through the state's innovation vouchers or its knowledge-transfer grant. Both help a small firm bring in research know-how, as [Willing to pay](#willing-to-pay) explains. The grant closes very soon and the vouchers stay open longer; both dates are under [Why now](#why-now).
 
 ## Revisions
@@ -429,3 +442,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewrit
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as three lines under the headline: a `brief:` on who is stuck and what forces it now, the `solution:` as a call to action starting "Build", and a new `good_for:` line. Previous title, verbatim: "Czech accountants are scarce, and the rules change in 2028". Previous solution, verbatim: "An accounting firm run as an AI document pipeline with licensed accountants on top, starting with the single monthly payroll report every Czech employer has had to file since April 2026." There was no previous brief or good_for. Checked against the sources before writing, and two claims in the old headline did not survive. "Czech accountants are scarce" is gone: this record's own body says no Czech figure for the shortage exists, and the one hiring receipt on file counts administrative and clerical vacancies, not accountants [S10]. "The rules change in 2028" became "a new accounting law is planned for 2028", because the Act is not yet passed and its date can slip [S3]. The headline now leads with the one clock actually running, the monthly employer report [S6]. "Payroll offices had to rework their software" is the report signal's own finding that every payroll system and outside payroll bureau had to retool in 2026 [S6]. "As companies already do in Germany" rests on Skalar and Finto, both young [S1,S4]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Every Czech employer now files a payroll report each month, and a new accounting law is planned for 2028" After: "Czech employers now report payroll monthly, with a new accounting law planned for 2028". Brief before: "Since April 2026 the monthly report has replaced up to 25 forms, and payroll offices had to rework their software to file it [S6]. The 2028 law, not yet passed, would change bookkeeping software again and retrain every accountant [S3]." After: "The new monthly report replaced up to 25 forms, and payroll offices had to rework their software [S6]. A planned law would change bookkeeping software again and retrain every accountant [S3]." Solution before: "Build an accounting firm where software reads client documents and licensed accountants check the work, starting with the monthly payroll report, as companies already do in Germany." After: "Build an accounting firm where software reads client documents and licensed accountants check the work, starting with payroll." "Since April 2026" left the brief to keep one number, the 25 forms [S6]; the law stays "planned" and "would" because it is not passed [S3]. "As companies already do in Germany" was cut for length. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed. Same date, pain-point pass: title "Czech employers now report payroll monthly, with a new accounting law planned for 2028" → "Every Czech accountant would have to retrain under a new law planned for 2028"; brief "The new monthly report replaced up to 25 forms, and payroll offices had to rework their software [S6]. A planned law would change bookkeeping software again and retrain every accountant [S3]." → "Payroll offices already had to rework their software this year for a new monthly report [S6]. The planned law would also change the software firms keep their books on [S3].". Why: the old headline stated a new filing rhythm and a planned law, with no one hurting; a report that replaces 25 forms can even read as relief. The new pain is the work the rules put on accountants: retraining for every accountant under the planned Accounting Act [S3], after payroll offices already reworked their software for the monthly report [S6]. "Would" and "planned" stay because the act is not passed and its date can slip [S3]. The brief was reordered to back the new headline; "up to 25 forms" was cut, so it carries no number, and no claim was added. No score, status, source, note or body sentence changed. Same date, draft law: added `draft_law:` for the "Draft law" badge. The headline's pain — every accountant retraining and the bookkeeping software rewritten — comes from the new Accounting Act, sent to parliament in December 2025 and not enacted [S3]; the monthly employer report is in force [S6] but is the lesser clock, and the record states no sourced shortage figure of its own. Status re-checked on 2026-09-16: the finance ministry reports the first reading on 12 March 2026, and no later stage was found (mf.gov.cz press release, 2026). No other field changed.
 
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the planned Accounting Act and holds the monthly employer report, the Czech sellers already trading and the missing shortage figure [S3,S6,S9,S10]. Why now opens on the payroll offices' new report and the retraining the law would bring, with the law, report and grant dates below as plain bullets [S3,S6,S7,S8]. Willing to pay now answers yes, from the Czech sellers' own client counts, and holds the public money that sat in move 5 [S7,S8,S9]. Competition describes the Czech sellers by what they sell and took the "displace, not fill a void" point from move 6 [S2,S3,S9]. The German funding moved from Why now to Validated abroad [S1,S4]. Every `comps[]` and `locals[]` name left the body and the moves; Billow AI Labs and ÚOL, which are not on a ledger, stay named. First moves went from six to five, with no markers or figures: move 4 (pre-sell, and ask the chamber of tax advisers) and move 6 (displace) were folded into moves 1 and 4, and move 5 lost its two links to the private sources pages but keeps both grants. `entry.why` became "Easier: … Harder: …" with the same gates. Detail added from sources already on file, none of it new evidence: the retroactive January–March filings [S6], the Act's submission date of 12 December 2025 [S3], the August 2026 vacancy count [S10], Germany's tax-adviser shortage, its 2027 e-invoicing duty and the EU digital-VAT plan [S1,S4], and Finto's backers [S4]. S10 gained a name, gist and why, and four source `why` lines were cleaned: S3 lost "ecosystem" and glosses IFRS, S6 names the social-security administration and drops "the payroll capacity that is already short", which no source supports, and S7 and S8 say small firms instead of SMEs. Corrected against the sources rather than against the old sentences: "Czech accountants are scarce" and "the same scarcity is here" are gone from the body, as they left the headline on 2026-09-16, because no Czech count of the shortage was found [S9] and the one hiring figure counts clerical jobs [S10]; "functional-currency accounting" is gone, because neither the [S3] note nor the EY article it links mentions it (the article, read 2026-09-18, speaks of widening IFRS use and bringing Czech practice closer to IFRS); Finto's round now cites its own source, about €2.9M [S4], where the body had cited Skalar's source [S1] for "$3.4M", which stays in Finto's ledger row; the Swedish and British companies are now said to sell AI tools to accounting firms, as their ledger rows show, rather than to be AI-first accounting firms [S5]; Combinely's profitability left the body because no source note carries it, and it stays in its ledger row; "the software vendors will ship compliance updates" became "will have to rewrite them", which is what [S3] says; and "small firms that cannot find an accountant" became "small firms", since no source shows they cannot find one. Flagged as inference: that the 2028 switch could loosen clients' ties to their accountants and accountants' ties to their software [S3]; that larger firms could follow if the law passes [S3]; and that the two ways to charge are service fees or switch-over tools, which is our reading, not a source's. No `process` block was added: no source on file says who does which bookkeeping or payroll step today, only that every employer files the report [S6] and that Czech sellers put accountants over software [S9]. No score, status, entry gate value, source, `note:`, `sources[]` order, title, brief, solution, good_for or draft_law changed. Same date, later pass, merged here: evidence added from the monthly scans. Integral, a Berlin AI-first accounting firm, raised an €18M Series A on 16 September 2026 and joins comps[] [S12]; it was founded in 2024, so it is early and proof stays 1. The same check named Adconta, a Zlín digital accounting office; its operator dates from January 2023 in ARES and its site names clients, so it joins locals[] as direct and established. Gap was already 0 and does not move. UcetniAi.cz was not ledgered: its domain served only a registrar placeholder. The finance ministry's planned 2028 merger of income-tax and contribution filing was added to the Why now dates [S13]; urgency was already 3. No score or status changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Tagging pass first: every source on file was read for someone paying for this job, bookkeeping done by software and checked by licensed accountants, bought by a small firm. One source is: the Czech seller's published price, from 5,000 CZK a month plus 300 CZK per employee a month for payroll [S11], a list price, now tagged `dims: [money]`. Not counted, and why: the accounting-software vendor's two public buyers on the contracts register buy the program, not the bookkeeping, so that is adjacent spend; the other direct sellers publish no price on file [S9,S12]; and the two OP TAK programmes [S7,S8] pay small firms for knowledge services bought from research organisations, which is not this job or its cost category, so they stay public money nearby and lift nothing. `scores.money` 0 → 1: an asking price. `scores.urgency` 3 → 1: the freshness point is retired; the Accounting Act [S3] is a bill and the 2028 tax-package item [S13] is only a plan, so both fail REAL, and the record carries `draft_law:`, which holds urgency at rung 1. FLAGGED for the owner: the monthly employer report [S6] is enacted, in force since 1 April 2026 and binds every employer, with no sanction on file, which is rung 2 on its own; it stays at 1 only because of the `draft_law:` badge, and whether the badge stays is a headline call. `score` 4 → 3, FAINT unchanged. The notes on S3, S6, S11 and S13 named retired rungs (deadline sub-scores, "dims omitted") and gained a dated rescore line; their original text is left as written. Four `[Competition](#competition)` links now read `[Market gap](#competition)`. Why now and Willing to pay were re-read against the new numbers and left as written: Why now already says the law is not passed and the monthly report is the only clock running [S3,S6], and Willing to pay says small firms pay a monthly fee, which the published price and the sellers' own client counts back [S9]. No other score, status, source order, marker or headline field changed.

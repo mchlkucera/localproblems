@@ -7,11 +7,11 @@ solution: 'Build case-management software for the town offices that take on this
 good_for: 'Someone who can sell software to town halls and understands social work.'
 category: govtech
 geo: CZ-national
-score: 7
+score: 4
 scores:
   proof: 1
-  money: 2
-  urgency: 2
+  money: 1
+  urgency: 0
   demand: 2
   gap: 0
 status: watching
@@ -158,11 +158,13 @@ sources:
     after "16,05 osob", so 877 guardians and "800 935 159 Kč" in total; 2016 survey: "50 %
     oslovených obcí by možnost uzavřít veřejnoprávní smlouvu ... přivítalo"; společenství obcí
     under Act 418/2023, effective 1 January 2024, can use a shared official. Effective date
-    proposed 1 July 2027. MONEY 2 rests on the 430M CZK recurring annual payment for this exact
-    agenda, which is why dims carries money; urgency deadline 1 because the law is still a bill.'
+    proposed 1 July 2027. Rescore 2026-09-19: the 430M CZK is a lump-sum payment to towns with no
+    eligible-spend list on file, so it is public money nearby and backs no money point, and dims
+    no longer carries money; the bill only permits a hand-over and sets what the state pays, so
+    on the Why now ladder it is no deadline (rung 0).'
   date: '2027-07-01'
   signal: reg-verejne-opatrovnictvi-prenos-2027
-  dims: [urgency, money]
+  dims: [urgency]
 - type: regulation
   name: "Chamber of Deputies — bill No. 294 (civil code amendment)"
   gist: "the bill before parliament"
@@ -336,14 +338,51 @@ sources:
   why: "A Czech online register for the officials who do this work is listed from 1,470 CZK a month."
   note: 'aptien.com/cs/evidence-verejne-opatrovnictvi, read 2026-09-18: "od 1 470 Kč,-
     měsíčně"; the higher tiers are priced by number of users. The seat here is the subscribing
-    office. dims omitted: backs no score.'
+    office. Tagged dims: [money] on 2026-09-19 (rescore): a published price for this product,
+    an asking receipt.'
   date: '2026-09-18'
   payer: 'A Czech town office using an online register for this work'
   amount_czk: 1470
   unit: per-seat-month
   basis: list-price
+  dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/17954927
+  name: "Hradec Králové — an add-on for this work"
+  gist: "199,000 CZK, 2018"
+  why: "What one Czech city paid in 2018 to add a module for this work to its town-hall software."
+  note: 'Restated from the gap check (S9) on 2026-09-19, the rescore tagging pass. Registr smluv
+    17954927, "Smlouva o dílo - Rozšíření informačního systému PROXIO o PROXIO - SA (Modul
+    opatrovnictví fyzické osoby)", contract 2018/1352, signed 18 Jul 2018 (register record read
+    2026-09-19); payer Statutární město Hradec Králové (IČO 00268810), supplier MARBES CONSULTING
+    s.r.o. (IČO 25212079); 199,000 CZK excl. VAT, 240,790 CZK incl. VAT. Yearly support orders for
+    the module are attached to the same record, the latest dated 6 Oct 2021. A signed contract for
+    this job older than 24 months: an asking receipt.'
+  date: '2018-07-18'
+  payer: 'Statutární město Hradec Králové, a regional city'
+  amount_czk: 199000
+  unit: one-off
+  basis: signed-contract
+  dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/19332327
+  name: "Chrudim — more work on its add-on"
+  gist: "57,000 CZK, 2022"
+  why: "What one Czech town paid in 2022 to extend its add-on for this work, so it tracks a person's money on several accounts at once."
+  note: 'Restated from the gap check (S9) on 2026-09-19, the rescore tagging pass. Registr smluv
+    19332327, "Rozvoj modulu opatrovnictví", contract CR 010481/2022, signed 14 Jan 2022 and
+    published 9 Feb 2022 (register record read 2026-09-19; S9 says April 2022, which the record
+    does not support); payer Město Chrudim (IČO 00270211), supplier Marbes s.r.o. (IČO 29108373);
+    57,000 CZK excl. VAT, 68,970 CZK incl. VAT. Scope per S9: "evidence peněžních prostředků na
+    více účtech zároveň". Older than 24 months: an asking receipt.'
+  date: '2022-01-14'
+  payer: 'Město Chrudim, a town doing this work'
+  amount_czk: 57000
+  unit: per-project
+  basis: signed-contract
+  dims: [money]
 created: '2026-09-18'
-updated: '2026-09-18'
+updated: '2026-09-19'
 ---
 
 Small Czech villages must look after the affairs of adults a court says can't manage alone, and in many the mayor does it personally [S1,S2].
@@ -369,13 +408,13 @@ The ombudsman, the public defender of rights, surveyed 2,191 small villages and 
 
 Existing non-solutions: Two established Czech suppliers of town-hall software already sell towns an add-on for this work [S9].
 
-A third Czech seller offers an online register for the officials who do it, with no named town buying it; see [Competition](#competition) [S9]. Towns also pay lawyers for help with the work; see [Willing to pay](#willing-to-pay).
+A third Czech seller offers an online register for the officials who do it, with no named town buying it; see [Market gap](#competition) [S9]. Towns also pay lawyers for help with the work; see [Willing to pay](#willing-to-pay).
 
 - Minor-offence cases already have a way out: a village pays a bigger town to handle them under a contract between the two municipalities [S7]. Seven villages handed all their cases to one town this way in June 2024 [S7].
 - Since 2024 a formal association of municipalities in one district can share one trained official for this work [S2,S6].
 - Today it is unclear whether a village may hand this work to another town by contract, which the bill would settle [S2].
 
-Why now: Mayors lose days to court hearings and hospital calls, and a bill would let villages hand this to a bigger town from July 2027 [S1,S2].
+Why now: Mayors lose days to court hearings and hospital calls, and a bill would only let villages hand this on, not require it [S1,S2].
 
 - A mayor takes other town-hall work home after court hearings [S1].
 - Villages with a care institution can look after dozens of people [S4].
@@ -391,7 +430,7 @@ The dates behind this:
 Who pays: Towns pay, and the state gives them 430M CZK a year for this work, less than its own costing says it needs [S2].
 
 - The state pays a town about 30,500 CZK a year for each person [S6].
-- Towns buy add-ons to their office software for this work [S9].
+- Towns bought add-ons for this work in 2018 and 2022 [S9].
 - Towns hire lawyers to help; see [Willing to pay](#willing-to-pay).
 
 Regions get another 21M CZK a year on top of the 430M CZK for towns [S2]. The ministry's own costing needs 877 full-time officials at about 801M CZK a year to look after everyone properly [S2]. The bill does not change the money: its impact assessment calls it budget-neutral [S2].
@@ -402,8 +441,8 @@ It was developed with the cities of Stockholm and Västerås, carries no licence
 
 ## First moves
 
-1. Build a register for a town office that looks after people from several villages: each person's file, money, deadlines and yearly court accounts. It should keep money on several accounts per person. The bill under [Why now](#why-now) would let villages hand this work to a bigger town, so the offices that take it on will look after people from many villages at once. The modules sold today serve one town's own caseload; see [Competition](#competition). Keep the money ledger and the yearly accounts in the same file, because the court asks for both.
-2. Call the social departments of towns that already handle minor-offence cases for nearby villages, and ask whether they plan to take on this work too. They already run this kind of arrangement, as [Competition](#competition) shows, and the villages around them are the ones asking for it; see [The opportunity](#opportunity). Ask how they track each person's money and deadlines today, and what the court asks them for.
+1. Build a register for a town office that looks after people from several villages: each person's file, money, deadlines and yearly court accounts. It should keep money on several accounts per person. The bill under [Why now](#why-now) would let villages hand this work to a bigger town, so the offices that take it on will look after people from many villages at once. The modules sold today serve one town's own caseload; see [Market gap](#competition). Keep the money ledger and the yearly accounts in the same file, because the court asks for both.
+2. Call the social departments of towns that already handle minor-offence cases for nearby villages, and ask whether they plan to take on this work too. They already run this kind of arrangement, as [Market gap](#competition) shows, and the villages around them are the ones asking for it; see [The opportunity](#opportunity). Ask how they track each person's money and deadlines today, and what the court asks them for.
 3. Offer the register to associations of municipalities that already share one trained official, since they already pool this work. The state money follows each person looked after, as [Willing to pay](#willing-to-pay) shows, so price the register the same way, per person.
 
 ## Revisions
@@ -411,3 +450,5 @@ It was developed with the cities of Stockholm and Västerås, carries no licence
 2026-09-18 · record created — Minted from the ombudsman's small-municipality survey [S1] and the guardianship bill's impact assessment [S2]. Demand 2 on the survey of 2,331 municipalities, its mayors' own accounts and the association chair's statement [S1,S4]. Money 2 on the 430M CZK paid to towns every year for this exact work [S2]. Urgency 2: the bill's 1 July 2027 date is under 18 months away but it is still a bill, so the deadline scores 1, plus sources fresher than 90 days [S2,S3]. Proof 1: the one foreign comparable found, a Swedish case system, publishes no customer count, so it does not pass the established test on file; that is a missing receipt, not a finding that it is early [S8]. Gap 0 and status watching: Marbes has sold a guardianship module to named towns since 2018, and VERA sells one too [S9]. Corrections to the signals: the ombudsman's 69% and 61% are shares of the municipalities that do each task, not of all respondents; and 82% of small municipalities no longer handle misdemeanours themselves, so this problem is written about guardianship, with misdemeanours as context [S1]. Flagged as inference: "covers roughly half" compares the 430M CZK paid with the ministry's own 801M CZK costing, both from the impact assessment [S2]. No draft-law badge: mayors carry this work today whatever happens to the bill. The web search budget ran out during this pass, so the standing positive controls were run on Seznam and missed; an in-market control passed [S9].
 
 2026-09-19 · plain language (owner-approved) — Owner: "I would appreciate not using or explaining of legal guardian (idk what it means)". The title, brief, solution, body and every rendered line now say what actually happens, and the word appears once, explained in the same sentence: "The law calls this public guardianship: when no relative or other person can look after an adult's affairs, a court hands them to a town or village [S2,S5]." Title before, verbatim: "Czech village mayors act as legal guardians for vulnerable adults, with no staff to help. A bill would let them hand it on from July 2027." After: "Czech village mayors must handle the money and hospital consents of adults who can't manage alone. A bill would let them hand this on from July 2027." Brief before: "Village mayors run the money, court hearings and hospital consents of adults a court placed in their care, often without any training for it [S1,S2]. A bill would let them pass this to a bigger town from July 2027 [S2]." After: "When a court decides an adult can't manage alone and nobody else can help, their town or village is made responsible [S2,S5]. In a village with no staff, the mayor does it, which can mean signing hospital consents at weekends [S1,S2]." Solution: "the town offices that act as guardian" became "the town offices that take on this work". Checked against the sources: the money and yearly accounts [S5], court hearings and a weekend request for consent to a medical procedure in the mayors' own words [S1], and the mayor doing the work where a village has no employee for it [S2]; "can mean" because the weekend consent is one mayor's account. "Often without any training" left the brief: it rests on the process summary, and no note on file counts training. "With no staff to help" left the title for length, and the brief carries it; the court hearings are in the body [S1]. The bill moved from the brief to the title only. Body: every "guardian", "guardianship" and "ward" became what the work is ("look after the affairs of adults a court says can't manage alone", "this work", "the officials who do it"), and "misdemeanour" became "minor offence"; the facts, figures and markers are unchanged. Two small corrections: "One mayor describes court hearings, weekend requests … and losing track" became "Mayors describe", since [S1]'s note gives these as several quotes from chapter 9 and its public line says "mayors"; and "A mayor takes her other town-hall work home" lost "her", since the quoted Czech does not show the speaker's sex [S1]. The same wording changed in the rendered lines: `entry.why`, the process summary and steps (the step actor "The guardian" became "The mayor or official"), the Provisum row, the Marbes, VERA, Aptien and ICZ evidence lines, two ledger names ("Marbes (PROXIO guardianship module)" became "Marbes (PROXIO)", "Aptien (guardianship register)" became "Aptien"), three price payers, and the public `name`, `gist` or `why` of [S1], [S2], [S3], [S4], [S5], [S6], [S7], [S8], [S9], [S10], [S11] and [S12]. No `note:` was touched; the notes keep the legal terms for anyone checking them. No fact was removed. No score, status, source order, note, marker, good_for or `entry` gate value changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 2 → 0 and Willing to pay 2 → 1, so the total goes 7 → 4 and the band falls from FAIR to FAINT. This departs from the rescore worksheet, which gave Why now 1 and a total of 5. Why now: the old 2 was deadline 1 for the bill plus the freshness point, which is retired. The bill [S2,S3] only lets a village hand this work to another town by contract, and sets what the state pays per person. The ladder scores 0 for a rule that only permits something or changes what the state pays, and the bill is not yet law either. The yearly accounts to the court [S5] have been due for years, so they are the status quo, not a trigger. No dated duty falls on the towns. Willing to pay: the old 2 rested on the 430M CZK the state pays towns each year [S2]. That is public money nearby, and with no eligible-spend list on file it cannot lift a price, so S2's dims are now [urgency]. Tagging pass, every payment on file: the Aptien list price, 1,470 CZK a seat-month [S12], is a published price for this product and is now tagged money. Two signed contracts for this job, found by the gap check [S9], are restated as receipts. The first is Hradec Králové's module, 199,000 CZK excl. VAT, signed 18 July 2018 [S13]; its yearly support orders on the same register record end in October 2021. The second is Chrudim's extension of its module, 57,000 CZK excl. VAT, signed 14 January 2022 [S14]; the gap check's "April 2022" is not what the register record says. Both are older than 24 months, so they are asking receipts. Not restated: Břeclav's law firm [S10] is paid for legal help with this work, not for the files, money and yearly accounts the product keeps, so it does not buy this job and stays untagged. Flagged as inference: the order's subject reads "Právní služby (výkon opatrovnictví)" on the register record (read 2026-09-19), its scope was not read, and legal services are taken to mean the legal acts and hearings the process keeps with a person. The ministry's costing of a full-time official [S11] prices the whole job done by a person, most of which the software does not replace, and stays untagged. Rožnov pod Radhoštěm's 465,850 CZK incl. VAT (16 November 2022, registr smluv 22384845) buys a whole social-department system with this work as one part, so that amount does not price this job. Three asking receipts and no paid one within 24 months give 1. Body: the 3 `[Competition](#competition)` links now read `[Market gap](#competition)`. Why now's opening sentence now says the bill would only let villages hand the work on, not require it; it no longer gives the July 2027 date, which stays in the dates below. Willing to pay's second item dates the software purchases on file (2018 and 2022) instead of saying towns buy; its opening sentence is unchanged. S2's note no longer claims money 2 or the deadline point, and S12's note records its tag. No other score, status, marker or `entry` gate changed.

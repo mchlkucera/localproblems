@@ -7,11 +7,11 @@ solution: 'Build compliance software for advice networks that records why an inv
 good_for: 'Someone who''d like to work with financial advisers and their compliance officers.'
 category: fintech
 geo: CZ-national
-score: 7
+score: 6
 scores:
   proof: 2
   money: 0
-  urgency: 3
+  urgency: 2
   demand: 1
   gap: 1
 status: candidate
@@ -156,14 +156,17 @@ sources:
     bound and why says so. dims omitted: backs no score.
     Verified 2026-09-04: the amlproof.ai Ceník page still states Kredity od 25 Kč za kus
     (balíček 1 000), the 25 CZK being the 1,000-credit tier, while the default 10-credit
-    package on the same page shows 90 Kč per credit.'
+    package on the same page shows 90 Kč per credit.
+    Rescored 2026-09-19: left untagged on purpose. It prices the anti-money-laundering half,
+    which the solution connects to rather than rebuilds, so it is not this job and earns no
+    Willing to pay point.'
   date: '2026-08-20'
   payer: 'A Czech investment intermediary or financial adviser'
   amount_czk: 25
   unit: per-case
   basis: list-price
 created: '2026-08-13'
-updated: '2026-09-04'
+updated: '2026-09-19'
 ---
 
 Czech investment intermediaries and their tied agents answer to the central bank for a growing pile of compliance paperwork [S1,S3].
@@ -196,15 +199,15 @@ The dates behind this:
 - From that date one rulebook sets client checks, beneficial-owner checks and internal policies across the EU, under AMLA — the EU's new anti-money-laundering authority [S2].
 - From that date crowdfunding platforms, most crypto services and luxury-goods traders come under the rules for the first time [S2].
 
-Who pays: Firms pay compliance consultants and law firms today, and a Czech platform already sells anti-money-laundering checks per client [S3,S4].
+Who pays: Firms pay compliance consultants and law firms today, but no price for the investment-advice half is on file [S3,S4].
 
 - Consultancies such as Comply and aCompliance sell compliance work as a service [S3].
 - Law firms sell the same kind of compliance work [S3].
-- A Czech platform sells anti-money-laundering checks self-serve, per client check [S4].
+- A Czech platform sells anti-money-laundering checks per client, not the advice half [S4].
 
 The likely first buyers are the advice networks and mid-sized firms, where one subscription can cover many tied agents and the firm's licence depends on its paperwork. Independent advisers would follow through the networks.
 
-The new rulebook creates demand for tools that check who really owns a client company, and for reporting built to the rulebook [S2]. No public contract or grant for this work is on file.
+The new rulebook creates demand for tools that check who really owns a client company, and for reporting built to the rulebook [S2]. No price, public contract or grant for the investment-advice half is on file.
 
 Solved elsewhere: Compliance software for wealth managers already sells abroad, one product on the platform of over 600 British advisory firms [S1].
 
@@ -214,10 +217,10 @@ The three sellers listed here are based in Britain, Denmark and Switzerland, and
 
 ## First moves
 
-1. Build software for the investment-advice half of compliance: the suitability questionnaire, notes from each advice meeting, tied-agent oversight and central-bank reports. No Czech product sells that half yet, while the anti-money-laundering half already has Czech sellers; see [Competition](#competition). Connect to their client checks, screening and reporting rather than rebuild them, so a firm keeps what it already uses. Start with the suitability questionnaire, which records why an investment suits each client.
+1. Build software for the investment-advice half of compliance: the suitability questionnaire, notes from each advice meeting, tied-agent oversight and central-bank reports. No Czech product sells that half yet, while the anti-money-laundering half already has Czech sellers; see [Market gap](#competition). Connect to their client checks, screening and reporting rather than rebuild them, so a firm keeps what it already uses. Start with the suitability questionnaire, which records why an investment suits each client.
 2. Contact the compliance officers of the big advice networks, such as Broker Consulting and Partners, and show them the suitability tool. One network's compliance officer can put all its tied agents on one subscription, where an independent adviser buys only for itself; see [Willing to pay](#willing-to-pay). That is how the London start-up sells in Britain: the firm buys, and its advisers use it; see [Validated abroad](#validated-abroad).
 3. Open each conversation with the date the EU anti-money-laundering rulebook applies, and ask the firm what it plans to do before then. Every covered firm has to rewrite its client checks and internal policies by that date; see [Why now](#why-now). Today the answer is a consultant and a Word template, so offer the software that replaces both.
-4. Watch the one broker network that runs this paperwork on its own platform, because if it starts selling it, this opening closes. Its platform has run for years inside that one network and is the closest thing on the market to what is missing, but no outside firm can buy it today; see [Competition](#competition).
+4. Watch the one broker network that runs this paperwork on its own platform, because if it starts selling it, this opening closes. Its platform has run for years inside that one network and is the closest thing on the market to what is missing, but no outside firm can buy it today; see [Market gap](#competition).
 
 ## Revisions
 
@@ -238,3 +241,5 @@ The three sellers listed here are based in Britain, Denmark and Switzerland, and
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` on who is stuck and what is happening, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Thousands of Czech investment intermediaries and advisors face growing ČNB/MiFID paperwork today and a directly applicable EU AML rulebook from July 2027". Previous solution, verbatim: "Compliance software for investment-advice firms covering the half nobody sells here yet: client-suitability paperwork, tied-agent oversight and the reporting the Czech central bank requires." The record carried no brief and no good_for before this pass. Every claim was checked against this record's sources first. 10 July 2027 is the application date verified on EUR-Lex, under 10 months from this pass [S2]. "Replaces much of" follows the source's own wording rather than the body's "most" [S2]. That the rulebook reaches advisers rests on today's Czech regime, under which a Czech anti-money-laundering platform sells to financial advisers and intermediaries as firms the law obliges [S4]. The old title's "thousands" of intermediaries and the "Word templates" rest only on the harvest note behind [S1], so neither is repeated. The headline's urgency is the anti-money-laundering date, while the suggested product is the suitability and reporting half no Czech product covers [S4], because the anti-money-laundering half already has a Czech entrant [S4]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: title "Czech investment advisers have under 10 months before a new EU anti-money-laundering law applies" → "A new EU anti-money-laundering law hits Czech investment advisers in under 10 months"; brief "From 10 July 2027 one EU rulebook replaces much of Czech anti-money-laundering law, so covered firms must update client checks and internal policies [S2,S4]. That comes on top of the investment-advice paperwork the central bank already requires [S1,S3]." → "From July 2027, an EU rulebook replaces much of Czech anti-money-laundering law, so firms it covers must update client checks and policies [S2,S4]. That comes on top of the central bank's paperwork [S1,S3]."; solution "Build compliance software for advice networks that records why an investment suits each client and files central-bank reports, as companies already do in Britain." → "Build compliance software for advice networks that records why an investment suits each client and files central-bank reports.". "Under 10 months" is unchanged from the old headline [S2]; "covered firms" became "firms it covers"; the exact day 10 July and "as companies already do in Britain" were cut.
 
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the central-bank paperwork, with its contents, the advice networks and the "thousands" of tied agents and intermediaries as its items, and ČNB, MiFID II, tied agent and suitability test explained in the detail [S1,S3]. Competition opens on consultants plus Czech software that covers only the anti-money-laundering half, and describes AML Proof, AML solutions, Resistant AI and Broker Trust by what each sells, leaving their names, IČOs, prices, funding and dates to their `locals[]` rows [S3,S4]; AML Basic, not on the ledger, stays named. Why now opens on the covered advisers who must redo client checks and policies before July 2027, with the under-10-months window, the growing central-bank paperwork and the consultants and Word templates as its items, and the regulation's dates below as plain bullets [S1,S2,S3]. Willing to pay answers that firms pay consultants and law firms today and a Czech platform sells checks per client, with Comply and aCompliance, not on the ledger, named there [S3,S4]; the 25 CZK price stays in its receipt [S5]. Validated abroad lost the ledger names Saturn, Muinmos and Apiax for a description of the London product [S1], with the other two left to their `comps[]` rows. The moves lost every [Sn] marker, figure and ledger name for links; move 1 now builds the investment-advice half (it was move 2), and the old "Sell to the networks" is move 2 and now contacts the networks' compliance officers. The move-only facts already had homes: the AML Proof feature list and price in its row and receipt [S4,S5], Broker Trust's platforms and March 2001 start in its row [S4], and the 10 July 2027 date under Why now [S2]. `entry.why` was rewritten as "Easier: … Harder: …" and no longer names Resistant AI, whose row carries it. S4.why no longer says "the very buyer this record names". Process block: none added. No source on file says who fills in the suitability questionnaire, oversees the tied agents or files the central-bank reports today; S3 records only that consultants and Word templates are used, so there is no documented step to draw. Corrected against the sources rather than against the old sentences: "replacing most of Czech act 253/2008" became "much of", the source's own wording, as the 2026-09-16 entry had already done for the brief [S2]; "The regulation names the product: beneficial-owner verification APIs and reporting" was wrong, since the regulation names no product and the signal behind S2 says only that it creates demand for such tooling, and the body now says that [S2]; "Comply, aCompliance and the law firms sell one-off reviews" became "services rather than a product", which is what S3 records; "They run it on Word templates and outside consultants" is now cited to S3, which records it, rather than S1 alone; "three funded firms sell this abroad, none in Central Europe" dropped "funded", because Muinmos's row says its raise is undisclosed, and now says none is BASED in Central Europe, because the same row says Muinmos sells globally; and "hundreds of tied agents" per network, in Who pays, move 1 and `entry.why`, is in no source, so each now says "many" or "all its" tied agents. Flagged as inference: that the advice networks and mid-sized firms are the likely first buyers, that a firm's licence depends on its paperwork and that independents would follow through the networks (Who pays, unsourced before and still our reading); that the British advisory firms buy the London product for their advisers, which rests on S1 counting the firms on its platform; and that "thousands" of tied agents and intermediaries rests only on the harvest note behind S1, as the 2026-09-16 entry already recorded. No score, status, source, `note:`, `sources[]` order, entry level, title, brief, solution or good_for changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 3 → 2; Willing to pay stays 0; score 7 → 6, still FAIR. Why now: the old 3 was a deadline part of 2 plus the retired freshness point. EU Regulation 2024/1624 [S2] passes REAL, as an EU regulation that applies directly and binds the firms the anti-money-laundering law covers, advisers and intermediaries among them [S4], and CLOSE, applying on 10 July 2027, inside 18 months. It fails TEETH: no source on file names a fine or other sanction on these firms for missing it. Rung 2. Carried over from the worksheet as an open judgement call, not settled here: the rule forces the anti-money-laundering half, while the solution sells the investment-advice half, so whether this deadline forces this product is a reading, not a receipt. Willing to pay, tagging pass first: every source on file was read for someone paying for this exact job, software for suitability records, tied-agent oversight and central-bank reports, or that work bought in. None names an amount. The one price on file, the Czech platform's from 25 CZK per client check [S5], prices the anti-money-laundering half, which the solution connects to rather than rebuilds, so it is not this job and stays untagged; its note gained a line saying so. The consultancies and law firms [S3] publish no price. Money stays 0. Body: the Willing to pay answer now says no price for the investment-advice half is on file [S3,S4], its third item says the platform does not sell that half [S4], and the closing line names prices beside public contracts and grants. The two links to the section now named Market gap carry that name. Same result as the worksheet.

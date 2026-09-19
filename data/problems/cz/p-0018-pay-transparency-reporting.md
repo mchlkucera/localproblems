@@ -8,11 +8,11 @@ good_for: 'Someone who knows HR and payroll and can sell to larger employers.'
 draft_law: 'Czech pay transparency law, still a draft [S1]'
 category: legal-compliance
 geo: CZ-national
-score: 6
+score: 5
 scores:
   proof: 3
-  money: 0
-  urgency: 3
+  money: 1
+  urgency: 1
   demand: 0
   gap: 0
 status: watching
@@ -88,7 +88,10 @@ sources:
   note: 'reg-pay-transparency-cz: EU Pay Transparency Directive (2023/970); CZ missed the
     7 Jun 2026 transposition deadline (infringement exposure). MPSV draft law (26 Mar 2026)
     sets effectiveness 1 Jan 2027, most obligations 1 Jan 2028, pay-gap reporting for 150+
-    employee employers with first reports due 30 Apr 2028. Deadline <18 months.'
+    employee employers with first reports due 30 Apr 2028. Deadline <18 months. Rescored
+    2026-09-19: the Czech law is still a bill (government-approved 31 Aug 2026, before
+    parliament) and the directive is untransposed, so it fails REAL and backs Why now 1, not
+    the deadline point it carried under v1.'
   date: '2027-01-01'
   signal: reg-pay-transparency-cz
 - type: arbitrage
@@ -198,7 +201,10 @@ sources:
     which read manazerodmenovani.cz: 79,000 CZK a year on a three-year fixed price, or 55,000
     CZK for benchmarking alone. Annual is stated, so the unit is per-year. Nakladatelství
     FORUM at 8,499 CZK a year sits in the same note but its own url is not on this record, so
-    it is not written as a receipt here. dims omitted: backs no score.
+    it is not written as a receipt here. dims omitted: backs no score. Tagged dims: [money] on
+    2026-09-19: an asking price for this job, since the ledger lists TREXIMA as a direct
+    seller of pay-gap analysis to these employers, even though the tool stops short of the
+    directive''s prescribed filing.
     Verified 2026-09-04: manazerodmenovani.cz still prints 79 000 Kč as the Základní roční
     cena, though the three-year fixed term and the 55,000 CZK benchmarking-only figure are
     no longer stated on the page.'
@@ -207,8 +213,9 @@ sources:
   amount_czk: 79000
   unit: per-year
   basis: list-price
+  dims: [money]
 created: '2026-08-13'
-updated: '2026-09-04'
+updated: '2026-09-19'
 ---
 
 A draft Czech law would make every employer set pay by a written system, and larger ones report their gender pay gap [S1].
@@ -239,7 +246,7 @@ The survey firm also sells job evaluation and wage benchmarks, drawn from the sa
 - Employers already run Czech payroll and personnel systems such as Vema, Pamica and OKbase; the sources say nothing about whether these analyse pay gaps [S3,S4].
 - No Czech product was found that turns a payroll export into the finished filing the EU rules prescribe: the share of women and men in each quarter of the pay scale, mean and median gaps on variable pay, and the joint assessment [S5]. Not finding one does not prove none exists [S5].
 
-Why now: Employers would have to rebuild how they set pay from January 2027, and firms with 150+ staff file a first report by April 2028 [S1].
+Why now: Employers would have to rebuild how they set pay from January 2027, and firms with 150+ staff would report by April 2028 [S1].
 
 - Personnel teams would sort every job into groups by its value [S1].
 - Lacking a written pay system could cost an employer up to CZK 1M [S1].
@@ -288,3 +295,5 @@ Solved elsewhere: Three foreign firms, in France, Iceland and the US, already se
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence and its three most important items, with the rest below as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the written pay system and the pay-gap report, with the directive, the draft's date, the job-grouping criteria, the benefits system, the past-pay ban, the reporting frequency, the joint assessment and the missing demand evidence below [S1]. Competition names no ledger company: the survey firm, the personnel-software firm and the publisher are described by what each sells, and their prices, years, funding and product names stay in their `locals[]` rows and the price receipt [S5,S7]; the free state audit tool, the installed payroll systems and the missing finished filing stay in the detail [S3,S4,S5]. Why now opens on the January 2027 and April 2028 cut-offs, then three pain items (sorting every job into groups, the fine, the months left), then what the draft adds beyond the directive and the dates as plain bullets [S1,S6]. Willing to pay says whether anyone pays: tools sell at a list price and no employer is yet shown paying; the buyers, the two ways in and the open question stay below [S1,S3,S4,S5]. Validated abroad names none of the three foreign firms; their funding, customer counts and acquisition stay in their `comps[]` rows. `entry.why` is now "Easier: … Harder: …" with the same gates (a larger-firm buyer, no licence, ordinary software, no outside money) plus the draft status and the two established sellers, whose names left it for their ledger rows. Added from S1's article, read at its URL on 2026-09-18 because its note carries only the dates: fines of up to CZK 1M and CZK 400,000, the Czech additions beyond the directive (a written pay system and a benefits system for every employer, jobs grouped by complexity, responsibility and how demanding the work is), the ban on relying on past pay, yearly and three-yearly reporting, the 2031 threshold for 100–149 staff, and the 5% joint-assessment trigger [S1]. Added from sources already on file: the second reporting change on the same payroll data [S6], Pamica beside Vema [S3], and the five consultancies [S5]. Corrected against the sources rather than the old sentences: "pay ranges in job ads" became the minimum pay, because the Czech draft asks only for the minimum pay, narrower than the directive's range [S1]; "published pay criteria" became a written pay system grouping jobs by value, which is what the draft requires [S1]; "thousands of Czech firms whose personnel departments have never run a pay-equity analysis" lost both claims, because S1 counts no employers and no source says what they have run [S1]; "a year of that work compresses into months" lost "a year", which no source sizes [S1]; "Nobody sells the finished filing" became "No Czech product was found", with the scan's own caveat [S5]; "none sells it here" was cut, because the French firm sells across Europe and no source says it skips Czechia [S2]; "Vema and OKbase are the installed payroll base" now names the three systems the sources list and says what they do not show [S3,S4]. The 2026-09-16 entry said S1 does not say which date the job-ad rule falls under; its article puts the applicant duties, the pay system and the benefits system at 1 January 2027 [S1]. Flagged, not changed: the owner-approved brief says "pay ranges in every job ad", but S1's article says the Czech draft requires only the minimum pay, so the brief needs the owner's call [S1]. Flagged as inference: "Firms that wait for the final law get only months before it starts" rests on the law still being a draft and its 1 January 2027 start [S1]; "rebuild how they set pay, not just document it" is our reading of the Czech additions [S1]; the two ways in (a standalone tool, or a payroll module) are our reading of the installed systems [S3,S4]. No `process` block added: the pay-gap report is a new duty, and no source on file describes how an employer's personnel team handles pay today. No score, status, `entry` gate value, `sources[]` order, `note:`, title, brief, solution, good_for or draft_law changed.
 
 2026-09-19 · brief corrected (owner-approved) — Brief before, verbatim: "Czechia is already late on the EU rules, and its draft goes further: pay ranges in every job ad and a first pay-gap report due April 2028 [S1]." After: "Czechia is late on the EU rules, and its draft would make every employer set pay by a written system [S1]. Applicants would learn the minimum pay, and firms with 150+ staff would report their pay gap by April 2028 [S1]." Why: [S1]'s article, re-read at its URL on this date, says the Czech draft obliges employers "to disclose only the minimum wage or salary", narrower than the directive's "initial pay level or its range", and that it is given "before employment contract negotiations begin"; it does not say the pay goes in the job ad. So "pay ranges in every job ad" became "Applicants would learn the minimum pay", the correction the 2026-09-18 entry flagged. "Goes further" was attached to the job-ad rule, which is narrower than the EU's, so the card now names what the draft does add beyond the directive instead: every employer must set pay by "a formal, documented remuneration system", from 1 January 2027 [S1]. "Already" was cut for length, and "a first pay-gap report due April 2028" became "firms with 150+ staff would report their pay gap by April 2028", so the card says who reports; the 30 April 2028 date is [S1]'s. No score, status, source, note, marker, title, solution, good_for, draft_law or body sentence changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 3 → 1, Willing to pay 0 → 1 and `score` 6 → 5; the band stays FAIR. Why now was 3 as deadline 2 plus the freshness point, which is retired. The duties are dated and close, from 1 January 2027, with first reports by 30 April 2028, but they sit in the labour ministry's bill. The government approved it on 31 August 2026 and it has not passed parliament. The EU directive behind it is untransposed [S1]. A bill fails REAL, and `draft_law:` holds the record at rung 1. The bill's fines of up to CZK 1M are not law yet. The decree change on monthly employer reporting is a different duty, tagged `dims: []` [S6]. Tagging pass for Willing to pay, every source on file that shows someone paying: TREXIMA's Manažer odměňování, 79,000 CZK a year to a Czech employer of 150 or more staff, is now tagged `dims: [money]` as an asking price [S7]. The ledger lists it as a direct seller: it sells a gender pay-gap report and pay-system analysis to these employers. It stops short of the directive's exact filing, and that is why it is an asking price for this job rather than for something adjacent. Not restated: Nakladatelství FORUM's 8,499 CZK a year sits in the [S5] note, but its own page is not on file; the Foreign Ministry's OKbase award buys support for an HR system, not pay-gap reporting [S4]; the five consultancies publish no fee [S5]; the state's Logib tool is free and paid for by no employer [S5]. No public money for these employers is on file, so there is no lift and money stops at 1, as the worksheet had it. [S1]'s and [S7]'s notes carried the old reading and now carry the correction. Why now prose re-read: the answer sentence stated the April 2028 report as fact while every other duty says "would"; "file a first report" now reads "would report", which keeps it within 25 words. Willing to pay already says Czech tools sell at a list price and no employer is yet shown paying, which is rung 1 in words. No `[Competition](#competition)` link was on this record. No other score, status, entry or body sentence changed.

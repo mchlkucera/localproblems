@@ -7,11 +7,11 @@ solution: 'Build a service that fits smart meters for small water utilities and 
 good_for: 'Someone who can run meter-fitting crews and win water utility tenders.'
 category: environment
 geo: CZ-national
-score: 3
+score: 2
 scores:
   proof: 0
   money: 2
-  urgency: 1
+  urgency: 0
   demand: 0
   gap: 0
 status: watching
@@ -90,7 +90,10 @@ sources:
   url: https://ted.europa.eu/en/notice/-/detail/430180-2026
   note: 'ted-430180-2026: Svazek vodovodů a kanalizací Ivančice — OPEN competition ~€1.2M
     (~29M CZK) for smart-metering installation on the water network (Jun–Jul 2026). Open tender
-    ≥5M CZK: money 2.'
+    ≥5M CZK: money 2.
+    Rescored 2026-09-19: "open tender ≥5M CZK: money 2" is the retired rung. On the 2026-09-19
+    ladder an open competition is public money nearby and earns no point; money 2 now rests on
+    the signed contracts restated as price receipts in S10, S11 and S12.'
   date: '2026-06-24'
   signal: ted-430180-2026
 - type: tender
@@ -172,7 +175,10 @@ sources:
     hlidac-36650670 Říčany, hlidac-36306864 and -36810238 Hlučín, hlidac-36785330 Turnov,
     ted-581645-2026 Brno Nový Lískovec, Brno-střed framework pacts hlidac-36737750 and
     -36785954) — the one-tender-at-a-time pattern this record describes, continuing. Backs
-    no score point; money already rests on the open Ivančice tender.'
+    no score point; money already rests on the open Ivančice tender.
+    Rescored 2026-09-19: money no longer rests on the Ivančice tender (the retired rung). This
+    pilot buys remote meter reading, which is this job, so it is restated as the price receipt
+    S12; this contract keeps dims [] so the one payment is counted once.'
   date: '2026-07-01'
   signal: hlidac-36402144
   dims: []
@@ -208,14 +214,53 @@ sources:
   note: 'Price receipt drawn from the two contracts already on this ledger (hlidac-39041762,
     VaK Židlochovicko, 30 Jul 2026: meter and reader supply ~4.8M CZK plus system operation
     and support ~3.6M CZK). The 8.4M total is the figure this file already states. No annual
-    term stated, so one-off. dims omitted: money already rests on the open Ivančice tender.'
+    term stated, so one-off. dims omitted: money already rests on the open Ivančice tender.
+    Rescored 2026-09-19: now tagged dims: [money]. Meters and readers plus the running of the
+    system is this job, bought by a water utility, signed within 24 months: a PAID receipt,
+    money 2. The "open Ivančice tender" reason above is the retired rung.'
   date: '2026-07-30'
+  dims: [money]
   payer: 'VaK Židlochovicko, a small Czech water utility'
   amount_czk: 8400000
   unit: one-off
   basis: signed-contract
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38292247
+  name: "VaK Kroměříž — remote meter reading, signed"
+  gist: "about 21.4M CZK, signed"
+  why: "A Czech water utility signed about 21.4M CZK, VAT included, for the supply, implementation and ongoing support of a remote water-meter reading system."
+  note: 'Price receipt restated 2026-09-19 in the rescore tagging pass from the signed contract
+    that S2''s note already cites (smlouvy.gov.cz/smlouva/38292247, ~21.4M CZK), read through its
+    signal hlidac-38292247 (registr smluv, dated 2026-06-08): Vodovody a kanalizace Kroměříž with
+    NORIA technology for supply, implementation and ongoing technical support of a district-wide
+    remote water-meter reading system, 21.4M CZK including VAT, the contract behind the TED award
+    in S2. Fitting meters and reading them remotely for a water utility is this job, signed within
+    24 months: a PAID receipt. No annual term read, so one-off.'
+  date: '2026-06-08'
+  dims: [money]
+  payer: 'Vodovody a kanalizace Kroměříž, a Czech water utility'
+  amount_czk: 21400000
+  unit: one-off
+  basis: signed-contract
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38735844
+  name: "Společná voda — Benešov remote-reading pilot"
+  gist: "about 150,000 CZK, a pilot"
+  why: "A Benešov water association signed about 150,000 CZK, VAT included, for a pilot of remote water-meter reading with 2 antennas and 112 sensors."
+  note: 'Price receipt restated 2026-09-19 in the rescore tagging pass from S8 and its signal
+    hlidac-36402144 (registr smluv, 2026-07-01): payer IČO 17408288, which S8 names as Společná
+    voda d.s.o., recipient Vodohospodářská společnost Benešov a.s., "Benešov - pilotní projekt
+    dálkových odečtů vodoměrů (2 antény + 112 čidel)", 149,669.74 CZK including VAT per the
+    registry''s calculated price, which the signal converted to the EUR 5,987 that S8 carries.
+    Remote meter reading at pilot scale is this job, signed within 24 months: a PAID receipt.'
+  date: '2026-07-01'
+  dims: [money]
+  payer: 'Společná voda, a Benešov water association'
+  amount_czk: 149670
+  unit: one-off
+  basis: signed-contract
 created: '2026-08-13'
-updated: '2026-09-04'
+updated: '2026-09-19'
 ---
 
 Czech water utilities that fit smart meters each buy them alone, one tender at a time [S5,S8].
@@ -240,22 +285,22 @@ Existing non-solutions: Five Czech firms already sell or run smart metering for 
 - A Czech meter supplier sells water-meter readout over two radio standards [S9].
 - So the service a small utility would buy is already on sale here, and not from newcomers [S6,S7].
 
-Why now: Small water utilities kept signing metering deals this summer, each buying alone and paying its own supplier [S3,S8].
+Why now: No deadline forces this purchase; small water utilities simply kept signing metering deals this summer, each buying alone [S3,S8].
 
-- A water association signed a €5,987 pilot with 112 remote-reading sensors [S8].
+- A water association signed a remote-reading pilot with 112 sensors [S8].
 - About 15 small town meter orders turned up in one August search [S8].
 - One utility signed for meters and for running them the same day [S3].
 
 The detail behind those three, and what follows a first purchase:
 
-- The pilot is Benešov's: its water association, Společná voda, signed it in July 2026, with 2 antennas to pick up the readings [S8].
+- The pilot is Benešov's: its water association, Společná voda, signed it in July 2026, with 2 antennas to pick up the readings [S8]. Its price is under [Willing to pay](#willing-to-pay).
 - The August 2026 search found meter orders and framework agreements from Říčany, Hlučín, Turnov and two Brno districts, among others [S8].
 - The same-day contracts are Židlochovicko's, signed on 30 July 2026: one for meters and readers, one for running and supporting the system; their total is under [Willing to pay](#willing-to-pay) [S3].
 - A first purchase can lead to more contracts with the same supplier. Pardubice's water company amended its software licence in June 2026, and Břeclav's amended its framework contract for readout devices and support the same month [S4,S5]. In August 2026 the town of Most added a smart-metering service from the firm already running its water system [S5].
 
 Who pays: Yes: water utilities are paying for smart metering now, for meters, software licences and the running of the system [S3,S5].
 
-- Kroměříž's water company signed about 21.4M CZK for network smart metering [S2].
+- Kroměříž's water company signed a contract for network smart metering [S2].
 - Ivančice's water association tendered about €1.2M, some 29M CZK, for smart meters [S1].
 - Bruntál's water company tendered a water data dispatch for about €0.5M [S2].
 
@@ -269,7 +314,7 @@ Each of those is one utility buying on its own [S1,S2]:
 
 Solved elsewhere: No foreign company selling this is on file, and at home, Czech firms with decades of trading already sell it [S6,S7].
 
-So there is no foreign model to copy; the Czech sellers are under [Competition](#competition).
+So there is no foreign model to copy; the Czech sellers are under [Market gap](#competition).
 
 ## Revisions
 
@@ -295,3 +340,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewrit
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` telling the situation, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Small Czech water utilities each buy smart metering alone". Previous solution, verbatim: "Remote water-meter reading run as a service for small water utilities: one supplier fits the meters and radio readers, runs the data platform and reports consumption back to the utility." No brief or good_for existed before. Checked against the sources while writing: the body's "most of them small" is not used, because the signal behind [S2] says hundreds of utilities and associations but does not say most are small, so "small" also left the title. The seven buyers in [S5] include two tenders, a licence amendment and a service add-on, so the brief says "signed or tendered" rather than "bought". The size figure is the largest SIGNED contract, Kroměříž at about 21.4M CZK [S2], not Ivančice's ~29M CZK tender estimate [S1]. No foreign comparable is on file, so the solution says "as several Czech firms already do", which is what the five established direct sellers in `locals[]` show, instead of pointing abroad. The domestic field is taken (gap 0, status watching); the headline claims no urgency because the record holds none. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Czech water utilities each buy their smart water meters on their own" After: "Czech water utilities each buy smart meters on their own". Brief before: "Czech water supply is split across hundreds of utilities, and those installing smart meters buy the meters, radio readers and software each on their own [S2]. This summer 7 signed or tendered separate deals, the largest contract about 21M CZK [S2,S5]." After: "Czechia has hundreds of water utilities, and those fitting smart meters buy the meters, radio readers and software alone [S2]. This summer 7 signed or tendered separate deals [S2,S5]." Solution before: "Build a service that fits smart meters on small water utilities' networks and reads them remotely, as several Czech firms already do." After: "Build a service that fits smart meters for small water utilities and reads them remotely, as Czech firms already do." Good for before: "Someone who can run crews installing meters and win public tenders from water utilities." After: "Someone who can run meter-fitting crews and win water utility tenders." The largest-contract figure (about 21M CZK) left the brief to keep one number, the 7 deals [S2,S5]; "signed or tendered" stays. The solution still says Czech firms already do this, because the field is taken. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed.
 
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on each utility buying alone, keeps the hundreds of utilities [S2], the 7 deals [S2,S5] and the pieces each deal covers [S3,S5], and glosses a water association. The Kroměříž, Ivančice and Bruntál deals moved to Willing to pay with their figures, including the ~21.4M CZK signed Kroměříž contract and Bruntál's ~€0.5M, both from S2's note [S1,S2]. Competition opens on the five Czech sellers and describes them by what they sell; Softlink, VODÁRENSKÁ AKCIOVÁ SPOLEČNOST, Popron Systems, SUEZ Water CZ, Severočeské vodovody a kanalizace, Techem and their products left the body, and each one's years, customer and product stay in its `locals[]` row; the S9 sweep's findings (the published service with leak detection and alerts, other water companies in Plzeň and Ostrava, a meter supplier's radio readout) are new to the body, without the names its gloss rule would flag [S9]. Why now opens on the summer's buying, with the Benešov pilot [S8], the August search [S8] and Židlochovicko's same-day contracts [S3] first; the Židlochovicko total left the body for a link to its price receipt. `entry.why` is now "Easier: … Harder: …" and names no company. S3's `why` said "this record" and now just says the thing; S9's `why` opened on how the earlier checks were run, which is our process, and said all four others "operate the same thing", while its note has one piloting and one supplying readout, so it now says each one's part. No process figure was added: the sources show what utilities buy and from whom, but no source describes how meters are read today or who reads them, so drawing the work would mean inventing it. Corrected against the sources: "most of them small" was cut, since S2's signal says hundreds but not that most are small (the brief dropped it for the same reason on 2026-09-16); "Three bought" became "bought or tendered", since Ivančice and Bruntál tendered [S1,S2]; "hardware, radio links, platform and integration" became the pieces the contracts name, meters and readers, software and running [S3,S5]; "these associations cannot staff a data platform" was cut, resting only on the harvest note behind S1 ("no in-house IT"), which no receipt backs; "each buy embeds years of dependence on whichever integrator won" had no source and became the follow-on contracts on file, the Pardubice licence amendment, the Břeclav framework amendment and the Most add-on, written as "can lead to" [S4,S5]; "Seven buyers contracted" became "signed or tendered", since two of the seven are tenders [S5]; and "one of about fifteen small municipal meter orders on file" is now "about 15 … turned up in one August search", as S8's note has it [S8]. Flagged as inference: that the utilities are public buyers, so their contracts are in the state contracts register, rests on `entry.buyer` and on S3–S5 being register entries [S3,S5]. No score, status, entry gate, source order, `note:`, title, brief, solution or good_for changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Tagging pass first: every source on file was read for someone paying for this job, smart meters fitted and read remotely for a water utility, and three are. Židlochovicko's two same-day contracts, about 8.4M CZK for meters and readers plus the running of the system, were already a price receipt and are now tagged `dims: [money]` [S10]. Two more are restated as price receipts, appended so no marker moves: Kroměříž's signed contract, about 21.4M CZK including VAT for the supply, implementation and support of a remote meter-reading system, dated 8 June 2026, which S2's note already cited by its register link [S11]; and Benešov's remote-reading pilot, 149,670 CZK including VAT, signed 1 July 2026, the payment behind S8's €5,987 [S12]. All three are signed contracts within 24 months, so each is a PAID receipt. Not restated, and why: Ivančice's competition [S1] and Bruntál's data-dispatch tender [S2] were open, not awarded; Břeclav's framework amendment, Pardubice's licence amendment and Most's added service [S4,S5] buy this job but state no amount; and the Prague water company's ~12M CZK in S3's note has no contract link on file. `scores.money` stays 2, now on paid receipts rather than on the size of an open tender. `scores.urgency` 1 → 0: the only point was freshness, which is retired, and no regulation source is on file. `score` 3 → 2, FAINT unchanged. The notes on S1, S8 and S10 named the retired money rung ("open tender ≥5M CZK: money 2", "money already rests on the open Ivančice tender") and gained a dated rescore line; their original text is left as written. S8 keeps `dims: []`, so the Benešov payment is counted once, in its receipt. One `[Competition](#competition)` link now reads `[Market gap](#competition)`. Prose re-read against the new numbers. Why now's answer was "Small water utilities kept signing metering deals this summer, each buying alone and paying its own supplier [S3,S8]." and is now "No deadline forces this purchase; small water utilities simply kept signing metering deals this summer, each buying alone [S3,S8].", so the section no longer reads as a deadline where urgency is 0; "no deadline forces this" is our reading of an empty regulation ledger, not a source's words. Two figures left the body for their new receipts, as the Židlochovicko total did on 2026-09-18: the Benešov pilot's €5,987 (Why now), which now points at Willing to pay, and Kroměříž's 21.4M CZK (Willing to pay), which its receipt now shows in that section's price table. Willing to pay's answer already says utilities are paying now [S3,S5] and stands. No other score, status, source order, marker or headline field changed.

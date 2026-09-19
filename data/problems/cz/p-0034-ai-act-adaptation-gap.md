@@ -7,11 +7,11 @@ solution: 'Build an online check that scans a small firm''s website for chatbots
 good_for: 'Someone who''d like to help small firms follow the new AI rules.'
 category: legal-compliance
 geo: CZ-national
-score: 5
+score: 4
 scores:
   proof: 1
   money: 0
-  urgency: 3
+  urgency: 2
   demand: 0
   gap: 1
 status: candidate
@@ -89,9 +89,12 @@ sources:
     2025-09-25, last modified 2026-06-26, vypořádání připomínek attached (1.06 MB) — comments
     settled, awaiting government. RIA and důvodová zpráva on the materiál page; the bill amends
     the market-surveillance act 87/2023 Sb. and establishes the supervision mechanism and a
-    notification body.'
+    notification body.
+    Corrected 2026-09-19: a bill fails REAL on the 2026-09-19 ladder, and the score rests on the
+    enacted AI Act [S3], so this draft now backs no urgency and dims is set empty.'
   date: '2025-09-25'
   signal: veklep-KORNDLSJSEUC
+  dims: []
 - type: regulation
   name: "LeitnerLaw — the adaptation act's competences and sanctions"
   gist: "the enforcers and the fines"
@@ -103,8 +106,11 @@ sources:
     conformity-assessment bodies; regulatory sandbox at the Czech Standardization Agency (ČAS).
     Sanctions mirror the AI Act (turnover-percentage or fixed, lower limit for SMEs), with a
     "genuine repentance" waiver. Expected adoption to align with 2 Aug 2026 application —
-    a date already passed at the time of this record.'
+    a date already passed at the time of this record.
+    Corrected 2026-09-19: these fines are the draft''s, not law, so they do not meet TEETH on the
+    2026-09-19 ladder, and this analysis of a bill now backs no urgency; dims is set empty.'
   date: '2026-08-25'
+  dims: []
 - type: regulation
   name: "EU AI Act — application dates after the Digital Omnibus"
   gist: "the dates already in force"
@@ -114,7 +120,11 @@ sources:
     application incl. Art 50 transparency 2 Aug 2026 (watermarking grace for existing systems
     to 2 Dec 2026); Digital Omnibus (agreed May 2026) postpones high-risk obligations to
     2 Dec 2027 (Annex III) and 2 Aug 2028 (Annex I). Deadline sub-score 2: the transparency
-    tier is in force now, <18 months trivially.'
+    tier is in force now, <18 months trivially.
+    Corrected 2026-09-19: the deadline sub-score is retired. On the 2026-09-19 ladder Art 50 is
+    REAL (an EU regulation, binding as published, with duties on deployers as well as providers)
+    and CLOSE (applied 2 Aug 2026, 1.5 months before), so urgency 2. TEETH fails: for a passed
+    date it needs enforcement within 12 months, and no Czech supervisor operates yet [S4].'
   date: '2026-08-02'
   signal: reg-ai-act-milestones
 - type: regulation
@@ -187,12 +197,14 @@ sources:
     which until now rested on the VeKLEP material page [S1] and a law-firm note [S2]. Context
     receipt: it does not move urgency, which the in-force transparency tier already sets at its
     deadline ceiling [S3]. Runner-ups on the same plan and deliberately not linked: MPO-2 Data
-    Act and MPO-7 CRA, which belong to p-0021 and p-0016, both rejected records.'
+    Act and MPO-7 CRA, which belong to p-0021 and p-0016, both rejected records.
+    Corrected 2026-09-19: "its deadline ceiling" was the retired deadline sub-score; the
+    transparency tier now sets urgency at 2, as the note on S3 says.'
   date: '2026-03-23'
   signal: reg-plan2026-eu-infringement
   dims: []
 created: '2026-08-25'
-updated: '2026-09-03'
+updated: '2026-09-19'
 ---
 
 Since 2 August 2026, EU rules say a chatbot must tell people it is a machine, and AI-made content must be labelled [S3].
@@ -245,7 +257,7 @@ Who pays: No Czech firm is known to have paid for this check yet, and no Czech t
 - A small firm with a chatbot or AI-written content is caught first [S3].
 - Firms selling high-risk AI systems face later deadlines; see [Why now](#why-now) [S3].
 
-The makers of AI tools have duties of their own, such as marking what their tools produce [S3]. The sellers under [Competition](#competition) publish no count of who has bought from them, so no budget is claimed [S7].
+The makers of AI tools have duties of their own, such as marking what their tools produce [S3]. The sellers under [Market gap](#competition) publish no count of who has bought from them, so no budget is claimed [S7].
 
 Solved elsewhere: Only thinly: a Dutch platform backed by EU innovation money and a Croatian pre-seed startup, neither with public customers [S5,S6].
 
@@ -271,3 +283,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 5 `locals[].evidence` lines were rewrit
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` telling the situation, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Czech firms run live EU AI transparency duties with no national supervisor yet". Previous solution, verbatim: "A fixed-price check of every AI tool a small Czech company uses — does the chatbot say it is a machine, is the AI-made content labelled — repeated each time the rules or the regulator move." No brief or good_for existed before. Checked against the sources while writing. The date has passed and the copy says so: the transparency rules apply since 2 August 2026 [S3]. The dek's "bind every Czech firm putting AI in front of customers" was not carried over: the transparency duties are split between the makers and the users of an AI system, with exceptions, so the brief states what the rules require of a chatbot and of AI-made content rather than claiming every firm is bound [S3]. "No Czech regulator checks it yet" and "still a draft, past the EU's deadline" rest on the bill awaiting the government since June 2026 [S1], the law-firm reading of who it would appoint and what it would fine [S2] and the missed EU deadline for naming national AI authorities [S4]; they are true as of the record's last check of the bill page on 2026-08-25, and must be re-checked if the bill passes. The solution names no comparable abroad: the only one on file, Deeploy, sells a platform for high-risk AI systems, not this check [S5]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Since August, chatbots in Czechia must say they are AI. No Czech regulator checks it yet." After: "Since August, chatbots in Czechia must tell customers they are AI". Brief before: "Since 2 August 2026, EU rules say a chatbot must tell customers it is a machine and AI-made content must be labelled [S3]. The Czech law naming who checks and fines firms is still a draft, past the EU's deadline [S1,S2,S4]." After: "AI-made content must now be labelled too [S3]. Yet the Czech law naming who checks and fines firms is still a draft, past the EU's deadline [S1,S2,S4]." Solution before: "Build an online check that finds the chatbots and AI-made content on a small firm's website and shows what must be disclosed or labelled." After: "Build an online check that scans a small firm's website for chatbots and AI-made content that must be disclosed." Good for before: "Someone who'd like to help small firms use AI within the new rules." After: "Someone who'd like to help small firms follow the new AI rules." "No Czech regulator checks it yet" moved from the headline into the brief, which keeps "still a draft" [S1,S2,S4]. The passed date stays passed ("since August") [S3]. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed. Same date, pain-point pass: title "Since August, chatbots in Czechia must tell customers they are AI" → "Czech firms must now say their chatbots are AI, and a draft law sets fines". Why: the old headline stated a duty with no one hurting and nothing at stake. The new one names the firms and the risk: the Czech adaptation bill carries turnover-scaled fines on the AI Act's model [S2], and the transparency duty applies since 2 August 2026 [S3]. "A draft law" because the bill still awaits the government [S1,S4], which the unchanged brief says. No score, status, source, note or body sentence changed.
 
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on what the transparency rules require, with the draft Czech law, the missed EU deadline, the bill's origin in the industry ministry, its settled comments and the government plan's infringement flag as detail [S1,S2,S3,S4,S8]. Why now opens on the firm that can already break the rules, with the fine model, the 2 December 2026 marking deadline and the missing regulator as its three items, and the draft's four enforcers and the act's dates below as plain bullets [S2,S3,S4,S8]. Willing to pay answers that no Czech firm is known to have paid, and keeps who would buy and who is caught first [S3,S7]. Competition and Validated abroad describe each company by what it sells; every `locals[]` name and the one `comps[]` name left the body, and Trustpath, which is not on the ledger, stays named [S5,S6,S7]. `entry.why` became "Easier: … Harder: …" and no longer names a ledger company. The page items were cut to 14 words or fewer and the four Czech agency acronyms now carry their gloss after them. Detail added from sources already on file, none of it new evidence: the bill's short length and its hook into the market-surveillance law [S1,S4]; the data-protection office's areas, police, courts, elections and migration, and the lower fine ceiling for small firms [S2]; the act's 2025 dates, the 2 December 2026 grace period for marking existing tools' output, and the Digital Omnibus's May 2026 agreement [S3]; and Trustpath's product [S6]. Corrected against the sources rather than against the old sentences: "bind every Czech firm putting AI in front of customers" became what the rules require of a chatbot and of AI-made content, with the duties split between the makers and the users of AI, with exceptions, as the 2026-09-16 headline pass had already found [S3]; "Czech companies using AI, not the ones building it" now names the users as the buyers and says the makers carry duties of their own [S3]; and "firms selling systems the act calls high-risk buy readiness" became "face later deadlines", since no source on file shows anyone buying that readiness [S3]. Deeploy's platform is now said to cover high-risk systems, not the transparency check, as its source describes it [S5]. Flagged as inference: that no established seller holds the field rests on every direct seller's product being younger than three years, read from the ledger and from the duty's start date [S3,S7]; and "No Czech firm is known to have paid for this check" rests on no seller publishing a buyer count and no tender or grant being on file [S7]. Four source `why` lines were rewritten for plain words: S1 and S5 lost the MPO, RIA and EIC acronyms, S2 names the agencies in words, and S4 no longer says "the record". No `process` block was added: the problem is a new duty, and no source on file describes a workflow anyone runs today. No score, status, entry gate value, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — `scores.urgency` 3 → 2, `score` 5 → 4, band FAIR → FAINT; `scores.money` stays 0. Urgency: the old 3 was the deadline sub-score 2 plus the retired freshness point. The trigger is the AI Act's transparency article, which has applied since 2 August 2026 [S3]. It is REAL: an EU regulation binds as published, and on file the duties fall on the users of AI as well as its makers [S3]. It is also CLOSE, applying 1.5 months before this date. TEETH is not met. The fines are in the Czech draft [S1,S2], which is not law. For a passed date the ladder needs enforcement within 12 months, and no Czech supervisor operates yet [S4]. On judgement call 5 in the worksheet, the chatbot half of the duty falls on the tool's maker, but the record's own reading of [S3] is that users of AI carry duties too. So REAL holds for part of this buyer and the score is 2, not 1. An enacted Czech law with its fines, or a first fine, would restore 3. Tags fixed: the draft bill [S1] and the law firm's analysis of it [S2] backed urgency by type, and a bill fails REAL. Both now carry `dims: []`, so the Why now count shows only the instruments behind the score [S3,S4]. Tagging pass for money: no source on file shows anyone paying for this check. The three direct sellers publish no price and no buyer count [S7], and no tender or grant for it is on file. No receipt was added, and money stays 0 on the same evidence as the worksheet. The notes on S1, S2, S3 and S8, which named the deadline sub-score or its ceiling, gained dated correction lines. Prose re-read against the new numbers: Why now says a firm can already break EU rules and a Czech draft sets fines, and names no fine levied. Willing to pay says no firm is known to have paid. Neither changed. One link under Willing to pay now reads Market gap instead of Competition. No other score, status, source order or body sentence changed.

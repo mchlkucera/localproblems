@@ -13,11 +13,11 @@ price_search: 'Ask the admissions director of a private care-home chain what a f
   returns only construction and energy grants.'
 category: health
 geo: CZ-national
-score: 8
+score: 6
 scores:
   proof: 3
-  money: 1
-  urgency: 1
+  money: 0
+  urgency: 0
   demand: 2
   gap: 1
 status: candidate
@@ -196,7 +196,9 @@ sources:
   url: https://ted.europa.eu/en/notice/-/detail/754888-2025
   note: 'ted-754888-2025: Statutární město Brno, concession Kociánka, retirement home construction,
     5,171,175,000 CZK ≈ €206.8M (fixed 25 CZK/EUR conversion at ingest). Adjacent capacity spend,
-    not budget for a placement product: money held at 1, not 2.'
+    not budget for a placement product: money held at 1, not 2.
+    Corrected 2026-09-19: on the 2026-09-19 ladder public money nearby earns no point, so this
+    concession backs money 0, not 1. It builds beds and buys no placement.'
   date: '2025-11-14'
   signal: ted-754888-2025
 - type: tender
@@ -207,7 +209,8 @@ sources:
   note: 'ted-244129-2026: Městská část Praha 14, concession for construction of a home for
     seniors, 4,373,000,000 CZK ≈ €174.9M (fixed conversion). With ted-754888-2025 and the
     Liblín build-and-operate tender ted-337152-2026 (€77.8M), the state side is demonstrably
-    building beds while the family side stays unnavigated. Adjacent spend: money 1.'
+    building beds while the family side stays unnavigated. Adjacent spend: money 1.
+    Corrected 2026-09-19: adjacent spend earns no point on the 2026-09-19 ladder; money is 0.'
   date: '2026-04-10'
   signal: ted-244129-2026
 - type: subsidy
@@ -218,7 +221,9 @@ sources:
   note: 'dotace-npo-31-24-138-pobytove-sluzby: call announced 2024-11-15, applications closed
     2025-06-30, allocation 1 bn CZK (May 2026 revision), grants 5–80M CZK. Closed: evidence of
     state investment into beds, not open money for a builder — money stays 1. Component
-    allocation 9.5 bn CZK per the MPSV infrastructure page.'
+    allocation 9.5 bn CZK per the MPSV infrastructure page.
+    Corrected 2026-09-19: on the 2026-09-19 ladder a grant earns no point on its own, and a
+    closed call that funds beds cannot lift one either; money is 0.'
   date: '2024-11-15'
   signal: dotace-npo-31-24-138-pobytove-sluzby
 - type: regulation
@@ -229,9 +234,12 @@ sources:
   note: 'reg-soc-sluzby-novy-zakon-2031: legislative plan reported by NRZP ČR (informace
     č. 13-2026) from the government''s 2026 legislative intents — not enacted, dates can slip.
     Per-client funding, allowance valorization, multi-year provider financing. Dated trigger
-    >18 months out; backs the window as context, not a compliance deadline.'
+    >18 months out; backs the window as context, not a compliance deadline.
+    Corrected 2026-09-19: on the 2026-09-19 ladder a government plan with no bill is not a
+    deadline at all (rung 0), so this backs no urgency point and dims is set empty.'
   date: '2026-03-02'
   signal: reg-soc-sluzby-novy-zakon-2031
+  dims: []
 - type: gap-check
   name: "Market scan — who places a Czech family"
   gist: "the Czech placement-market sweep"
@@ -266,7 +274,8 @@ sources:
     Domov ve Věži ~€4.1M (hlidac-35081745), Kralupy design documentation ~€1.8M (hlidac-36742246),
     and South Bohemia covering Domov Třeboňsko''s ineligible costs ~€5.6M (hlidac-33836861).
     Capacity-side context: backs no score point — money already rests on the concessions
-    [S8,S9] and stays 1 (adjacent capacity spend, not placement budget).'
+    [S8,S9] and stays 1 (adjacent capacity spend, not placement budget).
+    Corrected 2026-09-19: the concessions no longer earn a point either; money is 0.'
   date: '2026-05-14'
   signal: hlidac-35713825
   dims: []
@@ -284,7 +293,7 @@ sources:
   signal: veklep-ALBSDS9BKZY8
   dims: []
 created: '2026-08-25'
-updated: '2026-09-02'
+updated: '2026-09-19'
 ---
 
 Czech families looking for a care-home bed apply to each home separately, because no shared list shows free beds [S4,S12].
@@ -346,11 +355,11 @@ In Germany a later-life care platform founded in Hamburg in 2011 draws about 10 
 
 ## First moves
 
-1. Build the list nobody has: which care homes in one region have a bed coming free, and how long each home's waiting list is. Start from the state's register of social-care providers, then phone every ordinary and dementia care home in the region and write down its queue and when beds come free. Directories list the homes but not the free beds, and only one region publishes its own vacancy list; see [Competition](#competition). That list is the product.
+1. Build the list nobody has: which care homes in one region have a bed coming free, and how long each home's waiting list is. Start from the state's register of social-care providers, then phone every ordinary and dementia care home in the region and write down its queue and when beds come free. Directories list the homes but not the free beds, and only one region publishes its own vacancy list; see [Market gap](#competition). That list is the product.
 2. Offer families in one region a flat fee to find their parent a place, file the applications and track the queues for them. Families today apply to home after home and wait, as [The opportunity](#opportunity) shows, and nobody does this for them. Open every conversation with the count of unmet care-home applications under [The opportunity](#opportunity), and say plainly that it counts applications, not people.
 3. Sign up private care homes with beds to fill, paid by a fee for each family that moves in. That is how the US service is paid, and the British one also sells homes software showing their free beds; see [Validated abroad](#validated-abroad). Whether Czech homes will pay this way is not known yet, as [Willing to pay](#willing-to-pay) says, so ask the first homes directly.
 4. Follow the public money that builds new care-home beds, because every bed it funds is a place to fill. Brno, Prague and other towns are building homes, and the last state modernisation call has closed; see [Willing to pay](#willing-to-pay). Watch for the next call and for new homes opening, and reach them before their beds are full.
-5. Move before the Czech comparison site that forwards families' inquiries to homes adds free-bed data to its listings. It is young, but it already compares more than a thousand registered homes and sells them listings; see [Competition](#competition). Adding vacancies would give it the list from the first move, so build yours first and sign the homes it lists.
+5. Move before the Czech comparison site that forwards families' inquiries to homes adds free-bed data to its listings. It is young, but it already compares more than a thousand registered homes and sells them listings; see [Market gap](#competition). Adding vacancies would give it the list from the first move, so build yours first and sign the homes it lists.
 
 ## Revisions
 
@@ -366,3 +375,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 3 `locals[].evidence` lines were rewrit
 2026-09-16 · headline copy — The headline was rewritten for a general builder as three lines under the title: a `brief:` on what is happening and why it matters now, the `solution:` as a call to action, and a new `good_for:` line. New copy, verbatim — title: "Czech families hunt home by home for a care-home bed"; brief: "Each home keeps its own waiting list, and no national list shows free beds [S12]. Czechs over 80 are projected to reach 690,000 by 2030 [S7]."; solution: "Build a placement service that phones care homes for free beds and applies for families, as companies already do abroad."; good_for: "Someone who'd like to work with care homes and families.". Previous title, verbatim: "Czech families place elderly relatives into care homes blind — every home runs its own queue, and nobody sells placement". Previous solution, verbatim: "A placement service for families: one live list of which care homes actually have a bed, applications filed on the family's behalf, paid for by the homes per move-in.". There was no previous brief or good_for. Rewritten from the agent draft, which predated the owner's framing rules, and cut to the owner's length limits. The 108,000 unmet applications at end-2024 are out of the copy: they count applications, not people, and families sit on several lists at once [S4], so the number would read as people waiting. "National" because Středočeský kraj runs a regional vacancy database and the directories on file carry no live vacancy data [S12]. 690,000 on 1 January 2030 is the statistical office's middle projection, from 466,000 in 2023 [S7]. Dropped: the old title's "nobody sells placement" (SrovnejPéči.cz and Můjdůchod.cz are early direct players [S12]); "paid per move-in", which no Czech receipt shows; the ombudsman line, which overstated [S6]. The closed 1bn CZK call and the 2031 act are not framed as upcoming. "As companies already do abroad" rests on A Place for Mom and Lottie [S1,S2]. No score, status, source, note, marker or body sentence changed. Same date, owner-approved final copy, written verbatim with only the [Sn] markers added. Title "Czech families hunt home by home for a care-home bed" became "Czech families looking for a care-home bed apply to home after home, then wait". Brief "Each home keeps its own waiting list, and no national list shows free beds [S12]. Czechs over 80 are projected to reach 690,000 by 2030 [S7]." became "Every home keeps its own waiting list, so families put their parent on list after list [S4,S12]. By 2030 Czechia will have 690,000 people over 80, nearly half more than in 2023, so even more families will be searching [S7]." Markers checked against the ledger: [S12] is the market scan finding only directories and one regional vacancy database, no shared list; [S4] is the ministry yearbook's 70,209 unmet care-home applications, which its note says are inflated by families applying to many homes at once by design. [S7] is the statistical office's middle projection, 465,991 people over 80 on 1 January 2023 and 690,376 on 1 January 2030, +48.2%, so "nearly half more" holds; it is a projection, which "will have" states more firmly than the source. "So even more families will be searching" is the owner's inference from that projection and is left as written. Solution "Build a placement service that phones care homes for free beds and applies for families, as companies already do abroad." became "Build a placement service that finds free care-home beds and applies for families, as 2 companies already do in 2 other countries." (owner: fill "do abroad" with "X companies do in Y countries"). The abroad count is taken from comps[] only: A Place for Mom (comps[0], geo US), an advisory placement service for families paid per placement [S1]; Lottie (comps[1], geo GB), a family marketplace with real-time care-home bed availability [S2]. Excluded: pflege.de (comps[2], geo DE), which this record's own [S3] note calls content-and-leads, not full placement navigation. Countries are where the two are based. good_for unchanged. No score, status, source, note or body sentence changed.
 
 2026-09-18 · body rewritten to the writing rules, process figure added — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on families applying home by home, with the unmet-application counts, their applications-not-people caveat and the ombudsman's warning as detail [S4,S6]. Competition opens on directories without free beds and describes each `locals[]` player by what it does, leaving names and ages to the rows [S12]. Why now opens on the wait and the growing over-80s, with the bed models, the projection and the two social-services bills below the first three items [S4,S5,S6,S7,S11,S14]. Willing to pay says nobody is known to pay for placement here yet, lists what buyers pay abroad and the Czech directory's listings as its items, and holds the concessions, the building wave and the closed recovery-plan call as the public money nearby [S1,S2,S8,S9,S10,S12,S13]. Validated abroad became one answer sentence and three short paragraphs, one per `comps[]` company, without their names [S1,S2,S3]. The moves lost every [Sn] marker, figure and company name for links, and the tenders-ledger link moved from move 4 to the recovery-plan call under Willing to pay. `entry.why` was rewritten as "Easier: … Harder: …" [S12]. S14.why no longer says "this record". Detail added from sources already on file, none of it new evidence: the 4,043 unmet applications to homes for people with disabilities [S4], the client and bed models to 2035 and 2050 [S5], the ombudsman's three towns and its line that legal services are short [S6], the MPs' bill and decree update [S14], the 2028 drafting date [S11], the building wave [S13], the co-investors, Lottie's 4,000 compared services and its software, and pflege.de's Hamburg base and lead-passing model [S1,S2,S3]. Corrected against the sources rather than the old sentences: "private care homes and assisted-living operators pay per qualified move-in" rested on [S1], a US company, and no Czech receipt shows it, as the 2026-09-16 headline pass already found, so Willing to pay now says nobody is known to pay here yet; "families pay a flat fee for guided placement" had no source and is now the offer in move 2 and an open question in Willing to pay; free social counselling "helps with forms" is not in [S12], which says it advises and does not place; "some families end up in the unregistered homes" went further than [S6], whose release (read 2026-09-18) warns families not to entrust relatives to them and says legal services are short, so the item now says the homes operate and the ombudsman warns families off them; the recovery-plan call "just closed" in fact closed on 30 June 2025 [S10]; the old `entry.why` said homes pay per move-in and families pay a fee, which no Czech source shows, and that both directories are under three years old, though Můjdůchod.cz publishes no start year; and the old "three markets, three sellers" now says the German platform sells leads and advice content, as its [S3] note records. Flagged as inference: "because no shared list shows free beds" in the opening sentence is the [S4] note's reading of why families apply many times; "could add free-bed data" in `entry.why` and move 5 rests on the directory already comparing the homes and forwarding inquiries [S12]; and "fifteen years in" is 2011 counted to 2026 [S3]. The new `process` block draws the family searching directories [S12], applying home by home [S4], each home keeping its own list [S4,S12] and the wait [S4,S12], with every step phrase 4–8 words; how a home picks from its list when a bed frees up is marked unknown. The coordinator may add p-0032 to `PROCESS_PHRASE_ENFORCED`. No score, status, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — `scores.money` 1 → 0, `scores.urgency` 1 → 0, `score` 8 → 6, band STRONG → FAIR. Money: the old 1 was the retired rung "a relevant tender or grant", read from the Brno and Praha 14 concessions [S8,S9]. Tagging pass: no source on file shows anyone paying for placement, by a family or by a home. The concessions, the municipal building contracts and the recovery-plan call all build or modernise beds [S8,S9,S10,S13]. They are adjacent and stay public money nearby. The Czech directory sells listings to homes [S12], but a listing is advertising, not placement, and no amount for it is on file. The Středočeský region's vacancy database is the public manual equivalent of the live list [S12]. No contract or amount for it is on file, and `price_search` says where to look. No receipt was added, and money 0 matches the worksheet. Urgency: the old 1 was the retired freshness point alone. The planned social services act [S11] is a government plan item with no bill, which scores 0 on the new ladder, so its `dims` is now empty. The MPs' bill [S14] is a draft and already carried `dims: []`. No dated duty falls on this buyer, so the score is 0; this is judgement call 7 in the worksheet, read strictly. The notes on S8, S9, S10, S11 and S13, which named retired money or deadline rungs, each gained a dated correction line. Prose re-read against the new numbers: Why now describes the wait and the growing over-80s and calls both bills not yet law; Willing to pay already says nobody is known to pay for placement here. Neither changed. Two links in moves 1 and 5 now read Market gap instead of Competition. No other score, status, source order or body sentence changed.

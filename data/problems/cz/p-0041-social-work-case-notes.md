@@ -7,11 +7,11 @@ solution: 'Build an app that records a social worker''s visit, with the client''
 good_for: 'Developers who handle sensitive data and can sell to town halls.'
 category: govtech
 geo: CZ-national
-score: 11
+score: 8
 scores:
   proof: 3
-  money: 2
-  urgency: 3
+  money: 1
+  urgency: 1
   demand: 2
   gap: 1
 status: candidate
@@ -188,9 +188,10 @@ sources:
     2026-09-18). Sociopoint Ostrava, 7 Nov 2024: "děti mladší 4 let nebudou umísťovány do
     ústavních zařízení" from 1.1.2025; "V roce 2028 se má hranice posunout ještě výše – na 7 let
     věku." MPSV''s own project statement (S7) reads the act as banning institutional placement
-    of children under 7 "s účinností od 1. 1. 2028". Deadline under 18 months from 2026-09-18:
-    urgency deadline 2. That the ban adds casework for child-protection offices is our reading
-    of S7, flagged in Revisions.'
+    of children under 7 "s účinností od 1. 1. 2028". The date is under 18 months from 2026-09-18.
+    That the ban adds casework for child-protection offices is our reading of S7, flagged in
+    Revisions; the ban binds placement, not the offices'' paperwork, so on the 2026-09-19 ladder it
+    reaches the buyer only indirectly: Why now rung 1.'
   date: '2028-01-01'
 - type: subsidy
   name: "MS2021+ — MPSV's child-protection support project"
@@ -220,7 +221,9 @@ sources:
     phones or tablets are eligible "pro pořizování snímků, obrazových a zvukových záznamů při
     výkonu činností sociální práce". p. 2: the total is set each year in the MPSV chapter of the
     state budget. Covers social work at kraje, ORP and POU, not the separate OSPOD grant.
-    Recurring annual public money that may pay for this product: money 2 with S9 and S14.'
+    Recurring annual public money that may pay for this product. Rescore 2026-09-19: public
+    money nearby, which earns no money point; it cannot lift one, since no 2026 round is on file
+    and it does not cover the child-protection offices.'
   date: '2025-01-01'
 - type: contract
   name: "Registr smluv — Kroměříž social-agenda system (1.03M CZK)"
@@ -315,12 +318,14 @@ sources:
   note: 'Manual equivalent from S5 (ceskeduchody.cz, 10 Sep 2026): the home put the annual saving
     at "1 286 pracovních hodin, tedy 561 971 Kč" after AI drafting cut the time per assessment by
     up to 75 %. So 561,971 CZK is what those hours of writing cost by hand each year, about 437
-    CZK an hour. One buyer; dims omitted, backs no score.'
+    CZK an hour. One buyer. Tagged dims: [money] on 2026-09-19 (rescore): the manual equivalent
+    of this job, an asking receipt.'
   date: '2026-09-10'
   payer: 'Domov pro seniory Burešov, a town-run care home in Zlín'
   amount_czk: 561971
   unit: per-year
   basis: manual-equivalent
+  dims: [money]
 - type: statistic
   name: "Deník veřejné správy — what child protection costs"
   gist: "about 1.5bn CZK a year"
@@ -328,11 +333,12 @@ sources:
   url: https://www.dvs.cz/clanek.asp?id=6759063
   note: 'Deník veřejné správy, M. Macela, 30 Aug 2018, fetched by the research pass 2026-09-18: "Na
     jejich činnost je ročně vynakládáno cca 1,5 mld. Kč (tj. 14,4 % celkových výdajů)." Old, but
-    the recurring annual public spend on OSPOD work; tagged money with S8 and S9.'
+    the recurring annual public spend on OSPOD work. Rescore 2026-09-19: dims emptied; a
+    statistic is neither a price for this job nor a programme that could lift one.'
   date: '2018-08-30'
-  dims: [money]
+  dims: []
 created: '2026-09-18'
-updated: '2026-09-18'
+updated: '2026-09-19'
 ---
 
 Czech social workers spend much of their day writing up visits and meetings, while child-protection offices are hundreds of workers short [S2,S3].
@@ -360,9 +366,9 @@ Existing non-solutions: One young Czech record system drafts reports from notes 
 - The young system drafts reports and client summaries from notes a worker has already typed [S12].
 - The care home in Zlín has not named who supplies its tool [S5].
 
-The sellers are listed under [Competition](#competition).
+The sellers are listed under [Market gap](#competition).
 
-Why now: Child-protection offices are short of staff, and from January 2028 they must keep children under 7 out of institutional care [S3,S6].
+Why now: Child-protection offices are short of staff, and from January 2028 no child under 7 may be placed in an institution [S3,S6].
 
 - A caseworker's hours go to the case file instead of the family [S2,S4].
 - Brno's city office lost 9 of 12 caseworkers in three years [S3].
@@ -377,13 +383,13 @@ The dates behind the new work:
 - In January 2026 the labour ministry started a 60.9M CZK EU-funded project to support child-protection workers ahead of that ban [S7].
 - In September 2026 the Zlín care home's results were reported [S5].
 
-Who pays: Town halls already pay for case-file software, and the state grant for social work covers software licences and sound recording [S8,S9].
+Who pays: No price paid for this is on file; town halls buy the case-file software it plugs into, and a grant covers software licences [S8,S9].
 
 - The grant pays up to 7,000 CZK of software per full-time worker yearly [S8].
 - Town halls signed contracts of 0.6–1.2M CZK for social-department case-file systems [S9].
 - About 1.5bn CZK a year was spent on child-protection work in 2018 [S14].
 
-The grant also pays for phones and tablets that social workers use to take photos and sound recordings on the job [S8]. Its total is set each year in the state budget [S8].
+The grant also pays for phones and tablets that social workers use to take photos and sound recordings on the job [S8]. Its total is set each year in the state budget [S8]. It covers social work at regions and town halls, not the child-protection offices, which have a grant of their own [S8].
 
 - Kroměříž, Karviná, Přerov and Uherský Brod bought such systems in 2022–2023 [S9].
 - Kroměříž also pays for support of its system several times a year [S9].
@@ -400,11 +406,13 @@ The British one records and transcribes meetings and drafts summaries, in over 2
 ## First moves
 
 1. Build a phone app that records a home visit with the family's consent and drafts the case note for the caseworker to check. The caseworker taps record at the start of the visit, and the app turns the conversation into a draft record written the way a child-protection file needs it: who was there, what was seen, what was agreed. The caseworker corrects and approves it, and nothing enters the file without that approval. A Czech care home already works this way, as [The opportunity](#opportunity) shows, so start from what it does.
-2. Visit the heads of social departments at a few town halls and ask to pilot the app with their child-protection team. Choose towns that already bought a case-file system for their social department, because they have shown they spend on this kind of software; see [Willing to pay](#willing-to-pay). Their teams are short of staff and losing people, as [Why now](#why-now) explains, so an hour saved on every visit is easy to explain. The state grant for social work can pay for the licence, which makes the first yes easier.
-3. Connect the draft to the case-file systems town halls and care homes already run, starting with the most common one. Caseworkers will not copy text from one app into another, so the approved record has to land in the file they already keep. The systems in use are listed under [Competition](#competition); none of them drafts the note today.
+2. Visit the heads of social departments at a few town halls and ask to pilot the app with their child-protection team. Choose towns that already bought a case-file system for their social department, because they have shown they spend on this kind of software; see [Willing to pay](#willing-to-pay). Their teams are short of staff and losing people, as [Why now](#why-now) explains, so an hour saved on every visit is easy to explain. The state grant for social work can pay the licence for a town's other social workers, though not for its child-protection team.
+3. Connect the draft to the case-file systems town halls and care homes already run, starting with the most common one. Caseworkers will not copy text from one app into another, so the approved record has to land in the file they already keep. The systems in use are listed under [Market gap](#competition); none of them drafts the note today.
 4. Keep the recordings and the drafts on servers in Czechia, and delete each recording once its record is approved. The files hold sensitive data about children and families, so a town hall will ask where the data lives before it asks about the price. Say it plainly in the first meeting, because it is the question that stops a pilot.
 5. Once one team uses it daily, offer the same app to care homes and other social services. Their social workers write the same kind of records, and one Czech home has already measured what it saves; see [Willing to pay](#willing-to-pay). Abroad the same pattern sells both to councils and to care homes, as [Validated abroad](#validated-abroad) shows.
 
 ## Revisions
 
 2026-09-18 · record created — Minted from the monthly broad scan's gb-beam-up signal after Czech research. Proof 3 on Beam (Britain) and voize (Germany), both established [S1,S10], with Northwoods (US) on the ledger but not counted in the solution's abroad clause because no AI drafting is stated on its pages [S11]. Money 2 on recurring public spend: the annual social-work grant that pays software licences and sound recording [S8], town halls' case-file system contracts [S9] and the 2018 figure for yearly child-protection spending [S14]. Urgency 3: the 1 January 2028 ban on placing children under 7 in institutions, under 18 months away [S6,S7], plus sources under 90 days old [S5]. Flagged as inference: that the ban adds casework for child-protection offices is our reading of the ministry's own project statement [S7]; no source counts the extra work. Demand 2 on the 2010 time study, the 2024 journal issue, the 2025 staffing report and the Zlín care home's measured saving [S2,S3,S4,S5]. Gap 1: Flins sells AI drafting of reports from typed notes and is early, so the field is contested; four adjacent record systems are recorded and move nothing [S12]. The brief's "more of their time than almost anything else" rests on the 2010 study ranking administration among the most time-consuming tasks and the 2024 journal issue [S2,S4]. The price receipt is a manual equivalent: the hours of hand-written records one care home saved, costed by the home itself [S13].
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 3 → 1 and Willing to pay 2 → 1, so the total goes 11 → 8 and the band falls from PRIME to STRONG. Why now: the old 3 was deadline 2 for the 1 January 2028 ban on placing children under 7 in institutions [S6,S7], plus the freshness point, which is retired. The ban is enacted and under 18 months away, but it binds placement, not the offices' paperwork. That it adds casework for the offices is our reading of S7, already flagged on 2026-09-18. A duty that reaches the buyer only indirectly is rung 1. Willing to pay: the old 2 rested on public money: the social-work grant [S8], town halls' contracts for case-file systems [S9] and a 2018 spending figure [S14]. None of these is a price for this job. Tagging pass: the one receipt on file for this job is its manual equivalent, what hand-written records cost the Burešov care home a year, 561,971 CZK [S13]. It is now tagged money: an asking receipt, rung 1. The case-file contracts [S9] buy the systems this app would plug into, not the drafting, and stay public money nearby. ORTEX's 121,000 CZK sale to Stříbro (2021, in the gap check [S12]) is for case records, not drafting, and is older than 24 months. The care home paid for its AI drafting tool [S5], but no amount or contract is on file. A Hlídač search on 2026-09-19 ("DIGI-PÉČE", "Domov pro seniory Burešov") found none. The lift is not on file either: the grant's rules on file are for 2025, with no 2026 round, and they cover social work at regions and town halls but not the child-protection offices [S8]. S14, a 2018 statistic tagged money, is now dims: [], since a statistic is not a programme. Notes: S6, S8 and S14 no longer name the deadline sub-score or money 2. Body: the 2 `[Competition](#competition)` links now read `[Market gap](#competition)`. Why now's opening sentence says no child under 7 may be placed in an institution from January 2028; the old "they must keep children under 7 out of institutional care" put the duty on the offices. Willing to pay now opens by saying no price paid for this is on file, and a new sentence says the grant covers social work at regions and town halls, not the child-protection offices [S8]. Move 2 no longer says the grant can pay a child-protection team's licence. No other score, status, marker or `entry` gate changed.

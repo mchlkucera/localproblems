@@ -7,11 +7,11 @@ solution: 'Build software for design offices that sends permit requests and trac
 good_for: 'Someone who knows Czech building permits and can sell to design offices.'
 category: housing
 geo: CZ-national
-score: 7
+score: 6
 scores:
   proof: 2
   money: 1
-  urgency: 1
+  urgency: 0
   demand: 2
   gap: 1
 status: candidate
@@ -228,10 +228,13 @@ sources:
     portal (portál stavebníka / DSŘ), ~€0.81M, Aug 2026 (registr smluv 39180478; 2026-08-25
     retrospective harvest). Money 0→1 on the p-0004 precedent: state spend on the system at
     the centre of the problem is a relevant public contract — adjacent spend, held below 2
-    (not an open tender a navigation vendor can win, and no recurring spend receipted).'
+    (not an open tender a navigation vendor can win, and no recurring spend receipted).
+    Rescored 2026-09-19: the "p-0004 precedent" and the rungs named above are retired. The
+    contract buys the ministry''s own portal, not permit preparation for a builder or a design
+    office, so it is not this job and backs no score: dims set to [].'
   date: '2026-08-19'
   signal: hlidac-36829114
-  dims: [money]
+  dims: []
 - type: complaint
   name: "European Commission — 2026 Country Report for Czechia"
   gist: "four packages, no faster permits"
@@ -276,12 +279,16 @@ sources:
     Verified 2026-09-04: the CESPRON price list at that url still itemises the standard
     family-house permit and totals Celková cena standardního řízení 16 000,- Kč, so the
     recorded lower bound holds; the 42,000 CZK upper end sits on the separate Průvodce
-    dřevostavbou list, which is not this url.'
+    dřevostavbou list, which is not this url.
+    Rescored 2026-09-19: tagged dims: [money], so the "dims omitted" above no longer holds. It
+    prices this job done by hand: an engineer checks the design, requests every opinion,
+    follows each up and files the permit. A published price is an asking receipt: money 1.'
   date: '2026-08-25'
   payer: 'A Czech family-house builder commissioning permit engineering'
   amount_czk: 16000
   unit: per-project
   basis: manual-equivalent
+  dims: [money]
 - type: price
   url: https://pruvodka.cz/
   name: "Průvodka — the Czech product"
@@ -295,14 +302,18 @@ sources:
     Verified 2026-09-04: pruvodka.cz now prices at 14 900 Kč za projekt and no longer
     shows the 29,900 CZK Studio tier, so the recorded 12,900 CZK is what the page said on
     2026-08-20 and the list price has since risen — pruvodka.cz has no Wayback snapshot,
-    so no archived page carries the older figure.'
+    so no archived page carries the older figure.
+    Rescored 2026-09-19: tagged dims: [money], so the "dims omitted" above no longer holds. It
+    prices this job as software sold per project: the requests sent through the state
+    e-mailbox and every answer deadline tracked. A list price is an asking receipt: money 1.'
   date: '2026-08-20'
   payer: 'A Czech designer or building owner preparing a permit'
   amount_czk: 12900
   unit: per-project
   basis: list-price
+  dims: [money]
 created: '2026-08-13'
-updated: '2026-09-04'
+updated: '2026-09-19'
 ---
 
 Czech building permits take six months to a year, and whoever prepares one must chase opinions from many offices and utilities [S5,S7].
@@ -346,7 +357,7 @@ Who pays: Builders already pay engineers by hand to chase each permit, and a Cze
 
 - Engineers publish a fixed price for the permit on one family house [S10].
 - The Czech online service charges less per project than the engineers do [S7,S10].
-- The ministry's August 2026 contract to upgrade its portal is worth about €0.8M [S11].
+- The state's August 2026 portal upgrade, about €0.8M, buys none of this job [S11].
 
 Two kinds of buyer pay today: the builder who commissions the work, and the design office that prepares it [S7].
 
@@ -364,7 +375,7 @@ Permitting rules differ from country to country, so none of these products arriv
 
 ## First moves
 
-1. Build a deadline tracker that shows an engineering office, across all its projects, which office owes an answer on which permit and by when. Every permit turns on the days each consulted office has by law to answer, and a missed deadline counts as consent; see [The opportunity](#opportunity). Show every open request on one screen, flag the ones whose time has run out, and produce the certificate that consent was given. The Czech online service already selling this prices per project, see [Competition](#competition), while an office preparing many permits a year needs one view of all of them.
+1. Build a deadline tracker that shows an engineering office, across all its projects, which office owes an answer on which permit and by when. Every permit turns on the days each consulted office has by law to answer, and a missed deadline counts as consent; see [The opportunity](#opportunity). Show every open request on one screen, flag the ones whose time has run out, and produce the certificate that consent was given. The Czech online service already selling this prices per project, see [Market gap](#competition), while an office preparing many permits a year needs one view of all of them.
 2. Contact the chamber of authorised engineers and ask to show the deadline tracker to its members. The chamber asked its own members how long a permit takes, and their answer is under [The opportunity](#opportunity). Bring a second fact: two years after the portal launch, the state is still paying to upgrade it, as [Willing to pay](#willing-to-pay) shows. Few in that room expect the state to fix this soon, so a tool that works around the wait is an easy thing to hear about.
 3. Sell to engineering offices rather than one-off builders, because an office runs the same permit procedure many times a year. The pool of authorised engineers and architects who draw up permit documents is under [Willing to pay](#willing-to-pay). A family building one house buys once, while an office that repeats the procedure turns every hour saved into margin the same month.
 4. Set your price against what builders pay an engineer to chase a permit by hand, not against the Czech software. Builders already pay a permit engineer per project, and the Czech online service already charges less than that; both prices are under [Willing to pay](#willing-to-pay). Fewer permits were issued last year than the year before, so win share from the engineers rather than wait for the market to grow.
@@ -390,3 +401,5 @@ Permitting rules differ from country to country, so none of these products arriv
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as a headline and three lines: a `brief:` on who is stuck and what is happening, the `solution:` as a call to action opening "Build", and a new `good_for:` line. Previous title, verbatim: "Czech developers and builders face building-permit proceedings that typically run six months to a year, through a still-dysfunctional state portal". Previous solution, verbatim: "Software for the engineering and architecture offices that prepare building permits: it checks the drawings, sends requests to the authorities and utility companies that must give an opinion, and tracks the deadline each one must answer by across all the office's projects." The record carried no brief and no good_for before this pass. Every claim was checked against this record's sources first. The headline's "barely sped them up" stands for the European Commission's "little measured effect on permitting speed" after four debureaucratisation packages since 2022 [S12]. The "6 months to a year" survey was published in early 2024, before the July 2024 launch of the state's digital permitting portal, so the brief dates it as a 2024 survey rather than stating it as today's figure [S5]. The 30-, 60- and 90-day answer windows are as read on 2026-08-20 from a Czech product's own page [S7]. The old title's "still-dysfunctional state portal" was not repeated: its only carrier is a mid-2025 trade-press quote [S2], and the August 2026 portal contract [S11] shows the state paying for changes, not that the portal is broken. The suggested software is close to what Průvodka already sells per project [S7,S15]; the line describes the product neutrally, and whether the field is open stays the gap score's question. No score, status, source, note, marker or body sentence changed. Simplified for the front page: title "Czech building permits are slow, and 4 rounds of red-tape cuts since 2022 have barely sped them up" → "Czech building permits are still slow after 4 rounds of red-tape cuts"; brief "Whoever prepares a permit must collect opinions from several authorities and utility companies, each with its own 30-, 60- or 90-day deadline to answer [S7]. In a 2024 survey, engineers said most permits take 6 months to a year [S5]." → "Whoever prepares a permit must collect opinions from several authorities and utility companies, each on its own deadline [S7]. In a 2024 survey, engineers said most permits take 6 months to a year [S5]."; solution "Build software for design offices that sends permit requests to authorities and utilities and tracks every answer deadline, as companies already do in the US." → "Build software for design offices that sends permit requests to authorities and utilities and tracks every answer deadline."; good_for "Someone who'd like to work with building engineers and connect software to state systems." → "Someone who'd like to work with building engineers and state permit systems.". The 30-, 60- and 90-day windows were cut from the brief; the survey keeps its 2024 date so the figure is not read as today's; "as companies already do in the US" was cut for length. Same date, owner-approved simplification: title "Czech building permits are still slow after 4 rounds of red-tape cuts" became "Czech building permits take way too long (6–12 months)"; brief "Whoever prepares a permit must collect opinions from several authorities and utility companies, each on its own deadline [S7]. In a 2024 survey, engineers said most permits take 6 months to a year [S5]." became "Engineers preparing one chase opinions from many offices and utility companies, each on its own deadline [S7]. The state has cut red tape 4 times since 2022, with little effect [S12]."; solution "Build software for design offices that sends permit requests to authorities and utilities and tracks every answer deadline." became "Build software for design offices that sends permit requests and tracks every answer deadline."; good_for "Someone who'd like to work with building engineers and state permit systems." became "Someone who knows Czech building permits and can sell to design offices.".
 
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the six-months-to-a-year wait and the chasing of opinions, with the survey, the 30/60/90-day answer windows and the permit engineer's four stages as its items and detail [S5,S7,S10]; the network operators, the state e-mailbox and the lapsed-consent certificate moved there from the Průvodka sentence and the moves [S7]. Competition opens on the chasing done by hand, keeps the state portal's "stabilized but still facing complications" quote as the state's own answer [S2], and describes Průvodka and Efektivia by what each sells, leaving their names, prices, offices and dates to their `locals[]` rows. Why now opens on the builder's wait, with the 192 building complaints, the July 2024 portal launch and the decade-long urban-plan update as its three items, and the red-tape packages, the ombudsman's quarter and the portal contract below as dated bullets [S2,S12,S13,S11]. Willing to pay answers that builders pay engineers by hand and a Czech service charges per project, then holds the buyer pool, the 2025 permit count and the rough €3M estimate [S7,S8,S9,S10]. Validated abroad lost the ledger names PermitPortal and Autositu for descriptions [S1,S4]; Permitify and Verdant, not on the ledger, stay named. Say it once: the 16,000–42,000 CZK range and Průvodka's 12,900 CZK left the body for their price receipts [S14,S15], whose `why` lines already state the range and the monthly tier; the ~€0.8M portal contract now lives once, under Willing to pay, with Why now linking to it. The moves lost every [Sn] marker and figure for links; move 1 now builds the deadline tracker (it was move 2), and the old "Sell to the engineering offices" move is move 3; the chamber move now contacts the chamber. `entry.why` was rewritten as "Easier: … Harder: …" naming the same gates the entry fields already carry, plus the direct Czech seller in `locals[]`. S6.why and S11.why no longer say "this record". Detail added from sources already on file, none of it new evidence: the 10,453 fall in permits and their 503.3bn CZK indicative value [S8]; the 32,000 engineers and 4,288 architects inside the 36,300 [S9]; the ombudsman's 2,509 complaints, up 132 [S13]; the Commission's 1,800 obligations and 71-against-57 percent [S12]; and, read at S10's url on 2026-09-18, the four stages the CESPRON price list itemises for the standard family-house permit (preparing and working out the opinions needed, requesting them, following them up and working in their conditions, filing and seeing the permit through) [S10]. Process block added (none before): five steps, the permit engineer sending the requests and following them up (changes), the consulted offices and utilities answering on their own deadlines and the building office deciding (both stay), and an unknown fifth step, how much of the six to twelve months is waiting on opinions; each drawn step is backed by S10's itemised stages or S7's deadline windows, and no step names a ledger company or a price. Corrected against the sources rather than against the old sentences: "Applicants and building offices both lost throughput" is not what S2 or its signal says; the yc-permitportal harvest behind S2 says the July 2024 launch "created acute pain for both stavebníci and úřady" and that the new building act changed procedures, and the body now says that [S2]; "Czech software for permit preparation does exist [S3]" cited the first sweep, which found none, so that claim now cites S7, the re-check that found it; "law firms" working case by case was cut, since no source on file mentions them, and permit-engineering offices stay [S10]; "Neither publishes a launch year, a customer or a funding round" was wrong for Efektivia, whose row names two town halls it serves and dates it to September 2023, so the body no longer says it; "a proceeding still runs six months to a year" read the early-2024 survey as today's figure, so the survey is now dated [S5]; the 36,300 are engineers, technicians and architects, not engineers and architects [S9]; and the Průvodka row in `locals[]` said it sells at 12,900 CZK or 29,900 CZK a month in the present tense, while S15's note records that on 4 September 2026 its page listed 14,900 CZK and no monthly plan, so the row now dates both [S15]. Flagged as inference: that builders still wait months in 2026 rests on the 2024 survey [S5] and on the Commission's June 2026 finding that the red-tape packages had little measured effect [S12]; that none of the US products arrives here on its own, because permitting rules differ by country, is our reading of S1 and S4 recording them as US-only; the €3M figure is our rough estimate from S7's per-project price and S8's permit count, as it was before; and in the moves, that an office runs the procedure many times a year and that few engineers expect the state to fix this soon are our reading, not a source's. No score, status, source, `note:`, `sources[]` order, entry level, title, brief, solution or good_for changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0; Willing to pay stays 1; score 7 → 6, still FAIR. Why now: the old 1 was the retired freshness point on a deadline part of 0. No regulation is on file. The new building act and the July 2024 portal launch [S2] are older than 12 months, so they are the status quo, and nothing on file puts a new dated duty on a builder or a design office. Willing to pay, tagging pass first: every source on file was read for someone paying for this exact job, sending the permit requests and tracking each answer, or that work bought in. Counted: permit engineering done by a person, from 16,000 CZK a project on a published price list [S14], and the Czech online service at 12,900 CZK a project [S15]. Both were already price receipts, untagged; both now carry `dims: [money]`. Both are asking receipts, a manual-equivalent and a list price, so rung 1; no contract or award for this job is on file, so nothing reaches rung 2. Not counted: the ministry's contract to upgrade its own permit portal [S11], which was tagged money on the old ladder's adjacent-spend reading; it buys the state's system, not this job, so it is set to `dims: []` and its note gained a rescore line, as did the notes of S14 and S15, which said they back no score. Body: under Willing to pay, the portal-contract item now says it buys none of this job [S11]. The link to the section now named Market gap carries that name. Same result as the worksheet, which offered `dims: []` on S11 as optional.

@@ -13,11 +13,11 @@ price_search: 'Registr smluv full-text for "vykazování zdravotní péče" or "
   what a coder-year costs.'
 category: health
 geo: CZ-national
-score: 10
+score: 7
 scores:
   proof: 3
-  money: 2
-  urgency: 2
+  money: 0
+  urgency: 1
   demand: 2
   gap: 1
 status: candidate
@@ -172,7 +172,8 @@ sources:
     benefits: faster and more accurate reports, better communication between doctors, parametric
     data collected at the moment of writing. AN ASK CITES DEMAND ONLY (MATCH.md §11): no prize,
     budget or team count is recorded, and nothing here backs money, gap or urgency beyond the
-    freshness of the date. Page read 2026-09-03.'
+    freshness of the date. Page read 2026-09-03.
+    Corrected 2026-09-19: the freshness point is retired, so this backs demand and nothing else.'
   date: '2026-09-03'
   signal: hack-5d646892
   dims: [demand]
@@ -248,7 +249,10 @@ sources:
     EY summaries). THE DATE ON THIS SOURCE IS THE 2031 MILESTONE, not the signal''s 2029 headline
     date, because the two categories this problem is about — imaging reports and discharge
     reports — are in the later group. More than 18 months out: deadline sub-score 1. Freshness
-    comes from the September 2026 asks, not from here.'
+    comes from the September 2026 asks, not from here.
+    Corrected 2026-09-19: the deadline sub-score and freshness are retired. On the 2026-09-19
+    ladder this is REAL (an EU regulation binding providers) but not CLOSE (2031 is more than
+    18 months out), so it scores urgency 1 on its own, and it is the only source that does.'
   date: '2031-03-26'
   signal: reg-ehds
 - type: regulation
@@ -289,7 +293,12 @@ sources:
     systems at the exact hospitals asking, and names the asker. WHAT IT IS NOT: it pays the
     hospital, not a vendor, no line in the change notice names structured reporting or coding,
     and the detailed activity list in the full call text was not read from the primary — the
-    purpose sentence above was.'
+    purpose sentence above was.
+    Corrected 2026-09-19: "why money 2" was the retired public-budget rung. On the 2026-09-19
+    ladder a grant earns no point on its own: it lifts a price receipt from 1 to 2, and no price
+    receipt for this job is on file, so money is 0. For the lift it names the buyer and is open;
+    the documentation cost category fits its purpose sentence; the buyer''s co-pay share is not
+    on file.'
   date: '2026-12-02'
   dims: [money]
 - type: regulation
@@ -492,12 +501,14 @@ sources:
     2026 14:00. Eligible: an enumerated list of named providers and regional ambulance services
     plus their founders. The signal calls call 78 "more developed region" in its money note but
     codes it MRR in its notes, and S8''s note has it as the less developed regions; the regions
-    are not asserted in the body for that reason. Money was already 2 on S8 and does not move.'
+    are not asserted in the body for that reason. Money was already 2 on S8 and does not move.
+    Corrected 2026-09-19: on the 2026-09-19 ladder neither call earns a point without a price
+    receipt for this job; money is 0.'
   date: '2026-12-02'
   signal: dotace-irop-78-79-ehealth
   dims: [money]
 created: '2026-09-03'
-updated: '2026-09-18'
+updated: '2026-09-19'
 ---
 
 Doctors write findings and discharge summaries as free text, and other staff then read that same text again by hand [S1,S3].
@@ -537,11 +548,13 @@ Behind those three items are the pilots hospitals have already run, the hackatho
 - From 26 March 2031 the European Health Data Space, the EU regulation on sharing health data, requires medical imaging reports and hospital discharge reports to be exchangeable across the EU in one common format [S6]. The regulation has been in force since 26 March 2025 and applies generally from 26 March 2027; patient summaries and prescriptions come first, from 26 March 2029 [S6].
 - The state money closes on 2 December 2026 at 14:00, and every project it pays for has to be finished by 31 December 2027 [S8].
 
-Who pays: Hospitals pay twice for the same report, in a doctor's time and a coder's, and a state call can pay for the fix [S3,S8].
+The only legal date for reports as data is the EU's, in 2031; December is when the grant money stops, not a duty on hospitals [S6,S8].
 
-- The state call pays a hospital up to 28M CZK for documentation work [S8].
-- 23 hospitals paid nothing for a coding assistant to 31 August 2026 [S4].
+Who pays: Hospitals pay for this today in staff time, a doctor's and a coder's, but none is known to pay for software that does it [S3,S16].
+
 - Hospitals already staff a coding department to read every report back into codes [S3].
+- 23 hospitals paid nothing for a coding assistant to 31 August 2026 [S4].
+- A state call pays a hospital up to 28M CZK for documentation work [S8].
 
 The call is IROP call 79 — the eHealth call of the EU's regional-development programme in Czechia [S8].
 
@@ -565,11 +578,11 @@ Two more US companies are funded on the coding half alone. CodaMetrix, built wit
 
 ## First moves
 
-1. Build the structured radiology report inside the hospital's own system, so the finding becomes data the moment the doctor types it. Brno's cancer institute asked for exactly that, and set it as a challenge for a hackathon this autumn; see [The opportunity](#opportunity) and [Why now](#why-now). Give it smart templates for its commonest examinations, inside the hospital system its doctors already use, so a doctor clicks through a finding instead of dictating prose. Nobody here has been found selling that half, while the coding half already has vendors working inside those same systems; see [Competition](#competition).
+1. Build the structured radiology report inside the hospital's own system, so the finding becomes data the moment the doctor types it. Brno's cancer institute asked for exactly that, and set it as a challenge for a hackathon this autumn; see [The opportunity](#opportunity) and [Why now](#why-now). Give it smart templates for its commonest examinations, inside the hospital system its doctors already use, so a doctor clicks through a finding instead of dictating prose. Nobody here has been found selling that half, while the coding half already has vendors working inside those same systems; see [Market gap](#competition).
 2. Take one named hospital through the open state call, and write its application as part of the deal. The call pays a hospital to change how it keeps its medical documentation, caps what it will fund per provider, and names the providers that may apply; see [Willing to pay](#willing-to-pay). It closes this winter and the funded work has to be finished the year after, as [Why now](#why-now) shows, so a hospital that wants this has to pick a supplier now. Build to the health ministry's own report specifications, which are listed under [Willing to pay](#willing-to-pay), because a funded hospital has to be able to work with them.
-3. Expect the coding half to be given away, and charge for the report and the registry entry instead. One hospital-system vendor let a group of hospitals use its coding assistant for nothing and has published no price for afterwards, and another has proposed codes from discharge reports for three years without naming a hospital that pays for it; see [Competition](#competition). What no vendor here sells is the report written as data and the registry entry that falls out of it, so quote the whole chain rather than the coding step.
+3. Expect the coding half to be given away, and charge for the report and the registry entry instead. One hospital-system vendor let a group of hospitals use its coding assistant for nothing and has published no price for afterwards, and another has proposed codes from discharge reports for three years without naming a hospital that pays for it; see [Market gap](#competition). What no vendor here sells is the report written as data and the registry entry that falls out of it, so quote the whole chain rather than the coding step.
 4. Grow the way the German newcomer did, from a handful of pilot hospitals rather than from a national tender. The entrant on the coding half started about a decade ago with pilots and now sells to dozens of hospitals, a university hospital among them, while the old coding house beside it took four decades to reach more than a thousand; see [Validated abroad](#validated-abroad). Your pilot is the institute that wrote the ask, and it can have the work paid for; see [Willing to pay](#willing-to-pay).
-5. Read the registry side before you build the extraction, because the state has already spent EU money automating it from its own data. What the state worked from was the cancer registry's own records and the register of paid care, not the hospital's report; see [Competition](#competition). Pulling the facts out of the clinical text is the half Brno's cancer institute still asks for; see [The opportunity](#opportunity). Build that, and the registry entry becomes the second thing you sell.
+5. Read the registry side before you build the extraction, because the state has already spent EU money automating it from its own data. What the state worked from was the cancer registry's own records and the register of paid care, not the hospital's report; see [Market gap](#competition). Pulling the facts out of the clinical text is the half Brno's cancer institute still asks for; see [The opportunity](#opportunity). Build that, and the registry entry becomes the second thing you sell.
 
 ## Revisions
 
@@ -580,3 +593,21 @@ Two more US companies are funded on the coding half alone. CodaMetrix, built wit
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest of each section follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 as the pattern). What moved where: The opportunity opens on the double reading and holds the three asks, the institute's smart-template ask, the oncology-extraction ask and the coding-department ask, as its detail [S1,S2,S3]. Competition opens on the contested coding half, describes the three hospital-system vendors by what each sells rather than by name and leaves their counts, dates and products to their ledger rows, keeps the three adjacent Czech firms the same way, and gained the state's cancer-registry project from the moves [S16,S17]. Why now opens on the coder's hours and the December cut-off, with the private hospital group's pilot, the hackathon dates, the e-health standards, the European Health Data Space dates and the funded projects' end date below the first three items as plain bullets [S3,S4,S5,S6,S7,S8]. Willing to pay answers whether anyone pays now, then sets out the call's allocation, its per-provider cap, its five regions and its roughly seventy named eligible providers, and the health ministry's four report specifications [S8,S9]. Validated abroad became one answer sentence and four short paragraphs, one per company or pair [S10,S11,S12,S13,S14,S15]. Every comps[] and locals[] company left the body and the moves: each is now described by what it sells, and its name, year, funding, customer count and named customers stay in its own ledger row. The moves lost every [Sn] marker and every figure for links to the sections holding the evidence, and the facts that used to live only in a move now have a home: the five regions, the eligible providers and the end date of the funded work under Willing to pay and Why now [S8], the hackathon dates under Why now [S1], and the state's registry-side project under Competition [S17]. `entry.why` was rewritten as "Easier: … Harder: …" and names the same gates the level already derives from, the public buyer and the money raised before revenue [S4,S8]. Detail added from sources already on file, none of it new evidence: the call's 490.6M CZK of state budget beside its 1,144,629,052 CZK of EU money, its 5M CZK ambulance cap, its 14:00 closing time and its purpose in its own words [S8]; the European regulation's 2025 entry into force, its 2027 general application and its 2029 first category [S6]; the national discharge-report standard at version 1.0.2 [S7]; the 11 doctors in the private group's pilot [S5]; and the foreign companies' payment schemes, valuations, named customers and claimed savings [S11,S12,S13,S14,S15]. Corrected against the sources rather than against the old sentences: the private group's pilot covered 330 patients, not 330 discharge summaries, and the halved documentation time is what the article reports of a questionnaire filled in before the visit [S5]; nothing on file says the cancer institute judges the hackathon, so the body and move 1 now say it set the challenge, and 3 September 2026 is the date its page was read, not a publication date [S1]; the state's registry project ran to 30 June 2026, so it is written in the past tense now that the date has passed [S17]; and the free coding pilot is written as having run to 31 August 2026 rather than as a price a hospital pays today, since its price after that date is not published [S4]. Dropped, and nothing else: "No source states what coding by hand costs a hospital" — the page prints that line itself under Willing to pay while no price receipt is on file, and `price_search` says where to look for one. Flagged as inference: that each of the three vendors "starts with the reports its own customers write" is our reading of them selling from inside the hospital systems they supply [S16]; and that a pilot comes before the first invoice, in `entry.why`, rests on the free coding pilot and on the grant timetable [S4,S8]. No score, status, source, `note:`, `sources[]` order, `process` block, title, brief, solution or good_for changed. Same date, process steps shortened (owner: "the texts could be shorter, it's kinda long now, too wide"): the hub figure prints each step verbatim, so each drawn step is now a phrase of 4-8 words, and the detail they dropped moved to a new `process.summary.after`, which the Suggested solution's Read more prints. Doctor today "Writes the radiology finding or the discharge summary as free text" → "Writes the report as free text" (the finding and the discharge summary stay in `summary.today`, radiology in The opportunity); after "Writes into a report template in the hospital system, so the report is data as it is written" → "Fills a report template in the hospital system". Coder today "Reads the report again to produce the codes the insurer pays on" → "Re-reads the report for the insurer's codes"; after "Confirms the insurer codes proposed from the report's own data" → "Confirms the proposed insurer codes". Documentarian today "Reads the report a third time to fill the cancer registry" → "Re-reads it for the cancer registry"; after "Confirms the registry entry proposed from the same data" → "Confirms the proposed registry entry". New `summary.after`, verbatim: "The doctor fills a report template in the hospital system, so the report is data as it is written, and the coder and the documentarian confirm the insurer codes and the registry entry proposed from that data." The third reading stays in `summary.today` ("two more people read that same text again") and the case group the insurer pays on under Why now [S5]. No step's who, known, cites, change or order changed, and the unknown step is untouched. Same date, later pass, merged here: evidence added from the monthly scans. The grant scan read the eHealth call texts and confirmed call 79 as S8 carries it, and added its companion, IROP call 78: 471.9M CZK, up to 9.5M CZK per provider, closing the same day, about 2.1bn CZK for the two together [S18]. It is a line in Willing to pay; money was already 2. Not changed and left to the owner: the approved title and brief speak of the 1.14bn CZK call and hospitals in five regions, which stays true of call 79 [S8], while call 78 opens the same money to a second list of providers [S18]. No score or status changed.
 
 2026-09-19 · title and brief widened to the second grant (owner-approved) — Title before, verbatim: "Czech hospitals pay twice for every medical report. A 1.14bn CZK grant for hospital records closes in December." After: "Czech hospitals pay twice for every medical report. Grants worth 2.1bn CZK for hospital records close in December." Brief before: "Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. Hospitals in five regions can get state money to upgrade, but applications close in December [S8]." After: "Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. Two state grants pay named hospitals to upgrade, but both close to applications in December [S8,S18]." Why: the card named only IROP call 79 and its five regions, and [S18], linked on 2026-09-18, adds the companion call 78 with 471.9M CZK for its own list of named providers, closing the same day. The figure: 1.14bn CZK was call 79's EU money alone, while call 78's 471.9M CZK is EU plus state money, so the two cannot be added as they stand. The title uses [S18]'s own total for both calls, EU and state money together, 2,107,039,100 CZK, "about 2.1bn CZK", which the body already states [S18]. The scope: "five regions" is call 79's alone [S8]. [S18]'s note leaves call 78's regions unasserted because its signal contradicts itself; the call's own page (irop.gov.cz, "78. výzva IROP - eHealth - SC 1.1 (MRR)", read on this date) puts it in the less developed regions but lists no regions, so no region is named on the card and "named hospitals" says who can apply: both calls enumerate their eligible providers [S8,S18]. That page is not added as a source here; a future pass can add it and name the regions. The Why now item "Hospitals in five regions have until 2 December 2026 to apply [S8]" said the same narrower thing and now reads "Named hospitals can apply to two state grants until 2 December 2026 [S8,S18]". Not changed: data/RECORD-TEMPLATE.md quotes the old title and brief as its reference example; that file is outside this pass. No score, status, source, note, solution, good_for or other body sentence changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — `scores.money` 2 → 0, `scores.urgency` 2 → 1, `score` 10 → 7, band PRIME → FAIR. Money: the old 2 was the retired public-budget rung, the open eHealth call that names the asking institute [S8], with its companion call [S18]. On the new ladder a grant earns no point on its own and only lifts a price receipt from 1 to 2. The owner asked for a close check of whether hospitals already pay for this job, so every candidate on file was read.
+
+(1) Staffed coding departments [S3]. The ask shows a hospital paying staff to do this job by hand, in hours. It gives no crown figure, and an ask cites demand only (MATCH §11). A receipt needs a payer, an amount, a unit and a basis. The hiring ledger holds no coder or documentation-clerk posting whose wage could price it; it was searched for kodér, vykazování, dokumentarista and CZ-ISCO 3252, with no hit. An employee's wage would in any case be the manual equivalent, an asking price at rung 1. The ladder's paid rung is an outside consultant under contract, and none is on file.
+
+(2) The free coding pilot [S4]. It ran to 31 August 2026 with its later price unpublished. A 0 CZK receipt from a trial that has ended would score an asking price out of a free offer, so it was not restated.
+
+(3) The contracts-register pairings behind [S16]. They were read at the primary on this date (smlouvy.gov.cz 39179266, 39191854 and 39194482, with the attached orders). MMN paid STAPRO 94,080 CZK for certificates. Vsetínská nemocnice paid STAPRO 65,000 CZK for one administrator's certified training on its hospital system. Nemocnice Břeclav paid ICZ.HEA 81,250 CZK before VAT to test an extension that reports bed occupancy to the national provider register. None buys coding or report templates, so none counts.
+
+(4) The state's cancer-registry project [S17]. It is the state institute's own EU-funded work on the registry's data. It has a different buyer and a different input, so it does not count.
+
+(5) Outside the record, the tenders ledger holds hospital-system modernisation and data-exchange contracts (Kadaň, the rheumatology institute). They buy data exchange, p-0022's job, not structured reports or coding, and were not added.
+
+No receipt was added, and money 0 matches the worksheet. Two receipts would move it. A sourced coder wage or a published price for a coding tool gives 1. With a price on file, the eHealth call already names hospitals as eligible, is open, and funds documentation work. If its text shows that the hospital co-pays, the lift gives 2.
+
+Urgency: the old 2 was the deadline sub-score 1 plus the retired freshness point. The European Health Data Space regulation [S6] is REAL but not CLOSE: its date for imaging and discharge reports is 26 March 2031, more than 18 months out, so it scores rung 1 alone. The Czech e-health act [S7] sets no dated duty to structure reports and keeps `dims: []`. The grant's 2 December closing date is a grant date, which scores nothing on the new ladder.
+
+The notes on S1, S6, S8 and S18, which named freshness, the deadline sub-score or "money 2", gained dated correction lines. Prose re-read against the new numbers. Willing to pay opened on "Hospitals pay twice for the same report … and a state call can pay for the fix". It now answers whether anyone pays for this job: hospitals pay in staff time, and none is known to pay for software that does it [S3,S16]. Its three items were reordered so the coding department comes first and the state call third. Why now gained one closing sentence: the only legal date for reports as data is the EU's, in 2031, and December is when the grant money stops, not a duty on hospitals [S6,S8]. The title and brief, which the owner approved on this date and which lead on the grants closing in December, were re-read and not changed. The grant dates are true, but the new ladder does not count them as a deadline, and whether the headline should still lead on them is the owner's call. Three links in moves 1, 3 and 5 now read Market gap instead of Competition. No other score, status, source order or body sentence changed.

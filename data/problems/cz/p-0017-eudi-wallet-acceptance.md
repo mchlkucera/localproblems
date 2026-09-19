@@ -7,11 +7,11 @@ solution: 'Build a service inside a bank''s customer sign-up that checks the EU 
 good_for: 'Engineers who know digital identity and can sell to banks.'
 category: govtech
 geo: CZ-national
-score: 6
+score: 3
 scores:
   proof: 1
-  money: 2
-  urgency: 3
+  money: 0
+  urgency: 2
   demand: 0
   gap: 0
 status: watching
@@ -89,7 +89,9 @@ sources:
   note: 'ted-453265-2026: DIA tendered the client part of the Czech EUDI Wallet (''KLIENTSKÁ
     ČÁST EVROPSKÉ PENĚŽENKY DIGITÁLNÍ IDENTITY'') — open competition, estimated ~€78.2M (~1.9bn
     CZK), published 2 Jul 2026. Largest open IT tender in the CZ TED window; money scored
-    2 (open tender far above 5M CZK).'
+    2 (open tender far above 5M CZK). Superseded 2026-09-19: on the new ladder this is public
+    money nearby. It buys the state''s own wallet, not a bank''s acceptance of it, and banks
+    cannot bid for it as buyers, so it earns no point and money is 0.'
   date: '2026-07-02'
   signal: ted-453265-2026
 - type: gap-check
@@ -116,7 +118,9 @@ sources:
     (~€8.85M), signed 10 Jul 2026 (registr smluv 38738584; 2026-08-25 retrospective harvest).
     A second, distinct procurement beside the DIA client-app tender [S3]: the state wallet
     stack is being built, and MONET+ takes a named supplier position in it. Context receipt;
-    money already 2 on the open DIA tender [S3], no score moved.'
+    money already 2 on the open DIA tender [S3], no score moved. Superseded 2026-09-19: [S3] no
+    longer earns a point either; money is 0, as no price for a firm accepting the wallet is on
+    file.'
   date: '2026-07-10'
   signal: hlidac-36404756
   dims: []
@@ -170,7 +174,7 @@ sources:
   date: '2026-08-28'
   signal: hlidac-36243132
 created: '2026-08-13'
-updated: '2026-09-03'
+updated: '2026-09-19'
 ---
 
 Banks and other regulated firms must soon accept the EU's digital identity app wherever a customer proves who they are [S1].
@@ -225,7 +229,7 @@ Solved elsewhere: Two funded European firms, in Germany and Spain, already sell 
 - The German firm builds wallet connections for banks.
 - The Spanish firm runs wallet checks at volume and has advised the European Commission.
 
-Neither sells against a duty in force yet, so the model is still being proven [S1]. In Czechia the same position is already taken; see [Competition](#competition).
+Neither sells against a duty in force yet, so the model is still being proven [S1]. In Czechia the same position is already taken; see [Market gap](#competition).
 
 ## Revisions
 
@@ -244,3 +248,5 @@ Neither sells against a duty in force yet, so the model is still being proven [S
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as three lines under the headline: a `brief:` on who is stuck and what forces it now, the `solution:` as a call to action starting "Build", and a new `good_for:` line. Previous title, verbatim: "Czech banks must accept the EU digital identity wallet from 2027". Previous solution, verbatim: "One connection through which a bank or other regulated business accepts the EU digital identity wallet: it handles the compulsory registration as an accepting party, receives what the customer's wallet app presents, and verifies it whatever country issued it." There was no previous brief or good_for. Checked against the sources before writing: "from 2027" became "by the end of 2027", because the duty to accept runs 36 months from the December 2024 implementing acts rather than starting on 1 January 2027 [S1], and the headline now names the other regulated firms the duty covers, not banks alone [S1]. The brief names only the sectors the regulation signal names — banks, phone companies and large platforms [S1] — and the end-2026 launch is the Commission's own date [S2]. "As companies already do in Germany and Spain" rests on Lissi and Gataca, both young; the duty they build for has not landed yet [S1]. The compulsory registration step left the solution to keep it short; it is still in the body and in the Bank iD ledger line. No score, status, source, note, marker or body sentence changed. Simplified for the front page: Title before: "Czech banks and other regulated firms must accept the EU's new digital ID app by the end of 2027" After: "Czech banks must accept the EU's digital ID app by the end of 2027". Brief before: "Czechia launches the app at the end of 2026, and banks, phone companies and large online platforms must then accept it wherever customers prove who they are [S1,S2]. Each needs a way to receive and check what the app shows [S1]." After: "Czechia launches the app at the end of 2026 [S1,S2]. Banks, phone companies and big platforms will have to accept it when customers prove who they are, and each needs a way to check it [S1]." Solution before: "Build a service that plugs into a bank's customer sign-up and checks the EU digital ID app, as companies already do in Germany and Spain." After: "Build a service inside a bank's customer sign-up that checks the EU digital ID app, as companies already do abroad." The headline dropped "and other regulated firms" to stay short; the brief still names phone companies and big platforms [S1]. "As companies already do in Germany and Spain" became "as companies already do abroad", per the plural rule. No fact, number or claim was added; no score, status, source, note, marker in the body or body sentence changed. Same date, good-for opener (owner: "Good for should always start with a person"): "Security engineers who know digital identity and can sell to banks." became "Engineers who know digital identity and can sell to banks." — same meaning, person first. Same date, abroad count (owner: fill "do abroad" with "X companies do in Y countries"): solution "…checks the EU digital ID app, as companies already do abroad." became "…checks the EU digital ID app, as 2 companies already do in 2 other countries." Counted from comps[] only: Lissi (comps[0], geo DE), wallet connectivity for banks; Gataca (comps[1], geo ES), wallet verification with 750,000+ transactions in 2025, which the body counts as selling wallet acceptance but which is not recorded selling to banks specifically, so it is counted for the checking half. None excluded. Countries are where the two are based.
 
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence and its three most important items, with the rest below as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity holds the duty, the app, the check each firm must build and the sectors covered, with the regulation's name, the PSD2 duty, e-shops and towns, and the unpublished count below [S1,S2]. Competition names no ledger company: the bank-identity service and the Prague gateway are described by what each sells, and their user count, start year, state customers, funding and product dates stay in their `locals[]` rows [S4,S6]; eDoklady and the three other Czech firms positioning on the duty stay in the detail [S2,S5,S6]. Why now opens on the end-2027 cut-off, then three pain items (the new sign-up check, the compulsory registration, dozens of national wallets), then the December 2024, end-2026 and 2027 dates as plain bullets [S1,S2,S4,S6]. Willing to pay now says whether anyone pays: no firm is yet shown paying to accept the app, the state pays to build it, and online services already buy bank-identity checks [S3,S5,S6]; the tender's buyer, the MONET+ contract and the national-identity support contract sit below [S3,S5,S7]. Validated abroad names neither foreign firm: their seed round, challenge win, transaction count and advisory role stay in their `comps[]` rows, which were already their only receipt (no source on file carries them). `entry.why` is now "Easier: … Harder: …" and names the gates the level derives from (registration, conformance testing, outside money) plus the established local seller; the seller's name and user count left it for its ledger row. Added from sources already on file: the NAKIT support contract for the national identity system, now cited in the body and given a public name, gist and why [S7]; "dozens of national wallets" as a pain [S4]; the compulsory registration as a pain [S6]. S4.why and S5.why said "this record" and now say "this problem" and "under Why now". Corrected against the sources rather than the old sentences: "They buy registration as an accepting party, integration kits, rebuilt sign-up checks and qualified electronic signatures" became "The duty creates work in four places", because [S1]'s signal lists these as the market the duty creates, not as purchases anyone has made; "banks and payment institutions first … then telcos" lost "first", because [S1] gives every regulated sector the same 36-month clock and no order; "Early movers cut verification cost" was cut, because no source on file supports it; the Prague gateway no longer verifies "every national wallet" but replaces connecting to dozens of them, the gateway's own words [S4]. Flagged as inference: that firms get about a year between the app's launch and their own deadline rests on the end-2026 launch [S2] and the 36-month clock from the December 2024 acts [S1]; that a firm without its check by then "misses a legal deadline" is our reading of [S1]; and that banks and payment firms already must check who a customer is under PSD2 is kept from the earlier text, though [S1]'s note does not state it and the regulation's page did not load for a check. No `process` block added: this is a new duty, and no source on file describes who does which step of a customer check today (data/RECORD-TEMPLATE.md, Figures). No score, status, `entry` gate value, `sources[]` order, `note:`, title, brief, solution or good_for changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 3 → 2, Willing to pay 2 → 0 and `score` 6 → 3, so the band moves FAIR → FAINT. Why now was 3 as deadline 2 plus the freshness point, which is retired. It is now 2 (a firm deadline): eIDAS 2.0 is an EU regulation, binding as published, and it obliges regulated firms such as banks to accept the wallet (REAL). Their deadline falls during 2027, 36 months after the December 2024 implementing acts, inside 18 months of this date (CLOSE) [S1]. It stops short of 3: the regulation leaves penalties to member states, and no Czech sanction or enforcement is on file (TEETH). Willing to pay was 2 on the open DIA tender above 5M CZK [S3], which is now public money nearby. Tagging pass, every source on file that might show someone paying for this job: the DIA wallet-client tender [S3], the MONET+ core-system contract [S5] and the NAKIT support contract [S7] all pay for the state's own wallet and identity system. None buys a bank's or a regulated firm's acceptance of the wallet, the payer is the state rather than the buyer, and banks are not eligible for that money. Online services have bought bank-identity checks from a Czech seller since 2021, but no amount is on file [S6]. No receipt could be written, so money is 0, as the worksheet had it. [S3]'s and [S5]'s notes named the old money rung and now carry the correction. Why now prose re-read: it names the end-2027 cut-off and says a late firm misses a legal deadline, with no fine claimed, which fits rung 2. Willing to pay already says no firm is yet shown paying, so it stands. `[Competition](#competition)` became `[Market gap](#competition)` in Solved elsewhere. No other score, status, entry or body sentence changed.

@@ -7,11 +7,11 @@ brief: 'More than half of surveyed Czech care services report being short of wor
 good_for: 'Someone ready to recruit carers and handle Czech employment rules.'
 category: health
 geo: CZ-national
-score: 8
+score: 6
 scores:
   proof: 2
-  money: 1
-  urgency: 1
+  money: 0
+  urgency: 0
   demand: 2
   gap: 2
 status: candidate
@@ -209,10 +209,13 @@ sources:
     seats), July 2026, annualised wage floor €10,838,685 — among the first records of the
     hiring ledger. Sibling single-employer aggregates: mpsv-2026-07-26871068-health-care
     (7 specialist-nurse postings, 51 seats) and mpsv-2026-07-03593207-health-care (11
-    practical-nurse postings). Hiring evidence backs demand and money, never proof.'
+    practical-nurse postings). Hiring evidence backs demand and money, never proof.
+    Corrected 2026-09-19: on the 2026-09-19 ladder hiring backs money only as a `type: price`
+    receipt (data/CONVENTIONS.md), which S12 is, so this source now backs demand alone. The
+    aggregate is by occupation (general nurses, CZ-ISCO), across any employer, not care homes.'
   date: '2026-07-31'
   signal: mpsv-2026-07-health-care
-  dims: [demand, money]
+  dims: [demand]
 - type: statistic
   name: "MPSV/ÚZIS long-term-care prediction"
   gist: "34,700 more beds by 2035"
@@ -242,7 +245,9 @@ sources:
   url: https://ted.europa.eu/en/notice/-/detail/14888-2026
   note: 'ted-14888-2026: Královéhradecký kraj tender, 2026-01-12, €2,189,774, development of
     personal assistance services in the region. Relevant public money for care capacity;
-    adjacent to a staffing product, so money held at 1, not 2.'
+    adjacent to a staffing product, so money held at 1, not 2.
+    Corrected 2026-09-19: on the 2026-09-19 ladder public money nearby earns no point, and this
+    tender, a region buying assistance capacity, is not a care home buying shift cover; money is 0.'
   date: '2026-01-12'
 - type: gap-check
   name: "Market scan — who fills a care shift"
@@ -353,21 +358,26 @@ sources:
   url: https://data.mpsv.cz/od/soubory/volna-mista-prirustek/
   name: "The July 2026 nurse postings, priced as a wage bill"
   gist: "about 271M CZK a year"
-  why: "The 262 Czech care employers advertising 651 nurse seats in one month carry an annual wage floor of about 271M CZK, which is what filling those shifts costs them today with nobody in between."
+  why: "262 Czech employers advertising 651 general-nurse seats in one month carry an annual wage floor of about 271M CZK. It is what employing nurses costs them, not what a care home pays for cover on one shift."
   note: 'Price receipt derived from the hiring aggregate already on this ledger
     (mpsv-2026-07-health-care): annualised wage floor EUR 10,838,685, converted at the fixed
     25.0 CZK/EUR rate that signal''s own money_note states, giving 270,967,125 CZK.
     Annualised is stated by the source, so the unit is per-year. basis manual-equivalent: it
     is the buyers'' own wage bill for doing the work without a marketplace, not a fee anyone
     charges, and no Czech agency per-shift rate is on file. dims omitted: the hiring source
-    already carries demand and money, and this receipt adds no point.'
+    already carries demand and money, and this receipt adds no point.
+    Corrected 2026-09-19: left untagged on purpose, so it backs no money point. The 262 employers
+    are every employer posting general-nurse vacancies (the signal is by occupation, sector
+    health), not care homes alone, and a posted wage prices employing staff, not buying one
+    shift''s cover from outside, which is this job. The payer and why lines now say so. The
+    hiring source [S4] no longer carries money either.'
   date: '2026-07-31'
-  payer: 'The Czech care sector, across 262 employers advertising 651 nurse seats'
+  payer: '262 Czech employers advertising 651 general-nurse seats'
   amount_czk: 270967125
   unit: per-year
   basis: manual-equivalent
 created: '2026-08-25'
-updated: '2026-09-04'
+updated: '2026-09-19'
 ---
 
 Czech care services are short of workers, and nobody sells a care home cover for a single shift [S3,S9].
@@ -410,13 +420,13 @@ Behind those three items are the monthly vacancy data, the models and a change i
 - The labour ministry and the health-statistics institute model residential clients rising from 93,536 to 135,624 by 2035, and beds from 76,761 to 111,503 [S5].
 - Since 1 July 2026 Act No. 92/2026 lets home-care services help with medication, without breaking the skin, and handle stoma and urine bags [S6]. That widens what a qualified flexible worker may cover in one shift [S6].
 
-Who pays: Care homes pay wages to staff their shifts and use agencies to hire, but no Czech price for a single shift is on file [S4,S9].
+Who pays: Care homes pay wages to staff their shifts and use agencies to hire, but no Czech price for a single shift is on file [S9,S10].
 
 - Employers advertised 651 general-nurse seats through the Labour Office in July 2026 [S4].
 - The Královéhradecký region tendered €2.19M in January 2026 for personal-assistance services [S7].
 - Agencies placing nurses and carers publish no price for a single shift [S9].
 
-What those July nurse seats cost in wages a year is in the table of what one buyer pays. A marketplace would earn a fee on a share of that wage bill, and no Czech per-shift rate is on file to set it [S9]. Abroad, workers bid on the shifts they want, and one marketplace says it cuts out agency middlemen [S1,S2].
+What those July nurse seats cost in wages a year is in the table of what one buyer pays. That is what employers pay to employ nurses, not what a care home pays for cover on one shift. A marketplace would earn a fee on a share of that wage bill, and no Czech per-shift rate is on file to set it [S9]. Abroad, workers bid on the shifts they want, and one marketplace says it cuts out agency middlemen [S1,S2].
 
 Solved elsewhere: Two marketplaces abroad, each about a decade old, let vetted nurses and carers book single shifts at care homes [S1,S2].
 
@@ -428,10 +438,10 @@ No Central European example is on file [S1].
 
 ## First moves
 
-1. Build the worker side first: a pool of vetted nurses and carers in one region who want to pick up single shifts at care homes. A shift only sells if someone qualified takes it, and a law in force since this summer lets care workers cover more routine health tasks, which widens who can take one; see [Why now](#why-now). Decide before the first shift who employs each carer, because the EU's platform-work rules presume employment where a platform directs the work, as [Competition](#competition) explains; the licence this needs is under [Execution difficulty](#execution-difficulty).
-2. Call the managers of care homes in one region that already use a staffing agency, and ask what one uncovered shift costs them. Agencies place people into posts by phone and publish no per-shift price, so nobody outside knows what a shift costs a home; see [Competition](#competition) and [Willing to pay](#willing-to-pay). Your fee has to come out of what the home already pays, so find that number before you set a price.
+1. Build the worker side first: a pool of vetted nurses and carers in one region who want to pick up single shifts at care homes. A shift only sells if someone qualified takes it, and a law in force since this summer lets care workers cover more routine health tasks, which widens who can take one; see [Why now](#why-now). Decide before the first shift who employs each carer, because the EU's platform-work rules presume employment where a platform directs the work, as [Market gap](#competition) explains; the licence this needs is under [Execution difficulty](#execution-difficulty).
+2. Call the managers of care homes in one region that already use a staffing agency, and ask what one uncovered shift costs them. Agencies place people into posts by phone and publish no per-shift price, so nobody outside knows what a shift costs a home; see [Market gap](#competition) and [Willing to pay](#willing-to-pay). Your fee has to come out of what the home already pays, so find that number before you set a price.
 3. Open every talk with a care home on the long-term staffing gap, not this month's vacancies. The ministry's bed models, every bed to be staffed, meet a sector already short of workers; see [Why now](#why-now). The shortage a home has this month is the smallest it will be.
-4. Watch the two Czech shift marketplaces that serve factories, canteens and restaurants, because either could open a care line. Both already let workers book single shifts, and neither names a care buyer yet; see [Competition](#competition). Move into care homes before they do.
+4. Watch the two Czech shift marketplaces that serve factories, canteens and restaurants, because either could open a care line. Both already let workers book single shifts, and neither names a care buyer yet; see [Market gap](#competition). Move into care homes before they do.
 
 ## Revisions
 
@@ -455,3 +465,5 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 2026-09-16 · headline copy — The headline was rewritten for a general builder as three lines under the title: a `brief:` on what is happening and why it matters now, the `solution:` as a call to action, and a new `good_for:` line. New copy, verbatim — title: "Czech care homes posted 316 new carer jobs in August"; brief: "No Czech service books them an outside carer for one shift [S9]. Shift apps only offer spare shifts to a home's own staff, and agencies fill jobs, not shifts [S8,S9]."; solution: "Build an app where vetted nurses and carers pick up single shifts at care homes, as companies already do abroad."; good_for: "Someone ready to recruit carers and handle Czech employment rules.". Previous title, verbatim: "Czech care providers are short thousands of workers and fill shifts by overtime and word of mouth — no staffing marketplace serves care". Previous solution, verbatim: "A marketplace where vetted nurses and carers pick up open shifts at care homes, and the home pays a fee for every shift filled.". There was no previous brief or good_for. Rewritten from the agent draft, which predated the owner's framing rules, and cut to the owner's length limits. 316 counts new Labour Office postings for direct-care workers in residential care in August 2026, across 222 employers [S10]. The absence rests on the controlled second sweep: no Czech operator sells per-shift cover from outside a provider's own payroll, rota tools offer open shifts to the employer's own staff, and agencies place employees rather than shifts [S8,S9]. Cut for length: the January 2025 survey's 3,000-worker shortage [S3]. Dropped as unsourced, as the old title carried them: "overtime and word of mouth", and the per-shift fee paid by the home. The 1 July 2026 amendment is past and is not framed as upcoming. "As companies already do abroad" rests on ShiftKey and Florence [S1,S2]. The good_for line rests on two entry facts: a marketplace needs carers on its books, and entry.why names an agency-employment licence, which has no [Sn] on file; the EU platform-work directive, due in Czech law by 2 December 2026, presumes employment where a platform directs the work [S11]. No score, status, source, note, marker or body sentence changed. Same date, pain-point pass: title "Czech care homes posted 316 new carer jobs in August" → "Czech care homes are short of carers, and can't book cover for a single shift"; brief "No Czech service books them an outside carer for one shift [S9]. Shift apps only offer spare shifts to a home's own staff, and agencies fill jobs, not shifts [S8,S9]." → "More than half of surveyed Czech care services report being short of workers [S3]. Shift apps only offer spare shifts to a home's own staff, and agencies fill jobs, not shifts [S8,S9].". Why: the old headline was a vacancy count, with no one hurting. The new one names the homes and the pain: short of carers, per the providers' association survey in which more than half of 625 facilities report a shortage [S3], and with no way to book an outside carer for one shift [S8,S9]. The brief's first sentence, which repeated that last point, now carries the survey's finding instead; the 316 vacancies stay on the record [S10]. No score, status, source, note or body sentence changed. Same date, abroad count (owner: fill "do abroad" with "X companies do in Y countries"): solution "…pick up single shifts at care homes, as companies already do abroad." became "…pick up single shifts at care homes, as 2 companies already do in 2 other countries." Counted from comps[] only: ShiftKey (comps[0], geo US), licensed professionals bidding on single shifts at 10,000+ facilities, skilled nursing first [S1]; Florence (comps[1], geo GB), care homes filling shifts directly from 90,000 vetted professionals [S2]. None excluded.
 
 2026-09-18 · body rewritten to the writing rules, process figure added — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the shortage and the missing single-shift cover, with the survey's two figures and the shift apps as its items and what a home can do about an empty shift as detail [S3,S8,S9]. Competition opens on the established firms that sell something else and describes all eleven `locals[]` players by what they sell, leaving names, customers and dates to their rows; the platform-work directive stays there [S8,S9,S11]. Why now opens on today's shortage and the 34,700 beds, with the deepening survey result, the July and August vacancy counts and the bed-staffing point as its items, and the vacancy detail, the bed models and the 1 July law below them [S3,S4,S5,S6,S10]. Willing to pay says homes pay wages and use agencies but no single-shift price is on file, lists the nurse seats, the regional tender and the agencies' missing price, and links the wage-bill receipt instead of restating it [S4,S7,S9]. Validated abroad describes both `comps[]` companies without their names [S1,S2]. The moves lost every [Sn] marker, figure and company name for links; move 1 now builds the worker pool (old move 2) and move 2 calls care-home managers (old move 1, which sold). `entry.why` was rewritten as "Easier: … Harder: …" [S3,S9,S11]. S11.why no longer says "this record", and S10, the only source without a public face, gained a `name`, `gist` and `why` beside its untouched note. Detail added from sources already on file, none of it new evidence: the August vacancies [S10], the survey's date and body [S3], the bed and client models [S5], what the 1 July law lets home-care services do [S6], the region's tender date [S7], and the two foreign companies' cities, core market, founders and e-learners [S1,S2]. Corrected against the sources rather than the old sentences: "providers cover the holes with overtime, agency staff and word of mouth" has no source, as the 2026-09-16 headline pass already found, so the opportunity now lists what the sources show a home can do and says how a home covers an untaken shift is not known [S8,S9]; "report unfilled posts" became "report a shortage of workers", the survey's own words [S3]; "care providers pay per filled shift, out of money already going to staffing agencies" and the old `entry.why`'s "the agency budget it already spends" rest on no Czech price or agency fee, since the agencies publish none [S9]; the €10.8M wage floor [S4] is the wage-bill receipt [S12], so the body links it rather than restating it; "workers come for shifts they choose" is not shown for Czechia and now reads "abroad, workers bid on the shifts they want" [S1]; "both make their money on the margin an agency takes" is stated by neither source, and only the British company's own page (florence.co.uk/resources/blog/series-b, read 2026-09-18) says its app cuts out agency middlemen [S2]; "nothing of the kind operates in Central Europe" [S1,S2] cannot rest on a US and a British source, and now reads "no Central European example is on file" [S1]; the 1 July law lets home-care services help with medication without breaking the skin and handle stoma and urine bags [S6], narrower than the old "care services may legally handle routine health tasks"; and old move 2's "staff who mostly already have a job" had no source and was dropped. Flagged as inference: "a marketplace would earn a fee on a share of that wage bill", the old "matching fee on a fraction of that flow", which no price on file sets [S9]; "that widens what a qualified flexible worker may cover in one shift", the [S6] note's own reading; "each new bed must be staffed from a sector already short of workers", which joins [S3] and [S5]; move 3's "the shortage a home has this month is the smallest it will be", carried from the old move; and the agency-employment licence in `entry.why`, which has no [Sn] on file, as the 2026-09-16 entry noted, and stays because it is the `permission: licence` gate. The new `process` block draws the home's shift app offering a spare shift to its own staff [S8,S9] and the agency placing people into posts by phone [S9], marks who covers an untaken shift as unknown, and adds the marketplace's vetting as a new step whose `inferred` rests on [S9] finding no Czech operator selling per-shift cover from outside a provider's payroll; every step phrase is 4–8 words. The coordinator may add p-0033 to `PROCESS_PHRASE_ENFORCED`. No score, status, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — `scores.money` 1 → 0, `scores.urgency` 1 → 0, `score` 8 → 6, band STRONG → FAIR. Money: the old 1 was the retired rung "a relevant tender or grant", read from the Královéhradecký region's tender [S7] and the July hiring wave [S4]. Tagging pass: the only price on file is the July wage-bill receipt [S12], about 271M CZK a year. It is not this job, for two reasons, and it stays untagged. First, the job is a care home buying cover for one shift from outside its own staff, and a posted wage prices employing a nurse. Second, the July aggregate counts general-nurse vacancies by occupation across any employer, not care homes, as the signal itself says (sector health, CZ-ISCO). So its payer read "the Czech care sector" and its why read "262 Czech care employers", and both overstated who pays. They now say "262 Czech employers advertising 651 general-nurse seats", and the why says the figure is not a shift's cover. The region's tender buys personal-assistance capacity [S7], a different buyer and a different job, so it stays public money nearby. The agencies publish no per-shift price [S9]. No receipt was added, and money 0 matches the worksheet. Urgency: the old 1 was the retired freshness point alone. Act No. 92/2026 [S6] permits home-care services to do more, which is a permission and not a duty on care homes, so it scores 0. The platform-work directive [S11] is untransposed and falls on platforms. Its note says it dates a risk for the seller, not a duty that pushes this buyer to act, and it keeps `dims: []`. So the score is 0, and both halves of judgement call 4 in the worksheet are read as no. Tags fixed: the hiring source [S4] was tagged demand and money. Hiring backs money only as a price receipt (data/CONVENTIONS.md), and on the new page a non-price money tag counts as public money nearby, which a job posting is not. It now backs demand only. The notes on S4, S7 and S12 each gained a dated correction line. Prose re-read against the new numbers: Willing to pay's answer cited the general-nurse aggregate for care homes' wages, and now cites the residential-care vacancies [S10] with the agencies [S9]. After the table link it gained one sentence: the wage bill is what employing nurses costs, not what a care home pays for one shift. Why now claims no legal deadline and is unchanged. Three links in moves 1, 2 and 4 now read Market gap instead of Competition. No other score, status, source order or body sentence changed.

@@ -7,11 +7,11 @@ solution: 'Build a Czech-speaking phone assistant that books, moves and confirms
 good_for: 'Someone who''d like to work with home-care agencies.'
 category: health
 geo: CZ-national
-score: 6
+score: 4
 scores:
   proof: 2
-  money: 1
-  urgency: 1
+  money: 0
+  urgency: 0
   demand: 2
   gap: 0
 status: watching
@@ -197,7 +197,9 @@ sources:
     cost models for home and community nursing care — worth ~€5.44M (registr smluv, 14 Jul
     2026). Money 0→1: a relevant public contract now funds the domain''s data foundations;
     held below 2 because it is state project money, not an open tender a builder can win
-    or agency purchasing budget.'
+    or agency purchasing budget. Superseded 2026-09-19: on the new ladder this is public money
+    nearby, the state paying for its own cost models, not an agency paying for this job, so it
+    earns no point and money is 0.'
   date: '2026-07-14'
   signal: hlidac-36430740
   dims: [money]
@@ -224,13 +226,14 @@ sources:
     class the call names — NNO and poskytovatelé sociálních služeb — is this record''s buyer,
     and the money is delivery capacity, which is what the intake wedge frees. It is NOT money
     for this product; nothing in the call pays for software, so money stays where the KOMPAS
-    contract [S7] left it. Runner-up considered and rejected: p-0033, which already carries an
+    contract [S7] left it. Superseded 2026-09-19: public money nearby earns no point on the new
+    ladder, and neither this call nor [S7] buys this job, so money is 0. Runner-up considered and rejected: p-0033, which already carries an
     equivalent care-capacity receipt in the Královéhradecký personal-assistance tender.'
   date: '2026-11-23'
   signal: dotace-opz-112-pas
   dims: [money]
 created: '2026-08-13'
-updated: '2026-09-03'
+updated: '2026-09-19'
 ---
 
 Czech home-care agencies still book and move visits by phone and on paper, while nurses are scarce [S1,S2].
@@ -239,7 +242,7 @@ Czech home-care agencies still book and move visits by phone and on paper, while
 - Intake calls, new clients and visit changes run on phone and paper [S1].
 - Their records software bills the care already given, and takes no calls [S2].
 
-They include home-nursing agencies, called agentury domácí péče in Czech, and community care services, called pečovatelské služby [S1]. They range from Včelka to charity providers [S1]. Czech vendors already sell planning software above the records system; see [Competition](#competition).
+They include home-nursing agencies, called agentury domácí péče in Czech, and community care services, called pečovatelské služby [S1]. They range from Včelka to charity providers [S1]. Czech vendors already sell planning software above the records system; see [Market gap](#competition).
 
 Existing non-solutions: Czech vendors already sell planning and coordination software to these agencies, and two of them have done so for years [S4].
 
@@ -267,7 +270,7 @@ The change behind the third item is Act No. 92/2026, an amendment to the social 
 
 The labour ministry's grant for autism-spectrum services closes on 23 November 2026 [S9].
 
-Who pays: Agencies already pay for care software, and the state is paying to work out what home nursing care costs [S4,S7].
+Who pays: Agencies already buy Czech care software, but no price for it is on file, and the public money nearby pays for other work [S4,S7,S9].
 
 - More than 200 sites bought one Czech care system as a one-off licence [S4].
 - The state health-statistics institute signed about €5.4M to model home-nursing care [S7].
@@ -300,3 +303,5 @@ The opening left in Czechia is Czech-language voice intake on top of whichever p
 2026-09-16 · headline copy — The top of the record was rewritten for a general builder as three lines under the headline: a `brief:` on who is stuck and what forces it now, the `solution:` as a call to action starting "Build", and a new `good_for:` line. Previous title, verbatim: "Czech home-care agencies burn scarce nurse time on phone-and-paper intake, scheduling and coordination". Previous solution, verbatim: "Czech-speaking voice intake for home-care agencies — the calls that book, move and confirm visits answered automatically, on top of the scheduling system the agency already runs." There was no previous brief or good_for. Checked against the sources before writing: "burn scarce nurse time" left the headline, because no source says nurses are the ones answering the booking calls — the signal behind [S1] says agencies run on phone and paper under a nurse shortage, so the headline now puts those two facts side by side. The 380 vacancies are general-nurse vacancies posted by all Czech employers in July 2026, not by home-care agencies alone, and the brief says "Czech employers" for that reason [S6]. The July 2026 change is stated as already in force, never as upcoming [S5]. No urgency was added: the record has no dated deadline. "As companies already do in the US" rests on Sage Care and TakeCareOS [S1,S3]. No score, status, source, note, marker or body sentence changed. Simplified for the front page: title "Czech home-care agencies run on phone calls and paper while nurses are hard to find" → "Czech home-care agencies run on phones and paper while nurses are scarce"; brief "Agencies book, move and confirm visits by phone, while Czech employers posted 380 new nurse vacancies in July 2026 alone [S1,S6]. Since July 2026, care services may also help clients take medicines and handle stoma bags [S5]." → "Agencies book, move and confirm visits by phone, while Czech employers posted 380 new nurse vacancies in one month [S1,S6]. Care services may now also help with medicines and stoma bags [S5]."; solution "Build a Czech-speaking phone assistant that books, moves and confirms home-care visits in the agency's own scheduling software, as companies already do in the US." → "Build a Czech-speaking phone assistant that books, moves and confirms visits in the home-care agency's own scheduling software.". The July 2026 dates and the "alone" were cut; "380 new nurse vacancies in one month" keeps its marker [S6]; "as companies already do in the US" was cut.
 
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the phone-and-paper booking under a nurse shortage, with the hundreds of agencies, the intake and visit work, and the records software as its first three items; the Czech names of the two kinds of provider and the Včelka-to-charity range are its detail [S1,S2]. Competition opens on the Czech vendors that already sell the planning layer, and describes each by what it sells, with short items first and the billing codes, the one-off licence, the newer app's features, the regional grant project and the records software's limits below [S2,S4]. Why now opens on the care hours lost to phone admin and the July 2026 change, with the vacancies, the lost capacity and the new health tasks as its first three items and the amendment's detail below [S1,S5,S6]. Willing to pay now answers whether anyone pays: agencies buy care software, and the state pays to cost home nursing care [S4,S7,S9]. Validated abroad became one answer sentence and short paragraphs [S1,S3,S8]. Every comps[] and locals[] company left the body (Cygnus DP and IRESOFT, VeruApp, e-Sestřička, pecovatelska.cz and Petr Zajíc software, E-péče, Sage Care, TakeCareOS, Birdie, AlayaCare); each is described by what it sells, and its name, year and customers stay in its row. Detail added from sources already on file, none of it new evidence: the 651 places behind the 380 vacancies, and that they count every Czech employer [S6]; what the amendment allows, medicines without breaking the skin and stoma and urine bags [S5]; KOMPAS's signing date and ÚZIS glossed [S7]; the OPZ+ call's number and applicants, and that it pays for care, not software [S9]; and Evergrove, whose source S8 the body never cited, as the closest template for voice intake [S8]. `entry.why` was rewritten as "Easier: … Harder: …" from the same gates, and it no longer names Cygnus DP, e-Sestřička or pecovatelska.cz. Four source lines changed: S1's, S5's and S6's why said "this record", and S8 gained a public name, gist and why, written from its note and signal. No `process:` block was added: the sources say agencies run intake and scheduling on phone, paper and a records system [S1,S2], but none says who takes the calls or books the visits (the 2026-09-16 headline pass already found no source saying nurses do), so the steps could not name who does what without inventing it. Corrected against the sources rather than against the old sentences: the amendment was said to add "work per scarce nurse", but it widens what care services, which are carers rather than nurses, may do, and S5's note says "the same scarce staff", so the body and S5's why now say that [S5]; "Birdie (Britain) and AlayaCare (Canada) have sold … for over a decade" was wrong for Birdie, founded in 2017, so it now says "for years"; "neither sells in continental Europe" and "the model is proven, but never under Czechia's reimbursement rules" had no source on file and were cut; "the agencies buy capacity" became "what an agency gains is capacity", since no source records an agency buying for that reason. Flagged as inference: that freed time lets nurses deliver more of the care the insurers pay for, which rests on S1's note that admin time converts to capacity and on the insurers' nursing billing codes [S1,S4]; and that the opening left in Czechia is Czech-language voice intake on top of an agency's existing system, since no search on file looked for a Czech voice-intake seller [S4]. No score, status, source order, `note:`, title, brief, solution or good_for changed.
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0, Willing to pay 1 → 0 and `score` 6 → 4, so the band moves FAIR → FAINT. Why now was 1 as deadline 0 plus the freshness point, which is retired. The only dated instrument on file, Act No. 92/2026, says care services may help with medicines and stoma bags from 1 July 2026 [S5]. That permits something and sets nothing due, so it is rung 0. The autism-services grant's closing date is a grant date, not a deadline [S9]. Willing to pay was 1 on the ÚZIS KOMPAS contract [S7], which is public money nearby: the state paying for its own cost models of home nursing care, not an agency paying for this job. It now earns nothing. Tagging pass, every source on file that might show someone paying for this job: more than 200 sites bought a Czech care system as a one-off licence, but no amount is on file [S4]; the OPZ+ call pays for care services, not software [S9]; the hiring data prices nurses' wages, not intake or scheduling [S6]. No receipt could be written, so money is 0, as the worksheet had it. [S7]'s and [S9]'s notes named the old money rung and now carry the correction. Their `dims: [money]` stay, because on the new ladder that tag is what shows them as public money nearby. Why now prose re-read: it describes lost care hours and the new tasks the amendment permits, and claims no deadline, so it stands. Willing to pay's answer sentence read as a yes. It now says agencies buy Czech care software, that no price for it is on file, and that the public money nearby pays for other work [S4,S7,S9]. `[Competition](#competition)` became `[Market gap](#competition)` in The opportunity. No other score, status, entry or body sentence changed.

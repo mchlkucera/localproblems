@@ -7,11 +7,11 @@ solution: 'Build a service that gives small schools a psychologist and a special
 good_for: 'Someone with a psychology or special-education team who can sell to schools.'
 category: education
 geo: CZ-national
-score: 9
+score: 8
 scores:
   proof: 2
   money: 2
-  urgency: 1
+  urgency: 0
   demand: 2
   gap: 2
 status: candidate
@@ -199,8 +199,8 @@ sources:
     research pass 2026-09-18: "lze k 1. 1. 2025 odhadovat roční finanční náklady na zajištění
     financování 1 215,44 úvazků těchto pedagogických pracovníků ze státního rozpočtu ve výši cca
     905 mil. Kč." edu.gov.cz, 26 Sep 2024: EU (OP JAK) funding of these posts ended in 2024.
-    Recurring annual public spend near this problem: money 2. It pays posts, not outside
-    services.'
+    Recurring annual public spend near this problem. It pays posts, not outside services, so
+    since 2026-09-19 it is public money nearby: it earns no money point and cannot lift one.'
   date: '2024-03-01'
 - type: subsidy
   name: "KVIC — how school psychologists are funded from 2026"
@@ -288,12 +288,18 @@ sources:
     psychologa", buyer Základní škola Mikulov, Valtická 3, p.o. (IČO 70262179), supplier a
     self-employed psychologist (not named here), 180,000 Kč incl. VAT, signed 1 Sep 2026; a prior
     contract of 144,000 Kč on 11 Nov 2025 (/Detail/35662009). The period and hours are in the
-    attached document, not read, so the unit is per-project. One buyer; dims omitted.'
+    attached document, not read, so the unit is per-project. One buyer. Rescore 2026-09-19: the
+    attachment read in Hlídač''s text view: "psychologické služby, v rozsahu 10 hodin týdně,
+    zaměřené na podporu žáků, rodičů, pedagogických pracovníků, individuální konzultace a
+    poradenskou činnost", 450 Kč an hour, 1 Sep 2026 to 30 Jun 2027, supplier licensed for
+    "Psychologické poradenství a diagnostika". That is this job bought in by hand, so it is
+    tagged dims: [money]: a paid receipt within 24 months.'
   date: '2026-09-01'
   payer: 'Základní škola Mikulov, a public primary school'
   amount_czk: 180000
   unit: per-project
   basis: signed-contract
+  dims: [money]
 - type: price
   url: https://pppp.cz/cenik
   name: "Pražská PPP — a paid assessment outside the free route"
@@ -308,8 +314,26 @@ sources:
   amount_czk: 2300
   unit: per-case
   basis: list-price
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/35662009
+  name: "ZŠ Mikulov — the school year before"
+  gist: "the same school, 2025"
+  why: "The same school's earlier contract with the same freelance psychologist, for the 2025/26 school year."
+  note: 'Restated from the S12 note on 2026-09-19, the rescore tagging pass. Registr smluv
+    35662009 via Hlídač státu (/Detail/35662009 and its text view, read 2026-09-19): "Smlouva o
+    poskytování služeb psychologa", buyer Základní škola Mikulov, Valtická 3, p.o. (IČO 70262179),
+    supplier a self-employed psychologist (not named here), signed 11 Nov 2025, 144,000 Kč incl.
+    VAT; the same scope as S12 ("podporu žáků, rodičů, pedagogických pracovníků"), 320 hours at
+    450 Kč an hour, 1 Nov 2025 to 30 Jun 2026. This job bought in by hand: a paid receipt within
+    24 months.'
+  date: '2025-11-11'
+  payer: 'Základní škola Mikulov, a public primary school'
+  amount_czk: 144000
+  unit: per-project
+  basis: signed-contract
+  dims: [money]
 created: '2026-09-18'
-updated: '2026-09-18'
+updated: '2026-09-19'
 ---
 
 Pupils who need extra help at school wait months for a counselling-centre assessment, and more centres now miss their legal deadline [S1,S2].
@@ -335,9 +359,9 @@ Existing non-solutions: Czech firms sell counselling centres their record system
 - Schools that buy a psychologist's time buy it from freelancers [S11].
 - The centres themselves offer some online consultations, but they are the public providers, not sellers [S11].
 
-The sellers are listed under [Competition](#competition).
+The sellers are listed under [Market gap](#competition).
 
-Why now: Demand for school support grew by a fifth in a year, while centres fall further behind their legal deadline [S1,S2].
+Why now: No dated rule forces schools to act, but demand for support grew a fifth in a year and centres fall behind [S1,S2].
 
 - Families wait half a year or more for a recommendation [S2].
 - Centre staff lose about half their day to paperwork [S4].
@@ -351,11 +375,11 @@ The dates on file:
 - From 1 January 2026 the state funds school psychologist and special educator posts through a standing allocation by school size [S8].
 - From January 2027 a new decree and a new way of funding the centres are planned, with about 270 more staff [S10]. The finance ministry disputes the cost [S10].
 
-Who pays: The state pays schools for psychologists every year, and some schools already buy a psychologist's time from freelancers [S7,S11].
+Who pays: Some schools already buy a psychologist's time from freelancers, and the state pays schools for psychologists every year [S7,S11].
 
 - About 905M CZK a year pays 1,215 school psychologist and special educator posts [S7].
 - A school gets half a post at 180–299 pupils, rising to 2.5 posts [S8].
-- Some schools already pay freelance psychologists for their time [S11].
+- Schools that buy this time buy it from individual freelancers, not firms [S11].
 
 The ministry took these posts over from EU funding at the start of 2025 [S7]. What one school paid a freelance psychologist, and what a family pays for an assessment outside the free route, are in the table of what one buyer pays.
 
@@ -381,3 +405,5 @@ The younger company raised a USD 20M Series B in December 2025, USD 48.9M in tot
 ## Revisions
 
 2026-09-18 · record created — Minted from the monthly broad scan's us-parallel-learning signal after Czech research. Proof 2 on Parallel Learning and Presence, both established in the US [S5,S6]; no comparable in a second market sells remote school specialists on file, so proof stays below 3. Lexplore (Sweden) sells reading screening, not specialists, and was left off the ledger rather than used to lift proof. Money 2 on recurring state spend on school psychologist and special educator posts [S7,S8]. Urgency 1, freshness only: the 2027 counselling-centre rules are a plan, not a compliance date [S10], and the 2025 school-entry amendment was not confirmed to add work for the centres. Demand 2 on the school inspectorate's report, two ČT24 reports, a centre's own 10-month notice and the ministry's research ask [S1,S2,S3,S4,S9]. Gap 2: no Czech seller of remote school specialists found, with a passing positive control; seven adjacent players recorded [S11]. Flagged as inference: that the smallest schools get too little for a post of their own is our reading of the allocation table, which starts at 180 pupils [S8]. The school inspectorate's 168 and 127 clients-per-worker figures are left out because the report uses them two different ways. The Mikulov price is per-project because the contract's period was not read [S12].
+
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0 and the total 9 → 8; the band stays STRONG. Willing to pay stays 2, now on paid receipts instead of state spending. Why now: the old 1 was the freshness point alone, which is retired. No `regulation` source is on file. The three-month limit falls on the counselling centres, not the schools, and it is the status quo. The 2027 rules are a plan [S10]. So rung 0. Willing to pay: the old 2 rested on state pay for school psychologist posts [S7,S8]. That is public money nearby, and it pays posts, not bought-in services, so it cannot lift a price. Tagging pass, settling the worksheet's judgement call by the owner's rule that a payment counts only if it buys this job: ZŠ Mikulov's contract [S12] was read in full on 2026-09-19. It buys a freelance psychologist for the school, 10 hours a week to support pupils, parents and teachers with individual consultations, at 450 CZK an hour, from 1 September 2026 to 30 June 2027. That is this job, done in person instead of over video, bought in by the school. It is now tagged money: a paid receipt, 180,000 CZK incl. VAT, signed 1 September 2026, within 24 months. The same school's earlier contract with the same psychologist, named in S12's note, is restated as a receipt [S14]: 144,000 CZK incl. VAT, signed 11 November 2025, 320 hours at the same rate and the same scope. Two paid receipts within 24 months give rung 2. Not tagged: the Prague centre's 2,300 CZK assessment [S13] is paid by families, not schools. The adjacent prices in the gap check [S11] (Didanet's licence, Kolín's reading-app licence, Frýdek-Místek's test order) buy software or tests, not a psychologist's time. Body: the `[Competition](#competition)` link now reads `[Market gap](#competition)`. Why now's opening sentence says no dated rule forces schools to act, and no longer names "their legal deadline", which is the centres' own, not the schools'. Willing to pay's opening sentence leads with the schools that pay, and its third item, which repeated it, now says schools buy the time from individual freelancers [S11]. S7's note no longer claims money 2, and S12's note records the contract's scope and its tag. No other score, status, marker or `entry` gate changed.
