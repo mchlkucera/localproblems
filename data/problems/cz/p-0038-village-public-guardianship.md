@@ -7,10 +7,10 @@ solution: 'Build case-management software for the town offices that take on this
 good_for: 'Someone who can sell software to town halls and understands social work.'
 category: govtech
 geo: CZ-national
-score: 4
+score: 5
 scores:
   proof: 1
-  money: 1
+  money: 2
   urgency: 0
   demand: 2
   gap: 0
@@ -44,16 +44,20 @@ locals:
     module for towns that run the affairs of adults in their care. Named customers: Hradec Králové
     bought that module from MARBES CONSULTING s.r.o. in July 2018, and Chrudim ordered further work
     on the module, tracking a person''s money on several accounts at once, from Marbes s.r.o. (IČO
-    29108373) in 2022 [S9]. Marbes says it has supplied software since 1993.'
+    29108373) in 2022 [S9]. Beroun bought its social-department module, which covers this work
+    with a money ledger per person, in October 2025 [S18]. Marbes says it has supplied software
+    since 1993.'
 - name: VERA (VERA Radnice)
   ico: '62587978'
-  since: 2022
+  since: 2017
   competes: direct
   maturity: established
   evidence: 'Sells VERA Radnice, town-hall software with a module for this work that keeps each
-    person''s details and plans the official''s tasks. Named customer: the town of Rožnov pod
-    Radhoštěm bought its social-department software in November 2022, with this work and a cash
-    ledger in the order [S9].'
+    person''s details and plans the official''s tasks. Named customers: Uherské Hradiště ordered
+    the module in 2017 and Jihlava bought it in 2022, and the town of Rožnov pod Radhoštěm bought
+    its social-department software in November 2022, with this work and a cash ledger in the
+    order [S9,S18]. Frýdlant nad Ostravicí, Otrokovice and Kostelec nad Orlicí signed up to rent
+    the module in 2025 [S18].'
 - name: Aptien
   url: https://aptien.com/cs/evidence-verejne-opatrovnictvi
   ico: '26397668'
@@ -63,6 +67,16 @@ locals:
     deadlines and printed yearly reports, on top of a general records tool for firms and towns. It
     names no town that bought it for this work, and no contract for it was found in the state
     contracts register [S9]. Aptien Labs s.r.o. has existed since 2005.'
+- name: ORTEX (Sociální agenda)
+  ico: '00529745'
+  competes: direct
+  maturity: early
+  evidence: 'Sells ORTEX Sociální agenda, software for a town''s social department, to towns
+    since at least 2015. The town of Kaplice bought it in June 2025 after its own tender, which
+    asked for this work with a money ledger per person, and the offer confirmed both [S18]. That
+    is the one named buyer for this work on file: the earlier licences read do not mention it, so
+    when the product began to cover it is not known. ORTEX spol. s r.o. is a software firm in
+    Hradec Králové.'
 - name: ICZ (traffic-offence system)
   url: https://www.iczgroup.com/
   ico: '25145444'
@@ -381,6 +395,133 @@ sources:
   unit: per-project
   basis: signed-contract
   dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/31982052
+  name: "Frýdlant nad Ostravicí — renting an add-on for this work, January 2025"
+  gist: "a town rents the add-on"
+  why: "What a town pays each year, under a software rental signed in January 2025, for an add-on for this work in its town-hall software."
+  note: 'Registr smluv 31982052 (idSmlouvy 29940392), concluded 30 January 2025, published 3
+    February 2025: Město Frýdlant nad Ostravicí (IČO 00296651) and VERA, spol. s r.o. (IČO
+    62587978), "Smlouva o nájmu software a poskytnutí licence a dalších služeb číslo SWRp/24/102",
+    approved by council resolution 44/4.1. Příloha č. 1 lists the rented agendas: "Sociální
+    agendy KC Sociálně právní ochrana dětí KRO Veřejný opatrovník KRP Sociální práce". Příloha č. 3
+    "Cena Dodání Software a udělení Licence formou nájmu": "Veřejný opatrovník 28 593 [Kč bez DPH]
+    34 597,53 [Kč s DPH]"; implementation and training for the three agendas 50,000 CZK excl. VAT,
+    one-off. The rent is paid "ve čtvrtletních splátkách ve výši 1/4 roční ceny", basic technical
+    support included; production use from 1 February 2025. No registry value published. Contract
+    text read through the Hlídač státu API, 2026-09-19. basis signed-contract, 19 months before
+    updated: a PAID receipt for this job.'
+  date: '2025-01-30'
+  payer: 'Město Frýdlant nad Ostravicí, a town'
+  amount_czk: 28593
+  unit: per-year
+  basis: signed-contract
+  dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/34343377
+  name: "Otrokovice — adding the add-on to its rental, August 2025"
+  gist: "a town adds the add-on"
+  why: "What a town pays each year to add an add-on for this work to the town-hall software it already rents."
+  note: 'Registr smluv 34343377, concluded 4 August 2025, published 5 August 2025: město
+    Otrokovice (IČO 00284301) and VERA, spol. s r.o. (IČO 62587978), "Dodatek č. 9 ke sml. o
+    pronájmu programového vybavení VERA Radnice a podpoře provozu a užití IS VERA Radnice č.
+    SWRp/09/48", approved by the town council on 15 July 2025 (RMO/2/13/25). Clause I.5:
+    "Rozšíření předmětu pronájmu Programového vybavení VERA Radnice včetně poskytování základní
+    technické podpory na agendy: Agenda Roční cena nájmu Kč Veřejný opatrovník 32 801,28", with
+    three other agendas, "Cena celkem bez DPH 123 248,96"; clause I.8 raises the town''s whole
+    yearly rent to 1,278,167.96 CZK excl. VAT. Registry value 651,524.80 CZK excl. VAT. Contract
+    text read through the Hlídač státu API, 2026-09-19. amount_czk rounds 32,801.28 down. basis
+    signed-contract, 13 months before updated: a PAID receipt for this job.'
+  date: '2025-08-04'
+  payer: 'Město Otrokovice, a town'
+  amount_czk: 32801
+  unit: per-year
+  basis: signed-contract
+  dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/34614049
+  name: "Kostelec nad Orlicí — adding the add-on to its rental, August 2025"
+  gist: "another town adds it"
+  why: "What another town pays each year, before a discount on the whole order, to add an add-on for this work to the town-hall software it rents."
+  note: 'Registr smluv 34614049 (idSmlouvy 32452889), concluded 29 August 2025: Město Kostelec nad
+    Orlicí (IČO 00274968) and VERA, spol. s r.o. (IČO 62587978), "Dodatek č. 16 ke smlouvě o
+    udělení Licence k užití formou pronájmu a podpoře provozu VERA Radnice - rozšíření o agendy
+    KRO, RICR, MK-T, RU-B, WGJP a ukončení agendy WGU", approved by the town council on 25 August
+    2025 (RM/1562/2025). Článek I.1: "Rozšíření předmětu pronájmu Programového vybavení VERA
+    Radnice včetně poskytování Základní technické podpory na agendy: Veřejný opatrovník, ...";
+    I.3: "Roční cena za udělení Licence ASW k užití formou pronájmu ... Cena nájmu Kč za 1 rok
+    Veřejný opatrovník (KRO) 30 870,00". The five added agendas less the dropped one come to
+    69,202 CZK, less a 15,221 CZK discount on the whole addition, 53,981 CZK a year; "Ceny
+    nezahrnují DPH". Registry value 6,453,775 CZK excl. VAT, the whole rental. Contract text read
+    through the Hlídač státu API, 2026-09-19. The amount is the listed line before the order-wide
+    discount. basis signed-contract, 13 months before updated: a PAID receipt for this job.'
+  date: '2025-08-29'
+  payer: 'Město Kostelec nad Orlicí, a town'
+  amount_czk: 30870
+  unit: per-year
+  basis: signed-contract
+  dims: [money]
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/35233201
+  name: "Registr smluv — towns paying for software for this work, 2025"
+  gist: "towns buying it in 2025"
+  why: "The public contracts register shows towns signing for software that handles this work in 2025: three renting an add-on for it, and two buying social-department software that includes it."
+  note: 'Hlídač státu API full-text search of the contracts register, 2026-09-19, newest first:
+    predmet:opatrovnictví (79 hits); opatrovnictví AND datumUzavreni:[2024-09-01 TO *] (111);
+    "evidence opatrovanců" OR "evidenci opatrovanců" OR "Veřejný opatrovník" OR "veřejný opatrovník
+    peněžní deník" (144; "Veřejný opatrovník" is the name of VERA''s module); "modul opatrovnictví"
+    OR "modulu opatrovnictví" OR "agenda opatrovnictví" OR "agendy opatrovnictví" (17); "veřejného
+    opatrovnictví" AND (software OR aplikace OR modul OR licence OR licenci) since 2024-09 (3);
+    "sdíleného úředníka" OR "sdílený úředník" OR "sdíleným úředníkem" (2, neither about this
+    work); for the work bought in by hand, ("zajištění výkonu veřejného opatrovnictví" OR "výkon
+    funkce veřejného opatrovníka" OR "výkonu funkce opatrovníka" OR "výkon veřejného
+    opatrovnictví") since 2024-09 (7) and "veřejnoprávní smlouva" AND (opatrovnictví OR opatrovník
+    OR opatrovance) (23, social-service contributions and grants); ORTEX AND ("sociální agenda" OR
+    "sociální agendy" OR opatrovník OR opatrovnictví) (35); (GINIS OR KEO OR MUNIS OR Cygnus OR
+    "OKslužby" OR "OKsystem") AND ("veřejného opatrovnictví" OR "veřejný opatrovník" OR
+    opatrovanců) (2, neither relevant). Every VERA contract concluded from 2024-09-19 among the 144
+    was opened: most list "KRO Veřejný opatrovník" among a town''s agendas with no price of its own
+    (Vlašim, Dačice, Frenštát pod Radhoštěm, Slavkov u Brna, Třebíč, Rychnov nad Kněžnou, Rumburk,
+    Uherské Hradiště, Svitavy, Mohelnice, Vrchlabí, Aš, Kostelec nad Orlicí dodatek 17 and 18).
+    THE THREE WITH A PRICE LINE FOR IT: S15, S16, S17. OLDER THAN 24 MONTHS, NOT RESTATED:
+    Statutární město Jihlava, registr smluv 21657533, 13 September 2022, "Smlouva o dodání
+    software a poskytnutí licence a dalších služeb SWR/22/354 - Veřejný opatrovník", two licences
+    of "Veřejný opatrovník (KRO)": licence 141,900, implementation 53,200 and support 28,380 a
+    year, CZK excl. VAT, registry value 337,000; Uherské Hradiště, 2021214, 25 May 2017,
+    "Objednávka agendy KRO Veřejný opatrovník", 77,590.04 CZK incl. VAT (metadata only);
+    Mohelnice, 4140648, 12 December 2017, licences including "Veřejný opatr." (metadata only).
+    WHOLE SYSTEMS WITH THIS WORK AS ONE PART, SO NO PRICE FOR THIS JOB: Město Beroun to Marbes
+    s.r.o. (IČO 29108373), 35233201, 15 October 2025, "Rozvoj PROXIO o dodávku modulu Sociální
+    agendy", 650,000 CZK excl. VAT fixed, whose annex describes "Opatrovnictví fyzické osoby" with
+    "správu peněz opatrované osoby" and "Evidence peněz se vede v samostatném peněžním deníku";
+    Město Kaplice to ORTEX spol. s r.o. (IČO 00529745), 33660977, 12 June 2025, after the small
+    tender "Informační systém pro sociální agendy a SPOD", 645,000 CZK excl. VAT (411,000 delivery,
+    234,000 support for 36 months), offered solution "ORTEX Sociální agenda – Vedení sociálních
+    agend", its specification answered "Agenda veřejného opatrovnictví: - Veřejný opatrovník Ano
+    Peněžní deník Ano"; Město Vimperk to VERA, 31592976, 27 December 2024, a whole town information
+    system, 8,223,090 CZK excl. VAT, whose specification lists "Veřejné opatrovnictví". ORTEX''s
+    earlier social-agenda licences read (Havířov 17999263, 2021; Litomyšl 22695425, Mělník
+    22786845, Valašské Meziříčí 22704485, 2022; Klatovy 26925499, Vysoké Mýto 26224343, 2023;
+    Litomyšl addendum 32018552, 2025) do not mention this work; its first social-agenda contract on
+    file is Hradec Králové 3006358, 2015 (metadata only). FOUND AND NOT COUNTED, NOT THIS JOB:
+    Městská část Praha 4 law-firm orders made "v rámci výkonu veřejného opatrovnictví" for single
+    cases (33837733, 35000661, 35376729, 2025) and Městský obvod Ústí nad Labem-Neštěmice,
+    35315545, 21 October 2025, legal services "v oblasti výkonu funkce opatrovníka občanům
+    omezeným ve svéprávnosti", no value: legal help, as S10; Město Šumperk to an advocate,
+    38844598, concluded 2 July 2026, 5,000 CZK a month from 1 August 2026 for three years
+    (registry value 180,000), for "výkon funkce opatrovníka ... v případech stanovených v
+    ustanovení § 32 zákona č. 500/2004 Sb., správní řád": a guardian for parties to administrative
+    proceedings, not this work; Statutární město Brno grants to Národní institut nápomoci,
+    zastoupení, opatrovnictví a péče (33143584, 2025; 38043317, 2026, 131,000 CZK): grants, not
+    a purchase; courses on guardianship; Prostějov''s Corrency contract (37978033), which only
+    names the social department. NO TOWN WAS FOUND PAYING AN OUTSIDE FIRM OR PERSON TO RUN THIS
+    WORK ITSELF. Positive control: the same query shapes returned Břeclav''s law-firm orders
+    already on file (S10) and the Šumperk § 32 guardian, so the method does surface outside
+    people paid for guardian work. WHY THIS ROW BACKS GAP, NOT MONEY: the prices are restated as
+    S15 to S17; this row carries the named buyers of the two established suppliers and ORTEX''s
+    one.'
+  date: '2025-10-15'
+  dims: [gap]
 created: '2026-09-18'
 updated: '2026-09-19'
 ---
@@ -408,7 +549,7 @@ The ombudsman, the public defender of rights, surveyed 2,191 small villages and 
 
 Existing non-solutions: Two established Czech suppliers of town-hall software already sell towns an add-on for this work [S9].
 
-A third Czech seller offers an online register for the officials who do it, with no named town buying it; see [Market gap](#competition) [S9]. Towns also pay lawyers for help with the work; see [Willing to pay](#willing-to-pay).
+Both of those suppliers signed new towns for it in 2025 [S18]. Two more Czech sellers offer it: one sells an online register that no named town has bought, and one sells social-department software that a town bought for this work in 2025; see [Market gap](#competition) [S9,S18]. Towns also pay lawyers for help with the work; see [Willing to pay](#willing-to-pay).
 
 - Minor-offence cases already have a way out: a village pays a bigger town to handle them under a contract between the two municipalities [S7]. Seven villages handed all their cases to one town this way in June 2024 [S7].
 - Since 2024 a formal association of municipalities in one district can share one trained official for this work [S2,S6].
@@ -427,10 +568,11 @@ The dates behind this:
 - From 1 July 2027 the bill would let a village hand this work to another town, or to an association of municipalities, by contract [S2].
 - Every year by 30 June the town sends the court the accounts of each person's money it manages [S5].
 
-Who pays: Towns pay, and the state gives them 430M CZK a year for this work, less than its own costing says it needs [S2].
+Who pays: Towns pay for this work, and in 2025 three of them signed up to rent a software add-on for it each year [S18].
 
+- Towns have bought add-ons for this work since at least 2017 [S9,S18].
+- The state's 430M CZK a year is less than its own costing says [S2].
 - The state pays a town about 30,500 CZK a year for each person [S6].
-- Towns bought add-ons for this work in 2018 and 2022 [S9].
 - Towns hire lawyers to help; see [Willing to pay](#willing-to-pay).
 
 Regions get another 21M CZK a year on top of the 430M CZK for towns [S2]. The ministry's own costing needs 877 full-time officials at about 801M CZK a year to look after everyone properly [S2]. The bill does not change the money: its impact assessment calls it budget-neutral [S2].
@@ -452,3 +594,13 @@ It was developed with the cities of Stockholm and Västerås, carries no licence
 2026-09-19 · plain language (owner-approved) — Owner: "I would appreciate not using or explaining of legal guardian (idk what it means)". The title, brief, solution, body and every rendered line now say what actually happens, and the word appears once, explained in the same sentence: "The law calls this public guardianship: when no relative or other person can look after an adult's affairs, a court hands them to a town or village [S2,S5]." Title before, verbatim: "Czech village mayors act as legal guardians for vulnerable adults, with no staff to help. A bill would let them hand it on from July 2027." After: "Czech village mayors must handle the money and hospital consents of adults who can't manage alone. A bill would let them hand this on from July 2027." Brief before: "Village mayors run the money, court hearings and hospital consents of adults a court placed in their care, often without any training for it [S1,S2]. A bill would let them pass this to a bigger town from July 2027 [S2]." After: "When a court decides an adult can't manage alone and nobody else can help, their town or village is made responsible [S2,S5]. In a village with no staff, the mayor does it, which can mean signing hospital consents at weekends [S1,S2]." Solution: "the town offices that act as guardian" became "the town offices that take on this work". Checked against the sources: the money and yearly accounts [S5], court hearings and a weekend request for consent to a medical procedure in the mayors' own words [S1], and the mayor doing the work where a village has no employee for it [S2]; "can mean" because the weekend consent is one mayor's account. "Often without any training" left the brief: it rests on the process summary, and no note on file counts training. "With no staff to help" left the title for length, and the brief carries it; the court hearings are in the body [S1]. The bill moved from the brief to the title only. Body: every "guardian", "guardianship" and "ward" became what the work is ("look after the affairs of adults a court says can't manage alone", "this work", "the officials who do it"), and "misdemeanour" became "minor offence"; the facts, figures and markers are unchanged. Two small corrections: "One mayor describes court hearings, weekend requests … and losing track" became "Mayors describe", since [S1]'s note gives these as several quotes from chapter 9 and its public line says "mayors"; and "A mayor takes her other town-hall work home" lost "her", since the quoted Czech does not show the speaker's sex [S1]. The same wording changed in the rendered lines: `entry.why`, the process summary and steps (the step actor "The guardian" became "The mayor or official"), the Provisum row, the Marbes, VERA, Aptien and ICZ evidence lines, two ledger names ("Marbes (PROXIO guardianship module)" became "Marbes (PROXIO)", "Aptien (guardianship register)" became "Aptien"), three price payers, and the public `name`, `gist` or `why` of [S1], [S2], [S3], [S4], [S5], [S6], [S7], [S8], [S9], [S10], [S11] and [S12]. No `note:` was touched; the notes keep the legal terms for anyone checking them. No fact was removed. No score, status, source order, note, marker, good_for or `entry` gate value changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 2 → 0 and Willing to pay 2 → 1, so the total goes 7 → 4 and the band falls from FAIR to FAINT. This departs from the rescore worksheet, which gave Why now 1 and a total of 5. Why now: the old 2 was deadline 1 for the bill plus the freshness point, which is retired. The bill [S2,S3] only lets a village hand this work to another town by contract, and sets what the state pays per person. The ladder scores 0 for a rule that only permits something or changes what the state pays, and the bill is not yet law either. The yearly accounts to the court [S5] have been due for years, so they are the status quo, not a trigger. No dated duty falls on the towns. Willing to pay: the old 2 rested on the 430M CZK the state pays towns each year [S2]. That is public money nearby, and with no eligible-spend list on file it cannot lift a price, so S2's dims are now [urgency]. Tagging pass, every payment on file: the Aptien list price, 1,470 CZK a seat-month [S12], is a published price for this product and is now tagged money. Two signed contracts for this job, found by the gap check [S9], are restated as receipts. The first is Hradec Králové's module, 199,000 CZK excl. VAT, signed 18 July 2018 [S13]; its yearly support orders on the same register record end in October 2021. The second is Chrudim's extension of its module, 57,000 CZK excl. VAT, signed 14 January 2022 [S14]; the gap check's "April 2022" is not what the register record says. Both are older than 24 months, so they are asking receipts. Not restated: Břeclav's law firm [S10] is paid for legal help with this work, not for the files, money and yearly accounts the product keeps, so it does not buy this job and stays untagged. Flagged as inference: the order's subject reads "Právní služby (výkon opatrovnictví)" on the register record (read 2026-09-19), its scope was not read, and legal services are taken to mean the legal acts and hearings the process keeps with a person. The ministry's costing of a full-time official [S11] prices the whole job done by a person, most of which the software does not replace, and stays untagged. Rožnov pod Radhoštěm's 465,850 CZK incl. VAT (16 November 2022, registr smluv 22384845) buys a whole social-department system with this work as one part, so that amount does not price this job. Three asking receipts and no paid one within 24 months give 1. Body: the 3 `[Competition](#competition)` links now read `[Market gap](#competition)`. Why now's opening sentence now says the bill would only let villages hand the work on, not require it; it no longer gives the July 2027 date, which stays in the dates below. Willing to pay's second item dates the software purchases on file (2018 and 2022) instead of saying towns buy; its opening sentence is unchanged. S2's note no longer claims money 2 or the deadline point, and S12's note records its tag. No other score, status, marker or `entry` gate changed.
+
+2026-09-19 · Willing to pay search, owner-approved — `scores.money` 1 → 2, `score` 4 → 5, band FAINT → FAIR. Status stays watching, because gap is still 0. The rescore above named what would move money: a list of what the state's per-person payment may be spent on, for the lift, or a town paying for this job within 24 months. The search looked for both. Ten full-text queries of the contracts register ran through the Hlídač státu API, and 44 contract texts were read [S18]. They found paid receipts, so the lift is not needed. In 2025 three towns signed contracts to rent VERA's module for this work, "Veřejný opatrovník", each with its own price line. Frýdlant nad Ostravicí signed a new rental in January 2025, at 28,593 CZK a year excl. VAT [S15]. Otrokovice added the module to its rental in August 2025, at 32,801.28 CZK a year excl. VAT [S16]. Kostelec nad Orlicí added it in August 2025, at 30,870 CZK a year excl. VAT before a discount on the whole order [S17]. The ledger already records VERA as selling this product (`competes: direct`), and all three contracts fall within 24 months of `updated`, so money is 2 without the lift. They are restated as price receipts tagged money, and the search is written up as a contract row that backs gap [S18].
+
+Searched and not restated: Jihlava bought the same module in September 2022: 141,900 CZK for the licence, 53,200 CZK for implementation and 28,380 CZK a year for support, all excl. VAT. It is older than 24 months, so it would only be an asking receipt, and three are on file already. Three contracts from 2024–2025 buy a whole system with this work as one part, so none prices this job. Beroun paid Marbes 650,000 CZK for a social-department module in October 2025. Kaplice paid ORTEX 645,000 CZK for social-department software in June 2025. Vimperk paid VERA 8.2M CZK for a whole town system in December 2024. Legal help is not this job, as the rescore ruled for [S10]: that covers the Praha 4 law-firm orders for single cases in 2025 and Ústí nad Labem-Neštěmice's legal-services contract of October 2025. Šumperk pays an advocate 5,000 CZK a month from August 2026 under § 32 of the administrative procedure code. That makes him a guardian for parties to administrative proceedings, which is not this work. Brno's grants to a guardianship institute are grants, not purchases. No town was found paying an outside firm or person to run this work itself. The positive control is that the same query shapes returned the Břeclav law-firm orders already on file [S10] and the Šumperk contract.
+
+The per-person payment, searched and not added. The Liberecký kraj page on how this work is funded (kraj-lbc.cz, read 2026-09-19) says the payment is "primárně určen na zabezpečení opatrovnické agendy obcí": wages, running costs, travel, training, literature and supervision. It says the payment may also buy "specializovaných právních služeb u složitých případů", and "není účelově vázán, nepodléhá zúčtování"; the town's leadership decides how to use it. It names neither software nor a contracted service. With paid receipts on file, the lift would add nothing, so no source was added and S2 keeps dims [urgency].
+
+Ledger: VERA's `since` moves from 2022 to 2017, because Uherské Hradiště ordered "agendy KRO Veřejný opatrovník" on 25 May 2017 (registr smluv 2021214, metadata only) and Mohelnice licensed it that December. VERA's evidence now also names Jihlava and the three towns of 2025 [S18]. Marbes' evidence adds Beroun, October 2025 [S18]. New in locals[]: ORTEX spol. s r.o. (IČO 00529745). Kaplice bought its social-department software in June 2025 after a tender that asked for this work with a money ledger per person, and the offer confirmed both [S18]. ORTEX is `competes: direct` and `maturity: early`. This work is on file for it only from 2025, and the earlier licences read, from 2021 to 2025, do not mention it, so no `since` is given. Gap stays 0 on Marbes and VERA, and `entry.incumbents` stays direct.
+
+Body: Willing to pay now opens on the 2025 rentals [S18]. The old opening, "Towns pay, and the state gives them 430M CZK a year for this work, less than its own costing says it needs [S2]", moved into the list as "The state's 430M CZK a year is less than its own costing says [S2]". "Towns bought add-ons for this work in 2018 and 2022 [S9]" became "Towns have bought add-ons for this work since at least 2017 [S9,S18]" and moved first. Market gap: a sentence was added saying both established suppliers signed new towns in 2025 [S18]. The sentence on a third seller now covers two more sellers, the online register and the social-department software. Not changed: title, brief, solution, good_for, the process block, `entry`, urgency, proof, demand and gap. No existing `note:` was edited and no marker moved. None of the headline fields becomes false. The solution's "as 1 company already does in Sweden" still holds, and that established Czech suppliers sell this was already on file.

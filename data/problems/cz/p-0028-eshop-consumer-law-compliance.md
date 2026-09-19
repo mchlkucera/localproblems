@@ -3,15 +3,15 @@ id: p-0028
 region: cz
 title: 'Many Czech e-shops break consumer rules without realising it, and any inspection can end in a fine'
 solution: 'Build an e-shop add-on that scans a shop''s checkout and "eco" claims weekly and sends the owner a fix list.'
-brief: 'Inspectors caught 639 e-shops last year, usually for missing notices a shopper must see, like how to complain [S1]. Fines average about 20,000 CZK, and nothing checks a shop before the inspectors do [S1,S10].'
+brief: 'Inspectors caught 639 e-shops last year, usually for missing notices a shopper must see, like how to complain [S1]. Fines average about 20,000 CZK, close to what a yearly check by people costs, and no shop add-on does that check [S1,S10,S16,S17].'
 good_for: 'Someone who''d like to work with small online shops and consumer law.'
 draft_law: 'Czech ban on vague "eco" claims, a bill still in parliament [S13]'
 category: retail-services
 geo: CZ-national
-score: 7
+score: 8
 scores:
   proof: 3
-  money: 0
+  money: 1
   urgency: 1
   demand: 2
   gap: 1
@@ -20,10 +20,10 @@ entry:
   level: easy
   buyer: small-firms
   permission: none
-  incumbents: open
+  incumbents: adjacent
   integration: software
   money: bootstrap
-  why: 'Easier: shops install add-ons themselves from the Shoptet store, the Czech sellers are young and publish no customer counts, no licence is needed, and it runs as ordinary software. Harder: most shops live with the risk of a fine rather than pay to remove it, and the Czech ban on vague "eco" claims has no start date.'
+  why: 'Easier: shops install Shoptet add-ons themselves, the two rival products publish no customer counts, no licence is needed, and it is ordinary software. Harder: most shops live with the risk of a fine rather than pay to remove it, an association checks shops by hand yearly, and the "eco" ban has no Czech start date.'
 comps:
 - name: Trusted Shops
   url: https://www.trustedshops.com/
@@ -105,6 +105,74 @@ locals:
   evidence: It sells one-off audits and terms drafting per engagement, as a law firm [S5] — the
     legacy service, not the monitoring product itself. Trading since 27 April 2016; it names nobody
     who has bought it and publishes no count, so how many shops it covers is unknown.
+- name: Flagship Impact
+  url: https://flagshipimpact.com/greenwashing-check
+  ico: '19306571'
+  competes: direct
+  maturity: early
+  evidence: It sells a self-serve checker that reads pasted text or a web address, flags risky "eco"
+    wording with the EU rule behind it and suggests a rewrite, free for one page and on a paid
+    monthly plan for more [S15]. That is the "eco" half of the job as a product, made for any
+    company's marketing and sustainability teams rather than for e-shops, and it runs when someone
+    pastes text or a link [S15]. The company, a sustainability consultancy registered in May 2023, does
+    not publish when the tool started, its paid price or how many use it [S15].
+- name: Pravano
+  url: https://pravano.cz/empco/
+  ico: '29860148'
+  since: 2026
+  competes: adjacent
+  maturity: early
+  evidence: It sells fixed-price reviews of a firm's "eco" claims, prepared by its own system and
+    approved by a person, and a weekly email on changes in the rules [S15]. That is a one-off check
+    done to order, not a scan a shop runs every week, and it checks no checkout. Its free check is
+    a short questionnaire on whether the new rules apply, answered by email within a working day,
+    and it reads none of the shop's own claims [S15]. It says it sells preparation, not a compliance
+    check, while the Czech law has not passed [S15]. The company, owned and run by one person, was
+    registered on 4 August 2026, and it names no buyer [S15].
+- name: APEK (Certifikovaný obchod)
+  url: https://www.apek.cz/apek-certifikovany-obchod
+  ico: '68684797'
+  since: 1999
+  competes: adjacent
+  maturity: established
+  evidence: It sells a yearly certificate whose audit, done by people, checks a shop's web against
+    64 legal points, from the terms and complaint rules to the product pages, lists what to fix,
+    checks again after the fixes and adds test purchases under a false name [S16]. That is the
+    checkout half of the job done by hand once a year, a service rather than an add-on, and its
+    pages do not mention "eco" claims [S16]. The e-commerce association behind it has certified
+    online shops since 1999 and lists 139 certified firms, Alza.cz among them, which is a public
+    customer count [S16].
+- name: Toret Toolkit
+  url: https://toret.cz/plneni-pozadavku-zakonu/
+  ico: '08860980'
+  since: 2023
+  competes: adjacent
+  maturity: established
+  evidence: It sells a plug-in for WooCommerce, the shop add-on for WordPress sites, that builds in
+    checkout pieces the 2023 consumer amendment asks for, such as approved order-button wording,
+    delivery information and the 30-day lowest price, plus a withdrawal button [S16]. It builds
+    those pieces into one platform's checkout and checks nothing a shop shows, and its 2023 page
+    said it covers only what WooCommerce lacks [S16]. On sale since at least February 2023, it says
+    more than 600 e-shops rely on it, which is a public customer count [S16].
+- name: Glocco
+  url: https://glocco.com/cs/empco-environmentalni-tvrzeni-web-check/
+  since: 2026
+  competes: adjacent
+  maturity: early
+  evidence: It sells translation and localisation, and its Czech article of 18 August 2026 offers
+    brands a scan of their websites, on request, that marks pages and words carrying risky "eco"
+    claims for an expert to review [S15]. The scan is aimed at large sites in several languages and leads into its
+    language work; it publishes no price and sends no fix list. The firm is based in Bratislava,
+    Slovakia, and sells in Czech [S15].
+- name: SYBA Obalový institut
+  url: https://syba.cz/green-claims
+  competes: adjacent
+  maturity: early
+  evidence: It sells advice on "eco" claims to firms, above all on packaging texts before print,
+    and also on sustainability claims made on a web or an e-shop without proof [S15]. That is case
+    by case consultancy for the packaging trade, not a check a shop runs, and it publishes no price
+    for it [S15]. The pages read do not show which of its two registered bodies runs the advice, so
+    no company number is given.
 sources:
 - type: complaint
   name: "ČOI — 2025 distance-selling inspection results"
@@ -340,6 +408,178 @@ sources:
     possible local player on green claims; not assessed here. dims empty: backs no score.'
   date: '2026-07-28'
   dims: []
+- type: gap-check
+  name: "Pravano and the green-claims sweep"
+  gist: "who checks \"eco\" claims"
+  why: "A Czech-language search for anyone checking a firm's \"eco\" claims. It found a self-serve checker for pasted text and web pages, fixed-price reviews by a firm registered in August 2026 whose free check is a questionnaire, and consultancies for large brands and packaging, but no add-on that checks a shop's claims every week."
+  url: https://pravano.cz/empco/
+  note: 'Gap check 2026-09-19, the green-claims half, run on the lead in the [S14] note. PRAVANO,
+    assessed: Pravano MG s.r.o., IČO 29860148, Lešenská 168, Zlín, registered 2026-08-04 with one
+    shareholder who is also the sole executive (ARES, read live 2026-09-19); its knowledge-base
+    articles are dated from 2026-07-01, before the company existed. The free check
+    (pravano.cz/empco/proverka/) is a three-minute questionnaire, no attachments: does the firm use
+    eco claims on packaging, web or ads; does it hold proof; does it run its own eco label; where is
+    it based and where does it sell; then contact details. A "verdict" on whether and how far the
+    rules touch the firm comes by e-mail within 24 hours on working days, prepared by its system
+    over the full text of the law and approved by a person. It reads none of the shop''s own claims.
+    It leads into fixed-price packages (pravano.cz/empco/ and /cenik/, read 2026-09-19, excl. VAT):
+    Scan 19,900 CZK, which of your claims EmpCo hits, a map of duties and next steps, delivered in
+    about 10 working days; Komplet 39,900 CZK, a review of communication and an audit of claims
+    (what to rewrite, prove or drop), a supplier letter and a 30/60/90 plan, 3-5 weeks; Program from
+    79,900 CZK, 6-10 weeks; and Tvrzení Hlídka, 3,900 CZK a month, an e-mail every Monday on changes
+    in the rules, not a re-check of the shop. The EmpCo page says it sells preparation, not a
+    compliance check, because the Czech law is unpassed; the footer calls every output an
+    informative readiness check, not a legal service or an official audit; the terms (effective
+    2026-09-17) take business customers only. Buyers: small and medium firms; the navigation names
+    e-shop owners, manufacturers and importers, and the EmpCo page offers to go through web,
+    packaging, e-shop and campaigns. Nine regulation areas besides EmpCo. No buyer named, no count.
+    The own-funded ledger names pravano.cz once, in the Recyda signal (de-recyda, 2026-09-03), as a
+    Czech guidance base that is "advisory rather than software". CLASSIFIED competes: adjacent,
+    maturity: early, since 2026: a service firm selling one-off reviews done to order (the clause
+    that keeps the three law firms adjacent), covering eco claims only and no checkout, with a
+    subscription that watches the rules rather than the shop. Its Scan price is its own receipt.
+    FLAGSHIP IMPACT, found: Flagship Impact s.r.o., IČO 19306571, Vězeňská 859/9, Praha 1,
+    registered 2023-05-03 (ARES), a sustainability consultancy and ESG data platform. Its
+    Greenwashing Check (flagshipimpact.com/greenwashing-check, read 2026-09-19) takes pasted text
+    or a URL, scans 1 to 20 subpages, flags risky environmental claims with severity, the EU
+    article and a suggested rewrite, and e-mails a report. Free: 1 page and 1 image; Pro: 2,000
+    pages and 200 images a month, social posts and one hour of expert support; the Pro price is not
+    published. It calls the analysis indicative and names marketing, brand, ESG and compliance teams
+    as its usual users. No start date, user count or named buyer for the tool, so `since` is left
+    empty. CLASSIFIED competes: direct, maturity: early: a product doing the eco-claims half of the
+    job for any firm, e-shops included, run on request. GLOCCO, found: a translation and
+    localisation agency (Bratislava, London, Delaware) whose Czech article of 18 Aug 2026 offers a
+    free EmpCo checklist and, on request, a web scan marking pages, words and language versions with
+    potentially risky environmental claims for expert review, aimed at sites with hundreds to
+    thousands of URLs; no price; "not legal advice". Adjacent, early: another segment, and a lead-in
+    to language work. SYBA, found: the Czech packaging institute''s green-claims page invites firms
+    to describe their case, for packaging texts before print and for sustainability claims on a web
+    or e-shop without proof. The pages read show no company number; ARES lists OBALOVÝ INSTITUT SYBA
+    s.r.o. (27626628) and CZECH AND SLOVAK PACKAGING ASSOCIATION SYBA z.s. (22740457) at the same
+    Praha 2 address, so no IČO is recorded. Adjacent, early. SEEN, NOT LEDGERED: green-brands.cz (a
+    green-product label), kupi.cz, ekolist.cz, dtest.cz and pravniprostor.cz (articles); foreign
+    self-serve eco-claims scanners EcoClaim (ecoclaim.eu), GreenGuard AI, senken.io, empcora.com and
+    matchilla.com, which are comparables material, not local players. ADD-ON CORPUS:
+    data/lookup/cz-eshop-addons.jsonl, 609 Shoptet and Upgates add-ons fetched up to 2026-09-01; the
+    green-claims pattern matched 0; a bare eko/ekologick pattern matched two logistics add-ons
+    describing their own green transport. POSITIVE CONTROLS: the first Czech EmpCo query returned
+    pravano.cz, the known lead, in six of its nine results; the own-funded-ledger grep for pravano
+    returned the known Recyda mention; the discount-add-on control in [S16] returned both add-ons on
+    file. Web search here means the agent''s search tool run with Czech-language queries, not Google
+    itself. VERDICT: one more early direct seller (the Flagship tool); nothing established sells a
+    check of a shop''s eco claims; gap stays 1.'
+  date: '2026-09-19'
+  queries:
+    - "kontrola ekologických tvrzení e-shop EmpCo prověrka"
+    - "zelená tvrzení greenwashing kontrola webu e-shopu nástroj"
+    - "greenwashing check tool Czech e-shop environmental claims scan EmpCo Czech company"
+    - "add-on corpus: zelená tvrzení | ekologická tvrzení | greenwashing | EmpCo | 2024/825 | environmentální tvrzení | uhlíkově neutrální | klimaticky neutrální"
+    - "own-funded ledger: pravano | greenwashing | empco | 2024/825"
+  checked: [google-cz, eshop-addon-marketplaces, ares, own-funded-ledger]
+  expires: '2026-12-18'
+- type: gap-check
+  name: "APEK certification and the checkout sweep"
+  gist: "who checks the checkout"
+  why: "A Czech-language search for anyone checking the information a shop's checkout must show. It found the e-commerce association's yearly certificate, a check done by hand since 1999 that lists what to fix, and a WooCommerce add-on that builds the required checkout pieces, but no add-on that checks a checkout."
+  url: https://www.apek.cz/apek-certifikovany-obchod
+  note: 'Gap check 2026-09-19, the checkout half: anyone selling Czech shops a check of what the
+    checkout must show (pre-order and complaint information, the order button). APEK, found:
+    Asociace pro elektronickou komerci, z. s., IČO 68684797, registered 1998-12-14 (ARES), 572
+    members (its membership page). Its certificate APEK Certifikovaný obchod, formerly Nákup bez
+    obav, is valid one year, and APEK has certified online shops since 1999
+    (certifikovany-obchod.cz/o-apek-certifikaci). The certification page, read 2026-09-19: "Známe
+    všechny body, které ČOI kontroluje"; an internal audit of 64 points; a protocol listing the
+    errors found with step-by-step fixes; a legislative part auditing the web from the terms and
+    complaint rules to the product detail, in two rounds; a quality part with mystery shopping; a
+    legal-news service; model terms; the logo on Heureka and Zboží; the Ecommerce Europe Trustmark.
+    Price (apek.cz/zadost-o-certifikaci): the procedure, issue and one year''s holding of the APEK
+    and Česká kvalita certificates, 4,000 CZK for members and 18,000 CZK for others; membership
+    1,200 CZK a month. The certified filter of its member list reads "Celkem je vylistováno 139
+    členů", Alza.cz and ALBI among them. Case study (apek.cz/pripadova-studie-certifikace-denaturacz):
+    deNatura.cz, opened 9 Jan 2026, protocol of 64 points (55 fine, 5 recommended changes, 4 required
+    fixes), a re-check, closed 25 Feb 2026, renewal with a re-check of the updated 64 points due Feb
+    2027. The pages read do not mention green claims. Not in cz-contract-parties. CLASSIFIED
+    competes: adjacent, maturity: established (since 1999; a public customer count). It sells the
+    checkout half of the job by hand once a year: a service rather than a product, the clause that
+    keeps the three law firms adjacent, and no eco claims. FLAGGED as the closest call on the
+    ledger: read as "sells this job to these shops", it is direct and established, gap 0, status
+    watching. TORET TOOLKIT, found: Toret plugins s.r.o., IČO 08860980, registered 2020-01-17
+    (ARES); the Toret brand dates to 2014 (site footer). Toolkit is a WooCommerce plugin
+    (toret.cz/plneni-pozadavku-zakonu/ and toret.net/product/toolkit/, read 2026-09-19): approved
+    order-button wording, a cart re-check prompt, generated delivery information and delivery time,
+    30-day lowest-price records, a withdrawal button and form, GPSR and DSA information, unit prices;
+    "Více než 600 e-shopů spoléhá na Toolkit"; toret.net shows 437 licences sold at EUR 69 a year,
+    last update 9/2026. The Wayback Machine holds toret.cz/produkt/toolkit/ from 2023-02-05: made in
+    reaction to the consumer amendment in force from 6 Jan 2023, 68 installs, 2,000 CZK, and "Plugin
+    neobsahuje všechny změny ... ale pouze ty, které ve WooCommerce chybí", with advice to consult
+    lawyers. Not in cz-contract-parties. CLASSIFIED competes: adjacent, maturity: established (since
+    2023; a public customer count): it builds checkout pieces into one platform and checks nothing
+    a shop shows. FLAGGED: Pravoid is direct for doing part of the checkout-information job without
+    scanning; read the same way, Toolkit is direct and established, gap 0. SEEN, NOT LEDGERED:
+    template sellers for terms (Legito marketplace, muj-pravnik.cz, smlouvyprolidi.cz, termsfeed);
+    law-firm and agency blogs (akcisek.cz, sedlakovalegal.cz, dostupnyadvokat.cz, brofi.eu,
+    lkmedia.cz, legitas.cz); pravoeshopu.cz, already on file, which also sells tailored terms from
+    6,990 CZK with a yearly update subscription that watches legislation and case law, while its row
+    names one-off audits only (flagged, not changed); Hlídač shopů, a free watchdog for shoppers on
+    fake discounts, which sells nothing to shops. ADD-ON CORPUS, 609 add-ons to 2026-09-01: patterns
+    for pre-contractual information, information duties, terms, complaint rules, ČOI and the
+    order-button wording matched only add-ons naming terms in passing, the two discount add-ons on
+    file and an age-verification add-on; none checks a checkout. POSITIVE CONTROLS: the descriptive
+    query for the discount rule returned both discount add-ons on file, Hlídač Slev and Slevy
+    správně; the corpus pattern "ČOI" returned the same two. LIMIT: APEK surfaced only on a query
+    that named it, and no descriptive query returned it, so descriptive web search under-finds
+    trade-association services. VERDICT: no add-on or product checks a checkout; the check is sold
+    by hand, yearly by APEK and once by the law firms; gap stays 1.'
+  date: '2026-09-19'
+  queries:
+    - "automatická kontrola e-shopu soulad se zákonem informační povinnosti před objednávkou"
+    - "kontrola e-shopu před kontrolou ČOI online služba tlačítko objednávka zavazující k platbě"
+    - "audit e-shopu legislativa kontrola webu cena protokol chyb ČOI služba 2026"
+    - "Shoptet doplněk právní kontrola e-shopu obchodní podmínky informační povinnosti"
+    - "WooCommerce plugin česká legislativa e-shop obchodní podmínky souhlas tlačítko Toret"
+    - "generátor obchodních podmínek pro e-shop předplatné hlídání legislativy"
+    - "APEK certifikát e-shop audit právní kontrola obchodní podmínky"
+    - "doplněk Shoptet hlídání slev nejnižší cena 30 dní ČOI"
+    - "add-on corpus: předsmluvní | informační povinnost | obchodní podmínky | reklamační řád | ČOI | objednávka zavazující k platbě | tlačítko objednávky"
+  checked: [google-cz, eshop-addon-marketplaces, ares, cz-contract-parties]
+  expires: '2026-12-18'
+- type: price
+  url: https://www.apek.cz/zadost-o-certifikaci
+  name: "APEK certification — a yearly check by hand"
+  gist: "18,000 Kč a year"
+  why: "A Czech e-shop outside the e-commerce association pays 18,000 CZK a year for a certificate whose audit checks its web and checkout against the law and lists what to fix; members pay 4,000 CZK."
+  note: 'Read 2026-09-19 on the application page: "Cena za certifikační řízení, vystavení a roční
+    držení certifikátů APEK a Česká kvalita", 4,000 CZK a year for APEK members and 18,000 CZK for
+    others; membership costs 1,200 CZK a month. The seat is one certified shop for one year. What
+    it buys, from [S16]: the 64-point legislative audit of the web with a protocol of fixes, a
+    re-check, mystery shopping and the trust logo. Tagged money: it is the checkout half of the job
+    done by hand, the manual equivalent the 2026-09-19 rescore named when it said a law firm''s
+    one-off audit would count, under the rule for this record that a price counts only if it buys
+    this job. A list price, so ASKING, rung 1; no source says what a given shop paid.'
+  date: '2026-09-19'
+  payer: 'A Czech e-shop that is not an APEK member'
+  amount_czk: 18000
+  unit: per-year
+  basis: list-price
+  dims: [money]
+- type: price
+  url: https://pravano.cz/cenik/
+  name: "Pravano — a one-off review of \"eco\" claims"
+  gist: "19,900 Kč, once"
+  why: "A Czech firm pays 19,900 CZK plus VAT, once, for a review of which of its \"eco\" claims the new ban would hit, with next steps; a fuller package that also audits what to rewrite costs 39,900 CZK."
+  note: 'Read 2026-09-19 on the price list, EMPCO block: Scan, "Prověrka ekologických tvrzení",
+    19,900 CZK excl. VAT, delivered in about 10 working days; Komplet 39,900 CZK; Program from
+    79,900 CZK; Tvrzení Hlídka 3,900 CZK a month. The Scan is the entry price for a check of a
+    firm''s own eco claims, done to order by the firm''s system and approved by a person [S15].
+    Tagged money: it buys the eco-claims half of the job by hand, under the rule for this record
+    that a price counts only if it buys this job. A list price, so ASKING, rung 1; the firm names
+    no buyer.'
+  date: '2026-09-19'
+  payer: 'A Czech firm making "eco" claims, e-shops included'
+  amount_czk: 19900
+  unit: one-off
+  basis: list-price
+  dims: [money]
 created: '2026-08-13'
 updated: '2026-09-19'
 ---
@@ -357,17 +597,29 @@ The inspectors work for ČOI (the Czech trade inspection authority) [S1]. They m
 - Breaking the law is the norm among the shops inspectors check, and 2026 has been no better; see [Why now](#why-now) [S9].
 - Shoppers also took about 18,000 disputes over faulty goods and warranties to ČOI's out-of-court process between 2020 and mid-2025 [S3].
 
-Existing non-solutions: One young Czech product keeps shops' legal texts current, others sell the discount rule or audits, and no add-on checks checkouts or "eco" claims [S5,S8,S10].
+Existing non-solutions: Shops can pay for a check done by hand, two Czech products do parts of it, and no add-on checks checkouts or "eco" claims [S5,S8,S10,S15,S16].
 
-That product writes a shop's terms and conditions, privacy policy and cookie policy from a questionnaire [S8]. Its subscription watches e-Sbírka, the state law gazette, and tells the shop when a change in the law means a document must be redone [S8]. It keeps the texts current, but it does not scan the checkout itself [S8].
+- A trade association has checked shops' legal information by hand yearly since 1999 [S16].
+- A Czech tool checks pasted text or web pages for risky "eco" wording [S15].
+- A young Czech product keeps shops' legal texts current but checks no page [S8].
 
+The association's certificate comes with an audit of the shop's web, from its terms and complaint rules to its product pages, a list of what to fix and a second check after the fixes [S16]. Its testers also buy from the shop under a false name, and certified shops get news of changes in the law [S16]. It lists 139 certified firms [S16]. People do the check once a year, so a page the shop changes in between waits for the next year's check.
+
+The "eco" tool reads up to 20 pages of a site, marks each risky phrase, names the EU rule behind it and suggests a rewrite [S15]. It is free for one page, with a paid monthly plan for more, and it is made for any company's marketing and sustainability teams rather than for e-shops [S15]. It runs when someone pastes text or a link, and its own page calls the result indicative [S15].
+
+The legal-text product writes a shop's terms and conditions, privacy policy and cookie policy from a questionnaire [S8]. Its subscription watches e-Sbírka, the state law gazette, and tells the shop when a change in the law means a document must be redone [S8]. It keeps the texts current, but it does not scan the checkout itself [S8].
+
+- A Czech firm registered in August 2026 sells one-off reviews of a firm's "eco" claims and a weekly email on rule changes [S15].
+- It also publishes an explainer of the new rules, and its free check is a short questionnaire on whether they apply, answered by email within a working day [S14,S15].
+- It says it sells preparation, not a compliance check, while the Czech law has not passed [S15].
+- A Slovak translation agency offers large multilingual sites a scan that marks risky "eco" claims for an expert, and a packaging institute advises firms on their claims [S15].
+- WooCommerce, the shop add-on for WordPress sites, has a Czech plug-in that builds in the order-button wording and delivery information the law asks for [S16]. More than 600 shops use it, and it checks nothing a shop shows [S16].
 - Two add-ons on the Shoptet store keep a shop's discounts legal under the 30-day rule, which says a discount is counted from the lowest price of the previous 30 days [S8,S10]. Each rewrites the price a discount is measured from, and keeps three years of price history a shop can export for inspectors [S8,S10]. Their prices are under [Willing to pay](#willing-to-pay).
 - The discount rule is a duty next door: neither add-on checks the checkout information, the order button or "eco" claims [S10].
 - The companies behind the legal-text product and one discount add-on were registered in 2025, and none of the three says how many shops use it [S8,S10]. So the field is still a race, not a settled market.
 - Three Czech law firms sell one-off legal audits and terms drafting, priced per job [S5]. An audit checks a shop once, so it goes out of date at the next change in the law.
-- None of the 606 add-ons listed on Shoptet and Upgates, two Czech shop platforms, checks green claims, order buttons, or the information a shop must give before an order or about complaints [S10].
+- None of the 606 add-ons listed on Shoptet and Upgates, two Czech shop platforms, checks green claims, order buttons, or the information a shop must give before an order or about complaints [S10]. None of the 609 listed by 1 September 2026 does either [S16].
 - Shoptet's add-on store has no legal-compliance category [S8,S10].
-- Outside the add-on stores, a Czech publisher of an explainer on the new green-claims rules offers a free check against them; whether it sells more is not known [S14].
 
 Why now: E-shop owners pay fines now, and a Czech ban on vague "eco" claims is making its way through parliament [S9,S13].
 
@@ -391,13 +643,18 @@ The ban comes from an EU directive, No. 2024/825, which the Czech bill writes in
 - On 1 September 2027 the rural software grant stops taking applications [S7].
 - Until the bill passes, no Czech start date for the ban is binding [S13].
 
-Who pays: No shop is known to pay for this scan yet; some pay for single fixes nearby, a discount-rule add-on or a one-off legal audit [S5,S10].
+Who pays: Shops pay for this check done by hand, and 139 firms hold a trade association's yearly certificate that comes with a list of fixes [S16].
+
+- No shop is known to pay for an automated weekly scan yet [S10,S16].
+- A Czech firm sells one-off reviews of "eco" claims at a fixed price [S15].
+- E-shops were handed 646 final fines worth about 13.0M CZK in 2025 [S1].
+
+The certificate's price and the review's price are in the table of what one buyer pays, and members of the association pay less for the certificate [S16]. Neither seller says what a given shop paid, so both are prices asked, not prices paid.
 
 - Two Czech add-ons charge shops a monthly fee to keep discounts legal [S8,S10].
-- E-shops were handed 646 final fines worth about 13.0M CZK in 2025 [S1].
 - Tens of thousands of German shops pay monthly for legal texts kept current [S4].
 
-The add-ons' prices are in the table of what one buyer pays; they buy the discount rule, not a check of the checkout or "eco" claims [S10]. Law firms charge per job for one-off audits; see [Market gap](#competition) [S5].
+The add-ons' prices are in the table too; they buy the discount rule, not a check of the checkout or "eco" claims [S10]. Law firms charge per job for one-off audits; see [Market gap](#competition) [S5].
 
 - Shoptet, a platform shops rent their storefront from, hosts about 30,000 of them, so one add-on there can reach many [S5].
 - A rough estimate: if one in ten of those 30,000 shops paid €12 a month for one bundle covering the duties no add-on covers, that would bring about €430,000 a year [S5]. The €12 sits inside the German subscription prices under [Validated abroad](#validated-abroad), and the sum compares with the 13.0M CZK of fines in 2025 [S1].
@@ -413,9 +670,9 @@ In Germany the pressure is the warning letter, a lawyer's formal demand to stop 
 
 ## First moves
 
-1. Build a scanner that lists every "eco" or climate-neutral claim on a Czech e-shop that the coming ban would forbid unless proven. Run it across Czech shops for words like "eko" and "šetrné k přírodě" and for climate-neutral badges, and the shops it flags are your first prospects. The EU requires its member states to ban such claims, and the Czech law that does it is on its way through parliament; see [Why now](#why-now). Inspectors can already treat a misleading green claim as a misleading practice under today's law, so the list is useful before the ban starts.
-2. Send each flagged shop owner a claim-by-claim report of what to prove or remove, and offer to keep it current for a monthly fee. The Czech ban has no start date until the bill passes, but inspectors can already act against a misleading green claim, as [Why now](#why-now) explains. Price it near what German shops pay for legal texts kept current, listed under [Validated abroad](#validated-abroad). This move tests the assumption everything here rests on: that a shop owner pays before a fine arrives, when most shops inspectors check already live with the risk; see [The opportunity](#opportunity).
-3. Add checks for the breaches inspectors find most often: missing pre-order information, missing complaint information, unfair selling practices and non-compliant order buttons. Together they make up more than half of all breaches found, as [The opportunity](#opportunity) shows, and each is a checklist item a weekly scan can test. No add-on checks them, and a law firm's audit checks a shop once and goes out of date at the next change in the law; see [Market gap](#competition). The Czech add-ons sell the discount rule, a duty next door, and the one young Czech product that keeps legal texts current does not scan the checkout, so this is a race, not a settled market.
+1. Build a scanner that lists every "eco" or climate-neutral claim on a Czech e-shop that the coming ban would forbid unless proven. Run it across Czech shops for words like "eko" and "šetrné k přírodě" and for climate-neutral badges, and the shops it flags are your first prospects. The EU requires its member states to ban such claims, and the Czech law that does it is on its way through parliament; see [Why now](#why-now). Inspectors can already treat a misleading green claim as a misleading practice under today's law, so the list is useful before the ban starts. A Czech tool already checks pasted text or a few pages when asked, so the edge is reading every page of a shop, unasked, every week; see [Market gap](#competition).
+2. Send each flagged shop owner a claim-by-claim report of what to prove or remove, and offer to keep it current for a monthly fee. The Czech ban has no start date until the bill passes, but inspectors can already act against a misleading green claim, as [Why now](#why-now) explains. Price it near what German shops pay for legal texts kept current, listed under [Validated abroad](#validated-abroad), and against the one-off reviews and yearly checks Czech firms already sell, under [Willing to pay](#willing-to-pay). This move tests the assumption everything here rests on: that a shop owner pays before a fine arrives, when most shops inspectors check already live with the risk; see [The opportunity](#opportunity).
+3. Add checks for the breaches inspectors find most often: missing pre-order information, missing complaint information, unfair selling practices and non-compliant order buttons. Together they make up more than half of all breaches found, as [The opportunity](#opportunity) shows, and each is a checklist item a weekly scan can test. No add-on checks them; a trade association checks them by hand once a year, and a law firm's audit checks a shop once and goes out of date at the next change in the law; see [Market gap](#competition). The Czech add-ons sell the discount rule, a duty next door, and the one young Czech product that keeps legal texts current does not scan the checkout, so this is a race, not a settled market.
 4. Publish the scanner in the Shoptet add-on store, where Czech shops already install tools that keep their discounts legal. One listing there reaches tens of thousands of shops, as [Willing to pay](#willing-to-pay) shows. Expect neighbours rather than rivals: two add-ons already sell the discount rule there, and one has middling ratings, with reviewers split over its support and its export; see [Market gap](#competition). The store has no legal-compliance category yet, so there is room for a scanner that covers the rest of the law.
 5. For shops outside the big cities, include the scanner in a larger software project that the state's rural software grant pays half of. The grant is for small firms in rural areas and funds only projects above a minimum size, so a monthly add-on alone is too small to qualify; see [Willing to pay](#willing-to-pay). Applications stay open for a year, with the dates under [Why now](#why-now). A shop already planning new software can put the compliance scan into the same application.
 
@@ -445,3 +702,7 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewrit
 2026-09-19 · headline copy — Owner-approved title and brief, written verbatim with the markers checked against the ledger. Before, verbatim — title: "Czech e-shops were fined 13M CZK last year for breaking consumer law"; brief: "Inspectors found breaches in 85% of e-shops they checked, like missing complaint information or illegal order buttons [S1]. A Czech ban on vague "eco" claims is also moving through parliament [S13].". After, verbatim — title: "Many Czech e-shops break consumer rules without realising it, and any inspection can end in a fine"; brief: "Inspectors caught 639 e-shops last year, usually for missing notices a shopper must see, like how to complain [S1]. Fines average about 20,000 CZK, and nothing checks a shop before the inspectors do [S1,S10].". Markers checked: the 639 caught shops are the 639 of 751 checked in 2025, and the two commonest breaches, missing pre-order information (488) and missing complaint information (363), are on the same results page [S1]; the fine average is [S1]'s 646 final fines worth 12,978,500 CZK; "nothing checks a shop" rests on the sweep of 606 Shoptet and Upgates add-ons, none of which covers the pre-order or complaint information, order buttons or green claims [S10]. FLAGGED as our reading, not a source's: "without realising it", since no source measures what shop owners know (the owner approved it as such); and "about 20,000 CZK", which is our division of [S1]'s two figures, not a published average. FLAGGED for the owner: "nothing checks a shop" is broader than [S10]'s finding, since two add-ons check discount labelling [S8,S10] and a Czech publisher offers a free green-claims check [S14]; the markers stay on [S1,S10], which carry what the line claims about the notices. The "eco" bill left the brief and stays under Why now [S13]. Solution and good_for unchanged. No score, status, source, `note:`, `sources[]` order or body sentence changed. Same date, a source note corrected and one ledger year fixed (owner-approved): [S1]'s note said "Q2/2026 risk-targeted inspections found a 91% violation rate; Q1/2026 discount-labelling checks ~40%". [S1]'s page, re-read on this date, is dated 26 February 2026 and carries only the 2025 results and the line that e-shop checks stay a ČOI priority in 2026; neither 2026 figure is on it. No rendered sentence rests on the ~40%: the body cites the 91% to its own receipt [S9] since the 2026-08-24 audit, and "ČOI says checking e-shops stays a priority in 2026 [S1]" is on the page. Because the note is the claim, and the owner approved correcting it, a dated correction line was appended to [S1]'s note; the original text was left as written, the same way the 2026-09-04 price checks appended "Verified" lines. Demand 2 does not rest on the ~40% and does not move. Hlídač Slev's `since` 2025 → 2023: its Shoptet listing, [S8]'s URL, read on this date, shows ratings dated 26 and 27 January 2023 and 20 August 2023, one of them praising "Hlídač slev" by name, so the add-on was on sale by January 2023. 2025 was the registration year of JARABOT s.r.o., the company now behind it, which `since` uses only when no product year is known. The evidence line now says both. `maturity` stays early: three years of selling meets the first limb of the established test, but the listing names no customer count, the state contracts register shows no public buyer, and there is no funding round or state listing, so no second limb is met. `competes` and gap are unchanged. No score, status, other note, marker, headline field or body sentence changed. Same date, later pass, merged here: rescored to the 2026-09-19 ladders. Tagging pass first: every source on file was read for someone paying for this job, an add-on that scans a shop's checkout and "eco" claims and sends a fix list, or its manual equivalent bought in. None is. The two discount-labelling add-ons, about 19 CZK a month per 1,000 products [S11] and 200 CZK a month flat [S12], buy the 30-day discount rule, which the scan does not cover: the sweep of 606 add-ons found none checking green claims, order buttons or the pre-order and complaint information [S10], and the solution, first moves 3 and 4 and the €430,000 estimate all aim at exactly those duties. By the owner-approved rule for this record's judgement call, a price counts only if it buys this job, so neither is tagged and both keep backing no score. A law firm's one-off audit would be the manual equivalent, but no audit price is on file [S5]; the German subscription prices are foreign [S4]; and the rural software grant [S7] funds only projects of 250,000 CZK and up, and has no base to lift. `scores.money` stays 0. DEPARTURE FROM THE WORKSHEET, which proposed tagging both add-ons for money 1 and a total of 8: the owner's rule settles its call 2 the other way. `scores.urgency` 3 → 1: the freshness point is retired; the EU green-claims directive [S2] is not yet Czech law and the Czech bill [S13] is past second reading only, so both fail REAL; the fines under the existing consumer-protection act are the status quo, not a new dated duty. `score` 9 → 7, STRONG → FAIR. The notes on S2 (deadline sub-score and freshness), S11 and S12 ("dims omitted") gained a dated rescore line; their original text is left as written. Three `[Competition](#competition)` links now read `[Market gap](#competition)`. Prose re-read against the new numbers. Willing to pay's answer was "Some shops already pay for single fixes: a monthly add-on for the discount rule, or a law firm's one-off audit [S5,S10]." and now reads "No shop is known to pay for this scan yet; some pay for single fixes nearby, a discount-rule add-on or a one-off legal audit [S5,S10].", and the detail now says the add-ons buy the discount rule, not a check of the checkout or "eco" claims [S10]. Why now already says the "eco" ban is still making its way through parliament and that no Czech start date is binding until it passes [S13], and stands. FLAGGED for the owner, not changed: (1) the two add-ons are ledgered `competes: direct`, a reading written while the solution still named "the prices" (before 2026-09-16); against today's solution they sell something next door, which is a gap question for MATCH, not this rescore, and they stay `type: price` although they price that neighbour. (2) As on p-0027, the trigger is a bill with no `draft_law:` key, so the page's rung-1 reason line reads "far off or binding someone else"; the `draft_law:` section of the template says this record's pain is today's fines, so the key stays off. No other score, status, source order, marker or headline field changed.
 
 2026-09-19 · discount add-ons relabelled adjacent, Draft law badge added (both owner-approved) — `locals[]` Hlídač Slev (JARABOT) and Slevy správně (Cenový automat) `competes: direct` → `adjacent`; both stay `maturity: early`. The rescore entry above flagged them: the direct label was written while the solution still named "the prices", before 2026-09-16. Today's solution scans a shop's checkout information and "eco" claims. Both add-ons sell the 30-day discount rule [S8,S10], and the sweep of 606 Shoptet and Upgates add-ons found none checking green claims, order buttons or the pre-order and complaint information [S10], so they sell a duty next door. Their evidence lines now say so, and both stay listed. Pravoid stays `competes: direct`, early: it sells the same shops a subscription that keeps their legal texts current against changes in the law [S8], the one Czech product on file doing part of the checkout-information job, though not by scanning the checkout, and its evidence line already says that. FLAGGED as our reading, not a source's: that the texts it writes carry part of the information a shop must give before an order and about complaints; [S8] names the documents, not their contents. The three law firms stay adjacent. `scores.gap` stays 1: one direct seller remains, and it is early. Gap could not rise to 2 in any case. A direct seller is on file, and [S14]'s note names a Czech publisher offering a free green-claims check that no check on file has assessed. `score` stays 7, FAIR; `entry.incumbents` stays open, as derived. Market gap's answer was "Czech products each cover one duty and law firms audit a shop once, and no add-on checks green claims, order buttons or missing information [S5,S8,S10]." and now reads "One young Czech product keeps shops' legal texts current, others sell the discount rule or audits, and no add-on checks checkouts or "eco" claims [S5,S8,S10]." The detail now leads with the legal-text product and says the discount rule is a duty next door [S10]. "The companies behind two of the three were registered in 2025" now names which two. Move 3's "The Czech add-ons each cover one duty and their makers are young" now says the add-ons sell a duty next door and the one young legal-text product does not scan the checkout. Move 4's "Expect company" now reads "Expect neighbours rather than rivals". The two price receipts [S11,S12] were already untagged as buying a neighbouring duty, which now matches the ledger. `draft_law:` added: "Czech ban on vague "eco" claims, a bill still in parliament [S13]". Why: Why now scores 1 on the bill alone [S13]. The EU directive [S2] binds member states, and the fines under today's act are the status quo. Without the key, the page's rung-1 reason read "far off or binding someone else" instead of "not law yet". The owner decided on 2026-09-19 that the badge goes on, the rescore entry's flag (2) answered. DEPARTURE FROM THE TEMPLATE, FLAGGED: RECORD-TEMPLATE.md's `draft_law:` section, and the comment above `check_draft_law` in scripts/check-records.py, name this record as one that should not carry the key, because its fines stand under current law. That is still true of the fines, and the body still says so. Those two files were not edited in this pass, so they now contradict this record until someone updates them. Urgency 1 is consistent with the badge: a record with `draft_law:` stops at 1 (SCORING.md URGENCY). No other score, status, source, note, marker target, headline field or Why now sentence changed.
+
+2026-09-19 · green-claims lead assessed, checkout sweep, Willing to pay rescored — The lead the entry above left open, the Czech publisher of [S14] and its free green-claims check, was assessed. It is Pravano MG s.r.o. (IČO 29860148), registered on 4 August 2026 with one owner who also runs it; its articles date from 1 July 2026, before the company existed [S15]. The free check is a three-minute questionnaire, no attachments, asking whether a firm makes "eco" claims, holds proof, runs its own label and where it sells; a verdict on whether the rules touch it comes by e-mail within a working day, prepared by its system and approved by a person. It reads none of the shop's own claims. It is the door to fixed-price packages that review a firm's own claims once, from 19,900 CZK excl. VAT, and to a 3,900 CZK monthly e-mail on rule changes; business customers only, no buyer named, and every output called a readiness check, not a legal service [S15,S18]. So it is a service with a product's price list, not an article and not a scanner. Ledgered `competes: adjacent`, `maturity: early`, `since: 2026`: a service firm selling one-off reviews done to order, the clause that keeps the three law firms adjacent, on "eco" claims only, with a subscription that watches the rules rather than the shop. Then one positive-controlled sweep for anyone checking "eco" claims or the checkout's required information, in Czech, over web search, the 609-add-on Shoptet and Upgates corpus, ARES, the contracts ledger and the own-funded ledger, recorded as two gap checks with queries[] [S15,S16]. Controls passed: the Czech EmpCo query returned the known lead in six of nine results; the discount-rule query and the corpus pattern "ČOI" each returned both discount add-ons on file; the own-funded grep returned the one known mention of pravano.cz. Found and ledgered, never excluded: Flagship Impact's Greenwashing Check, a self-serve tool that reads pasted text or up to 20 pages and suggests rewrites, free for one page, monthly Pro plan unpriced, company registered May 2023, tool undated, `direct`, `early`, the one product found doing the "eco" half [S15]; APEK's yearly certificate, a 64-point audit by people of a shop's web with a protocol of fixes and a re-check, since 1999, 139 certified firms listed, `adjacent`, `established` [S16]; Toret Toolkit, a WooCommerce plug-in that builds in the order-button wording and delivery information, on sale since at least 5 February 2023 per the Wayback Machine, more than 600 shops, `adjacent`, `established` [S16]; Glocco, a Bratislava translation agency offering large multilingual sites a scan on request, and SYBA, the packaging institute advising on claims, both `adjacent`, `early` [S15]. What moved. `scores.gap` stays 1: two direct sellers, Pravoid and Flagship's tool, both early; nothing established sells this; an adjacent player never moves gap. `entry.incumbents` open → adjacent, as derived: two adjacent players are established. `scores.money` 0 → 1: the sweep found prices for this job done by hand, appended as receipts tagged `dims: [money]`, APEK's certificate at 18,000 CZK a year for non-members [S17] and Pravano's Scan at 19,900 CZK once [S18]. By the owner-approved rule for this record, a price counts only if it buys this job; the first buys the checkout half by hand, the second the "eco" half by hand, and the rescore entry above named a one-off audit price as the manual equivalent that would count. Both are list prices, so rung 1, not 2. `score` 7 → 8, FAIR → STRONG; status stays candidate. Prose re-read against the numbers. Market gap's answer was "One young Czech product keeps shops' legal texts current, others sell the discount rule or audits, and no add-on checks checkouts or "eco" claims [S5,S8,S10]." and now reads "Shops can pay for a check done by hand, two Czech products do parts of it, and no add-on checks checkouts or "eco" claims [S5,S8,S10,S15,S16]."; its three new items and detail describe the yearly check, the "eco" tool and the legal-text product, and the bullet "Outside the add-on stores, a Czech publisher of an explainer on the new green-claims rules offers a free check against them; whether it sells more is not known [S14]." was corrected, since it does sell more, into three bullets on that firm [S14,S15]. Willing to pay's answer was "No shop is known to pay for this scan yet; some pay for single fixes nearby, a discount-rule add-on or a one-off legal audit [S5,S10]." and now reads "Shops pay for this check done by hand, and 139 firms hold a trade association's yearly certificate that comes with a list of fixes [S16]."; "no shop is known to pay for this scan" survives as its first item, and the German subscriptions moved from the items to the detail. `entry.why` was "Easier: shops install add-ons themselves from the Shoptet store, the Czech sellers are young and publish no customer counts, no licence is needed, and it runs as ordinary software. Harder: most shops live with the risk of a fine rather than pay to remove it, and the Czech ban on vague "eco" claims has no start date." and now reads "Easier: shops install Shoptet add-ons themselves, the two rival products publish no customer counts, no licence is needed, and it is ordinary software. Harder: most shops live with the risk of a fine rather than pay to remove it, an association checks shops by hand yearly, and the "eco" ban has no Czech start date.", cut to fit 320 characters with nothing sourced dropped. Move 1 now says a Czech tool already checks text or pages when asked, move 2 prices against the Czech reviews and yearly checks, and move 3 names the association's yearly check. The 606-add-on bullet gained the 609 read by 1 September 2026 [S16]. FLAGGED as our reading, not a source's: that the 139 listed firms pay rests on the price covering a year's holding of the certificate [S16,S17], and no source names what a given firm paid; "a page the shop changes in between waits for the next year's check" rests on the certificate's yearly renewal and re-check [S16]; move 1's edge, reading every page unasked every week, is our reading of a tool that runs when given text or a link [S15]. FLAGGED for the owner, not changed: (1) the brief's "nothing checks a shop before the inspectors do [S1,S10]" is now false as written: a trade association checks 139 firms' shops by hand yearly, law firms audit once, and a paid review and a free tool check "eco" claims [S5,S15,S16]; the owner-approved headline was not touched. (2) The closest calls are APEK and Toret Toolkit. Read as "sells this job to these shops", APEK is direct; read as Pravoid is, a product doing part of the checkout-information job without scanning, Toolkit is direct. Either way it is established, so gap would be 0, status watching and the score 7. (3) Two of the three German comparables behind proof 3, Trusted Shops and Händlerbund, are a trustmark with an audit and an association with a seal, the German counterparts of APEK, so the ledger counts that model as proof abroad and as adjacent at home. (4) Právo e-shopů's row names one-off audits only, but it also sells tailored terms from 6,990 CZK with a yearly subscription that watches legislation and case law, the shape Pravoid is direct for (read 2026-09-19, [S16] note). (5) Flagship Impact at direct rests on its free tier being open to any shop; read as another segment, marketing teams, it is adjacent, and gap stays 1 either way. (6) Foreign self-serve "eco" scanners seen in the sweep, EcoClaim and others, are not added as comparables; proof is already 3. No title, brief, solution, good_for, draft_law, urgency, demand, proof, existing source note or existing marker changed.
+
+2026-09-19 · headline copy, brief corrected (owner-delegated) — Before, verbatim: "Inspectors caught 639 e-shops last year, usually for missing notices a shopper must see, like how to complain [S1]. Fines average about 20,000 CZK, and nothing checks a shop before the inspectors do [S1,S10]." After: "… Fines average about 20,000 CZK, close to what a yearly check by people costs, and no shop add-on does that check [S1,S10,S16,S17]." Why: the gap check above found APEK's yearly certificate, whose audit by people checks a shop's web and checkout against 64 legal points and lists what to fix [S16], at 18,000 CZK a year for non-members [S17]. So "nothing checks a shop" was false. What stays true is that no shop add-on does the check: the 606-add-on sweep found none on Shoptet or Upgates [S10], and Toret Toolkit builds checkout pieces into WooCommerce and checks nothing [S16]. "Close to" compares two sourced numbers, 18,000 CZK [S17] against the average fine of about 20,000 CZK [S1]. The title, solution and good_for are unchanged, and so are the scores.

@@ -8,10 +8,10 @@ good_for: 'Someone who knows HR and payroll and can sell to larger employers.'
 draft_law: 'Czech pay transparency law, still a draft [S1]'
 category: legal-compliance
 geo: CZ-national
-score: 5
+score: 6
 scores:
   proof: 3
-  money: 1
+  money: 2
   urgency: 1
   demand: 0
   gap: 0
@@ -61,13 +61,15 @@ locals:
   competes: direct
   maturity: established
   evidence: 'Used by the labour ministry, which has it run the state ISPV earnings survey — the
-    same benchmark data it sells back to employers as Manažer odměňování: analytical job
-    evaluation, twice-yearly wage benchmarking, an explicit Gender Pay Gap report and a
-    pay-system analysis module, at 79,000 CZK a year on a three-year fixed price. TREXIMA,
-    spol. s r.o. has traded since November 1991; its own client panel is empty and it holds no
-    public contract in the state contracts register, and the product stops short of the
-    directive''s prescribed filing — quartile bands, mean and median gaps on variable pay, the
-    joint assessment.'
+    same benchmark data it sells back to employers as Manažer odměňování: job descriptions,
+    analytical job evaluation and twice-yearly wage benchmarking at 79,000 CZK a year on a
+    three-year fixed price, which in August 2026 also listed an explicit Gender Pay Gap report
+    and a pay-system analysis module. Its own client panel is empty, but Česká pošta, a city
+    heating company and a public university sign for the tool in the state contracts register,
+    and a city bus company paid it in December 2025 for a pay-system audit that included the
+    adjusted gender pay gap. TREXIMA, spol. s r.o. has traded since November 1991, and the
+    product stops short of the directive''s prescribed filing — quartile bands, mean and median
+    gaps on variable pay, the joint assessment.'
 - name: Nakladatelství FORUM (Spolehlivé řízení rovného odměňování)
   url: https://forum-media.cz/
   ico: '27180271'
@@ -79,6 +81,19 @@ locals:
     the mandatory employee pay disclosure and produces audit-ready reports. Nakladatelství
     FORUM s.r.o. has traded since 2004, but this product launched in 2026, sold explicitly
     against Czech pay rules taking effect on 1 January 2027.'
+- name: Greenometer
+  url: https://www.greenometer.com/cs/gender-pay-gap
+  ico: '07638990'
+  since: 2026
+  competes: direct
+  maturity: early
+  evidence: 'Sells pay-gap analysis together with its own Gender Pay Gap software module: from an
+    employer''s payroll data it computes the mean, median and adjusted gap, splits base pay from
+    bonuses and flags groups of work more than 5% apart. Charles University, the Technical
+    University of Liberec, Prague''s city library, a hospital company and a water utility signed
+    for it in the state contracts register in 2026. Greenometer s.r.o. has sold carbon-footprint
+    and sustainability reporting to public buyers since 2024; its first pay-gap contract on
+    file dates from January 2026.'
 sources:
 - type: regulation
   name: "Czech transposition of the Pay Transparency Directive"
@@ -130,7 +145,7 @@ sources:
 - type: gap-check
   name: "Czech pay-equity tooling scan"
   gist: "the Czech pay-equity sweep"
-  why: "Czech pay-equity products already exist: TREXIMA's Manažer odměňování at 79,000 CZK a year with a gender pay-gap report, Nakladatelství FORUM's equal-pay app at 8,499 CZK a year, and the labour ministry's free Logib audit."
+  why: "Czech pay-equity products already exist: TREXIMA's job-grading and wage-benchmarking tool at 79,000 CZK a year, which listed a gender pay-gap report, Nakladatelství FORUM's equal-pay app at 8,499 CZK a year, and the labour ministry's free Logib audit."
   url: https://www.manazerodmenovani.cz/
   note: 'Czech-language pay-equity scan 2026-08-25. The Czech position is NOT open. Commercial
     products found: TREXIMA, spol. s r.o. (IČO 44004508, tř. Tomáše Bati 299, Louky, Zlín)
@@ -167,7 +182,17 @@ sources:
     (queries below), ARES for legal identity and IČO, Czech software catalogues
     (ekonomickysoftware.com, sloneek HRIS comparison), and the funded ledger via register.db.
     gap was already 0 and stays 0; status moves to watching under the SPEC §4 de-rank rule on
-    the named Czech incumbents.'
+    the named Czech incumbents.
+    Corrected 2026-09-19, Willing to pay search: this sweep missed a Czech seller with paying
+    customers, Greenometer s.r.o. (IČO 07638990), which since January 2026 computes mean,
+    median and adjusted pay gaps and flags groups more than 5 % apart for public employers, with
+    its own Gender Pay Gap software module (S11); it is now in locals[] as direct and early.
+    TREXIMA holds public contracts after all: Manažer odměňování licences (Česká pošta,
+    Teplárny Brno, Univerzita Pardubice and others) and a Logib-based pay audit for Dopravní
+    podnik města Jihlavy (S11). The paid 79,000 CZK set covers job descriptions, analytical job
+    evaluation and employee-quality assessment, with benchmarking free as a pilot, and the
+    price page read 2026-09-19 names no Gender Pay Gap report. Still not found in any contract
+    text read: quartile pay bands and the joint pay assessment.'
   date: '2026-08-25'
   queries:
     - "software analýza rozdílů v odměňování žen a mužů reporting směrnice o transparentnosti odměňování české řešení"
@@ -196,7 +221,7 @@ sources:
   url: https://www.manazerodmenovani.cz/
   name: "TREXIMA Manažer odměňování"
   gist: "79,000 CZK a year"
-  why: "A Czech employer pays 79,000 CZK a year for the pay-analysis tool with a gender pay-gap report, or 55,000 CZK a year for the wage benchmarking alone."
+  why: "A Czech employer pays 79,000 CZK a year for a tool that describes and grades jobs and benchmarks wages against the market; the price page names no pay-gap report."
   note: 'Price receipt lifted from the 2026-08-25 Czech pay-equity scan already on this ledger,
     which read manazerodmenovani.cz: 79,000 CZK a year on a three-year fixed price, or 55,000
     CZK for benchmarking alone. Annual is stated, so the unit is per-year. Nakladatelství
@@ -207,13 +232,177 @@ sources:
     directive''s prescribed filing.
     Verified 2026-09-04: manazerodmenovani.cz still prints 79 000 Kč as the Základní roční
     cena, though the three-year fixed term and the 55,000 CZK benchmarking-only figure are
-    no longer stated on the page.'
+    no longer stated on the page.
+    Corrected 2026-09-19, Willing to pay search: untagged, dims: []. The contracts answer the
+    rescore worksheet''s call 9. Česká pošta (registr smluv 38281696, 1 June 2026) and
+    Univerzita Pardubice (39357657, 1 September 2026) pay 79,000 CZK excl. VAT a licence year,
+    and Pardubice''s clause reads "Cena balíčku Manažer odměňování ve výši 79 000 bez DPH za
+    každý licenční rok se vztahuje výhradně na moduly Popisy pracovních pozic, Analytické
+    hodnocení prací a Hodnocení kvality zaměstnanců"; the Mzdový benchmarking module is given
+    free under an OP TAK proof-of-concept pilot (S11). The page read on this date lists job
+    descriptions, job evaluation, employee-quality assessment, wage benchmarking twice a year
+    and consultations under 79 000 Kč, a three-year contract at a fixed price, and names no
+    gender pay-gap report. The price buys job grading and market benchmarking, the written pay
+    system the draft also requires, not the pay-gap report in `solution:`. It stays on file as
+    what that next-door job costs. Money rests on S8 and S9.'
   date: '2026-08-25'
   payer: 'A Czech employer of 150 or more staff'
   amount_czk: 79000
   unit: per-year
   basis: list-price
+  dims: []
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38233433
+  name: "Univerzita Karlova — a pay-gap analysis of the whole university, June 2026"
+  gist: "a university's pay-gap analysis"
+  why: "What a large Czech university paid a specialist firm to calculate its gender pay gap from payroll data, including the gap in bonuses and the groups of work more than 5% apart."
+  note: 'Registr smluv 38233433 (idSmlouvy 35917849, č.j. UKRUK/380461/2026-1, UKRUKS/0309/2026),
+    concluded 2 June 2026, published the same day: Univerzita Karlova, Rektorát (IČO 00216208) and
+    Greenometer s.r.o. (IČO 07638990), "Smlouva o dílo, provedení analýzy rozdílů v odměňování
+    žen a mužů na UK". Article I, Phase 1: "Analýzu rozdílů v odměňování žen a mužů na UK (Gender
+    Pay Gap, dále jen „GPG“) mzdových dat a jejich interpretaci přes celou UK, odhadem 13 tis.
+    položek", with outputs "neočištěný GPG za celou UK – průměr i medián", an adjusted GPG by
+    regression, "rozklad rozdílu na základní mzdu vs. variabilní složku", "identifikace skupin
+    prací nad zákonnou hranicí 5 %" and an interpretation of the risks. Phase 2: advice on
+    categories of work of equal value, capped at 10 person-days. Article II.1: "Celková cena za
+    Díla činí 283.000 Kč (slovy: dvě stě osmdesát tři tisíc korun českých) bez DPH"; a
+    small-scale contract awarded by a call to one supplier. The data come from the rectorate''s
+    personnel and payroll department. Amendment 1, 1 September 2026 (registr smluv 39348805):
+    adds Phase 3, transparent pay for work agreements outside employment (DPP, DPČ), sets the
+    total at "333.000 Kč ... bez DPH" and moves the deadline to 31 December 2026. An earlier
+    pilot on selected rectorate departments, 16 January 2026, is in S11. Contract text read
+    through the Hlídač státu API, 2026-09-19; the registry page confirms the date and the
+    283,000 CZK value. The amount is the original price excluding VAT, for the pay-gap analysis
+    plus the equal-value advice, which the contract does not price apart. The payer is the
+    employer whose pay is analysed. basis signed-contract, three and a half months before
+    updated: a PAID receipt for this job, money 2.'
+  date: '2026-06-02'
+  payer: 'Univerzita Karlova, a public university as employer'
+  amount_czk: 283000
+  unit: per-project
+  basis: signed-contract
   dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/37469849
+  name: "Nemocnice České Budějovice — a pay-gap calculation for 2025, March 2026"
+  gist: "a hospital company's pay-gap calculation"
+  why: "What a Czech hospital company paid for a workshop and a calculation of its gender pay gap for 2025."
+  note: 'Registr smluv 37469849 (idSmlouvy 35185493), order no. 26241060103 issued 26 March 2026,
+    published 8 April 2026: Nemocnice České Budějovice, a.s. (IČO 26068877) to Greenometer s.r.o.
+    (IČO 07638990). The order line: "Úvodní analýza, workshop a výpočet Gender Pay Gap za rok
+    2025", 1 ks, "Celkem k úhradě bez DPH (základ DPH) CZK 84000,00", 101,640 CZK with VAT,
+    delivery by 17 April 2026, raised by the economic department. The order gives no scope beyond
+    that line. The same seller''s "Gender Pay Gap – Fáze 1" package in its contracts with Městská
+    knihovna v Praze and Vodohospodářská společnost Olomouc (S11) is a workshop, cleaning and
+    anonymising the payroll data, a regression GPG and the positions more than 5 % apart. Order
+    text read through the Hlídač státu API, 2026-09-19; the registry page confirms the date and
+    the 84,000 CZK value. The register publishes the accepted order as a contract. A joint-stock
+    company employing its own staff, the closest payer on file to the large-firms buyer. basis
+    signed-contract, six months before updated: a PAID receipt for this job, money 2.'
+  date: '2026-03-26'
+  payer: 'Nemocnice České Budějovice, a hospital company'
+  amount_czk: 84000
+  unit: per-project
+  basis: signed-contract
+  dims: [money]
+- type: price
+  url: https://forum-media.cz/produkty/reseni-rovnych-mezd/
+  name: "Nakladatelství FORUM — equal-pay web app"
+  gist: "8,499 CZK a year"
+  why: "What a Czech employer pays each year for a web app that tracks pay between women and men within job groups and writes pay-difference reports for inspectors."
+  note: 'Product page read 2026-09-19: "8 499 Kč bez DPH za roční licenci" for the web
+    application Spolehlivé řízení rovného odměňování, which "vytváří automaticky zprávy o
+    rozdílech v odměňování pro kontrolní orgány", lets the employer "sledovat relace v rámci
+    nastavených skupin, mezi muži a ženami" and "vykazovat údaje o odměňování", sold against
+    the Labour Code change it dates to 1 January 2027. The same price sits in the 2026-08-25
+    scan (S5), whose note left it unwritten because the page was not on this ledger. The page
+    does not say whether the reports carry the directive''s quartile bands or mean and median
+    gaps. basis list-price: an ASKING receipt, rung 1; money rests on S8 and S9.'
+  date: '2026-09-19'
+  payer: 'A Czech employer preparing for the equal-pay rules'
+  amount_czk: 8499
+  unit: per-year
+  basis: list-price
+  dims: [money]
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/39120650
+  name: "Registr smluv — employers paying for pay-gap analysis, 2025 to 2026"
+  gist: "the paying employers"
+  why: "The public contracts register shows Czech employers paying consultants and a software seller to calculate their pay gap from payroll data, and the labour ministry paying for audits that employers get free."
+  note: 'Hlídač státu API full-text search of the contracts register, 2026-09-19, first page of
+    25 hits read per query: "rozdílů v odměňování" (29), "rozdílu v odměňování" (9), "gender pay
+    gap" (41, both pages), "transparentnosti odměňování" (39, both pages), "transparentnost
+    odměňování" (8), "rovného odměňování" (1,159), "rovné odměňování" (360), "2023/970" (59),
+    "analýza odměňování" (16), "audit odměňování" (0), "mzdový audit" (17), "genderový audit"
+    (55), "genderového auditu" (116), "platové struktury" (1), "systému odměňování" analýza (47),
+    "hodnocení pracovních míst" (2), "Manažer odměňování" (7), Logib (25), ico:44004508 TREXIMA
+    (208), ico:07638990 Greenometer (33). 23 contract texts read. EMPLOYERS PAYING GREENOMETER
+    S.R.O. (IČO 07638990) FOR PAY-GAP WORK, texts read: (1) Univerzita Karlova, 2 June 2026 and
+    its amendment of 1 September 2026: S8. (2) Univerzita Karlova, 16 January 2026 (36439353),
+    external audit "Ověření rovnosti odměňování na vybraných odborech Rektorátu ... pomocí
+    analýzy Gender Pay Gap" for 2025, 50,000 + 50,000 CZK excl. VAT for the GPG parts inside a
+    200,000 CZK contract, the rest a sustainability-audit method. (3) Technická univerzita v
+    Liberci, 12 August 2026 (39120650, S/0259/2026): "Výstupy Gender Pay Gap", purpose
+    "zpracování návrhu řešení implementace požadavků směrnice EU o transparentnosti odměňování
+    (2023/970)"; phase 2.1, groups of work of equal value and a recalculated GPG, 124,000; phase
+    2.2, pay rules, pay bands and the directive''s articles 5 and 7, 118,000; phase 2.3,
+    communication and "Nastavení reportingového procesu dle čl. 9 směrnice (zákonný reporting
+    GPG od 2027)" with "Reportingová šablona a procesní manuál pro zákonný reporting", 42,000;
+    each phase with "Platforma Greenometer", "Gender Pay Gap modul", unlimited users, to 31 July
+    2027. Clause 5.1 reads 284,000 CZK excl. VAT; the registry value is 264,000, so neither is
+    restated. (4) Městská knihovna v Praze, 5 June 2026 (38332060): "Gender Pay Gap – Fáze 1",
+    a regression GPG and "special cases" over 5 %, with the platform module, 67,000 CZK excl.
+    VAT. (5) Nemocnice České Budějovice, a.s., 26 March 2026: S9. (6) Vodohospodářská
+    společnost Olomouc, a.s., 11 March 2026 (37165205): "Gender Pay Gap – Fáze 1" baseline
+    report plus a carbon footprint, 90,000 CZK excl. VAT, milestones read in the text layer as
+    22,500, 52,500 and 15,000. Greenometer''s other public contracts since 2024 are carbon
+    footprints and ESG reporting; its first pay-gap contract found is (2). TREXIMA, SPOL. S R.O.
+    (IČO 44004508): Dopravní podnik města Jihlavy, a.s., 16 December 2025 (36452533), a fixed
+    200,000 CZK excl. VAT for an audit of the pay system "včetně „očištěného" Gender Pay Gap
+    (GPG) prostřednictvím nástroje LOGIB" and a final report on the GPG and readiness for
+    transparent pay, bundled with benchmarking, interviews and a new pay concept. Manažer
+    odměňování licences: Česká pošta, s.p., 1 June 2026 (38281696), 79,000 CZK a year; Univerzita
+    Pardubice, 1 September 2026 (39357657), 79,000 a year, registry 237,000; Vodárna Plzeň a.s.,
+    24 February 2026 (36940369), 237,000; Plzeňské městské dopravní podniky, a.s., 2 April 2026
+    (37424837), 240,000; Teplárny Brno, a.s., order 22 April 2026 (37917329, 80,000, "analytického
+    a řídícího nástroje Manažer odměňování") and licence 16 July 2026 (38826962, no text layer).
+    The licensed set is job descriptions, analytical job evaluation and employee-quality
+    assessment, with Mzdový benchmarking free under OP TAK proof-of-concept project
+    CZ.01.01.01/08/25_072/0008601; no Gender Pay Gap module is licensed, so none is a receipt
+    (S7''s correction line). OTHER ADVISERS, texts read, not restated because the pay-gap line is
+    bundled or absent: BD Advisory s.r.o. for Národní rozvojová banka, a.s., 19 May 2025
+    (33328308), "Mzdová politika pro rok 2025 pro jednotlivé mzdové třídy a výpočet Gender Pay
+    Gap", 135,000 CZK; for Operátor ICT, a.s., 9 January 2026 (36386473), support implementing
+    the directive (job segmentation, recommendations, documents), 120,000; BL Services s.r.o. for
+    Dopravní podnik měst Mostu a Litvínova, 15 April 2026 (37746073, registry 200,000, advisory
+    and analytical services under 2023/970, hourly rate redacted) and Dopravní podnik města
+    Děčína, 24 March 2026 (37359793, no value); LEGALITÉ advokátní kancelář for Vojenská zdravotní
+    pojišťovna, February 2025 (32365576), a 200,000 CZK frame for a labour-law audit and legal
+    advice on equal pay. THE STATE PAYS, EMPLOYERS DO NOT: MPSV and Ernst & Young, s.r.o., 19
+    December 2024 (31616404), 15,792,300 CZK excl. VAT from OPZ+ project "Strategie a nástroje
+    pro zvyšování transparentnosti v odměňování": at least 30 equal-pay audits and 3 re-audits
+    by 31 December 2026, each audit priced in the itemised budget at 78,000 for data collection,
+    126,000 for data analysis, 54,000 for the final report, 54,000 for the Pay Equality Plan,
+    66,000 for advice and 30,000 for the de minimis paperwork; the template agreement with each
+    employer says the service is "bezúplatné". Amendments 1 to 6 (March 2025 to August 2026)
+    not read. A fully funded purchase for the employer: public money for this job, but it cannot
+    lift money (SCORING.md), and it is a free competitor alongside Logib. FOUND AND NOT COUNTED:
+    gender audits and gender-equality plans at universities, research institutes and towns,
+    2017 to 2026 (e.g. Ústav živočišné fyziologie a genetiky AV ČR 27 March 2026, 145,440 CZK;
+    Univerzita Palackého re-audit 6 May 2026, 175,000; Ostravská univerzita 2 September 2025,
+    180,000), texts not read, pay gap not shown in scope; job architecture and job grading,
+    the draft''s other duty: Deloitte Advisory for Mikrobiologický ústav AV ČR, 7 May 2026,
+    1,203,400 CZK, and a sole trader for Fyzikální ústav AV ČR, 8 September 2026, a 1,200 CZK
+    rate, registry 192,000; MPSV payments to TREXIMA and others inside the same state project,
+    texts not read; a trade-union survey of employees on pay transparency (Asociace samostatných
+    odborů, 2026). Every paying employer found is public, because only public bodies publish
+    their contracts here. POSITIVE CONTROL: the ico:44004508 query surfaced MPSV''s ISPV
+    contract with TREXIMA (28768012, "Dodatek č. 1 ke Smlouvě o ISPV 2024 - 2027", 15 May 2024;
+    30190748, 17 September 2024), the mandate this ledger already names; control PASSED. WHY
+    THIS ROW BACKS GAP, NOT MONEY: the amounts are restated as S8 and S9; this row carries the
+    paying customers of the Czech sellers in locals[]. Gap was 0 and stays 0.'
+  date: '2026-08-12'
+  dims: [gap]
 created: '2026-08-13'
 updated: '2026-09-19'
 ---
@@ -234,17 +423,19 @@ The law would put the EU's Pay Transparency Directive (2023/970) into Czech law 
 - Where a gap of 5% or more cannot be explained, the employer would run a joint pay assessment with staff representatives [S1].
 - No Czech employer survey, business-chamber statement or complaint about pay-gap reporting has been found; the evidence is the draft law and its dates [S1].
 
-Existing non-solutions: The Czech field is taken: two established sellers offer pay-gap analysis, a third is new, and the state gives an audit tool away [S5].
+Existing non-solutions: The Czech field is taken: two established sellers offer pay-gap analysis, two newer ones sell it too, and the state gives audits away [S5,S11].
 
-- The firm that runs the state earnings survey sells a gender pay-gap report [S5].
+- The firm that runs the state earnings survey sells a gender pay-gap report [S5,S11].
 - A personnel-software firm markets pay bands and gender pay analysis [S5].
+- A sustainability-reporting firm calculates pay gaps for universities and a hospital company [S11].
 - A publisher sells a web app built for the new Czech equal-pay rules [S5].
 
-The survey firm also sells job evaluation and wage benchmarks, drawn from the same survey data [S5]. The publisher's app groups staff by the value of their work and tracks the pay ratio between women and men [S5].
+The survey firm also sells job evaluation and wage benchmarks, drawn from the same survey data [S5]. Employers sign for its job grading in the public contracts register, and a city bus company paid it for a pay audit that included the gender gap [S11]. The sustainability firm sells its own pay-gap software module with the analysis [S11]. Its contracts compute the mean and median gap and flag groups of work more than 5% apart [S11]. The publisher's app groups staff by the value of their work and tracks the pay ratio between women and men [S5].
 
 - The labour ministry and its labour inspectorate give Logib, a Swiss self-audit tool, to employers for free, and inspectors use it in their own checks [S5].
+- Until the end of 2026 the labour ministry also pays a large consultancy for at least 30 equal-pay audits, free to the employers audited [S11].
 - Employers already run Czech payroll and personnel systems such as Vema, Pamica and OKbase; the sources say nothing about whether these analyse pay gaps [S3,S4].
-- No Czech product was found that turns a payroll export into the finished filing the EU rules prescribe: the share of women and men in each quarter of the pay scale, mean and median gaps on variable pay, and the joint assessment [S5]. Not finding one does not prove none exists [S5].
+- No Czech product was found that turns a payroll export into the whole filing the EU rules prescribe [S5]. The contracts read cover the mean and median gap and the gap in bonuses, but none lists the share of women and men in each quarter of the pay scale, or the joint assessment [S11]. Not finding one does not prove none exists [S5].
 
 Why now: Employers would have to rebuild how they set pay from January 2027, and firms with 150+ staff would report by April 2028 [S1].
 
@@ -266,13 +457,24 @@ The dates come from the draft, and a second reporting change lands on the same p
 - By 30 April 2031 firms with 100 to 149 staff would file theirs [S1].
 - In July 2026 public comments closed on changes to decree 417/2025, which sets the rules for the employer's single monthly report to the state [S6]. It is a different duty, drawn from the same payroll systems [S6].
 
-Who pays: Czech tools sell at a list price, but no Czech employer is yet shown paying for pay-gap reporting [S5].
+Who pays: Some Czech employers already pay specialists to calculate their pay gap from payroll data, before the law has passed [S11].
 
-- Two Czech tools sell pay-gap analysis at a published yearly price [S5].
+- Two universities, a hospital and a water company bought pay-gap calculations in 2026 [S11].
+- The labour ministry pays for 30 equal-pay audits that employers get free [S11].
+- Czech pay-grading and pay-gap tools sell at a yearly list price [S5].
+
+Every paying employer on file is a public one, because public bodies must publish their contracts [S11].
+
+- Charles University's contract covers the mean and median gap, the gap in bonuses, and groups of work more than 5% apart [S11].
+- The Technical University of Liberec also bought a template and a process for the legal pay-gap report [S11].
+- Prague's city library bought the same first-phase calculation [S11].
+- Other advisers bill public companies for a pay policy with a pay-gap calculation, or for help with the directive [S11].
+- The survey firm billed a city bus company for a pay-system audit that included the gender gap [S11].
+- The ministry's own audits cost it 126,000 CZK each for the data analysis alone [S11].
 - Investors backed a Czech personnel-software firm that markets pay-gap analysis, in June 2026 [S5].
 - Five consultancies offer pay-equity work as paid advice [S5].
 
-The buyers would be employers with 150 or more staff first, then every employer that hires, since all would need the written pay system [S1]. A seller can come in two ways: a standalone audit tool, or a module inside the payroll systems employers already run [S3,S4]. Whether employers buy before 30 April 2028 or scramble after is the open question [S1].
+The buyers would be employers with 150 or more staff first, then every employer that hires, since all would need the written pay system [S1]. A seller can come in two ways: a standalone audit tool, or a module inside the payroll systems employers already run [S3,S4]. Whether most employers buy before 30 April 2028 or scramble after is still open [S1].
 
 Solved elsewhere: Three foreign firms, in France, Iceland and the US, already sell the pay analysis these rules would force on Czech employers [S2].
 
@@ -297,3 +499,13 @@ Solved elsewhere: Three foreign firms, in France, Iceland and the US, already se
 2026-09-19 · brief corrected (owner-approved) — Brief before, verbatim: "Czechia is already late on the EU rules, and its draft goes further: pay ranges in every job ad and a first pay-gap report due April 2028 [S1]." After: "Czechia is late on the EU rules, and its draft would make every employer set pay by a written system [S1]. Applicants would learn the minimum pay, and firms with 150+ staff would report their pay gap by April 2028 [S1]." Why: [S1]'s article, re-read at its URL on this date, says the Czech draft obliges employers "to disclose only the minimum wage or salary", narrower than the directive's "initial pay level or its range", and that it is given "before employment contract negotiations begin"; it does not say the pay goes in the job ad. So "pay ranges in every job ad" became "Applicants would learn the minimum pay", the correction the 2026-09-18 entry flagged. "Goes further" was attached to the job-ad rule, which is narrower than the EU's, so the card now names what the draft does add beyond the directive instead: every employer must set pay by "a formal, documented remuneration system", from 1 January 2027 [S1]. "Already" was cut for length, and "a first pay-gap report due April 2028" became "firms with 150+ staff would report their pay gap by April 2028", so the card says who reports; the 30 April 2028 date is [S1]'s. No score, status, source, note, marker, title, solution, good_for, draft_law or body sentence changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 3 → 1, Willing to pay 0 → 1 and `score` 6 → 5; the band stays FAIR. Why now was 3 as deadline 2 plus the freshness point, which is retired. The duties are dated and close, from 1 January 2027, with first reports by 30 April 2028, but they sit in the labour ministry's bill. The government approved it on 31 August 2026 and it has not passed parliament. The EU directive behind it is untransposed [S1]. A bill fails REAL, and `draft_law:` holds the record at rung 1. The bill's fines of up to CZK 1M are not law yet. The decree change on monthly employer reporting is a different duty, tagged `dims: []` [S6]. Tagging pass for Willing to pay, every source on file that shows someone paying: TREXIMA's Manažer odměňování, 79,000 CZK a year to a Czech employer of 150 or more staff, is now tagged `dims: [money]` as an asking price [S7]. The ledger lists it as a direct seller: it sells a gender pay-gap report and pay-system analysis to these employers. It stops short of the directive's exact filing, and that is why it is an asking price for this job rather than for something adjacent. Not restated: Nakladatelství FORUM's 8,499 CZK a year sits in the [S5] note, but its own page is not on file; the Foreign Ministry's OKbase award buys support for an HR system, not pay-gap reporting [S4]; the five consultancies publish no fee [S5]; the state's Logib tool is free and paid for by no employer [S5]. No public money for these employers is on file, so there is no lift and money stops at 1, as the worksheet had it. [S1]'s and [S7]'s notes carried the old reading and now carry the correction. Why now prose re-read: the answer sentence stated the April 2028 report as fact while every other duty says "would"; "file a first report" now reads "would report", which keeps it within 25 words. Willing to pay already says Czech tools sell at a list price and no employer is yet shown paying, which is rung 1 in words. No `[Competition](#competition)` link was on this record. No other score, status, entry or body sentence changed.
+
+2026-09-19 · Willing to pay search, owner-approved — `scores.money` 1 → 2, `score` 5 → 6; the band stays FAIR and `status` stays watching, since gap is still 0. The rescore above scored money 1 on TREXIMA's list price and left open whether that tool does this job (worksheet call 9). The search looked for a paid receipt and for a published price for the report itself. A full-text search of the contracts register through the Hlídač státu API, twenty queries, found Czech employers paying for pay-gap analysis in 2026, and 23 contract texts were read [S11]. Two are restated as price receipts tagged money. Univerzita Karlova signed on 2 June 2026 for an analysis of its whole payroll: the mean and median gap, an adjusted gap, base pay against bonuses, the groups of work more than 5% apart, and advice on equal-value categories, 283,000 CZK excluding VAT [S8]. Nemocnice České Budějovice, a.s. ordered a workshop and a Gender Pay Gap calculation for 2025 on 26 March 2026, 84,000 CZK excluding VAT [S9]. Both are signed within 24 months of `updated`, so money is 2 on a paid receipt and no public-money lift is needed. Nakladatelství FORUM's price page, left unwritten on 2026-09-04 because its URL was not on file, was read and added as an asking price: 8,499 CZK a year for an app that writes pay-difference reports for inspectors [S10].
+
+TREXIMA untagged: [S7] now carries `dims: []`, which answers call 9. Česká pošta and Univerzita Pardubice pay 79,000 CZK a year, and Pardubice's contract says the price covers only job descriptions, job evaluation and employee grading; the wage benchmarking is given free as a pilot [S11]. The price page read on this date lists those modules plus benchmarking and names no pay-gap report. So the 79,000 CZK buys job grading, the written pay system next door, not the report in `solution:`. The score does not rest on it. S7's `why` had said the tool came with a gender pay-gap report and now says what the price buys; S5's `why` now calls it a job-grading and wage-benchmarking tool that listed a pay-gap report; both notes gained a correction line.
+
+Market gap: new in `locals[]`, Greenometer, a sustainability-reporting firm that sells pay-gap analysis with its own software module, paid by five public employers in 2026 [S11]. It is `competes: direct` and `maturity: early`: its first pay-gap contract on file is January 2026, so it has sold this for less than three years. Gap was 0 on Sloneek and TREXIMA and stays 0, and `entry.incumbents` stays direct. TREXIMA's row said it "holds no public contract in the state contracts register"; the register holds several, so the row now names its paying customers, among them a city bus company that paid it 200,000 CZK in December 2025 for a pay-system audit that included the adjusted gender gap [S11]. The August sweep missed both, and S5's note says so.
+
+Body: Willing to pay now opens on employers already paying specialists to calculate their pay gap [S11]. Its first three items are the paying employers, the ministry's free audits and the list prices [S5,S11]; below them, what the contracts cover, the Liberec reporting template, the library, the other advisers, the survey firm's audit and the ministry's cost per analysis [S11], with the funding and consultancy items kept [S5]. The old answer, "no Czech employer is yet shown paying", is false and is gone. Market gap now counts two newer sellers and the free audits in its answer sentence, adds the sustainability firm as item 3 and the ministry's audits as a bullet, and the "no product turns a payroll export into the finished filing" bullet now says what the contracts cover (mean and median gaps, the gap in bonuses) and what none lists (quartile bands, the joint assessment) [S5,S11]. Flagged as our reading: "because public bodies must publish their contracts" is the contracts-register law, not a sentence in any source; every payer found is public [S11]. "Two universities" counts Liberec, whose contract recalculates the gap after regrouping jobs [S11].
+
+Searched and not added, all in S11's note: university and institute gender audits (2017 to 2026), whose texts were not read and whose scope does not show a pay gap; job-architecture and job-grading contracts (Deloitte for the Microbiology Institute, 1,203,400 CZK, May 2026; a sole trader for the Institute of Physics, September 2026), which buy the draft's other duty [S11]; BD Advisory, BL Services and LEGALITÉ, whose pay-gap line is bundled with pay policy or legal advice; the rest of Greenometer's pay-gap contracts (Liberec, the city library, the Olomouc water utility, the January 2026 university pilot), kept in the row, two receipts being enough; and the labour ministry's 15,792,300 CZK contract with Ernst & Young for at least 30 equal-pay audits [S11]. That last one is public money for this job, but the employer pays nothing, so it is fully funded and cannot lift money (SCORING.md); it is recorded as a free competitor. Web: the consultancy pages read (PwC, Deloitte, BDO, EY, Accace) and Greenometer's product page publish no fee. Positive control: the query on TREXIMA's IČO surfaced the labour ministry's ISPV contract with it (May and September 2024), the mandate the ledger already names. Only the first page of each query was read; "rovného odměňování" has 1,159 hits and was not exhausted. Not changed: title, brief, solution, good_for, draft_law, urgency, proof, demand and `entry`; none of the headline fields is made false by what was found.

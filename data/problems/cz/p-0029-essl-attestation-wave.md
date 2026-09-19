@@ -13,10 +13,10 @@ solution: 'Build a migration service that moves a public body''s records into ce
 good_for: 'Someone who can migrate office data and sell through public tenders.'
 category: govtech
 geo: CZ-national
-score: 5
+score: 7
 scores:
   proof: 2
-  money: 0
+  money: 2
   urgency: 3
   demand: 0
   gap: 0
@@ -101,6 +101,17 @@ locals:
     to the same buyer at a price of zero, which is why it competes directly. No year for the start
     of supply is published, so how long it has been running is unknown; a zero-price rival at
     the bottom of the market all the same.
+- name: GRADUAL SYSTEMS
+  ico: '27876608'
+  since: 2007
+  competes: adjacent
+  maturity: established
+  evidence: It sells support for the Justice Ministry's ACTA records system, and the ministry pays
+    it by the day to move other offices' records into ACTA — the Criminal Register's in 2024 and
+    three Government Office units' in 2026 [S12]. ACTA is not on the state's list of certified
+    records systems [S8,S12], so these moves land in uncertified software, not in the certified
+    kind this problem needs. A named customer, the Justice Ministry, under support contracts of
+    2024 and 2025 [S12]; trading since 3 April 2007.
 sources:
 - type: regulation
   name: "The eSSL attestation regime (§69b–e, Act 499/2004)"
@@ -155,16 +166,24 @@ sources:
   date: '2026-08-03'
   signal: ted-535679-2026
 - type: tender
-  name: "TED — Ostrava University records system (~€408k)"
-  gist: "the €408k university award"
-  why: "The university buyer type inside the same wave, bought with service support attached."
+  name: "TED — Ostrava University records tender, ended without a winner"
+  gist: "the university tender, no winner"
+  why: "The university buyer type inside the same wave: a tender for a certified records system with support, estimated at about €408k, ended in June 2026 without a winner."
   url: https://ted.europa.eu/en/notice/-/detail/442243-2026
   note: 'ted-442243-2026: Ostravská univerzita awarded ~€408k for a records management system
     incl. service support (Jun 2026) — the university buyer type in the same wave.
     Rescore tagging pass 2026-09-19: the TED notice at this url, read on that date, buys the
     supply and implementation of an attested eSSL plus support, training, development and exit
     services (estimated 10M CZK); it names no migration of existing records, so it is not
-    restated as a price receipt for this job and stays public money nearby.'
+    restated as a price receipt for this job and stays public money nearby.
+    Corrected 2026-09-19, Willing to pay search: this is a result notice with NO award. Its
+    result reads "Vítěz nebyl vybrán a soutěž je ukončena", the reason a buyer''s decision "z
+    důvodů technických nebo procedurálních chyb", after 3 tenders (TED XML: winner-selection-status
+    clos-nw, non-award-justification tch-pr-error; Czech PDF read on this date). The ~€408k was the
+    10,000,000 CZK estimated value, not an award. The procedure (TED 201339-2026, amended by
+    310464-2026, then this notice) has no later notice on TED, and the contracts register shows no
+    records-system contract signed by Ostravská univerzita (IČO 61988987) since 2025. Name, gist
+    and why said "award" and now say what happened.'
   date: '2026-06-29'
   signal: ted-442243-2026
 - type: tender
@@ -178,7 +197,12 @@ sources:
     Rescore tagging pass 2026-09-19: the TED notice at this url, read on that date, buys the
     supply and implementation of an eSSL integrated with the buyer''s other systems, awarded to
     Seyfor at 27,771,072 CZK; it names no migration of existing records, so it is not restated
-    as a price receipt for this job and stays public money nearby.'
+    as a price receipt for this job and stays public money nearby.
+    Corrected 2026-09-19, Willing to pay search: the signed contract behind this award, read in
+    the contracts register on this date, DOES name the move. Its stage 5, "Příprava a převzetí do
+    zkušebního provozu, migrace dat", is priced at 483,700 CZK excl. VAT, and Seyfor''s offer
+    migrates the open files from the current system; that stage is restated as S10. "It names no
+    migration" above holds for the TED notice only.'
   date: '2026-07-30'
   signal: ted-529246-2026
 - type: tender
@@ -267,6 +291,137 @@ sources:
     ladder this is REAL (Act 499/2004 and decree 259/2012, binding the public body), CLOSE (1 Jan
     2027) and has TEETH (the fine up to 200,000 CZK above): rung 3.'
   date: '2027-01-01'
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38628540
+  name: "Czech State Forests — the records move, priced as its own stage, July 2026"
+  gist: "a state firm pays for the move"
+  why: "What Czech State Forests pays its certified vendor, as a separate stage of its new records contract, to fill the new system with data and move its open files across."
+  note: 'Registr smluv 38628540 (idSmlouvy 36298776, SML-00001-2026-99-20), concluded and
+    published 2 July 2026: Lesy České republiky, s.p. (IČO 42196451) and Seyfor, a.s. (IČO
+    01572377), "Smlouva o dodávce a implementaci elektronického systému spisové služby a o
+    poskytování služeb", the award of open procedure 099/2024/032 (VVZ Z2025-070134; TED
+    529246-2026, S6). Art. II.1: the buyer "je veřejnoprávním původcem"; II.2: the delivered
+    system "nahradí stávající řešení elektronické spisové služby užívané Objednatelem"; III.2: it
+    "musí být atestovaný dle Zákona o archivnictví". Art. III.6 splits delivery into stages; stage
+    5 is "Implementační práce – Příprava a převzetí do zkušebního provozu, migrace dat", whose
+    output (IV.7) is trial operation "v produkčním prostředí Objednatele včetně jeho naplnění
+    daty". Price clause VI.6: "Za řádné provedení etapy č. 5 … náleží Poskytovateli cena ve výši
+    483 700 Kč … bez DPH". For scale: implementation 14,389,240 CZK in all, service 1,049,458 CZK
+    a year, development 8,200 CZK a man-day, contract value 27,771,072 CZK excl. VAT. Annex 5,
+    Seyfor''s technical description of 16 March 2026, §4.2.1: "V rámci implementace bude
+    provedena migrace otevřených spisů ze stávajícího systému do nového eSSL v souladu s
+    požadavky nové legislativy a NSESSS", with the old filing plan mapped onto the new one and the
+    old file marks and reference numbers kept (§4.2.2–4.2.4). Seyfor''s ELDAx holds attest 3/2026
+    (S8). The system it replaces is, on the register''s metadata, ACTA, whose maintenance Lesy ČR
+    bought from Aricoma Digital in April 2025 (registr smluv 32824880, not opened). LIMITS: the
+    stage also covers preparing and handing the system over into trial operation, so 483,700 CZK
+    is an upper bound on the move inside this contract, not the move alone; Annex 2, the
+    technical specification that defines the stage (ch. 4.1.5), is not in the published text; and
+    the offer names the open files, not the whole archive. Contract text read through the Hlídač
+    státu API, 2026-09-19. basis signed-contract, 2.5 months before updated: a PAID receipt for
+    this job, money 2.'
+  date: '2026-07-02'
+  payer: 'Lesy České republiky, a state enterprise'
+  amount_czk: 483700
+  unit: per-project
+  basis: signed-contract
+  dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38920946
+  name: "Fakultní nemocnice Plzeň — moving onto the certified version, July 2026"
+  gist: "a hospital pays for the move"
+  why: "What a faculty hospital pays its vendor to move its records system, and the records in it, onto the certified version before the deadline."
+  note: 'Registr smluv 38920946 (idSmlouvy 36579874, contract 0944/26/06/SIS), concluded and
+    published 28 July 2026: Fakultní nemocnice Plzeň (IČO 00669806), a contributory organisation
+    of the Health Ministry, and ICZ.DMS a.s. (IČO 06696805), "Smlouva o dílo – Upgrade eSSL na
+    atestovanou verzi". Art. 2.1: "provedení upgrade elektronického systému spisové služby …
+    e-spis na verzi atestovanou v souladu s požadavky zákona č. 499/2004 Sb."; 2.2: it includes
+    "migrace binárních souborů na filesystem, analýza dat a oprava na validní data, vytvoření
+    testovacího prostředí, migrace dat do testovacího prostředí, vytvoření produkčního prostředí,
+    realizace školení uživatelů, migrace dat do produkčního prostředí"; 3.3: finished and running
+    "nejpozději do 30.11.2026 tak, aby Objednatel splnil povinnost používat atestovaný
+    elektronický systém spisové služby". Art. 4.1: "Celková cena za plnění dle této Smlouvy činí
+    892 800 Kč … bez DPH", a ceiling. Annex 3 by line, excl. VAT: binary files to the file system
+    172,800; data analysis and repair 76,800; test environment 115,200; data migration to test
+    134,400; production environment 124,800; training 57,600; production migration 172,800; extra
+    support 38,400. The four data lines come to 556,800 CZK. The cut-over in Annex 2 switches off
+    the old platform (G1), backs it up and runs "Provedení převodu dat a konfigurace". No licence
+    line is in the price table, so the whole amount buys the move onto the certified version
+    (ICZ.DMS e-spis 3, attest 2/2026, S8), with training and extra support. Contract text read
+    through the Hlídač státu API, 2026-09-19. basis signed-contract, under two months before
+    updated: a PAID receipt for this job.'
+  date: '2026-07-28'
+  payer: 'Fakultní nemocnice Plzeň, a faculty hospital'
+  amount_czk: 892800
+  unit: per-project
+  basis: signed-contract
+  dims: [money]
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/38720408
+  name: "Registr smluv — public bodies paying to move their records, 2024 to 2026"
+  gist: "who pays for the move"
+  why: "The public contracts register shows public bodies paying to have their records moved into certified software inside their vendor contracts, and one ministry buying records moves as separate orders."
+  note: 'Hlídač státu API full-text search of the contracts register, 2026-09-19, over contracts
+    concluded from 2024-09-19 (24 months before updated): "migrace dat" AND "spisové služby" (222
+    hits, all nine pages listed), "atestovanou verzi" (24), "migrace spisové služby" (1); plus the
+    two buyers the rescore worksheet named, by IČO: Ostravská univerzita 61988987 with "spisové
+    služby" OR eSSL since 2025 (1 hit, a Magion EIS contract, not records) and Lesy ČR 42196451
+    with Seyfor 01572377 (34 hits). POSITIVE CONTROL: the Lesy ČR records contract, found first by
+    the two IČOs, surfaces on page 3 of the full-text query — PASSED. RESTATED AS PRICE RECEIPTS,
+    texts read: Lesy ČR, 2 July 2026, the new certified system replaces the current one and its
+    stage 5 prices "migrace dat", the vendor moving the open files with their old file marks and
+    reference numbers (S10); Fakultní nemocnice Plzeň, 28 July 2026, the move of its e-spis onto
+    the certified version, data migration to test and production included, due by 30 November
+    2026 "aby Objednatel splnil povinnost používat atestovaný elektronický systém spisové služby"
+    (S11). READ, NOT RESTATED: (1) Český báňský úřad (IČO 00025844) and ICZ.DMS, 33834185,
+    concluded 23 June 2025, "Upgrade ESSL na atestovanou verzi", 1,403,376 CZK excl. VAT: impact
+    study, test environment, "otestování migrace dat na vzorku dat", production environment,
+    training, "migrace produkčního prostředí" and extra support; the same job as S11, but its
+    price table is blank in the register''s text layer, so only the total is known, and S11
+    already carries the kind. (2) Město Mělník (IČO 00237051) and GORDIC, 37854805, 5 May 2026,
+    "Smlouva na dodávku a implementaci atestované elektronické spisové služby", 5,614,000 CZK
+    excl. VAT: Annex 3 lists "Migrace dat včetně migrace dat ze současného systému ATHÉNA od roku
+    2006" and six months of support for the old system, the move due by 30 November 2026, but
+    every line price is blacked out. (3) Fakultní nemocnice Bulovka (IČO 00064211) and Seyfor,
+    38002569, 15 May 2026, a new eSSL replacing AthenA, 2,971,777 CZK excl. VAT: the specification
+    requires "migrace dat ze stávající eSSL do nové eSSL", the old system kept read-only for at
+    least 4 years, but the move has no price line of its own. NEXT DOOR, NOT COUNTED: the Ministry
+    of Justice (IČO 00025429) orders GRADUAL SYSTEMS, s.r.o. (IČO 27876608, ARES 3 April 2007),
+    under its ACTA support contracts 83/2024-MSP-CES and 171/2025-MSP-CES, to move records INTO
+    ACTA: order MSP-101/2024-OI-OBJ/3 of 25 September 2024, registr smluv 30384264, "řešení
+    migrace dat Rejstříku trestů do prostředí eSSL Ministerstva spravedlnosti", up to 42
+    man-days, 453,600 CZK excl. VAT; order MSP-82/2026-OPPIC-OBJ/2 of 29 June 2026, 38720408,
+    "Součinnosti k migraci dat útvarů Úřadu vlády", up to 17 man-days, 190,400 CZK excl. VAT,
+    whose offer MSP-ACTA-2025-II/8 moves three Government Office units'' files, documents,
+    attached files and transaction log, delivered in the National Standard format, into ACTA,
+    keeping file marks, reference numbers and retention codes. That is the migration service
+    itself, bought separately at 10,800 and 11,200 CZK a man-day, but ACTA is not on the Czech
+    Agency for Standardization''s list of issued attests, re-read on 2026-09-19 with the same four
+    products as S8, so the records land in uncertified software: not this job, no receipt.
+    Národní rozvojová banka (IČO 44848943) and SoftHouse, 35351441, 13 October 2025, "Migrace dat
+    ze systému EZOP etapa 2 - export dokumentů, koordinace, testování", 1,100,736 CZK excl. VAT,
+    line "Etapa 2 (Náhrada spisové služby EZOP)": the export out of an uncertified system, but the
+    offer is not published and the target is a document-management system bought from ICZ
+    (33901561, not opened), not shown to be a certified one. Technical moves inside one system,
+    not counted: ICZ.DMS moving e-spis data from database to file system or from Oracle to MS SQL
+    for Český Krumlov (37763301, 37763297), Správa NP České Švýcarsko (37023305), Správa NP
+    Šumava (36129877) and SOA Třeboň (34631693). METADATA ONLY, NOT OPENED: more moves onto a
+    certified version, Město Mariánské Lázně and GORDIC, "Přechod elektronické spisové služby
+    GINIS na atestovanou verzi", 27 March 2026 (37403633); Město Louny and GORDIC, "Rozšíření SSL
+    na atestovanou verzi", 15 December 2025 (36159889); Město Lipník nad Bečvou and ICZ.DMS,
+    upgrade to e-spis G2, 3 July 2025 (34250873); and paid analyses or consultations before a
+    move, Město Příbram (36787101), UTB Zlín (36237185), Hlavní město Praha and INADVISORS
+    (36662585), Statutární město Olomouc and OVANET (38968354). FOUND, ADJACENT, NOT ON THE
+    LEDGER: VITA software, s.r.o. (IČO 61060631, ARES 5 February 1996), paid by Plzeň''s city IT
+    body (37673129, 22 April 2026, 254,600 CZK excl. VAT) and by the Dopravní a energetický
+    stavební úřad (37636325, 20 April 2026, 189,000 CZK excl. VAT) for "Přechod na atestovanou
+    verzi eSSL e-spis G2"; the Plzeň order reads "Dodávka propojení agend VITA na atestovanou
+    verzi e-spis G2" with a trial data transfer, so it reconnects its own agenda software to the
+    certified system and does not move the records. WHY THIS ROW CARRIES dims: []: the amounts for
+    this job are restated as S10 and S11, which carry money; this row names who pays and who does
+    the work, and backs no score.'
+  date: '2026-07-10'
+  dims: []
 created: '2026-08-13'
 updated: '2026-09-19'
 ---
@@ -285,13 +440,14 @@ The records service, spisová služba in Czech, is the layer under all of a publ
 Existing non-solutions: Four Czech vendors already hold the certificate, and a free state-backed system serves the smallest towns [S8].
 
 - The four were certified between November 2025 and July 2026, for two years [S8].
-- Prague bought development on two certified systems this summer [S3,S7].
+- Three certified vendors also charge public bodies for moving their records in [S12].
 - About a dozen more Czech records systems are not on the list [S8].
 
-Prague's amounts are under [Willing to pay](#willing-to-pay) [S3,S7]. The uncertified also include Triada's Munis, VERA Radnice and Alis's KEO4 — three more Czech records systems [S8]. Two others sell into this wave and are listed above [S8].
+Prague bought development on two certified systems this summer, and its amounts are under [Willing to pay](#willing-to-pay) [S3,S7]. The uncertified also include Triada's Munis, VERA Radnice and Alis's KEO4 — three more Czech records systems [S8]. Two others sell into this wave and are listed above [S8].
 
 - A public body running one of those systems must move to a certified one by 1 January 2027, unless its supplier is certified first [S8,S9].
 - The smallest towns can get an open-source records system free, with two years of hosting, from a group working with the Ministry of the Interior [S8].
+- A ministry pays one Czech firm by the day to move other offices' records, but into a system without the certificate [S12].
 
 So the certificate is scarce, not the software [S8]. The demand on record is the tenders themselves: no public body's complaint has been found, and no source counts how many still run an uncertified system [S2].
 
@@ -308,18 +464,28 @@ A health insurer published its tender twice [S2]. A notice published again shows
 - From 1 January 2027 a public body must run its records in a certified system, and one that does not risks the fine [S9].
 - The agency that issues the certificates gives the 1 January 2027 date, citing the transition rule in decree No. 259/2012 [S9]. An older section of the same page still gives 1 January 2026; the 2027 date is the one tied to the rule [S9].
 
-Who pays: Public bodies pay for records systems and support, about €17M tendered this summer, but they buy the software, not a move of old records [S2,S6].
+Who pays: Public bodies already pay to have their records moved into certified software, inside their contracts with the certified vendors [S12].
 
-- Czech State Forests awarded about €1.1M for an electronic records system [S6].
-- Ostrava University awarded about €408k for one, with service support [S5].
+- The state forests' records contract prices the data move as its own stage [S12].
+- A faculty hospital and the state mining authority each contracted their own move [S12].
+- A ministry buys records moves separately, but into a system without the certificate [S12].
+
+The amounts are signed contracts in the public contracts register, and they are listed in this section's table [S12].
+
+- The state forests' new system replaces its current one, and the vendor moves the open files across with their old file marks and reference numbers [S12].
+- The faculty hospital's move must be finished by 30 November 2026, so that it meets the duty to use a certified system [S12].
+- A town's contract moves its records back to 2006 from its current system, but the price of that line is blacked out [S12].
+- A Prague hospital's new contract includes the move, without a price of its own [S12].
+- The ministry's two orders buy the move of the criminal register's records in 2024 and of three government-office units' records in 2026, priced by the day [S12].
+
+Public bodies also buy the systems themselves: about €17M tendered this summer, in about 28 procurement notices from about 19 public buyers between June and August 2026, on TED (the EU's public tender journal) [S2].
+
+- Czech State Forests awarded about €1.1M for an electronic records system [S6]. Its award notice does not mention the move; its signed contract does [S6,S12].
 - The Interior Ministry awarded about €642k for records-system support to 2028 [S4].
-
-The €17M is about 28 procurement notices from about 19 public buyers between June and August 2026, on TED (the EU's public tender journal) [S2].
-
 - The state drug agency ran an open competition for a records system worth about €1.4M [S2].
 - Prague awarded about €3.3M for development of one certified system, including modules and training, its third records award in the window [S3].
 - Prague also awarded about €275k for development of another certified system, under a framework [S7].
-- The university's and the state forests' notices buy the supply and implementation of a new records system; neither names moving the old records into it [S5,S6].
+- Ostrava University's tender for a certified system, estimated at about €408k, ended in June 2026 without a winner [S5].
 - The Interior Ministry's contract runs from 2025 to 2028 and buys support rather than a licence [S4]. So a body pays first for a certified system, then again each year for support [S4].
 
 A rough estimate: if ten weeks' €17M held all year, visible spending would be about €90M a year [S2]. Smaller purchases below the EU tender threshold are not in that count.
@@ -333,7 +499,7 @@ Its funding and growth are in its row above. It shows a national certificate can
 ## First moves
 
 1. Call the IT heads of the public bodies that published their records-system tender more than once, and ask why it had to run again. They are named under [Why now](#why-now). A body that is tendering again still has its budget and its deadline ahead of it. Listen to what went wrong with the last attempt, then offer to take the move to a certified system off their hands.
-2. Build a migration service that moves a public body's records, every file and its history, off an uncertified system and onto a certified one. About a dozen Czech records systems still lack the certificate, as [Market gap](#competition) shows, and a body running one has to move before the date under [Why now](#why-now), unless its supplier is certified first. The certified vendors already sell the software, so sell the move, not another records system.
+2. Build a migration service that moves a public body's records, every file and its history, off an uncertified system and onto a certified one. About a dozen Czech records systems still lack the certificate, as [Market gap](#competition) shows, and a body running one has to move before the date under [Why now](#why-now), unless its supplier is certified first. Three of the certified vendors already charge for the move inside their own contracts, as [Willing to pay](#willing-to-pay) shows, so sell the move, not another records system.
 3. Open every conversation with the date and the fine, because both come straight from the law. They are under [Why now](#why-now). A body that is not ready does not need to be persuaded that it has a problem, only shown how the move gets done in time.
 4. Offer the same migration work to the records-software vendors that do not hold a certificate yet. A certificate runs for two years and covers one version of one product, so even the certified vendors renew on a clock, and the uncertified ones must win a certificate or lose their public customers; see [Market gap](#competition). Either way, their customers' records have to end up in a certified system.
 5. Don't compete on the price of the software, because the smallest towns can already get a records system free. That free system has the Interior Ministry behind it; see [Market gap](#competition). Sell the move and the help with the certificate, not the licence.
@@ -364,3 +530,5 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, each first list carries its three most important items, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the 1 January 2027 duty and explains the records service, the archives act, who counts as a public-law originator and what the certificate is [S1,S8,S9]. Competition opens on the four certified vendors and the free system for the smallest towns, and describes them without naming them: their names, certificate numbers, dates and buyers stay in their `locals[]` rows; the three uncertified systems that are not on the ledger (Munis, VERA Radnice, KEO4) are still named [S8]. Why now now opens on the pain, the fine and the re-published tenders, with the law dates below as plain bullets; the 200,000 CZK fine, which lived only in move 3, now has its home there [S9]. Willing to pay opens on what public bodies spend now and lists every award on file, adding the state drug agency's open competition [S2] and Prague's two development awards [S3,S7], which the body used to mention only as "winning the wave". Validated abroad became one answer sentence; the Norwegian company's founding year, funding and growth stay in its `comps[]` row. The moves lost every marker, figure and company name for links to the sections holding the evidence; move 1 now contacts the bodies whose tenders ran again instead of selling to them. `entry.why` was rewritten as "Easier: … Harder: …" and names the same gates (public buyer, the state certificate, money before revenue). Corrected against the sources rather than against the old sentences: "they are failing to close" and "a body on its fourth publication has … no bid" became "published its tender four times": a re-published notice shows the tender ran again, not why, and no source counts bids [S2]; "awards run from ~€408k to ~€1.1M" ignored Prague's ~€3.3M and ~€275k awards on file, so each award is now listed on its own [S3,S5,S6,S7]; the claim that one certificate covers one product version was cited to [S1], whose note does not say it, and is now cited to [S8], which does; "attestation this strict is otherwise a Czech construction" was cited to [S1], which covers only Czech law, so it now reads "no second country with a records certificate this strict has been found"; the Norwegian company's facts carried [S1] although no source on file backs them, so the body drops them for its `comps[]` row, whose traction line keeps its attribution, and "Oslo" is not repeated, since neither that row nor the company's own site (read 2026-09-18) states the city; and "GINIS and e-spis are winning the wave" became what the sources show, Prague buying development on both [S3,S7]. Flagged as inference: that a body on an uncertified system must move unless its supplier is certified first joins the duty [S9] to the list of certified products [S8]; "the certificate is scarce, not the software" is our reading of four certified products against about a dozen uncertified ones [S8]; that a body pays each year for support rests on the ministry's multi-year support contract [S4]; the roughly €90M a year is our arithmetic on ten weeks of tenders [S2]; and that the Norwegian certificate "can become the thing a seller builds on" is our reading of the company's growth on its `comps[]` row. Added from sources already on file: the health insurer's two publications [S2], the stale 1 January 2026 date on the agency's own page [S9], and the certificates being published by the Czech Agency for Standardization [S8]. No process block was added: this is a new duty with no documented step-by-step workflow in the sources. No score, status, source, `note:`, `sources[]` order, title, brief, solution, good_for or `entry` gate value changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Tagging pass first: every source on file was read for someone paying for this job, moving a public body's records, every file and its history, into certified software, and none is. The two awards the worksheet singled out were read at their own TED notices on this date. Ostrava University's buys the supply and implementation of a certified records system with support, training, development and exit services [S5]; the state forests' buys the supply and implementation of a records system tied into its other systems, awarded to a certified vendor at 27,771,072 CZK [S6]. Neither names moving the old records, so by the owner's rule, it counts only if it buys this job, neither is restated as a price. The rest buy the software, not the move: the drug agency's open competition [S2], Prague's two development awards [S3,S7] and the Interior Ministry's support contract [S4]. All six stay public money nearby. `scores.money` 2 → 0: no price receipt for the migration is on file, and public money nearby earns no point on its own. `scores.urgency` stays 3, now on the new ladder: the duty to keep records in a certified system from 1 January 2027 is enacted and binds the public body, it is 3.5 months out, and a fine of up to 200,000 CZK is named [S9]. `score` 7 → 5, FAIR unchanged. The notes on S1, S2 and S9 named retired rungs ("deadline sub-score 2", "open tender ≥5M CZK: money 2") and gained a dated rescore line, and S5 and S6 record the scope read; every original note is left as written. Three `[Competition](#competition)` links now read `[Market gap](#competition)`. Prose re-read against the new numbers. Willing to pay's answer was "Public bodies pay now: this summer they tendered about €17M for records systems, and one ministry bought years of support [S2,S4]." and now reads "Public bodies pay for records systems and support, about €17M tendered this summer, but they buy the software, not a move of old records [S2,S6]."; a detail bullet says what the two award notices buy [S5,S6]; and "So a body pays first to move onto a certified system" became "pays first for a certified system", since no source shows anyone paying for the move [S4]. Why now already leads on the 1 January 2027 date and the fine [S9] and stands. The `price_search:` line stays: a district town's migration cost is still the receipt to look for. No other score, status, source order, marker or headline field changed.
+
+2026-09-19 · Willing to pay search, owner-approved — `scores.money` 0 → 2, `score` 5 → 7, band FAIR unchanged, `status` watching unchanged. The rescore above left one question open (worksheet call 9): do the Ostrava University and state-forests awards include moving the records? Both were read again, this time past the TED notice. The state forests' signed contract with its certified vendor, of 2 July 2026, prices stage 5, "preparation and handover into trial operation, data migration", at 483,700 CZK excluding VAT, and the vendor's offer moves the open files from the current system with their old file marks and reference numbers. It is restated as a price receipt tagged money [S10]. The earlier reading on this date, that it names no migration, held for the TED notice only, and S6's note gained a correction line. The stage also covers the handover into trial operation, so the figure is an upper bound on the move, and S10's note says so. Ostrava University did not award at all: its TED result notice reads that no winner was chosen and the competition ended, for technical or procedural errors, after three tenders [S5]. The ~€408k was the 10M CZK estimate. S5's name, gist and why said "award" and now say what happened; its note gained a correction line; and the body's "Ostrava University awarded about €408k for one, with service support" became the ended tender. A full-text search of the contracts register through the Hlídač státu API, three queries over the 24 months before `updated` plus both named buyers by IČO, found more of the same job, and ten contract texts were read [S12]. Fakultní nemocnice Plzeň signed on 28 July 2026 to move its records system onto the certified version, data migration to test and to production included, for 892,800 CZK excluding VAT, due by 30 November 2026 "so that it meets the duty" in the contract's own words. It is restated as a price receipt tagged money [S11]. Both receipts are signed contracts inside 24 months of `updated`, so money is 2 on its own; the tenders on file stay public money nearby, and no lift is needed. Positive control: the state forests' contract, found first by the buyer's and vendor's IČOs, surfaced on page 3 of the full-text query. Read and not restated: the Czech Mining Office's upgrade to the certified version, 1,403,376 CZK excluding VAT in June 2025, whose price table is blank in the register's text layer; Mělník's certified system, whose migration of records back to 2006 has its price blacked out; and Bulovka hospital's new system, whose migration has no price line of its own [S12]. Searched and NOT added as receipts: the Justice Ministry pays GRADUAL SYSTEMS by the man-day to move other offices' records into its ACTA system, 453,600 CZK in September 2024 and 190,400 CZK in June 2026. That is the migration service itself, bought separately, but ACTA is not on the attest list, re-read on this date with the same four products as [S8], so the records land in uncertified software: next door, not this job [S12]. The National Development Bank's export out of EZOP names no certified target, and ICZ.DMS moving data between databases or onto a file system inside one system is a technical move; both are in S12's note and neither counts. Ledger: GRADUAL SYSTEMS joins `locals[]` as adjacent and established: trading since 3 April 2007 in ARES, with the Justice Ministry a named customer under support contracts of 2024 and 2025. VITA software, paid by two public bodies to reconnect its own agenda software to the certified system, is named in S12's note and not added, because it does not move the records. Gap was already 0 on four certified vendors and stays 0; three of them now show paying customers for the move itself. `entry` is unchanged, incumbents stays direct. S12 carries `dims: []`: the amounts are restated as S10 and S11, and the row names who pays and who does the work. Body: Willing to pay's answer was "Public bodies pay for records systems and support, about €17M tendered this summer, but they buy the software, not a move of old records [S2,S6]." That is no longer true, and it now reads "Public bodies already pay to have their records moved into certified software, inside their contracts with the certified vendors [S12]." Its first three items are the state forests' priced stage, the hospital's and mining authority's own contracts for the move and the ministry's separate orders into uncertified software [S12]; the award list moved below as detail, with the state forests' award keeping its place and a line saying its notice does not mention the move but its contract does [S6,S12]. Market gap's second item is now that three certified vendors charge for the move [S12]; Prague's development awards moved into the paragraph below; and a bullet names the ministry's separate orders into a system without the certificate [S12]. Move 2 said "The certified vendors already sell the software, so sell the move" and now says three of them already charge for the move inside their own contracts, linking Willing to pay. Flagged as inference: that the whole of S11's 892,800 CZK buys the move rests on its price table carrying no licence line. Not changed: title, brief, solution, good_for, `price_search`, urgency, proof, demand, gap, `entry`.
