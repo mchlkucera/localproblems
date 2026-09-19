@@ -360,7 +360,7 @@ good_for: 'Cybersecurity people interested in grants and public-sector sales.'
 # p-0036
 title: 'Czech hospitals pay twice for every medical report. Grants worth 2.1bn CZK for hospital records close in December.'
 brief: 'Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. The state pays hospitals to upgrade, but only until December [S8].'
-solution: 'Build report templates inside the hospital''s own software that pre-fill codes for staff to check, as 3 companies already do in Germany.'
+solution: 'Build report templates that doctors fill in inside the hospital''s own software, so staff only confirm the codes, as companies in Germany already do.'
 good_for: 'Health-tech builders patient with hospital tenders.'
 ```
 
