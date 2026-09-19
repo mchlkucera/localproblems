@@ -1,0 +1,137 @@
+/* ---- search and filter (front-filter.tsx; live through filter-island.tsx) ----------
+   Owner, 2026-09-18: "B, plus C's `/` shortcut". Between the tabs and the list,
+   on the list's own grid: each row's label in the rail, its controls on the text
+   edge (by category: on the fold names' edge). Its bottom rule is the list's
+   first rule. No new colour: chips are the gray ramp, a picked chip is the
+   primary gray filled, the counts are meta gray. Hovers change a gray to a gray,
+   instantly, like the menus.
+   SCRIPTS OFF: the search row and the button chips are hidden by
+   `@media (scripting: enabled)` — never by a class a script adds — so all that
+   shows is the category links and the true total. */
+.lf-find {
+  --lf-find-rail: var(--lf-rail); --lf-find-gap: var(--lf-gap);
+  padding: var(--l-5) 0 var(--l-4);
+  border-bottom: 1px solid var(--l-line-2);
+}
+.lf-find--cat { --lf-find-rail: calc(var(--lf-fold-in) + var(--lf-fold-lead)); --lf-find-gap: var(--lf-fold-gap); }
+.lf-find-row {
+  display: grid; grid-template-columns: var(--lf-find-rail) minmax(0, 1fr); column-gap: var(--lf-find-gap);
+  align-items: baseline; padding: 3px 0;
+}
+.lf-find-k { font-size: var(--l-fs-md); line-height: 20px; color: var(--l-text-3); }
+.lf .lf-find-js { display: none; }
+@media (scripting: enabled) { .lf .lf-find-js { display: grid; } }
+.lf-find-toggle, .lf-find-cb { display: none; }
+
+/* the box: a solid magnifier inside it, the `/` key at its end until it has
+   focus or words (a touch screen has no `/`, so no key there) */
+.lf-find-top { display: flex; align-items: center; gap: var(--l-2); }
+.lf-q-wrap { position: relative; flex: 0 1 440px; min-width: 0; }
+.lf-q {
+  appearance: none; -webkit-appearance: none; display: block; width: 100%; height: 36px; margin: 0;
+  padding: 0 36px 0 33px;
+  font: 400 var(--l-fs-base)/20px var(--l-font); color: var(--l-text-1);
+  background: var(--l-bg); border: 1px solid var(--l-line-2); border-radius: var(--l-radius);
+  /* `/` focuses it from anywhere: land clear of the bar and the sticky tabs */
+  scroll-margin-top: calc(var(--lf-bar-h) + var(--lf-by-h) + var(--l-5));
+}
+.lf-q::placeholder { color: var(--l-text-3); opacity: 1; }
+.lf-q:hover { border-color: var(--l-text-4); }
+.lf-q:focus { outline: 2px solid var(--l-text-1); outline-offset: 1px; border-color: var(--l-text-2); }
+.lf-q::-webkit-search-cancel-button, .lf-q::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+.lf-q-glyph { position: absolute; left: 12px; top: 11px; color: var(--l-text-3); pointer-events: none; }
+.lf-key {
+  position: absolute; right: 8px; top: 8px; min-width: 20px; padding: 0 5px;
+  font: 500 var(--l-fs-sm)/18px var(--l-font); text-align: center; color: var(--l-text-3);
+  background: var(--l-bg-2); border: 1px solid var(--l-line-2); border-radius: var(--l-radius-sm);
+  pointer-events: none;
+}
+.lf-q:is(:focus, :not(:placeholder-shown)) ~ .lf-key { display: none; }
+@media (hover: none) { .lf-key { display: none; } .lf-q { padding-right: 12px; } }
+
+/* the chips: pills in the chip gray, a count in meta gray after the name */
+.lf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.lf-chip {
+  appearance: none; margin: 0; padding: 4px 10px;
+  display: inline-flex; align-items: baseline; gap: 6px;
+  font: 500 var(--l-fs-md)/20px var(--l-font); color: var(--l-text-2); white-space: nowrap;
+  background: var(--l-bg-3); border: 0; border-radius: 999px; cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.lf-chip-n { font-size: var(--l-fs-sm); color: var(--l-text-3); font-variant-numeric: tabular-nums; }
+.lf-chip:hover { background: var(--l-bg-4); color: var(--l-text-1); }
+.lf-chip:hover .lf-chip-n { color: var(--l-text-2); }
+.lf .lf-chip:focus-visible { outline: 2px solid var(--l-text-1); outline-offset: 2px; border-radius: 999px; }
+/* picked: the primary gray filled — a link chip says `aria-current`, a button
+   chip `aria-pressed`; they look the same */
+.lf-chip:is([aria-pressed="true"], [aria-current="true"]),
+.lf-chip:is([aria-pressed="true"], [aria-current="true"]):hover { background: var(--l-text-1); color: var(--l-bg); }
+.lf-chip:is([aria-pressed="true"], [aria-current="true"]) .lf-chip-n { color: rgba(255, 255, 255, 0.72); }
+
+/* the count line: the plain total, "n of N problems" while anything narrows it */
+.lf-find-count { padding-top: var(--l-2); }
+.lf .lf-find-count p { font-size: var(--l-fs-md); line-height: 20px; font-weight: 500; color: var(--l-text-2); font-variant-numeric: tabular-nums; }
+.lf .lf-find-count .lf-find-none { margin-top: 2px; font-weight: 400; color: var(--l-text-3); }
+.lf-find-clear {
+  appearance: none; border: 0; background: none; margin: 0 0 0 var(--l-3); padding: 0;
+  font: inherit; color: var(--l-text-3); cursor: pointer; border-radius: var(--l-radius-sm);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+}
+.lf-find-clear:hover { color: var(--l-text-1); }
+.lf-find-clear:focus-visible { outline: 2px solid var(--l-text-1); outline-offset: 2px; }
+
+/* HIDING HAS TO WIN. `.lf-entry--art` and `.lf-sec` are `display: grid`, and an
+   author rule beats the user agent's `[hidden] { display: none }` whatever the
+   selector — the mockup's rows stayed on screen while its count said 2 of 29.
+   The count line must never be able to disagree with the list. */
+.lf [hidden] { display: none !important; }
+/* a narrowed list draws no rule above its first showing row, section or fold,
+   and the last showing fold keeps the closing rule */
+.lf-entry:not(.lf-entry:not([hidden]) ~ .lf-entry)::after { display: none; }
+.lf-sec:not(.lf-sec:not([hidden]) ~ .lf-sec),
+.lf-fold:not(.lf-fold:not([hidden]) ~ .lf-fold) { border-top: 0; }
+.lf-fold:not([hidden]):not(:has(~ .lf-fold:not([hidden]))) { border-bottom: 1px solid var(--l-line); }
+
+/* phone: the box and one "Filter" toggle share a line; the chips fold behind
+   the toggle (a CSS checkbox, like a row's "Show more"), so the controls cost
+   one line plus the count and the first row stays on the first screen. The
+   toggle carries how many chips are picked. With scripts off neither the box
+   nor the toggle shows, and the category links wait on the By category tab. */
+@media (max-width: 720px) {
+  .lf-find { padding: var(--l-3) 0; }
+  .lf-find-row { display: block; padding: 0; }
+  /* idle, the count line only repeats the band strip under it: it shows once
+     something narrows the list, which is exactly when Clear shows */
+  .lf-find-count:has([data-clear][hidden]) { display: none; }
+  .lf-find label.lf-find-k { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .lf-find-count > .lf-find-k { display: none; }
+  .lf-q-wrap { flex: 1 1 auto; }
+  .lf-q { height: 40px; font-size: 16px; }   /* 16px: iOS zooms into anything smaller */
+  .lf-q-glyph { top: 13px; }
+  .lf-key { display: none; }
+  .lf-find-chips { display: none; }
+  .lf-find-cb:checked ~ .lf-find-chips { display: block; padding-top: var(--l-1); }
+  .lf-find-chips .lf-find-row { padding-top: var(--l-3); }
+  .lf-find-chips .lf-find-k { display: block; margin-bottom: 6px; font-size: var(--l-fs-sm); line-height: 16px; }
+  .lf-find-count { padding-top: 10px; }
+}
+@media (max-width: 720px) and (scripting: enabled) {
+  .lf .lf-find-js { display: block; }
+  .lf-find-cb { display: block; position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+  .lf-find-toggle {
+    flex: none; display: inline-flex; align-items: center; gap: 6px;
+    height: 40px; padding: 0 12px; border-radius: var(--l-radius);
+    font: 500 var(--l-fs-base)/20px var(--l-font); color: var(--l-text-1);
+    background: var(--l-bg-3); cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  .lf-find-caret { color: var(--l-text-3); }
+  .lf-find:has(.lf-find-cb:checked) .lf-find-toggle { background: var(--l-bg-4); }
+  .lf-find:has(.lf-find-cb:checked) .lf-find-caret { transform: rotate(180deg); }
+  .lf-find:has(.lf-find-cb:focus-visible) .lf-find-toggle { outline: 2px solid var(--l-text-1); outline-offset: 2px; }
+  .lf-find-live {
+    min-width: 18px; padding: 0 5px; border-radius: 999px; text-align: center;
+    font-size: var(--l-fs-sm); line-height: 18px; color: var(--l-bg); background: var(--l-text-1);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
