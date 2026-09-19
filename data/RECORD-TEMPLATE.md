@@ -82,7 +82,7 @@ section. Anything not in the "On the page" column is read only by people who ope
 | `Why now:` | Why now · `#why-now` | the answer sentence + the **first 3 items** | the whole section |
 | `Who pays:` | Willing to pay · `#willing-to-pay` (`#who-pays`, `#how-big`) | the answer sentence + the **first 3 items** + the price dots | the whole section, the price receipts, the public-money rows, `price_search` |
 | `Solved elsewhere:` | Validated abroad · `#validated-abroad` (`#proven-abroad`, `#who-sells-this`) | the answer sentence + the map | the `comps[]` rows, then the rest of the section |
-| `Existing non-solutions:` | Competition · `#competition` (`#local-competition`) | the answer sentence + the matrix | the `locals[]` rows, then the rest of the section |
+| `Existing non-solutions:` | Market gap · `#competition` (`#local-competition`) | the answer sentence + the matrix | the `locals[]` rows, then the rest of the section |
 | `entry.why` | Execution difficulty · `#execution-difficulty` (`#difficulty-to-enter`) | the first 3 Easier and first 3 Harder items, each cut before its first ", so / which / who / because / but / while" | the level and every item in full |
 | `## First moves` | Suggested first moves · `#first-moves` | the **first sentence** of moves 1–3 | every move in full |
 | `## Revisions` | *(not rendered)* | | |
@@ -131,7 +131,7 @@ such correction is written in that date's Revisions entry.
 
 | Fact | Its one home | Everywhere else |
 |---|---|---|
-| A company | its row in `comps[]` or `locals[]` | a link: `[Competition](#competition)`, `[Validated abroad](#validated-abroad)` |
+| A company | its row in `comps[]` or `locals[]` | a link: `[Market gap](#competition)`, `[Validated abroad](#validated-abroad)` |
 | A price one buyer paid | its `type: price` receipt | `[Willing to pay](#willing-to-pay)` |
 | A deadline or dated event | its bullet in Why now | `[Why now](#why-now)` |
 | The gates to entry | `entry` | `[Execution difficulty](#execution-difficulty)` |
@@ -224,10 +224,10 @@ draft_law: '<OPTIONAL — ≤ 12 words: the unpassed law and its status [Sn]; ON
 score: 7                      # MUST equal the sum of the five below
 scores:
   proof: 2                    # → "Validated abroad"   (0-3)
-  gap: 1                      # → "Competition"        (0-2) high = field open
+  gap: 1                      # → "Market gap"         (0-2) high = field open
   demand: 1                   # → "The opportunity"    (0-2)
-  money: 0                    # → "Willing to pay"     (0-2) public budget near this — NOT who pays
-  urgency: 3                  # → "Why now"            (0-3)
+  money: 0                    # → "Willing to pay"     (0-2) is someone paying for this job now? price receipts tagged dims: [money] only
+  urgency: 3                  # → "Why now"            (0-3) how close and how real the deadline is; no freshness point
 entry:                        # → "Execution difficulty" — required on EVERY record
   level: hard                 # easy | moderate | hard | very-hard   (DERIVED, see below)
   buyer: public               # small-firms | large-firms | public
@@ -358,7 +358,7 @@ brief: 'Many small firms don''t even know the law covers them, and the first dea
 solution: 'Build a small security agency that writes their EU grant applications and does the security work.'
 good_for: 'Cybersecurity people interested in grants and public-sector sales.'
 # p-0036
-title: 'Czech hospitals pay twice for every medical report. A 1.14bn CZK grant to change that closes in December.'
+title: 'Czech hospitals pay twice for every medical report. Grants worth 2.1bn CZK for hospital records close in December.'
 brief: 'Doctors type reports as free text, then other staff re-read them by hand [S1,S3]. The state pays hospitals to upgrade, but only until December [S8].'
 solution: 'Build report templates inside the hospital''s own software that pre-fill codes for staff to check, as 3 companies already do in Germany.'
 good_for: 'Health-tech builders patient with hospital tenders.'
@@ -406,7 +406,8 @@ no regex can tell abstract from concrete, so none is attempted.
    - ✓ "Czech hospitals are overpaying for medicine" (money overpaid)
    - ✓ "Czech building permits take way too long (6–12 months)" (time lost)
    - ✓ "Czech towns buy solar panels one by one, and waste months doing it" (time lost)
-   - ✓ "Czech e-shops were fined 13M CZK last year for breaking consumer law" (fines)
+   - ✗ "Czech e-shops were fined 13M CZK last year for breaking consumer law" ("sounds like a report not a pain", owner 2026-09-19)
+   - ✓ "Many Czech e-shops break consumer rules without realising it, and any inspection can end in a fine" (fines, and the risk to any shop)
    - ✓ "6,000 Czech towns and firms have months left to meet a new cybersecurity law"
 2. **A signal is not a pain.** An observed behaviour or a statistic is how the
    register SAW the problem. The headline says the hurt that behaviour causes,
@@ -429,7 +430,7 @@ no regex can tell abstract from concrete, so none is attempted.
    for the product, not with how the system around them behaves. For a shop
    owner that is the fines, not the inspection rate.
    - ✗ a headline led by how often the inspectors check e-shops (illustrative: the rate hurts nobody the reader can picture)
-   - ✓ "Czech e-shops were fined 13M CZK last year for breaking consumer law"
+   - ✓ "Many Czech e-shops break consumer rules without realising it, and any inspection can end in a fine"
 6. **Say plainly what is going on and why it matters now, in simple words.**
    - ✗ "6,000 Czech organisations. One cyber deadline." ("sounds like a novel title, too abstract")
    - ✗ "…and since September they can grow much bigger" ("very abstract", "wtf")
@@ -443,7 +444,7 @@ no regex can tell abstract from concrete, so none is attempted.
 8. **Keep it short.** At most two short sentences. Use the second only when it
    carries the urgency.
    - ✗ "Czech hospitals write reports as free text, then pay people to read them again" (the second half repeats the problem, and no urgency is given)
-   - ✓ "Czech hospitals pay twice for every medical report. A 1.14bn CZK grant to change that closes in December."
+   - ✓ "Czech hospitals pay twice for every medical report. Grants worth 2.1bn CZK for hospital records close in December."
 9. **Frame dates relative to today, honestly.** If most deadlines are 3 to 9 months
    away, say "months left".
    - ✗ "…have one year to meet a new cybersecurity law"
@@ -452,6 +453,33 @@ no regex can tell abstract from concrete, so none is attempted.
     check its figure against the body's cited sentence before it ships.
     - ✗ "…and most are not ready" (no source counts who is ready)
     - ✓ "6,000 Czech towns and firms" (the regulator's own count)
+
+**Headline lessons, owner 2026-09-19** (*"It should be simple, human and clear:
+where's the pain, time or money?"*). Judged, not gated.
+
+10a. **A total is a report; the pain is what it does to ONE of them.** A sector
+     total ("fined 13M CZK last year") reads like a statistics release. Say what
+     one reader-sized unit loses (per fine, per case, per month, per file) and
+     that it can happen to them ("any inspection can end in a fine"). A
+     per-unit figure divided from two sourced totals is fine, and Revisions
+     marks it as our calculation.
+     - ✗ "Czech e-shops were fined 13M CZK last year for breaking consumer law"
+     - ✓ "…and any inspection can end in a fine" (brief: "Fines average about 20,000 CZK")
+10b. **Never widen a chosen sample.** A rate among the cases someone picked
+     (inspectors checking suspected shops) is not a rate among everyone. Say
+     "many" with the count, never "most".
+     - ✗ "Most Czech e-shops break consumer law" (85% of the SUSPECTED shops checked)
+     - ✓ "Many Czech e-shops break consumer rules" (639 caught in 2025)
+10c. **No term a non-expert wouldn't know.** Say what actually happens instead
+     of the legal or trade name. If a term must stay, explain it in the same
+     sentence, and never in the title.
+     - ✗ "public guardianship", "legal guardian" ("idk what it means")
+     - ✓ "towns must sign for the medical care and money of adults a court says can't manage alone"
+     - ✗ "affordability checks for buy-now-pay-later" ("not self-explanatory")
+     - ✓ "lenders must check you can afford to repay, now also when you buy and pay in instalments or later"
+10d. **Our reading only with approval, and always marked.** A headline may carry
+     a reading no source states ("without realising it") only when the owner
+     approves it, and that date's Revisions entry names it as our reading.
 
 **Story (`brief`)**
 
@@ -689,7 +717,7 @@ every local player lived as prose inside a gap-check `note:`. A machine could
 read the foreign half of the register and not the local half, so `gap` could not
 be audited, and `gap: 0` silently meant two opposite things.
 
-It renders as rows in the **Competition** sheet (`#competition`), in the same
+It renders as rows in the **Market gap** sheet (`#competition`), in the same
 grammar as the Validated abroad rows: linked name · IČO · since · the
 `established`/`early` maturity dot, with `evidence` as the note line — **split
 into two labelled groups**, "Sells this" and "Sells something nearby". The

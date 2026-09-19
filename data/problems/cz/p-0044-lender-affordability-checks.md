@@ -1,9 +1,9 @@
 ---
 id: p-0044
 region: cz
-title: 'Czech lenders can be fined 4M CZK for not checking what borrowers earn and spend. A bill now extends that check to buy-now-pay-later.'
-brief: 'Some lenders take borrowers at their word on expenses instead of checking bank statements, and non-bank lenders were fined 19M CZK last year [S6,S7]. A bill the lower house passed in September extends the check to buy-now-pay-later from February 2027 [S2,S3].'
-solution: 'Build a service that reads a borrower''s bank transactions, with consent, and gives the lender a documented affordability check, as 2 companies already do in 2 other countries.'
+title: 'Czech lenders can be fined 4M CZK for not checking that borrowers can afford to repay. A bill would extend the check to shoppers who pay later.'
+brief: 'Some lenders take borrowers at their word on what they spend, and non-bank lenders were fined 19M CZK last year [S6,S7]. From February 2027 a bill would add the check when shoppers pay in instalments or in one payment later [S2,S3].'
+solution: 'Build a service that reads a borrower''s bank transactions, with consent, and gives the lender a documented check that the borrower can afford to repay, as 2 companies already do in 2 other countries.'
 good_for: 'Someone who knows credit risk and bank data and can sell to lenders.'
 price_search: 'No public buyer pays for this, so ask the head of risk at a non-bank lender on the Czech National Bank''s register what it pays per bank-data check, or ask the account-data sellers under Competition for a quote per client; registr smluv holds no such contract because the buyers are private.'
 category: fintech
@@ -23,15 +23,15 @@ entry:
   incumbents: direct
   integration: software
   money: bootstrap
-  why: 'Easier: no licence is needed when the bank data comes through a licensed provider, the new rules name bank data as a source, and lenders already pay fines for weak checks. Harder: the buyers are lenders that want an audit trail the central bank accepts, and established sellers already offer this in Czech.'
+  why: 'Easier: no licence is needed when the bank data comes through a licensed provider, the new rules name bank data as a source, and lenders already pay fines for weak checks. Harder: the buyers are lenders that want a record of each check the central bank will accept, and established sellers already offer this in Czech.'
 comps:
 - name: Algoan
   url: https://www.algoan.com/en
   geo: FR
   since: 2017
   traction: 'Registered with the French banking supervisor as an account-information provider; turns
-    bank-transaction data into credit scores and affordability analysis for consumer credit and
-    buy-now-pay-later. Named customers include Cofidis, BNP Paribas, Alma and Revolut (company site,
+    bank-transaction data into credit scores and checks of what a borrower can afford, for consumer
+    loans and for pay-later shopping, where the buyer takes goods now and pays later. Named customers include Cofidis, BNP Paribas, Alma and Revolut (company site,
     2026); 25 lenders signed in 2021, profitable and aiming for EUR 5M a year in recurring revenue
     by early 2025 (mind Fintech, 2025). Company registered October 2017 (French company register).'
   signal: fr-algoan
@@ -62,7 +62,7 @@ locals:
   maturity: established
   evidence: 'A Prague firm selling bank-transaction data prepared for credit decisions: verified
     income, sorted expenses and risk flags such as gambling and payday loans, marketed for the new
-    EU consumer-credit rules. Named customers include the Czech buy-now-pay-later firm Twisto,
+    EU consumer-credit rules. Named customers include Twisto, a Czech firm that lets shoppers pay later,
     quoted on the page, with Erste, Raiffeisen and UniCredit among its logos. It sells the inputs to
     the check rather than the lending decision. Founded October 2013 [S11].'
 - name: CRIF – Czech Credit Bureau (NEOS)
@@ -71,7 +71,7 @@ locals:
   competes: direct
   maturity: early
   evidence: 'Offers NEOS, which reads payment accounts with the borrower''s consent to speed up the
-    creditworthiness check, sorts the transactions and builds a credit score. The page names no
+    check that a borrower can repay, sorts the transactions and builds a credit score. The page names no
     customer and no launch year, so for this product it counts as new; the company itself has
     traded since November 2000 [S11].'
 - name: Finbricks
@@ -80,9 +80,9 @@ locals:
   since: 2021
   competes: adjacent
   maturity: established
-  evidence: 'Sells raw account information, transaction history and payment initiation, as part of
+  evidence: 'Sells raw account information, transaction history and payments started from the account, as part of
     the Komerční banka group. Named customers on its site include GoPay, ThePay and Essox. It offers
-    no credit score or affordability decision, so a builder would buy its data rather than compete
+    no credit score or decision on what a borrower can afford, so a builder would buy its data rather than compete
     with it. Founded March 2021 [S11].'
 - name: SOLUS
   url: https://www.solus.cz/
@@ -154,7 +154,7 @@ sources:
 - type: regulation
   name: 'Finance ministry — the lower house passes the consumer-credit bill'
   gist: 'the February 2027 start'
-  why: 'The ministry expects the law to take effect on 1 February 2027; shops selling on interest-free instalments up to about 50,000 CZK get a simpler check that can pull income and expense data from employers'' monthly reports, bank data shared with consent and debtor registers; small short-term loans get no presumption of creditworthiness.'
+  why: 'The ministry expects the law to take effect on 1 February 2027; shops selling on interest-free instalments up to about 50,000 CZK get a simpler check that can pull income and expense data from employers'' monthly reports, bank data shared with consent and registers of people''s debts; for small short-term loans the lender must always prove the borrower can repay.'
   url: https://mf.gov.cz/cs/ministerstvo/media/tiskove-zpravy/2026/snemovna-schvalila-vyssi-ochranu-spotrebitelu-nove-65160
   note: 'MF press release dated 11.09.2026, read 2026-09-18: "zákon by měl nabýt účinnosti 1. února
     2027"; a "zjednodušený režim posuzování úvěruschopnosti" for interest-free goods sold on
@@ -168,7 +168,7 @@ sources:
 - type: news
   name: 'ČTK — lower house approves stricter consumer-credit rules'
   gist: 'the vote and what it covers'
-  why: 'Wire report of the vote: 134 of 136 deputies present voted for; interest-free credit now needs a creditworthiness check; a deferred payment may not exceed the average wage; social-network data is banned from the check; the start moves to 1 February 2027.'
+  why: 'Wire report of the vote: 134 of 136 deputies present voted for; interest-free credit now needs the check that a borrower can repay; a single payment put off until later may not exceed the average wage; social-network data is banned from the check; the start moves to 1 February 2027.'
   url: https://www.ceskenoviny.cz/zpravy/snemovna-schvalila-prisnejsi-podminky-pro-spotrebitelske-uvery/2873058
   note: 'ČTK, 11 Sep 2026, read 2026-09-18: "Směrnice dopadá i na úvěry zdarma, poskytovatelé
     budou muset i v takovém případě posuzovat úvěruschopnost klientů"; a deferred payment "nebude
@@ -178,9 +178,9 @@ sources:
   date: '2026-09-11'
   dims: [urgency]
 - type: news
-  name: 'KPMG — buy-now-pay-later becomes full consumer credit'
-  gist: 'what BNPL firms now owe'
-  why: 'A Big Four firm''s note: every buy-now-pay-later product where a third party lends falls under the full consumer-credit law, with a creditworthiness check on each buyer and a central-bank licence or registration.'
+  name: 'KPMG — pay-later shopping becomes a full consumer loan'
+  gist: 'what pay-later firms now owe'
+  why: 'A note from the accounting firm KPMG: every pay-later product where a firm other than the shop lends the money falls under the full consumer-credit law, with a check on each buyer that they can repay and a licence or registration from the central bank.'
   url: https://danovky.cz/cs/kup-ted-zaplat-pozdeji-sluzby-bnpl-budou-nove-jako-plnohodnotny-spotrebitelsky-uver
   note: 'KPMG Česká republika on danovky.cz, 1 Jun 2026, read 2026-09-18: "Nově spadnou všechny BNPL
     produkty, u nichž úvěr poskytuje třetí osoba odlišná od obchodníka, pod plnou působnost zákona o
@@ -192,7 +192,7 @@ sources:
 - type: statistic
   name: 'Czech National Bank — supervision report 2025'
   gist: 'the regulator''s findings and fines'
-  why: 'The central bank supervised 73 non-bank lenders in 2025, found less serious systemic shortcomings in how point-of-sale lenders verify income, debts and expenses, fined non-bank lenders 19M CZK in ten final decisions, and saw their complaints rise over 70% in a year.'
+  why: 'The central bank supervised 73 non-bank lenders in 2025, found less serious systemic shortcomings in how lenders that finance goods in shops verify income, debts and expenses, fined non-bank lenders 19M CZK in ten final decisions, and saw their complaints rise over 70% in a year.'
   url: https://www.cnb.cz/export/sites/cnb/cs/dohled-financni-trh/.galleries/souhrnne_informace_fin_trhy/zpravy_o_vykonu_dohledu/download/dnft_2025_cz.pdf
   note: 'ČNB Zpráva o výkonu dohledu nad finančním trhem 2025, §3.10, read 2026-09-18 (publication
     date not on the pages read; dated here by the read). "V roce 2025 dohlížela ČNB na 73
@@ -224,7 +224,7 @@ sources:
 - type: complaint
   name: 'Financial arbiter — annual report 2025'
   gist: 'disputes traced to weak checks'
-  why: 'The state''s out-of-court forum for financial disputes opened 12,050 cases in 2025, 11,386 of them about consumer credit, and names systemic problems above all in how lenders assess creditworthiness.'
+  why: 'The state''s out-of-court forum for financial disputes opened 12,050 cases in 2025, 11,386 of them about consumer credit, and names systemic problems above all in how lenders check that borrowers can repay.'
   url: https://finarbitr.gov.cz/cs/informace-pro-verejnost/aktuality/vyrocni-zprava-financniho-arbitra-za-rok-2025-425.html
   note: 'fa-spotrebitelske-uvery; page read 2026-09-18: "V roce 2025 bylo před finančním arbitrem
     zahájeno celkem 12.050 řízení"; consumer credit "zahájeno 11.386 řízení"; systemic problems
@@ -237,7 +237,7 @@ sources:
 - type: arbitrage
   name: 'Algoan'
   gist: 'French bank-data credit scores'
-  why: 'A Paris company that turns a borrower''s bank transactions into a credit score and affordability decision for consumer lenders and buy-now-pay-later, used by large French consumer lenders.'
+  why: 'A Paris company that turns a borrower''s bank transactions into a credit score and a decision on what the borrower can afford, for consumer lenders and pay-later firms, used by large French consumer lenders.'
   url: https://mind.eu.com/fintech/services-bancaires/open-banking/michael-diguet-algoan-veut-devenir-le-leader-europeen-du-score-open-banking-de-credit
   note: 'fr-algoan (mind Fintech, 2025-01-22): profitable, aiming for EUR 5M ARR in H1 2025;
     25 lenders signed in 2021 incl. Alma, Cetelem, Cofidis, Oney, Floa (mind Fintech 2021). Site
@@ -333,12 +333,12 @@ Czech lenders must check that a borrower can repay, and the central bank keeps f
 - Complaints to non-bank lenders rose over 70% in a year [S6].
 - The financial arbiter traces loan disputes above all to weak checks [S8].
 
-The check is the creditworthiness assessment: before lending, the lender looks at what the borrower earns, owes and spends [S1].
+The law calls this the creditworthiness assessment: before lending, the lender compares what the borrower earns with what they already owe and spend [S1].
 
-- The central bank looked at lenders that finance goods at the point of sale. It found less serious but systemic shortcomings in how they verify income, debts and expenses [S6].
+- The central bank looked at lenders that finance goods bought in shops. It found less serious but systemic shortcomings in how they verify income, debts and expenses [S6].
 - In the fined case, goods and car loans could be granted without proof of income, and expenses came from flat amounts or the borrower's own figures [S7].
 - That lender did not check declared expenses even when it already held the borrower's bank statement [S7].
-- The central bank supervises 73 non-bank lenders, and new applicants increasingly automate the data work, above all the creditworthiness check [S6].
+- The central bank supervises 73 non-bank lenders, and new applicants increasingly automate the data work, above all the check that a borrower can repay [S6].
 - The complaints rose while lending grew under 13%, driven by lawyers who invite borrowers to challenge their loan contracts [S6].
 - The financial arbiter, the state's out-of-court forum for money disputes, opened 12,050 cases in 2025, 11,386 of them about consumer credit [S8].
 
@@ -350,11 +350,13 @@ Existing non-solutions: Two established firms already sell income and expense ch
 
 Two more firms sell what sits around the check: one the raw account data and payments, one the registers of past repayments [S11]. No Czech price for a bank-data check is published [S11]. The rows are under [Competition](#competition).
 
-Why now: Buy-now-pay-later firms and shops selling on interest-free instalments must run the same check once the Senate passes the bill [S2,S3].
+Why now: Firms that let shoppers pay later, and shops selling on interest-free instalments, must run the same check once the Senate passes the bill [S2,S3].
 
-- Buy-now-pay-later firms need a central-bank licence and a full check on every buyer [S5].
+- Pay-later firms need a central-bank licence and a full check on every buyer [S5].
 - A shop selling phones on instalments must check the buyer's income and spending [S3].
 - On small short-term loans the lender must always prove the check was sound [S3].
+
+Paying later means the shopper takes the goods now and pays in instalments or in one payment later [S3,S4].
 
 The dates and rules behind this:
 
@@ -362,10 +364,10 @@ The dates and rules behind this:
 - On 11 September 2026 the lower house passed the Czech bill, 134 of the 136 deputies present voting for it [S2,S4]. It still has to pass the Senate [S2].
 - The finance ministry expects the law to take effect on 1 February 2027 [S3,S4].
 - The check must rest on verified information about income and expenses, and the lender may lend only if the result says the borrower can likely repay [S1].
-- Every buy-now-pay-later product where a third party lends falls under the full law [S1,S5].
-- Interest-free credit needs the check too, a deferred payment may not exceed the average wage, and social-network data is banned [S4].
-- For interest-free instalment sales up to about 50,000 CZK, a shop may fetch the data from employers' monthly reports, bank data shared with consent and debtor registers [S3].
-- A borrower who repaid in full is presumed able to repay, but that does not cover small short-term loans [S3].
+- Every pay-later product where a firm other than the shop lends the money falls under the full law [S1,S5].
+- Interest-free credit needs the check too, a single payment put off until later may not exceed the average wage, and social-network data is banned [S4].
+- For interest-free instalment sales up to about 50,000 CZK, a shop may fetch the data from employers' monthly reports, bank data shared with consent and registers of people's debts [S3].
+- A borrower who repaid an earlier loan in full counts as able to repay, except on small short-term loans [S3].
 - Nobody counts the shops that lend or arrange interest-free credit, so the number newly covered is unknown [S12].
 
 Who pays: Lenders pay for the check themselves, and today they also pay fines when it falls short [S6,S7].
@@ -374,19 +376,21 @@ Who pays: Lenders pay for the check themselves, and today they also pay fines wh
 - Banks put their IT cost of the rules at 5M to 120M CZK [S12].
 - No Czech price for a bank-data check is public yet [S11].
 
-The largest single fine in 2025 was 8M CZK [S6]. Not all ten fines are stated to be about the creditworthiness check [S6]. The bank estimates came from banks of similar size, which is how far apart they were [S12]. A non-bank lender also needs 20M CZK of its own capital for its licence [S12].
+The largest single fine in 2025 was 8M CZK [S6]. Not all ten fines are stated to be about the check [S6]. The bank estimates came from banks of similar size, which is how far apart they were [S12]. A non-bank lender also needs 20M CZK of its own capital for its licence [S12].
 
-Solved elsewhere: In France and Sweden, lenders already buy income and affordability checks read from bank data [S9,S10].
+Solved elsewhere: In France and Sweden, lenders already buy checks of income and spending read from bank data [S9,S10].
 
-In France a company turns a borrower's bank transactions into a credit score and an affordability decision for consumer lenders and buy-now-pay-later [S9]. Large French consumer lenders use it, and by early 2025 it was profitable [S9]. In Sweden a company that is now part of Visa verifies a borrower's income straight from the bank account, with Nordic lenders named as customers [S10]. See [Validated abroad](#validated-abroad).
+In France a company turns a borrower's bank transactions into a credit score and a decision on what the borrower can afford, for consumer lenders and pay-later firms [S9]. Large French consumer lenders use it, and by early 2025 it was profitable [S9]. In Sweden a company that is now part of Visa verifies a borrower's income straight from the bank account, with Nordic lenders named as customers [S10]. See [Validated abroad](#validated-abroad).
 
 ## First moves
 
 1. Build a check for shops selling on interest-free instalments that reads the buyer's bank data and returns a yes or no with its reasons. The bill gives these shops a simpler check that may use bank data shared with consent, and nobody counts how many of them there are; see [Why now](#why-now). Start with one electronics or phone seller that already offers instalments, run your check beside its current one for a month, and show where the two disagree.
 2. Call the heads of risk at mid-size non-bank lenders and ask what the central bank found in their checks. Ask too what they pay for bank data today. The regulator's findings and fines are under [The opportunity](#opportunity) and [Willing to pay](#willing-to-pay), and those findings are what a lender has to fix. Ask each one which seller under [Competition](#competition) they already use and what it leaves them to do by hand.
-3. Build on a licensed account-data provider's feed rather than reading bank accounts yourself. The firms under [Competition](#competition) include one that sells raw account data and no score, and buying from it spares you the central bank's authorisation; see [Execution difficulty](#execution-difficulty).
+3. Buy the bank data from a firm licensed to pass it on, rather than reading bank accounts yourself. The firms under [Competition](#competition) include one that sells raw account data and no score, and buying from it spares you the central bank's authorisation; see [Execution difficulty](#execution-difficulty).
 4. Keep every check as a file the lender can show the central bank or the financial arbiter later. On small short-term loans the lender must always prove its check was sound, as [Why now](#why-now) explains, so a kept check is worth as much as the decision.
 
 ## Revisions
 
 2026-09-18 · record created — Created from the CCD2 cluster: the French comparable fr-algoan and the regulation signals reg-ccd2-consumer-credit and reg-ccd2-bnpl-2026, plus sources fetched for this problem and cited directly rather than written to the ledgers (the lower-house bill history, the finance ministry's release and impact assessment, the ČTK and KPMG notes, the central bank's 2025 supervision report and its ESSOX decision, Tink's product page) [S2,S3,S4,S5,S6,S7,S10,S12]. Kept apart from the lender's-side arbiter caseload problem: that one answers disputes after the loan; this one is the check before it, bought by the same lenders and newly by buy-now-pay-later firms and instalment sellers [S5,S8]. Scores: proof 3 on two established sellers in France and Sweden, Sweden being Nordic [S9,S10]; money 0, no public budget near; urgency 3, the start on 1 February 2027 is under 18 months away and the sources are fresh [S2,S3]; demand 2 on the regulator's recurring findings, a fine and the arbiter's report [S6,S7,S8]; gap 0 because two established firms already sell the check here [S11]. Status watching under the de-rank rule. No draft-law badge: the fines and findings arise under the law in force today, and the pending bill widens the check rather than creating the pain [S6,S7]; the bill's status is stated in Why now. Flagged as inference: Kontomatik's since 2011 is the latest year consistent with its own "15+ years on the market", not a stated founding year [S11]. Corrected against the sources: the French comparable's company was registered in October 2017, not 2018 as the signal says [S9]; the ministry's release is dated 11 September 2026 although its body says 26 August [S3]. The 19M CZK of fines covers ten decisions not all stated to concern the check, so the brief says fined, not fined for this [S6]. Descriptive Czech searches did not surface the three direct sellers, which were found by name; the positive control is the harvest's own [S11].
+
+2026-09-19 · plain language (owner-approved) — Owner: "'that check to buy now pay later' what does that mean? its not self-explanatory". The headline block and every rendered line now say what the check and "pay later" are, in plain words. Title before, verbatim: "Czech lenders can be fined 4M CZK for not checking what borrowers earn and spend. A bill now extends that check to buy-now-pay-later." After: "Czech lenders can be fined 4M CZK for not checking that borrowers can afford to repay. A bill would extend the check to shoppers who pay later." Brief before: "Some lenders take borrowers at their word on expenses instead of checking bank statements, and non-bank lenders were fined 19M CZK last year [S6,S7]. A bill the lower house passed in September extends the check to buy-now-pay-later from February 2027 [S2,S3]." After: "Some lenders take borrowers at their word on what they spend, and non-bank lenders were fined 19M CZK last year [S6,S7]. From February 2027 a bill would add the check when shoppers pay in instalments or in one payment later [S2,S3]." Solution: "a documented affordability check" became "a documented check that the borrower can afford to repay". Checked against the sources: the 4M CZK fine was for granting loans without proof of income and taking expenses from flat amounts or the borrower's own figures [S7], so "not checking that borrowers can afford to repay" states what the decision found; "would" and "bill" replace "now extends", because the Czech law has passed only the lower house [S2]; the check reaches interest-free instalment sales [S3], interest-free credit and a single payment put off until later [S4], and every pay-later product where a firm other than the shop lends [S5]. The owner's example "after 30 days" is not used: no source on file gives a period, and the EU directive's 50-day and 14-day limits describe the shop's own credit that stays outside the law [S1]. "The lower house passed in September" left the brief for length and stays under Why now [S2]. Body: a new sentence under Why now's first three items explains paying later [S3,S4]; "buy-now-pay-later" became "pay later" everywhere a reader sees it; "creditworthiness assessment" is kept once, where the law's name is explained, and elsewhere reads "the check that a borrower can repay"; "a third party lends" became "a firm other than the shop lends the money"; "point of sale" became "goods bought in shops"; "debtor registers" became "registers of people's debts"; "presumed able to repay" became "counts as able to repay"; "a deferred payment" became "a single payment put off until later"; "affordability decision" became "a decision on what the borrower can afford"; move 3's "a licensed account-data provider's feed" became "bank data from a firm licensed to pass it on"; `entry.why`'s "audit trail" became "a record of each check". The same words changed in the rendered ledger and source lines: the Algoan and Dateio rows, CRIF's and Finbricks' evidence ("payment initiation" became "payments started from the account"), and the public `name`, `gist` or `why` of [S3], [S4], [S5], [S6], [S8] and [S9]; no `note:` was touched. No fact was removed. No score, status, source, note, marker, good_for, price_search or `entry` gate value changed.
