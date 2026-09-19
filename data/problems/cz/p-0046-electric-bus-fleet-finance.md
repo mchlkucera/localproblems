@@ -3,13 +3,13 @@ id: p-0046
 region: cz
 title: 'Czech city bus companies must now buy mostly clean buses, and one late delivery can cost them the EU grant that pays for them'
 brief: 'Since January 2026 a law requires 60% of the city buses they buy to be clean, half with zero emissions [S1]. In 2023 an electric bus cost 14M CZK against 6M for diesel, and a late one can cost the grant [S2].'
-solution: 'Build a company that finances electric buses and their batteries and builds and runs the depot chargers, charging city bus companies a fee per bus, as 2 companies already do in 2 other countries.'
+solution: 'Build a company that finances electric buses and their batteries and builds and runs the depot chargers, charging city bus companies a fee per bus, as a company already does in Britain and Spain.'
 good_for: 'People who can raise large sums and sell to city bus companies through tenders.'
 category: mobility
 geo: CZ-national
-score: 11
+score: 10
 scores:
-  proof: 3
+  proof: 2
   money: 2
   urgency: 2
   demand: 2
@@ -69,13 +69,6 @@ comps:
     facility in July 2025 to expand in continental Europe (company release, 2025).'
   signal: gb-zenobe
   markets: [ES]
-- name: Deutsche Leasing
-  url: https://www.deutsche-leasing.com/de/loesungen/transport-logistik/oepnv
-  geo: DE
-  since: 1962
-  traction: 'Leases buses to German public transport companies; finances 85 electric buses for
-    Stadtwerke Lübeck Mobil "inklusive Ladeinfrastruktur", with about EUR 28M refinanced through it
-    in 2025 (company case study, July 2025). Founded 1962 (Wikipedia).'
 locals:
 - name: ČEZ ESCO
   url: https://www.cezesco.cz/
@@ -463,4 +456,4 @@ See [Validated abroad](#validated-abroad).
 
 ## Revisions
 
-2026-09-19 · record created — Created from gb-zenobe with the ledger's Czech e-bus tenders, contracts and grant call. Scores on the 2026-09-19 ladders. Proof 3: Zenobē runs the whole model in Britain and Deutsche Leasing finances e-buses with their chargers in Germany, both established [S5,S6]; counting a finance-only comp is a judgement call. Money 2: three paid receipts within 24 months, for buses, chargers and a bus-plus-charger tender [S7,S8,S9]; reading an outright purchase as the manual form of a fee per bus is our judgement. Urgency 2: the law binds public buyers, which the city transport companies are, and its 60% share applies from 1 January 2026, within 12 months; a fine is named but no enforcement receipt was found, so not 3 [S1]. Private operators are not bound directly, only through the regions' contracts [S1]. Demand 2: the association and two operators on record [S2,S3]. Gap 2: nobody sells the bundle; the Ringil and in-market controls passed [S11]. Our readings, flagged: "more than twice" is 14M against 6M, a 2023 price, so the headline does not use it (coordinator edit, same day) [S2]; the 14M price is from 2023, and 2026 tenders run about 10M to 12.8M a bus [S3,S9]; the E15 claim of a 2035 fleet share misstates the law and is not used [S2]. The ledger's 129.7% grant oversubscription is no longer on the call page, which now shows 74.6% taken after a top-up [S4]. No draft-law badge: the law is in force. Same date, weekly match, merged here: evidence audit — linked a signed contract for 6 electric buses in Frýdek-Místek and Karviná [S12], whose seller joins `locals[]` as adjacent; Olomouc's charger tender, closed without a winner and re-run the next day [S13]; and Prague's diesel and mild-hybrid framework [S14]. S3's note records the Prague operator's extended bid date. Gap re-checked: no one sells a fee per bus, stays 2. No score moved: money was already 2.
+2026-09-19 · record created — Created from gb-zenobe with the ledger's Czech e-bus tenders, contracts and grant call. Scores on the 2026-09-19 ladders. Proof 3: Zenobē runs the whole model in Britain and Deutsche Leasing finances e-buses with their chargers in Germany, both established [S5,S6]; counting a finance-only comp is a judgement call. Money 2: three paid receipts within 24 months, for buses, chargers and a bus-plus-charger tender [S7,S8,S9]; reading an outright purchase as the manual form of a fee per bus is our judgement. Urgency 2: the law binds public buyers, which the city transport companies are, and its 60% share applies from 1 January 2026, within 12 months; a fine is named but no enforcement receipt was found, so not 3 [S1]. Private operators are not bound directly, only through the regions' contracts [S1]. Demand 2: the association and two operators on record [S2,S3]. Gap 2: nobody sells the bundle; the Ringil and in-market controls passed [S11]. Our readings, flagged: "more than twice" is 14M against 6M, a 2023 price, so the headline does not use it (coordinator edit, same day) [S2]; the 14M price is from 2023, and 2026 tenders run about 10M to 12.8M a bus [S3,S9]; the E15 claim of a 2035 fleet share misstates the law and is not used [S2]. The ledger's 129.7% grant oversubscription is no longer on the call page, which now shows 74.6% taken after a top-up [S4]. No draft-law badge: the law is in force. Build-gate fix, same day: Deutsche Leasing left comps[] because the comps schema cannot hold a founding year before 1980 (it was founded 1962) and a false year would dodge the gate; its Lübeck case stays as a source [S6]. Proof 3 to 2 (one established player, Zenobē, in Britain and Spain; Spain is not CEE-adjacent), score 11 to 10; the solution now counts one company. Same date, weekly match, merged here: evidence audit — linked a signed contract for 6 electric buses in Frýdek-Místek and Karviná [S12], whose seller joins `locals[]` as adjacent; Olomouc's charger tender, closed without a winner and re-run the next day [S13]; and Prague's diesel and mild-hybrid framework [S14]. S3's note records the Prague operator's extended bid date. Gap re-checked: no one sells a fee per bus, stays 2. No score moved: money was already 2.
