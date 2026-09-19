@@ -2733,6 +2733,19 @@ def load_errata():
       disputed-source-value  the publisher's own figure looks wrong to us and we
                            have NOT refuted it at source. Recorded as disputed,
                            never as a known error, because we hold no correction.
+      source-updated       the ledger value was RIGHT when ingested and the
+                           publisher has since changed it (a grant call extended
+                           or re-allocated). Added 2026-09-19. Carries no top-level
+                           `field`/`source_value`: one record can go stale on two
+                           fields, and this dict holds ONE line per id (a second
+                           line would silently replace the first), so each change
+                           is an entry in `corrections` = [{field, ledger_value,
+                           source_value, source_currency?, basis}]. `action` is
+                           `annotate-only`: nothing applies it on read, so money
+                           aggregates keep the value that was true when ingested.
+
+    `value_is_correct` means the same thing in every class: is the PUBLISHER's
+    figure right (true), or disputed by us (null).
 
     Raises rather than returning a partial list: an aggregate computed from a
     half-loaded errata file is indistinguishable from a correct one.
@@ -2863,8 +2876,14 @@ def cmd_errata(args):
     for sid, e in errata.items():
         print(f"\n{sid}  [{e.get('class', '?')}]  recorded {e.get('recorded', '?')}")
         print(f"  action:   {e.get('action')}")
-        print(f"  source:   {e.get('source_value')} {e.get('source_currency', '')}"
-              f"   value_is_correct={e.get('value_is_correct')}")
+        if e.get("corrections"):  # source-updated: one entry per stale field
+            for c in e["corrections"]:
+                print(f"  {c.get('field')}: {c.get('ledger_value')} -> {c.get('source_value')}"
+                      f" {c.get('source_currency', '')}".rstrip())
+            print(f"  value_is_correct={e.get('value_is_correct')}")
+        else:
+            print(f"  source:   {e.get('source_value')} {e.get('source_currency', '')}"
+                  f"   value_is_correct={e.get('value_is_correct')}")
         print(f"  verified: {e.get('verified_against', '(unverified)')}")
         for label in ("evidence", "impact", "note"):
             if e.get(label):
