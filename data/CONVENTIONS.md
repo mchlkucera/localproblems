@@ -321,12 +321,19 @@ renders in the open, exactly as before.
 
 `sources[].type: price` — the PRICE RECEIPT: what a named Czech buyer actually
 pays for THIS product or its manual equivalent (owner ruling, 2026-09-03;
-docs/who-pays-audit-2026-09-03.md). It exists because MONEY asks "is public
-budget nearby?" and never whose pocket the money leaves or whether it buys
-this — six of the eight rung-1 records wrote "adjacent" in their own notes, and
-every one of the corpus's fourteen Czech price points sat inside a gap-check,
-backing `gap`. The fix is a split, not a re-score: no new dimension, the
-12-point card stands. A price source carries five REQUIRED fields — `payer` (a
+docs/who-pays-audit-2026-09-03.md). It was added because the old MONEY ladder
+asked "is public budget nearby?" and never whose pocket the money leaves or
+whether it buys this — six of the eight rung-1 records wrote "adjacent" in their
+own notes, and every one of the corpus's fourteen Czech price points sat inside
+a gap-check, backing `gap`. Since 2026-09-19 it is what MONEY is scored from
+(SCORING.md, "is someone paying for this job now?"): a price receipt tagged
+`dims: [money]` is the ONLY source that earns a Willing to pay point. Basis
+`list-price`, `buyer-interview` or `manual-equivalent` is an ASKING receipt
+(rung 1); `signed-contract` or `tender-line` dated within 24 months of
+`updated` is a PAID receipt (rung 2). A registr smluv contract or an awarded
+tender line that buys THIS job is restated as a price receipt with its payer,
+amount, unit and date; a consultant paid to do the job by hand is a
+`signed-contract` receipt. No new dimension: the 12-point card stands. A price source carries five REQUIRED fields — `payer` (a
 named buyer or a sized segment), `amount_czk` (an unquoted, non-negative number
 of crowns; `0` is a real receipt where a free incumbent sets the price), `unit`
 (`per-seat-month` · `per-case` · `per-year` · `per-project` · `one-off` ·
@@ -339,8 +346,10 @@ would render nothing. It renders under **Willing to pay** as one mono ledger lin
 record scoring ≥ 7 with no price receipt prints the house line `No Czech buyer
 has priced this yet.` A price receipt cites **money** only when tagged
 `dims: [money]` — a signed public contract can be both — and never proof, gap,
-urgency or demand; untagged it backs no score at all, which is the point: MONEY
-alone never claims "who pays and how much". `basis: manual-equivalent` is how an
+urgency or demand; untagged it backs no score at all. On a record rescored to
+the 2026-09-19 ladders (`SCORING_V2_ENFORCED`), money >= 1 without a tagged price
+receipt FAILS the build: public money nearby never claims "who pays and how
+much". `basis: manual-equivalent` is how an
 OPEN field gets priced at all — there is no incumbent page to read a price
 from, so the receipt is what the same job costs done by hand.
 
@@ -490,7 +499,8 @@ between the two is what let a bug ship: 69 foreign comparables carried
 structured `since` + `traction` while every local player lived as PROSE inside a
 gap-check `note:`. A machine could read the foreign half of the register and not
 the local half, so `gap` could not be audited and `gap: 0` silently meant two
-opposite things. Rendered as a ledger under **Competition** — in two
+opposite things. Rendered as a ledger under **Market gap** (the reader-facing
+name of `gap` since 2026-09-19; anchor `#competition`) — in two
 labelled groups, `direct` first — with the `Existing non-solutions:` paragraph
 underneath it:
 - `name` — the company
@@ -748,10 +758,16 @@ arbitrage→proof · tender/contract/subsidy→money · regulation→urgency ·
 complaint/news→demand · gap-check→gap. A gap-check note containing the literal
 marker "Demand point" also backs demand. When evidence justifies a different
 dimension, set an explicit `dims: [..]` list — a scored dimension without a
-resolvable source ref degrades the rendered scorecard. The freshness component
-of urgency always refs the newest source dated <90 days before the extract.
+resolvable source ref degrades the rendered scorecard. Under the 2026-09-19
+ladders a tender, contract or subsidy that maps to money is PUBLIC MONEY
+NEARBY: it renders under Willing to pay and can lift a priced record one rung,
+but the point itself needs a `type: price` receipt tagged `dims: [money]`, and
+every urgency point needs a `regulation` source (SCORING.md). On a record not
+yet rescored, the retired freshness component of urgency still refs the newest
+source dated <90 days before the extract; on a rescored one it refs nothing.
 
-`hiring`→demand, money — **NEVER proof.** A posting at a VC-funded startup is
+`hiring`→demand, and money only as a `type: price` receipt (basis
+`manual-equivalent`: the posted wage for doing the job by hand) — **NEVER proof.** A posting at a VC-funded startup is
 downstream of that company's round, so counting both would double-count one
 capital event. Hiring evidence is a named local employer committing their own
 budget to a dated need — the same evidential class as a tender, which is why it

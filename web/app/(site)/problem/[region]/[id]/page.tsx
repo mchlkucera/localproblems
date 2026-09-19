@@ -18,12 +18,14 @@ import {
 } from "../../../../../lib/format";
 import { dimRefs, type Dim } from "../../../../../lib/scorecard";
 import { protoScores, protoTotal, type ProtoKey, type ProtoScore } from "../../../../../lib/site/score-proto";
+import { isScoringV2 } from "../../../../../lib/scoring-v2";
 import { EXT, ExtArrow, cite, newCtx, type CiteCtx } from "../../../../../lib/site/cite";
 import { Prose, inline, type ProseOpts } from "../../../../../lib/site/prose";
 import { fmtDate, labSources, typeNote, type LabSource } from "../../../../../lib/site/sources";
 import { PeekHover } from "../../../../../lib/site/peek-hover";
 import { CORRECTIONS_MAILTO } from "../../../../../lib/chrome";
 import { CategoryArt } from "../../../../../lib/art/category-art";
+import { pageOpenGraph, plainText } from "../../../../../lib/og/share";
 // The figure kit, imported by name so every use is visible to grep and tsc.
 import { CompMap, LocalMatrix, MaturityDot, PayDots, PayTimeline, ProcessSteps, type Maturity } from "../../../../../lib/figures";
 import "../../../styles/kit.css";
@@ -46,9 +48,10 @@ const SHOW_HEAD_ART = true;
     be below each read more of each section"). One constant map, the same copy
     on every record: what the section shows, why it matters to a builder, and
     for a scored section how its number reads. The wording simplifies DIM_INFO
-    and the prototype words in lib/site/score-proto.ts; it restates their rungs
-    and adds none. Willing to pay says plainly that its points still come from
-    public money nearby (SCORING.md MONEY), not from a price paid. */
+    and the words in lib/site/score-proto.ts; it restates their rungs and adds
+    none. Why now and Willing to pay read the 2026-09-19 ladders (SCORING.md);
+    a record not yet rescored (lib/scoring-v2.ts) gets SECTION_ABOUT_V1's lines
+    for those two instead, since its scores still sit on the old ones. */
 type About = { shows: string; why: string; score?: string };
 const SECTION_ABOUT: Record<"opportunity" | "solution" | "why-now" | "willing-to-pay" | "validated-abroad" | "competition" | "execution-difficulty" | "first-moves", About> = {
   opportunity: {
@@ -63,12 +66,12 @@ const SECTION_ABOUT: Record<"opportunity" | "solution" | "why-now" | "willing-to
   "why-now": {
     shows: "The dated rules and events that push buyers to act, soonest first.",
     why: "A dated rule turns “nice to have” into “must buy by”, and tells you how long the window stays open.",
-    score: "A compliance date within 18 months gives 2 points, one further out 1, and evidence under 90 days old adds 1 more, up to 3/3.",
+    score: "3/3 means an enacted rule binds these buyers within 18 months and names a penalty. Without a named penalty it is 2/3. A draft law, a rule on someone else, or a date further out is 1/3.",
   },
   "willing-to-pay": {
     shows: "Who already spends money on this problem, how much, and how they buy.",
     why: "If people already pay for this, even by hand or through a consultant, you are replacing a spend, not creating a budget.",
-    score: "2/2 means already paying. For now the points come from public money moving nearby, which shows a budget, not a buyer for this product.",
+    score: "2/2 means a Czech buyer has paid for this, or a priced job also gets public money that pays part of it. A price on file makes it 1/2. Public money alone earns nothing. Only public buyers publish what they pay, so problems sold to private firms often score lower.",
   },
   "validated-abroad": {
     shows: "Companies abroad that already sell a solution, and how far along they are.",
@@ -78,16 +81,29 @@ const SECTION_ABOUT: Record<"opportunity" | "solution" | "why-now" | "willing-to
   competition: {
     shows: "Czech companies that already sell this, and firms nearby that sell something else.",
     why: "A mature Czech seller means taking customers from an incumbent. Firms nearby still matter: the buyer may already pay them.",
-    score: "More points mean less competition. 2/2 means no Czech company sells this, 1/2 only early ones do, 0/2 a mature one does.",
+    score: "More points mean a more open field. 2/2 means no Czech company sells this, 1/2 only early ones do, 0/2 a mature one does.",
   },
   "execution-difficulty": {
     shows: "What stands between you and the first sale: who buys, what permission selling needs, what it must plug into, and whether it needs outside money.",
     why: "It tells you whether a small team can start selling soon, or needs a licence, a certification or funding first.",
-    score: "More points mean easier to enter: 3/3 is easy, 0/3 very hard. It is not added to the Opportunity total, and competition does not count here.",
+    score: "More points mean easier to enter: 3/3 is easy, 0/3 very hard. It is not added to the Opportunity total, and local competition does not count here: that is Market gap.",
   },
   "first-moves": {
     shows: "A few concrete steps to start with.",
     why: "They are cheap ways to learn whether buyers will pay, before you build much.",
+  },
+};
+
+/** The two "How to read the score" lines as they read before 2026-09-19, for
+    a record not yet rescored. Delete with the switch (lib/scoring-v2.ts). */
+const SECTION_ABOUT_V1: Pick<typeof SECTION_ABOUT, "why-now" | "willing-to-pay"> = {
+  "why-now": {
+    ...SECTION_ABOUT["why-now"],
+    score: "A compliance date within 18 months gives 2 points, one further out 1, and evidence under 90 days old adds 1 more, up to 3/3.",
+  },
+  "willing-to-pay": {
+    ...SECTION_ABOUT["willing-to-pay"],
+    score: "2/2 means already paying. For now the points come from public money moving nearby, which shows a budget, not a buyer for this product.",
   },
 };
 
@@ -235,25 +251,25 @@ type Params = { params: Promise<{ region: string; id: string }> };
 const find = (region: string, id: string): Problem | undefined =>
   getProblems().find((p) => p.region === region && p.id === id && p.status !== "rejected");
 
-/** Markdown to one plain line for <meta>: no [Sn] markers, links reduced to
-    their words, no emphasis. */
-const metaText = (s: string) =>
-  s
-    .replace(/\s*\[S\d+(?:\s*,\s*S?\d+)*\](?!\()/g, "")
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/\*\*([^*]+)\*\*/g, "$1")
-    .replace(/\s+/g, " ")
-    .trim();
-
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { region, id } = await params;
   const p = find(region, id);
   if (!p) return { title: "Problem not found" };
-  // the description is the record's own `brief`, its markers stripped;
-  // a record without one falls back to its suggested solution (audit B14)
+  // the description is the record's own `brief`, its markers stripped
+  // (plainText); a record without one falls back to its suggested solution
+  // (audit B14)
   const brief = (p as { brief?: string }).brief;
-  const description = metaText(typeof brief === "string" && brief.trim() ? brief : p.solution);
-  return { title: `${p.title} — localproblems.org`, description };
+  const description = plainText(typeof brief === "string" && brief.trim() ? brief : p.solution);
+  // the share preview: the title alone (the site name rides og:site_name), the
+  // same description, this page's URL as the canonical, and no `images` key,
+  // so ./opengraph-image.tsx supplies this problem's own card
+  const path = `/problem/${p.region}/${p.id}`;
+  return {
+    title: `${p.title} — localproblems.org`,
+    description,
+    alternates: { canonical: path },
+    openGraph: pageOpenGraph({ title: p.title, description, path }),
+  };
 }
 
 // ---- deadlines (deterministic against extractDate, never the wall clock) ---
@@ -304,9 +320,10 @@ function ScoreDot({ n, max }: { n: number; max: number }) {
 /** Each opportunity check as a builder needs it (owner, round 3: "expand on
     the tooltips in the scoring"): what it asks, why it matters, and what earns
     the points. Every ladder line restates SCORING.md's rungs in plain words —
-    PROOF, GAP, DEMAND, MONEY, URGENCY — and nothing more. MONEY is worded as
-    PROXIMITY to public budget, as SCORING.md insists; URGENCY is two parts
-    (deadline 0–2 plus 1 for fresh evidence), so its ladder has two lines. */
+    PROOF, GAP, DEMAND, MONEY, URGENCY — and nothing more. MONEY and URGENCY
+    read the 2026-09-19 ladders: is someone paying for this job now, and how
+    close and how real the deadline is. DIM_INFO_V1 below keeps their old
+    wording for a record not yet rescored. */
 const DIM_INFO: Record<Dim, { ask: string; why: string; ladder: string[] }> = {
   proof: {
     ask: "Does this already work somewhere else?",
@@ -319,12 +336,13 @@ const DIM_INFO: Record<Dim, { ask: string; why: string; ladder: string[] }> = {
     ],
   },
   urgency: {
-    ask: "Is something forcing buyers to act soon?",
-    why: "A dated rule, such as a new regulation or a compliance deadline, turns “nice to have” into “must buy by”.",
+    ask: "How close and how real is the deadline?",
+    why: "A dated rule that binds these buyers and names a penalty turns “nice to have” into “must buy by”. A draft, or a date years away, pushes less.",
     ladder: [
-      "no dated rule forcing action",
-      "a compliance date more than 18 months away",
-      "a compliance date within 18 months",
+      "no dated rule falls on these buyers",
+      "a draft law, a rule on someone else, or a date more than 18 months away",
+      "an enacted rule binds these buyers within 18 months",
+      "the same, with a named penalty for missing it",
     ],
   },
   demand: {
@@ -337,12 +355,12 @@ const DIM_INFO: Record<Dim, { ask: string; why: string; ladder: string[] }> = {
     ],
   },
   money: {
-    ask: "Is public money already moving near this problem?",
-    why: "Tenders, grants and budget lines show buyers with budgets nearby. It is not proof they will buy this; what a buyer actually pays is under Willing to pay.",
+    ask: "Is someone paying for this now?",
+    why: "A price, a signed contract, an awarded tender or a consultant paid to do it by hand shows buyers already spend on it. Public money nearby can add a point on top of a price, never on its own.",
     ladder: [
-      "no public money nearby",
-      "a relevant tender or grant exists",
-      "an open tender or grant of about 5M CZK or more, or recurring yearly spend",
+      "no price or payment on file",
+      "a price for this job is on file",
+      "a Czech buyer has paid for it, or a priced job also gets public money",
     ],
   },
   gap: {
@@ -352,6 +370,29 @@ const DIM_INFO: Record<Dim, { ask: string; why: string; ladder: string[] }> = {
       "a mature Czech company already sells this",
       "Czech companies sell this, but all are still early",
       "checked, and no Czech company sells this",
+    ],
+  },
+};
+
+/** Why now and Willing to pay as they read before 2026-09-19, for a record
+    not yet rescored (lib/scoring-v2.ts). Delete with the switch. */
+const DIM_INFO_V1: Pick<typeof DIM_INFO, "urgency" | "money"> = {
+  urgency: {
+    ask: "Is something forcing buyers to act soon?",
+    why: "A dated rule, such as a new regulation or a compliance deadline, turns “nice to have” into “must buy by”.",
+    ladder: [
+      "no dated rule forcing action",
+      "a compliance date more than 18 months away",
+      "a compliance date within 18 months",
+    ],
+  },
+  money: {
+    ask: "Is public money already moving near this problem?",
+    why: "Tenders, grants and budget lines show buyers with budgets nearby. It is not proof they will buy this; what a buyer actually pays is under Willing to pay.",
+    ladder: [
+      "no public money nearby",
+      "a relevant tender or grant exists",
+      "an open tender or grant of about 5M CZK or more, or recurring yearly spend",
     ],
   },
 };
@@ -757,7 +798,7 @@ export default async function LabRecord({ params }: Params) {
   const solvedRest = solved.rest ? Prose(solved.rest, ctx, opts) : null;
   const abroadMore = comps.length > 0 || !!solvedRest;
 
-  ctx.section = "Competition";
+  ctx.section = "Market gap";
   const compAnswer = comp.first ? inline(comp.first, ctx, opts, "comp") : null;
   const compSheetAnswer = comp.first ? inline(comp.first, ctx, opts, "comp-s") : null;
   const localGroups = (["direct", "adjacent"] as const).map((competes) => {
@@ -789,6 +830,11 @@ export default async function LabRecord({ params }: Params) {
   const proto = protoScores(p);
   const protoBy = Object.fromEntries(proto.map((r) => [r.key, r])) as Record<ProtoKey, ProtoScore>;
   const protoSum = protoTotal(proto);
+  // Why now and Willing to pay speak the ladder this record is scored on
+  // (lib/scoring-v2.ts): the 2026-09-19 one once it is rescored, else the old.
+  const v2 = isScoringV2(p.id);
+  const INFO = v2 ? DIM_INFO : { ...DIM_INFO, ...DIM_INFO_V1 };
+  const ABOUT = v2 ? SECTION_ABOUT : { ...SECTION_ABOUT, ...SECTION_ABOUT_V1 };
   // ---- evidence mix — what KIND of sources hold this record up ------------
   const mix = [...sources.reduce((m, s) => {
     const row = m.get(s.typeLabel) ?? { n: 0, type: s.type };
@@ -866,7 +912,7 @@ export default async function LabRecord({ params }: Params) {
       {!whyLists && <p className="ls-entry-why">{entryWhy ? inline(entryWhy, ctx, opts, "entry-why") : entryReason}</p>}
       {factorLists(true)}
       <p className="ls-absent">
-        Competition does not change this level. It is covered under Competition.
+        Local competition does not change this level. It is covered under Market gap.
       </p>
     </>
   );
@@ -929,10 +975,10 @@ export default async function LabRecord({ params }: Params) {
   const toc: { id: string; title: string; score?: ProtoScore; info?: { ask: string; why: string; ladder: string[] } }[] = [
     { id: "opportunity", title: "The opportunity", score: protoBy.opportunity, info: DIM_INFO.demand },
     { id: "solution", title: "Suggested solution" },
-    { id: "why-now", title: "Why now", score: protoBy["why-now"], info: DIM_INFO.urgency },
-    { id: "willing-to-pay", title: "Willing to pay", score: protoBy["willing-to-pay"], info: DIM_INFO.money },
+    { id: "why-now", title: "Why now", score: protoBy["why-now"], info: INFO.urgency },
+    { id: "willing-to-pay", title: "Willing to pay", score: protoBy["willing-to-pay"], info: INFO.money },
     { id: "validated-abroad", title: "Validated abroad", score: protoBy["validated-abroad"], info: DIM_INFO.proof },
-    { id: "competition", title: "Competition", score: protoBy.competition, info: DIM_INFO.gap },
+    { id: "competition", title: "Market gap", score: protoBy.competition, info: DIM_INFO.gap },
     { id: "execution-difficulty", title: "Execution difficulty", score: protoBy["execution-difficulty"], info: EXEC_INFO },
     ...(movesPage ? [{ id: "first-moves", title: "Suggested first moves" }] : []),
   ];
@@ -1032,7 +1078,7 @@ export default async function LabRecord({ params }: Params) {
                 <b>{protoSum.n}</b>/{protoSum.max}
                 <span className="ls-tip" id="ls-tip-total" aria-hidden="true" style={{ positionAnchor: "--ls-t-total" } as CSSProperties}>
                   <span className="ls-tip-t">Opportunity</span>
-                  <span className="ls-tip-p">The sum of five scored sections below: The opportunity, Why now, Willing to pay, Validated abroad and Competition. Execution difficulty is shown beside it, never added in. Each point is read from the evidence in that section.</span>
+                  <span className="ls-tip-p">The sum of five scored sections below: The opportunity, Why now, Willing to pay, Validated abroad and Market gap. Execution difficulty is shown beside it, never added in. Each point is read from the evidence in that section.</span>
                   <span className="ls-tip-here">This problem: {protoSum.n} of {protoSum.max}.</span>
                 </span>
               </span>
@@ -1151,7 +1197,7 @@ export default async function LabRecord({ params }: Params) {
 
           <Section id="why-now" title="Why now" score={protoBy["why-now"]}>
             {windowPage ?? <p className="ls-absent">No dated rule on file.</p>}
-            {windowNode && <Sheet id="why-now" title="Why now" rec={rec} about={SECTION_ABOUT["why-now"]}>{windowNode}</Sheet>}
+            {windowNode && <Sheet id="why-now" title="Why now" rec={rec} about={ABOUT["why-now"]}>{windowNode}</Sheet>}
           </Section>
 
           <Section id="willing-to-pay" alias={["who-pays", "how-big"]} title="Willing to pay" score={protoBy["willing-to-pay"]}>
@@ -1159,7 +1205,7 @@ export default async function LabRecord({ params }: Params) {
             {payDots}
             {!payMore && <p className="ls-absent">No price paid by a Czech buyer is on file yet.</p>}
             {payMore && (
-              <Sheet id="who-pays" title="Willing to pay" rec={rec} about={SECTION_ABOUT["willing-to-pay"]}>
+              <Sheet id="who-pays" title="Willing to pay" rec={rec} about={ABOUT["willing-to-pay"]}>
                 {whoPaysNode}
                 {payDotsS}
                 {priceRows.length > 0 ? (
@@ -1188,7 +1234,7 @@ export default async function LabRecord({ params }: Params) {
             )}
           </Section>
 
-          {/* ONE home per company: abroad here, Czechia under Competition */}
+          {/* ONE home per company: abroad here, Czechia under Market gap */}
           <Section id="validated-abroad" alias={["proven-abroad", "who-sells-this"]} title="Validated abroad" score={protoBy["validated-abroad"]}>
             {abroadAnswer && <p className="ls-answer">{abroadAnswer}</p>}
             {mapFig && <div className="ls-fig">{mapFig}</div>}
@@ -1205,12 +1251,12 @@ export default async function LabRecord({ params }: Params) {
             )}
           </Section>
 
-          <Section id="competition" alias="local-competition" title="Competition" score={protoBy.competition}>
+          <Section id="competition" alias="local-competition" title="Market gap" score={protoBy.competition}>
             {compAnswer && <p className="ls-answer">{compAnswer}</p>}
             {matrixFig && <div className="ls-fig">{matrixFig}</div>}
             {!compMore && <p className="ls-absent">No Czech seller on file.</p>}
             {compMore && (
-              <Sheet id="competition" title="Competition" rec={rec} about={SECTION_ABOUT.competition}>
+              <Sheet id="competition" title="Market gap" rec={rec} about={SECTION_ABOUT.competition}>
                 {compSheetAnswer && <p className="ls-answer">{compSheetAnswer}</p>}
                 {matrixFigS && <div className="ls-fig">{matrixFigS}</div>}
                 {localGroups}

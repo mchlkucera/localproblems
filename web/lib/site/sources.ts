@@ -95,22 +95,26 @@ const TYPE_LABELS: Record<string, string> = {
     source type → scorecard dimension map: arbitrage→proof ·
     tender/contract/subsidy→money · regulation→urgency · complaint/news→demand
     · gap-check→gap) and SCORING.md (no source, no point). A kind the map does
-    not tie to a dimension says what it backs, never a point it does not earn. */
+    not tie to a dimension says what it backs, never a point it does not earn.
+    Since 2026-09-19 a tender, contract or grant is public money nearby: Willing
+    to pay reads it, but a point needs a price receipt, so these notes say "is
+    read under", never "counts toward". The same words stay true on a record
+    not yet rescored, whose money is still public-money proximity. */
 const TYPE_NOTES: Record<string, string> = {
   arbitrage: "A company already selling this in another market. It is what Validated abroad reads.",
   round: "A funding round raised by a company doing this abroad: investors backing the model.",
   funded: "A funding round raised by a company doing this abroad: investors backing the model.",
-  tender: "A public tender: a buyer asking the market to supply this, with a budget attached. It counts toward Willing to pay.",
-  tenders: "A public tender: a buyer asking the market to supply this, with a budget attached. It counts toward Willing to pay.",
-  contract: "A signed contract from the state contracts register: public money that has already moved. It counts toward Willing to pay.",
-  subsidy: "A grant or subsidy call that can pay for this work. It counts toward Willing to pay.",
+  tender: "A public tender: a buyer asking the market to supply this, with a budget attached. It is read under Willing to pay.",
+  tenders: "A public tender: a buyer asking the market to supply this, with a budget attached. It is read under Willing to pay.",
+  contract: "A signed contract from the state contracts register: public money that has already moved. It is read under Willing to pay.",
+  subsidy: "A grant or subsidy call that can pay for this work. It is read under Willing to pay.",
   regulation: "A law or rule with a date that forces buyers to act. It counts toward Why now.",
   complaint: "Documented pain: an association, audit, survey or complaint saying this hurts. It counts toward The opportunity.",
   news: "Reporting that documents the pain. It counts toward The opportunity.",
   demand: "Documented complaints and unmet needs. It counts toward The opportunity.",
   statistic: "A published figure — an official count, survey or market sizing — that sizes a claim in the text.",
-  price: "A price receipt: what a named Czech buyer actually pays for this, or for doing it by hand. It answers who pays.",
-  "gap-check": "The register's own search for Czech companies already selling this, run with a control that proves the search can find one. It is what Competition reads.",
+  price: "A price receipt: what a named Czech buyer pays for this, or for doing it by hand. It answers who pays and how much, under Willing to pay.",
+  "gap-check": "The register's own search for Czech companies already selling this, run with a control that proves the search can find one. It is what Market gap reads.",
   hiring: "Employers posting paid vacancies for this work through the Labour Office — committing their own budget to the need.",
   ask: "A named institution stating this problem in public before money is attached.",
   asks: "A named institution stating this problem in public before money is attached.",

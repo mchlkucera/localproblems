@@ -5,6 +5,7 @@ import { join, resolve } from "node:path";
 import { load as yamlLoad } from "js-yaml";
 import { z } from "zod";
 import { rows, type SqliteRow } from "./db";
+import { isScoringV2 } from "./scoring-v2";
 
 const ROOT = resolve(process.cwd(), "..");
 const DATA = join(ROOT, "data");
@@ -1094,8 +1095,15 @@ const daysBetween = (a: string, b: string) => Math.round((Date.parse(b) - Date.p
  *
  *  This is display-only: it splits `scores.urgency` for the scorecard and never changes
  *  it. Where the split now reads deadline-heavy with no freshness, the underlying
- *  urgency score may deserve MATCH's attention — but that is a judgment, not a render. */
+ *  urgency score may deserve MATCH's attention — but that is a judgment, not a render.
+ *
+ *  FRESHNESS IS RETIRED (owner, 2026-09-19; SCORING.md URGENCY). A record rescored to
+ *  the new ladders (lib/scoring-v2.ts) scores urgency on the deadline alone, 0-3, so
+ *  its whole score is the deadline and nothing is split off. The split below runs only
+ *  for records not yet rescored; delete it with the switch (scripts/db.py
+ *  `urgency_split` ports it and goes at the same time). */
 export function urgencySplit(p: Problem): { deadline: number; freshness: number } {
+  if (isScoringV2(p.id)) return { deadline: p.scores.urgency, freshness: 0 };
   if (p.scores.urgency === 0) return { deadline: 0, freshness: 0 };
   const observed = p.sources.map((s) => s.date).filter((d) => d <= extractDate()).sort().at(-1);
   const fresh = observed !== undefined && daysBetween(observed, extractDate()) < 90 ? 1 : 0;

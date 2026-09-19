@@ -39,7 +39,7 @@ a number drift apart.
 | Record page: crumb bar, head, sections, sheets, scores, rail, figures, drawer (owner-approved on p-0008, 2026-09-16/17) | `web/app/(site)/DESIGN.md` "Record page" sections |
 | Record page tokens (semantic hues, score tones, measure, rail width, section gap), phone and print rules | `web/app/(site)/styles/problem.css` |
 | Figures | `web/lib/figures/` (`index.ts` names each slot and width) and `web/app/(site)/styles/kit.css` |
-| Score mapping and judgement words (a prototype, §7) | `web/lib/site/score-proto.ts` |
+| Score mapping and judgement words (§7; SCORING.md "PRESENTATION") | `web/lib/site/score-proto.ts` |
 
 Change a
 value in the CSS and in `DESIGN.md` **together**.
@@ -108,7 +108,7 @@ a graphic tone and a darker ink tone for text:
 
 | Hue | Means | Used for | Never for |
 |---|---|---|---|
-| **Teal** (`#3f8f7f`, ink `#2e7466`) | **in the builder's favour** | filled opportunity segments, the current rung in a ladder, "Easy" entry, the open quadrant of the Competition matrix ("The space is still open"), the columns and dots of money already being paid, the process band the solution changes | links, headings, brand, anything neutral |
+| **Teal** (`#3f8f7f`, ink `#2e7466`) | **in the builder's favour** | filled opportunity segments, the current rung in a ladder, "Easy" entry, the open quadrant of the Market gap matrix ("The space is still open"), the columns and dots of money already being paid, the process band the solution changes | links, headings, brand, anything neutral |
 | **Warm** (amber `#b58a2e` → rust `#d0763f` → brick `#c4564f`) | **friction and time pressure** | entry level Moderate → Hard → Very hard; a deadline under six months (`.ls-soon`) | errors, alerts, emphasis |
 | **Ink blue** (`#3d5a96`; pill `#eef1f7` / text `#54607c`) | **a source you can open** | citation pills, source titles in peeks and the drawer, in-prose links | buttons, nav, anything that isn't a source or a link |
 
@@ -291,10 +291,10 @@ values are in `DESIGN.md`, "Record page".
   sticky rail, so the rail never shows through it at the page end.
 
 **Sections, in the builder's order**, one question each: The opportunity ·
-Suggested solution · Why now · Willing to pay · Validated abroad · Competition ·
+Suggested solution · Why now · Willing to pay · Validated abroad · Market gap ·
 Execution difficulty · Suggested first moves.
 - "Who already sells this" is split (owner: *"separate abroad and in Czechia"*):
-  **Validated abroad** carries the map and **Competition** the matrix. A company has
+  **Validated abroad** carries the map and **Market gap** the matrix. A company has
   one home.
 - **A hairline above every section heading** (owner: *"a line before each heading
   clearly separating the sections"*), with the section gap split around it. Suggested
@@ -326,21 +326,22 @@ in-depth"*).
 - No URL opens a sheet, because a closed popover can't open from a fragment without a
   script. On paper every sheet prints in place under its outline.
 
-**Scores: a presentation prototype.** The section scores come from
-`lib/site/score-proto.ts`, which maps the existing rubric onto the sections until the
-scoring-v2 decisions land (`docs/scoring-v2/`). The mapping and words are
-provisional. The display rules below stand.
-- **Points stay visible** as n/max. Each score has a **reasonable judgement word**,
-  never a verdict: "Clear, recurring pain", "Deadline soon", "Early rivals only",
-  "Proven in 2+ markets".
+**Scores.** The section scores come from `lib/site/score-proto.ts`, which reads the
+rubric onto the sections with the names and words in SCORING.md "PRESENTATION"
+(owner, 2026-09-19). A record not yet rescored to the 2026-09-19 money and urgency
+ladders (`lib/scoring-v2.ts`) shows those two with their old words until it is.
+- **Points stay visible** as n/max, never "out of 10". Each score has a **reasonable
+  judgement word**, never a verdict: "Clear, recurring pain", "Firm deadline",
+  "Some signs", "Early rivals only", "Proven in 2+ markets".
 - Each scored heading carries a **badge beside the title** (owner: *"try putting the
   badges next to the heading"*). The badge is a faint tint, gray "n/max · word" text
   and a dot in the score's tone (§3). It is a sibling of the h2, so it stays out of
   the heading's name, and it wraps under the title when the line is too narrow.
 - **The total stays the rubric score /12**, so the record page and the front page
   never disagree. **Execution difficulty** (easier = more points, /3) is shown beside
-  the total, in the contents, and is **never summed** into it. On Competition, more
-  points mean less competition.
+  the total, in the contents, and is **never summed** into it. Every summed row reads
+  more = better, which is why the local-competition section is **Market gap** (a full
+  bar is an open field); its anchor stays `#competition`.
 
 **The rail: contents and evidence** (sticky under the bar; after main at ≤1080px).
 - **Contents card**, "Opportunity n/12": every section in page order, with a **thin
@@ -370,7 +371,7 @@ provisional. The display rules below stand.
   captions, no legends, no explanatory paragraphs, less text** (owner: *"make the
   diagram clearly self explanatory, less text!"*). The axes and the marks carry the
   meaning.
-- **LocalMatrix** (Competition) is a 2×2: Early / Established across, Sells something
+- **LocalMatrix** (Market gap) is a 2×2: Early / Established across, Sells something
   nearby / Sells this up. Each Czech player is one dot (hollow early, filled
   established), and a dot's position inside its quadrant means nothing. It is **dots
   only**, drawn taller. The only words inside it are **"The space is still open"**, in
@@ -477,8 +478,24 @@ prints as the source list.
 
 ## 9. JavaScript, popovers, static pages
 
-Owner decision, 2026-09-16: client JavaScript is allowed **for the named progressive
-enhancements below, and nothing else**. SPEC §5 and §7 carry the same list.
+**Client scripts are small islands** (owner decision, 2026-09-18, widening the
+2026-09-16 rule that allowed only the hover script). An island is allowed when it
+clearly improves comprehension, and on these terms:
+- **Never for content.** An island adds no word, row or figure to the page. It only
+  shows, hides, focuses or opens what the server HTML already holds, and it changes
+  counts only so that they stay true to what is showing.
+- **The page reads fully with scripts off** (the rules below). A control that only
+  an island can make work is hidden by CSS until scripts run
+  (`@media (scripting: enabled)`), never by a class the script adds.
+- **Small, with no dependency:** one `"use client"` component that renders nothing
+  and sets one listener set in an effect. It first touches the DOM after hydration,
+  so the server HTML and the hydrated tree never disagree.
+- **Each island is named on the allow-list with its job**: `ISLANDS` in
+  `web/scripts/check-site.mjs`, which fails the build on any other `"use client"`,
+  on an entry whose file is gone, and on an entry with no job. A new island needs
+  the owner's sign-off and an entry there.
+
+The islands and devices in use today:
 
 1. **The source-peek hover script** (`PeekHover`, a `"use client"` component with one
    document-level listener set and no per-pill hydration). Hover-intent (~140ms)
@@ -499,8 +516,9 @@ Rules for all of it:
   `searchParams` makes the route dynamic, and a Vercel function has no `data/`, so
   it 500s. A second view is a second static path (`/by-category`), never `?group=`.
 - **No wall clock:** relative dates use `extractDate()`.
-- Any other client component needs explicit owner sign-off first (SPEC §10
-  tripwire).
+- Any other island needs explicit owner sign-off first (SPEC §10 tripwire). The
+  front-page search (option B plus `/`) was built as one and then cancelled by the
+  owner on 2026-09-19; it is parked in `docs/mockups/front-search/`, not installed.
 
 ## 10. The anti-slop NEVER list
 
@@ -548,13 +566,13 @@ These are known open questions. They aren't rules yet, so don't invent answers i
 content or page run. **Check the code and the named docs before acting on an item.**
 When one is settled, move its answer into the sections above and delete the bullet.
 
-- **Scoring v2.** The section scores, their judgement words, the Willing to pay
-  points (still public-money proximity) and Execution difficulty as a /3 are the
-  prototype in `lib/site/score-proto.ts`. The owner hasn't yet decided the new
-  rungs, the total, its bands, or whether difficulty becomes a scored dimension
-  (`docs/scoring-v2/`). When those decisions land: replace `score-proto.ts`, reword
-  the About this section and tooltip copy from the new SCORING.md, and recheck the
-  score scale's thresholds in §3.
+- **Scoring v2, the rescore.** The owner settled the rungs on 2026-09-19 (SCORING.md):
+  Why now without freshness, Willing to pay read from price receipts, Market gap,
+  Execution difficulty outside the total, the total still /12 with its bands. The
+  records are rescored one by one (`docs/scoring-v2/rescore-2026-09-19.md`); until
+  the last joins `lib/scoring-v2.ts`, the page keeps a v1 branch for Why now and
+  Willing to pay. When it does, delete the branch and recheck the score scale's
+  thresholds in §3 against the new distribution.
 - **The other records.** The p-0008 design renders on every record, but only p-0008
   is written for it. The writing rules for answer lines, keyed lists, first moves and
   in-page links, and the `check-records.py` invariants that enforce them, are being

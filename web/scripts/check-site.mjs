@@ -7,8 +7,11 @@
 // SOURCE
 //   S1  no `searchParams`, `cookies(` or `headers(` in any page or lib file:
 //       any of them turns a route into a serverless function with no ../data.
-//   S2  "use client" only in the sanctioned files (SPEC §5, §10). A new client
-//       component needs the owner's sign-off AND an edit to CLIENT_ALLOWED.
+//   S2  "use client" only in the sanctioned islands (design-language SKILL §9,
+//       SPEC §5): small, for comprehension, never content, and the page reads
+//       fully with scripts off. Each is named in ISLANDS WITH ITS JOB; a new
+//       one needs the owner's sign-off AND an entry there. An entry whose file
+//       is gone, or that names no job, fails too, so the list stays the truth.
 // HTML
 //   H1  no public page links into /lab (`href="/lab/`).
 //   H2  every non-rejected record has a page; NO rejected record has one
@@ -24,7 +27,11 @@ import { load as yamlLoad } from "js-yaml";
 
 const WEB = resolve(import.meta.dirname, "..");
 const ROOT = resolve(WEB, "..");
-const CLIENT_ALLOWED = new Set(["lib/site/peek-hover.tsx"]);
+/** The client islands, each with its one job (owner, 2026-09-18: small islands
+    that clearly improve comprehension, never content). */
+const ISLANDS = new Map([
+  ["lib/site/peek-hover.tsx", "record page: hover-intent and click-to-pin for the citation peeks, Escape for rail tooltips, #sN opens the sources drawer"],
+]);
 
 const walk = (dir, keep, acc = []) => {
   if (!existsSync(dir)) return acc;
@@ -49,10 +56,15 @@ function pagesCheck() {
     const c = code(src);
     for (const [re, what] of [[/\bsearchParams\b/, "searchParams"], [/\bcookies\s*\(/, "cookies("], [/\bheaders\s*\(/, "headers("]])
       if (re.test(c)) errors.push(`S1 ${rel(f)}: reads ${what} — pages must stay static (SPEC §5)`);
-    if (/^\s*["']use client["']/m.test(src) && !CLIENT_ALLOWED.has(rel(f)))
-      errors.push(`S2 ${rel(f)}: "use client" outside the sanctioned list (${[...CLIENT_ALLOWED].join(", ")})`);
+    if (/^\s*["']use client["']/m.test(src) && !ISLANDS.has(rel(f)))
+      errors.push(`S2 ${rel(f)}: "use client" outside the sanctioned islands (${[...ISLANDS.keys()].join(", ")})`);
   }
-  return `${files.length} source files`;
+  for (const [f, job] of ISLANDS) {
+    if (!existsSync(join(WEB, f))) errors.push(`S2 ${f}: on the island list but the file is gone — remove the entry`);
+    else if (!/^\s*["']use client["']/m.test(readFileSync(join(WEB, f), "utf8"))) errors.push(`S2 ${f}: on the island list but not a client component`);
+    if (!job?.trim()) errors.push(`S2 ${f}: an island must name its job`);
+  }
+  return `${files.length} source files, ${ISLANDS.size} client islands`;
 }
 
 function records() {

@@ -21,6 +21,8 @@ reader both times.
     python3 scripts/check-records.py --strict   # exit 1 on ERRORs — the build gate
     python3 scripts/check-records.py --body-v2  # list every body-v2 finding (BODY_V2_ENFORCED)
     python3 scripts/check-records.py --strict --enforce p-0036   # a rewrite, checked as enforced
+    python3 scripts/check-records.py --scoring-v2   # list every scoring-v2 finding (SCORING_V2_ENFORCED)
+    python3 scripts/check-records.py --strict --enforce-scoring p-0008   # a rescore, checked as enforced
 """
 import argparse
 import glob
@@ -1409,11 +1411,11 @@ def reader_words(text):
 
 def body_sections(arg):
     """The body routed the way lib/sections.ts routes it. -> {name: markdown}."""
-    out = {"The opportunity": [], "Competition": [], "Why now": [],
+    out = {"The opportunity": [], "Market gap": [], "Why now": [],
            "Willing to pay": [], "Validated abroad": []}
     cur = out["The opportunity"]
     leads = (("Why now", r"Why now:\s*"), ("Willing to pay", r"Who pays:\s*"),
-             ("Competition", r"Existing non-solutions[^:\n]*:\s*"),
+             ("Market gap", r"Existing non-solutions[^:\n]*:\s*"),
              ("Validated abroad", r"Solved elsewhere[^:\n]*:\s*"))
     for block in re.split(r"\n{2,}", arg):
         p = block.strip()
@@ -1555,7 +1557,7 @@ def check_body_v2(doc, arg, firstmoves, sources, comps, locals_):
     for name in ledger_name_candidates(comps, locals_):
         if re.search(r"(?<![\w])" + re.escape(name) + r"(?![\w])", say_once):
             add("LEDGER_NAME", True, f"'{name}' is named in the body — a company lives in its "
-                f"comps[]/locals[] row; link [Competition](#competition) or "
+                f"comps[]/locals[] row; link [Market gap](#competition) or "
                 f"[Validated abroad](#validated-abroad) instead")
     prices = {i for i, s in enumerate(sources, 1) if s.get("type") == "price"}
     cited = markers(say_once) & prices
@@ -1610,6 +1612,154 @@ def check_body_v2(doc, arg, firstmoves, sources, comps, locals_):
                 add("ENTRY_WHY_ITEM", True, f"entry.why {label} item \"{item}\" — the page split "
                     f"an item at its own comma; separate the items with semicolons instead")
     return out
+
+
+# ===========================================================================
+# SCORING V2 — the owner-approved money and urgency ladders (2026-09-19)
+# ===========================================================================
+#
+# SCORING.md carries the ladders and the reasons. Two fields each carried two
+# meanings (CLAUDE.md rule 1): `urgency` counted "we looked recently" (the
+# freshness point, held by every live record) as if it were a deadline, and
+# `money` counted "public money moves nearby" under a section named Willing to
+# pay. These are the halves of the new rungs a machine can check without
+# judging (CLAUDE.md rule 2). Whether a price buys THIS job, whether a law
+# binds THIS buyer and whether it has teeth stay MATCH's judgement.
+#
+#   URGENCY_NO_INSTRUMENT  urgency >= 1 with no `regulation` source backing
+#                          urgency. Freshness never earns a point, so a Why now
+#                          score with no dated instrument under it is the
+#                          freshness point by another name.
+#   URGENCY_DRAFT          urgency >= 2 on a record carrying `draft_law:`. A
+#                          bill is not enacted, so it fails REAL: rung 1 at most.
+#   MONEY_NO_RECEIPT       money >= 1 with no `type: price` source tagged
+#                          `dims: [money]`. Public money nearby alone caps money
+#                          at 0: tenders, grants and adjacent contracts never
+#                          earn a point on their own.
+#   MONEY_NOT_PAID         money 2 with no PAID receipt (a money-tagged price at
+#                          basis signed-contract or tender-line, dated within 24
+#                          months of `updated`) and no lift (a money-tagged price
+#                          plus a tender, contract or subsidy backing money).
+#   MARKET_GAP_LINK        the body or the moves still link `[Competition](#competition)`.
+#                          The section is named Market gap since 2026-09-19; the
+#                          anchor is unchanged, the words the reader clicks are not.
+#
+# THE SWITCH, exactly like BODY_V2_ENFORCED: a record in SCORING_V2_ENFORCED
+# gets every finding as an ERROR, which fails `npm run build`; the rest are
+# counted in ONE summary line (`--scoring-v2` lists them), because 34 records
+# scored before the ladders changed would otherwise flood the report. A record
+# JOINS THE SET IN THE SAME CHANGE AS ITS RESCORE
+# (docs/scoring-v2/rescore-2026-09-19.md), and joins web/lib/scoring-v2.ts in
+# the same change: the page reads a record's two scores on the new ladders only
+# when it is there, and SCORING_V2_MIRROR below fails the build when the two
+# lists differ. When every live record is in the set, delete the set, the
+# mirror and the v1 branches, and make these checks unconditional.
+SCORING_V2_ENFORCED = frozenset({
+})
+SCORING_V2_DETAIL = False       # set by `--scoring-v2`
+SCORING_V2_PENDING: dict[str, list[str]] = {}   # not-yet-rescored findings, per record
+SCORING_V2_MIRROR = os.path.join(ROOT, "web", "lib", "scoring-v2.ts")
+MONEY_PAID_BASES = ("signed-contract", "tender-line")
+MONEY_PAID_WINDOW_DAYS = 730    # "within 24 months of `updated`"
+MONEY_PUBLIC_TYPES = ("tender", "contract", "subsidy")   # TYPE_TO_DIM -> money
+
+
+def _iso(d):
+    """A YAML date (parsed or quoted) -> datetime.date, or None."""
+    import datetime  # noqa: PLC0415
+    if isinstance(d, datetime.date):
+        return d
+    try:
+        return datetime.date.fromisoformat(str(d)[:10])
+    except ValueError:
+        return None
+
+
+def _backs(s, dim, type_map):
+    """scorecard.ts dimRefs for one source: a present `dims` key decides alone
+    (an empty list backs nothing — the JS early return); otherwise the type map."""
+    dims = s.get("dims")
+    if dims is not None:
+        return dim in [d for d in dims if isinstance(d, str)]
+    return s.get("type") in type_map
+
+
+def check_scoring_v2(doc, sources, text=""):
+    """-> [(code, message)] under the 2026-09-19 money and urgency ladders.
+    `text` is the rendered body plus the first moves."""
+    out = []
+    n_links = len(re.findall(r"\[Competition\]\(#competition\)", text))
+    if n_links:
+        out.append(("MARKET_GAP_LINK",
+                    f"{n_links} link(s) read [Competition](#competition) — the section is "
+                    f"named Market gap since 2026-09-19; write [Market gap](#competition)"))
+    scores = doc.get("scores") or {}
+    urgency, money = scores.get("urgency"), scores.get("money")
+
+    if isinstance(urgency, int) and urgency >= 1:
+        if not any(s.get("type") == "regulation" and _backs(s, "urgency", ("regulation",))
+                   for s in sources):
+            out.append(("URGENCY_NO_INSTRUMENT",
+                        f"urgency {urgency} with no `regulation` source backing it — Why now "
+                        f"scores a dated instrument only; the freshness point is retired "
+                        f"(SCORING.md URGENCY). Cite the law or lower urgency to 0"))
+        if urgency >= 2 and doc.get("draft_law"):
+            out.append(("URGENCY_DRAFT",
+                        f"urgency {urgency} on a record carrying `draft_law:` — a bill is not "
+                        f"enacted, so it fails REAL and stops at rung 1 (SCORING.md URGENCY)"))
+
+    if isinstance(money, int) and money >= 1:
+        tagged = [s for s in sources if s.get("type") == "price" and _backs(s, "money", ())]
+        if not tagged:
+            public = sum(1 for s in sources
+                         if s.get("type") != "price" and _backs(s, "money", MONEY_PUBLIC_TYPES))
+            what = (f"the {public} money source(s) on file are public money nearby, which "
+                    f"never earns a point on its own" if public else "nothing on file backs money")
+            out.append(("MONEY_NO_RECEIPT",
+                        f"money {money} with no `type: price` receipt tagged `dims: [money]` — "
+                        f"{what}. Willing to pay is read from price receipts only "
+                        f"(SCORING.md MONEY); tag the receipt, restate a contract or awarded "
+                        f"tender for this job as one, or lower money to 0"))
+        elif money >= 2:
+            updated = _iso(doc.get("updated"))
+            paid = [s for s in tagged if s.get("basis") in MONEY_PAID_BASES
+                    and updated and _iso(s.get("date"))
+                    and 0 <= (updated - _iso(s.get("date"))).days <= MONEY_PAID_WINDOW_DAYS]
+            # The lift is PUBLIC MONEY: a tender, contract or subsidy backing
+            # money. A statistic or a news item tagged money is not a programme.
+            lift = any(s.get("type") in MONEY_PUBLIC_TYPES and _backs(s, "money", MONEY_PUBLIC_TYPES)
+                       for s in sources)
+            if not paid and not lift:
+                out.append(("MONEY_NOT_PAID",
+                            f"money 2 needs a PAID receipt (a money-tagged price at basis "
+                            f"{' or '.join(MONEY_PAID_BASES)}, dated within 24 months of "
+                            f"`updated`) or the public-money lift on top of a price; neither is "
+                            f"on file, so the evidence supports rung 1 (SCORING.md MONEY)"))
+    return out
+
+
+def check_scoring_v2_mirror():
+    """The page's switch (web/lib/scoring-v2.ts) must list exactly SCORING_V2_ENFORCED.
+
+    ONE LIST IN TWO LANGUAGES IS TWO LISTS, and the failure is silent: a record
+    rescored here but missing there renders its new scores with the retired
+    ladder's words, or the reverse. So the drift is an ERROR, not a warning."""
+    try:
+        src = open(SCORING_V2_MIRROR, encoding="utf-8").read()
+    except OSError:
+        return [f"{os.path.relpath(SCORING_V2_MIRROR, ROOT)} is missing — the page's copy of "
+                f"SCORING_V2_ENFORCED lives there"]
+    m = re.search(r"SCORING_V2[^=]*=\s*new Set(?:<[^>]*>)?\(\[(.*?)\]\)", src, re.S)
+    if not m:
+        return [f"{os.path.relpath(SCORING_V2_MIRROR, ROOT)} has no `SCORING_V2 = new Set([...])` "
+                f"this checker can read"]
+    web = set(re.findall(r"p-\d{4}", re.sub(r"//[^\n]*", "", m.group(1))))
+    if web == set(SCORING_V2_ENFORCED):
+        return []
+    return [f"SCORING_V2 in web/lib/scoring-v2.ts and SCORING_V2_ENFORCED here disagree — "
+            f"only here: {', '.join(sorted(set(SCORING_V2_ENFORCED) - web)) or 'none'}; only "
+            f"there: {', '.join(sorted(web - set(SCORING_V2_ENFORCED))) or 'none'}. A rescored "
+            f"record joins both in the same change (SCORING.md, THE SWITCH)"]
 
 
 def split_record(text):
@@ -1760,6 +1910,19 @@ def check(path, year):
             warns.append(f"body v2: not rewritten yet ({sum(counts.values())} findings: "
                          f"{', '.join(f'{c} {n}' for c, n in sorted(counts.items()))}) — "
                          f"pipeline/REWRITE.md; `--body-v2` lists them")
+
+    # ---- scoring v2: the money and urgency ladders (owner, 2026-09-19) ------
+    # ERRORs on a SCORING_V2_ENFORCED record (a rescored one). Every other live
+    # record is counted into ONE summary line printed at the end, and listed in
+    # full by `--scoring-v2`. Rejected records never render and are exempt.
+    if live:
+        sv2 = check_scoring_v2(doc, sources, arg + "\n" + firstmoves)
+        if pid in SCORING_V2_ENFORCED:
+            errors.extend(f"[scoring-v2 {code}] {msg}" for code, msg in sv2)
+        elif sv2:
+            SCORING_V2_PENDING[pid] = [code for code, _msg in sv2]
+            if SCORING_V2_DETAIL:
+                warns.extend(f"[scoring-v2 {code}, not rescored yet] {msg}" for code, msg in sv2)
 
     # ---- citation integrity ------------------------------------------------
     n_sources = len(sources)
@@ -2181,16 +2344,36 @@ def main():
                     help="treat these record ids (comma-separated) as BODY_V2_ENFORCED for "
                          "this run only — how a rewrite agent proves its record passes "
                          "without editing this shared file (pipeline/REWRITE.md)")
+    ap.add_argument("--scoring-v2", action="store_true",
+                    help="list every scoring-v2 finding on records not yet rescored "
+                         "(default: one summary line for the register)")
+    ap.add_argument("--enforce-scoring", metavar="IDS",
+                    help="treat these record ids (comma-separated) as SCORING_V2_ENFORCED for "
+                         "this run only — how a rescoring agent proves its record passes "
+                         "before it joins the set (docs/scoring-v2/rescore-2026-09-19.md)")
     args = ap.parse_args()
-    global BODY_V2_DETAIL, BODY_V2_ENFORCED
+    global BODY_V2_DETAIL, BODY_V2_ENFORCED, SCORING_V2_DETAIL, SCORING_V2_ENFORCED
     BODY_V2_DETAIL = args.body_v2
     if args.enforce:
         BODY_V2_ENFORCED = BODY_V2_ENFORCED | {x.strip() for x in args.enforce.split(",") if x.strip()}
     ensure_yaml(sys.argv[1:])
 
+    # The mirror is compared BEFORE --enforce-scoring widens the set: a trial
+    # run is not a change to either list.
+    mirror_errors = check_scoring_v2_mirror()
+    SCORING_V2_DETAIL = args.scoring_v2
+    if args.enforce_scoring:
+        SCORING_V2_ENFORCED = SCORING_V2_ENFORCED | {
+            x.strip() for x in args.enforce_scoring.split(",") if x.strip()}
+
     files = sorted(glob.glob(RECORDS))
     year = register_year(files)
     n_err = n_warn = clean = 0
+    if mirror_errors:
+        print("\nscoring-v2 switch")
+        for e in mirror_errors:
+            print(f"  ERROR  {e}")
+        n_err += len(mirror_errors)
     for path in files:
         pid, errors, warns = check(path, year)
         if not errors and not warns:
@@ -2203,6 +2386,16 @@ def main():
             print(f"  warn   {w}")
         n_err += len(errors)
         n_warn += len(warns)
+
+    if SCORING_V2_PENDING and not SCORING_V2_DETAIL:
+        counts = {}
+        for codes in SCORING_V2_PENDING.values():
+            for c in codes:
+                counts[c] = counts.get(c, 0) + 1
+        print(f"\nscoring v2: {len(SCORING_V2_ENFORCED)} record(s) rescored; "
+              f"{len(SCORING_V2_PENDING)} not yet rescored would fail "
+              f"({', '.join(f'{c} {n}' for c, n in sorted(counts.items()))}) — "
+              f"docs/scoring-v2/rescore-2026-09-19.md; `--scoring-v2` lists them")
 
     print(f"\nrecords: {len(files)} · clean: {clean} · "
           f"errors: {n_err} · warnings: {n_warn}  (established test run against {year})")

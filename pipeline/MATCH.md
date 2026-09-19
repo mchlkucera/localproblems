@@ -14,7 +14,7 @@ bug someone already paid for.
 
 ## 0. The failure this register keeps making: ONE FIELD, TWO MEANINGS
 
-Four separate times, a single field was made to carry two different questions,
+Six separate times, a single field was made to carry two different questions,
 and every time the register ended up publicly contradicting itself:
 
 | Field | Meaning A | Meaning B | What shipped |
@@ -23,6 +23,8 @@ and every time the register ended up publicly contradicting itself:
 | `proof: 2` | "proven abroad" | "…and no CZ player found" | 13 of 26 records scoring proof ≤1 above their own funded comparables |
 | de-rank rule | "a local player exists" | "a local player owns this" | a one-person operator de-ranked the register's 11/12 record to `watching` |
 | `locals.status` | "young company" | "sells something adjacent" | two agents hit it, solved it two different ways, register encoded the same fact twice |
+| `urgency` | "a deadline forces buyers" | "we looked recently" (the freshness point) | 13 of 29 records scoring Why now on nothing but a recent source; retired 2026-09-19, the Verified date carries it |
+| `money` | "buyers pay for this" | "public money moves nearby" | a section named Willing to pay scored on tenders a different party ran for a different thing; since 2026-09-19 only a price receipt earns a point |
 
 **When a field's value would be set for two different reasons, it is two fields.**
 Split it before you write, not after someone reads the contradiction on the site.
@@ -182,9 +184,21 @@ The reader is deciding what to build this quarter. Write for them:
 - Every numeric claim carries an `[Sn]`.
 - **"Who pays and how much" is answered by a price receipt** — a `type: price`
   source naming the Czech buyer, the crown figure, the unit and the basis — or
-  it is not answered. MONEY alone never claims it: that ladder measures
-  proximity to a public budget, and "public money moving near this problem" is
-  not "this buyer pays this much for this" (owner, 2026-09-03).
+  it is not answered (owner, 2026-09-03). Since 2026-09-19 it is also the ONLY
+  thing that earns a Willing to pay point (`money`, SCORING.md): tag it
+  `dims: [money]`. An asking price (list price, rate card, buyer's figure, cost
+  by hand) is rung 1; a paid one (signed contract, awarded tender line, a
+  consultant paid to do it by hand, within 24 months) is rung 2. A contract or
+  tender that buys THIS job is restated as a price receipt; left as `contract`,
+  `tender` or `subsidy` it is public money nearby, which never earns a point on
+  its own and lifts a rung-1 record to 2 only under SCORING.md's five
+  conditions. "Public money moving near this problem" is not "this buyer pays
+  this much for this".
+- **Why now is a dated duty, never a date we looked.** Score `urgency` on the
+  instrument alone: REAL (enacted, and it binds this buyer), CLOSE (within 18
+  months of `updated`, or passed within 12) and TEETH (a named sanction, or
+  enforcement on file). A record with `draft_law:` stops at 1. The freshness
+  point is gone (owner, 2026-09-19); when we last checked is the Verified date.
 
 ---
 
@@ -266,7 +280,9 @@ owner-set hackathon challenge — is a receipt that a named institution HAS the
 problem. It cites **demand** and nothing else: rung 1 on its own, rung 2 when it
 recurs or joins other documented demand. It never cites **money** — a prize is
 not a budget, and a research need's budget arrives later, through the tender,
-which lands in `tenders` and cites money there. And it says nothing about
+which lands in `tenders`. Even then that tender is public money nearby, which
+since 2026-09-19 earns no money point on its own (SCORING.md MONEY); only an
+awarded line for this job, restated as a `type: price` receipt, does. And it says nothing about
 **gap**: that the owner wants it solved is not evidence that no vendor sells it.
 Gap still needs its check (§4, §5). `TYPE_TO_DIM` in `web/lib/scorecard.ts` and
 `scripts/db.py` encodes the first half; the checker still owns the second.

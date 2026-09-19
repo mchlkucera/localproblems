@@ -3,6 +3,7 @@
 import { readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { type Problem, type ProblemSource, urgencySplit } from "./data";
+import { isScoringV2 } from "./scoring-v2";
 
 export const DIMS = ["proof", "money", "urgency", "demand", "gap"] as const;
 export type Dim = (typeof DIMS)[number];
@@ -18,7 +19,10 @@ export const MAX: Record<Dim, number> = { proof: 3, money: 2, urgency: 3, demand
 // it is never a score, and therefore never a word on this card.
 export const VERDICTS: Record<Dim, string[]> = {
   proof: ["NONE", "EARLY", "ESTABLISHED", "VALIDATED"],
-  money: ["UNFUNDED", "NEARBY", "ATTACHED"],
+  // 2026-09-19: money reads price receipts (is someone paying for this job
+  // now?), so its words are evidence words; urgency keeps its four words on
+  // the new ladder (how close and how real the deadline is, no freshness).
+  money: ["NONE", "INDICATED", "EVIDENCED"],
   urgency: ["NONE", "MILD", "BUILDING", "FORCING"],
   demand: ["ASSUMED", "SCATTERED", "DOCUMENTED"],
   gap: ["TAKEN", "CONTESTED", "OPEN"],
@@ -40,21 +44,21 @@ export const BANDS: [number, string][] = [
 
 /** Dimension order and plain label on the public card: the record page's
     section names and order (2026-09-17, lib/site/score-proto.ts) — The
-    opportunity, Why now, Willing to pay, Validated abroad, Competition. The
-    three retired labels (the old demand, money and gap names) must not come
-    back on any public page. Internal dimension keys are unchanged.
+    opportunity, Why now, Willing to pay, Validated abroad, Market gap. The
+    retired labels (the old demand, money and gap names, and "Competition",
+    renamed 2026-09-19 so a full bar always means good) must not come back on
+    any public page. Internal dimension keys are unchanged.
     The front page's card reads protoScores() directly; this list names the
     same five for anything that still iterates dimensions. */
 export const SCORE_ROWS: { dim: Dim; label: string }[] = [
   { dim: "demand", label: "The opportunity" },
   { dim: "urgency", label: "Why now" },
-  // The MONEY ladder still measures proximity to a public budget (a tender, a
-  // grant, a recurring line near the problem); the price receipts are what a
-  // buyer actually pays. The label follows the record page's section name.
+  // Since 2026-09-19 MONEY asks "is someone paying for this job now?" and is
+  // read from price receipts; public money nearby only lifts it (SCORING.md).
   { dim: "money", label: "Willing to pay" },
   { dim: "proof", label: "Validated abroad" },
-  // more points = less competition
-  { dim: "gap", label: "Competition" },
+  // more points = a more open field (renamed from "Competition", 2026-09-19)
+  { dim: "gap", label: "Market gap" },
 ];
 
 /** One plain line per dimension level. Indexed by the raw sub-score; higher is
@@ -76,9 +80,26 @@ const READS: Record<Dim, string[]> = {
     "documented, not yet loud",
     "recurring, documented demand",
   ],
-  // Honest about PROXIMITY (2026-09-03): every rung is public money moving
-  // near the problem, and none is a buyer paying for this. The read must not
-  // say "funding attached to this" above a tender that buys something else.
+  // 2026-09-19 (SCORING.md MONEY): read from price receipts. Public money
+  // nearby never earns a rung on its own, so no read may say it does.
+  money: [
+    "no price or payment for this on file",
+    "a price for this job is on file",
+    "a buyer has paid for this job, or a priced job gets public money",
+  ],
+  // 2026-09-19 (SCORING.md URGENCY): how close and how real, no freshness.
+  urgency: [
+    "no dated rule falls on these buyers",
+    "a dated rule, but far off, not yet law, or binding someone else",
+    "an enacted rule binds these buyers within 18 months",
+    "an enacted rule binds these buyers within 18 months, with penalties",
+  ],
+};
+
+/** The pre-2026-09-19 reads, for a record not yet rescored (lib/scoring-v2.ts):
+    its money is still public-money proximity and its urgency still carries the
+    freshness point. Delete with the switch. */
+const READS_V1: Pick<Record<Dim, string[]>, "money" | "urgency"> = {
   money: [
     "no public money on file near this",
     "public money moving near this problem",
@@ -175,7 +196,7 @@ export function scoreRead(p: Problem, dim: Dim): string {
       // No parenthetical: a third of the corpus names its incumbent with one
       // already ("STORMWARE (POHODA)"), and nested parens read as a typo.
       return rest === 0
-        ? `${oldest.name} has sold this${since} — see Competition`
+        ? `${oldest.name} has sold this${since} — see Market gap`
         : `${oldest.name} has sold this${since}, and ${rest} more sell it locally`;
     }
     if (direct.length > 0)
@@ -184,7 +205,7 @@ export function scoreRead(p: Problem, dim: Dim): string {
         // gap 0 without an established seller, or gap 2 with any seller at all:
         // both are contradictions check-records.py fails the build on. For as
         // long as one can exist the read reports the LEDGER, never the score.
-        : `${sell(direct.length)} — see Competition`;
+        : `${sell(direct.length)} — see Market gap`;
     // NOBODY ON FILE SELLS THIS. At rung 2 that is the score's own claim; at 0
     // or 1 it is the ledger contradicting the score. Either way the adjacent
     // players get named rather than denied — "the field is open" printed above
@@ -193,6 +214,7 @@ export function scoreRead(p: Problem, dim: Dim): string {
       return `no local player found selling this${nearby}`;
   }
 
+  if ((dim === "money" || dim === "urgency") && !isScoringV2(p.id)) return READS_V1[dim][p.scores[dim]];
   return READS[dim][p.scores[dim]];
 }
 
@@ -215,7 +237,9 @@ const TYPE_TO_DIM: Record<string, Dim> = {
 
 /** 1-based S-numbers backing each dimension. Priority: explicit dims: tag,
     then type→dimension mapping (+ the "Demand point" gap-check convention),
-    then freshness always refs the newest sub-90-day source. */
+    then, on a record not yet rescored only, freshness refs the newest sub-90-day
+    source (urgencySplit returns freshness 0 for a rescored one: SCORING.md
+    retired the point on 2026-09-19). */
 export function dimRefs(p: Problem): Record<Dim, number[]> {
   const refs: Record<Dim, number[]> = { proof: [], money: [], urgency: [], demand: [], gap: [] };
   const add = (dim: Dim, n: number) => { if (!refs[dim].includes(n)) refs[dim].push(n); };

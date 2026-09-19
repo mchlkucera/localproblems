@@ -19,6 +19,18 @@ Change a value here and in the CSS together.
 - Descriptions are existing copy, one plain sentence: front = the lede;
   How it works = its first line; a record = its `brief` with `[Sn]` markers,
   links and emphasis stripped, else its `solution`.
+- Share previews (`lib/og/share.ts`): the root layout sets `metadataBase`
+  (`https://www.localproblems.org`), og:site_name, og:type `website`, og:locale
+  and the `summary_large_image` Twitter card. Each page's og:title is its title
+  without "— localproblems.org", og:description its description, og:url its own
+  path. A record's og:url is also its canonical.
+- Share images are 1200×630 PNGs drawn by `next/og` at BUILD time
+  (`lib/og/card.tsx`), in Inter cut from the site's own font files
+  (`lib/og/fonts`). A record draws its own card
+  (`problem/[region]/[id]/opengraph-image.tsx`): title, brief (else category),
+  "Opportunity n/12" with the five section dots in the score scale, and the
+  entry level's dot and word. Every other page uses the site card
+  (`app/opengraph-image.tsx`): the front title, the lede and the Venn.
 - Record anchors keep the live site's: every source row `id="s1…sN"` (the
   `sources[]` index), the drawer `id="sources"`, and every older section id as an
   alias (see "Record page: sections"). `#sources` / `#sN` open the drawer on that
@@ -403,7 +415,7 @@ The p-0008 design, owner-approved 2026-09-16/17 and live on every record page.
 ## Record page: sections
 - Order and ids: The opportunity `#opportunity` · Suggested solution
   `#solution` · Why now `#why-now` · Willing to pay `#willing-to-pay` ·
-  Validated abroad `#validated-abroad` · Competition `#competition` ·
+  Validated abroad `#validated-abroad` · Market gap `#competition` ·
   Execution difficulty `#execution-difficulty` · Suggested first moves
   `#first-moves` (only when the problem has moves).
 - Aliases, each an empty span at its section's top edge that lands where the
@@ -439,8 +451,8 @@ The p-0008 design, owner-approved 2026-09-16/17 and live on every record page.
   is empty. No level line on the page: the word is in the badge. Sheet: the level
   22px / 1.25, 600, −0.02em (20 on phone) after a 9px hue dot 10px before it;
   the reason 10px under it (15 / 24 prose, only when the reason isn't already
-  written as the two lists); the lists in whole sentences 28px under; then "Competition
-  does not change this level. It is covered under Competition." 28px under.
+  written as the two lists); the lists in whole sentences 28px under; then "Local
+  competition does not change this level. It is covered under Market gap." 28px under.
 - **Suggested first moves** page: each move's lead sentence, 500 `--l-text-1`,
   in 24px number squares (radius 6, `--l-bg-3`, 12px 600 `--l-text-2`), text
   40px in (34 on phone), 20px between moves.
@@ -475,7 +487,7 @@ The p-0008 design, owner-approved 2026-09-16/17 and live on every record page.
   `--l-text-1`, 10px padding over a hairline, 8px to its rows; its count in
   `--l-text-3`. ("CLEARLY with bigger heading separate")
 - Validated abroad sheet: the map full width with no list, then the company rows
-  32px under it, a hairline over the first. Competition sheet: the matrix, then
+  32px under it, a hairline over the first. Market gap sheet: the matrix, then
   "Sells this" and "Sells something nearby" as h3 groups. ("listed two times")
 - Company row: padding 14 0 16 (12 0 14 on phone), hairlines between; name 500
   ↗ with the 10px maturity dot; meta 12px `--l-text-3` tabular; source pills (or
@@ -485,21 +497,29 @@ The p-0008 design, owner-approved 2026-09-16/17 and live on every record page.
   `--l-line-2` grab handle 6px from the top; bar 48px, padding 0 8 0 20; page
   padding 4 20 40 plus the safe area; heading 26px.
 
-## Record page: scores (prototype)
-- `lib/site/score-proto.ts`, over the existing rubric, until the scoring-v2
-  decisions (`docs/scoring-v2/`):
+## Record page: scores
+- `lib/site/score-proto.ts`, on the ladders the owner approved on 2026-09-19
+  (SCORING.md, "PRESENTATION"):
   - The opportunity = `scores.demand` /2
-  - Why now = `scores.urgency` /3 (its word reads the deadline part)
-  - Willing to pay = `scores.money` /2 (still public-money proximity)
+  - Why now = `scores.urgency` /3 (how close and how real the deadline is; no
+    freshness point)
+  - Willing to pay = `scores.money` /2 (is someone paying for this job now? read
+    from price receipts; public money nearby only lifts it)
   - Validated abroad = `scores.proof` /3
-  - Competition = `scores.gap` /2 (more points, less competition; the contents
-    label adds "· High / Medium / Low")
+  - Market gap = `scores.gap` /2 (more points, a more open field; renamed from
+    Competition so a full bar always means good; no contents suffix)
   - Execution difficulty = `entry.level`, Easy 3 · Moderate 2 · Hard 1 · Very
     hard 0 /3
 - Words, 0 → max: Unclear pain · Some pain · Clear, recurring pain | No deadline ·
-  Deadline later · Deadline soon | No sign yet · Some buyers · Already paying |
-  Not yet · Early abroad · Proven once · Proven in 2+ markets | Crowded · Early
-  rivals only · Open | Very hard · Hard · Moderate · Easy.
+  Soft deadline · Firm deadline · Deadline with penalties | No sign yet · Some
+  signs · Clear signs | Not yet · Early abroad · Proven once · Proven in 2+
+  markets | Crowded · Early rivals only · Open | Very hard · Hard · Moderate ·
+  Easy.
+- **Until a record is rescored** (`lib/scoring-v2.ts`, mirrored by
+  `SCORING_V2_ENFORCED` in `scripts/check-records.py`), its Why now and Willing to
+  pay keep the old words (No deadline · Deadline later · Deadline soon, read off
+  the deadline part; No sign yet · Some buyers · Already paying), the old tooltip
+  ladders and the old About lines. Delete that branch when the last record joins.
 - **Total** = the five rubric checks = the front page's /12. Execution difficulty
   is not in it (`inTotal: false`).
 - **Tone** (`scoreTone`): n = max → `--ls-score-good` `#3f8f7f`; n/max ≥ 0.5 →
@@ -555,7 +575,7 @@ explanatory, less text!") No caption, legend or explanatory paragraph on any of
 them. Every dot or column is a `DotPeek`-style `<button popovertarget data-peek>`
 opening an `.ls-peek` card (140ms in, instant out). A figure drawn twice on the
 page passes `scope` (`"s"` in sheets) so its popover ids stay unique.
-- **LocalMatrix** (Competition): an 18px axis gutter, then two equal columns
+- **LocalMatrix** (Market gap): an 18px axis gutter, then two equal columns
   (Early · Established) over two rows (Sells this · Sells something nearby).
   Quadrant min-height 168px, padding 10 8 10 10. Left and bottom axes
   `--l-text-4` with solid 7×6px arrowheads; the inner cross `--l-line`. Dots are
