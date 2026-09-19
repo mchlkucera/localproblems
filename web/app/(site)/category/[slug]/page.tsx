@@ -17,6 +17,7 @@ import { CATEGORIES, categoryCounts, categoryRows, extractDate } from "../../../
 import { categoryLabel } from "../../../../lib/format";
 import { CORRECTIONS_MAILTO } from "../../../../lib/chrome";
 import { CategoryArt } from "../../../../lib/art/category-art";
+import { siteOpenGraph } from "../../../../lib/og/share";
 import { TopBar } from "../../../../lib/site/bar";
 import { Entry, byOpportunity, item } from "../../../../lib/site/front";
 import { fmtDate } from "../../../../lib/site/sources";
@@ -33,7 +34,13 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  return { title: `${categoryLabel(slug)} problems — localproblems.org` };
+  const title = `${categoryLabel(slug)} problems`;
+  const description = `${title} in Czechia worth solving, each distilled from public evidence, with every claim linked to its source.`;
+  return {
+    title: `${title} — localproblems.org`,
+    description,
+    openGraph: siteOpenGraph({ title, description, path: `/category/${slug}` }),
+  };
 }
 
 /** Every category that has a problem, plus the current one even when it has

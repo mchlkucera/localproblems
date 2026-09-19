@@ -18,12 +18,15 @@ import "../styles/front.css";
 import "../styles/how-it-works.css";
 import { TopBar } from "../../../lib/site/bar";
 import { CORRECTIONS_MAILTO } from "../../../lib/chrome";
+import { siteOpenGraph } from "../../../lib/og/share";
 import { Venn } from "./venn";
 
 // the description is the page's own first line, verbatim (audit B14)
 export const metadata: Metadata = {
   title: "How it works — localproblems.org",
   description: "A register of meaningful problems to solve.",
+  // no description here: Next fills og:description from the page's own
+  openGraph: siteOpenGraph({ title: "How it works", path: "/how-it-works" }),
 };
 
 /** A link to another site: "↗" after it, and words for screen readers. */

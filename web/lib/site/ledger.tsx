@@ -32,6 +32,7 @@ import { categoryLabel, countryName, euro } from "../format";
 import { CORRECTIONS_MAILTO } from "../chrome";
 import { fmtDate } from "./sources";
 import { TopBar } from "./bar";
+import { siteOpenGraph } from "../og/share";
 
 
 /** "Funded", from "Funded — companies founded and financed". */
@@ -44,9 +45,11 @@ const pageHref = (type: EvidenceType, n: number) => (n === 1 ? `${BASE}/${type}`
 export function ledgerMetadata(type: EvidenceType, page: number): Metadata {
   const pages = ledgerPages(type);
   const where = pages > 1 && page > 1 ? `, page ${page} of ${pages}` : "";
+  const title = `${shortTitle(type)} signals${where}`;
   return {
-    title: `${shortTitle(type)} signals${where} — localproblems.org`,
+    title: `${title} — localproblems.org`,
     description: DESCRIPTIONS[type],
+    openGraph: siteOpenGraph({ title, description: DESCRIPTIONS[type], path: pageHref(type, page) }),
   };
 }
 
