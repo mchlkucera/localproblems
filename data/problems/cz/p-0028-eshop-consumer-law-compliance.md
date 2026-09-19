@@ -173,6 +173,18 @@ locals:
     by case consultancy for the packaging trade, not a check a shop runs, and it publishes no price
     for it [S15]. The pages read do not show which of its two registered bodies runs the advice, so
     no company number is given.
+- name: Retino
+  url: https://doplnky.shoptet.cz/retino
+  ico: '06222234'
+  since: 2017
+  competes: adjacent
+  maturity: established
+  evidence: It sells returns and complaints handling and parcel tracking to e-shops, and its Shoptet
+    listing now offers the new withdrawal button free in its basic returns plan [S20]. It supplies
+    the button; it does not check a shop's checkout information, order button or "eco" claims, so
+    it sells a neighbouring job, not this one [S20]. It says more than 2,000 online shops use it and
+    quotes a named customer, it is listed on Shoptet and Upgates, and the company was registered on
+    14 July 2017 [S20].
 sources:
 - type: complaint
   name: "ČOI — 2025 distance-selling inspection results"
@@ -580,6 +592,81 @@ sources:
   unit: one-off
   basis: list-price
   dims: [money]
+- type: regulation
+  name: "Act 159/2026 Sb. — the withdrawal button"
+  gist: "the button law, from 1 Jan 2027"
+  why: "The Czech law, passed and published, that makes every business selling to consumers online offer an \"Odstoupit od smlouvy\" (withdraw from the contract) button from 1 January 2027. A shop that has no button, or does not confirm a withdrawal, commits an offence under the consumer-protection act."
+  url: https://e-sbirka.gov.cz/eli/cz/sb/2026/159
+  note: 'reg-odstoupit-tlacitko-159-2026: Act 159/2026 Sb. of 19 Aug 2026, published in e-Sbírka
+    2 Sep 2026, in force 1 Jan 2027 (Čl. XII). Read 2026-09-19 in the saved text
+    data/raw/2026-09-19/regulation/esbirka/sb-2026-159.txt. SCOPE, verified: Čl. V inserts
+    § 1830a into the civil code''s general rules for distance and off-premises contracts
+    (§ 1820 ff.), not into the financial-services subsection; § 1840 f) now excludes financial
+    services from those general rules "s výjimkou § 1830a", so the button reaches every online
+    distance contract with a consumer, e-shops included. § 1830a: button or similar control,
+    prominent, easy to reach, available for the whole withdrawal period, labelled "Odstoupit od
+    smlouvy" or as plainly (2); name, contract and e-mail fields (3); a "Potvrdit odstoupení od
+    smlouvy" confirmation control (4); written confirmation of receipt without undue delay (5).
+    § 1820(1)(i) rewritten: pre-contract information must state the button and where it is.
+    SANCTION, verified: Čl. I point 8 adds § 24(16)(q) and (r) to Act 634/1992 — the seller
+    (prodávající) commits an offence by not offering the button under § 1830a(1) or not
+    confirming receipt under § 1830a(5); the fine bands are renumbered in § 24(24), but the
+    amount for these letters was not read from a consolidated text and is not claimed. The
+    act''s other parts (dark patterns § 5e, § 1843 ff. disclosures, sector acts) apply to
+    financial services only. RUNG TEST for this buyer (small-firms, e-shops): REAL (enacted,
+    in the Sbírka, binds the seller), CLOSE (1 Jan 2027, about 3.5 months after updated),
+    TEETH (named offence). Passes rung 3 on its own; urgency held at 1 only because the record
+    carries draft_law:, which caps it (SCORING.md URGENCY), and the badge stays on by the
+    owner''s decision. The corpus ledger row reg-dmfsd-distance-finance (Directive
+    2023/2673, finance-only, 19 Jun 2026) is the EU instrument and is not cited here.'
+  date: '2027-01-01'
+  signal: reg-odstoupit-tlacitko-159-2026
+  dims: [urgency]
+- type: gap-check
+  name: "Retino — the withdrawal button, already on sale"
+  gist: "the button, offered free"
+  why: "A Czech returns add-on used by more than 2,000 e-shops already offers the new withdrawal button free, on the Shoptet store. It supplies the button; it does not check whether a shop's checkout meets the law."
+  url: https://doplnky.shoptet.cz/retino
+  note: 'Gap re-check 2026-09-19 for the withdrawal-button duty of Act 159/2026 (S19). Method:
+    the add-on lookup corpus (data/lookup/cz-eshop-addons.jsonl, fetched 2026-08-21) searched
+    for odstoupen|odstoupit|vrácení|vratk|reklamac; positive control: the same corpus search
+    for the 30-day discount rule surfaces Hlídač Slev and Slevy správně, already on file. Only
+    one add-on sells the button: Retino (Retino.cz s.r.o., IČO 06222234, ARES registration
+    14 Jul 2017, Praha 1). Its Shoptet listing, re-read live on 2026-09-19 (50 ratings), leads
+    with "Splnit zákonnou legislativní povinnost online tlačítka pro odstoupení od kupní
+    smlouvy – nově Retino Returns Zdarma", states it helps "více než 2000 e-shopům", and quotes
+    a named customer (Lucky Vibes). Established by the SCORING.md test (selling since 2017-era
+    company, public customer count, named customer); competes adjacent: it provides the button
+    and a returns portal, not a compliance scan of checkout information, order buttons or
+    green claims. Reklamačník (complaints and returns forms, Shoptet and Upgates) also matched
+    the search but does not claim the button. Toret Toolkit, already on file (S16), also builds a
+    withdrawal button and form into WooCommerce. A Czech-language web search ("tlačítko Odstoupit
+    od smlouvy e-shop 2027 povinnost Shoptet") also returned Shoptet''s own support article
+    (S21) and law-firm and trade-press explainers; no product that checks a shop for the button
+    was found. Gap stays 1: an adjacent player never moves gap. entry.incumbents was already
+    adjacent (APEK, Toret) and stays so.'
+  date: '2026-09-19'
+  queries:
+    - "odstoupení od smlouvy tlačítko doplněk e-shop"
+    - "vrácení zboží vratky reklamace doplněk Shoptet Upgates"
+    - "tlačítko Odstoupit od smlouvy e-shop 2027 povinnost Shoptet"
+  checked: [eshop-addon-marketplaces, ares]
+  expires: '2026-12-18'
+- type: news
+  name: "Shoptet — new withdrawal rules"
+  gist: "the platform's own button"
+  why: "Shoptet's help article on the new withdrawal rules: the platform gives its shops an order-detail page where a customer can withdraw online, but each shop has to link it from its order e-mails and publish the order form itself."
+  url: https://podpora.shoptet.cz/nova-pravidla-odstoupeni-od-smlouvy-od-roku-2026/
+  note: 'Shoptet Podpora FAQ, read 2026-09-19. Says the Shoptet solution is a Detail objednávky
+    page with a withdrawal or return request, reachable by a link in the order e-mail or the
+    Moje objednávka form; the shop must add that link to its order e-mails and put the form on a
+    system or own page ("Jak se připravit v administraci"). Names ČOI as the supervisor in most
+    cases. It dates the change "od 19. června 2026", the EU application date; the Czech act (S19)
+    takes effect 1 Jan 2027, so the page is stale on the date and is not cited for it. Shoptet
+    (Shoptet, a.s., IČO 28935675, ARES 13 Aug 2009) is the platform, not added to locals[];
+    flagged to the owner. dims empty: backs no score.'
+  date: '2026-09-19'
+  dims: []
 created: '2026-08-13'
 updated: '2026-09-19'
 ---
@@ -620,12 +707,21 @@ The legal-text product writes a shop's terms and conditions, privacy policy and 
 - Three Czech law firms sell one-off legal audits and terms drafting, priced per job [S5]. An audit checks a shop once, so it goes out of date at the next change in the law.
 - None of the 606 add-ons listed on Shoptet and Upgates, two Czech shop platforms, checks green claims, order buttons, or the information a shop must give before an order or about complaints [S10]. None of the 609 listed by 1 September 2026 does either [S16].
 - Shoptet's add-on store has no legal-compliance category [S8,S10].
+- For the new withdrawal button, a returns add-on used by more than 2,000 shops offers one free, and Shoptet builds one into its shops [S20,S21]. They supply the button; neither checks a shop's checkout [S20].
+- On Shoptet each shop must still switch the button on, by linking it from its order e-mails and publishing the order form [S21].
 
-Why now: E-shop owners pay fines now, and a Czech ban on vague "eco" claims is making its way through parliament [S9,S13].
+Why now: Shops pay fines now, every e-shop needs a withdrawal button from 1 January 2027, and an "eco" claims ban is in parliament [S9,S13,S19].
 
 - E-shops took 159 final fines, 4.88M CZK in all, in April–June 2026 alone [S9].
 - Inspectors target suspected shops, and 94 of 103 checked then broke the law [S9].
+- A shop with no withdrawal button commits an offence from 1 January 2027 [S19].
 - Shops with "eco" badges must prove or remove them once the bill passes [S2,S13].
+
+The button comes from a new law, Act 159/2026, which writes an EU directive on financial services sold at a distance into Czech law [S19]. It puts the button in the civil code's general rules for online sales to consumers, so it covers every e-shop, not only finance [S19].
+
+- The button must be easy to see, labelled "Odstoupit od smlouvy" (withdraw from the contract) or as plainly, and work for the whole withdrawal period [S19].
+- The shop must confirm each withdrawal in writing, and the information a buyer gets before ordering must say where the button is [S19].
+- A missing button or a missing confirmation is an offence under the consumer-protection act [S19].
 
 Those 94 shops had 414 breaches between them, most often missing complaint information, 61 times, and unfair practices, 52 times [S9]. ČOI says checking e-shops stays a priority in 2026 [S1].
 
@@ -638,8 +734,10 @@ The ban comes from an EU directive, No. 2024/825, which the Czech bill writes in
 - On 27 March 2026 Czechia missed the EU's deadline to adopt the rules [S14].
 - On 24 June 2026 the Czech bill, number 53 in the Chamber of Deputies, passed its second reading [S13].
 - On 1 September 2026 the state's software grant for rural small firms opened for applications [S7].
+- On 2 September 2026 the button law was published [S19].
 - On 4 September 2026 a committee gave its position on the bill, and no third reading, Senate vote or publication has followed [S13].
 - On 27 September 2026 every EU member state must start applying the ban [S2].
+- On 1 January 2027 the withdrawal button becomes a duty for every e-shop [S19].
 - On 1 September 2027 the rural software grant stops taking applications [S7].
 - Until the bill passes, no Czech start date for the ban is binding [S13].
 
@@ -672,7 +770,7 @@ In Germany the pressure is the warning letter, a lawyer's formal demand to stop 
 
 1. Build a scanner that lists every "eco" or climate-neutral claim on a Czech e-shop that the coming ban would forbid unless proven. Run it across Czech shops for words like "eko" and "šetrné k přírodě" and for climate-neutral badges, and the shops it flags are your first prospects. The EU requires its member states to ban such claims, and the Czech law that does it is on its way through parliament; see [Why now](#why-now). Inspectors can already treat a misleading green claim as a misleading practice under today's law, so the list is useful before the ban starts. A Czech tool already checks pasted text or a few pages when asked, so the edge is reading every page of a shop, unasked, every week; see [Market gap](#competition).
 2. Send each flagged shop owner a claim-by-claim report of what to prove or remove, and offer to keep it current for a monthly fee. The Czech ban has no start date until the bill passes, but inspectors can already act against a misleading green claim, as [Why now](#why-now) explains. Price it near what German shops pay for legal texts kept current, listed under [Validated abroad](#validated-abroad), and against the one-off reviews and yearly checks Czech firms already sell, under [Willing to pay](#willing-to-pay). This move tests the assumption everything here rests on: that a shop owner pays before a fine arrives, when most shops inspectors check already live with the risk; see [The opportunity](#opportunity).
-3. Add checks for the breaches inspectors find most often: missing pre-order information, missing complaint information, unfair selling practices and non-compliant order buttons. Together they make up more than half of all breaches found, as [The opportunity](#opportunity) shows, and each is a checklist item a weekly scan can test. No add-on checks them; a trade association checks them by hand once a year, and a law firm's audit checks a shop once and goes out of date at the next change in the law; see [Market gap](#competition). The Czech add-ons sell the discount rule, a duty next door, and the one young Czech product that keeps legal texts current does not scan the checkout, so this is a race, not a settled market.
+3. Add checks for the breaches inspectors find most often: missing pre-order information, missing complaint information, unfair selling practices and non-compliant order buttons. Together they make up more than half of all breaches found, as [The opportunity](#opportunity) shows, and each is a checklist item a weekly scan can test. Add the new withdrawal button to the list: a new law makes a missing one an offence from January, and on the largest platform each shop must switch it on itself; see [Why now](#why-now). No add-on checks them; a trade association checks them by hand once a year, and a law firm's audit checks a shop once and goes out of date at the next change in the law; see [Market gap](#competition). The Czech add-ons sell the discount rule, a duty next door, and the one young Czech product that keeps legal texts current does not scan the checkout, so this is a race, not a settled market.
 4. Publish the scanner in the Shoptet add-on store, where Czech shops already install tools that keep their discounts legal. One listing there reaches tens of thousands of shops, as [Willing to pay](#willing-to-pay) shows. Expect neighbours rather than rivals: two add-ons already sell the discount rule there, and one has middling ratings, with reviewers split over its support and its export; see [Market gap](#competition). The store has no legal-compliance category yet, so there is room for a scanner that covers the rest of the law.
 5. For shops outside the big cities, include the scanner in a larger software project that the state's rural software grant pays half of. The grant is for small firms in rural areas and funds only projects above a minimum size, so a monthly add-on alone is too small to qualify; see [Willing to pay](#willing-to-pay). Applications stay open for a year, with the dates under [Why now](#why-now). A shop already planning new software can put the compliance scan into the same application.
 
@@ -705,4 +803,4 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewrit
 
 2026-09-19 · green-claims lead assessed, checkout sweep, Willing to pay rescored — The lead the entry above left open, the Czech publisher of [S14] and its free green-claims check, was assessed. It is Pravano MG s.r.o. (IČO 29860148), registered on 4 August 2026 with one owner who also runs it; its articles date from 1 July 2026, before the company existed [S15]. The free check is a three-minute questionnaire, no attachments, asking whether a firm makes "eco" claims, holds proof, runs its own label and where it sells; a verdict on whether the rules touch it comes by e-mail within a working day, prepared by its system and approved by a person. It reads none of the shop's own claims. It is the door to fixed-price packages that review a firm's own claims once, from 19,900 CZK excl. VAT, and to a 3,900 CZK monthly e-mail on rule changes; business customers only, no buyer named, and every output called a readiness check, not a legal service [S15,S18]. So it is a service with a product's price list, not an article and not a scanner. Ledgered `competes: adjacent`, `maturity: early`, `since: 2026`: a service firm selling one-off reviews done to order, the clause that keeps the three law firms adjacent, on "eco" claims only, with a subscription that watches the rules rather than the shop. Then one positive-controlled sweep for anyone checking "eco" claims or the checkout's required information, in Czech, over web search, the 609-add-on Shoptet and Upgates corpus, ARES, the contracts ledger and the own-funded ledger, recorded as two gap checks with queries[] [S15,S16]. Controls passed: the Czech EmpCo query returned the known lead in six of nine results; the discount-rule query and the corpus pattern "ČOI" each returned both discount add-ons on file; the own-funded grep returned the one known mention of pravano.cz. Found and ledgered, never excluded: Flagship Impact's Greenwashing Check, a self-serve tool that reads pasted text or up to 20 pages and suggests rewrites, free for one page, monthly Pro plan unpriced, company registered May 2023, tool undated, `direct`, `early`, the one product found doing the "eco" half [S15]; APEK's yearly certificate, a 64-point audit by people of a shop's web with a protocol of fixes and a re-check, since 1999, 139 certified firms listed, `adjacent`, `established` [S16]; Toret Toolkit, a WooCommerce plug-in that builds in the order-button wording and delivery information, on sale since at least 5 February 2023 per the Wayback Machine, more than 600 shops, `adjacent`, `established` [S16]; Glocco, a Bratislava translation agency offering large multilingual sites a scan on request, and SYBA, the packaging institute advising on claims, both `adjacent`, `early` [S15]. What moved. `scores.gap` stays 1: two direct sellers, Pravoid and Flagship's tool, both early; nothing established sells this; an adjacent player never moves gap. `entry.incumbents` open → adjacent, as derived: two adjacent players are established. `scores.money` 0 → 1: the sweep found prices for this job done by hand, appended as receipts tagged `dims: [money]`, APEK's certificate at 18,000 CZK a year for non-members [S17] and Pravano's Scan at 19,900 CZK once [S18]. By the owner-approved rule for this record, a price counts only if it buys this job; the first buys the checkout half by hand, the second the "eco" half by hand, and the rescore entry above named a one-off audit price as the manual equivalent that would count. Both are list prices, so rung 1, not 2. `score` 7 → 8, FAIR → STRONG; status stays candidate. Prose re-read against the numbers. Market gap's answer was "One young Czech product keeps shops' legal texts current, others sell the discount rule or audits, and no add-on checks checkouts or "eco" claims [S5,S8,S10]." and now reads "Shops can pay for a check done by hand, two Czech products do parts of it, and no add-on checks checkouts or "eco" claims [S5,S8,S10,S15,S16]."; its three new items and detail describe the yearly check, the "eco" tool and the legal-text product, and the bullet "Outside the add-on stores, a Czech publisher of an explainer on the new green-claims rules offers a free check against them; whether it sells more is not known [S14]." was corrected, since it does sell more, into three bullets on that firm [S14,S15]. Willing to pay's answer was "No shop is known to pay for this scan yet; some pay for single fixes nearby, a discount-rule add-on or a one-off legal audit [S5,S10]." and now reads "Shops pay for this check done by hand, and 139 firms hold a trade association's yearly certificate that comes with a list of fixes [S16]."; "no shop is known to pay for this scan" survives as its first item, and the German subscriptions moved from the items to the detail. `entry.why` was "Easier: shops install add-ons themselves from the Shoptet store, the Czech sellers are young and publish no customer counts, no licence is needed, and it runs as ordinary software. Harder: most shops live with the risk of a fine rather than pay to remove it, and the Czech ban on vague "eco" claims has no start date." and now reads "Easier: shops install Shoptet add-ons themselves, the two rival products publish no customer counts, no licence is needed, and it is ordinary software. Harder: most shops live with the risk of a fine rather than pay to remove it, an association checks shops by hand yearly, and the "eco" ban has no Czech start date.", cut to fit 320 characters with nothing sourced dropped. Move 1 now says a Czech tool already checks text or pages when asked, move 2 prices against the Czech reviews and yearly checks, and move 3 names the association's yearly check. The 606-add-on bullet gained the 609 read by 1 September 2026 [S16]. FLAGGED as our reading, not a source's: that the 139 listed firms pay rests on the price covering a year's holding of the certificate [S16,S17], and no source names what a given firm paid; "a page the shop changes in between waits for the next year's check" rests on the certificate's yearly renewal and re-check [S16]; move 1's edge, reading every page unasked every week, is our reading of a tool that runs when given text or a link [S15]. FLAGGED for the owner, not changed: (1) the brief's "nothing checks a shop before the inspectors do [S1,S10]" is now false as written: a trade association checks 139 firms' shops by hand yearly, law firms audit once, and a paid review and a free tool check "eco" claims [S5,S15,S16]; the owner-approved headline was not touched. (2) The closest calls are APEK and Toret Toolkit. Read as "sells this job to these shops", APEK is direct; read as Pravoid is, a product doing part of the checkout-information job without scanning, Toolkit is direct. Either way it is established, so gap would be 0, status watching and the score 7. (3) Two of the three German comparables behind proof 3, Trusted Shops and Händlerbund, are a trustmark with an audit and an association with a seal, the German counterparts of APEK, so the ledger counts that model as proof abroad and as adjacent at home. (4) Právo e-shopů's row names one-off audits only, but it also sells tailored terms from 6,990 CZK with a yearly subscription that watches legislation and case law, the shape Pravoid is direct for (read 2026-09-19, [S16] note). (5) Flagship Impact at direct rests on its free tier being open to any shop; read as another segment, marketing teams, it is adjacent, and gap stays 1 either way. (6) Foreign self-serve "eco" scanners seen in the sweep, EcoClaim and others, are not added as comparables; proof is already 3. No title, brief, solution, good_for, draft_law, urgency, demand, proof, existing source note or existing marker changed.
 
-2026-09-19 · headline copy, brief corrected (owner-delegated) — Before, verbatim: "Inspectors caught 639 e-shops last year, usually for missing notices a shopper must see, like how to complain [S1]. Fines average about 20,000 CZK, and nothing checks a shop before the inspectors do [S1,S10]." After: "… Fines average about 20,000 CZK, close to what a yearly check by people costs, and no shop add-on does that check [S1,S10,S16,S17]." Why: the gap check above found APEK's yearly certificate, whose audit by people checks a shop's web and checkout against 64 legal points and lists what to fix [S16], at 18,000 CZK a year for non-members [S17]. So "nothing checks a shop" was false. What stays true is that no shop add-on does the check: the 606-add-on sweep found none on Shoptet or Upgates [S10], and Toret Toolkit builds checkout pieces into WooCommerce and checks nothing [S16]. "Close to" compares two sourced numbers, 18,000 CZK [S17] against the average fine of about 20,000 CZK [S1]. The title, solution and good_for are unchanged, and so are the scores.
+2026-09-19 · headline copy, brief corrected (owner-delegated) — Before, verbatim: "Inspectors caught 639 e-shops last year, usually for missing notices a shopper must see, like how to complain [S1]. Fines average about 20,000 CZK, and nothing checks a shop before the inspectors do [S1,S10]." After: "… Fines average about 20,000 CZK, close to what a yearly check by people costs, and no shop add-on does that check [S1,S10,S16,S17]." Why: the gap check above found APEK's yearly certificate, whose audit by people checks a shop's web and checkout against 64 legal points and lists what to fix [S16], at 18,000 CZK a year for non-members [S17]. So "nothing checks a shop" was false. What stays true is that no shop add-on does the check: the 606-add-on sweep found none on Shoptet or Upgates [S10], and Toret Toolkit builds checkout pieces into WooCommerce and checks nothing [S16]. "Close to" compares two sourced numbers, 18,000 CZK [S17] against the average fine of about 20,000 CZK [S1]. The title, solution and good_for are unchanged, and so are the scores. Same date, MATCH pass, merged here (one entry per date): linked reg-odstoupit-tlacitko-159-2026 as [S19]. Act 159/2026 puts the "Odstoupit od smlouvy" button in the civil code's general distance-contract rules (§ 1830a), so it binds every e-shop from 1 January 2027, and makes a missing button or confirmation an offence. It passes REAL, CLOSE and TEETH; urgency stays 1 because `draft_law:` caps it, and the badge stays. Gap re-checked [S20]: Retino (2017, 2,000+ shops) offers the button free, added to `locals[]` as adjacent and established; Shoptet ships its own, which each shop must switch on [S21]. Gap stays 1; `entry` unchanged. Why now's answer now names the button; a button item, a paragraph, two dates, two Market gap bullets and a line in move 3 added. The new offence's fine amount was not read and is not claimed. No title, brief, solution, good_for, draft_law or score changed.

@@ -622,6 +622,30 @@ sources:
     its addendum of 10 February 2026, 0 CZK (36455365, 36774981).'
   date: '2026-02-10'
   dims: [gap]
+- type: regulation
+  name: "Draft reimbursement decree for 2027 — CZ-DRG payment continues, 95 percent for late-reported care"
+  gist: "the ministry's 2027 draft"
+  why: "The health ministry's draft reimbursement decree for 2027, open for comment until 23 September 2026, keeps paying hospitals' acute inpatient care through CZ-DRG case groups and keeps paying only 95 percent for care reported late."
+  url: https://odok.gov.cz/portal/veklep/material/ALBSDXRFYLM6/
+  note: 'veklep-ALBSDXRFYLM6 (VeKLEP feed, 2026-09-19): "Návrh vyhlášky o stanovení hodnot bodu,
+    výše úhrad hrazených služeb ... pro rok 2027", under s. 17(5) of Act 48/1997, authorised
+    2026-09-09, comments due 2026-09-23. The same decree is reg-uhradova-2027-centrove-leky-slevy
+    (reg-scan), linked on p-0035 for its centre-drug analysis. STATUS: DRAFT, not issued; effect
+    "dnem 1. ledna 2027". Read from the explanatory memorandum
+    (data/raw/2026-09-19/regulation/veklep/zd_ALBSDXRFYLM6.txt, 2026-09-19): "V roce 2027 pokračuje
+    proces implementace úhradového a klasifikačního systému CZ-DRG do akutní lůžkové péče"; all
+    acute care provided in 2025 is reclassified into CZ-DRG version 2027 by retrospective
+    algorithms; two new payment mechanisms regroup DRG groups; "je zachován koeficient snižující
+    úhradu za hrazené služby za rok 2027 vykázané po termínu 31. března 2028 na 95 %", because data
+    completeness was insufficient in the past. It supersedes the 2026 decree
+    (reg-mzd-uhradova-432-2025) from 1 January 2027; this problem never cited that decree. CONTEXT,
+    dims empty: a draft fails REAL, CZ-DRG is the status quo rather than a new dated duty, and the
+    95 percent rule is kept, not new ("je zachován"), and changes what insurers pay rather than
+    setting a duty to structure or code reports. Urgency stays on S6 alone. It bears on the coding
+    half that S21 shows hospitals already pay for, not on the template half the solution leads on.'
+  date: '2027-01-01'
+  signal: veklep-ALBSDXRFYLM6
+  dims: []
 created: '2026-09-03'
 updated: '2026-09-19'
 ---
@@ -664,6 +688,8 @@ Behind those three items are the pilots hospitals have already run, the hackatho
 - Since 1 January 2026 providers must follow the health ministry's electronic-health standards, and the ministry's own e-health centre says those standards are lightly structured for now, with structured documentation to follow [S7]. The national discharge-report standard stands at version 1.0.2 of March 2023, with version 2.0 scheduled for late 2025 and no binding date published [S7].
 - From 26 March 2031 the European Health Data Space, the EU regulation on sharing health data, requires medical imaging reports and hospital discharge reports to be exchangeable across the EU in one common format [S6]. The regulation has been in force since 26 March 2025 and applies generally from 26 March 2027; patient summaries and prescriptions come first, from 26 March 2029 [S6].
 - The state money closes on 2 December 2026 at 14:00, and every project it pays for has to be finished by 31 December 2027 [S8].
+- A draft health ministry decree for 2027, open for comment until 23 September 2026, keeps paying hospitals' acute inpatient care through CZ-DRG (the Czech system of case groups the insurer pays on) and moves all 2025 acute care into its 2027 version [S22].
+- The same draft keeps paying only 95 percent for 2027 care reported after 31 March 2028 [S22].
 
 The only legal date for reports as data is the EU's, in 2031; December is when the grant money stops, not a duty on hospitals [S6,S8].
 
@@ -740,4 +766,4 @@ The coder wage, searched and not added: the ÚP vacancy data for March to Septem
 
 Body: Market gap now opens on the coding half being taken, with two new items: hospitals paying under registered contracts, and the adjacent coding-supervision firm [S21]. Its paragraph on the three vendors now names them as the subject, since the answer sentence no longer does. Willing to pay now opens on hospitals paying for the coding half in coders' time and in software [S3,S21]. Its second item, the free pilot, moved below the first three, and three items were added below: the tender purchase, pilot-before-invoice and the coder deciding the codes [S21]. Move 3 no longer says the coding half will be given away or that no hospital pays; it says not to sell the coding step alone and links to Willing to pay. Not changed: title, brief, solution, good_for, `price_search`, the process block, urgency, proof and demand. The headline's "pay twice" now has receipts behind it, and whether the brief should say so is the owner's call.
 
-2026-09-19 · solution line reworded (owner-delegated) — Before, verbatim: "Build report templates inside the hospital's own software that pre-fill codes for staff to check, as 3 companies already do in Germany." After: "Build report templates that doctors fill in inside the hospital's own software, so staff only confirm the codes, as companies in Germany already do." Why: the Willing to pay search above found hospitals paying a Czech vendor for code proposals from the finished report [S21], so a line that led on pre-filled codes now read as the product already on sale. The new line leads on the half nobody sells here, the template the doctor fills in, which First moves 1 and 3 already say [S16]. "3 companies" became "companies": the German companies on file split across the two halves, one on the report and two on the codes [S10,S12]. No score, status, source, title, brief or body sentence changed.
+2026-09-19 · solution line reworded (owner-delegated) — Before, verbatim: "Build report templates inside the hospital's own software that pre-fill codes for staff to check, as 3 companies already do in Germany." After: "Build report templates that doctors fill in inside the hospital's own software, so staff only confirm the codes, as companies in Germany already do." Why: the Willing to pay search above found hospitals paying a Czech vendor for code proposals from the finished report [S21], so a line that led on pre-filled codes now read as the product already on sale. The new line leads on the half nobody sells here, the template the doctor fills in, which First moves 1 and 3 already say [S16]. "3 companies" became "companies": the German companies on file split across the two halves, one on the report and two on the codes [S10,S12]. No score, status, source, title, brief or body sentence changed. Same date, evidence audit, merged here (one entry per date): linked the health ministry's draft reimbursement decree for 2027 [S22]: it keeps CZ-DRG payment for acute care and 95 percent pay for late-reported care. Context only, dims empty: a draft fails REAL, CZ-DRG is the status quo, and the 95 percent rule is kept, not new. Urgency stays 1 on [S6]. Two Why now detail bullets added. The solution line above stands: the decree bears on the coding half, not the template. Gap re-checked: no new seller, stays 0. Scores unchanged.
