@@ -105,6 +105,17 @@ locals:
   maturity: early
   evidence: 'A host tool from Italy with a Czech page; it says its automatic sending to the police
     system is being finished [S9].'
+- name: ODP-software (SněžníkPass)
+  url: https://www.odp.cz/evidence-a-vyber-poplatku-z-pobytu-pro-obce.html
+  ico: '61683809'
+  competes: adjacent
+  maturity: early
+  evidence: 'Sells the other side of the counter: SněžníkPass, a system the towns of the Králický
+    Sněžník region use to administer the stay fee, where guests register their own stay for a
+    discount card and the town sees stay reports and sends hosts payment demands [S9]. It serves
+    towns, not the host''s check-in and police filing an entrant here would sell. The company has
+    traded since June 1995, but when this product started selling is not published and only one
+    regional scheme was found, so its reach is unknown.'
 process:
   summary:
     today: 'Reception staff record each guest, retype foreign guests into the police system within 3 working days, and keep separate records for the town''s fee and the statistics office [S1,S3,S5].'
@@ -162,7 +173,12 @@ sources:
     get about 44,709,620 CZK or about 47,970,000 CZK (the RIA gives both). The RIA gives no hours or
     CZK per host per year ("nelze určit obecně"). Effect 1 January 2028; still a draft, so it
     fails REAL and Why now stops at rung 1. The state''s own statement of the duplicate burden
-    also backs demand.'
+    also backs demand.
+    Added 2026-09-19, re-read from the same document (fetched from www.odok.gov.cz, to which
+    www.odok.cz redirects): annex 9, minutes of the 7 April 2026 meeting at MMR, records that the
+    first impulse for the amendment was "zefektivnit výběr místního poplatku z pobytu, zjednodušit
+    administrativní povinnosti ubytovatelů a současně získat kvalitnější data". The RIA''s own
+    summary also states the fee office''s register access under § 9n(1)(c) and the new § 14a(7).'
   date: '2028-01-01'
   signal: reg-eturista-registr-ubytovani-2028
   dims: [urgency, demand]
@@ -195,7 +211,14 @@ sources:
   note: 'Bill text read 2026-09-18: § 9h(2) the host enters the guest "bezprostředně po" arrival,
     "nejpozději však do 24 hodin"; § 10c(3) fines "a) 100 000 Kč" (a natural person acting as
     host, § 10c(2)) and "b) 1 000 000 Kč" (§ 10c(1)); § 10b(11)(d) "10 000 000 Kč" for a platform;
-    "Tento zákon nabývá účinnosti dnem 1. ledna 2028." Draft in comment procedure.'
+    "Tento zákon nabývá účinnosti dnem 1. ledna 2028." Draft in comment procedure.
+    Added 2026-09-19, re-read from www.odok.gov.cz (www.odok.cz redirects there): § 9n(1)(c)
+    gives the town''s fee office ("správce poplatku") register data "pro výkon správy místních
+    poplatků"; Part two (Čl. II) adds § 14a(7) to zákon 565/1990 Sb. so that entering the data in
+    the register "se považuje za splnění povinnosti podat ohlášení k poplatku z pobytu"; § 9l has
+    the municipal office with extended powers order a platform to remove or block a listing
+    without a valid registration number. The town-side fee problem therefore sits inside this
+    bill rather than beside it.'
   date: '2028-01-01'
   dims: []
 - type: news
@@ -277,7 +300,19 @@ sources:
     MISSED (Wultra and Softlink, same shapes as p-0038). IN-MARKET CONTROL PASSED: the Seznam
     query "online check-in ubytování hlášení cizinců Ubyport aplikace" surfaced Best Guest, a
     vendor already known from the web-search pass. The gap score rests on Previo and Chekin, which
-    were found, not on any absence.'
+    were found, not on any absence.
+    Added 2026-09-19, TOWN SIDE re-checked with the arb-scan run for us-deckard: ODP-software,
+    spol. s r.o. (IČO 61683809, ARES 1995-06-05, re-read 2026-09-19) runs SněžníkPass for the
+    towns of the Králický Sněžník region: "Evidence a výběr poplatků z pobytu pro obce", with
+    "Zaslání výzvy k platbě ubytovacích poplatků vybranému ubytovateli" and "Veřejně dostupná
+    samoregistrace pobytu pro hosty" (odp.cz, page dated June 2024). Ledgered as adjacent, early:
+    it sells fee administration to towns, not host check-in, and moves no score. Deckard (US,
+    Rentalscape, more than 400 jurisdictions) sells towns the detection of unregistered short-term
+    rentals and tourist-tax recovery; it sells to towns, not hosts, so it is NOT a comparable and
+    proof does not move. Still no Czech seller found that finds unregistered hosts for towns, and
+    the bill gives the fee office the register data itself (S4). Arb-scan controls: Wultra PASSED;
+    in-market "hotelový systém automatické hlášení cizinecké policii Ubyport česká firma" surfaced
+    Best Guest, Trevlix, Superhostem, Hostivio and Vezpa, PASSED, but missed Previo.'
   date: '2026-09-18'
   queries:
     - "AHR ČR eTurista duplicitní hlášení ubytovatelé Ubyport evidenční kniha"
@@ -293,6 +328,9 @@ sources:
     - "online check-in ubytování hlášení cizinců Ubyport aplikace"
     - "české řešení pro zabezpečení mobilního bankovnictví silná autentizace podpisy v mobilu dodavatel"
     - "dálkové odečty vodoměrů software pro vodárny česká firma"
+    - "software pro obce dohledání neregistrovaných ubytovatelů Airbnb kontrola poplatku z pobytu"
+    - "město monitoring krátkodobých pronájmů Airbnb data nástroj magistrát vymáhání poplatek z pobytu firma"
+    - "hotelový systém automatické hlášení cizinecké policii Ubyport česká firma"
   checked: [google-cz, cz-contract-parties, ares]
   expires: '2026-12-17'
 - type: arbitrage
@@ -337,6 +375,19 @@ sources:
   amount_czk: 9490
   unit: one-off
   basis: list-price
+- type: news
+  name: "e15 — Prague and the tax authority share data on Airbnb hosts"
+  gist: "Prague's 2018 data deal"
+  why: "In August 2018 Prague and the General Financial Directorate signed a memorandum to exchange data on people letting flats through Airbnb, so the city could call hosts in to register for the accommodation fee."
+  url: https://www.e15.cz/byznys/reality-a-stavebnictvi/praha-a-financni-sprava-budou-sdilet-informace-o-lidech-kteri-pronajimaji-byty-pres-airbnb-1350666
+  note: 'e15.cz (ČTK), 31 August 2018, read 2026-09-19: "Generální finanční ředitelství (GFŘ) a
+    hlavní město uzavřely memorandum o výměně informací ohledně lidí, kteří krátkodobě pronajímají
+    byty přes službu Airbnb"; "Praha je využije k výběru ubytovacích poplatků"; city spokesman Vít
+    Hofman: "Poskytovatele ubytování následně vyzveme k přihlášení se k místnímu a lázeňskému
+    poplatku". Demand receipt for the town side of the same duty: a town has worked for years to
+    find hosts and collect the fee.'
+  date: '2018-08-31'
+  dims: [demand]
 created: '2026-09-18'
 updated: '2026-09-19'
 ---
@@ -360,7 +411,7 @@ Existing non-solutions: The most used Czech hotel software and several small Cze
 The hotel software is established, with thousands of clients; the apps are young and publish no customer counts; see [Market gap](#competition) [S9]. A Spanish check-in service also sells police filing and the planned register on its Czech page [S10]. Prices run from a charge per check-in to a licence with a monthly fee; see [Willing to pay](#willing-to-pay).
 
 - None of these tools removes the separate duties themselves, which only the law can merge [S1].
-- No Czech seller or contract was found for helping towns find hosts who do not pay the fee [S9].
+- For towns, one Czech firm runs fee records with guest self-registration for one mountain region's towns [S9]. No Czech seller or contract was found for finding hosts who do not pay the fee [S9].
 
 Why now: Hosts keep filing several ways until 2028 at the earliest, and the bill would then require each guest within 24 hours [S1,S4].
 
@@ -374,6 +425,8 @@ The dates and rules behind this:
 - In September 2026 the ministry sent the bill out for comments [S7]. The previous government's version was never passed by parliament [S7].
 - On 1 January 2028 the bill would take effect [S4].
 - Under the bill, a private host who breaks its rules could be fined up to 100,000 CZK, and a platform up to 10M CZK [S4].
+- Under the bill, the town's fee office would read guest data from the register, and a register entry would count as the host's fee notification [S4]. Collecting the fee better was the ministry's first aim [S1].
+- Prague has tried since 2018 to get lists of flat hosts from the tax authority, to call them in for the fee [S13].
 - Between 40% and 70% of stays booked through online platforms went unreported, the ministry says [S6].
 
 Who pays: Hosts already pay for check-in software, and the state is paying to build its own register [S8,S9].
@@ -398,4 +451,4 @@ It was founded in Seville in 2017 and names filing for Spain, Italy, Portugal an
 
 2026-09-18 · record created — Minted from the eTurista bill and its impact assessment [S1,S4] and the EU short-term rental regulation [S2]. Demand 2 on the state's own statement of the duplicate burden [S1], hoteliers' statements [S5] and the ministry's figures on unpaid fees [S6]. Money 1 on the ministry's contract to build the register, which is public money on this problem but pays for the state's own system [S8]. Urgency 2: the bill's 1 January 2028 date is under 18 months away but it is still a draft, so the deadline scores 1, plus sources fresher than 90 days [S4,S7]. Proof 2 on one established Spanish comparable [S10]. Gap 0 and status watching: the most used Czech hotel software already files foreign guests to the police automatically, and the Spanish comparable sells the same in Czech [S9,S10]. Correction to the signal: the ministry's plan date of 1 January 2027 could not be confirmed from a primary source; the bill itself says 1 January 2028 [S4]. No draft-law badge: hosts file several ways today whatever happens to the bill. The web search budget ran out during this pass, so the standing positive controls were run on Seznam and missed; an in-market control passed [S9].
 
-2026-09-19 · rescored to the 2026-09-19 ladders — Why now 2 → 1 and the total 7 → 6; the band stays FAIR. Willing to pay stays 1, now on a price receipt instead of public money. Why now: the old 2 was deadline 1 for the eTurista bill plus the freshness point, which is retired. The bill [S1,S4] is still a draft, so it fails REAL. The EU short-term-rental rule [S2] puts its duties on platforms and on a national registration scheme Czechia does not run, so it reaches hosts only indirectly. The 3-working-day police report [S3] is the status quo. Rung 1. Willing to pay: the old 1 rested on the ministry's contract to build the state register [S8]. That buys the state's own system, not this job, so its dims are now empty and its note no longer claims money 1. Tagging pass: Best Guest's list price, 10 CZK per completed check-in [S11], is a published price for an online check-in that files the police report. That is this job, so it is now tagged money: an asking receipt, rung 1. Not tagged or restated: Previo's 9,490 CZK setup fee [S12] buys a whole hotel system, of which the police filing is one feature. Of the other prices in the gap check [S9], Trevlix's "from 90 CZK a month" and Ubytovačka's 69 CZK a month are the entry tiers of booking systems. Neither page, re-read 2026-09-19, shows that the tier includes the police filing. Checkinn.cz's price is given only as "about 590 CZK a month", and whether ubytovaci-kniha.cz files to the police at all is unconfirmed. No price for this job has been paid on file, so there is no paid receipt, and hosts are private buyers with no public contract to find. Body: the 2 `[Competition](#competition)` links now read `[Market gap](#competition)`. The Why now and Willing to pay prose already matched the new numbers and is unchanged. S1's note no longer names the deadline sub-score. No other score, status, marker or `entry` gate changed.
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now 2 → 1 and the total 7 → 6; the band stays FAIR. Willing to pay stays 1, now on a price receipt instead of public money. Why now: the old 2 was deadline 1 for the eTurista bill plus the freshness point, which is retired. The bill [S1,S4] is still a draft, so it fails REAL. The EU short-term-rental rule [S2] puts its duties on platforms and on a national registration scheme Czechia does not run, so it reaches hosts only indirectly. The 3-working-day police report [S3] is the status quo. Rung 1. Willing to pay: the old 1 rested on the ministry's contract to build the state register [S8]. That buys the state's own system, not this job, so its dims are now empty and its note no longer claims money 1. Tagging pass: Best Guest's list price, 10 CZK per completed check-in [S11], is a published price for an online check-in that files the police report. That is this job, so it is now tagged money: an asking receipt, rung 1. Not tagged or restated: Previo's 9,490 CZK setup fee [S12] buys a whole hotel system, of which the police filing is one feature. Of the other prices in the gap check [S9], Trevlix's "from 90 CZK a month" and Ubytovačka's 69 CZK a month are the entry tiers of booking systems. Neither page, re-read 2026-09-19, shows that the tier includes the police filing. Checkinn.cz's price is given only as "about 590 CZK a month", and whether ubytovaci-kniha.cz files to the police at all is unconfirmed. No price for this job has been paid on file, so there is no paid receipt, and hosts are private buyers with no public contract to find. Body: the 2 `[Competition](#competition)` links now read `[Market gap](#competition)`. The Why now and Willing to pay prose already matched the new numbers and is unchanged. S1's note no longer names the deadline sub-score. No other score, status, marker or `entry` gate changed. Same date, evidence audit, merged here: the bill text [S4] and the impact assessment [S1] were re-read for the town side. The town's fee office gets register data, a register entry counts as the host's fee notification, and platforms must remove listings without a number [S4], so the town-side fee problem sits inside the bill, not in a separate record. Added: Prague's 2018 data deal with the tax authority [S13], and a Czech town-side fee system on the ledger as adjacent [S9]. A US town-side vendor was judged not a comparable. No score changed.

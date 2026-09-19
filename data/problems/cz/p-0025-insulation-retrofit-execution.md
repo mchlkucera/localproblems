@@ -102,6 +102,18 @@ locals:
     not the standardised crew-and-fixed-price operator an entrant here would run; it claims 500+
     customer renovations delivered, by a firm [S6] describes as 25 years old, which dates the
     start of trading to about 2001.
+- name: HOLBORN GROUP
+  url: https://www.holborn.cz/
+  ico: '26429403'
+  since: 2001
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells turnkey renovation of panel and apartment blocks to the owners of whole
+    buildings: facade insulation, ventilated facades, extended loggias and repairs of common
+    areas, built on site by conventional methods [S12]. Its public customer count is more than
+    850 renovated buildings, and it says it has done this work since 2001; HOLBORN GROUP s.r.o.
+    has traded since January 2001. That is the blocks-of-flats market, sold to owner associations
+    and cooperatives, not the family house an entrant here would insulate for its owner.'
 process:
   summary:
     today: 'One firm surveys and prices the roof and loft, another the facade, and the homeowner can pay a third for the energy assessment and subsidy application [S6,S7].'
@@ -326,6 +338,60 @@ sources:
   date: '2031-12-31'
   signal: dotace-sfzp-1-2026-nzu-fn-kompenzace
   dims: [money]
+- type: arbitrage
+  name: "ecoworks"
+  gist: "the Berlin serial renovator"
+  why: "A Berlin firm renovates occupied blocks of flats with factory-made facade and roof modules, insulation and windows built in, and in March 2026 received €23M to do 12 buildings for a housing cooperative in Hagen."
+  url: https://www.eu-startups.com/2026/03/e23-million-backs-ecoworks-in-rolling-out-germanys-largest-serial-building-renovation/
+  note: 'de-ecoworks (arb-scan, 2026-09-19), linked in MATCH 2026-09-19. ecoworks (Berlin, founded
+    2019) scans and plans a building digitally, then mounts factory-made timber-frame facade and
+    roof modules; EUR 23M received 2026-03-31 as project capital for a 12-building, 192-flat serial
+    renovation for Wohnungsverein Hagen eG (the url); last equity a EUR 40M Series A in December
+    2023 (tech.eu). NOT A COMP and dims empty: it sells whole-building renovation to cooperatives
+    and landlords of apartment blocks, not the family-house insulation job sold to a homeowner that
+    solution names, so it does not join the three German firms and proof does not move. It is on
+    file for the apartment-block buyers the body names as a later market, and for the Czech
+    apartment-block check it came with (S12).'
+  date: '2026-03-31'
+  signal: de-ecoworks
+  dims: []
+- type: gap-check
+  name: "Czech apartment-block renovation check"
+  gist: "the panel-block contractors"
+  why: "Looked for a Czech firm renovating blocks of flats with factory-made facade modules. Found conventional turnkey panel-block contractors, the largest with 850+ buildings, and no factory-module player and no Czech pilot."
+  url: https://www.holborn.cz/
+  note: 'Czech check run by arb-scan 2026-09-19 for de-ecoworks (S11), re-read in MATCH the
+    same day. FOUND: HOLBORN GROUP s.r.o., IČO 26429403, ARES-dated 2001-01-23 (re-read
+    2026-09-19), holborn.cz: "Rekonstrukce panelových a bytových domů na klíč", "850 + Počet
+    zrekonstruovaných domů", "Revitalizacemi panelových a bytových domů se zabýváme od roku 2001",
+    services ETICS, ventilated facades, loggia extensions. Also surfaced, maturity not checked
+    and not ledgered: ŠMÍD STAVEBNÍ, Fasády Šimek, IVPS Praha, TOMIreko, all conventional
+    turnkey contractors. No Czech player selling serial renovation with prefabricated facade
+    modules and no Czech Energiesprong pilot (only TZB-info and James Hardie articles on a Munich
+    project). SCOPE: all of this is the apartment-block market, bought by SVJ and cooperatives;
+    this record''s buyer is the family-house owner, so HOLBORN is adjacent and gap does not move.
+    CONTROLS: Wultra (google-cz + ARES, IČO 03643174) PASSED; Ringil on a TMS query MISSED. An
+    absence found here raises nothing.'
+  date: '2026-09-19'
+  queries:
+    - "sériová renovace bytových domů prefabrikované fasádní panely Česko"
+    - "revitalizace panelového domu na klíč prefabrikované dřevěné fasádní moduly firma"
+    - "Energiesprong Česká republika pilotní projekt bytový dům"
+  checked: [google-cz, ares, own-funded-ledger]
+  expires: '2026-12-18'
+- type: news
+  name: "Deník — panel blocks face a second round of repairs"
+  gist: "the second-round repairs"
+  why: "Panel estates house about 28% of Czech households, and some blocks insulated cheaply between 1995 and 2010 now face damp, thermal bridges and failing balconies."
+  url: https://www.denik.cz/ekonomika/cesko-levne-zatepleni-panelaky/
+  note: 'Deník, 14 July 2026, saved by arb-scan for de-ecoworks and read 2026-09-19: "Panelová
+    sídliště zůstávají domovem zhruba 28 procent českých domácností"; over 40% in Prague, the
+    Ústí and Moravian-Silesian regions (Sociologický ústav AV ČR); "Domy, které byly zrenovované
+    mezi roky 1995 až 2010 a měly být na generaci vyřešené, znovu zápasí s vlhkostí, tepelnými
+    mosty". About apartment blocks, not this record''s family-house buyer, so dims empty: it
+    backs the later-buyer line only.'
+  date: '2026-07-14'
+  dims: []
 created: '2026-08-13'
 updated: '2026-09-19'
 ---
@@ -350,6 +416,7 @@ The national installer uses its own technicians and helps with the subsidy, so i
 - A general contractor paired with a subsidy agency sells turnkey renovation, facade insulation included; it is a building firm with a subsidy desk, not a standard crew job at a fixed price [S6].
 - Woltair proved in Czechia that one firm can sell heat pumps and solar panels with its own installers, and it is not shown selling insulation [S3,S6].
 - Schlieger, a Czech installer with 23,000+ installations, handles the subsidy in-house but sells no insulation either [S6].
+- For blocks of flats, an established Czech contractor sells turnkey renovation to the building's owners, built on site; no Czech firm was found using factory-made facade modules [S12].
 - No firm was found doing the whole house, facade included, at a published fixed price, nationally, with the subsidy handled [S7]. Not finding one does not prove none exists [S6].
 
 Why now: Homeowners wait for separate surveys and quotes today, and Czechia is already late with EU rules that push homes toward renovation [S5,S7].
@@ -378,6 +445,7 @@ Since 16 September 2026 a homeowner holding a subsidy decision can also borrow f
 
 - A fixed-price job done in one day is the way in, as the German crew firm shows [S1]. Handling the subsidy in-house takes the paperwork off the homeowner.
 - Apartment-owner associations and housing cooperatives, which run blocks of flats, could be later buyers. The state's new zero-interest renovation loans are open to them too [S10].
+- About 28% of Czech households live on panel estates, and some blocks insulated cheaply between 1995 and 2010 now need a second round of repairs [S13].
 
 Solved elsewhere: Three German firms already sell this: one insulates with its own crews at a fixed price, two handle the subsidy and the delivery [S1,S4].
 
@@ -386,6 +454,8 @@ Solved elsewhere: Three German firms already sell this: one insulates with its o
 - The third sells digital energy audits, subsidy handling and renovation delivery.
 
 The crew firm trains career-changers as certified installers and runs the operation on software, so it trains its own installers rather than selling software to installers [S1]. The second firm delivers through contractors, and was funded a month after the crew firm [S4]. All three are in Germany [S1,S4]. In the US a funded firm runs home painting the same way, as one software-run business, without a subsidy to handle [S8].
+
+For blocks of flats, a Berlin firm renovates occupied buildings with factory-made facade and roof modules, for a housing cooperative among others [S11]. It sells to the owners of whole buildings, not to homeowners, so it is a neighbour to this model rather than a fourth example [S11].
 
 ## Revisions
 
@@ -412,4 +482,4 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 5 `locals[].evidence` lines were rewrit
 
 2026-09-18 · body rewritten to the writing rules, and a process figure — Every section now opens with ONE answer sentence and its three most important items, with the rest below as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the patchwork of firms, surveys and paid paperwork, with the subsidy's name and what it co-pays below [S2,S3,S6,S7]. Competition names no ledger company: the national roof-and-loft installer, the regional facade firm and the one-region crews are described by what each sells, and their building count, years, cities, application count and company numbers stay in their `locals[]` rows [S7]; the two adjacent ledger firms (the manufacturer's partner channel, the contractor with a subsidy desk) now appear in the detail from the sweep that found them [S6], beside Woltair and Schlieger, the Czech heat-pump and solar installers that sell no insulation [S3,S6]. Why now opens on the separate surveys and the late EU rules, then three pain items (each firm surveys and prices separately, the paid subsidy paperwork, the EU warning), then the directive's dates and the two German rounds as plain bullets [S1,S4,S5,S6,S7]. Willing to pay says homeowners already pay installers per job and the subsidy pays part [S2,S7]; the subsidy desk's fee is described without its amount, which lives in its price receipt [S6,S9]. Validated abroad names none of the three German firms: their rounds, prices, sites, partner counts and years stay in their `comps[]` rows, and the body keeps what each sells and that the second was funded a month after the first [S1,S4]. `entry.why` is now "Easier: … Harder: …" with the same gates (homeowners sign directly, no licence, crews in the field, money spent before the first job) plus the established installer, whose name and building count left it for its ledger row. S8 gained a public name, gist and why, and is now cited in the body [S8]. Added from sources already on file: Schlieger [S6], the adjacent ledger firms [S6], and from S5's page, read at its URL on 2026-09-18, the 29 May 2026 deadline and the letters sent to all 27 EU countries [S5]. Corrected against the sources rather than the old sentences: "thousands of small regional firms" and "hundreds like it" became "many", because no source counts them [S3,S6]; "the Commission opened infringement" against Czechia became formal warnings sent to all 27 EU countries, Czechia among them, which is what S5's page says [S5]; "minimum-efficiency trajectories for homes" became a renovation path for homes and minimum energy standards for other buildings, as S5's page splits them, and the 2030 and 2033 dates are kept from S5's note because the page itself gives no years [S5]; "Nobody sells the whole envelope at one fixed price" became "No firm was found", with the sweep's own caveat [S6,S7]; "Woltair still sells no insulation" became "is not shown selling insulation", because the deeper sweep records Woltair as not verified either way [S3,S6]; "selling software to firms too small to buy it" lost "too small to buy it", which no source supports [S1]; "execution capacity is the bottleneck" was cut, as the 2026-08-24 pass cut the other labour-capacity claims, and the link to the public-buildings problem stays [S5]; "proven next door, nowhere else yet" became "All three are in Germany", because no source says the model exists nowhere else and a US firm on file runs home painting the same way [S1,S4,S8]. Flagged as inference: "Because it is a standing programme, households already apply for this work" is a plain reading of S2's "pre-validates household demand" [S2]; the one-day fixed-price job as "the way in", and in-house subsidy handling taking the paperwork off the homeowner, are our reading of the German crew firm [S1]; apartment-owner associations and housing cooperatives as later buyers rests on no source. New `process` block, four steps, every today step documented: the roof-and-loft installer and the facade firm each survey and quote their own part, a paid subsidy desk does the energy assessment and the subsidy application, and each firm's crew insulates only its own part [S6,S7]. The figure draws the paperwork before the work, following the brief's order; no source says which comes first. No score, status, `entry` gate value, `sources[]` order, `note:`, title, brief, solution or good_for changed. Same date, later pass, merged here: evidence added from the monthly scans. The state environment fund's new call lets banks lend subsidy holders renovation money at no interest or fees, up to 50bn CZK of loans by 2031 [S10]; it sits under Willing to pay. Money stays 1: the 50bn CZK is loan volume, and the public money is an unpublished interest subsidy paid to banks. The same call covers apartment-owner associations and housing cooperatives, so the line naming them as later buyers now carries a source for their access to the money [S10]; that they would buy remains our inference. No score or status changed.
 
-2026-09-19 · rescored to the 2026-09-19 ladders — Tagging pass first: every source on file was read for someone paying for this job, the whole house insulated at one price with the subsidy handled, or its manual equivalent. One source is: the subsidy desk's published fee, a 10,000 CZK deposit for the survey, energy assessment and subsidy handling, then 40,000 CZK on approval [S9], a list price for the paperwork half of the job, now tagged `dims: [money]`. Not counted, and why: the national installer and the regional facade firm price each house on survey and publish no amount [S7]; the German crew firm's fixed price is foreign [S1]; the insulation manufacturer's public buyer on the contracts register buys material, not the installed job; and the zero-interest loans [S10] pay banks an interest subsidy, not the job. `scores.money` 1 → 2: the asking price [S9] plus the public-money lift from the standing renovation subsidy [S2], which names homeowners, funds insulation, is open, and co-pays only part of each job. DEPARTURE FROM THE WORKSHEET, which kept money at 1 because the subsidy "names homeowners, while `entry.buyer` is small firms": CONVENTIONS.md defines `small-firms` to include households, so the homeowner is this record's buyer type and the lift's condition holds. If the owner reads the buyer otherwise, money is 1 and the total 4, FAINT. `scores.urgency` 2 → 1: the freshness point is retired, and the EU buildings directive [S5] is not Czech law, binds member states, and its residential dates, 2030 and 2033, are more than 18 months out. `score` 5 → 5, FAIR unchanged. The notes on S2, S5, S9 and S10 named retired rungs and gained a dated rescore line; their original text is left as written. One `[Competition](#competition)` link now reads `[Market gap](#competition)`. Why now gained one bullet so the prose matches rung 1: until Czech law sets the dates, no date binds a homeowner [S5]. Willing to pay was re-read and left as written: it already says homeowners pay installers house by house and the subsidy pays part [S2,S7]. No other score, status, source order, marker or headline field changed.
+2026-09-19 · rescored to the 2026-09-19 ladders — Tagging pass first: every source on file was read for someone paying for this job, the whole house insulated at one price with the subsidy handled, or its manual equivalent. One source is: the subsidy desk's published fee, a 10,000 CZK deposit for the survey, energy assessment and subsidy handling, then 40,000 CZK on approval [S9], a list price for the paperwork half of the job, now tagged `dims: [money]`. Not counted, and why: the national installer and the regional facade firm price each house on survey and publish no amount [S7]; the German crew firm's fixed price is foreign [S1]; the insulation manufacturer's public buyer on the contracts register buys material, not the installed job; and the zero-interest loans [S10] pay banks an interest subsidy, not the job. `scores.money` 1 → 2: the asking price [S9] plus the public-money lift from the standing renovation subsidy [S2], which names homeowners, funds insulation, is open, and co-pays only part of each job. DEPARTURE FROM THE WORKSHEET, which kept money at 1 because the subsidy "names homeowners, while `entry.buyer` is small firms": CONVENTIONS.md defines `small-firms` to include households, so the homeowner is this record's buyer type and the lift's condition holds. If the owner reads the buyer otherwise, money is 1 and the total 4, FAINT. `scores.urgency` 2 → 1: the freshness point is retired, and the EU buildings directive [S5] is not Czech law, binds member states, and its residential dates, 2030 and 2033, are more than 18 months out. `score` 5 → 5, FAIR unchanged. The notes on S2, S5, S9 and S10 named retired rungs and gained a dated rescore line; their original text is left as written. One `[Competition](#competition)` link now reads `[Market gap](#competition)`. Why now gained one bullet so the prose matches rung 1: until Czech law sets the dates, no date binds a homeowner [S5]. Willing to pay was re-read and left as written: it already says homeowners pay installers house by house and the subsidy pays part [S2,S7]. No other score, status, source order, marker or headline field changed. Same date, evidence audit, merged here: a Berlin serial renovator of apartment blocks [S11] was judged not a comparable, because it sells whole-building renovation to cooperatives, not the family-house job, so proof stays 2 and the solution's count of 3 German firms stands. The Czech check that came with it found an established panel-block contractor, now on the ledger as adjacent (blocks of flats, not family houses), and no factory-module player [S12]; gap stays 0 on the national installer. A news source puts 28% of households on panel estates [S13]. No score changed.
