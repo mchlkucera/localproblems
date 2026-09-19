@@ -13,19 +13,19 @@ price_search: 'Registr smluv full-text for "vykazování zdravotní péče" or "
   what a coder-year costs.'
 category: health
 geo: CZ-national
-score: 7
+score: 8
 scores:
   proof: 3
-  money: 0
+  money: 2
   urgency: 1
   demand: 2
-  gap: 1
+  gap: 0
 status: candidate
 entry:
   level: very-hard
   buyer: public
   permission: none
-  incumbents: adjacent
+  incumbents: direct
   integration: software
   money: outside-money
   why: 'Easier: no licence is needed; the templates sit inside the hospital''s own software; and a state call already pays hospitals for documentation work. Harder: the buyers are public hospitals, so each sale is a tender on a grant timetable; and a pilot comes before the first invoice, so money is raised before revenue.'
@@ -79,12 +79,13 @@ locals:
   ico: '25145444'
   since: 2023
   competes: direct
-  maturity: early
+  maturity: established
   evidence: 'It sells Asistent vykazování AV(D), a tool that runs machine-learning models over a
     discharge report and proposes the diagnoses to bill, each with a probability, built with the
     University of West Bohemia and presented as a product on its site since October 2023 [S16].
-    The product page names no hospital that has bought it and gives no count; in November 2023 a
-    first pilot at Fakultní nemocnice Brno was still being prepared [S16]. ICZ itself has sold
+    Named customers pay for it under contracts in the public register: Fakultní nemocnice Brno,
+    after a paid pilot in 2024, Oblastní nemocnice Kolín from July 2025 and Nemocnice Znojmo from
+    February 2026 [S21]. The product page itself names no hospital [S16]. ICZ itself has sold
     hospital systems since 1997.'
 - name: Medicalc
   url: https://www.medicalc.cz/
@@ -128,6 +129,18 @@ locals:
     available in roughly 50 to 60 Czech hospitals by March 2025 after a EUR 1.2M round [S16]. It
     reads the image, not the report: the radiologist still writes the finding as free text, which
     is the step this problem is about. Founded June 2021.'
+- name: SEFIMA
+  ico: '25048821'
+  since: 2017
+  competes: adjacent
+  maturity: established
+  evidence: 'It sells DRG support to hospitals as a service: a helpdesk, yearly updates on the
+    classification, detection of unusually reported cases and supervision of coding quality over
+    the data a hospital has already reported. Named customers under contracts in the public
+    register include Thomayerova nemocnice from 2017, Nemocnice s poliklinikou Havířov, Bohumínská
+    městská nemocnice, Oblastní nemocnice Kladno and Nemocnice Prachatice in October 2025 [S21].
+    It checks codes after they are assigned and does not read the report or propose the codes,
+    so it is not this; it is who a hospital already pays to watch its coding.'
 process:
   summary:
     today: 'A doctor writes the finding or the discharge summary as free text, and two more people read that same text again — a coder for the insurer''s codes, a documentarian for the cancer registry [S1,S3].'
@@ -298,7 +311,9 @@ sources:
     ladder a grant earns no point on its own: it lifts a price receipt from 1 to 2, and no price
     receipt for this job is on file, so money is 0. For the lift it names the buyer and is open;
     the documentation cost category fits its purpose sentence; the buyer''s co-pay share is not
-    on file.'
+    on file.
+    Corrected again 2026-09-19, later pass: two paid receipts for this job are now on file
+    (S19, S20), so money is 2 on those alone and this call is not needed for the lift.'
   date: '2026-12-02'
   dims: [money]
 - type: regulation
@@ -402,9 +417,9 @@ sources:
   date: '2025-08-12'
   signal: yc-arintra
 - type: gap-check
-  name: "Czech clinical-documentation supply — three hospital-system vendors moving, nobody established on it"
-  gist: "the contested Czech field"
-  why: "A Czech-language sweep of who sells this here: Stapro, ICZ and Medicalc each sell or pilot one half of it inside their hospital systems, none with a paying named customer for it; Datlowe, NEWTON Dictate and Carebot sell something adjacent; no vendor of structured radiology templates was found."
+  name: "Czech clinical-documentation supply — three hospital-system vendors on the coding half"
+  gist: "the Czech field, swept"
+  why: "A Czech-language sweep of who sells this here: Stapro, ICZ and Medicalc each sell or pilot one half of it inside their hospital systems; Datlowe, NEWTON Dictate and Carebot sell something adjacent; no vendor of structured radiology templates was found."
   url: https://www.iczgroup.com/podpora-vykazovani-zdravotni-pece/
   note: 'Sweep 2026-09-03, method: Czech-language descriptive web search plus a read of each
     vendor''s own page, ARES for identities and founding dates, the funded ledger and the
@@ -454,7 +469,16 @@ sources:
     CHECKED AND NOT CLAIMED: ares by NACE, cz-saas-directories, startupjobs, app-stores,
     eshop-addon-marketplaces, zivnostensky-rejstrik, company-job-feed. WHAT MOVES THIS: a named
     paying hospital for ICZ''s AV(D) drops gap to 0 now; STAPRO''s and Medicalc''s products cannot
-    pass the three-year limb before 2029 whatever they sell.'
+    pass the three-year limb before 2029 whatever they sell.
+    Corrected 2026-09-19: that named paying hospital was found. A full-text search of the
+    contracts register through the Hlídač státu API ("asistent vykazování", "DRG kódování
+    služby", "kódování hospitalizačních", "kódování DRG", "revize kódování") returned ICZ''s AV(D)
+    contracts with Fakultní nemocnice Brno, Oblastní nemocnice Kolín and Nemocnice Znojmo, among
+    others (S21). The sweep above looked for a named customer on the vendor''s own page, in the
+    news and in the cz-contract-parties lookup, which held one payer for ICZ.HEA a.s. (IČO
+    07240091), the ICZ group company that signs most of these, on a contract for something else.
+    The full-text search found what the lookup did not. ICZ is now established on the coding half
+    and gap is 0. The claim "none with a paying named customer for it" was removed from why.'
   date: '2026-09-03'
   queries:
     - "strukturované radiologické nálezy software nemocnice český dodavatel"
@@ -503,10 +527,101 @@ sources:
     codes it MRR in its notes, and S8''s note has it as the less developed regions; the regions
     are not asserted in the body for that reason. Money was already 2 on S8 and does not move.
     Corrected 2026-09-19: on the 2026-09-19 ladder neither call earns a point without a price
-    receipt for this job; money is 0.'
+    receipt for this job; money is 0.
+    Corrected again 2026-09-19, later pass: money is 2 on the paid receipts S19 and S20, not on
+    either call.'
   date: '2026-12-02'
   signal: dotace-irop-78-79-ehealth
   dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/36862509
+  name: "Nemocnice Znojmo — coding software bought by tender, February 2026"
+  gist: "a hospital buys coding software"
+  why: "What a regional hospital paid, after its own small tender for coding software, to install and pilot software that proposes diagnosis codes from the discharge report."
+  note: 'Registr smluv 36862509 (idSmlouvy 34602517), concluded 10 February 2026, published 19
+    February 2026: Nemocnice Znojmo, příspěvková organizace (IČO 00092584) and ICZ.HEA a.s. (IČO
+    07240091), "Smlouva o poskytnutí aplikace", concluded "jako výsledek výběrového řízení na
+    realizaci veřejné zakázky malého rozsahu nazvané Pořízení kódovacího softwaru" (VZMR 52/25).
+    Subject: "dodávce produktu Asistent vykazování AV" — delivery, installation, configuration and
+    integration with the hospital''s clinical system, a pilot, then routine operation. Annex 1:
+    "Asistent vykazování klasifikuje svými modely diagnózy MKN10 na základě textu propouštěcí
+    zprávy případu DRG", and the coder adds the chapters it does not classify from the
+    documentation. Clause 3.1: "Cena Dodávaného řešení činí 2 670 000 Kč bez DPH, tj. 3 230 700 Kč
+    včetně DPH"; the monthly service is 30,000 CZK excl. VAT for the first 12 months, then 60,000
+    CZK excl. VAT; the delivered solution is invoiced only once the pilot is accepted; indefinite
+    term. Contract text read through the Hlídač státu API, 2026-09-19; the registry page confirms
+    the date and the 2,670,000 CZK value. The amount here is the one-off delivered solution
+    excluding VAT; the monthly fee is on top. basis signed-contract, seven months before updated:
+    a PAID receipt for this job, money 2.'
+  date: '2026-02-10'
+  payer: 'Nemocnice Znojmo, a regional hospital'
+  amount_czk: 2670000
+  unit: one-off
+  basis: signed-contract
+  dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/31554612
+  name: "Fakultní nemocnice Brno — a year of coding software, December 2024"
+  gist: "a yearly coding-software fee"
+  why: "What a faculty hospital pays each year, after its pilot, to keep running software that proposes diagnosis codes from the discharge report."
+  note: 'Registr smluv 31554612 (idSmlouvy 29533936, contract O/4532/2024), concluded 20 December
+    2024: Fakultní nemocnice Brno (IČO 65269705) and ICZ a.s. (IČO 25145444), "Poskytnutí služby
+    rutinního provozu aplikace AV(D) pro oblast diagnóz". Clause 4.1, excl. VAT: model licence and
+    maintenance 216,000 CZK a year, discounted 100 % while the models are trained only on FN Brno
+    data; server maintenance 48,000; system setup and consultation 90,667; extra consultation
+    support for the first 3 years 20,000; "Celkem ročně 158 667,00 Kč", 138,667 CZK after the
+    first 3 years, invoiced monthly at 13,222.25 CZK; indefinite term, 3 months'' notice. The
+    registry value of 793,335 CZK is five years of that fee. The pilot before it was a separate
+    order of 2 April 2024, 130,000 CZK excl. VAT (registr smluv 28213619). Contract text read
+    through the Hlídač státu API, 2026-09-19. With the licence waived, this is what a reference
+    hospital pays, below the list price. basis signed-contract, 21 months before updated: a PAID
+    receipt.'
+  date: '2024-12-20'
+  payer: 'Fakultní nemocnice Brno, a faculty hospital'
+  amount_czk: 158667
+  unit: per-year
+  basis: signed-contract
+  dims: [money]
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/34396449
+  name: "Registr smluv — hospitals paying for ICZ's coding assistant, 2024 to 2026"
+  gist: "the paying hospitals"
+  why: "The public contracts register shows Czech hospitals signing paid contracts for software that proposes diagnosis codes from the discharge report, from a pilot in 2024 to a tender purchase in February 2026."
+  note: 'Hlídač státu API full-text search of the contracts register, 2026-09-19: "asistent
+    vykazování" (8 hits), "DRG kódování služby" (497), "kódování hospitalizačních" (7), "kódování
+    DRG" (4), "revize kódování" (0). THE PAYING HOSPITALS, texts read: (1) Oblastní nemocnice
+    Kolín, a.s. (IČO 27256391), registr smluv 34396449, KO-2025-113, 23 July 2025, with ICZ.HEA
+    a.s.: "Smlouva o poskytnutí aplikace AV - dodávka produktu Asistent vykazování pro Kodérské
+    centrum nemocnice", registry value 1,949,000 CZK excl. VAT. Its annex: AV "klasifikuje svými
+    modely diagnózy MKN10 na základě textu propouštěcí zprávy případu DRG"; its preamble: the
+    application "neslouží jako náhrada za určení kódu diagnózy lidským odborníkem (kodérem…)";
+    delivery and pilot invoiced after acceptance, then a monthly service, discounted for 12
+    months and for "referenční nemocnice" status; indefinite term. The price table itself is
+    unreadable in the register''s text layer, so no receipt restates it. (2) Nemocnice Znojmo,
+    10 February 2026, after a small tender for coding software: S19. (3) Fakultní nemocnice Brno,
+    paid pilot 2 April 2024 (28213619, 130,000 CZK excl. VAT, "Implementace a pilotní provoz
+    Asistenta vykazování AVD") and routine operation from 20 December 2024: S20. METADATA ONLY,
+    NOT OPENED: Oblastní nemocnice Jičín (33470812, 6 May 2025, "Asistent vykazování", no value
+    published); Fakultní nemocnice Bulovka (32456084, 10 March 2025, a data-processing agreement
+    "k objednávce pilotního provozu služby AVD"). WHY THIS ROW BACKS GAP, NOT MONEY: the amounts
+    are restated as S19 and S20, which carry money; this row carries the named customers that make
+    ICZ established on the coding half (since 2023, named customers). FOUND AND NOT COUNTED: ICZ''s
+    older "Pomocník vykazování diagnóz" (PVD), under contract since 2016 at, among others, Úrazová
+    nemocnice v Brně (512317), Thomayerova nemocnice (5575459) and Fakultní nemocnice Ostrava
+    (36938569, 23 February 2026, 470,400 CZK excl. VAT);
+    the product page says it supports fast and correct coding but not that it reads the report,
+    so it sets neither `since` nor a price. SEFIMA s.r.o. (IČO 25048821), a DRG support firm:
+    Nemocnice Prachatice, 9 October 2025 (35176165), 7,000 CZK a month excl. VAT for a DRG
+    helpdesk, annual updates, detection of unusually reported cases and supervision of coding
+    quality over the data already reported; earlier Thomayerova nemocnice 2017 ("provedení
+    kontroly kódování hospitalizovaných případů", 87,000 CZK excl. VAT), Havířov 2017, Bohumín
+    2018, Kladno 2019. It checks codes already assigned and does not read the report, so it is
+    adjacent (locals[]) and not a receipt. STAPRO: Nemocnice České Budějovice, "analýza vykazování
+    hospitalizací", 75,000 CZK excl. VAT, 7 November 2024 (30966976), an analysis, not coding;
+    Krajská nemocnice T. Bati, a "Partnerský program" cooperation contract of 19 January 2026 and
+    its addendum of 10 February 2026, 0 CZK (36455365, 36774981).'
+  date: '2026-02-10'
+  dims: [gap]
 created: '2026-09-03'
 updated: '2026-09-19'
 ---
@@ -524,14 +639,16 @@ The institute is Masarykův onkologický ústav, and the third ask came from the
 - The agency's ask describes a coding department transcribing discharge summaries into procedure and material codes for the insurers by hand, and asks for software that proposes those codes for a coder to check [S3].
 - All three asks were set for the same hackathon in Brno, whose dates are under [Why now](#why-now) [S1].
 
-Existing non-solutions: The coding half is contested, not empty: three hospital-system vendors sell or pilot it, and none names a hospital paying for it [S16].
+Existing non-solutions: The coding half is taken: a Czech vendor has sold code proposals from the discharge report since 2023, and named hospitals pay for them [S16,S21].
 
-All three sell it from inside the hospital information system a hospital already runs, so each starts with the reports its own customers write [S16].
+Three hospital-system vendors sell or pilot it, all from inside the hospital information system a hospital already runs, so each starts with the reports its own customers write [S16].
 
-- Two of them already propose insurer codes from the discharge report: one as a pilot opened in 2026, the other on sale since October 2023, and neither names a hospital that pays for it [S4,S16].
+- Two of them already propose insurer codes from the discharge report: one as a free pilot opened in 2026, the other on sale since October 2023 [S4,S16].
+- Hospitals pay for the second under contracts in the public register, from a paid pilot in 2024 to a purchase by tender in February 2026 [S21].
 - The third promises a structured report out of a dictated ward round, consultation, operation or autopsy, and does not say that any hospital runs it [S16].
 - No Czech seller of structured radiology templates has been found, and nothing here proves that none exists [S16].
 - Three Czech firms sell something close by: one reads Czech clinical free text by machine to flag hospital-acquired infections across more than a third of Czech hospital beds, one types dictated findings into the hospital system as free text, and one reads chest X-rays for the radiologist [S16].
+- A fourth sells hospitals a service that supervises the codes they have already reported, and has since at least 2017 [S21].
 - The state took the registry half itself: the health-statistics institute ran a 25.4M CZK project on EU money to 30 June 2026, using AI to complete and validate cancer-registry reporting from the registry's own data and the register of paid care, not from the hospital's report [S17].
 
 Why now: A coding department loses hours to hand transcription, and the state money to pay for the fix closes in December [S3,S8].
@@ -550,10 +667,10 @@ Behind those three items are the pilots hospitals have already run, the hackatho
 
 The only legal date for reports as data is the EU's, in 2031; December is when the grant money stops, not a duty on hospitals [S6,S8].
 
-Who pays: Hospitals pay for this today in staff time, a doctor's and a coder's, but none is known to pay for software that does it [S3,S16].
+Who pays: Hospitals pay for the coding half today: in coders' time, and in software that proposes the codes from the report [S3,S21].
 
 - Hospitals already staff a coding department to read every report back into codes [S3].
-- 23 hospitals paid nothing for a coding assistant to 31 August 2026 [S4].
+- Hospitals have paid for code-proposing software under signed contracts since 2024 [S21].
 - A state call pays a hospital up to 28M CZK for documentation work [S8].
 
 The call is IROP call 79 — the eHealth call of the EU's regional-development programme in Czechia [S8].
@@ -564,7 +681,10 @@ The call is IROP call 79 — the eHealth call of the EU's regional-development p
 - It pays the hospital, not a vendor, and no line in it names structured reporting or coding [S8].
 - A companion call, IROP call 78, holds another 471.9M CZK for its own list of named providers, up to 9.5M CZK each, and closes the same day [S18]. Together the two calls hold about 2.1bn CZK [S18].
 - The health ministry's e-health centre lists what a funded hospital must be able to work with: a specification each for the discharge report, the laboratory report, the imaging-examination report and the patient summary, with results recorded and passed on in standard code lists [S9].
-- The free coding pilot ran to 31 August 2026 and no price for the months after it has been published [S4].
+- One regional hospital bought the software in February 2026, through its own small tender for coding software [S21].
+- Each contract pays for installation and a pilot first, invoiced only once the hospital accepts the pilot, and then a monthly fee for running it [S21].
+- The contracts keep the coder in charge: the software recommends the codes, and a coder decides them [S21].
+- 23 hospitals used another vendor's coding assistant free of charge to 31 August 2026, and no price for the months after it has been published [S4].
 
 Solved elsewhere: Both halves already sell as products: structured report templates from Germany, and code proposals from the report in Germany, Austria and Switzerland [S10,S12].
 
@@ -580,7 +700,7 @@ Two more US companies are funded on the coding half alone. CodaMetrix, built wit
 
 1. Build the structured radiology report inside the hospital's own system, so the finding becomes data the moment the doctor types it. Brno's cancer institute asked for exactly that, and set it as a challenge for a hackathon this autumn; see [The opportunity](#opportunity) and [Why now](#why-now). Give it smart templates for its commonest examinations, inside the hospital system its doctors already use, so a doctor clicks through a finding instead of dictating prose. Nobody here has been found selling that half, while the coding half already has vendors working inside those same systems; see [Market gap](#competition).
 2. Take one named hospital through the open state call, and write its application as part of the deal. The call pays a hospital to change how it keeps its medical documentation, caps what it will fund per provider, and names the providers that may apply; see [Willing to pay](#willing-to-pay). It closes this winter and the funded work has to be finished the year after, as [Why now](#why-now) shows, so a hospital that wants this has to pick a supplier now. Build to the health ministry's own report specifications, which are listed under [Willing to pay](#willing-to-pay), because a funded hospital has to be able to work with them.
-3. Expect the coding half to be given away, and charge for the report and the registry entry instead. One hospital-system vendor let a group of hospitals use its coding assistant for nothing and has published no price for afterwards, and another has proposed codes from discharge reports for three years without naming a hospital that pays for it; see [Market gap](#competition). What no vendor here sells is the report written as data and the registry entry that falls out of it, so quote the whole chain rather than the coding step.
+3. Do not sell the coding step on its own; charge for the report and the registry entry. One hospital-system vendor let a group of hospitals use its coding assistant for nothing, and another already sells code proposals from the discharge report to paying hospitals; see [Market gap](#competition). What those hospitals pay shows the budget for the coding step exists; see [Willing to pay](#willing-to-pay). What no vendor here sells is the report written as data and the registry entry that falls out of it, so quote the whole chain rather than the coding step.
 4. Grow the way the German newcomer did, from a handful of pilot hospitals rather than from a national tender. The entrant on the coding half started about a decade ago with pilots and now sells to dozens of hospitals, a university hospital among them, while the old coding house beside it took four decades to reach more than a thousand; see [Validated abroad](#validated-abroad). Your pilot is the institute that wrote the ask, and it can have the work paid for; see [Willing to pay](#willing-to-pay).
 5. Read the registry side before you build the extraction, because the state has already spent EU money automating it from its own data. What the state worked from was the cancer registry's own records and the register of paid care, not the hospital's report; see [Market gap](#competition). Pulling the facts out of the clinical text is the half Brno's cancer institute still asks for; see [The opportunity](#opportunity). Build that, and the registry entry becomes the second thing you sell.
 
@@ -611,3 +731,11 @@ No receipt was added, and money 0 matches the worksheet. Two receipts would move
 Urgency: the old 2 was the deadline sub-score 1 plus the retired freshness point. The European Health Data Space regulation [S6] is REAL but not CLOSE: its date for imaging and discharge reports is 26 March 2031, more than 18 months out, so it scores rung 1 alone. The Czech e-health act [S7] sets no dated duty to structure reports and keeps `dims: []`. The grant's 2 December closing date is a grant date, which scores nothing on the new ladder.
 
 The notes on S1, S6, S8 and S18, which named freshness, the deadline sub-score or "money 2", gained dated correction lines. Prose re-read against the new numbers. Willing to pay opened on "Hospitals pay twice for the same report … and a state call can pay for the fix". It now answers whether anyone pays for this job: hospitals pay in staff time, and none is known to pay for software that does it [S3,S16]. Its three items were reordered so the coding department comes first and the state call third. Why now gained one closing sentence: the only legal date for reports as data is the EU's, in 2031, and December is when the grant money stops, not a duty on hospitals [S6,S8]. The title and brief, which the owner approved on this date and which lead on the grants closing in December, were re-read and not changed. The grant dates are true, but the new ladder does not count them as a deadline, and whether the headline should still lead on them is the owner's call. Three links in moves 1, 3 and 5 now read Market gap instead of Competition. No other score, status, source order or body sentence changed.
+
+2026-09-19 · Willing to pay search, owner-approved — `scores.money` 0 → 2, `scores.gap` 1 → 0, `score` 7 → 8, band FAIR → STRONG. The rescore above named what would move money: a sourced coder wage for rung 1, then the eHealth call's co-pay for the lift. The search looked for both and found more: hospitals already sign paid contracts for software that proposes insurer codes from the discharge report. A full-text search of the contracts register through the Hlídač státu API, five queries, found them, and three contract texts were read [S21]. Two are restated as price receipts tagged money. Nemocnice Znojmo bought the software in February 2026 after its own small tender for coding software, 2,670,000 CZK excluding VAT for installation, integration and a pilot, plus a monthly fee [S19]. Fakultní nemocnice Brno pays 158,667 CZK a year excluding VAT to run it, under a contract of December 2024, with the licence waived because the models are trained on its own data [S20]. Both are signed contracts inside 24 months of `updated`, so money is 2 on its own. The public-money lift is not needed, and the notes on S8 and S18 gained a line saying so. The Kolín contract of July 2025 is the third text read; its price table cannot be read in the register's text layer, so it is not restated [S21].
+
+Gap: the gap check [S16] named its own trigger: one named paying hospital for ICZ's coding assistant makes ICZ established and takes the space. The contracts name three, Brno, Kolín and Znojmo [S21]. ICZ's row is now `maturity: established` and gap is 0. Its `since` stays 2023, the year the product went on its site, which the test counts as three years in 2026; the first paid contract on file is the Brno pilot of April 2024, so this is the narrowest pass the test allows. `entry.incumbents` follows the ledger, adjacent → direct; `entry.level` does not read it and stays very-hard. The sweep of 3 September had read the vendor's page, the news and the contracts lookup, and missed these, so S16's note gained a correction line. Its name, gist and why lost the claim that no vendor had a paying named customer. New in locals[]: SEFIMA, a firm that hospitals pay to supervise codes they have already reported, under contracts since 2017 [S21]. It is adjacent, because it does not read the report or propose the codes, and moves nothing.
+
+The coder wage, searched and not added: the ÚP vacancy data for March to September 2026 held no hospital DRG coder with a wage. It did hold a coder at a private outpatient clinic and several documentation-nurse posts at care homes. Those two findings are the positive control that the scan finds such ads. Hospital coder adverts at Fakultní nemocnice Královské Vinohrady (February 2026), Bulovka, Ústřední vojenská nemocnice and Uherskohradišťská nemocnice state no wage. A Vsetínská nemocnice senior DRG coder advert at 53,417 CZK a month, offered from September 2024, was read only on a job-board mirror of the ÚP listing, so it is not a receipt. With paid receipts on file, it would add nothing to the score [S19,S20].
+
+Body: Market gap now opens on the coding half being taken, with two new items: hospitals paying under registered contracts, and the adjacent coding-supervision firm [S21]. Its paragraph on the three vendors now names them as the subject, since the answer sentence no longer does. Willing to pay now opens on hospitals paying for the coding half in coders' time and in software [S3,S21]. Its second item, the free pilot, moved below the first three, and three items were added below: the tender purchase, pilot-before-invoice and the coder deciding the codes [S21]. Move 3 no longer says the coding half will be given away or that no hospital pays; it says not to sell the coding step alone and links to Willing to pay. Not changed: title, brief, solution, good_for, `price_search`, the process block, urgency, proof and demand. The headline's "pay twice" now has receipts behind it, and whether the brief should say so is the owner's call.
