@@ -161,12 +161,14 @@ cz-zerops
 de-1-cp
 de-aedifion
 de-aquabench
+de-arcos
 de-arx-robotics
 de-caigos
 de-conmeet
 de-curevision
 de-custom-surgical
 de-dryad-networks
+de-ecoworks
 de-exnaton
 de-foodforecast
 de-fuchs-eule
@@ -210,6 +212,7 @@ dotace-irop-117-izs-praha
 dotace-irop-119-cyklodoprava
 dotace-irop-120-kyberbezpecnost
 dotace-irop-121-122-bezemisni-vozidla
+dotace-irop-56-57-akutni-psychiatrie
 dotace-irop-78-79-ehealth
 dotace-irop-85-verejne-zdravi
 dotace-mf-elegrid-1-distribucni-soustava
@@ -338,6 +341,7 @@ fr-algoan
 fr-alta-ares
 fr-asap-work
 fr-climerock
+fr-ecov
 fr-healshape
 fr-padam-mobility
 fr-trashboard
@@ -351,6 +355,7 @@ gb-beam-up
 gb-kulu
 gb-loop-home
 gb-mapify
+gb-naturemetrics
 gb-overmind
 gb-ovida
 gb-parasol-platforms
@@ -362,6 +367,7 @@ gb-sprout-ai
 gb-tova-earth
 gb-vamstar
 gb-zen-educate
+gb-zenobe
 hack-02917635
 hack-22a5dac4
 hack-3a3e4c27
@@ -2708,6 +2714,7 @@ nl-intrakoop
 nl-j4-energy
 nl-luscii
 nl-narrative-banking
+nl-orbisk
 nl-upheat
 ombud-autismus-sluzby
 ombud-bezbarier-vyjimky
@@ -2843,6 +2850,7 @@ reg-espr-unsold-goods
 reg-ets2-2028-cz
 reg-ets2-carbon-price
 reg-eturista-registr-ubytovani-2028
+reg-eu-customs-code-2026-2108
 reg-eu-disability-card
 reg-eudr-annex-i-scope-2027
 reg-eudr-deforestation
@@ -2900,6 +2908,7 @@ reg-nukib-410-2025
 reg-nukib-411-2025
 reg-nukib-412-2025
 reg-obce-spolecenstvi-sdilene-agendy
+reg-odstoupit-tlacitko-159-2026
 reg-ovzdusi-aaqd-2026
 reg-pay-transparency-cz
 reg-plan2026-eu-infringement
@@ -2914,6 +2923,7 @@ reg-prumyslove-vzory-oprava-2027
 reg-public-cbcr
 reg-red-cyber
 reg-right-to-repair
+reg-rud-bytova-vystavba-2028
 reg-rvp-odklad-2028
 reg-sk-einvoicing
 reg-skolsky-asistenti
@@ -2934,6 +2944,7 @@ reg-textiles-epr
 reg-toy-safety-dpp
 reg-trestni-zakonik-kybernasili-2027
 reg-ttpa-political-ads
+reg-uhradova-2027-centrove-leky-slevy
 reg-uwwtd-epr
 reg-uznavani-kvalifikace-treti-zeme-2028
 reg-vak-energeticke-posouzeni-cov
@@ -11650,6 +11661,8 @@ ua-kurs-orbital
 ua-preply
 ua-riskseal
 uk-hometree
+us-belfry
+us-deckard
 us-maintainx
 us-parallel-learning
 us-polimorphic
