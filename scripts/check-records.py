@@ -655,7 +655,7 @@ def extra_sentences(text):
 # PROCESS_PHRASE_ENFORCED (shortened already); a WARNING on every other one.
 # A record joins the set in the same change that shortens its steps.
 PROCESS_STEP_WORDS_MAX = 10
-PROCESS_PHRASE_ENFORCED = frozenset({"p-0002", "p-0003", "p-0004", "p-0005", "p-0007", "p-0009", "p-0010", "p-0025", "p-0027", "p-0031", "p-0032", "p-0033", "p-0036", "p-0038", "p-0040", "p-0041", "p-0042", "p-0044"})
+PROCESS_PHRASE_ENFORCED = frozenset({"p-0002", "p-0003", "p-0004", "p-0005", "p-0007", "p-0009", "p-0010", "p-0025", "p-0027", "p-0031", "p-0032", "p-0033", "p-0036", "p-0038", "p-0040", "p-0041", "p-0042", "p-0044", "p-0046"})
 
 
 def check_process_phrases(doc):
@@ -1333,7 +1333,7 @@ def established(since, evidence, year, ico=None):
 # a new entry needs the owner's say-so, recorded in that record's Revisions.
 # every live record, rewritten to the body rules by 2026-09-18
 BODY_V2_ENFORCED = frozenset({
-    "p-0001", "p-0002", "p-0003", "p-0004", "p-0005", "p-0006", "p-0007", "p-0008", "p-0009", "p-0010", "p-0011", "p-0017", "p-0018", "p-0022", "p-0023", "p-0024", "p-0025", "p-0026", "p-0027", "p-0028", "p-0029", "p-0030", "p-0031", "p-0032", "p-0033", "p-0034", "p-0035", "p-0036", "p-0037", "p-0038", "p-0040", "p-0041", "p-0042", "p-0044", "p-0045",
+    "p-0001", "p-0002", "p-0003", "p-0004", "p-0005", "p-0006", "p-0007", "p-0008", "p-0009", "p-0010", "p-0011", "p-0017", "p-0018", "p-0022", "p-0023", "p-0024", "p-0025", "p-0026", "p-0027", "p-0028", "p-0029", "p-0030", "p-0031", "p-0032", "p-0033", "p-0034", "p-0035", "p-0036", "p-0037", "p-0038", "p-0040", "p-0041", "p-0042", "p-0044", "p-0045", "p-0046",
 })
 BODY_V2_WAIVERS: dict[str, frozenset[str]] = {
     # Empty. p-0008's three waivers (ANSWER_WORDS, MOVE_EVIDENCE, PRICE_RESTATED)
@@ -1658,7 +1658,7 @@ def check_body_v2(doc, arg, firstmoves, sources, comps, locals_):
 # mirror and the v1 branches, and make these checks unconditional.
 # every live record, rescored to the 2026-09-19 ladders
 SCORING_V2_ENFORCED = frozenset({
-    "p-0001", "p-0002", "p-0003", "p-0004", "p-0005", "p-0006", "p-0007", "p-0008", "p-0009", "p-0010", "p-0011", "p-0017", "p-0018", "p-0022", "p-0023", "p-0024", "p-0025", "p-0026", "p-0027", "p-0028", "p-0029", "p-0030", "p-0031", "p-0032", "p-0033", "p-0034", "p-0035", "p-0036", "p-0037", "p-0038", "p-0040", "p-0041", "p-0042", "p-0044", "p-0045",
+    "p-0001", "p-0002", "p-0003", "p-0004", "p-0005", "p-0006", "p-0007", "p-0008", "p-0009", "p-0010", "p-0011", "p-0017", "p-0018", "p-0022", "p-0023", "p-0024", "p-0025", "p-0026", "p-0027", "p-0028", "p-0029", "p-0030", "p-0031", "p-0032", "p-0033", "p-0034", "p-0035", "p-0036", "p-0037", "p-0038", "p-0040", "p-0041", "p-0042", "p-0044", "p-0045", "p-0046",
 })
 SCORING_V2_DETAIL = False       # set by `--scoring-v2`
 SCORING_V2_PENDING: dict[str, list[str]] = {}   # not-yet-rescored findings, per record
