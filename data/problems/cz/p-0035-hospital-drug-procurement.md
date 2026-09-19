@@ -13,22 +13,22 @@ price_search: 'Registr smluv full-text for "eCENTRE" with "léčiv" or "elektron
   the MS2021+ index under "léčiv" returns only drug research.'
 category: health
 geo: CZ-national
-score: 6
+score: 8
 scores:
   proof: 3
   money: 0
   urgency: 1
   demand: 2
-  gap: 0
-status: watching
+  gap: 2
+status: candidate
 entry:
   level: very-hard
   buyer: public
   permission: none
-  incumbents: direct
+  incumbents: adjacent
   integration: national-system
   money: outside-money
-  why: 'Easier: no licence is needed, and hospitals publish their medicine notices openly. Harder: every buyer is a public hospital or region buying under procurement law, a Czech firm has pooled that buying since 2006 and sells it to hospitals, and the first fee is over a year out, so money goes in before any comes back.'
+  why: 'Easier: no licence is needed, and hospitals publish their medicine notices openly. Harder: every buyer is a public hospital or region buying under procurement law, a Czech firm already sells hospitals the neighbouring pooled buying, and the first fee is over a year out, so money goes in before any comes back.'
 comps:
 - name: Vamstar
   url: https://vamstar.io/
@@ -58,13 +58,16 @@ locals:
   url: https://ecentre.cz/
   ico: '27149862'
   since: 2006
-  competes: direct
+  competes: adjacent
   maturity: established
   evidence: It sells coordinated purchasing run through electronic auctions, pooling the demand
     of many public buyers into one negotiated contract, and it sells it to hospitals — with hospital
     customers including Ostrava's city hospital, which reports 21 percent savings on suture material,
     34 percent on anaesthesia and oxygen-therapy supplies and 25 percent on infusion solutions
-    [S18]. eCENTRE, a.s. was incorporated on 12 May 2004 and its pooled purchasing dates to 2006.
+    [S18]. That is buying on a hospital's behalf, not a comparison of what each hospital paid.
+    Its own site, read on 19 September 2026, describes pooled buying and e-auctions, leads with
+    electricity and gas for public bodies, and offers no price comparison between hospitals [S18].
+    eCENTRE, a.s. was incorporated on 12 May 2004 and its pooled purchasing dates to 2006.
 - name: PROEBIZ
   ico: '64616398'
   since: 1996
@@ -348,8 +351,8 @@ sources:
   signal: us-trulla
 - type: gap-check
   name: "eCENTRE and the Czech purchasing platforms"
-  gist: "the occupied Czech field"
-  why: "A Czech-language sweep of who already sells hospital purchasing here: eCENTRE pools the buying and sells it to hospitals; PROEBIZ, QCM and Tender systems sell the platforms the procedures run on."
+  gist: "the Czech neighbours"
+  why: "A Czech-language sweep of who already sells hospital purchasing here: eCENTRE pools the buying and sells it to hospitals; PROEBIZ, QCM and Tender systems sell the platforms the procedures run on. None of them was found selling a comparison of what each hospital paid."
   url: https://ecentre.cz/
   note: 'Sweep 2026-09-03, and the headline is that there is NO absence. AGGREGATION LAYER,
     OCCUPIED AND DIRECT: eCENTRE (IČO 27149862, already on file as an established player on
@@ -385,7 +388,18 @@ sources:
     clinical documentation, not purchasing; NPO call 22 closed on 14 November 2024; OP TAK
     "Digitální podnik" admits only enterprises, so public hospitals cannot apply; the MZ ČR
     quality-and-efficiency programme has not been announced since 2025; EU4Health 2026 procurement
-    calls are medical-countermeasure work.'
+    calls are medical-countermeasure work.
+    Re-read 2026-09-19 for the owner-approved relabel of eCENTRE to adjacent: pooled buying buys
+    on a hospital''s behalf and is not the price comparison the solution names, and eCENTRE''s own
+    site (this URL), read on 2026-09-19, describes pooled buying and e-auctions, leads with energy
+    for public bodies and offers no comparison between hospitals. With no direct player left on
+    the ledger, this check is the gap 2 receipt: it recorded queries[], three of them aimed at the
+    comparison itself (benchmarking nákupních cen léčiv, srovnání cen léků mezi nemocnicemi,
+    databáze jednotkových cen léčiv), checked[] google-cz, own-funded-ledger and cz-contract-parties,
+    and passed its positive control; its price-intelligence layer also names the two non-commercial
+    comparisons it did find (the ministry database, the ÚZIS benchmark), so that layer was searched,
+    not skipped. The caution above stands and the body keeps it: none was found, which is not proof
+    that none exists. The surfaces listed as not checked stay not checked.'
   date: '2026-09-03'
   queries:
     - "dynamický nákupní systém léčiv"
@@ -430,9 +444,9 @@ The state keeps finding what this costs:
 - At a 2024 round table on corruption risk in hospital buying, reported by Transparency International, the audit office said medicines are often bought directly, without proper competition [S9]. Another speaker put the share of drug purchases that go through a tender at about 60 percent [S9].
 - In 2022 the competition authority, which oversees public buying, wrote hospitals a guide to buying medicines, because it meets the problem ever more often [S10].
 
-Existing non-solutions: The field is not empty: a Czech firm has pooled public buying since 2006 and sells it to hospitals [S18].
+Existing non-solutions: No Czech firm was found selling a comparison of what each hospital paid; a Czech firm sells hospitals pooled buying instead [S18].
 
-It pools the demand of many public buyers into one negotiated contract, run as electronic auctions [S18]. No Czech firm selling a comparison of what each hospital paid for its medicines has been found, and nothing here proves that none exists [S18]. The rest of the field sells pieces:
+That firm has pooled public buying since 2006 [S18]. It gathers the demand of many public buyers into one negotiated contract, run as electronic auctions [S18]. It buys on a hospital's behalf and does not show a hospital what its peers paid, so it sells something next door, not this [S18]. Not finding a Czech price comparison does not prove that none exists [S18]. The rest of the field sells pieces:
 
 - Three established Czech firms sell the platforms the medicine calls run on [S18]. Each hosts the calls, and none pools the buying or compares prices [S18].
 - The health ministry and the association of innovative drug makers have compared real unit prices since 2019, but only for the ministry's own hospitals [S11]. The association hosts and pays for the database, and its unit prices may not be passed on [S11].
@@ -486,7 +500,7 @@ Two more answers are not on the map, a public buyer and a cooperative:
 
 1. Build a first map of who buys which medicines from whom, using the hospitals' own public purchasing notices, before asking any hospital for anything. Most notices name the supplier that won as well as the hospital, so the map starts from what is already public; see [The opportunity](#opportunity). Print a system's ceiling as a ceiling, never as money spent, as [Willing to pay](#willing-to-pay) explains. The map is what you show the pharmacists in the next move.
 2. Call the head pharmacists of Olomouc's university hospital and Prague's Bulovka hospital, and ask what one medicine call costs them in staff hours. Between them they ran dozens of medicine calls in one summer; see [The opportunity](#opportunity). Nobody has published what a call costs in pharmacist and purchasing hours, and that cost is the price your product has to beat. Show them the map from the first move and ask which comparison they would use.
-3. Sell the comparison of what each hospital paid, not the pooled buying, because a Czech firm already sells pooled buying to hospitals. It has done so for years, and the purchasing platforms host the calls without pooling them or comparing prices; see [Market gap](#competition). A Dutch cooperative sells exactly this comparison: pharmacies' prices go in, and each member sees whether it overpays; see [Validated abroad](#validated-abroad). The Czech version of that data exists but is closed to all but the ministry's own hospitals, also under [Market gap](#competition). Public notices are the way in that nobody has to grant you.
+3. Sell the comparison of what each hospital paid, which no Czech firm was found selling, not the pooled buying a Czech firm already sells. That firm buys on a hospital's behalf, and the purchasing platforms host the calls, but none of them compares prices; see [Market gap](#competition). A Dutch cooperative sells exactly this comparison: pharmacies' prices go in, and each member sees whether it overpays; see [Validated abroad](#validated-abroad). The Czech version of that data exists but is closed to all but the ministry's own hospitals, also under [Market gap](#competition). Public notices are the way in that nobody has to grant you.
 4. Take the comparison to the health insurers, who may now buy drugs for specialist centres in one tender on the hospitals' behalf. The national insurer argued for that power with its own numbers, and the law now gives it; see [Why now](#why-now). An insurer planning such a tender will want to know what each hospital pays today, and a hospital that keeps buying such a drug alone is not reimbursed, so both sides need the same picture. The health ministry's new joint-buying project with the big university hospitals is a second buyer to show it to, under the same section.
 5. Plan to fund the first year yourself or with investors, because no open grant pays for hospital purchasing tools. The open state eHealth call pays for clinical records, not purchasing, and no other call was found that funds it; see [Willing to pay](#willing-to-pay). Public buyers also buy slowly, so expect the first fee to come late; see [Execution difficulty](#execution-difficulty).
 
@@ -501,3 +515,5 @@ Two more answers are not on the map, a public buyer and a cooperative:
 2026-09-19 · Validated abroad answer rewritten (owner-approved) — The answer sentence named Denmark's central buyer and a Dutch cooperative, while the section's map and rows show the three companies on the comps ledger, in Britain, Germany and the US, so the page's first line and its map disagreed. Before, verbatim: "Solved elsewhere: Denmark buys its hospital medicines through one body, and a Dutch cooperative sells the price comparison itself [S13,S16]." After: "Solved elsewhere: Companies in Germany, Britain and the US already sell pieces of the job: pooled medicine buying for hospitals, drug-tender matching and pharmacy purchasing software [S14,S15,S17]." Each part is checked against its source: the German buying group pools purchasing for clinics and clinic pharmacies [S15], the London platform matches drug tenders with suppliers [S14], and the US product runs pharmacy ordering, pricing and supplier choice for a hospital system [S17]. "Pieces of the job" because none of the three sells the price comparison between hospitals that the solution names. The detail now follows the same order: the three companies first, then Denmark's public buyer and the Dutch cooperative as two answers that are not on the map, each with every fact and marker it had [S13,S16]; [S13]'s note says why Amgros has no comps row (no verifiable founding year). No fact was removed; no score, status, source, note, marker target, headline field or other body sentence changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — `scores.urgency` 3 → 1, `scores.money` 1 → 0, `score` 9 → 6, band STRONG → FAIR. Urgency: the old 3 was the deadline sub-score 2, read from the two 1 January 2026 instruments, plus the retired freshness point [S5,S6,S12]. The insurance-law change is enacted and close, since it has been in force for 8.5 months [S5]. It gives the power to the insurers, though, and a hospital loses reimbursement only once an insurer has tendered a drug centrally. No such tender is on file, so it is a duty on someone else that reaches the buyer indirectly: rung 1, judgement call 6 in the worksheet. A stricter reading would score it 0, as a permission for insurers plus a rule on what they pay. 1 is kept because the non-reimbursement does bind a hospital once it applies. The price ruling [S6] changes the margin sellers may charge and puts no duty on a hospital. It scores 0 and now carries `dims: []`, so the Why now count shows only [S5]. Money: the old 1 was the retired rung "a relevant tender or grant". Tagging pass: the medicine notices [S1,S2,S3,S4] and the insurer's centre-drug spend [S8] buy medicines, not a price comparison. The pooled-buying firm's hospital customer reports savings, but no contract or amount for it is on file [S18]. Olomouc's university hospital paid the maker of its e-procurement system about €3,200 on 2026-08-20, per the contracts-register lookup behind [S18]. That contract buys the platform its calls are filed on, which the ledger records as adjacent, so it does not count and was not restated. No receipt was added, and money 0 matches the worksheet. Flagged for the owner: the pooled-buying firm's ledger row reads `competes: direct`, while the body and move 3 treat pooled buying as a different job from the price comparison the solution names. A priced contract of that firm's with a hospital would count as this job by the ledger and not by the body. That is one field carrying two readings, and it is left for a MATCH decision on gap. The notes on S1, S5, S6, S8 and S12, which named the deadline or freshness sub-scores or the old money rung, gained dated correction lines. Prose re-read against the new numbers: Why now's answer said a hospital buying a tendered drug alone is not reimbursed, as if that already applied. It now says "once they do", and the insurer-pays bullet gained "No insurer is known to have run such a tender yet", which is the inference the 2026-09-18 entry flagged. Willing to pay already says what anyone would pay to compare prices is not known, and is unchanged. Two links in move 3 now read Market gap instead of Competition. No other score, status, source order or body sentence changed.
+
+2026-09-19 · eCENTRE relabelled adjacent (owner-approved), gap 0 → 2 — `locals[]` eCENTRE `competes: direct` → `adjacent`; `maturity` stays established. The rescore entry above flagged the row: the ledger said eCENTRE sells this, while the body and move 3 treated pooled buying as a different job from the price comparison the solution names. The evidence backs the body. eCENTRE pools public buyers' demand into one contract run as e-auctions and buys on a hospital's behalf [S18]; its own site, [S18]'s URL, read on this date, describes pooled buying and e-auctions, leads with electricity and gas for public bodies, and offers no comparison of what each hospital paid. The evidence line now says what it sells and why that is not this; the player stays listed. With it, all four locals are adjacent and established, so no local sells this. `scores.gap` 0 → 2, on the check already on file: [S18] recorded queries[], three of them aimed at the comparison itself, checked[] google-cz, own-funded-ledger and cz-contract-parties, and passed its positive control (MATCH §4–5). No new search was run. [S18]'s note said "NO ABSENCE IS ASSERTED"; that caution stays in the body, which now says the comparison was not found and that this does not prove none exists. A dated line was appended to [S18]'s note, its original text left as written; its gist "the occupied Czech field" became "the Czech neighbours" and its why line gained that none of the four was found selling the comparison. `score` 6 → 8, FAIR → STRONG. `status` watching → candidate, because status follows gap (SPEC.md, de-rank rule). `entry.incumbents` direct → adjacent, as derived from the ledger; the level stays very-hard, which it never read. `entry.why`'s "a Czech firm has pooled that buying since 2006 and sells it to hospitals" now reads "a Czech firm already sells hospitals the neighbouring pooled buying". Market gap's answer was "The field is not empty: a Czech firm has pooled public buying since 2006 and sells it to hospitals [S18]." and now reads "No Czech firm was found selling a comparison of what each hospital paid; a Czech firm sells hospitals pooled buying instead [S18]."; the detail says the firm sells something next door, not this. Move 3's opening was "Sell the comparison of what each hospital paid, not the pooled buying, because a Czech firm already sells pooled buying to hospitals." and now says no Czech firm was found selling the comparison, and that the pooled-buying firm and the platforms do not compare prices. The pooled-buying firm's evidence line gained only what its site shows; no fact was removed. No other score, source, marker target, headline field or `price_search` changed; `price_search` already calls that firm's contracts what a hospital pays for pooled buying, which is now also what the ledger says.

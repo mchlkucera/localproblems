@@ -644,9 +644,16 @@ so until the Czech law exists nobody in the story owes anything).
   apply from a future date: it is released. The AI Act's disclosure duty
   (p-0034) applies today, so a Czech enforcement bill still in draft does not
   make that record a draft-law record.
-- **A pain that exists today regardless of the draft.** p-0028's e-shops are
-  fined under current consumer law; the green-claims bill moving through
-  parliament is extra, not the pain.
+- **A pain that exists today regardless of the draft, when the dated change
+  does too.** If the record's Why now rests on a law in force, a bill that
+  would add to it is extra, not the pain.
+
+**Where the two meet, Why now decides** (owner, 2026-09-19). p-0028's e-shops
+are fined under current consumer law, a pain that exists today. But the dated
+change the record scores, the ban on vague "eco" claims, is a bill still in
+parliament, and Why now rests on that bill alone. So p-0028 carries the badge,
+and its body still says the fines stand under today's law. The test: take the
+draft away; if Why now has nothing left to stand on, the key goes on.
 
 Absent means "not a draft-law record", never "not checked" (MATCH.md §0).
 

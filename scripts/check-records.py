@@ -1215,8 +1215,10 @@ def check_headline(doc, n_sources, comps, locals_):
 # transposed where the pain depends on the Czech law. NOT a law in force
 # however weakly enforced, NOT a published directly applicable EU regulation
 # (a future application date is still released), and NOT a record whose pain
-# exists today regardless of a pending bill (p-0028's fines stand under current
-# law, whatever the green-claims bill does).
+# AND dated change both exist today regardless of a pending bill. Where a
+# present pain meets a draft, Why now decides (owner, 2026-09-19): p-0028's
+# fines stand under current law, but its Why now rests on the green-claims
+# bill alone, so it carries the key.
 #
 # WHICH records carry it is judged, so no regex attempts that. What is gated is
 # the claim itself: "this law is not passed yet" is a statement about the
