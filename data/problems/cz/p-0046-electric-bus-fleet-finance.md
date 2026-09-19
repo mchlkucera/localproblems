@@ -42,7 +42,7 @@ process:
   - who: Bus company
     today: 'Tenders the depot chargers as a separate contract'
     known: documented
-    cites: [8]
+    cites: [8, 13]
     change: changes
     after: 'Gets chargers built and run with the buses'
   - who: Bus company
@@ -112,6 +112,14 @@ locals:
   evidence: 'Czech arm of a Polish bus maker; won the Ostrava and Olomouc transport companies''
     electric-bus tenders, named customers. It sells the buses with service and mobile chargers,
     bought outright, not financing or a fee per bus [S11].'
+- name: MAN Truck & Bus Czech Republic
+  ico: '46965904'
+  since: 1992
+  competes: adjacent
+  maturity: established
+  evidence: 'Czech company of the MAN bus and truck group; won the Frýdek-Místek and Karviná city
+    bus operator''s electric-bus tender and signed for 6 buses, a named customer; registered 1992.
+    It sells the buses outright, not financing, chargers or a fee per bus [S12].'
 - name: Deutsche Leasing ČR
   ico: '25723758'
   since: 1998
@@ -169,7 +177,14 @@ sources:
     of 353.32M, for 22 buses (20 Md, 2 Sd) from MODF-TRANSGOV 1/2025; no grant for Md+. "Ani jedna z
     uvedených smluv ale neumožňuje změnu pohonu vozidel"; contracts for lines 153, 164, 194, 242,
     243, 117, 203 run to 30 Apr 2031. Battery warranty 60 months at 80% capacity required. Bids due
-    17 Sep 2026. Ledger: ted-572969-2026, ted-574507-2026, ted-575233-2026.'
+    17 Sep 2026. Ledger: ted-572969-2026, ted-574507-2026, ted-575233-2026.
+    Added 2026-09-19 (weekly match): the three tenders were re-notified on TED on 14 Sep 2026
+    (ted-631809-2026 Sd, ted-630176-2026 Md+, ted-631151-2026 Md), each a change notice
+    "Prodloužení lhůty pro podání nabídek do 01.10.2026, 10:00 hodin", reason "Vyhovění žádosti
+    dodavatele": bids now due 1 Oct 2026, at a supplier''s request. Not cited separately. The TED
+    lot values are 124,005,400 CZK for 10 Sd, 100,409,250 CZK for 10 Md+ and 210,165,500 CZK for
+    20 Md, i.e. 12.401M, 10.041M and 10.508M a bus: the article''s per-bus figures for Md and Md+
+    appear swapped. No rendered sentence uses the per-class figures.'
   date: '2026-08-19'
   dims: [demand]
 - type: subsidy
@@ -322,6 +337,63 @@ sources:
     - "systém řízení přeprav a rezervace časových oken na rampách česká firma"
   checked: [google-cz, ares, own-funded-ledger]
   expires: '2026-12-18'
+- type: price
+  name: 'Frýdek-Místek and Karviná bus operator — 6 electric buses'
+  gist: '6 electric city buses, signed'
+  why: 'The operator of city buses in Frýdek-Místek and Karviná bought 4 electric buses in a tender and took up its option on 2 more in August 2026, with EU grant money behind the project.'
+  url: https://ted.europa.eu/en/notice/-/detail/636484-2026
+  note: 'ted-636484-2026, TED contract-modification notice published 16 Sep 2026, XML read
+    2026-09-19 (saved in the run scratchpad). Buyer Transdev Slezsko a.s. (IČO 45192081), supplier
+    MAN Truck & Bus Czech Republic s.r.o. (IČO 46965904). Original contract: "Nákup 4 ks městských
+    elektrobusů délkové kategorie 11,5-13 m", winner chosen 13 Apr 2026, purchase contract dated
+    25 May 2026, option for 2 more. Modification: "Rozšíření plnění o další 2 elektrobusy, zvýšení
+    celkové kupní ceny na 75.447.000,- Kč bez DPH", reserved change under § 100(1) ZZVZ; the buses
+    are zero-emission M3 buses meeting § 3(c) and § 4(4) of act 360/2022; "Smlouva na pořízení
+    dalších 2 ks elektrobusů byla podepsána 17.8.2026". Funded from IROP, project "Navazující
+    projekt částečné elektrifikace MHD Frýdek-Místek a MHD Karviná". 75,447,000 CZK without VAT
+    for 6 buses, about 12.6M a bus (our division). Outright purchase, read as the manual form of
+    a fee per bus, as for S7-S9.'
+  date: '2026-08-17'
+  signal: ted-636484-2026
+  dims: [money]
+  payer: 'Transdev Slezsko (city bus operator in Frýdek-Místek and Karviná)'
+  amount_czk: 75447000
+  unit: per-project
+  basis: signed-contract
+- type: tender
+  name: 'TED — Olomouc transport company re-tenders its depot chargers'
+  gist: 'charger tender, second attempt'
+  why: 'The Olomouc city transport company closed its tender for electric-bus chargers at four sites without a winner and tendered them again the next day; the chargers must fit the specific electric buses it already bought.'
+  url: https://ted.europa.eu/en/notice/-/detail/627506-2026
+  note: 'ted-627506-2026, contract notice published 11 Sep 2026, XML read 2026-09-19: Dopravní
+    podnik města Olomouce (IČO 47676639), "Výstavba dobíjecích stanic pro bezemisní vozidla MHD",
+    charging stations for electric buses at four sites incl. design, estimated 206,500,000 CZK, bids
+    due 18 Oct 2026, IROP call "Plnicí a dobíjecí stanice pro veřejnou dopravu (SC 6.1)"; "konkrétní
+    pořizovaná vozidla jsou Solaris new Urbino 12 electric a Solaris new Urbino 18 electric.
+    Nabíjecí infrastruktura ... proto musí být kompatibilní". The first attempt, ted-623121-2026
+    (result notice published 10 Sep 2026, estimated 188,500,000 CZK, same title and scope), closed
+    with winner-selection-status clos-nw (no winner, competition closed), 2 tenders received,
+    non-award code tch-pr-error, 1 review request logged; the notice gives no reason in words. Not
+    awarded, so not a price receipt; the charger half of the job bought separately. Backs no score.'
+  date: '2026-09-11'
+  signal: ted-627506-2026
+  dims: []
+- type: tender
+  name: 'TED — Prague transport company, up to 200 diesel and hybrid buses'
+  gist: 'hybrids counted as clean buses'
+  why: 'Prague''s city transport company is tendering a five-year framework for up to 100 diesel and 100 mild-hybrid city buses, and requires the hybrids to meet the clean-vehicle law''s definition of a low-emission bus.'
+  url: https://ted.europa.eu/en/notice/-/detail/624737-2026
+  note: 'ted-624737-2026, change notice published 10 Sep 2026 ("Prodloužení lhůty pro podání
+    nabídek", bids due 5 Oct 2026), XML read 2026-09-19; earlier notices ted-487706-2026 and
+    ted-558632-2026. Dopravní podnik hl. m. Prahy (IČO 00005886), "Rámcová dohoda na nákup až 200
+    ks městských standardních autobusů", estimated 1,581,000,000 CZK: "maximálně 100 kusů naftových
+    autobusů a maximálně 100 kusů mild-hybridních autobusů"; "Mild-hybridní autobusy musí splnit
+    definici nízkoemisního vozidla kategorie M3 dle § 3 odst. c) zákona 360/2022 Sb." No electric
+    bus in it. Context on how a large buyer meets the low-emission half of the share (S1 § 4(4)
+    requires only half of it to be zero-emission); not this job, backs no score.'
+  date: '2026-09-10'
+  signal: ted-624737-2026
+  dims: []
 created: '2026-09-19'
 updated: '2026-09-19'
 ---
@@ -341,6 +413,8 @@ What a bus company carries today:
 - The transport companies' association says others can lose grants over late deliveries too [S2].
 - The Central Bohemian region plans nearly 50 electric buses for 2028 to 2030, with chargers in the operators' own yards [S10].
 - A Prague operator's city contracts run to 2031 and do not allow a change of drivetrain [S3].
+- Olomouc's transport company closed its first tender for depot chargers without a winner in September 2026, and tendered them again the next day [S13].
+- Those chargers must fit the particular electric buses the company has already bought [S13].
 
 Existing non-solutions: Czech bus makers and energy companies sell electric buses and depot chargers outright, and nobody offers them for a fee per bus [S11].
 
@@ -360,6 +434,7 @@ The dates behind this:
 
 - From 1 January 2026, 60% of the city buses a public buyer contracts for must be clean [S1].
 - Half of that share must be buses with zero emissions [S1].
+- The rest of the share can be low-emission buses: Prague's transport company is tendering up to 100 diesel and 100 mild-hybrid buses, and requires the hybrids to meet the law's low-emission definition [S1,S14].
 - The first period's share of 41% ran until the end of 2025 [S1].
 - The 60% share runs until 31 December 2030 [S1].
 - Regions and towns that order bus lines from private operators must meet the same shares in those contracts [S1].
@@ -388,4 +463,4 @@ See [Validated abroad](#validated-abroad).
 
 ## Revisions
 
-2026-09-19 · record created — Created from gb-zenobe with the ledger's Czech e-bus tenders, contracts and grant call. Scores on the 2026-09-19 ladders. Proof 3: Zenobē runs the whole model in Britain and Deutsche Leasing finances e-buses with their chargers in Germany, both established [S5,S6]; counting a finance-only comp is a judgement call. Money 2: three paid receipts within 24 months, for buses, chargers and a bus-plus-charger tender [S7,S8,S9]; reading an outright purchase as the manual form of a fee per bus is our judgement. Urgency 2: the law binds public buyers, which the city transport companies are, and its 60% share applies from 1 January 2026, within 12 months; a fine is named but no enforcement receipt was found, so not 3 [S1]. Private operators are not bound directly, only through the regions' contracts [S1]. Demand 2: the association and two operators on record [S2,S3]. Gap 2: nobody sells the bundle; the Ringil and in-market controls passed [S11]. Our readings, flagged: "more than twice" is 14M against 6M, a 2023 price, so the headline does not use it (coordinator edit, same day) [S2]; the 14M price is from 2023, and 2026 tenders run about 10M to 12.8M a bus [S3,S9]; the E15 claim of a 2035 fleet share misstates the law and is not used [S2]. The ledger's 129.7% grant oversubscription is no longer on the call page, which now shows 74.6% taken after a top-up [S4]. No draft-law badge: the law is in force.
+2026-09-19 · record created — Created from gb-zenobe with the ledger's Czech e-bus tenders, contracts and grant call. Scores on the 2026-09-19 ladders. Proof 3: Zenobē runs the whole model in Britain and Deutsche Leasing finances e-buses with their chargers in Germany, both established [S5,S6]; counting a finance-only comp is a judgement call. Money 2: three paid receipts within 24 months, for buses, chargers and a bus-plus-charger tender [S7,S8,S9]; reading an outright purchase as the manual form of a fee per bus is our judgement. Urgency 2: the law binds public buyers, which the city transport companies are, and its 60% share applies from 1 January 2026, within 12 months; a fine is named but no enforcement receipt was found, so not 3 [S1]. Private operators are not bound directly, only through the regions' contracts [S1]. Demand 2: the association and two operators on record [S2,S3]. Gap 2: nobody sells the bundle; the Ringil and in-market controls passed [S11]. Our readings, flagged: "more than twice" is 14M against 6M, a 2023 price, so the headline does not use it (coordinator edit, same day) [S2]; the 14M price is from 2023, and 2026 tenders run about 10M to 12.8M a bus [S3,S9]; the E15 claim of a 2035 fleet share misstates the law and is not used [S2]. The ledger's 129.7% grant oversubscription is no longer on the call page, which now shows 74.6% taken after a top-up [S4]. No draft-law badge: the law is in force. Same date, weekly match, merged here: evidence audit — linked a signed contract for 6 electric buses in Frýdek-Místek and Karviná [S12], whose seller joins `locals[]` as adjacent; Olomouc's charger tender, closed without a winner and re-run the next day [S13]; and Prague's diesel and mild-hybrid framework [S14]. S3's note records the Prague operator's extended bid date. Gap re-checked: no one sells a fee per bus, stays 2. No score moved: money was already 2.

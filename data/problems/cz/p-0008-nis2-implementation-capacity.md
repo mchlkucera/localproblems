@@ -483,6 +483,43 @@ sources:
   unit: one-off
   basis: signed-contract
   dims: [money]
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/632864-2026
+  name: "TED — Prague 5 outsources the running of its security tools"
+  gist: "a city district buys the work"
+  why: "A Prague city district tenders two years of outside administration, monitoring and evaluation of its cyber-security tools, including handling security incidents, at an estimated 11.8M CZK."
+  note: 'ted-632864-2026: Městská část Praha 5, contract notice, open procedure, issued 14 Sep
+    2026, bids due 21 Oct 2026. "Správa, nastavení a dohled nad vybranými nástroji kybernetické
+    bezpečnosti": professional services to administer, configure, monitor and evaluate selected
+    cyber-security tools, incl. LAN and network-service administration, support for its Bitdefender
+    security platform, and monitoring, evaluation and handling of security incidents; duration 24
+    months; estimated value 11,827,200 CZK excl. VAT. TED XML read 2026-09-19. Unlike the tooling
+    tenders on file, this buys security work itself, from a town-level public buyer. It is an
+    open tender with no award, so it stays public money nearby and backs no score; once awarded,
+    the winning line is a tender-line price receipt for this job. The notice does not cite Act
+    264/2025.'
+  date: '2026-09-14'
+  signal: ted-632864-2026
+  dims: []
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/39447877
+  name: "Registr smluv — Jihlava psychiatric hospital, grant-funded purchase (~22.9M CZK)"
+  gist: "a grant turned into a purchase"
+  why: "A psychiatric hospital signed about 22.9M CZK for security hardware and software with installation and five years of support, part-paid by the EU's regional-development programme."
+  note: 'hlidac-37086957: Psychiatrická nemocnice Jihlava signed "Kupní smlouva - Zvýšení
+    kyberbezpečnosti PNJ" (SML-0093/26) with S A L T O spol. s r.o. (IČO 44016336) on 8 Sep 2026,
+    22,932,485 CZK excl. VAT / 27,748,306.85 CZK incl. VAT (registr smluv, published 9 Sep 2026).
+    Contract text read 2026-09-19: supply of infrastructure elements (HW + SW) per annex 1, with
+    implementation, connection to the hospital''s infrastructure, training of administrators and
+    users, and technical support for the 5-year sustainability period; co-financed from the IROP
+    project "Zvýšení kyberbezpečnosti PNJ", reg. no. CZ.06.01.01/00/22_004/0000349 (the contract
+    does not name the IROP call). A purchase of kit, not the security measures and paperwork this
+    problem sells, so not restated as a price receipt and no dims. Same hospital as the grant
+    application in the [S8] note (hlidac-38824338). The TED award notice for the same purchase
+    (ted-626646-2026, 22,932,485 CZK, SALTO) is a duplicate and is not cited.'
+  date: '2026-09-08'
+  signal: hlidac-37086957
+  dims: []
 created: '2026-08-13'
 updated: '2026-09-19'
 ---
@@ -540,6 +577,8 @@ The €33M is spread over about 77 tenders and awards [S7]. Buyers range from la
 - The smallest buyers choose ready-made packages. A care home in Napajedla bought one, and social-care services in the Zlín region ordered the same package within weeks; its price is in the same table [S7].
 - 341 cyber-security contracts have entered the state contracts register since June 2026 [S6].
 - The town of Týn nad Vltavou paid just to find out whether the law applied to it [S7].
+- Prague 5, a city district, is tendering two years of outside running of its security tools, including handling attacks, estimated at 11.8M CZK [S27].
+- Jihlava's psychiatric hospital, one of the grant applicants, signed about 22.9M CZK in September 2026 for security hardware and software, part-paid by the EU's regional-development programme [S8,S28].
 
 The EU grant is IROP call 120 (the cyber-security call of the EU's regional-development programme). It holds about €99.6M and pays 50% of the cost [S9].
 
@@ -579,4 +618,4 @@ Solved elsewhere: Two funded European companies sell software that automates sec
 
 2026-09-17 · story pass — Why now now opens on who loses what and when (a firm's fine, a town's 121,000 CZK grant application and its December cut-off, the university re-tender, the 91,000 CZK package) with the law dates moved below as plain bullets, Who pays' keyed list became plain sentences led by the number, First moves were rewritten as a five-step story whose lead sentences stand alone and explain registration and the security measures [S16], and `entry.why` now says what makes entry easier and harder (ICZ stays named in `locals[]`), with one inference marked here: that a town missing the 17 December grant deadline pays the full cost itself rests on [S9] naming no later call, and no score, status, source or entry level changed. Same date, waivers cleared: the Why now answer was cut from 32 to 24 words with its meaning kept, the care home's package price left Why now for a link to its Willing to pay receipt [S7], the moves lost every marker and figure for links to the sections holding them, and the move-only facts (the two decrees and their measures [S16], what registering means [S1], the smallest buyers' ready-made packages [S7], the documents sold as packs or online tools [S16], what a resilience plan is [S5]) now live in their home sections, with no score, status, source or entry changed.
 
-2026-09-19 · rescored to the 2026-09-19 ladders — Why now stays 3 and Willing to pay stays 2, so `score` stays 11 and the band stays PRIME; what changed is the evidence each number rests on. Why now was 3 as deadline 2 plus the freshness point, which is retired; it is now 3 as a deadline with penalties: Act No. 264/2025 is enacted and binds the towns, care homes and firms this problem sells to (REAL), their one-year deadlines fall between late 2026 and mid 2027 (CLOSE), and the Act fines up to 2% of turnover or CZK 250m, with proceedings already counted against the unregistered (TEETH) [S1,S13]. Willing to pay was 2 on recurring public spend above 5M CZK (the Prague and hospital tooling tenders), which is now public money nearby and earns nothing [S3,S4]; it is now 2 on paid receipts for this job. Tagging pass, every source on file that shows someone paying: the Napajedla care home's packaged compliance order, about 91,000 CZK in June 2026 [S23], and Český Brod's whole cyber-security job, about 9M CZK in August 2026 [S24], both signed contracts within 24 months, now tagged `dims: [money]`; the NIS2 Průvodce subscription, 3,000 CZK a month, tagged as an asking price because the ledger lists that seller as direct [S25]; and one receipt added, [S26], restating the Boskovice contract [S8] (a town paying a consultant about 121,000 CZK to write its IROP grant application, a piece of this job the solution names) as a signed-contract price. Not restated, and why: the Motol and Homolka, Prague, ČEZ Distribuce, Česká televize, Státní zdravotní ústav, Nemocnice Milosrdných bratří and NAKIT tenders buy security tooling or equipment, not the security measures and paperwork this problem sells [S3,S4,S17,S18,S20,S21,S22]; Mendel University's re-tender for an outsourced security manager is this job but names no value and no award [S19]; Týn nad Vltavou's scope analysis and the other grant applications in the [S7] and [S8] notes carry no amount and no url of their own; the Reglyze prices are foreign vendors' [S14]. The IROP call stays on file as public money nearby; its lift is not needed [S9]. Stale notes fixed: [S4] said the tenders scored money 2; [S23], [S24] and [S25] said they backed no score. `[Competition](#competition)` became `[Market gap](#competition)` in move 4. Why now and Willing to pay prose re-read against the numbers and left as written: the deadlines, the fine and the paid orders it describes are the evidence the scores now read. The 121,000 CZK figure stays in Why now and Who pays, cited to [S8], because the Why now sentence is the template's approved example. No other score, status, entry or body sentence changed.
+2026-09-19 · rescored to the 2026-09-19 ladders — Why now stays 3 and Willing to pay stays 2, so `score` stays 11 and the band stays PRIME; what changed is the evidence each number rests on. Why now was 3 as deadline 2 plus the freshness point, which is retired; it is now 3 as a deadline with penalties: Act No. 264/2025 is enacted and binds the towns, care homes and firms this problem sells to (REAL), their one-year deadlines fall between late 2026 and mid 2027 (CLOSE), and the Act fines up to 2% of turnover or CZK 250m, with proceedings already counted against the unregistered (TEETH) [S1,S13]. Willing to pay was 2 on recurring public spend above 5M CZK (the Prague and hospital tooling tenders), which is now public money nearby and earns nothing [S3,S4]; it is now 2 on paid receipts for this job. Tagging pass, every source on file that shows someone paying: the Napajedla care home's packaged compliance order, about 91,000 CZK in June 2026 [S23], and Český Brod's whole cyber-security job, about 9M CZK in August 2026 [S24], both signed contracts within 24 months, now tagged `dims: [money]`; the NIS2 Průvodce subscription, 3,000 CZK a month, tagged as an asking price because the ledger lists that seller as direct [S25]; and one receipt added, [S26], restating the Boskovice contract [S8] (a town paying a consultant about 121,000 CZK to write its IROP grant application, a piece of this job the solution names) as a signed-contract price. Not restated, and why: the Motol and Homolka, Prague, ČEZ Distribuce, Česká televize, Státní zdravotní ústav, Nemocnice Milosrdných bratří and NAKIT tenders buy security tooling or equipment, not the security measures and paperwork this problem sells [S3,S4,S17,S18,S20,S21,S22]; Mendel University's re-tender for an outsourced security manager is this job but names no value and no award [S19]; Týn nad Vltavou's scope analysis and the other grant applications in the [S7] and [S8] notes carry no amount and no url of their own; the Reglyze prices are foreign vendors' [S14]. The IROP call stays on file as public money nearby; its lift is not needed [S9]. Stale notes fixed: [S4] said the tenders scored money 2; [S23], [S24] and [S25] said they backed no score. `[Competition](#competition)` became `[Market gap](#competition)` in move 4. Why now and Willing to pay prose re-read against the numbers and left as written: the deadlines, the fine and the paid orders it describes are the evidence the scores now read. The 121,000 CZK figure stays in Why now and Who pays, cited to [S8], because the Why now sentence is the template's approved example. No other score, status, entry or body sentence changed. Same date, evidence audit, merged here: two new signals linked. Prague 5 is tendering two years of outside running of its security tools, estimated at 11.8M CZK, the security work itself rather than tooling; open, so public money nearby with no dims [S27]. Jihlava's psychiatric hospital, a grant applicant in [S8], signed about 22.9M CZK for security kit, IROP co-financed, not this job [S28]. Both added as Who pays detail bullets. Gap re-checked: no new local player. No score moved.
