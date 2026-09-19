@@ -44,6 +44,7 @@ const C = {
   text3: "#6e7077", // the AA-passing meta gray (.lab.ls, .lab.lf)
   ring: "#8a8c93", // the Venn rings (--lf-ring)
   art: "#9fa1a8", // the category drawing (.ls-art)
+  empty: "#e3e4e8", // an unearned meter segment (--l-bg-4)
   score: { good: "#3f8f7f", mid: "#b58a2e", bad: "#c4564f" },
   level: {
     easy: ["#4f9c8c", "#2e7466"],
@@ -52,10 +53,6 @@ const C = {
     "very-hard": ["#c4564f", "#a8413c"],
   } satisfies Record<EntryLevel, [string, string]>,
 } as const;
-
-/** The page's one tone rule (problem page `scoreTone`): full marks good, at
-    least half mid, under half bad. */
-const tone = (n: number, max: number) => (max > 0 && n >= max ? "good" : max > 0 && n / max >= 0.5 ? "mid" : "bad");
 
 const PAD_X = 72;
 
@@ -184,8 +181,12 @@ export function RecordCard({ title, line, category, scores, total, level }: Reco
         <Stat label="Opportunity">
           <span style={{ fontSize: 48, lineHeight: 1, fontWeight: 600, color: C.text1, letterSpacing: "-0.02em" }}>{total.n}</span>
           <span style={{ fontSize: 48, lineHeight: 1, fontWeight: 400, color: C.text3, letterSpacing: "-0.02em" }}>/{total.max}</span>
-          <div style={{ display: "flex", gap: 10, marginLeft: 22 }}>
-            {scores.map((s, i) => <Dot key={i} color={C.score[tone(s.n, s.max)]} size={18} />)}
+          {/* the front page's meter at card scale: one segment per point, teal
+              up to the score, gray after it (owner: "the last dot should be grey") */}
+          <div style={{ display: "flex", gap: 6, marginLeft: 24 }}>
+            {Array.from({ length: total.max }, (_, i) => (
+              <div key={i} style={{ width: 12, height: 28, borderRadius: 3, background: i < total.n ? C.score.good : C.empty }} />
+            ))}
           </div>
         </Stat>
         <Stat label="Entry">
@@ -215,8 +216,7 @@ export function RecordCard({ title, line, category, scores, total, level }: Reco
     the Venn (lib/site/front.tsx): three monoline rings, the shared core faintly
     filled, the labels in the page's words. */
 export function SiteCard({ title, line }: { title: string; line: string }) {
-  const s = 1.35; // the Venn's 344×160 box, scaled
-  const label = { position: "absolute", fontSize: 22, lineHeight: 1, fontWeight: 400, color: C.text2 } as const;
+  const label = { position: "absolute", fontSize: 22, lineHeight: 1.1, fontWeight: 400, color: C.text2 } as const;
   return (
     <div
       style={{
@@ -231,18 +231,26 @@ export function SiteCard({ title, line }: { title: string; line: string }) {
           </div>
           <div style={{ marginTop: 28, fontSize: 28, lineHeight: 1.4, color: C.text2, textWrap: "pretty" }}>{line}</div>
         </div>
-        {/* wider than the drawing: "Government wants" runs past the last ring */}
-        <div style={{ display: "flex", position: "relative", width: 344 * s + 44, height: 160 * s + 8, flexShrink: 0 }}>
-          {/* rings at 1.6, not the page's 1.25, so they survive a 400px thumbnail */}
-          <svg width={344 * s} height={160 * s} viewBox="0 0 344 160" fill="none">
-            <circle cx="124" cy="44" r="40" stroke={C.ring} strokeWidth="1.6" />
-            <circle cx="182" cy="44" r="40" stroke={C.ring} strokeWidth="1.6" />
-            <circle cx="153" cy="94.23" r="40" stroke={C.ring} strokeWidth="1.6" />
-            <path d="M143.64 55.34A40 40 0 0 1 162.36 55.34A40 40 0 0 1 153 71.55A40 40 0 0 1 143.64 55.34Z" fill={C.text1} fillOpacity="0.1" />
+        {/* THE VENN, redrawn for the card (owner, 2026-09-19: "messy"): three
+            equal rings on an equilateral triangle, each label centred in the
+            widest part of its own ring's outer lobe, the overlaps shaded by stacking the same faint
+            fill, and one teal dot where all three meet: the register's aim */}
+        <div style={{ display: "flex", position: "relative", width: 450, height: 430, flexShrink: 0 }}>
+          <svg width="450" height="430" viewBox="0 0 450 430" fill="none">
+            <circle cx="150" cy="150" r="120" fill={C.text1} fillOpacity="0.035" stroke={C.ring} strokeWidth="2" />
+            <circle cx="300" cy="150" r="120" fill={C.text1} fillOpacity="0.035" stroke={C.ring} strokeWidth="2" />
+            <circle cx="225" cy="280" r="120" fill={C.text1} fillOpacity="0.035" stroke={C.ring} strokeWidth="2" />
+            <circle cx="225" cy="193" r="11" fill={C.score.good} />
           </svg>
-          <div style={{ ...label, left: 74 * s - 200, width: 200, top: 48 * s - 18, display: "flex", justifyContent: "flex-end" }}>People want</div>
-          <div style={{ ...label, left: 232 * s, top: 48 * s - 18 }}>Government wants</div>
-          <div style={{ ...label, left: 153 * s - 100, width: 200, top: 154 * s - 18, display: "flex", justifyContent: "center" }}>Works abroad</div>
+          <div style={{ ...label, left: 105 - 80, width: 160, top: 124, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+            <span>People</span><span style={{ marginTop: 4 }}>want</span>
+          </div>
+          <div style={{ ...label, left: 345 - 80, width: 160, top: 124, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+            <span>Government</span><span style={{ marginTop: 4 }}>wants</span>
+          </div>
+          <div style={{ ...label, left: 225 - 80, width: 160, top: 318, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+            <span>Works</span><span style={{ marginTop: 4 }}>abroad</span>
+          </div>
         </div>
       </div>
       <Footer />
