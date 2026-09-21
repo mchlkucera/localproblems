@@ -177,7 +177,17 @@ sources:
     dodavatele": bids now due 1 Oct 2026, at a supplier''s request. Not cited separately. The TED
     lot values are 124,005,400 CZK for 10 Sd, 100,409,250 CZK for 10 Md+ and 210,165,500 CZK for
     20 Md, i.e. 12.401M, 10.041M and 10.508M a bus: the article''s per-bus figures for Md and Md+
-    appear swapped. No rendered sentence uses the per-class figures.'
+    appear swapped. No rendered sentence uses the per-class figures.
+    Added 2026-09-21 (weekly match): the same three tenders were re-notified a third time, issued
+    17 Sep 2026 and published on TED on 21 Sep (ted-648241-2026 Sd, ted-649004-2026 Md+,
+    ted-647388-2026 Md). XML read 2026-09-21 (saved in the run scratchpad): each is a change notice
+    over the 14 Sep ones (ChangedNoticeIdentifier 631809-2026, 630176-2026 and 631151-2026), with
+    ChangeDescription "Prodloužení lhůty pro podání nabídek do 05.10.2026, 10:00 hod." and reason
+    code update-add, this time with no reason given in words. Bids are now due 5 October 2026, a
+    second extension. Estimated values unchanged at 124,005,400 / 100,409,250 / 210,165,500 CZK;
+    the Md notice states the procurement is a rámcová dohoda under § 131 of act 134/2016 Sb.,
+    awarded on lowest offered price, with delivery to U Továren 770/1b, Praha 15. The same
+    procurement as the ids above, so no separate source is added and no score moves.'
   date: '2026-08-19'
   dims: [demand]
 - type: subsidy
@@ -388,7 +398,7 @@ sources:
   signal: ted-624737-2026
   dims: []
 created: '2026-09-19'
-updated: '2026-09-19'
+updated: '2026-09-21'
 ---
 
 Czech city bus companies must add electric buses they can barely afford without EU grants, and those grants can be taken back [S1,S2].
@@ -457,3 +467,5 @@ See [Validated abroad](#validated-abroad).
 ## Revisions
 
 2026-09-19 · record created — Created from gb-zenobe with the ledger's Czech e-bus tenders, contracts and grant call. Scores on the 2026-09-19 ladders. Proof 3: Zenobē runs the whole model in Britain and Deutsche Leasing finances e-buses with their chargers in Germany, both established [S5,S6]; counting a finance-only comp is a judgement call. Money 2: three paid receipts within 24 months, for buses, chargers and a bus-plus-charger tender [S7,S8,S9]; reading an outright purchase as the manual form of a fee per bus is our judgement. Urgency 2: the law binds public buyers, which the city transport companies are, and its 60% share applies from 1 January 2026, within 12 months; a fine is named but no enforcement receipt was found, so not 3 [S1]. Private operators are not bound directly, only through the regions' contracts [S1]. Demand 2: the association and two operators on record [S2,S3]. Gap 2: nobody sells the bundle; the Ringil and in-market controls passed [S11]. Our readings, flagged: "more than twice" is 14M against 6M, a 2023 price, so the headline does not use it (coordinator edit, same day) [S2]; the 14M price is from 2023, and 2026 tenders run about 10M to 12.8M a bus [S3,S9]; the E15 claim of a 2035 fleet share misstates the law and is not used [S2]. The ledger's 129.7% grant oversubscription is no longer on the call page, which now shows 74.6% taken after a top-up [S4]. No draft-law badge: the law is in force. Build-gate fix, same day: Deutsche Leasing left comps[] because the comps schema cannot hold a founding year before 1980 (it was founded 1962) and a false year would dodge the gate; its Lübeck case stays as a source [S6]. Proof 3 to 2 (one established player, Zenobē, in Britain and Spain; Spain is not CEE-adjacent), score 11 to 10; the solution now counts one company. Same date, weekly match, merged here: evidence audit — linked a signed contract for 6 electric buses in Frýdek-Místek and Karviná [S12], whose seller joins `locals[]` as adjacent; Olomouc's charger tender, closed without a winner and re-run the next day [S13]; and Prague's diesel and mild-hybrid framework [S14]. S3's note records the Prague operator's extended bid date. Gap re-checked: no one sells a fee per bus, stays 2. No score moved: money was already 2.
+
+2026-09-21 · evidence audit — Weekly match over 34 mobility signals. Nothing new was linked: the three PID electric-bus tenders that arrived as ted-647388-2026, ted-648241-2026 and ted-649004-2026 are the same procurements this record already cites, re-notified a third time, and their notices were read and merged into that source's note rather than added again [S3]. The one new fact in them is a second extension of the bid deadline, from 1 to 5 October 2026, issued 17 September with no reason given in words [S3]; the estimated values did not change. Not linked, and why: a charging-station construction purchasing system set up by E.ON's charging arm (ted-648668-2026, about 43.5M CZK) buys civil works for charging stations in general, not a bus depot's chargers, and that arm is already on the record as an adjacent local that builds depot chargers [S11]; the rest of the week's mobility haul is motorway, rail and road-maintenance procurement by the state road and rail authorities, which buys nothing this record describes. Gap re-checked against the week's signals: the only new suppliers named in them build roads, rails and chargers, and none sells electric buses with their batteries and depot charging for a fee per bus, so gap stays 2 [S11]. No score moved.

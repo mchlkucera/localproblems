@@ -38,6 +38,14 @@ comps:
   traction: '€13M Series A led by Northzone, €16M total (TechCrunch, 2024); installer sales/planning/ops
     software live in DACH, FR, IT'
   markets: [AT, CH, FR, IT]
+- name: Coperniq
+  url: https://www.ycombinator.com/companies/coperniq
+  geo: US
+  since: 2021
+  traction: 'Y Combinator Winter 2023 batch; founded 2021, team of 6 in San Francisco; the YC
+    company page cites a $4M seed announced in November 2023 and publishes no customer count
+    (Y Combinator, read 2026-09-21)'
+  signal: yc-coperniq
 locals:
 - name: Wue
   url: https://wue.cz/
@@ -228,8 +236,30 @@ sources:
   unit: per-seat-month
   basis: list-price
   dims: [money]
+- type: arbitrage
+  name: 'Coperniq — workflow software for solar and energy contractors'
+  gist: 'a third funded foreign tool'
+  why: 'A San Francisco company in Y Combinator''s Winter 2023 batch sells solar and energy contractors one tool that carries a job from the sale through to the field crew, the same position the two German tools hold.'
+  url: https://www.ycombinator.com/companies/coperniq
+  note: 'yc-coperniq (ledger). Y Combinator company page read 2026-09-21: "Workflow software for
+    solar & energy contractors", Winter 2023 batch, founded 2021, team size 6, San Francisco. The
+    page cites a $4M seed round announced in November 2023, attributed there to TechCrunch, and
+    publishes no customer count. Product claims ON THE PAGE, and they are the company''s own, not
+    ours: it replaces spreadsheets and general CRM across sales, operations and field install,
+    integrates with the hardware makers Enphase and SolarEdge for system health and service
+    tickets, and claims about $3,000 of soft cost saved an installation and 45 days off a project.
+    MATURITY, on the SCORING.md established test: selling since 2021 clears the three-year limb,
+    but the second limb fails on every branch — no named customer or public customer count, no
+    Czech public buyer, funding at seed rather than Series A, no state certification. So it is an
+    EARLY foreign player and it does not touch proof, which is 3 on the two established German
+    sellers. It is recorded because a third funded foreign company selling the same thing is
+    intelligence a builder wants, and because it is the first US instance on this record besides
+    the subsidy-filing half [S7]. No Czech buyer, no price and no gap evidence in it.'
+  date: '2026-09-21'
+  signal: yc-coperniq
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-09-21'
 ---
 
 Small Czech installation firms size, price and file the subsidy paperwork for the heat pumps and solar panels the state subsidises [S1,S2].
@@ -288,6 +318,8 @@ It has about 30 people and joined Y Combinator in 2024 [S1]. Its funding and cus
 
 Jasmine Energy, a US company backed by Y Combinator, sells solar incentive claims drafted by AI: the subsidy-filing half alone, funded in a second market [S7].
 
+A San Francisco company, also backed by Y Combinator, sells solar and energy contractors one tool for the whole job, from the sale to the crew in the field [S9]. It is six people on seed money and names no customer, so it shows the model being built rather than proven [S9].
+
 What the German tool shows now is depth, a heat-load calculation and a digital site survey, not an open field here [S1,S6].
 
 ## First moves
@@ -312,3 +344,5 @@ What the German tool shows now is depth, a heat-load calculation and a digital s
 2026-09-18 · body rewritten to the writing rules, process figure added — Every section now opens with ONE answer sentence, each first list carries its three most important items, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on what the installers do for the subsidised installs, with the install volume, the firm count and the paperwork as its items [S1,S2,S6], and the workflow, the makers' sizing tools and Master Therm (from move 6) as detail [S1,S3]. Competition opens on the four Czech vendors and describes each by what it sells; their names, years and IČOs stay in their `locals[]` rows, the seat price stays in its receipt [S8], and the non-ledger names (Master Therm, Woltair, Bubble Development) stay named [S3,S6]. Why now no longer opens on the German comparable, which moved to Validated abroad; it opens on the pain of the June 2026 redesign, a loan instead of a grant for better-off homeowners and a renovation pass before retrofit money, with the dates below as plain bullets [S4,S5]. Willing to pay now says what is spent: firms buy installer software per seat, one vendor's solar module runs at about 20 firms, and the state pays for renovation passes [S5,S6]. Validated abroad opens on the Berlin company without naming it, keeps its size and batch [S1], and gains the US incentive-claims company that sat only in the sources [S7]. The moves went from six to four: old moves 1 and 3 (time the firms, test the redesign) merged, old move 6 (the named competitors) folded into move 2, old move 5's figures moved to Why now and Willing to pay, and every marker, figure, company name and bold was dropped for links. Old move 3 and move 5 linked to `/sources/tenders#…`, the private sources page; those links are gone and their facts are in the body [S4,S5]. `entry.why` was rewritten as "Easier: … Harder: …" with the same gates, and no longer names the established vendor. `S8.why` said "the back office this record describes", which a reader sees; it now says "installer back-office software". [S7] gained the public name, gist and why it lacked; its note is untouched. PROCESS FIGURE ADDED, five steps: the installer sizes the system in a maker's tool (inferred from [S3], which found makers' configurators and no installer tool, so it is drawn dashed); writes the quote [S1,S6]; prepares the subsidy forms [S1,S6]; an accredited specialist writes the renovation pass, unchanged [S5]; and who files each application with the subsidy fund is marked unknown. No actor or system was invented. Corrected against the sources rather than against the old sentences: "they run … on spreadsheets, manufacturer sizing tools and hand-filled NZÚ forms [S1]" — [S1] names the tasks and the paperwork burden, not spreadsheets or hand-filled forms, so it is now written as a likely picture for a firm without installer software [S1,S3]; "subsidy volume keeps the long tail of installers at capacity [S2]" — [S2] gives tens of thousands of installs a year and says nothing of capacity, so the capacity claim is cut; "that rebuild protects a local entrant" had no source and now reads only that a foreign tool would have to be rebuilt around the Czech forms; "manufacturers and distributors are the second buyer" had no source and now reads "could be"; and old move 1 cited [S2] for hours per quote, which [S2] does not measure. Flagged as inference: the likely spreadsheets and hand-filled forms [S1,S3]; the foreign-tool rebuild; that firms would pay per seat or per job; the makers and distributors as a possible second buyer; the sizing step in the figure [S3]; and "what the German tool shows now is depth", read from no Czech vendor being described as doing a heat-load calculation or a site survey [S6]. "Hundreds of small installation firms" is kept with [S1], whose note carries it from the funding signal, as the 2026-09-16 entry already noted. Added from sources already on file: the dispatcher calendar, the roof configurator and the payback calculator [S6], the loans for other owners and the 31 October 2029 end date [S4], the 100,000 CZK apartment-building cap and the State Environmental Fund's accreditation [S5], and the US company [S7]. No score, status, source, `note:`, `sources[]` order, title, brief, solution, good_for or `entry` gate value changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0; Willing to pay stays 1; score 6 → 5, still FAIR. Why now: the old 1 was the retired freshness point on a deadline part of 0. No regulation is on file: the redesigned subsidy [S4] and the renovation-pass call closing on 30 November 2026 [S5] are a grant's rules and closing date, which put no dated duty on an installer, and this ladder does not read a grant's date. Willing to pay, tagging pass first: every source on file was read for someone paying for this exact job, installer software that sizes and prices the job and prepares the subsidy forms, or that work bought in. Counted: Wue's list price, 650 CZK per seat a month for quoting, contracts and the state subsidy paperwork, with the heat-pump module extra [S8]. It was already a price receipt, untagged; it now carries `dims: [money]`. A list price is an asking receipt, rung 1. Not counted: the roughly 20 installer firms running another vendor's solar module, which name no amount [S6]; the state subsidy and its 2026 redesign [S2,S4], which pay households; and the renovation-pass grant, which pays for an accredited specialist's assessment, not installer software [S5]. None of the three grants names installers as eligible, so there is no public-money lift. S8's note, which said it backs no score, gained a rescore line. Body: Why now gained a bullet saying none of its dates is a legal deadline for the installers [S4,S5]. The two links to the section now named Market gap carry that name. Same result as the worksheet.
+
+2026-09-21 · evidence audit — Weekly match over the week's energy signals. Appended one foreign comparable: a San Francisco company in Y Combinator's Winter 2023 batch selling solar and energy contractors one workflow tool, its page read the same day [S9]. It is a repeat of what this record already says — the same product exists abroad and is funded — and it moves nothing. On the established test it is EARLY: selling since 2021 clears the years, but it names no customer, publishes no count and has raised seed money only, so proof stays 3 on the two German sellers [S1]. Its own page's savings claims are recorded in the source note as the company's claims and are used in no sentence here [S9]. Not linked, and why: a US company selling microgrids in a box sells hardware, not the installer's back office; nothing in the week's haul names a Czech installer, a Czech price or a new Czech vendor. Gap re-checked against the week's signals: no new Czech seller of installer software surfaced, so gap stays 0 on the established Czech vendor already on the ledger, and the record stays watching [S6]. No score moved.

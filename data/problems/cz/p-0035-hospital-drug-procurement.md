@@ -538,8 +538,86 @@ sources:
   date: '2026-09-14'
   signal: ted-629638-2026
   dims: []
+- type: tender
+  name: "TED — Bulovka and Královské Vinohrady, 28 medicines bought together"
+  gist: "the 28-lot joint purchase"
+  why: "Two Prague teaching hospitals opened one purchase covering 28 medicines, one active substance to a lot, estimated together at about 2.5bn CZK."
+  url: https://ted.europa.eu/en/notice/-/detail/646876-2026
+  note: 'ted-646876-2026, read 2026-09-21 from the TED search API. Contract notice
+    (cn-standard), open procedure, published 21 Sep 2026, "Dodávky LP - společný nákup",
+    buyers Fakultní nemocnice Bulovka and Fakultní nemocnice Královské Vinohrady, bids due
+    20 Oct 2026. 28 lots, each for continuous supplies of one active substance:
+    darolutamide, upadacitinib, ustekinumab, talazoparib, atezolizumab, guselkumab,
+    sacituzumab govitecan, faricimab, panitumumab, ipilimumab, remdesivir, vedolizumab,
+    amivantamab, deucravacitinib, pertuzumab, mirikizumab, baricitinib, avelumab,
+    binimetinib, sotorasib, trastuzumab emtansine, dostarlimab, apalutamide, cetuximab,
+    dupilumab, secukinumab, cabozantinib and bimekizumab. Total value on the notice
+    2,509,611,143.46 CZK; the 28 per-lot estimates are published but are not paired with
+    their substances here, because the API returns the two lists separately and the pairing
+    would be read off their order. Both buyers signed the ministry''s July 2026 memorandum
+    on joint buying [S12]. CONTEXT, dims empty: it buys medicines, not a price comparison,
+    so it earns no money point; demand is already 2 on the state''s own findings
+    [S7,S9,S19]. It matters because it is the pooling this problem''s answer is measured
+    against, and because two other signatories bought two of these same substances alone in
+    the same weeks [S25,S26].'
+  date: '2026-09-21'
+  signal: ted-646876-2026
+  dims: []
+- type: tender
+  name: "TED — St Anne's in Brno buys guselkumab on its own"
+  gist: "one hospital, one substance"
+  why: "A Brno teaching hospital awarded a guselkumab contract by itself five days before two Prague hospitals put the same substance into their joint purchase."
+  url: https://ted.europa.eu/en/notice/-/detail/650080-2026
+  note: 'ted-650080-2026, read 2026-09-21 from the TED search API. Award notice
+    (can-standard), "L04AC16 GUSELKUMAB", buyer Fakultní nemocnice u sv. Anny v Brně,
+    supplier Janssen-Cilag s.r.o., procedure oth-single, contract concluded 16 Sep 2026,
+    result value 27,890,665.8 CZK against an estimate of 26,582,249 CZK. St Anne''s is one
+    of the six hospitals that signed the ministry''s July 2026 memorandum on joint buying
+    [S12], and guselkumab is one of the 28 lots in the Bulovka and Královské Vinohrady
+    joint purchase published five days later [S24]. CONTEXT, dims empty: the money buys the
+    medicine, not a price comparison, and it is not restated as a price receipt for that
+    reason. NOT CLAIMED: nothing here shows either buyer paid too much — the volumes behind
+    the two procedures are not on file.'
+  date: '2026-09-16'
+  signal: ted-650080-2026
+  dims: []
+- type: tender
+  name: "TED — Brno university hospital tenders ustekinumab on its own"
+  gist: "a second substance bought twice"
+  why: "Brno's university hospital opened its own ustekinumab tender in the same week that two Prague hospitals put the same substance into their joint purchase."
+  url: https://ted.europa.eu/en/notice/-/detail/649047-2026
+  note: 'ted-649047-2026, read 2026-09-21 from the TED search API. Contract notice
+    (cn-standard), open procedure, "Léčivé přípravky s účinnou látkou USTEKINUMAB II.",
+    buyer Fakultní nemocnice Brno, two lots for a framework purchase contract, estimated
+    124,710,580 CZK and 13,431,010 CZK, 138,141,590 CZK together, bids due 19 Oct 2026. The
+    "II." in the title marks a second procedure. Fakultní nemocnice Brno is one of the six
+    signatories of the ministry''s July 2026 memorandum [S12], and ustekinumab is one of
+    the 28 lots in the joint purchase published two days later [S24]. CONTEXT, dims empty:
+    it buys medicines, not the comparison this problem is about.'
+  date: '2026-09-21'
+  signal: ted-649047-2026
+  dims: []
+- type: tender
+  name: "TED — Krajská zdravotní's own standing system for medicines"
+  gist: "a regional group's own drug system"
+  why: "A regional hospital group runs its own standing purchasing system for medicines and awarded a two-year framework for a single drug under it."
+  url: https://ted.europa.eu/en/notice/-/detail/647026-2026
+  note: 'ted-647026-2026, read 2026-09-21 from the TED search API. Award notice
+    (can-standard), restricted procedure, "Dynamický nákupní systém na dodávky léčivých
+    přípravků - 5123", buyer Krajská zdravotní, a.s. The lot buys continuous supplies of
+    fremanezumab for the buyer''s own care, delivered into the pharmacies of its individual
+    branch hospitals, under a framework agreement with one selected supplier for 24 months;
+    lot estimate 40,573,000 CZK. The notice states a total value of 16,000,000,000 CZK,
+    which is the purchasing system''s own stated value and not money spent, the same
+    caution [S1] already carries; no supplier name or result value is returned by the API
+    for this notice, so none is stated here. CONTEXT, dims empty: it is another buyer
+    running its own standing drug system, which is the pattern [S1] documents, and it buys
+    medicines rather than a price comparison.'
+  date: '2026-09-21'
+  signal: ted-647026-2026
+  dims: []
 created: '2026-09-03'
-updated: '2026-09-19'
+updated: '2026-09-21'
 ---
 
 Czech hospitals buy most medicines alone, and a state audit found some paying over 3 times what others paid [S1,S7].
@@ -558,6 +636,9 @@ The notices came out between 6 July and 2 September 2026 [S1]. Each runs under a
 - In September 2026 Olomouc's and Hradec Králové's university hospitals each went to market alone for lenvatinib, a cancer drug [S20,S21].
 - Olomouc's call covers three years in three lots [S20]. Hradec Králové's award covers four years, split between two wholesalers [S21].
 - Hospitals also buy lab reagents one by one, each tied to an analyser the supplier lends: nine hospitals published ten such notices on 9–18 September 2026 [S23].
+- On 21 September 2026 two Prague teaching hospitals opened one purchase covering 28 medicines, an active substance to a lot [S24].
+- In the same days two Brno teaching hospitals each bought on their own a substance that joint purchase also covers [S25,S26].
+- A regional hospital group runs a standing purchasing system for medicines of its own, and awarded a two-year supply of one drug under it in September 2026 [S27].
 
 The state keeps finding what this costs:
 
@@ -579,6 +660,8 @@ That firm has pooled public buying since 2006 [S18]. It gathers the demand of ma
 - Some buyers pool for themselves: the Pardubice region's hospital company runs central purchasing for the region [S18]. The health ministry's joint buying for its own hospitals is under [Why now](#why-now).
 - Some university hospitals pool single drugs: Olomouc, Hradec Králové and Ostrava opened one joint call for a cancer drug in September 2026 [S22]. None of the three signed the ministry's July memorandum [S12,S22].
 - Pooling goes drug by drug: in the same month Olomouc and Hradec Králové bought lenvatinib separately [S20,S21]. Pooled buying is not a comparison of prices [S22].
+- Pooling and buying alone run side by side among the very hospitals that agreed to look at buying together: two of the six signed one purchase of 28 medicines in September 2026 [S12,S24].
+- In the same days a third of those six hospitals awarded guselkumab by itself, and a fourth opened its own ustekinumab tender; both substances are lots in that joint purchase [S25,S26].
 - The state health-statistics institute compares what hospital cases cost across a network of reference hospitals, not what they pay for medicines [S18].
 
 Why now: Since January 2026 insurers may buy specialist-centre drugs in one tender, and once they do, a hospital buying that drug alone is not reimbursed [S5].
@@ -642,3 +725,5 @@ Two more answers are not on the map, a public buyer and a cooperative:
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest of each section follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on hospitals buying alone and the audit's price spread, with the notice counts per hospital, the audit, the 2024 round table and the competition authority's guide below its first three items [S1,S2,S3,S4,S7,S9,S10]. Competition opens on the pooled-buying firm and describes it, the three purchasing-platform firms and the German buying group by what they sell; eCENTRE, PROEBIZ (JOSEPHINE), QCM (E-ZAK), Tender systems (Tender arena, eGordion) and Vivecti Group left the body and the moves, and their names, dates and per-group savings stay in their own rows [S15,S18]. Why now opens on what the 1 January 2026 insurance-law change does to a hospital, with the insurer's spend and bonus estimate and the hours-long delivery clock as its three items, and the law dates, the price ruling and the July 2026 memorandum below them [S5,S6,S8,S10,S12]. Willing to pay answers whether anyone pays now and carries the 2bn CZK ceiling caution, the unpublished staff-hours cost and the grant calls that do not fund this [S1,S8,S18]. Validated abroad became one answer sentence and four short paragraphs [S13,S14,S15,S16,S17]. The six moves became five: move 6 (no grant) folded into move 5, with its facts under Willing to pay [S18]; every move lost its markers, figures and company names for links, and the move-only facts now live in the body: the 90 of 106 notices that name the winning supplier under The opportunity [S1], and the insurer's March 2025 argument for central tenders under Why now [S8]. `entry.why` was rewritten as "Easier: … Harder: …" on the same gates the level derives from. Detail added from sources already on file, none of it new evidence: the second antibiotic, piperacillin with tazobactam at 385 against 2,103 CZK from the same supplier, and the ~1bn CZK of supplier bonuses [S7]; the ~60 percent tendered share [S9]; what the ministry's price database shows and why it was built [S11]; the memorandum's six signatories, its facility-management lead, its missing deadline and the 2018 pilot's ten planned tenders [S12]; Bulovka's scope [S3]; Motol and Homolka's call No. 274 [S4]; Intrakoop's roughly 550 organisations [S16]; the Pardubice region's central purchasing, the health-statistics institute's performance benchmark and the closed or ineligible grant calls [S18]; and one-line descriptions of the London tender-matching platform and the US pharmacy-ordering product [S14,S17]. Verified at the primary on 2026-09-18, resolving what S5's note left as inference: Act No. 289/2025, art. I point 226, inserts sections 40c–40e into the public health insurance act, and art. XI puts it in force on 1 January 2026 with point 226 not among the exceptions (zakonyprolidi.cz/cs/2025-289, the same act as S5's URL). The section 40d detail now in Why now is read from that text: centres of highly specialised care, a drug that is the only registered product with its active ingredient and is billed with a treatment or used only on wards, the insurer paying the tendered price, and no payment for a drug bought outside that tender [S5]. The note itself is unchanged. Corrected against the sources rather than the old sentences: Motol and Homolka's 10 notices were cited [S2,S3] and are [S4]; "fifteen Czech public hospitals and regions" and "fifteen named public hospitals, regions and state institutes" became "15 public buyers", because S1's note counts 15 distinct public buyers without typing them and the tenders ledger (data/signals/tenders/2026-09-02.jsonl) lists a region, an ambulance service, a university faculty and the interior ministry among them; "most name the winning wholesaler" became "90 of the 106 notices also name the supplier that won", S1's own word, since the winners include a manufacturer (S2's note: BAXTER CZECH); "none of which has a budget line for the buying itself" became "every crown in the hospitals' medicine notices buys medicines, not purchasing tools", because S1's note says no such budget line appears in the evidence, not that the buyers have none; the insurer's 22.5bn CZK "over a 3.5bn CZK grey zone" became two sentences, because the VZP article (read 2026-09-18) gives the 3.5bn CZK as a separate estimate of retrospective bonuses in hospitals, as S8's note says, and "in 2024" is derived from its "za minulý rok" in an article of 10 March 2025; and the NKÚ press release (read 2026-09-18) confirms that the 956 and 3,300 CZK prices were paid by two different hospitals [S7]. Intrakoop is described as S16's why describes it, member pharmacies reporting volumes and prices; its "extended from care homes to hospitals" was not repeated in the body, because intrakoop.nl's medicines page (read 2026-09-18) describes the benchmark for care organisations and its hospital service as a knowledge platform mainly on medical devices. Flagged as inference: that "a hospital buying a tendered drug alone is not reimbursed" applies only once an insurer has tendered that drug centrally, and nothing on file says any insurer has done so yet [S5]; "four hospitals ran most of them" is arithmetic from S1–S4, 88 of 106; "hospitals already pay a Czech firm to pool their buying" rests on the firm selling to hospitals and Ostrava's city hospital being a customer, with no contract price on file [S18]; and in `entry.why`, "the first fee is over a year out", carried from the previous why, rests on the buyers being public bodies buying under procurement law, not on a source. Nothing was dropped: "No source states what running one system by hand costs a hospital" is now "What one medicine call costs a hospital in pharmacist and purchasing-staff hours is not known". No score, status, source, `note:`, `sources[]` order, entry gate value, title, brief, solution or good_for changed; the record has no `process` block and none was added.
 
 2026-09-19 · rescore, relabel and evidence audit (a merge of this date's four entries) — Validated abroad (owner-approved): the answer named Denmark's buyer and a Dutch cooperative while the map showed the three comps. Before, verbatim: "Solved elsewhere: Denmark buys its hospital medicines through one body, and a Dutch cooperative sells the price comparison itself [S13,S16]." It now names the German, British and US companies selling pieces of the job, each checked against its source [S14,S15,S17]: "pieces" because none sells the comparison between hospitals. Denmark and the Dutch cooperative follow as answers not on the map, every fact and marker kept [S13,S16]; [S13]'s note says why Amgros has no comps row. Rescored to the 2026-09-19 ladders: urgency 3 → 1, money 1 → 0, score 9 → 6, STRONG → FAIR. Old urgency was deadline 2 from the two 1 January 2026 instruments plus the retired freshness point [S5,S6,S12]. The insurance-law change is enacted and in force 8.5 months, but gives the power to insurers; a hospital loses reimbursement only once an insurer tenders a drug centrally, and none is on file, so it is a duty on someone else reaching the buyer indirectly: rung 1, worksheet judgement call 6. A stricter reading scores 0; 1 is kept because non-reimbursement binds a hospital once it applies. The price ruling changes sellers' margins and binds no hospital: 0, dims now empty [S6]. Money's old 1 was the retired "relevant tender or grant" rung. Tagging pass: the notices and the insurer's spend buy medicines [S1,S2,S3,S4,S8]; the pooled-buying firm's customer reports savings but no contract or amount is on file [S18]; Olomouc paid its e-procurement maker about €3,200 on 2026-08-20 (the contracts-register lookup behind [S18]) for the adjacent filing platform, so it was not restated. No receipt added; money 0 matches the worksheet. Notes on S1, S5, S6, S8 and S12 gained dated corrections. Why now's answer now says "once they do", and the insurer-pays bullet gained "No insurer is known to have run such a tender yet", the inference flagged on 2026-09-18. Willing to pay unchanged; move 3's two links read Market gap, not Competition. eCENTRE relabelled adjacent (owner-approved), resolving the rescore's flag that its row said direct while the body treated pooled buying as another job: maturity stays established. It pools public buyers' demand into e-auction contracts and buys on a hospital's behalf; its site, read this date, leads with electricity and gas for public bodies and compares no hospitals [S18]. With all four locals adjacent, gap 0 → 2 on [S18]'s existing check (recorded queries, three aimed at the comparison; checked google-cz, own-funded-ledger and cz-contract-parties; positive control passed; no new search), score 6 → 8, FAIR → STRONG, status watching → candidate (status follows gap), entry.incumbents direct → adjacent, level still very-hard. Its "no absence asserted" caution stays in the body. [S18] gained a dated line; its gist "the occupied Czech field" became "the Czech neighbours", and its why says none of the four sells the comparison. Rewritten, old text verbatim: entry.why "a Czech firm has pooled that buying since 2006 and sells it to hospitals" → "a Czech firm already sells hospitals the neighbouring pooled buying"; Market gap's answer "The field is not empty: a Czech firm has pooled public buying since 2006 and sells it to hospitals [S18]." → "No Czech firm was found selling a comparison of what each hospital paid; a Czech firm sells hospitals pooled buying instead [S18]."; move 3's opening "Sell the comparison of what each hospital paid, not the pooled buying, because a Czech firm already sells pooled buying to hospitals." now says no Czech firm was found selling the comparison and neither that firm nor the platforms compare prices. price_search unchanged, already matching. Evidence audit: the ministry's draft 2027 reimbursement decree [S19] finds purchasing departments differ widely on centre drugs, an average gap to billed price of about 4bn CZK, up to 7bn at best practice, and an index cutting payments since 2026; tagged demand, which stays 2; not urgency, since a draft fails REAL and the index changes what insurers pay. Three TED notices as context, no dimension: Olomouc and Hradec Králové bought lenvatinib separately [S20,S21]; the same two with Ostrava tendered zolbetuximab jointly, relugolix noted in [S22]. The lead now says most medicines, not each hospital alone, an inference from [S1] against those joint calls. Lab reagents bought with a lent analyser, ten notices from nine hospitals, are one context source and one bullet [S23]. ÚZIS's case-cost benchmark, verified on its site and in ARES, joins locals[] as adjacent and established, and the Market gap bullet on it now says it compares case costs across reference hospitals [S18]. Gap rechecked on each pass, no local sells the comparison: stays 2. No other score, source, marker target, headline field or body sentence changed.
+
+2026-09-21 · evidence added, no score moved — Four TED notices linked from the weekly scan, all read from the TED search API this date, all context with `dims` empty: every one of them buys medicines, and Willing to pay is read from price receipts for the comparison this problem is about, which none of them is. [S24] is "Dodávky LP - společný nákup", one purchase of 28 medicines, an active substance to a lot, opened by Fakultní nemocnice Bulovka and Fakultní nemocnice Královské Vinohrady on 21 September 2026, 2,509,611,143.46 CZK on the notice. [S25] is St Anne's in Brno awarding guselkumab alone on 16 September 2026, 27,890,665.8 CZK to Janssen-Cilag. [S26] is Brno's university hospital opening its own second ustekinumab tender on 21 September 2026, 138,141,590 CZK estimated over two lots. Both substances are lots of [S24], and all four hospitals signed the health ministry's July 2026 memorandum on buying together [S12] — which is why the two new Market gap bullets say pooling and buying alone run side by side among the same six. [S27] is Krajská zdravotní's own standing purchasing system for medicines, with a two-year framework for one drug awarded under it; its 16,000,000,000 CZK is the system's stated value, not money spent, and the body says so about such figures already [S1]. NOT CLAIMED, and deliberately: nothing here shows any hospital overpaid, because the volumes behind the separate procedures are not on file; and the per-lot estimates of [S24] are not paired with their substances, because that pairing would be read off the order of two separate lists the API returns. Nothing moved. Money stays 0: no price receipt for the comparison exists, and a drug tender is public money nearby whatever its size. Demand stays 2 on the state's own findings [S7,S9,S19]. Urgency stays 1: no new dated instrument. Gap re-checked against the new notices — their named suppliers are a medicines manufacturer and, where stated, wholesalers, and no Czech seller of a comparison of what each hospital paid appears — so gap stays 2 on [S18]'s check and `status` stays candidate. No source note was edited, no marker renumbered, and the four sources were appended at the end.

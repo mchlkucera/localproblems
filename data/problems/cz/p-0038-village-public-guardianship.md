@@ -522,8 +522,40 @@ sources:
     one.'
   date: '2025-10-15'
   dims: [gap]
+- type: complaint
+  url: https://eso.ochrance.cz/Nalezene/Edit/15082
+  name: "Ombudsman — how 1,126 offices run official proceedings"
+  gist: "what the smallest offices lack"
+  why: "A second ombudsman survey, of 1,126 authorities in spring 2026, found offices work from their own settled habits rather than written rules, and the smallest municipalities named staffing, expertise and technical capacity as what holds them back."
+  note: 'ombud-spravni-rad-praxe: ESO item 15082, sp. zn. 1/2026/SZD, č. j. KVOP-49494/2026,
+    "Výzkumná zpráva 2026", issued 14 September 2026. A questionnaire survey of Czech authorities
+    run March to May 2026: 1,422 returns from 1,126 authorities, covering central bodies,
+    territorial bodies of national institutions, regional offices, Prague city districts and type
+    I/II/III municipalities; return rate 55-100 percent, estimated statistical error at most
+    +/-4.0 points at 95 percent confidence. THE FINDING CITED HERE: practice under the správní řád
+    (the Administrative Procedure Code) is fragmented, offices lean on their own settled habits
+    rather than written rules, so two offices, or two officials in one office, handle the same
+    situation differently; in six of the eight areas examined a majority of offices said they
+    would welcome an external methodology, highest for querulous submissions (70 percent),
+    abusive communication (69 percent), repeated submissions and remote file inspection (68
+    percent each); type-I municipalities, the smallest, named staffing, expertise and technical
+    capacity as the constraint underneath. The ombudsman says she will use the survey to initiate
+    the missing methodologies. WHY IT SITS HERE, AND WHAT IT DOES NOT SAY: it is the same office
+    that ran the April-May 2025 small-municipality survey on S1, asking the same population of
+    small municipalities a year later, and it measures their capacity. It is NOT about this work.
+    None of the eight areas examined is guardianship, and the survey counts nothing about it, so
+    it is cited for one claim only, that the smallest municipalities name staffing, expertise and
+    technical capacity as what holds them back. It backs demand, which is already at its ceiling
+    here, so no score moved. The eight areas are e-mails sent straight to officials rather than
+    the registry, repeated, querulous and abusive submissions, informing complainants under
+    section 42, submissions without an electronic signature, lending files between offices,
+    remote file inspection, instruction on administrative actions, and misdirected appeals.
+    Full report PDF: https://www.ochrance.cz/uploads-import/ESO/1-26-SZD-Výzkum_postup_úřadů_sř.pdf'
+  date: '2026-09-14'
+  signal: ombud-spravni-rad-praxe
+  dims: [demand]
 created: '2026-09-18'
-updated: '2026-09-19'
+updated: '2026-09-21'
 ---
 
 Small Czech villages must look after the affairs of adults a court says can't manage alone, and in many the mayor does it personally [S1,S2].
@@ -546,6 +578,8 @@ The ombudsman, the public defender of rights, surveyed 2,191 small villages and 
 - About two in five see this work and minor-offence cases as of little benefit to their residents [S1].
 - The lawyers and commission members that minor-offence cases require cost more than the fines bring in [S1].
 - Municipalities asked for the right to hand this work to another town by contract [S1]. In 2016, half of the municipalities asked said they would welcome it [S2].
+
+In spring 2026 the same office asked 1,126 authorities how they handle official proceedings, and the smallest municipalities named staffing, expertise and technical capacity as what holds them back [S19].
 
 Existing non-solutions: Two established Czech suppliers of town-hall software already sell towns an add-on for this work [S9].
 
@@ -604,3 +638,5 @@ The per-person payment, searched and not added. The Liberecký kraj page on how 
 Ledger: VERA's `since` moves from 2022 to 2017, because Uherské Hradiště ordered "agendy KRO Veřejný opatrovník" on 25 May 2017 (registr smluv 2021214, metadata only) and Mohelnice licensed it that December. VERA's evidence now also names Jihlava and the three towns of 2025 [S18]. Marbes' evidence adds Beroun, October 2025 [S18]. New in locals[]: ORTEX spol. s r.o. (IČO 00529745). Kaplice bought its social-department software in June 2025 after a tender that asked for this work with a money ledger per person, and the offer confirmed both [S18]. ORTEX is `competes: direct` and `maturity: early`. This work is on file for it only from 2025, and the earlier licences read, from 2021 to 2025, do not mention it, so no `since` is given. Gap stays 0 on Marbes and VERA, and `entry.incumbents` stays direct.
 
 Body: Willing to pay now opens on the 2025 rentals [S18]. The old opening, "Towns pay, and the state gives them 430M CZK a year for this work, less than its own costing says it needs [S2]", moved into the list as "The state's 430M CZK a year is less than its own costing says [S2]". "Towns bought add-ons for this work in 2018 and 2022 [S9]" became "Towns have bought add-ons for this work since at least 2017 [S9,S18]" and moved first. Market gap: a sentence was added saying both established suppliers signed new towns in 2025 [S18]. The sentence on a third seller now covers two more sellers, the online register and the social-department software. Not changed: title, brief, solution, good_for, the process block, `entry`, urgency, proof, demand and gap. No existing `note:` was edited and no marker moved. None of the headline fields becomes false. The solution's "as 1 company already does in Sweden" still holds, and that established Czech suppliers sell this was already on file.
+
+2026-09-21 · evidence added — A second ombudsman survey joins the ledger as [S19]: 1,422 returns from 1,126 authorities, collected March to May 2026, finding that offices run on their own settled habits rather than written rules and that type-I municipalities, the smallest, name staffing, expertise and technical capacity as the constraint underneath. No score moved. It backs demand, which is already at its ceiling of 2 on [S1] and [S4], and it says nothing about gap, money, urgency or proof. What it is NOT: it is a survey of practice under the správní řád, the Administrative Procedure Code, and none of its eight areas is this work, so it is cited for one claim only and the body says exactly that claim. Its value here is that the same office asked the same population of small municipalities, a year after the survey on [S1], what limits them, and got the answer this problem turns on. Gap re-checked on this date and unchanged: the two established suppliers on the ledger still sell this, so gap stays 0 and status stays watching. Nothing else on the file was touched.

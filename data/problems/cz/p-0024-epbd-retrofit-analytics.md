@@ -329,8 +329,36 @@ sources:
     31203516), metadata only. (d) Olomoucký kraj''s 68.93M CZK public-service contract with its
     regional energy centre for energy advice (35965461), title only, not opened. (e) The renovation awards on S4.'
   date: '2026-01-07'
+- type: tender
+  name: 'TED — four more public owners paying to cut their buildings'' energy use, September 2026'
+  gist: 'the retrofit spend, continuing'
+  why: 'Two towns, a third town''s school canteen and a university hospital had energy-saving building works under contract in September 2026, together about 348M CZK — the renovation spend a ranking of an owner''s buildings would sit in front of.'
+  url: https://ted.europa.eu/en/notice/-/detail/649067-2026
+  note: 'Weekly match 2026-09-21; the four notices'' XML was read the same day via
+    ted.europa.eu/en/notice/<id>/xml (saved in the run scratchpad). All four were published on TED
+    between 17 and 21 Sep 2026. (1) ted-649067-2026, Město Brumov-Bylnice, "Komplexní energetická
+    úsporná opatření a stavební úpravy ZŠ Brumov-Bylnice", a can-modif notice on a contract awarded
+    15 May 2025 to BBP Stavby s.r.o., PayableAmount 163,685,559.50 CZK. (2) ted-646504-2026,
+    Statutární město Ústí nad Labem, "Snížení energetické náročnosti ZŠ Mírová", can-modif on a
+    contract awarded 11 May 2026 to OHLA ŽS, a.s., PayableAmount 153,497,996 CZK. (3)
+    ted-647719-2026, Město Rumburk, "Snížení energetické náročnosti školní jídelny ZŠ Tyršova,
+    Rumburk", can-modif on two contracts awarded 18 Feb and 4 Mar 2026 to Děčínský stavební podnik
+    s.r.o. and MAVA spol. s r.o., PayableAmount 13,455,281.35 and 11,539,326 CZK. (4)
+    ted-649333-2026, Fakultní nemocnice Brno, "Rekonstrukce kliniky dětských infekčních nemocí a
+    energeticky úsporná opatření objektu S - TDS a KOO BOZP", a can-standard award of 25 Aug 2026
+    to INVIN s.r.o., PayableAmount 6,173,800 CZK, which buys site supervision and health-and-safety
+    coordination for that work, not the work itself. The four sum to 348,351,962.85 CZK (our
+    addition). WHAT THIS IS NOT: none of them buys a ranking of which of the owner''s buildings to
+    renovate first. Each buys the work on ONE building already chosen, with the choice made before
+    the tender and never priced in it, exactly as S4''s energy-performance awards do. So this is
+    PUBLIC MONEY NEARBY on the 2026-09-19 MONEY ladder, it is not restated as a price receipt, and
+    it backs no score: money stays 2 on the two consultant contracts in S7 and S8. Its only claim
+    is that the spend S4 measured over June to August 2026 did not stop in September.'
+  date: '2026-09-18'
+  signal: ted-649067-2026
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-09-21'
 ---
 
 New EU building rules require minimum energy standards for buildings such as hospitals and town halls, and Czechia is late adopting them [S3].
@@ -381,6 +409,7 @@ Who pays: Public owners already pay consultants to rank their buildings by hand,
 - About €58M of renovation contracts went to 11 public buyers in June–August 2026 [S4].
 - Prague 6 awarded about €15.7M, and Klatovy hospital about €8.3M [S4].
 - The hospitals in Stod and Domažlice awarded about €3.3M and €5.3M [S4].
+- Three towns and a hospital hold about 348M CZK of energy-saving building contracts [S10].
 
 The ranking is bought as its own study, before the renovation is put out to tender [S9].
 
@@ -446,3 +475,5 @@ Next door, read and not counted [S9]: energy-management systems under ISO 50001 
 Gap: unchanged at 1. The sellers found are consultancies doing the job by hand, which SCORING.md reads as adjacent ("a service firm rather than a product vendor"), and adjacent moves nothing. ENSYTRA (IČO 28582136, trading since 2009, named customers on its own offer) joins locals[] as adjacent and established; it also sells the EnergyBroker energy-management web app, whose page describes consumption and cost records, reports and energy purchasing, not a ranking of renovations. EnMass (IČO 13968050, registered 11 November 2021 in ARES) joins as adjacent and early: its site names no customers and one hospital contract is on file. PKV BUILD's evidence line said it "does not sell portfolio retrofit planning"; the bank pays it to write that analysis for the Plzeň region, so the line now says its software does not rank and that it ranks by hand as a consultant [S9]; still adjacent and established. EnergySim appears in the register only for statutory audits (the Prague City Museum, 350,000 CZK, April 2025), not for the renovation-pass calculator its row describes, so its row, its `competes: direct` and its `maturity: early` are unchanged. The other consultancies in the bank's framework, PORSENNA ENERGY, ENVIROS, SEVEn Energy, VŠB-TU Ostrava and LOYD GROUP, are named in the S9 note and not lifted into locals[]; each would be adjacent and move nothing. Flagged for a content pass.
 
 Body: Willing to pay now opens on owners paying consultants to rank their buildings by hand as well as paying firms to renovate [S4,S9]. Its first two items are the hospital and university purchases, and the €58M item moved to third. A new paragraph says the ranking is bought as its own study before the renovation is tendered, with the bank's programme and its EU co-funding [S9]. "Owners pay for choosing the measures together with the work" now reads that the choice of measures comes bundled with the work, and that choosing which buildings go in can be a separate study bought first [S4,S9]. Market gap now opens on consultants ranking by hand with no Czech software found that does it [S5,S9]; the old answer sentence became the line under it, and two items on the consultancies were added. Move 2 said "nobody sells them the ranking that decides which building goes first", which the receipts make false; it now says public owners like them already pay consultants to rank buildings by hand, so price against that study; it does not claim that these particular owners did. Not changed: title, brief, solution, good_for, draft_law, `price_search`, `entry`, urgency, proof, demand and gap. The headline block stays true: the solution is software, and what owners pay for today is the ranking done by hand.
+
+2026-09-21 · evidence audit — Weekly match over the week's housing and energy signals. Appended one source: four public owners with energy-saving building works under contract in September 2026, about 348M CZK together — two towns' primary schools, a third town's school canteen and a university hospital's supervision contract, each notice's XML read on the day [S10]. It is the same kind of spend as the June-to-August wave [S4] and is recorded for the same reason: it shows the renovation money did not stop, and that the choice of which building goes first is still made before the tender and never priced inside it. It is public money nearby, not a price receipt, so it backs no score; money stays 2 on the hospital and university consultant contracts [S7,S8]. Not linked, and why: three towns' new school and kindergarten builds, a heritage roof repair and a defence kitchen rebuild buy new or restored buildings rather than an energy decision across a portfolio; a small municipality's contract for heat supply with the renewal of its heating system (about 45M CZK) buys heat, not a ranking. Gap re-checked against the week's signals: the suppliers they name are construction firms and one site-supervision firm, none selling software that ranks an owner's buildings, so gap stays 1 on the three Czech products already on the ledger [S5]. No score moved.
