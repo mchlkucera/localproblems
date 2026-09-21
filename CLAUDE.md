@@ -47,14 +47,36 @@ by hand, never commit it.
 
 ## Deploys are manual
 
-There is no git auto-deploy. `git push` does not publish; production only changes
-when someone runs a Vercel CLI deploy, and it must be a **prebuilt** one:
+Production only changes when someone runs a Vercel CLI deploy, and it must be a
+**prebuilt** one. **`--scope` is not optional**: the committed
+`web/.vercel/project.json` carries `orgId: team_HTPoNl4AIqaUhP5C1qViXPRl`, which
+does not resolve, and without the flag the deploy fails with a bare
+`Not authorized` that names nothing (measured 2026-09-21).
 
 ```
 cd web
 vercel build --prod                            # runs the full prebuild gate locally
-vercel deploy --prebuilt --prod --archive=tgz  # uploads .vercel/output only, as ONE archive
+vercel deploy --prebuilt --prod --archive=tgz \
+  --scope michal-kueras-projects-732d66fe      # uploads .vercel/output only, as ONE archive
 ```
+
+**`git push` DOES trigger a Vercel build, and this file used to say it did not.**
+Measured 2026-09-21: pushing `main` at 124b2e3 started a deployment that cloned
+the repo from GitHub and failed in 9 s with *"No Next.js version detected …
+check your Root Directory setting matches the directory of your package.json"* —
+`package.json` is in `web/`, the project's Root Directory is not. Every push for
+at least two days has produced one of these, on branches as well as `main`.
+
+They are noisy, not dangerous: the build fails before anything is served, so
+production keeps serving the last good deployment and a failed git build can
+never publish a half-finished branch. But the claim "there is no git auto-deploy"
+was false, and a wrong sentence here is worse than a missing one.
+
+**This needs a decision nobody has made.** Either disconnect the Git integration,
+which restores what this file claimed, or set the Root Directory to `web` and
+accept that `git push` publishes — which would contradict "deploys are manual"
+and lose the local-only `check-css` and `db-gate` coverage the prebuilt recipe
+exists for. Until then, expect a failed deployment after every push and ignore it.
 
 Build locally and ship the output — the gate runs `check-css` against `../skills`
 and `db-gate` against `../data`, which only a local build can see. Deploying any
