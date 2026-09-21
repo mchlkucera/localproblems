@@ -1,0 +1,64 @@
+{"signal": "reg-uhradova-2027-centrove-leky-slevy", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "linked", "note": "2027 reimbursement decree draft memo: centre-drug purchasing gap ~4bn avg / up to 7bn best practice; S19 demand; draft, no urgency move"}
+{"signal": "veklep-ALBSDXRFYLM6", "region": "cz", "problem": "p-0036", "method": "manual", "decision": "linked", "note": "2027 reimbursement decree draft: CZ-DRG continues, 95% pay for late-reported care kept; S22 context only"}
+{"signal": "veklep-ALBSDXRFYLM6", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "same decree as reg-uhradova-2027-centrove-leky-slevy, linked on p-0035 S19"}
+{"signal": "dotace-irop-56-57-akutni-psychiatrie", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "IROP 1.6bn CZK for building psychiatric beds; not drug procurement nor documentation"}
+{"signal": "gb-zenobe", "region": "cz", "problem": "p-0046", "method": "manual", "decision": "linked", "note": "new record p-0046 e-bus fleet finance"}
+{"signal": "fr-ecov", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "judged 2026-09-19: no Czech buyer pays for carpool lines; regions choose on-call buses (PID Halo, Citya)"}
+{"signal": "gb-naturemetrics", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "judged 2026-09-19: one Czech pain source; EIA biological surveys already a paid service with established firms"}
+{"signal": "reg-rud-bytova-vystavba-2028", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "judged 2026-09-19: MPs' bill pays towns automatically; no product or buyer; distant context for p-0003"}
+{"signal": "veklep-KORNDXQH9BRI", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "same RUD bill as reg-rud-bytova-vystavba-2028"}
+{"signal": "at-prewave", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "judged 2026-09-19: no Czech demand receipt; CRIF Synesgy established direct seller in CZ since 2022"}
+{"signal": "reg-nucena-prace-dozor-cz-2027", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "judged 2026-09-19 with at-prewave: forced-labour due diligence not created"}
+{"signal": "veklep-KORNDXQH4G02", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "forced-labour bill; judged with at-prewave, not created"}
+{"signal": "us-belfry", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "judged 2026-09-19: SUIP-documented pain is deliberate hour-splitting, not back-office; Stafio.cz sells the core since 2018"}
+{"signal": "nl-orbisk", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "judged 2026-09-19: open segment (public canteens) has no paying buyer; Winnow/KITRO/Leanpath already sell in CZ"}
+{"signal": "reg-eu-customs-code-2026-2108", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "judged 2026-09-19: no documented Czech buyer loss yet; customs declaration software established in CZ"}
+{"signal": "de-ecoworks", "region": "cz", "problem": "p-0025", "method": "manual", "decision": "linked", "note": "arbitrage source, not a comp (whole-block renovation for cooperatives); proof stays 2; HOLBORN added adjacent+established; gap stays 0"}
+{"signal": "de-ecoworks", "region": "cz", "problem": "p-0024", "method": "manual", "decision": "dismissed", "note": "sells renovation work, not a building ranking sold to owners"}
+{"signal": "us-deckard", "region": "cz", "problem": "p-0040", "method": "manual", "decision": "dismissed", "note": "sells town-side detection/tax recovery, not host check-in; named in S9 town-side note only; town-side problem judged not separate (eTurista takes it over)"}
+{"signal": "reg-odstoupit-tlacitko-159-2026", "region": "cz", "problem": "p-0028", "method": "manual", "decision": "linked", "note": "S15; Civil Code 1830a applies to every e-shop from 2027-01-01, offence 634/1992 24(16)(q),(r); passes REAL+CLOSE+TEETH, urgency held at 1 by draft_law (removal proposed to owner)"}
+{"signal": "reg-odstoupit-tlacitko-159-2026", "region": "cz", "problem": "p-0027", "method": "manual", "decision": "dismissed", "note": "only a carve-out in the consumer-credit act; nothing touches arbiter dispute handling"}
+{"signal": "ted-620155-2026", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "CLUSTER lab-reagent-rental (ted-620155-2026 +9): judged 2026-09-19: no Czech buyer-side loss on file; same product as p-0035 applied to lab supplies; UZIS benchmarking adjacent"}
+{"signal": "ted-620799-2026", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "CLUSTER public-software-licences (ted-620799-2026 +12): judged 2026-09-19: Interior Ministry central Microsoft framework 2024-2028 (14.23bn CZK) already pools; ALVAO/AuditPro etc. established"}
+{"signal": "ted-633755-2026", "region": "cz", "problem": "p-0022", "method": "manual", "decision": "linked", "note": "Semily interoperability award to STAPRO 10,877,401 CZK, restated as paid price receipt; change notice blames state e-health centre for delay"}
+{"signal": "ted-624897-2026", "region": "cz", "problem": "p-0022", "method": "manual", "decision": "linked", "note": "Olomouc military hospital re-announced interoperability tender est 7,334,800 CZK"}
+{"signal": "ted-634231-2026", "region": "cz", "problem": "p-0022", "method": "manual", "decision": "linked", "note": "Sokolov eHealth II award to Medicalc 12,856,500 CZK; context only"}
+{"signal": "ted-631085-2026", "region": "cz", "problem": "p-0022", "method": "manual", "decision": "dup", "note": "third notice of Petrohrad eHealth tender already cited"}
+{"signal": "ted-620173-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "linked", "note": "Olomouc own lenvatinib call est 20.9M CZK, context"}
+{"signal": "ted-633354-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "linked", "note": "Hradec Kralove own lenvatinib award 10.4M CZK/4y, context"}
+{"signal": "ted-646276-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "linked", "note": "joint zolbetuximab call by three university hospitals; gap unchanged"}
+{"signal": "ted-622902-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "joint relugolix call; described in zolbetuximab source note"}
+{"signal": "ted-632864-2026", "region": "cz", "problem": "p-0008", "method": "manual", "decision": "linked", "note": "Prague 5 open tender, 2y outsourced security admin/monitoring, est 11,827,200 CZK; tender dims [] until awarded"}
+{"signal": "hlidac-37086957", "region": "cz", "problem": "p-0008", "method": "manual", "decision": "linked", "note": "PN Jihlava 22.9M CZK with SALTO for security HW+SW; kit not this job; contract dims []"}
+{"signal": "ted-626646-2026", "region": "cz", "problem": "p-0008", "method": "manual", "decision": "dup", "note": "TED award notice of the same PN Jihlava purchase"}
+{"signal": "ted-623519-2026", "region": "cz", "problem": "p-0008", "method": "manual", "decision": "dismissed", "note": "change notice of ted-587584 (already S19): deadline extended"}
+{"signal": "ted-645221-2026", "region": "cz", "problem": "p-0008", "method": "manual", "decision": "dismissed", "note": "FN Plzen EDR/XDR+SIEM tooling, not the security work"}
+{"signal": "ted-632043-2026", "region": "cz", "problem": "p-0008", "method": "manual", "decision": "dismissed", "note": "Nemocnice Dacice server/ICT modernisation, hardware"}
+{"signal": "nenptk-n006-26-p00000211", "region": "cz", "problem": "p-0029", "method": "manual", "decision": "linked", "note": "CUZK market consultation for new attested eSSL incl migration of ~90M records; ask -> demand 0->1"}
+{"signal": "ted-635731-2026", "region": "cz", "problem": "p-0009", "method": "manual", "decision": "dismissed", "note": "change notice of ted-563945; ministry internal foreigners system, no employer duty"}
+{"signal": "yc-lark-2", "region": "cz", "problem": "p-0005", "method": "manual", "decision": "dismissed", "note": "YC page does not confirm order entry into ERP"}
+{"signal": "ted-636484-2026", "region": "cz", "problem": "p-0046", "method": "manual", "decision": "linked", "note": "signed contract (modification) for 6 e-buses 75,447,000 CZK, signed-contract price receipt S12"}
+{"signal": "ted-627506-2026", "region": "cz", "problem": "p-0046", "method": "manual", "decision": "linked", "note": "Olomouc depot-charger re-tender 206.5M est, context S13"}
+{"signal": "ted-623121-2026", "region": "cz", "problem": "p-0046", "method": "manual", "decision": "dup", "note": "first Olomouc charger tender, closed no winner; folded into S13 note"}
+{"signal": "ted-624737-2026", "region": "cz", "problem": "p-0046", "method": "manual", "decision": "linked", "note": "Prague framework 100 diesel + 100 mild-hybrid buses as low-emission; context S14"}
+{"signal": "ted-636724-2026", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "hydrogen buses, not the solution's product"}
+{"signal": "ted-631151-2026", "region": "cz", "problem": "p-0046", "method": "manual", "decision": "dup", "note": "deadline extension of ted-575233; noted in S3"}
+{"signal": "ted-630176-2026", "region": "cz", "problem": "p-0046", "method": "manual", "decision": "dup", "note": "deadline extension of ted-574507; noted in S3"}
+{"signal": "ted-631809-2026", "region": "cz", "problem": "p-0046", "method": "manual", "decision": "dup", "note": "deadline extension of ted-572969; noted in S3"}
+{"signal": "ted-628738-2026", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "Prerov bus-service tender 2028-37, no clean-bus terms"}
+{"signal": "ted-635308-2026", "region": "cz", "problem": "p-0031", "method": "manual", "decision": "linked", "note": "Veltrusy PV second call after June call; S11"}
+{"signal": "ted-622763-2026", "region": "cz", "problem": "none", "method": "manual", "decision": "dismissed", "note": "Nymburk PV deadline-change notice, not a re-run"}
+{"signal": "ted-641475-2026", "region": "cz", "problem": "p-0031", "method": "manual", "decision": "linked", "note": "Moravian-Silesian region pooled 6-lot PV tender; S12 context"}
+{"signal": "ted-620380-2026", "region": "cz", "problem": "p-0031", "method": "manual", "decision": "dup", "note": "earlier deadline change of same MSK procedure"}
+{"signal": "ted-643326-2026", "region": "cz", "problem": "p-0026", "method": "manual", "decision": "linked", "note": "Ivancice smart-metering tender closed no winner, 4 bids; S13"}
+{"signal": "ted-645454-2026", "region": "cz", "problem": "p-0026", "method": "manual", "decision": "linked", "note": "Ivancice meter tender closed no winner, 3 bids; S14"}
+{"signal": "ted-629638-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "linked", "note": "FN Hradec Kralove reagents + lent analyser est 140M CZK; context, carries lab-reagent cluster"}
+{"signal": "ted-620155-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "lent-analyser reagent notice, listed in ted-629638-2026 source note"}
+{"signal": "ted-622827-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "lent-analyser reagent notice, listed in ted-629638-2026 source note"}
+{"signal": "ted-625440-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "lent-analyser reagent notice, listed in ted-629638-2026 source note"}
+{"signal": "ted-634802-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "lent-analyser reagent notice, listed in ted-629638-2026 source note"}
+{"signal": "ted-635287-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "lent-analyser reagent notice, listed in ted-629638-2026 source note"}
+{"signal": "ted-642492-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "lent-analyser reagent notice, listed in ted-629638-2026 source note"}
+{"signal": "ted-643829-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "lent-analyser reagent notice, listed in ted-629638-2026 source note"}
+{"signal": "ted-643842-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "lent-analyser reagent notice, listed in ted-629638-2026 source note"}
+{"signal": "ted-642555-2026", "region": "cz", "problem": "p-0035", "method": "manual", "decision": "dup", "note": "apheresis kits with lent devices, listed in ted-629638-2026 source note"}

@@ -77,6 +77,32 @@ consumes is produced by the other one.
        --decision linked \            # linked | dismissed | deferred | dup
        --note     "NIS2 staffing tender at a regulated hospital."
 
+   AND THE SAME DECISIONS GO INTO A COMMITTED FILE, WHICH IS THE CANONICAL
+   ONE. `match_log` lives in data/register.db, which .gitignore calls "the
+   working store: deterministically rebuildable from the committed ledgers"
+   — and match_log is the ONE table that is not rebuildable from anything.
+   It is pure history, so a fresh checkout, a new worktree or a rebuild on a
+   machine that never saw the run has none of it. MEASURED 2026-09-21: this
+   branch's worktree started with 0 match_log rows, and the 2026-09-19 run's
+   64 decisions survived only because that run's report happened to
+   transcribe them into a prose block for manual replay. That was luck.
+   Write every decision as ONE JSON LINE in
+   docs/weekly/match-decisions-<run-date>.jsonl — keys signal · region ·
+   problem · method · decision · note, the same six `db.py match` takes,
+   `"problem": "none"` for a dismissal — as well as running `db.py match`.
+   Then, after any rebuild and in any fresh checkout:
+
+     python3 scripts/replay_match_decisions.py --all
+
+   It is IDEMPOTENT: it dedups on the decision itself (signal, region,
+   problem, method, decision, note) read out of the table, so running it
+   twice cannot double-count, and it timestamps each row with the run date
+   in the filename rather than the clock, so a December replay does not
+   claim a December judgment. A row it cannot convert honestly is REFUSED
+   and named, never coerced into a legal value, and a refusal exits
+   non-zero. A cluster of signals judged together is logged against its
+   first signal, with the cluster named in the note.
+
 4. SCORE: for every problem created or touched, set scores{} and score per
    SCORING.md exactly — every point justified by a sources[] entry. Decay:
    newest source >120 days old -> freshness lost (re-derive urgency) and
@@ -94,7 +120,9 @@ consumes is produced by the other one.
    7+ commits stale" meant in practice. ingest.sh rebuilds on its own runs;
    this line is what covers a PROCESS run that lands new problems and never
    touches ingest. It is a rebuild, not a migration: fetch_log and match_log
-   are history and are never dropped.
+   are history and are never dropped. A rebuild PRESERVES them; a fresh
+   checkout never had them, so follow a rebuild in a new clone or worktree
+   with `python3 scripts/replay_match_decisions.py --all` (step 3).
 
 6. NEWSLETTER: write newsletter/<today>.md — top 3 problems by score this week
    (2 short paragraphs + source links each), 3-5 one-line movers (new or

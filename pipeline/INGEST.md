@@ -255,6 +255,37 @@ this loop, and it is the only step that needs you.
        aggregating feed, AGGREGATE BEFORE THIS FILTER: a per-item feed
        whose items each score money 1 is filtered out of existence while
        looking like it ran correctly.
+       EVERY DROP IS NOW RECORDED, in data/signals/dropped-log.jsonl —
+       COMMITTED, beside seen.txt, which is the pipeline's other cross-run
+       memory. One line per dropped id: feed, evidence type, title, URL, the
+       three scores the filter actually read, first_seen, last_seen,
+       times_dropped. A dropped record is still NOT added to seen.txt — it
+       has to stay re-mintable, because a later run may legitimately find it
+       material. This is a memory of the drop, never a suppression of the
+       record. The file is FOLDED, not one line per drop: a re-drop costs no
+       new line, it moves last_seen and increments times_dropped, and
+       times_dropped is the field the duty below is keyed on. NEVER move this
+       file under data/raw/ — everything there is gitignored and pruned at 28
+       days, which is exactly how this memory was lost the first time.
+       WHY IT EXISTS: THE FILTER READS SCORES, THE EVIDENCE IS IN THE
+       DOCUMENT. A drop used to tell nobody — not a ledger, not seen.txt, not
+       the manifest — so the same material was re-minted, re-staged and
+       re-dropped every run and no pass ever knew it was looking at a repeat.
+       On 2026-09-21 the reg-scan pass found that 9 of 11 VeKLEP drafts were
+       re-stagers of drops the 2026-09-19 run had already made, and one of the
+       nine was a justice-ministry draft decree whose own memorandum concedes
+       that applying the 2027 cell-space rule takes the prison service from
+       95.5% to 111% of capacity — the best-quantified problem statement in
+       the whole set, dropped at scale 0 on its metadata card. It surfaced by
+       luck.
+       WHAT A PASS OWES IT: any pass that reads source documents rather than
+       metadata cards (SCANS.md's scans, SWEEP.md's sweeps) sorts this file by
+       times_dropped, filters to the feeds in its own remit, and opens the
+       repeat offenders BEFORE it reads anything new. SCANS.md reg-scan item 4
+       makes that explicit for veklep. A record whose document says more than
+       its card is re-staged by hand at the scores the document supports —
+       never by editing this log, which records what happened and is not a
+       worklist to tick off.
    3d. MODEL PASS B — generation, SURVIVORS ONLY: the English title
        ("Thing — what it is") and the <=2-sentence English summary. Every
        feed needs this except yc-oss, which ships English one_liners and
@@ -278,7 +309,10 @@ this loop, and it is the only step that needs you.
 4. APPEND + UPSERT: append survivors as one JSON line each to
    data/signals/<type>/<run-date>.jsonl (funded | regulation | tenders |
    demand | hiring — mapping in CONVENTIONS.md) and add their ids to
-   data/signals/seen.txt, keeping it sorted. THE FILENAME IS THE RUN DATE,
+   data/signals/seen.txt, keeping it sorted. SURVIVORS ONLY: a record the
+   materiality filter dropped never enters seen.txt, by design, and its
+   drop is recorded in data/signals/dropped-log.jsonl instead (step 3c).
+   Commit that file with the ledgers — it is canonical memory, not output. THE FILENAME IS THE RUN DATE,
    NEVER THE RECORD'S OWN `date`: db.py reads the filename as the run date
    because 145 committed records are legitimately dated in the future (a
    regulation signal carries its effective date), and yc-oss records carry

@@ -69,6 +69,17 @@ reg-scan (evidence_type regulation):
      THIS PASS READS THE RIA "Definice problému" SECTIONS for the items the
      feed surfaced. The scan never re-fetches what the script fetched; it
      reads the state's own problem statements the metadata points at.
+     "SURFACED" MEANS STAGED, NOT APPENDED — SO READ THE DROPPED ITEMS TOO.
+     Most VeKLEP drafts score money 0 / scale 0 / urgency 0 on their metadata
+     card and are dropped by materiality (INGEST.md 3c) before they reach the
+     regulation ledger; the drop is recorded in data/signals/dropped-log.jsonl.
+     This pass reads BOTH halves: the veklep records in the regulation ledger,
+     and the veklep lines in the dropped log, sorted by times_dropped. That is
+     exactly how the 2026-09-21 pass found the justice-ministry cell-space
+     decree whose memorandum concedes 95.5% -> 111% of prison capacity in
+     2027 — and it found it by luck, because until that run nothing said to
+     look. The manifest entry for this source names both counts: RIA sections
+     read from the ledger, and RIA sections read from the dropped log.
 
 dotace-scan (evidence_type tenders, prefix dotace-):
   1. MS2021+ open-data call list — nightly XML; the pass DIFFS IT for calls

@@ -801,17 +801,25 @@ export default async function LabRecord({ params }: Params) {
   ctx.section = "Market gap";
   const compAnswer = comp.first ? inline(comp.first, ctx, opts, "comp") : null;
   const compSheetAnswer = comp.first ? inline(comp.first, ctx, opts, "comp-s") : null;
-  const localGroups = (["direct", "adjacent"] as const).map((competes) => {
+  // THREE GROUPS, NOT TWO (2026-09-21). `competes: non-seller` — a regulator,
+  // an inspectorate, a chamber — moves no score, and a row that moves no score
+  // and renders on no page is a row nobody will write: it was the prose-only
+  // workaround that this enum value replaced. A builder needs to know who is in
+  // the room, so the group prints, counted like the other two, and carries no
+  // maturity mark because it has no maturity.
+  const localGroups = (["direct", "adjacent", "non-seller"] as const).map((competes) => {
     const group = locals.filter((l) => l.competes === competes);
     if (!group.length) return null;
     return (
       <div key={competes} className="ls-sheet-group">
         <h3 className="ls-sheet-h3">
-          {competes === "direct" ? "Sells this" : "Sells something nearby"} <span className="ls-count">{group.length}</span>
+          {competes === "direct" ? "Sells this"
+            : competes === "adjacent" ? "Sells something nearby"
+            : "In the room, sells nothing"} <span className="ls-count">{group.length}</span>
         </h3>
         <ul className="ls-ents">
           {group.map((l, i) => entity({
-            id: `l${competes[0]}${i}`, name: l.name, href: localHref(l), m: l.maturity,
+            id: `l${competes[0]}${i}`, name: l.name, href: localHref(l), m: l.maturity ?? null,
             meta: [l.since && `since ${l.since}`, l.ico && `IČO ${l.ico}`].filter(Boolean) as string[],
             text: l.evidence,
             back: backing(p.sources, { name: l.name, url: l.url, text: l.evidence }, true),

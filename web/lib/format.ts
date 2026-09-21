@@ -44,6 +44,13 @@ const COUNTRY_NAMES: Record<string, string> = {
   RO: "Romania", RS: "Serbia", SE: "Sweden", SG: "Singapore",
   SI: "Slovenia", SK: "Slovakia", TR: "Turkey", UA: "Ukraine",
   US: "United States",
+  // NOT A COUNTRY — the ISO 3166-1 user-assigned code the ledger uses for "the
+  // card names no country" (web/lib/data.ts, geo_origin). It is mapped here
+  // because the fallback below prints the raw code, and a reader shown `XX` in
+  // an Origin column would read it as a country they did not recognise — which
+  // is the `US`-means-two-things defect wearing a new code rather than the fix
+  // for it. Reads as an admission, in the register's own voice: we do not know.
+  XX: "Not stated",
 };
 export function countryName(iso: string): string {
   return COUNTRY_NAMES[iso] ?? iso;

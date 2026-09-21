@@ -211,8 +211,30 @@ MARKERS_PER_SENTENCE = 3  # more than this reads as citation clot (the p-0008 le
 # decides which rung it lands on.
 
 MIN_YEARS_SELLING = 3
-LOCAL_COMPETES = ("direct", "adjacent")
+# `non-seller` ADDED 2026-09-21 — IN THE ROOM AND SELLING NOTHING: a regulator,
+# an inspectorate, a ministry, a chamber, a state registry. The Czech trade
+# inspectorate (ČOI) belongs on p-0048's ledger because a builder needs to know
+# it is there, but it SELLS NOTHING, so `maturity` has no meaning for it and
+# either value would be an invented fact (MATCH.md §3). Its author had to leave
+# it in prose — the false-absence half of the defect that split `status` into
+# these two fields in the first place, one enum value short.
+#
+# NOT CALLED `enforcer`: that names one species of the class (a state registry
+# enforces nothing, a chamber enforces nothing) and it answers a DIFFERENT
+# QUESTION from the other two values — `direct` and `adjacent` both say what a
+# player sells, `enforcer` says what kind of body it is. A third value on a
+# second axis is one field carrying two questions again. The full argument is
+# in web/lib/data.ts above LOCAL_COMPETES; both files must name the same three.
+#
+# IT MOVES GAP BY EXACTLY NOTHING, for the `adjacent` reason: the ladder counts
+# `competes: direct` and the `entry.incumbents` derivation below reads only
+# `direct` and `adjacent`. Recording ČOI costs a record no points, which is
+# what makes "never exclude" affordable (MATCH.md §2).
+LOCAL_COMPETES = ("direct", "adjacent", "non-seller")
 LOCAL_MATURITIES = ("established", "early")
+# The one value of `competes` for which `maturity` is FORBIDDEN rather than
+# required. Named once, read in both places that care.
+LOCAL_NON_SELLER = "non-seller"
 # Schema 6 spelling. Named so a half-migrated record fails with the instruction
 # rather than with "missing competes", which is true but points at the wrong end.
 LOCAL_RETIRED_KEYS = ("status",)
@@ -398,6 +420,14 @@ def entry_incumbents(locals_):
     is direct+established -> `direct`, else adjacent+established -> `adjacent`,
     else `open` — including the case of no ledger at all, because nobody named
     is nobody established.
+
+    A `competes: non-seller` row IS IGNORED HERE, and the ignoring is the rule
+    rather than an omission: it carries no `maturity` at all (the schema
+    forbids one), so it can satisfy neither limb, and a body that sells nothing
+    has taken nothing. Written as two explicit `==` tests rather than as "not
+    direct" / "else" precisely so a third value could be added without
+    silently landing in the `adjacent` bucket — which is what an `else` here
+    would have done on 2026-09-21.
     """
     if any(l.get("competes") == "direct" and l.get("maturity") == "established"
            for l in locals_):
@@ -1216,9 +1246,13 @@ def check_headline(doc, n_sources, comps, locals_):
 # however weakly enforced, NOT a published directly applicable EU regulation
 # (a future application date is still released), and NOT a record whose pain
 # AND dated change both exist today regardless of a pending bill. Where a
-# present pain meets a draft, Why now decides (owner, 2026-09-19): p-0028's
-# fines stand under current law, but its Why now rests on the green-claims
-# bill alone, so it carries the key.
+# present pain meets a draft, Why now decides (owner, 2026-09-19). p-0028 is
+# the worked example, and it has now run the test in BOTH directions: its fines
+# stood under current law while its Why now rested on the green-claims bill
+# alone, so it carried the key — and on 2026-09-21 Act 159/2026 Sb. was passed,
+# giving Why now an enacted duty on the same buyer, so the key came off and
+# urgency went 1 -> 3. Take the draft away and ask what is left standing: that
+# is the whole test, and its answer changes when a bill becomes law.
 #
 # WHICH records carry it is judged, so no regex attempts that. What is gated is
 # the claim itself: "this law is not passed yet" is a statement about the
@@ -2005,7 +2039,7 @@ def check(path, year):
     # rather than one is the whole fix — the single `established_locals` list
     # this replaces is what made an adjacent firm indistinguishable from a
     # competitor once it had been written down.
-    direct_established, direct, adjacent = [], [], []
+    direct_established, direct, adjacent, nonsellers = [], [], [], []
     unreadable_locals = 0   # entries this pass could not classify (see below)
     for i, l in enumerate(locals_ if live else (), 1):
         who = l.get("name") or f"locals[{i}]"
@@ -2039,14 +2073,44 @@ def check(path, year):
             errors.append(f"locals[{i}] '{who}' has competes {l.get('competes')!r} — the "
                           f"enum is {' | '.join(LOCAL_COMPETES)}. `direct` sells THIS "
                           f"record's product to THIS record's buyer; `adjacent` is a real "
-                          f"player nearby that sells something else. It is the only field "
-                          f"gap reads for eligibility")
+                          f"player nearby that sells something else; `{LOCAL_NON_SELLER}` is "
+                          f"a body in the room that sells nothing at all (a regulator, a "
+                          f"chamber, a state registry) and therefore carries no maturity. It "
+                          f"is the only field gap reads for eligibility")
+            continue
+        # MATURITY IS REQUIRED OF A SELLER AND FORBIDDEN OF A NON-SELLER, and
+        # the asymmetry is the whole reason the third value exists: the
+        # established test asks how many years a player has been SELLING and
+        # who its customers are, and both questions are unanswerable about a
+        # regulator. `established` would claim it is in a market it is not in;
+        # `early` would claim it is young. Neither is true, so the key is
+        # absent and the checker says so rather than letting an author pick
+        # the less wrong lie (MATCH.md §3).
+        if l["competes"] == LOCAL_NON_SELLER:
+            if "maturity" in l:
+                errors.append(f"locals[{i}] '{who}' is competes: {LOCAL_NON_SELLER} but "
+                              f"carries maturity {l.get('maturity')!r} — a body that sells "
+                              f"nothing has no years selling and no customers, so the "
+                              f"established test says nothing about it and either value "
+                              f"would be an invented fact. Drop the key")
+            # AN ADJACENT ENTRY'S SENTENCE RULE APPLIES HERE TOO, in the form
+            # the value needs: a row that moves no score earns its place by
+            # telling the builder who is in the room and what they do about
+            # this. A regex cannot judge a sentence, so this is advisory.
+            if len(str(l.get("evidence") or "").split()) < 4:
+                warns.append(f"locals[{i}] '{who}' is {LOCAL_NON_SELLER} but its evidence "
+                             f"barely says anything — the row moves no score, so the "
+                             f"sentence IS the value: what the body does, and why a "
+                             f"builder needs to know it is in the room")
+            nonsellers.append(l)
             continue
         if l.get("maturity") not in LOCAL_MATURITIES:
             errors.append(f"locals[{i}] '{who}' has maturity {l.get('maturity')!r} — the "
                           f"enum is {' | '.join(LOCAL_MATURITIES)} (SCORING.md, the "
-                          f"established test). It sets the RUNG; competes decides whether "
-                          f"the row counts at all")
+                          f"established test), required on every row that SELLS something. "
+                          f"It sets the RUNG; competes decides whether the row counts at "
+                          f"all. A body that sells nothing is competes: {LOCAL_NON_SELLER} "
+                          f"and carries no maturity")
             continue
         since = l.get("since") if isinstance(l.get("since"), int) else None
         ok, limbs, blockers = established(since, str(l.get("evidence") or ""), year,
@@ -2083,6 +2147,11 @@ def check(path, year):
             if l["maturity"] == "established":
                 direct_established.append(l)
         else:
+            # `adjacent` AND NOTHING ELSE: a `non-seller` row has already been
+            # bucketed and `continue`d above, and an unknown `competes` value
+            # errored out before that. An `else` that swept a third value into
+            # this list would have made a regulator read as a competitor —
+            # which is the failure mode the value was added to end.
             adjacent.append(l)
             # AN ADJACENT ENTRY EARNS ITS PLACE WITH ONE SENTENCE: what it
             # actually sells, and why that is not this. Without it the row reads
@@ -2289,8 +2358,9 @@ def check(path, year):
             # above a ledger of five names is the checker crying wolf — which is
             # how a warning stops being a warning (see the rejected-record
             # exemption above, same lesson).
-            what = (f"{len(adjacent)} adjacent player(s) are on file, and adjacent never "
-                    f"moves gap" if adjacent else "the ledger is empty")
+            near = len(adjacent) + len(nonsellers)
+            what = (f"{near} player(s) on file sell something else or sell nothing at all, "
+                    f"and neither moves gap" if near else "the ledger is empty")
             warns.append(f"gap 1 means locals sell this but are all early — no locals[] "
                          f"entry has competes: direct ({what}). If the check really found "
                          f"nobody selling this, rung 2 is the honest score, but only on a "

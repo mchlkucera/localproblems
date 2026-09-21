@@ -17,12 +17,16 @@ THREE MODES, and the split between them is the whole design:
 
   --complete          THE ATTENDED COMPLETION. Reads a staged.jsonl whose model
                       fields an agent has filled in, applies the materiality
-                      filter, and appends survivors to
-                      data/signals/<type>/<date>.jsonl + seen.txt. Needs no
-                      model of its own — the judgment already happened. It does
-                      NOT touch data/register.db: it prints the `db.py upsert`
-                      lines for the caller to run, because the ledgers are
-                      canonical and the DB is rebuildable from them.
+                      filter, appends survivors to
+                      data/signals/<type>/<date>.jsonl + seen.txt, and records
+                      every materiality drop in data/signals/dropped-log.jsonl
+                      — the committed memory that a drop ever happened, which
+                      neither the ledgers nor seen.txt can carry (INGEST.md
+                      3c). Needs no model of its own — the judgment already
+                      happened. It does NOT touch data/register.db: it prints
+                      the `db.py upsert` lines for the caller to run, because
+                      the ledgers are canonical and the DB is rebuildable from
+                      them.
 
   (default)           The UNATTENDED path: mechanical, then model passes A and B.
                       LIVE since 2026-08-20 — see the model_passes() docstring.
@@ -214,6 +218,17 @@ LEDGER_ALLOWLIST = (
     # owner was found riding on `notes` — a free-text field carrying a
     # structured key, which is the one-field-two-meanings defect again.
     "owner",
+    # `cz_check` — the Czech absence verdict, structured. Added 2026-09-21 for
+    # the SAME reason `owner` was, one defect later: arb-scan's whole job is
+    # answering "does a Czech player already sell this?", and that answer lived
+    # in free-text `notes`, so nothing validated it. Two of five verdicts were
+    # wrong in one week. SignalSchema now carries the field and checks the
+    # verdict against the players the check itself recorded.
+    # THE ORDER IS LOAD-BEARING: schema -> allowlist -> first record. This line
+    # must exist BEFORE any staged `cz_check` is appended, because the allowlist
+    # DROPS what it does not name, silently — which is exactly how the `owner`
+    # fact spent a day riding inside `notes`.
+    "cz_check",
 )
 
 # The second layer. The allowlist governs FIELDS; this governs CONTENT, because
@@ -2253,6 +2268,174 @@ SECTORS = {"fintech", "health", "housing", "energy", "mobility", "govtech",
            "environment", "other"}
 
 
+# --------------------------------------------------------------------------
+# THE DROPPED LOG — the committed memory of what materiality threw away
+# --------------------------------------------------------------------------
+#
+# A MATERIALITY DROP USED TO TELL NOBODY. The record was not appended, its id
+# was NOT added to `seen.txt` — correctly, because a drop has to stay
+# re-mintable — and nothing anywhere recorded that it had ever been staged. So
+# the next run re-minted it, re-staged it and re-dropped it, for as many runs
+# as its source kept it in the fetch window, and no pass ever knew it was
+# looking at a repeat.
+#
+# MEASURED, 2026-09-21. The reg-scan pass found that 9 of 11 VeKLEP drafts were
+# re-stagers — the same drafts the 2026-09-19 run had already dropped — and
+# because a drop left no trace, no pass had ever opened their problem
+# statements. One of the nine was a justice-ministry draft decree whose own
+# memorandum concedes that applying the 2027 cell-space rule takes the prison
+# service from 95.5% to 111% of capacity: the best-quantified problem statement
+# in the whole set, dropped at `scale: 0` on its metadata card. THE FILTER
+# READS SCORES; THE EVIDENCE IS IN THE DOCUMENT. That asymmetry is permanent
+# and is not a defect in the filter — it is the reason the filter needs a
+# memory. This file is that memory, and reading it is a pass's duty
+# (INGEST.md 3c, SCANS.md reg-scan 4).
+#
+# IT LIVES BESIDE `seen.txt`, NOT UNDER data/raw/. data/raw/ is gitignored and
+# pruned at 28 days — .gitignore says so in as many words — which is exactly
+# how this memory was lost the first time. `data/signals/dropped-log.jsonl` is
+# committed, and it is the second cross-run memory this pipeline keeps.
+#
+# ONE LINE PER DISTINCT ID, NOT ONE LINE PER DROP. A run drops thousands of
+# records (2,901 on 2026-09-21, 4,076 on the 2026-09-19 payloads), and almost
+# all of them are the SAME records as last run. Writing a line per drop would
+# grow the file by thousands of lines every run, diff unreadably, and still
+# make a pass aggregate it before it could answer the one question the file
+# exists for. Folding makes the repeat FREE — a re-drop costs zero new lines,
+# it moves `last_seen` and increments `times_dropped` — and `times_dropped` IS
+# the answer to "what keeps being thrown away and has never been read?".
+#
+# `times_dropped` COUNTS RUNS, NOT CALLS. Re-running --complete over the same
+# staged.jsonl on the same run date does not inflate it. One field, one
+# meaning: it is the number of distinct runs that threw this record away.
+
+DROPPED_LOG_NAME = "dropped-log.jsonl"
+DROPPED_TITLE_MAX = 140
+
+
+def dropped_log_path(args):
+    """Beside `seen.txt` by default, so a scratch run redirected with --seen
+    cannot write into the real committed memory, and --dropped-log overrides."""
+    if getattr(args, "dropped_log", None):
+        return os.path.abspath(args.dropped_log)
+    return os.path.join(os.path.dirname(os.path.abspath(args.seen)), DROPPED_LOG_NAME)
+
+
+def dropped_entry(rec, run_date):
+    """One log line for one dropped record. KEY ORDER IS THE WRITE ORDER and is
+    fixed here, so two runs produce a diff a human can read.
+
+    `url` is not decoration: the whole point is that a later pass can OPEN the
+    document the scores could not see. `scores` carries the three the filter
+    actually reads — money, scale, urgency — and not recurrence, which the
+    filter ignores and which would make this field mean two things.
+    """
+    sc = rec.get("scores") or {}
+    title = collapse(rec.get("title") or rec.get("title_native") or "")
+    if len(title) > DROPPED_TITLE_MAX:
+        title = title[:DROPPED_TITLE_MAX - 1].rstrip() + "\u2026"
+    return {
+        "id": rec.get("id"),
+        "feed": rec.get("_feed_key") or rec.get("source") or "",
+        "evidence_type": rec.get("evidence_type") or "",
+        "title": title,
+        "url": rec.get("url") or "",
+        "scores": {"money": sc.get("money"), "scale": sc.get("scale"),
+                   "urgency": sc.get("urgency")},
+        "first_seen": run_date,
+        "last_seen": run_date,
+        "times_dropped": 1,
+    }
+
+
+def read_dropped_log(path):
+    """(entries, index). `entries` is the file in line order; each element is a
+    parsed dict or — for a line this program cannot read — the RAW STRING.
+
+    A line that does not parse is carried through verbatim rather than
+    discarded. The file's entire value is that nothing it has ever recorded
+    disappears, so the reader never silently loses a line it did not understand.
+    A repeated id from an older writer is folded, counts summed, so the repair
+    cannot lose a drop either.
+    """
+    entries, index = [], {}
+    if not os.path.isfile(path):
+        return entries, index
+    with open(path, "r", encoding="utf-8") as fh:
+        for line in fh:
+            line = line.rstrip("\n")
+            if not line.strip():
+                continue
+            try:
+                rec = json.loads(line)
+                sid = rec["id"]
+            except Exception:  # noqa: BLE001 — unreadable is not the same as absent
+                entries.append(line)
+                continue
+            prior = index.get(sid)
+            if prior is None:
+                index[sid] = rec
+                entries.append(rec)
+                continue
+            prior["times_dropped"] = (int(prior.get("times_dropped") or 1)
+                                      + int(rec.get("times_dropped") or 1))
+            for k, pick in (("first_seen", min), ("last_seen", max)):
+                if rec.get(k) and prior.get(k):
+                    prior[k] = pick(str(prior[k]), str(rec[k]))
+                elif rec.get(k):
+                    prior[k] = rec[k]
+    return entries, index
+
+
+def write_dropped_log(path, drops, run_date, write=True):
+    """Fold this run's materiality drops into the committed log.
+
+    APPEND-OR-UPDATE, NEVER REWRITTEN FROM SCRATCH. Every existing line keeps
+    its position and its `first_seen`; only `last_seen`, `times_dropped` and
+    the drop's current facts move. New ids are appended at the end, sorted by
+    id. The write is atomic (tmp + os.replace), because a half-written memory
+    is worse than no memory.
+
+    `write=False` does the whole fold and reports what WOULD change without
+    touching the file — so --dry-run answers with the real numbers (+N new,
+    M re-dropped) rather than with the size of the batch, which on a second
+    run over the same payloads is not the same question.
+
+    Returns (new, updated, total_entries).
+    """
+    entries, index = read_dropped_log(path)
+    new_entries, updated = [], 0
+    for rec in drops:
+        sid = rec["id"]
+        prior = index.get(sid)
+        if prior is None:
+            index[sid] = rec
+            new_entries.append(rec)
+            continue
+        # ONE RUN COUNTS ONCE: a second --complete over the same staged file on
+        # the same run date must not inflate the count this file exists to give.
+        if str(prior.get("last_seen") or "") != run_date:
+            prior["times_dropped"] = int(prior.get("times_dropped") or 1) + 1
+            updated += 1
+        prior["last_seen"] = max(str(prior.get("last_seen") or run_date), run_date)
+        # The facts move to the latest observation; `first_seen` never does.
+        for k in ("feed", "evidence_type", "title", "url", "scores"):
+            if rec.get(k):
+                prior[k] = rec[k]
+    entries.extend(sorted(new_entries, key=lambda r: str(r.get("id"))))
+    if write:
+        parent = os.path.dirname(path)
+        if parent:
+            os.makedirs(parent, exist_ok=True)
+        tmp = path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as fh:
+            for e in entries:
+                fh.write((e if isinstance(e, str)
+                          else json.dumps(e, ensure_ascii=False)) + "\n")
+        os.replace(tmp, path)
+    return len(new_entries), updated, sum(1 for e in entries if not isinstance(e, str))
+
+
 def run_complete(args):
     raw_dir = os.path.abspath(args.raw)
     staged_path = os.path.join(raw_dir, "staged.jsonl")
@@ -2262,44 +2445,6 @@ def run_complete(args):
     signals_dir = os.path.abspath(args.out_dir)
     seen_path = args.seen
     seen = load_seen(seen_path)
-
-    records, incomplete, dropped, appended = [], [], 0, 0
-    gdpr_refused, allowlist_drops = [], {}
-    with open(staged_path, "r", encoding="utf-8") as fh:
-        for n, line in enumerate(fh, 1):
-            if not line.strip():
-                continue
-            r = json.loads(line)
-            sc = r.get("scores") or {}
-            # Same predicate model_debt() asks, so a record filled to exactly
-            # what `_needs` listed cannot be refused here for a field nobody
-            # was told about.
-            missing = missing_required(r)
-            for k in ("scale", "recurrence", "money", "urgency"):
-                if not isinstance(sc.get(k), int):
-                    missing.append(f"scores.{k}")
-            if r.get("sector") not in SECTORS:
-                missing.append("sector(valid)")
-            # The same rule SignalSchema applies in web/lib/data.ts, applied
-            # HERE so a bad date is refused before it enters an append-only
-            # ledger rather than turning up as a red build afterwards. An
-            # append-only log has no quiet cleanup.
-            if r.get("date") and not ISO_DATE_RE.match(str(r["date"])):
-                missing.append("date(ISO YYYY-MM-DD)")
-            if missing:
-                incomplete.append((r.get("id", f"line {n}"), missing))
-                continue
-            records.append(r)
-
-    if incomplete and not args.allow_incomplete:
-        log(f"normalize --complete: {len(incomplete)} staged records are still missing model fields.")
-        for sid, m in incomplete[:10]:
-            log(f"  {sid}: {', '.join(sorted(set(m)))}")
-        if len(incomplete) > 10:
-            log(f"  ... and {len(incomplete) - 10} more")
-        log("Refusing to append. Unscored records are NEVER written with default scores —")
-        log("losing freshness is recoverable; writing vibes into an append-only ledger is not.")
-        return 1
 
     # THE LEDGER FILE IS NAMED BY THE RUN DATE, NEVER BY THE RECORD'S OWN DATE.
     # SPEC §3 and CONVENTIONS both say "one JSONL file per evidence type per RUN
@@ -2324,6 +2469,101 @@ def run_complete(args):
     # raw dir not named for a date falls through to the clock as before.
     run_date = args.today or run_date_from_raw(args.raw) or date.today().isoformat()
 
+    records, incomplete, dropped, appended = [], [], 0, 0
+    drops, drop_ids = [], set()
+    gdpr_refused, allowlist_drops = [], {}
+    with open(staged_path, "r", encoding="utf-8") as fh:
+        for n, line in enumerate(fh, 1):
+            if not line.strip():
+                continue
+            r = json.loads(line)
+            sc = r.get("scores") or {}
+            score_debt = [f"scores.{k}"
+                          for k in ("scale", "recurrence", "money", "urgency")
+                          if not isinstance(sc.get(k), int)]
+
+            # ── MATERIALITY FIRST, AND IT HAS TO BE ─────────────────────────
+            # INGEST.md 3c puts the materiality filter BETWEEN model pass A and
+            # model pass B, and model_pass.py implements exactly that: a record
+            # the filter drops never gets pass B, so it never gets `title` or
+            # `summary`. This function used to ask "is it complete?" first, so
+            # every one of those records was reported as INCOMPLETE — a model
+            # still owes it fields — when the truth is that it was DROPPED and
+            # no model will ever owe it anything. One field, two meanings, and
+            # the expensive half of the meaning was the invisible one.
+            #
+            # MEASURED on the committed 2026-09-19 payloads: 4,076 staged
+            # records were immaterial with pass A complete, and the old order
+            # saw only the 944 yc-oss ones as drops (yc-oss ships its own
+            # English title and summary, so it is the one feed whose records
+            # are complete without pass B). The other 3,132 — including all
+            # 2,930 TED records and ALL ELEVEN VeKLEP drafts, the prison-decree
+            # one among them — were filed under "incomplete" and logged nowhere.
+            #
+            # Scores are pass A's output and the filter reads nothing else, so
+            # a record still owing a score cannot be judged here and stays
+            # incomplete. Everything else is judged, and a drop is RECORDED.
+            if not score_debt and not is_material(sc, r.get("evidence_type")):
+                dropped += 1
+                sid = r.get("id")
+                # Already in `seen.txt` means it is in a ledger already: it was
+                # material when it landed, and this is not a record that went
+                # missing. Never log one of those as a drop.
+                if sid and sid not in seen and sid not in drop_ids:
+                    drop_ids.add(sid)
+                    drops.append(dropped_entry(r, run_date))
+                continue
+
+            # Same predicate model_debt() asks, so a record filled to exactly
+            # what `_needs` listed cannot be refused here for a field nobody
+            # was told about.
+            missing = missing_required(r) + score_debt
+            if r.get("sector") not in SECTORS:
+                missing.append("sector(valid)")
+            # The same rule SignalSchema applies in web/lib/data.ts, applied
+            # HERE so a bad date is refused before it enters an append-only
+            # ledger rather than turning up as a red build afterwards. An
+            # append-only log has no quiet cleanup.
+            if r.get("date") and not ISO_DATE_RE.match(str(r["date"])):
+                missing.append("date(ISO YYYY-MM-DD)")
+            if missing:
+                incomplete.append((r.get("id", f"line {n}"), missing))
+                continue
+            records.append(r)
+
+    # ── THE DROPPED LOG IS WRITTEN HERE, BEFORE ANY REFUSAL CAN RETURN ──────
+    # A materiality drop is a fact about this run whether or not the append
+    # goes ahead. The refusal below is about the LEDGER; the dropped log is not
+    # a ledger, it is the memory that the drop happened at all — and a run that
+    # is refused and then abandoned is exactly the case where that memory would
+    # otherwise be lost. --dry-run still writes nothing, anywhere.
+    drop_log = dropped_log_path(args)
+    drop_new = drop_upd = drop_total = 0
+    if drops:
+        drop_new, drop_upd, drop_total = write_dropped_log(
+            drop_log, drops, run_date, write=not args.dry_run)
+
+    def report_drops():
+        if not dropped:
+            return
+        print(f"  materiality drops: {dropped} ({len(drops)} loggable; "
+              f"{dropped - len(drops)} already in seen.txt or repeated in this file)")
+        print(f"  dropped-log {'would record' if args.dry_run else 'recorded'}: "
+              f"+{drop_new} new, {drop_upd} re-dropped, {drop_total} entries in "
+              f"{_short(drop_log)}" + ("  (dry run — nothing written)"
+                                       if args.dry_run else ""))
+
+    if incomplete and not args.allow_incomplete:
+        log(f"normalize --complete: {len(incomplete)} staged records are still missing model fields.")
+        for sid, m in incomplete[:10]:
+            log(f"  {sid}: {', '.join(sorted(set(m)))}")
+        if len(incomplete) > 10:
+            log(f"  ... and {len(incomplete) - 10} more")
+        log("Refusing to append. Unscored records are NEVER written with default scores —")
+        log("losing freshness is recoverable; writing vibes into an append-only ledger is not.")
+        report_drops()
+        return 1
+
     # ── THE LAST GATE BEFORE AN IRREVERSIBLE APPEND ─────────────────────────
     # Run here as well as at staging, and NOT because staging might have missed
     # it. A staged.jsonl is completed by a human session that routinely runs
@@ -2338,9 +2578,9 @@ def run_complete(args):
     by_file = {}
     id_dupes = []
     for r in records:
-        if not is_material(r["scores"], r.get("evidence_type")):
-            dropped += 1
-            continue
+        # Materiality was decided in the staging loop above, where a drop is
+        # also RECORDED in data/signals/dropped-log.jsonl. Nothing here re-asks
+        # it: the question has one asker in this function.
         if r["id"] in seen:
             # WAS A BARE `continue` — the one drop in this file that told
             # nobody. An id already in seen.txt is the ordinary re-run case and
@@ -2404,6 +2644,7 @@ def run_complete(args):
               f"{len(incomplete)} incomplete; {len(gdpr_refused)} refused by AC-GDPR1.")
         for f, rs in sorted(by_file.items()):
             print(f"  {os.path.relpath(f, ROOT)}: +{len(rs)}")
+        report_drops()
         report_dedup()
         report_gdpr()
         return 1 if gdpr_refused else 0
@@ -2418,9 +2659,10 @@ def run_complete(args):
             fh.write(sid + "\n")
 
     print(f"normalize --complete: appended {appended} records across {len(by_file)} file(s)")
-    print(f"  materiality drops: {dropped}   incomplete skipped: {len(incomplete)}")
+    print(f"  incomplete skipped: {len(incomplete)}")
     for f, rs in sorted(by_file.items()):
         print(f"  {os.path.relpath(f, ROOT)}: +{len(rs)}")
+    report_drops()
     report_dedup()
     report_gdpr()
     print("  Next: python3 scripts/db.py upsert <each file above>")
@@ -2619,6 +2861,9 @@ def main():
                    help="append a model-completed staged.jsonl to the ledgers")
     p.add_argument("--out-dir", default=DEFAULT_SIGNALS_DIR,
                    help="signals root (override for testing; default data/signals)")
+    p.add_argument("--dropped-log", default=None,
+                   help="--complete: the committed materiality-drop memory "
+                        "(default: dropped-log.jsonl beside --seen)")
     p.add_argument("--seen", default=os.path.join(DEFAULT_SIGNALS_DIR, "seen.txt"),
                    help="dedup index (override for testing)")
     p.add_argument("--today", default=None, help="YYYY-MM-DD, for deterministic runs")

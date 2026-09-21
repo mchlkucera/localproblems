@@ -211,11 +211,18 @@ url         primary source URL
 date        native ISO date of the signal
 title       short English display name, "Thing — what it is"
 sector      one of the sectors above
-geo_origin  where the signal comes FROM: ISO2 or EU
+geo_origin  where the signal comes FROM: an ISO2 country code, `EU`, or `XX`
+            when the source names no country. `XX` is ISO 3166-1 USER-ASSIGNED,
+            so it collides with no real country now or ever.
 money_eur   number | null (best-effort EUR value) + money_note (how derived)
 summary     max 2 sentences, EN
 scores      objective, mechanical — see rubric below
-notes       optional free text: absence checks, transfer logic, quotes
+notes       optional free text: transfer logic, quotes, and anything not
+            carried by a field of its own
+cz_check    optional — THE CZECH ABSENCE VERDICT, structured. Written by
+            `arb-scan` and absent elsewhere. See "The Czech absence check"
+            below; the schema and its invariant are in web/lib/data.ts
+            (CzCheckSchema), which is where they run
 owner       who stated the problem: the institution named as the setter of an
             ask. REQUIRED on every `asks` record, absent elsewhere. Its own
             field, never a `notes: owner: …` prefix — one field, one meaning:
@@ -229,6 +236,19 @@ http_status optional — integer; liveness of `url` at its last check
 fetched_at  optional — ISO timestamp of the payload this record came from
 extraction  optional — structured | llm-fallback | manual
 ```
+
+`geo_origin: XX` — **THE EXPLICIT UNKNOWN (added 2026-09-21).** There was no
+spelling for "the source names no country", so agents wrote `US`, and `US` then
+meant both *American* and *unknown* — one field, two meanings, the defect
+`pipeline/MATCH.md` §0 exists to prevent. It was flagged on 2026-09-19,
+recurred on 2026-09-21, and was reported independently by three scoring agents.
+Write `XX` when the payload names no origin; never guess a country to fill the
+field (§3: receipts over plausibility). Note that the regex always matched `XX`
+letter for letter — nothing was blocked, the VALUE WAS SIMPLY NEVER DECLARED,
+which is why it was never used. It renders as "Not stated", never as a country
+code (`web/lib/format.ts`). **Existing ledger lines are NOT retro-edited**: the
+ledgers are append-only and we cannot now recover which `US` meant unknown; an
+errata class covers that cleanup.
 
 The last four are **receipts**: they let a record be checked mechanically instead of
 trusted. **Any optional field written here must be added to `SignalSchema`
@@ -408,8 +428,13 @@ evidence for. Judged from the record's own evidence, never aspirationally:
 - `incumbents` — DERIVED from the `locals[]` ledger, no judgment: any local at
   `competes: direct` AND `maturity: established` ⇒ `direct`; else any at
   `competes: adjacent` AND `maturity: established` ⇒ `adjacent`; else (no
-  locals, or early players only) ⇒ `open`. **It does not move the level** —
-  see the level rule below.
+  locals, only early players, or only `competes: non-seller` rows) ⇒ `open`.
+  A `non-seller` row carries no `maturity`, so it satisfies neither limb and
+  derives `open` exactly as an empty ledger does — recording ČOI costs a record
+  nothing, which is what makes the no-exclude rule affordable. The same three
+  lines are stated in `SCORING.md` and implemented in `scripts/check-records.py`
+  `entry_incumbents`, which asserts the stored value: change all three together
+  or the build fails. **It does not move the level** — see the level rule below.
 - `integration` — what the product must plug into to work at all. `software`: a
   standalone app, SaaS or marketplace — **including one that reads or writes
   the BUYER'S OWN accounting, ERP, dispatch, HR, records or clinical software**
@@ -483,7 +508,14 @@ record with foreign proof; `comps: []` is legitimate ONLY where `proof` is 0 and
 no comparable exists (build-enforced: proof >= 1 requires >= 1 comp):
 - `name`, `url` — the company and its site
 - `geo` — HQ country, ISO2 (UK -> GB)
-- `since` — founding year, unquoted integer
+- `since` — founding year, unquoted integer. The schema floor is 1800, not
+  1980: the floor's only job is catching a slipped digit, and a floor set at
+  the age of the software industry rejects real comparables. Deutsche Leasing
+  (founded 1962) finances 85 electric buses and their chargers in Lübeck and
+  is the closest comparable p-0046 has; the old floor kept it out of `comps[]`
+  and that record scored `proof: 2` instead of 3. The ways round a false floor
+  are a false year (§3 forbids it) or a dropped company (§2 forbids it), both
+  worse than the bug. Moved 2026-09-21; `locals[].since` moved with it
 - `traction` — funding stage/amount, customers, pricing, revenue — whatever is
   PUBLIC and verifiable, with the source named compactly (e.g. "(Sifted, 2026)").
   Never fabricated; a comp without verifiable numbers records what IS verifiable.
@@ -516,15 +548,25 @@ underneath it:
   cannot be evaluated without it. OPTIONAL at `early`, where a small Czech
   vendor often publishes no year at all: state what is verifiable and NEVER
   invent a year to fill the field, exactly as with a comp's headcount.
-- `competes` — `direct` | `adjacent`. **Does it sell THIS?** `direct` = this
-  record's product to this record's buyer. `adjacent` = a real player in the
-  neighbourhood selling something else. The ONLY field `gap` reads for
-  eligibility.
-- `maturity` — `established` | `early`. The established test (below), unchanged.
-  It sets the RUNG, once `competes` has decided the entry counts at all.
+- `competes` — `direct` | `adjacent` | `non-seller`. **Does it sell THIS?**
+  `direct` = this record's product to this record's buyer. `adjacent` = a real
+  player in the neighbourhood selling something else. `non-seller` = a body IN
+  THE ROOM that sells nothing at all — a regulator, an inspectorate, a
+  ministry, a chamber, a state registry, a university output with no vendor
+  behind it. The ONLY field `gap` reads for eligibility, and only `direct`
+  counts there.
+- `maturity` — `established` | `early`. The established test (below),
+  unchanged. It sets the RUNG, once `competes` has decided the entry counts at
+  all. **REQUIRED on every row that sells something and FORBIDDEN at
+  `competes: non-seller`** — a body that sells nothing has no years selling and
+  no customers, so `established` would claim it is in a market it is not in and
+  `early` would claim it is young. Neither is true, so the key is absent;
+  writing one is an ERROR in `scripts/check-records.py`.
 - `evidence` — at `direct`, which limb(s) of the established test this player
   passes, stated so a reader can check it. At `adjacent`, WHAT IT ACTUALLY
-  SELLS and why that is not this.
+  SELLS and why that is not this. At `non-seller`, what the body DOES and why a
+  builder needs to know it is in the room — the row moves no score, so that
+  sentence is the entire value of the row.
 - **Omit the key when there is no named local player. NEVER write `locals: []`** —
   `problem_locals` is a child table and cannot tell an empty list from an absent
   key, so the two loaders would disagree about the record. `scripts/db.py`
@@ -543,7 +585,19 @@ situation two different ways — the same one-field-two-meanings defect already
 fixed at PROOF rung 2, GAP rung 0 and the SPEC de-rank rule.
 
 **An `adjacent` player NEVER moves `gap`, at any maturity.** That is the entire
-point of the split.
+point of the split. **Neither does a `non-seller`**, by the same mechanism: the
+ladder counts `competes: direct` and nothing else.
+
+`non-seller` was added on 2026-09-21 because the split was still one value
+short. The Czech trade inspectorate (ČOI) belongs on p-0048's ledger — a
+builder needs to know it is in the room — but it sells nothing, so `maturity`
+had no honest value for it and its author left it in prose. That is the
+FALSE-ABSENCE half of the defect above, recurring: the same wall, one value
+further along. It is not called `enforcer` because `enforcer` names one species
+of the class (a state registry enforces nothing, a chamber enforces nothing)
+and because it answers a different question from its siblings — `direct` and
+`adjacent` say what a player SELLS, `enforcer` would say what kind of BODY it
+is, which is a second axis inside one field.
 
 ### NEVER EXCLUDE a local player
 
@@ -602,6 +656,8 @@ dimension that silently rots. `scripts/check-records.py --strict` runs inside
   unknown key (`LocalSchema` is `z.strictObject`; `scripts/db.py` refuses it as
   well, so a record cannot be half-migrated silently)
 - a `locals[]` entry with neither `url` nor `ico`
+- a `locals[]` entry at `competes: non-seller` carrying a `maturity`, or any
+  other entry missing one
 - `gap: 0` with no `locals[]` entry at `competes: direct` AND
   `maturity: established` — "not checked" is not a score on this ladder; an
   absent check is a missing receipt
@@ -859,6 +915,70 @@ grep -h -A6 'type: gap-check' data/problems/cz/*.md | grep -o 'note: .*' \
   | awk '{print $1, $2}' | sort | uniq -c | sort -rn
 ```
 
+## The Czech absence check — `cz_check` on an `arb-scan` signal
+
+`arb-scan`'s entire job is answering one question: **does a Czech player
+already sell this?** Until 2026-09-21 the answer was PROSE inside `notes`, so
+nothing validated it — the `owner` defect again, in the field whose whole
+purpose is to be read by a machine. It cost two of five verdicts in one week:
+`gb-academyai` said *contested* with an established direct seller named in its
+own note, and `lt-enforceshield` said *absent* where a direct seller exists.
+
+```
+cz_check:
+  verdict:  absent | contested | taken
+  queries:  [ … ]            the Czech query SHAPES actually run
+  surfaces: [ … ]            where it looked: google-cz, ares, own ledgers, …
+  control:  { query, found, passed }      the positive control (MATCH.md §4)
+  players:  [ { name, ico?, url?, competes, maturity?, evidence } ]
+```
+
+`players[]` uses **the same `competes` / `maturity` vocabulary as
+`locals[]`** — deliberately, so the evidence layer and the record layer cannot
+describe one market on two different axes, and so the verdict can be checked
+against the players on the ladder `SCORING.md`'s GAP actually reads.
+
+**OPTIONAL, AND PERMANENTLY SO.** Some 6,000 `funded` lines were appended before
+it existed and the ledgers are append-only, so a required field here would
+red-build the site forever. An absent `cz_check` means no check was recorded —
+the honest state, and never a score.
+
+**The invariant, and where it runs.** `SignalSchema` in `web/lib/data.ts`
+(`CzCheckSchema`), which both loaders parse every ledger line through, so a
+contradiction fails `npm run build`. NOT `scripts/check-records.py`: that file
+reads records, not signals, and a rule filed where it cannot run is the prose
+this register does not count as enforcement. It fails a line on:
+
+| rule | why |
+|---|---|
+| `taken` requires ≥ 1 player at `direct` + `established` | TAKEN is GAP rung 0 and needs the player that closed the space |
+| `contested` requires ≥ 1 `direct` and NONE at `direct` + `established` | contested is "sellers, all early"; an established seller is `taken` |
+| `absent` requires ZERO `direct` players | a seller found makes it contested or taken; adjacent and non-seller rows move nothing |
+| `control.passed` must be `true` | a negative with no passing control is worth nothing (MATCH.md §4) |
+| `absent` / `contested` need ≥ 2 `queries` | one query shape returning nothing is not evidence of absence (§6). `taken` asserts a positive and is finished when the seller is named |
+
+**WHAT IT CATCHES AND WHAT IT CANNOT — stated because an overclaimed gate is
+how a register stops checking.** It catches a verdict that contradicts **the
+players the check itself recorded**: `gb-academyai` fails it. It does NOT and
+cannot catch **a player the search never found** — `lt-enforceshield` recorded
+no seller because it saw none, and no schema knows about a company nobody
+looked at. That is what actually killed both of this week's verdicts, and no
+checker will ever fix it; only the search will. The existing defence against
+that real risk is elsewhere and **it held this week**: `SCORING.md`'s GAP
+ladder makes rung 2 cost its own `type: gap-check` source ON THE RECORD, with
+`queries[]`, `checked[]` and a passing positive control, so an arb-scan verdict
+never becomes a score by itself.
+
+On a failed control, write the miss in `notes` beside the method that broke and
+omit `cz_check` entirely — "it has not found an absence; it has found a broken
+method. Say so and write nothing." A recorded control MISS is worth more than a
+clean negative, but it is not a verdict.
+
+**Before the first `cz_check` line is appended**, the key must also be added to
+`LEDGER_ALLOWLIST` in `scripts/normalize.py` — that allowlist drops every field
+it does not name, which is exactly how the `asks` `owner` fact ended up riding
+inside `notes` for a day. Schema first, allowlist second, record third.
+
 ## Proving a negative
 
 A gap score is the register's only claim of the form "nobody local does this,"
@@ -965,3 +1085,77 @@ carries personal data, the field allowlist and its checker ship BEFORE the first
 record can be written, never alongside it. A late fetcher costs nothing; a
 rushed one writing personal data into an append-only public log costs
 everything, because those ledgers are public and there is no quiet cleanup.
+
+
+---
+
+## Correcting a judgment of ours — `data/errata.jsonl`, class `our-judgment`
+
+The signal ledgers are append-only and public, so nothing in `data/signals/**`
+is ever edited. A wrong VALUE is corrected on read by a line in
+`data/errata.jsonl`; from 2026-09-21 a wrong JUDGMENT OF OURS is recorded the
+same way, under the fourth class, `our-judgment`. The loader is
+`load_errata()` in `scripts/db.py` and its docstring is the contract.
+
+**When it applies.** A conclusion we wrote into a signal's prose is wrong: a
+CZ-market verdict in `notes`, or a reading of a source that verdict rests on.
+Nobody published the claim but us. **When it does not.** Anything a publisher
+asserted — those are the three older classes (`our-attribution`,
+`disputed-source-value`, `source-updated`). An `our-judgment` entry moves no
+money and touches no aggregate.
+
+**Shape**, one line per id, like `source-updated` and for the same reason (a
+second line for an id silently replaces the first, and one signal can be wrong
+about two things):
+
+```
+{"id", "class": "our-judgment", "recorded", "action": "annotate-only",
+ "verified_against", "corrections": [{field, kind, claim, ledger_reading,
+ our_reading, basis}], "evidence", "impact", "note"}
+```
+
+- `kind` is **`verdict`** when the CZ-check conclusion itself is replaced —
+  `ledger_reading` and `our_reading` are both one of `taken` / `contested` /
+  `absent`, and **any gap score taken from those notes is void** — or
+  **`reading`** when a supporting reading is wrong and the verdict survives.
+- `claim` locates the assertion inside the notes; `basis` says why the new
+  reading is right, in the vocabulary of the ESTABLISHED test where a verdict
+  turns on it.
+- **No `value_is_correct`, no `field`/`source_value` at the top level.** The
+  key is ABSENT, not null: `true` would affirm a publisher's figure this entry
+  never checked, and `null` would record a dispute we do not hold. Absent is
+  the third state and the loader enforces it.
+- `action` is `annotate-only` and nothing applies it on read. Signal `notes`
+  are not rendered on any public page (`web/lib/site/ledger.tsx` prints title,
+  summary and quote), so the entry exists for the register's own memory and for
+  the next agent who reads the signal — never write an `impact` line claiming a
+  reader saw the wrong judgment.
+
+**The loader raises, naming the line.** Unknown class, missing
+`evidence` / `impact` / `verified_against`, an empty `corrections`, a missing
+correction key, a `kind` outside the two, a verdict outside the three words, a
+correction that changes nothing, or any `action` other than `annotate-only`
+(an `exclude…` action would move money aggregates on the strength of a market
+verdict). Read it back with `python3 scripts/db.py errata`.
+
+---
+
+## `data/signals/dropped-log.jsonl` — the materiality-drop memory
+
+data/signals/dropped-log.jsonl — THE MATERIALITY-DROP MEMORY. Committed,
+beside `seen.txt`, and the pipeline's second cross-run memory. One JSON line
+per DISTINCT dropped signal id, folded: a re-drop costs no new line, it moves
+`last_seen` and increments `times_dropped`. Written only by
+`normalize.py --complete` (INGEST.md 3c). Key order is fixed and is the write
+order:
+  id · feed · evidence_type · title (<=140 chars) · url ·
+  scores {money, scale, urgency} · first_seen · last_seen · times_dropped
+`scores` carries the THREE the materiality filter actually reads and not
+`recurrence`, which it ignores — one field, one meaning.
+A dropped id is deliberately NOT in `seen.txt`: a drop must stay re-mintable,
+because a later run may legitimately find the record material. This file is a
+memory of the drop, never a suppression of the record.
+It is NOT a ledger and no loader reads it as one: `db.py` globs
+`data/signals/*/*.jsonl` and `web/lib/data.ts` walks EVIDENCE_TYPES
+subdirectories, so a top-level file here is invisible to both. Verified
+2026-09-21 — db-gate green with the file present.

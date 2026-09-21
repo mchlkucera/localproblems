@@ -84,6 +84,229 @@ export const EXTRACTION_METHODS = ["structured", "llm-fallback", "manual"] as co
 
 // ---- evidence layer ------------------------------------------------------
 
+// ---- the Czech-player vocabulary, shared by BOTH ledgers ------------------
+//
+// Two ledgers ask the same two questions about a Czech player: a problem
+// record's `locals[]` (LocalSchema, below) and an arb-scan signal's
+// `cz_check.players[]` (immediately below). ONE DEFINITION serves both,
+// because SCORING.md's GAP ladder reads them on the SAME AXIS — `competes`
+// decides whether an entry counts at all, `maturity` decides which rung it
+// lands on — and two copies of an enum are two enums that drift.
+//
+//   `competes` — DOES IT SELL THIS? the only field GAP reads for eligibility
+//     `direct`      this record's product to this record's buyer
+//     `adjacent`    a real player in the neighbourhood selling something else
+//     `non-seller`  in the room, and selling NOTHING
+//   `maturity` — HOW OLD AND HOW PROVEN? the ESTABLISHED test from SCORING.md
+//
+// `non-seller` ADDED 2026-09-21, AND WHY IT IS NOT CALLED `enforcer`. The
+// Czech trade inspectorate (ČOI) belongs on p-0048's ledger — a builder needs
+// to know it is in the room — but it SELLS NOTHING, so `maturity` has no
+// meaning for it and either value would be an invented fact (MATCH.md §3).
+// The record's author had to leave it in prose instead: the false-absence half
+// of the very defect that split `status` into `competes` + `maturity`
+// (MATCH.md §0, row 4), reappearing one enum value short.
+//   `enforcer` was the other candidate and is the wrong name twice over. It
+// names ONE SPECIES of the class — a state registry enforces nothing, a
+// professional chamber enforces nothing, a ministry that runs the thing itself
+// enforces nothing — so the next author with one of those to record is back to
+// choosing between a wrong word and prose, which is where this started. And it
+// changes the AXIS mid-enum: `direct` and `adjacent` both answer "what does it
+// sell", while `enforcer` answers "what kind of body is it". A three-value
+// enum whose third value sits on a different axis is one field carrying two
+// questions again (CLAUDE.md rule 1). `non-seller` stays on the axis and
+// states the one fact GAP needs: it sells nothing, so it has taken nothing.
+//
+// IT MOVES GAP BY EXACTLY NOTHING, for the `adjacent` reason. SCORING.md's GAP
+// ladder counts `competes: direct` and nothing else, and `entry.incumbents`
+// derives from the same two values (scripts/check-records.py
+// `entry_incumbents`, which names `direct` and `adjacent` and therefore
+// already ignores this one). Recording ČOI costs a record no points, which is
+// what makes the no-exclude rule affordable (MATCH.md §2).
+export const LOCAL_COMPETES = ["direct", "adjacent", "non-seller"] as const;
+export const LOCAL_MATURITIES = ["established", "early"] as const;
+export type LocalCompetes = (typeof LOCAL_COMPETES)[number];
+export type LocalMaturity = (typeof LOCAL_MATURITIES)[number];
+
+/** `maturity` against `competes`, for both ledgers that carry the pair. ->
+ *  the complaint, or null.
+ *
+ *  REQUIRED wherever the entry sells something: the established test is what
+ *  puts a seller on a GAP rung, and it is asked of `adjacent` sellers too —
+ *  "this firm is established" is the same claim whichever side of the counter
+ *  it sells on. FORBIDDEN at `non-seller`, where both values are FALSE rather
+ *  than one being true: a regulator has no years-selling and no customers, so
+ *  `established` would be a claim about a market it is not in and `early` a
+ *  claim that it is young.
+ *
+ *  Optional in the SHAPE and settled in the CHECK — the same two-step
+ *  `payer`/`amount_czk` take on a non-price source, and for the same reason: a
+ *  field that is required for one value of a sibling and forbidden for another
+ *  cannot be typed, only asserted. */
+function maturityIssue(competes: string, maturity: string | undefined): string | null {
+  if (competes === "non-seller") {
+    return maturity === undefined ? null
+      : `carries maturity: ${maturity} at competes: non-seller — a body that sells nothing ` +
+        `has no years selling and no customers, so the established test says nothing about ` +
+        `it and either value would be an invented fact. Drop the key`;
+  }
+  return maturity === undefined
+    ? `sells something (competes: ${competes}) but carries no maturity — the established ` +
+      `test is what puts a seller on a GAP rung, and it is asked of adjacent sellers too`
+    : null;
+}
+
+/** One Czech player a `cz_check` found, on the two axes above — deliberately
+ *  the SAME two, because the whole point of the object is that its verdict can
+ *  be checked against its players on the ladder GAP actually reads.
+ *  `evidence` says which limb of the established test the player passes; at
+ *  `adjacent`, what it DOES sell and why that is not this; at `non-seller`,
+ *  what the body does and why a builder needs to know it is there. */
+const CzPlayerSchema = z.strictObject({
+  name: z.string().min(1),
+  ico: z.string().regex(/^\d{8}$/, "IČO is 8 digits, quoted (leading zeros are real)").optional(),
+  url: z.string().url().optional(),
+  competes: z.enum(LOCAL_COMPETES),
+  maturity: z.enum(LOCAL_MATURITIES).optional(),
+  evidence: z.string().min(1),
+}).check((ctx) => {
+  const msg = maturityIssue(ctx.value.competes, ctx.value.maturity);
+  if (msg) ctx.issues.push({
+    code: "custom",
+    message: `cz_check player '${ctx.value.name}' ${msg}`,
+    input: ctx.value,
+  });
+});
+
+/** THE CZECH ABSENCE VERDICT, PROMOTED OUT OF `notes` (2026-09-21).
+ *
+ *  `arb-scan`'s entire job is answering one question — does a Czech player
+ *  already sell this? — and until now the answer was PROSE inside `notes`.
+ *  Same defect as `owner` below, same fix: a structured fact riding inside
+ *  free text is read by no validator and rendered on no page (MATCH.md §0).
+ *  This week it cost two of five verdicts: `gb-academyai` said *contested*
+ *  with an established direct seller named in its own note, and
+ *  `lt-enforceshield` said *absent* where a direct seller exists.
+ *
+ *  OPTIONAL, AND PERMANENTLY SO. Some 6,000 `funded` lines were appended
+ *  before this existed, the ledgers are append-only and there is no quiet
+ *  cleanup, so a required field here would red-build the site forever. An
+ *  absent `cz_check` means no check was recorded — the honest state, and not a
+ *  score (GAP rung 0's lesson: "not checked" is never expressed as a number).
+ *
+ *  z.strictObject AT EVERY LEVEL, `control` and each `players[]` entry
+ *  included, for the reason stated above `scores`: strictness applies to the
+ *  level it is written at, so a `z.object` nested inside a `z.strictObject`
+ *  moves the trap one level down instead of closing it. A stray
+ *  `control.passsed` from a future pass would then vanish silently — on a
+ *  field whose entire purpose is that a machine reads it, worse than no field.
+ *
+ *  WHAT THE CHECK BELOW CATCHES, AND WHAT IT CANNOT — stated plainly because
+ *  an overclaimed gate is how a register stops checking. It catches A VERDICT
+ *  THAT CONTRADICTS THE PLAYERS THE CHECK ITSELF RECORDED: `gb-academyai`'s
+ *  *contested* over an established direct seller fails here, loudly, at build
+ *  time. It does NOT and CANNOT catch a player the search never found —
+ *  `lt-enforceshield` recorded no seller because it saw none, and no schema
+ *  can know about a company nobody looked at. That is what actually killed
+ *  both of this week's verdicts, and no checker will ever fix it; only the
+ *  search will.
+ *    The existing defence against that real risk is elsewhere, and it HELD
+ *  this week: SCORING.md's GAP ladder makes rung 2 cost its own `type:
+ *  gap-check` source ON THE RECORD, with `queries[]`, `checked[]` and a
+ *  passing positive control, so an arb-scan verdict never becomes a score by
+ *  itself. This object makes the evidence layer's half auditable. It does not
+ *  make it true. */
+const CzCheckSchema = z.strictObject({
+  /** `absent` no Czech player sells this · `contested` sellers, none of them
+      established · `taken` an established seller. The same three rungs as
+      SCORING.md's GAP (2 OPEN · 1 CONTESTED · 0 TAKEN) in words, so the
+      evidence layer and the record layer cannot say different things about the
+      same market. */
+  verdict: z.enum(["absent", "contested", "taken"]),
+  /** The Czech query SHAPES actually run — never the ones you would have run
+      (CONVENTIONS.md, "A retrofit is not a de-rank"). min(1) here because the
+      real bar is conditional on the verdict; it is asserted below, where the
+      verdict is in scope, rather than stated twice at two strengths. */
+  queries: z.array(z.string().min(1)).min(1),
+  /** Where it looked — `google-cz`, `ares`, `own-funded-ledger`, an ARES name
+      search, our own ledgers. Deliberately NOT the closed `GAP_CHECKED` enum:
+      that vocabulary is the RECORD layer's contract with its rendered gap-check
+      row, and freezing a scan's surfaces to it would force either a schema edit
+      per scan or a token that misdescribes what was searched. An absence claim
+      still has to state its own coverage — this is where it states it. */
+  surfaces: z.array(z.string().min(1)).min(1),
+  /** THE POSITIVE CONTROL (MATCH.md §4). The same method, run against
+      something known to exist: `query` what was run, `found` what came back,
+      `passed` whether the method surfaced it. A searcher who looked hard and
+      found nothing holds exactly the evidence of one who searched badly, and
+      this is the only thing that separates them. */
+  control: z.strictObject({
+    query: z.string().min(1),
+    found: z.string().min(1),
+    passed: z.boolean(),
+  }),
+  players: z.array(CzPlayerSchema),
+}).check((ctx) => {
+  const c = ctx.value;
+  const push = (message: string) => ctx.issues.push({ code: "custom", message, input: c });
+  const direct = c.players.filter((pl) => pl.competes === "direct");
+  const directEstablished = direct.filter((pl) => pl.maturity === "established");
+  const names = (ps: typeof c.players) => ps.map((pl) => pl.name).join(", ");
+
+  // THE VERDICT AGAINST THE PLAYERS, ON GAP'S OWN AXIS. `competes` decides
+  // whether a player counts at all and `maturity` decides the rung, so an
+  // `adjacent` or `non-seller` entry moves nothing here exactly as it moves
+  // nothing on the ladder. That is what reading ONE vocabulary buys.
+  if (c.verdict === "taken" && !directEstablished.length) {
+    push(`cz_check verdict 'taken' names no player at competes: direct AND maturity: ` +
+      `established — TAKEN means a mature Czech vendor already sells THIS. Name it, or ` +
+      `the verdict is 'contested' (sellers, all early) or 'absent' (no seller)`);
+  }
+  if (c.verdict === "contested") {
+    if (!direct.length) {
+      push(`cz_check verdict 'contested' names no player at competes: direct — contested ` +
+        `means Czech players sell THIS and all of them are early. With nobody selling ` +
+        `this the verdict is 'absent'; adjacent and non-seller entries move nothing`);
+    }
+    if (directEstablished.length) {
+      push(`cz_check verdict 'contested' but ${names(directEstablished)} is competes: ` +
+        `direct AND maturity: established — an established direct seller is 'taken'. ` +
+        `This is the gb-academyai defect of 2026-09-21, caught`);
+    }
+  }
+  if (c.verdict === "absent" && direct.length) {
+    push(`cz_check verdict 'absent' but ${names(direct)} is competes: direct — absent ` +
+      `means NO Czech player sells this. A seller found makes it 'contested' (early) or ` +
+      `'taken' (established); record adjacent and non-seller players freely, they move ` +
+      `nothing`);
+  }
+  // A NEGATIVE WITH NO PASSING CONTROL IS WORTH NOTHING (MATCH.md §4). Asserted
+  // at EVERY verdict and not only the negative ones, because the honest move on
+  // a failed control is not a weaker verdict: CONVENTIONS.md says it in words —
+  // "it has not found an absence; it has found a broken method. Say so and
+  // write nothing." A recorded control MISS is worth more than a clean
+  // negative, and it belongs in `notes` beside the method that broke, not
+  // inside an object that reads as a finding.
+  if (!c.control.passed) {
+    push(`cz_check records control.passed: false — a method that could not surface a ` +
+      `company known to exist has found a broken method, not a market. Write the miss in ` +
+      `notes and omit cz_check; a verdict standing on a failed control is worth nothing`);
+  }
+  // COVERAGE IS PART OF A NEGATIVE, AND ONLY OF A NEGATIVE. One query shape
+  // returning nothing is not evidence of absence (MATCH.md §6), so the two
+  // verdicts that assert something was NOT found cost at least two shapes.
+  // `taken` asserts a positive and is finished the moment the seller is named;
+  // demanding coverage for a find would be ceremony, and ceremony is what
+  // teaches an author to write the queries they would have run.
+  if (c.verdict !== "taken" && c.queries.length < 2) {
+    push(`cz_check verdict '${c.verdict}' records ${c.queries.length} quer` +
+      `${c.queries.length === 1 ? "y" : "ies"} — a verdict that something was not found ` +
+      `is worth what its coverage is worth, and one query shape returning nothing is not ` +
+      `evidence of absence (MATCH.md §6). Record at least two Czech query shapes`);
+  }
+});
+export type CzCheck = z.infer<typeof CzCheckSchema>;
+
 // z.strictObject, NOT z.object (architecture-v3 §3, AC-Z2). `z.object` SILENTLY
 // STRIPS unknown keys: a new JSONL field would land in the canonical ledgers, be
 // dropped at build time, never reach the site — and the "validation failure =
@@ -130,7 +353,29 @@ const SignalSchema = z.strictObject({
   date: isoDate,
   title: z.string().min(1),
   sector: z.enum(CATEGORIES),
-  geo_origin: z.string().regex(/^([A-Z]{2}|EU)$/),
+  // WHERE THE SIGNAL COMES FROM: an ISO2 country, `EU`, or `XX` for unknown.
+  //
+  // `XX` ADDED 2026-09-21, AND IT IS A BUG FIX, NOT A CONVENIENCE. The field
+  // had no spelling for "the card names no country", so agents wrote `US` —
+  // and `US` then meant BOTH "American" AND "unknown", which is one field
+  // carrying two questions: the exact defect MATCH.md §0 exists to prevent,
+  // and the seventh instance of it. Flagged 2026-09-19, recurred 2026-09-21,
+  // reported independently by three scoring agents.
+  //
+  // `XX` IS ISO 3166-1 USER-ASSIGNED, so it collides with no real country code
+  // and never will. Note that the pattern ALREADY matched it, letter for
+  // letter — nothing was ever blocked. What was missing is the DECLARATION:
+  // the schema said "ISO2 or EU", data/CONVENTIONS.md said "ISO2 or EU", and
+  // an agent reading either had no reason to think `XX` was a value rather
+  // than a typo. It is spelled out in the alternation for that reason and no
+  // other, and it renders as "Not stated" rather than as a country
+  // (web/lib/format.ts COUNTRY_NAMES — a value a reader sees as `XX` would
+  // just be the old defect wearing a new code).
+  //
+  // EXISTING LINES ARE NOT RETRO-EDITED. The ledgers are append-only and we
+  // cannot now recover which `US` meant unknown; an errata class covers that
+  // cleanup (data/errata.jsonl).
+  geo_origin: z.string().regex(/^([A-Z]{2}|EU|XX)$/, "ISO2 country code, EU, or XX for unknown"),
   money_eur: z.number().nullable(),
   money_note: z.string(),
   summary: z.string().min(1),
@@ -156,6 +401,15 @@ const SignalSchema = z.strictObject({
   // no page (the asks critique, finding 1). min(1): an empty owner is the
   // shape that looks present and says nothing.
   owner: z.string().min(1).optional(),
+  // `cz_check` — THE CZECH ABSENCE VERDICT, structured. Written by `arb-scan`,
+  // absent everywhere else, and optional even there (see CzCheckSchema above
+  // for why it can never be required and for what its invariant does and does
+  // not catch). Its own field and not a `CZ CHECK: …` paragraph inside
+  // `notes`, for the same §0 reason `owner` is its own field: a structured
+  // fact riding inside free text is read by no validator and rendered on no
+  // page — and unlike `owner`, this one had already produced two wrong
+  // verdicts in a single week.
+  cz_check: CzCheckSchema.optional(),
   // ---- receipt fields (§7.2, §7.3). Optional; written by INGEST. -----------
   // `quote` is a CONTRACT WITH AN EXTERNAL CONSUMER: a flat string on the
   // signal, retrievable by signal id. Do not restructure it into an object,
@@ -376,7 +630,29 @@ const CompSchema = z.object({
   name: z.string().min(1),
   url: z.string().url(),
   geo: z.string().regex(/^[A-Z]{2}$/, "ISO2 country code"),
-  since: z.number().int().min(1980).max(2100),
+  // THE FLOOR CATCHES A TYPO, NOT AN OLD FIRM — that is the only job it has.
+  // `since` is a hand-entered integer beside a hand-entered name, and the
+  // mistake it guards is a slipped or dropped digit (2021 written 221, a year
+  // pasted from the wrong column), which lands far outside any plausible
+  // range.
+  //
+  // IT WAS 1980 UNTIL 2026-09-21, AND THAT WAS A BUG. A floor set at the age
+  // of the software industry rejects REAL COMPARABLES: Deutsche Leasing,
+  // founded 1962, finances 85 electric buses and their chargers in Lübeck and
+  // is the closest comparable p-0046 has. The floor kept it out of `comps[]`,
+  // so that record scored proof 2 instead of 3. The only ways round it were to
+  // write a false year (MATCH.md §3: never invent a founding year to satisfy a
+  // schema) or to drop a real company (§2: never exclude) — both forbidden,
+  // both worse than the bug, and both the kind of workaround a schema must
+  // never force an author into.
+  //
+  // 1800 still catches every slipped digit — no plausible typo lands between
+  // 1800 and 2100 that a four-digit year would not — and admits every firm
+  // that could plausibly run one of these models. A comparable is a COMPANY
+  // running the model, not a piece of software: leasing houses, insurers,
+  // mutuals and trade bodies predate software by a century and sell against
+  // the same obligations.
+  since: z.number().int().min(1800).max(2100),
   traction: z.string().min(1),
   signal: z.string().optional(),
   // Operating countries beyond the HQ — recorded only when sourced (CONVENTIONS.md).
@@ -409,8 +685,14 @@ const CompSchema = z.object({
 //                unchanged and machine-checked. Sets the RUNG once `competes`
 //                has decided the entry counts at all.
 //
-// An `adjacent` player NEVER moves gap, at any maturity. That is the whole
-// point of the split. It is still RECORDED — the owner's ruling, 2026-08-25:
+//   `non-seller` — IN THE ROOM AND SELLING NOTHING (added 2026-09-21): a
+//                  regulator, an inspectorate, a ministry, a chamber, a state
+//                  registry, a university output with no vendor behind it.
+//                  `maturity` is FORBIDDEN there — see LOCAL_COMPETES above
+//                  for the full argument and for why it is not `enforcer`.
+//
+// An `adjacent` player NEVER moves gap, at any maturity, and neither does a
+// `non-seller`. That is the whole point of the split. It is still RECORDED — the owner's ruling, 2026-08-25:
 // "Never exclude — the goal is to inform the builder properly." A builder
 // needs to see who else is in the room; the adjacent half of the ledger is
 // market intelligence, not noise, and dropping it to protect a score is how
@@ -439,9 +721,21 @@ const LocalSchema = z.strictObject({
   // do not publish one — and the house rule there is the same as for a comp's
   // headcount: state what is verifiable, NEVER invent the rest. Forcing a year
   // into this field would buy schema tidiness with a fabricated fact.
-  since: z.number().int().min(1980).max(2100).optional(),
-  competes: z.enum(["direct", "adjacent"]),
-  maturity: z.enum(["established", "early"]),
+  //
+  // The floor moved from 1980 to 1800 on 2026-09-21 with comps[].since, and
+  // for the same reason stated there: a floor at the age of the software
+  // industry rejects real firms, and the ways round a false floor are a false
+  // year or a dropped company. Czech incumbents skew older than foreign
+  // comparables, not younger — a 1920s strojírna or a pre-war mutual selling
+  // against a modern obligation is exactly the row this ledger exists to
+  // carry.
+  since: z.number().int().min(1800).max(2100).optional(),
+  competes: z.enum(LOCAL_COMPETES),
+  // OPTIONAL IN THE SHAPE, REQUIRED OR FORBIDDEN IN THE CHECK (maturityIssue,
+  // above): required wherever the row sells something, because the established
+  // test is what puts a seller on a GAP rung; forbidden at
+  // `competes: non-seller`, where either value would be invented.
+  maturity: z.enum(LOCAL_MATURITIES).optional(),
   // At `direct`: which limb(s) of the established test this player passes,
   // stated so a reader can check it. At `adjacent`: WHAT IT ACTUALLY SELLS and
   // why that is not this — the sentence that turns an entry a reader would
@@ -450,6 +744,10 @@ const LocalSchema = z.strictObject({
   evidence: z.string().min(1),
 }).check((ctx) => {
   const l = ctx.value;
+  const mi = maturityIssue(l.competes, l.maturity);
+  if (mi) {
+    ctx.issues.push({ code: "custom", message: `local '${l.name}' ${mi}`, input: l });
+  }
   if (l.maturity === "established" && l.since === undefined) {
     ctx.issues.push({
       code: "custom",
@@ -880,7 +1178,7 @@ function problemsFromDb(): Problem[] {
     const locals = (localsFor.get(key) ?? []).map((l) => {
       const loc: Record<string, unknown> = {
         name: String(l.name),
-        competes: String(l.competes), maturity: String(l.maturity),
+        competes: String(l.competes),
         evidence: String(l.evidence),
       };
       // `url` is optional against an `ico` (LocalSchema): NULL means the key was
@@ -891,6 +1189,13 @@ function problemsFromDb(): Problem[] {
       // The IČO is TEXT and stays TEXT: '04903783' is a real IČO and Number()
       // would eat its leading zero.
       put(loc, "ico", l.ico === null ? null : String(l.ico));
+      // `maturity` is ABSENT at `competes: non-seller` and present on every
+      // other row (LocalSchema). NULL must therefore come back ABSENT, never
+      // as the string "null" — which is exactly what the `String(l.maturity)`
+      // this replaces would have written the first time a non-seller landed,
+      // and zod would have rejected it one line later with a message about an
+      // enum rather than about a null.
+      put(loc, "maturity", l.maturity === null ? null : String(l.maturity));
       // `since` is an unquoted YAML integer, exactly as with comps[].since:
       // SQLite would hand back a string just as happily, and `since: "1993"`
       // fails zod. NULL stays ABSENT — an early player with no discoverable

@@ -648,12 +648,20 @@ so until the Czech law exists nobody in the story owes anything).
   does too.** If the record's Why now rests on a law in force, a bill that
   would add to it is extra, not the pain.
 
-**Where the two meet, Why now decides** (owner, 2026-09-19). p-0028's e-shops
-are fined under current consumer law, a pain that exists today. But the dated
-change the record scores, the ban on vague "eco" claims, is a bill still in
-parliament, and Why now rests on that bill alone. So p-0028 carries the badge,
-and its body still says the fines stand under today's law. The test: take the
-draft away; if Why now has nothing left to stand on, the key goes on.
+**Where the two meet, Why now decides** (owner, 2026-09-19). p-0028 has run the
+test in both directions, which is why it is the example. Its e-shops are fined
+under current consumer law, a pain that exists today. While the only dated
+change the record scored was the ban on vague "eco" claims, a bill still in
+parliament, Why now rested on that bill alone: the record carried the badge,
+and its body still said the fines stand under today's law. On 2026-09-21 the
+key came off: Act 159/2026 Sb. was passed and published, an enacted duty to
+offer a withdrawal button from 1 January 2027, and Why now was rescored onto
+it. Take the "eco" bill away now and Why now still stands, so the main pain no
+longer depends on an unpassed law. The bill is still on the record as a bill;
+it just stopped being what Why now rests on. The test, both ways: take the
+draft away; if Why now has nothing left to stand on, the key goes on, and when
+something enacted can carry Why now on its own, the key comes off in the same
+change that records the law in force.
 
 Absent means "not a draft-law record", never "not checked" (MATCH.md §0).
 
@@ -738,9 +746,9 @@ says *what that means for an entrant*, and never names the companies again.
 | `url` | its site. **Optional IF `ico` is present** — see the ARES fallback below. At least one of `url` / `ico` is required. |
 | `ico` | optional, **strongly preferred** — 8 digits, **quoted** (`'04903783'`; unquoted YAML eats the leading zero). It is what makes the claim checkable without a human: the checker counts distinct public buyers for it in `data/lookup/cz-contract-parties.jsonl`. |
 | `since` | the year it started selling **this product**, else its founding year. Unquoted integer, exactly like `comps[].since`. **Required at `maturity: established`** (the test's first limb is "≥ 3 years selling"); optional at `early`, where a small Czech vendor often publishes no year — state what is verifiable, **never invent a year to fill the field**. |
-| `competes` | `direct` \| `adjacent` — **does it sell THIS?** The only field `gap` reads for eligibility. |
-| `maturity` | `established` \| `early` — the established test, unchanged. It sets the **rung**. |
-| `evidence` | at `direct`: which limb(s) of the established test it passes, stated so a reader can check it. At `adjacent`: **what it actually sells, and why that is not this.** |
+| `competes` | `direct` \| `adjacent` \| `non-seller` — **does it sell THIS?** The only field `gap` reads for eligibility. |
+| `maturity` | `established` \| `early` — the established test, unchanged. It sets the **rung**. **REQUIRED wherever the row sells something and FORBIDDEN at `non-seller`** — a body that sells nothing passes no limb of the test, so a value there is an invented fact. |
+| `evidence` | at `direct`: which limb(s) of the established test it passes, stated so a reader can check it. At `adjacent`: **what it actually sells, and why that is not this.** At `non-seller`: **what it actually does, and why a builder needs to know it is there.** The row moves no score, so that sentence IS the row. |
 
 ### `competes` vs `maturity` — one field per question
 
@@ -761,7 +769,17 @@ meanings defect this line of work has already fixed three times.
   it does sell and why that is not this** — without that sentence the entry reads
   as a competitor the record failed to score against, which is worse than the
   exclusion it replaced.
-- **An `adjacent` player NEVER moves `gap`, at any maturity.** That is the entire
+- **`competes: non-seller`** — a body that is in the room and sells nothing: a
+  regulator, an inspectorate, a state register, a chamber. Added 2026-09-21,
+  because p-0048's author had to leave the Czech trade inspectorate in prose:
+  `maturity` IS the established test, a regulator passes no limb of it, and the
+  only options were to invent a value or to leave a real body off the ledger — a
+  false claim or a false absence, the same pair that split `status` in the first
+  place. It is named for what it does, not for what kind of body it is:
+  `enforcer` would have answered a different question from its two siblings,
+  which is how a field starts carrying two.
+- **An `adjacent` player NEVER moves `gap`, at any maturity. Neither does a
+  `non-seller`** — it is not in the market at all. That is the entire
   point of the split.
 
 ### NEVER EXCLUDE a local player

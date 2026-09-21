@@ -35,8 +35,15 @@ import { DotPeek, MaturityDot, firstLine } from "./field";
 import { shortName } from "./text";
 
 type Local = NonNullable<Problem["locals"]>[number];
-type Competes = Local["competes"];
-type Maturity = Local["maturity"];
+// THE MATRIX IS ABOUT SELLERS, so its two axes are narrower than the ledger's
+// vocabulary and are written out rather than derived from it. A
+// `competes: non-seller` row (a regulator, a chamber, a state registry) has no
+// maturity by schema and no position on a "New → Established" axis: plotting
+// it would mean inventing the very fact LOCAL_COMPETES refuses to let an
+// author invent. Such rows are filtered out below and render in the Market gap
+// ledger instead, where the reader is told what the body is.
+type Competes = "direct" | "adjacent";
+type Maturity = "established" | "early";
 
 const QUAD: Record<Competes, Record<Maturity, string>> = {
   direct: { early: "New, selling this", established: "Established, selling this" },
@@ -49,7 +56,7 @@ const order = (a: Local, b: Local) =>
 /** `null` without local players. `scope` keeps popover ids unique when the
     page renders the figure twice (on the page and in its Read more sheet). */
 export function LocalMatrix({ p, scope = "" }: { p: Problem; scope?: string }): ReactNode {
-  const locals = p.locals ?? [];
+  const locals = (p.locals ?? []).filter((l) => l.competes !== "non-seller");
   if (locals.length === 0) return null;
   const cell = (c: Competes, m: Maturity) => locals.filter((l) => l.competes === c && l.maturity === m).sort(order);
   const takenBy = cell("direct", "established");
@@ -74,9 +81,9 @@ export function LocalMatrix({ p, scope = "" }: { p: Problem; scope?: string }): 
                   label={`${l.name}, ${m}, ${sells}${l.since ? `, since ${l.since}` : ""}`}
                   name={l.name}
                   href={localHref(l)}
-                  m={l.maturity}
+                  m={m}
                   mark={<>
-                    <MaturityDot m={l.maturity} />
+                    <MaturityDot m={m} />
                     <span className="lk-mx-t">
                       <span className="lk-mx-n">{shortName(l.name)}</span>
                       {l.since && <span className="lk-mx-s">{"\u00a0·\u00a0"}{l.since}</span>}

@@ -86,7 +86,19 @@ import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
-SCHEMA_VERSION = "11"  # 11: the four problems.build_* columns are DROPPED and
+SCHEMA_VERSION = "12"  # 12: problem_locals.competes gains a third value,
+#                          `non-seller`, and `maturity` becomes NULL-able and
+#                          FORBIDDEN at it. A body in the room that sells
+#                          nothing — the trade inspectorate on p-0048 — had no
+#                          honest row before: `maturity` IS the established
+#                          test, a regulator passes no limb of it, so the only
+#                          options were to invent a value or to leave a real
+#                          body off the ledger. A false claim or a false
+#                          absence — exactly the pair that forced `status` to
+#                          split into `competes` + `maturity` at schema 6. The
+#                          value moves GAP by nothing, for the same reason
+#                          `adjacent` moves nothing (2026-09-21).
+#                       11: the four problems.build_* columns are DROPPED and
 #                          seven problems.entry_* columns replace them, all NOT
 #                          NULL — the capital ladder, the team band and the
 #                          time-to-first-revenue guess give way to the five
@@ -619,14 +631,23 @@ CREATE TABLE IF NOT EXISTS problem_locals (
   url          TEXT,                  -- optional AGAINST an ico; NULL -> ARES fallback
   ico          TEXT,                  -- optional; 8 digits, leading zeros real
   since        INTEGER,               -- optional; NULL = no year on file (EARLY only)
-  competes     TEXT    NOT NULL,      -- direct | adjacent
-  maturity     TEXT    NOT NULL,      -- established | early
+  competes     TEXT    NOT NULL,      -- direct | adjacent | non-seller
+  maturity     TEXT,                  -- established | early; NULL at non-seller
   evidence     TEXT    NOT NULL,      -- the limb(s) passed, or what it sells instead
   PRIMARY KEY (region, problem_id, position),
   FOREIGN KEY (region, problem_id) REFERENCES problems(region, id),
   CHECK (position >= 1),
-  CHECK (competes IN ('direct', 'adjacent')),
-  CHECK (maturity IN ('established', 'early')),
+  CHECK (competes IN ('direct', 'adjacent', 'non-seller')),
+  -- `maturity` is REQUIRED wherever the row sells something and FORBIDDEN where
+  -- it sells nothing. A regulator has no founding-to-customers maturity, so any
+  -- value there would be an invented fact (MATCH.md 3). Added 2026-09-21 with
+  -- `non-seller`: COI belongs on p-0048's ledger because a builder needs to
+  -- know it is in the room, and the only ways to record it before were to
+  -- invent a maturity or leave it out -- a false claim or a false absence, the
+  -- same pair that forced the status -> competes+maturity split.
+  CHECK (maturity IN ('established', 'early') OR
+         (competes = 'non-seller' AND maturity IS NULL)),
+  CHECK (competes <> 'non-seller' OR maturity IS NULL),
   CHECK (ico IS NULL OR (length(ico) = 8 AND ico GLOB '[0-9]*')),
   -- One identifier at least: a ledger row a reader cannot follow is an
   -- assertion, not evidence.
@@ -1389,7 +1410,7 @@ SOURCE_KEYS = frozenset((
 SOURCE_PRICE_KEYS = frozenset(("payer", "amount_czk", "unit", "basis"))
 COMP_KEYS = frozenset(("name", "url", "geo", "since", "traction", "signal", "markets"))
 LOCAL_KEYS = frozenset(("name", "url", "ico", "since", "competes", "maturity", "evidence"))
-LOCAL_COMPETES = ("direct", "adjacent")
+LOCAL_COMPETES = ("direct", "adjacent", "non-seller")
 LOCAL_MATURITIES = ("established", "early")
 # The schema-6 spelling, named so the migration cannot half-happen. `status`
 # answered two questions at once and was split into `competes` + `maturity` at
@@ -1731,9 +1752,21 @@ def read_problems():
                         f"record's buyer, `competes: adjacent` if it sells something else "
                         f"(and say what, in `evidence`); `maturity` keeps the old "
                         f"established/early value. data/RECORD-TEMPLATE.md")
-            for k in ("name", "competes", "maturity", "evidence"):
+            for k in ("name", "competes", "evidence"):
                 if k not in l:
                     raise SystemExit(f"db: {rel}: locals[{n}] missing {k}")
+            # `maturity` is conditional on `competes`, not unconditional: see the
+            # DDL CHECK above. Required where the row sells something, forbidden
+            # where it sells nothing.
+            if l.get("competes") == "non-seller":
+                if "maturity" in l:
+                    raise SystemExit(
+                        f"db: {rel}: locals[{n}] '{l.get('name')}' is `competes: non-seller` "
+                        f"and carries `maturity: {l['maturity']!r}` — a body that sells "
+                        f"nothing has no established/early maturity, and a value here is an "
+                        f"invented fact. Drop the key")
+            elif "maturity" not in l:
+                raise SystemExit(f"db: {rel}: locals[{n}] missing maturity")
             # `url` is optional AGAINST an `ico`: one identifier at least, so
             # every rendered row links to something a reader can check. Where
             # only the IČO is on file the site links the ARES record, which is
@@ -1750,7 +1783,7 @@ def read_problems():
                     f"{' | '.join(LOCAL_COMPETES)}. It answers ONE question: does this "
                     f"player sell THIS record's product to THIS record's buyer? It is the "
                     f"only field `gap` reads for eligibility (SCORING.md, GAP)")
-            if l["maturity"] not in LOCAL_MATURITIES:
+            if l.get("competes") != "non-seller" and l["maturity"] not in LOCAL_MATURITIES:
                 raise SystemExit(
                     f"db: {rel}: locals[{n}].maturity is {l['maturity']!r} — the enum is "
                     f"{' | '.join(LOCAL_MATURITIES)} (SCORING.md, the established test). "
@@ -1900,7 +1933,11 @@ def insert_problems(con, records):
         for i, l in enumerate(fm.get("locals") or []):
             lrows.append((
                 region, pid, i + 1, l["name"], l.get("url"), l.get("ico"), l.get("since"),
-                l["competes"], l["maturity"], l["evidence"]))
+                # `.get` on maturity, not `[]`: it is NULL at `competes:
+                # non-seller` and the column is NULL-able to match. A bracket
+                # read here raises KeyError on the first such row — which is
+                # the whole point of the value, so the read has to allow it.
+                l["competes"], l.get("maturity"), l["evidence"]))
 
         for position, dim, origin in dim_refs(fm, extract):
             drows.append((region, pid, position, dim, origin))
@@ -2470,6 +2507,39 @@ def cmd_health(args):
     con = connect()
     ensure_history(con)
 
+    # AN EMPTY fetch_log IS NOT EVIDENCE OF DEAD FEEDS. It is the absence of
+    # evidence, and this command cannot tell the two apart from the inside.
+    # data/register.db is gitignored and a fresh worktree rebuilds it from the
+    # ledgers — but `fetch_log` is pure HISTORY, nothing rebuilds it, so it comes
+    # back with 0 rows. MEASURED 2026-09-21 in a fresh worktree on this branch:
+    # the committed data/feed_health.json says LIVE=22 PENDING=6
+    # run_id=2026-09-21T0805, and regenerating it over an empty fetch_log wrote
+    # LIVE=17 PENDING=9 STALE=2 run_id=None on top of it — exit 0, no warning.
+    # data/feed_health.json is COMMITTED and a build input (INGEST.md step 5), so
+    # a correct file was silently replaced by a strictly worse one and only a
+    # diff caught it. STALE is meant to say "we fetched and the feed went quiet";
+    # with no receipts it said "we have no fetch history" — the same
+    # one-field-two-meanings defect this file keeps finding. MATCH.md §4: a
+    # negative is evidence only if the method also produces positives, and the
+    # positive control here is having at least one fetch receipt on file.
+    #
+    # The guard is on the WHOLE log and not per feed, deliberately. A feed with
+    # no rows but a live corpus already falls back to the ledger filenames below,
+    # and a genuinely new feed must still be allowed to read PENDING; what is not
+    # survivable is ZERO receipts anywhere, where every state is derived from
+    # nothing at all. `--allow-empty-history` exists because a first-ever run has
+    # to be able to bootstrap, and it must be typed rather than assumed.
+    if (con.execute("SELECT COUNT(*) FROM fetch_log").fetchone()[0] == 0
+            and not getattr(args, "allow_empty_history", False)):
+        con.close()
+        log(f"db: health REFUSED — fetch_log is empty, so no feed state can be computed; "
+            f"this is a worktree without fetch history, not {len(feeds)} dead feeds. "
+            f"data/feed_health.json is committed and is a build input, and writing it from "
+            f"an empty history downgrades LIVE feeds to PENDING or STALE and exits 0. "
+            f"Run an ingest first (scripts/ingest.sh), or pass --allow-empty-history to "
+            f"write anyway.")
+        return 2
+
     generated = date.today().isoformat()
     row = con.execute("SELECT run_id FROM fetch_log ORDER BY id DESC LIMIT 1").fetchone()
     run_id = row[0] if row else None
@@ -2719,6 +2789,96 @@ def cmd_stats(args):
     return 0
 
 
+# --------------------------------------------------------------------------
+# errata — the corrections ledger
+# --------------------------------------------------------------------------
+
+# The four classes a line may declare. An UNKNOWN class is refused rather than
+# carried: an unrecognised class skips every class-specific check below, so a
+# typo (`our-judgement`) would buy a line an exemption from validation it was
+# never granted. See load_errata() for what each class means.
+ERRATA_CLASSES = ("our-attribution", "disputed-source-value", "source-updated",
+                  "our-judgment")
+
+# The CZ-check verdict vocabulary, exactly as a signal's `notes` writes it.
+# SCORING.md renders the gap rungs as TAKEN / CONTESTED / OPEN; the pipeline's
+# own notes write the rung-2 word as `absent`, and this list follows the notes,
+# because an `our-judgment` correction quotes a note and replaces it.
+#   taken     -> GAP rung 0 (a direct local seller, established)
+#   contested -> GAP rung 1 (direct local sellers, all early)
+#   absent    -> GAP rung 2 (checked; no local sells this)
+CZ_CHECK_VERDICTS = ("taken", "contested", "absent")
+
+_JUDGMENT_CORRECTION_KEYS = ("field", "kind", "claim", "ledger_reading",
+                             "our_reading", "basis")
+# Keys an `our-judgment` line must NOT carry. `value_is_correct`, `field` and
+# `source_value` are all assertions ABOUT THE PUBLISHER, and this class makes
+# none: the publisher said nothing about the Czech market, so there is no
+# figure of theirs to affirm or dispute. Silence is recorded by the key being
+# ABSENT, which is a third state and not the same as null — null is a dispute
+# we have entered into the ledger.
+_JUDGMENT_FORBIDDEN = ("value_is_correct", "field", "source_value", "source_currency")
+
+
+def _reject(where, msg):
+    raise ValueError(f"{where}: {msg}")
+
+
+def _check_judgment(rec, where):
+    """Validate one `our-judgment` line. Raises; never repairs.
+
+    Two things are worth refusing loudly rather than loading. (1) An entry with
+    no `evidence`, no `impact` or no `verified_against` is an assertion that our
+    earlier assertion was wrong, with nothing behind it — that is a second
+    unchecked judgment, not a correction of the first. (2) An `action` other
+    than `annotate-only`: `cmd_money` acts on any action starting with
+    `exclude`, so a judgment entry carrying one would quietly drop a signal's
+    money from the geo aggregates because of a MARKET VERDICT, a defect nothing
+    downstream could see.
+    """
+    for k in ("recorded", "verified_against", "evidence", "impact"):
+        if not str(rec.get(k) or "").strip():
+            _reject(where, f"class our-judgment needs a non-empty `{k}`")
+    for k in _JUDGMENT_FORBIDDEN:
+        if k in rec:
+            why = ("and an ABSENT key says exactly that; `true` would affirm a figure this "
+                   "entry never checked and `null` would record a dispute we do not hold"
+                   if k == "value_is_correct" else
+                   "and this key names a published value; if one is really at stake, the class "
+                   "is our-attribution, disputed-source-value or source-updated, not this one")
+            _reject(where, f"class our-judgment must NOT carry `{k}` — the publisher asserted "
+                           f"nothing this entry corrects, {why}")
+    if rec.get("action") != "annotate-only":
+        _reject(where, f"class our-judgment must carry action `annotate-only`, not "
+                       f"{rec.get('action')!r} — nothing applies a judgment correction on read, "
+                       f"and an `exclude…` action would silently move money aggregates")
+    cs = rec.get("corrections")
+    if not isinstance(cs, list) or not cs:
+        _reject(where, "class our-judgment needs a non-empty `corrections` list "
+                       "(this dict holds ONE line per id, so both wrongs live on one line)")
+    for i, c in enumerate(cs):
+        at = f"{where}: corrections[{i}]"
+        if not isinstance(c, dict):
+            _reject(at, "must be an object")
+        for k in _JUDGMENT_CORRECTION_KEYS:
+            if not str(c.get(k) or "").strip():
+                _reject(at, f"needs a non-empty `{k}` "
+                            f"(required: {', '.join(_JUDGMENT_CORRECTION_KEYS)})")
+        if c["kind"] not in ("verdict", "reading"):
+            _reject(at, f"`kind` is {c['kind']!r}; it must be `verdict` (the CZ-check "
+                        f"conclusion itself is wrong) or `reading` (a supporting reading is "
+                        f"wrong and the verdict survives)")
+        if c["ledger_reading"] == c["our_reading"]:
+            _reject(at, "`ledger_reading` equals `our_reading` — nothing is being corrected")
+        if c["kind"] == "verdict":
+            for k in ("ledger_reading", "our_reading"):
+                if c[k] not in CZ_CHECK_VERDICTS:
+                    _reject(at, f"`{k}` is {c[k]!r}; a `verdict` correction replaces one CZ-check "
+                                f"verdict with another, so both must be one of "
+                                f"{', '.join(CZ_CHECK_VERDICTS)}. A correction that is not a "
+                                f"verdict swap is `kind: reading`")
+
+
 def load_errata():
     """The disputed-value ledger, data/errata.jsonl.
 
@@ -2743,12 +2903,40 @@ def load_errata():
                            source_value, source_currency?, basis}]. `action` is
                            `annotate-only`: nothing applies it on read, so money
                            aggregates keep the value that was true when ingested.
+      our-judgment         a CONCLUSION OF OURS written into a signal's prose is
+                           wrong. Added 2026-09-21. The three classes above are
+                           all about a VALUE somebody published; this one is about
+                           a judgment nobody published but us — a CZ-market verdict
+                           in `notes`, or a reading of a source the verdict rests
+                           on. It does NOT mean the publisher got anything wrong,
+                           it does NOT dispute any figure, and it moves no money:
+                           if a published value is at stake, one of the three
+                           classes above is the right one. Shaped like
+                           `source-updated` and for the same reason — one signal
+                           can be wrong about two different things and this dict
+                           holds ONE line per id — so each wrong claim is an entry
+                           in `corrections` = [{field, kind, claim, ledger_reading,
+                           our_reading, basis}]. `kind` is `verdict` when the
+                           CZ-check conclusion itself is replaced (taken /
+                           contested / absent, and any gap score taken from these
+                           notes is void) or `reading` when a supporting reading is
+                           wrong and the verdict survives. `action` is
+                           `annotate-only`, honestly: nothing applies it on read,
+                           the notes are not rendered on any public page, and the
+                           entry exists for the register's own memory and for the
+                           next agent who reads the signal.
 
     `value_is_correct` means the same thing in every class: is the PUBLISHER's
-    figure right (true), or disputed by us (null).
+    figure right (true), or disputed by us (null). `our-judgment` carries the key
+    NOT AT ALL, because it makes no claim about a publisher's figure: `true`
+    would affirm a figure this entry never checked and `null` would record a
+    dispute we do not hold. Absent is the third state, and it is enforced.
 
     Raises rather than returning a partial list: an aggregate computed from a
-    half-loaded errata file is indistinguishable from a correct one.
+    half-loaded errata file is indistinguishable from a correct one. The same
+    standard applies to an entry's SHAPE, not just to its JSON: a line missing
+    its evidence loads exactly as quietly as a sound one, so every class-specific
+    key is checked here and a bad line names its own line number.
     """
     out = {}
     if not os.path.exists(ERRATA_PATH):
@@ -2760,12 +2948,21 @@ def load_errata():
             line = line.strip()
             if not line:
                 continue
+            rel = os.path.relpath(ERRATA_PATH, ROOT)
+            where = f"{rel}:{n}"
             try:
                 rec = json.loads(line)
             except json.JSONDecodeError as e:
-                raise ValueError(f"{os.path.relpath(ERRATA_PATH, ROOT)}:{n}: {e}") from None
+                raise ValueError(f"{where}: {e}") from None
             if "id" not in rec or "action" not in rec:
-                raise ValueError(f"{os.path.relpath(ERRATA_PATH, ROOT)}:{n}: needs `id` and `action`")
+                _reject(where, "needs `id` and `action`")
+            cls = rec.get("class")
+            if cls not in ERRATA_CLASSES:
+                _reject(where, f"`class` is {cls!r}; it must be one of "
+                               f"{', '.join(ERRATA_CLASSES)} — an unknown class would skip "
+                               f"every check below")
+            if cls == "our-judgment":
+                _check_judgment(rec, where)
             out[rec["id"]] = rec
     return out
 
@@ -2876,7 +3073,18 @@ def cmd_errata(args):
     for sid, e in errata.items():
         print(f"\n{sid}  [{e.get('class', '?')}]  recorded {e.get('recorded', '?')}")
         print(f"  action:   {e.get('action')}")
-        if e.get("corrections"):  # source-updated: one entry per stale field
+        if e.get("class") == "our-judgment":
+            # No `value_is_correct` line is printed, and that is the point: this
+            # class asserts nothing about the publisher's figure, and printing
+            # `value_is_correct=None` would read as a dispute we do not hold.
+            for c in e.get("corrections", []):
+                print(f"  {c.get('field')} [{c.get('kind')}] {c.get('claim')}")
+                for label, val in (("was", c.get("ledger_reading")),
+                                   ("now", c.get("our_reading")),
+                                   ("basis", c.get("basis"))):
+                    for j, chunk in enumerate(textwrap.wrap(str(val), 80)):
+                        print(f"    {label + ':' if j == 0 else '':<7}{chunk}")
+        elif e.get("corrections"):  # source-updated: one entry per stale field
             for c in e["corrections"]:
                 print(f"  {c.get('field')}: {c.get('ledger_value')} -> {c.get('source_value')}"
                       f" {c.get('source_currency', '')}".rstrip())
@@ -3161,6 +3369,11 @@ def main():
     pf.set_defaults(fn=cmd_prefixes)
 
     h = sub.add_parser("health", help="export data/feed_health.json")
+    h.add_argument("--allow-empty-history", action="store_true",
+                   help="write feed_health.json even with an EMPTY fetch_log. For a "
+                        "first-ever run only: with no fetch receipts every feed is judged "
+                        "on no evidence, and the export downgrades live feeds (see the "
+                        "comment in cmd_health).")
     h.set_defaults(fn=cmd_health)
 
     m = sub.add_parser("match", help="append one match_log row (run after EVERY decision)")

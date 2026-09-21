@@ -50,13 +50,36 @@ already fixed twice — the gap condition inside PROOF, "not checked" inside GAP
                         counter, legacy/partial, or a service firm rather than
                         a product vendor. Its evidence line must say plainly
                         WHAT IT DOES SELL and why that is not this.
+    competes: non-seller  IN THE ROOM AND SELLING NOTHING (added 2026-09-21):
+                        a regulator, an inspectorate, a ministry, a chamber, a
+                        state registry, a university output with no vendor
+                        behind it. Its evidence line says what the body does
+                        and why a builder needs to know it is there.
 
     maturity:           the ESTABLISHED test above, unchanged and machine-
                         checked. It sets the RUNG, once competes has decided
                         the entry counts at all.
 
   AN ADJACENT PLAYER NEVER MOVES GAP, at any maturity. That is the entire
-  point of the split.
+  point of the split. NEITHER DOES A NON-SELLER, for the same reason and by
+  the same mechanism: the ladder counts competes: direct and nothing else.
+
+  `maturity` IS FORBIDDEN AT competes: non-seller, not merely optional. The
+  established test asks how many YEARS A PLAYER HAS BEEN SELLING and who its
+  customers are, and both questions are unanswerable about the Czech trade
+  inspectorate: `established` would claim it is in a market it is not in and
+  `early` would claim it is young. Neither is true, so the key is absent and
+  scripts/check-records.py fails a record that writes one. This is the third
+  value the split needed and did not have — ČOI belongs on p-0048's ledger, a
+  builder needs to know it is in the room, and its author had to leave it in
+  prose instead: the false-absence half of the very defect the split fixed.
+
+  IT IS `non-seller` AND NOT `enforcer`. `enforcer` names ONE SPECIES of the
+  class (a state registry enforces nothing, a chamber enforces nothing), and
+  it answers a DIFFERENT QUESTION from the other two values — direct and
+  adjacent both say what a player sells, enforcer says what kind of body it
+  is. A third value sitting on a second axis is one field carrying two
+  questions again, which is what this rubric has now fixed seven times.
 
   RECORD EVERY LOCAL PLAYER — never exclude one to protect a score. "The goal
   is to inform the builder properly": a builder needs to see who else is in
@@ -206,13 +229,14 @@ GAP (0-2)       is the local field still open?             [shown as "Market gap
                 maturity: established — someone mature already sells THIS, the
                 space is taken · 1: locals sell this (competes: direct) but all
                 are EARLY — contested, still enterable · 2: checked, and NO
-                local sells this. Adjacent players may be recorded and do NOT
-                affect the score
+                local sells this. Adjacent and non-seller entries may be
+                recorded and do NOT affect the score
                 verdicts   0 TAKEN · 1 CONTESTED · 2 OPEN
 
                 EVERY RUNG READS BOTH FIELDS, competes FIRST. `competes`
                 decides whether an entry counts at all; `maturity` decides
-                which rung it lands on. An entry at competes: adjacent moves
+                which rung it lands on. An entry at competes: adjacent — or at
+                competes: non-seller, which carries no maturity at all — moves
                 NOTHING, however old and however proven — a mature firm selling
                 the other side of the counter has not taken this space, and
                 before the split the only ways to say so were to mislabel it
@@ -265,6 +289,14 @@ live in data/CONVENTIONS.md.
 
   `entry.incumbents` and `scores.gap` read the same ledger and must not
   disagree about it — both turn on competes: direct + maturity: established.
+  The derivation is: any local at competes: direct AND maturity: established
+  -> `direct`; else any at competes: adjacent AND maturity: established ->
+  `adjacent`; else `open`. A competes: non-seller row satisfies neither limb —
+  it carries no maturity — so it derives `open` exactly as an empty ledger
+  does, and recording ČOI costs a record nothing. The derivation is asserted
+  by scripts/check-records.py `entry_incumbents`, and data/CONVENTIONS.md
+  states the same three lines: all three must be changed together or the build
+  fails, which is the point.
 
 Verdict bands (total score → word):
 
