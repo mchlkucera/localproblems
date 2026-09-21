@@ -357,6 +357,7 @@ fr-tremau
 fr-veesion
 fr-waiv
 fr-wind-fisher
+gb-academyai
 gb-alethica
 gb-amplytic
 gb-beam-up
@@ -2389,8 +2390,11 @@ hlidac-65049
 hlidac-9341290
 hr-trustpath
 hu-allonic
+ie-octostar
 is-snerpapower
 it-dedalo-ai
+it-iusful
+lt-enforceshield
 lt-ondato
 lv-handwave
 md-nodeshift
@@ -2850,6 +2854,7 @@ nku-vrt
 nku-vycvik-acr
 nku-vysoke-skoly
 nku-zdravotnicky-vyzkum
+nku-zemedelsky-vyzkum
 nl-avido-ai
 nl-bettercharge
 nl-codified-governance
@@ -2879,6 +2884,7 @@ ombud-ospod-zatez
 ombud-pestounska-pece
 ombud-q1-2026
 ombud-q2-2026
+ombud-spravni-rad-praxe
 ombud-stiznosti-zdravotnictvi
 ombud-svepravnost
 ombud-temata-2026
@@ -2908,6 +2914,7 @@ pl-teamsharq
 pl-tidio
 pl-upacjenta
 pl-zowie
+pt-deskamigo
 reddit-t3-1qk52y8
 reddit-t3-1qs0lkw
 reddit-t3-1qvleg2
@@ -2949,6 +2956,7 @@ reddit-t3-1wjrray
 reg-accessibility-act-cz
 reg-accounting-act-cz
 reg-adr-spotrebitelske-spory-2028
+reg-agri-pisemne-smlouvy-2028
 reg-ai-act-cz-dozor
 reg-ai-act-milestones
 reg-amlr-single-rulebook
@@ -2996,6 +3004,7 @@ reg-eed-energy-audits
 reg-eet2-2027
 reg-efti-freight
 reg-ehds
+reg-ehds-metadata-drzitele-dat-2029
 reg-eidas2-eudi-wallet
 reg-ekon-ochrana-statu
 reg-elv-vehicle-circularity
@@ -3006,6 +3015,8 @@ reg-eru-poze-vymer-2026
 reg-eru-sdileni-132-2026
 reg-esg-ratings
 reg-espr-unsold-goods
+reg-esrs-revize-2027
+reg-esrs-value-chain-cap-2027
 reg-ets2-2028-cz
 reg-ets2-carbon-price
 reg-eturista-registr-ubytovani-2028
