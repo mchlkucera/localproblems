@@ -1447,3 +1447,167 @@ rotation state:     govtech, education, legal-compliance, retail-services now sw
                     are next, thinnest first; other, mobility, housing, environment at 2026-09-19
 ```
 
+
+---
+
+## reg-scan pass — 2026-09-21, follow-up: checklist source 4 only (VeKLEP RIA "Definice problému")
+
+Second, scoped pass of `reg-scan` on the same raw date, run after the coordinator closed the
+sequencing gap named in `data/raw/2026-09-21/regulation/manifest-regulation.md`:
+`scripts/ingest.sh` finished with exit 0 and `data/raw/2026-09-21/staged.jsonl` now exists.
+**This pass walked ONLY `pipeline/SCANS.md` reg-scan checklist item 4.** Sources 1, 2 and 3
+were walked in the first pass of today and are not re-reported here.
+
+Output directory is new (`data/raw/2026-09-21/regulation-ria/`); the first pass's staged file
+has already been consumed by the coordinator and was not touched. **Nothing was written to
+`data/signals/**`, `seen.txt`, `register.db`, `data/problems/**` or `feeds.json`.** No `db.py`
+call, no `normalize.py --complete`, no git operation.
+
+**Records staged: 2.** File: `data/raw/2026-09-21/regulation-ria/staged.jsonl`.
+Both `reg-` prefixed, `source: reg-scan`, `evidence_type: regulation`, `extraction: manual`,
+both **DRAFT**, both quotes verified mechanically. `seen.txt` was re-read at 18,431 lines;
+neither id is in it.
+
+| id | instrument | status | date | quantified problem the RIA/DZ states | body named |
+|---|---|---|---|---|---|
+| `reg-veznice-ubytovaci-plocha-2030` | Draft decree deferring the cell-space rule of vyhl. 362/2020 + 363/2020 Sb. (VeKLEP KORNDW7HRLI7) | **DRAFT** | 2030-01-01 | CPT 6 m² rule on 1 Jan 2027 would cut normed capacity **19,850 → 17,052 (−2,798 places)**; utilisation 95.47 % → **111.14 %**, men's high security 115.9 % → **132.43 %** | **Vězeňská služba ČR**, Ministerstvo spravedlnosti |
+| `reg-pozemkove-upravy-vykupy-2027` | Bill amending Act 139/2002 Sb. on land consolidation (VeKLEP KORNDUAFXG1S) | **DRAFT** | 2027-07-01 | Land bought for shared measures **21.88 ha in 2025 against an expected 91 ha/yr**; 371 cases over the 4 % price criterion worth 1,952,463 CZK; the proposed fix was **withdrawn** in the comment procedure | **Státní pozemkový úřad**, Ministerstvo zemědělství |
+
+### How this pass ran, in SCANS.md item 4 order
+
+1. **`data/raw/2026-09-21/staged.jsonl` read, read-only.** 4,224 staged lines across 13 feeds;
+   **11 carry the `veklep-` prefix**. Those 11 are the drafts the script surfaced and the exact
+   input for this checklist item.
+2. **Attachment lists came from the scripted feed's own payload**
+   (`data/raw/2026-09-21/veklep-p1..p6.json`, 138 materials, read-only), matched by `Id`. **The
+   scan re-fetched nothing the script fetched** — only the attachment documents themselves,
+   which the script does not download.
+3. **13 documents downloaded and converted to text** (`pages/veklep/`): the newest
+   `Důvodová zpráva` for each of the 11 materials, plus **both** `Závěrečná zpráva RIA`
+   versions of the one material that has a RIA. All 13 conversions succeeded.
+4. Each was read for **"Definice problému"**, and where that heading is absent (10 of 11) for
+   its equivalent — "Zhodnocení platného právního stavu a odůvodnění nezbytnosti jeho změny".
+
+**Only 1 of the 11 materials carries a separate Závěrečná zpráva RIA** (KORNDUAFXG1S), and it
+is the only one in which the literal heading **"Definice problému"** appears. That is the same
+ratio the 2026-09-19 pass found (1 of 19), and it is the standing shape of this source, not an
+anomaly: a decree-level draft in Czech practice carries a důvodová zpráva with a RIA-waiver
+paragraph, not a RIA.
+
+### Access notes
+
+- **The odok.cz → odok.gov.cz redirect held.** All 13 attachment URLs are the
+  `https://www.odok.cz/portal/services/download/attachment/<ID>/` form the metadata publishes;
+  with `-L --http1.1` and the descriptive UA they resolve to `www.odok.gov.cz` and return the
+  real `.docx`. **One download failed once** — `curl: (52) Empty reply from server` on
+  `KORNDXZEZXQQ` — and succeeded on an identical retry (16,729 bytes). Same intermittency class
+  as the HTTP/2 framing errors recorded on 2026-09-19.
+- **`python-docx` is not installed** in this environment. Text was extracted with an inline
+  zip + `word/document.xml` reader (paragraph and tab markers preserved) held in `$TMPDIR`, not
+  written into the repo. Quotes were verified against that extracted text after
+  `re.sub(r'\s+', ' ', …)`, which is the payload text in the same sense the 2026-09-19 pass
+  used.
+
+### What the 11 RIAs / důvodové zprávy actually say
+
+Read in full: **11 of 11**. Staged: **2**. Nine state no quantified problem, and each is named:
+
+| veklep id | material | what its DZ/RIA states | outcome |
+|---|---|---|---|
+| `veklep-KORNDW7HRLI7` | deferral of the prison cell-space rule | full capacity tables 2020–2026, the −2,798 place effect, utilisation by wing, staffing-driven closures at Valdice (69 + 178) and Pankrác (28), and an admission that some prisoners are already housed below 4 m² (above 3 m²) under § 17(7)(a) | **RECORDED: `reg-veznice-ubytovaci-plocha-2030`** |
+| `veklep-KORNDUAFXG1S` | Act 139/2002 Sb., land consolidation | the only "Definice problému" in the set: pricing rules block optimal plot assembly, no mechanism for duplicate ownership entries or pacht leases, no alignment with building act 283/2021 Sb.; ex-post review of Act 481/2020 Sb. measures 0.1 ha (2021) → 21.88 ha (2025) against 91 ha/yr expected | **RECORDED: `reg-pozemkove-upravy-vykupy-2027`** |
+| `veklep-KORNDVKKWEK9` | Act 201/2002 Sb., ÚZSVM | rewrites when the Office acts for the state exclusively; the only figures are the jurisdiction thresholds it changes (25m CZK for ownership disputes, 50m / 100m CZK before foreign and arbitral fora). No problem is sized and no failure is counted | No record. Thresholds are the rule, not a measurement |
+| `veklep-KORNDY2HHS8D` | pension supplements 2027 | raises the supplement by 0.2 %, the same index as pensions, from January 2027, under § 8(2) of Act 198/1993 Sb. Purely parametric | No record. No problem stated |
+| `veklep-KORNDV7FMSPN` (read as `zd_KORNDVXCHS3Q`) | asylum decree 328/2015 Sb. | EU alignment; the one number is the Eurostat >20 % recognition-rate criterion, which is a definition inside the rule | No record |
+| `veklep-KORNDSAKSLEQ` (read as `zd_KORNDWDKMAN3`) | Interior Ministry schools decree | sets fee ceilings (2,000 CZK per exam, 1,000 CZK reduced, 3,000 CZK per year for tertiary professional study, headteacher may cut by 50 %) and proposes effect 1 September 2026 | No record. The figures are the decree's own tariff |
+| `veklep-KORNDNSF3ZQ5` (read as `zd_KORNDX9EERH3`) | Zlatý potok national natural monument | estimates about 35,000,000 CZK over 10 years of conservation costs, funded from MŽP and EU programmes, with a marginal administrative load on **AOPK ČR**. A cost estimate for one site, not a problem measured | No record. One protected area; scale 0 |
+| `veklep-KORNDUEGPUWG` (read as `zd_KORNDXDCLWHY`) | 5,000 CZK banknote with overprint | a ČNB commemorative issue of 200,000 pieces for the 1926 centenary, effect 22 September 2026 | No record |
+| `veklep-KORNDV4EB4WE` (read as `zd_KORNDWXCWBY9`) | folk-architecture heritage reserves | boundary and protection-condition updates to NV 127/1995 Sb.; no quantity | No record |
+| `veklep-KORNDXRHWVVT` | Interior Ministry and Office of the Government awards | aligns award rules with the new civil-service act from 1 November 2026 | No record |
+| `veklep-KORNDV37RXI3` (read as `zd_KORNDXWMBZP3`) | inland-navigation medical fitness, vyhl. 11/2023 Sb. | Del. Reg. (EU) 2026/118 repealed the referenced EU rules from 1 January 2026 and now sets the fitness standards directly in its Annex IV; the decree removes the dead reference | No record. Legal-certainty tidy-up |
+
+**Empty or unreachable RIAs: none.** All 13 documents downloaded (one after a retry) and all 13
+converted to readable text. The correct statement is not that RIAs were missing but that **ten
+of eleven materials have no RIA at all** — they carry a důvodová zpráva whose RIA paragraph
+records that the Legislative Council waived the assessment.
+
+### A note the next pass should not have to rediscover
+
+**Nine of these eleven ids are re-stagers, not new drafts.** `veklep-KORNDV7FMSPN`,
+`KORNDVKKWEK9`, `KORNDSAKSLEQ`, `KORNDW7HRLI7`, `KORNDNSF3ZQ5`, `KORNDUEGPUWG`,
+`KORNDV4EB4WE`, `KORNDXRHWVVT` and `KORNDV37RXI3` are exactly the materials the 2026-09-19 run
+dropped by materiality; because a dropped record is never written to `seen.txt`, they re-stage
+on every run and are dropped again. Only **`veklep-KORNDUAFXG1S`** (land consolidation) and
+**`veklep-KORNDY2HHS8D`** (pension supplements) are genuinely new since 2026-09-19.
+
+That matters for this checklist item, and in the register's favour: the 2026-09-19 pass read
+RIAs for the **19 appended** ids and not for the **10 dropped** ones, so these nine had never
+had their problem statements read by anyone. Reading them is how the prison record was found —
+it was dropped at scale 0 on its metadata card, and its důvodová zpráva turns out to carry the
+best-quantified problem statement in the whole set. **The materiality filter is not a reader of
+problem statements, and a card-level drop is not a judgment about the document behind it.**
+One material the 2026-09-19 run dropped, `veklep-KORNDVACDSIC` (firearms medical fitness,
+marked *skartováno*), did not re-stage this time and was therefore not read.
+
+### Evidence-bar compliance
+
+- **Enacted vs draft:** both records open `notes` with `STATUS: DRAFT`, name the VeKLEP material
+  and the comment deadline, and say plainly that nothing in them is in force.
+- **Dates:** each `date` is the compliance date the rule bites on — 2030-01-01 for the deferred
+  cell-space standard, 2027-07-01 for the land-consolidation bill's stated účinnost. Every other
+  date is in `notes`, including the deferring decree's own "no later than 31 December 2026"
+  effect and the full deferral chain 2024 → 2027 → 2030.
+- **Urgency:** both score **1**, a dated event more than 18 months out. Neither is in force, so
+  the grade-3 branch cannot apply.
+- **Money:** `money_eur` null on both, each with a `money_note`. The land-consolidation RIA's
+  2,138,492 CZK and the withdrawn 9.9m CZK variant are the amendment's own budget effect, not
+  money attached to the need, so neither was scored and nothing was estimated.
+- **Quotes:** 2 of 2 are literal substrings of the whitespace-collapsed extracted payload,
+  lengths 180 and 214, Czech preserved verbatim including the RIA's own phrasing.
+- **No absence claim without a search:** both dedup notes name what was searched. The land
+  record points explicitly at `nku-pozemkove-upravy`, which covers the same programme from the
+  NKÚ's side (24.9 % of cadastres finished, 9,186 left, ≥144.9bn CZK, ~50 years) and is a
+  different source and a different fact, not a duplicate.
+- **No personal data.** Regex grep of `staged.jsonl` for email and phone patterns returns 0. The
+  VeKLEP `adresaPripominek` field was not read into any record, and no natural person is named.
+
+### Dry run (validation only)
+
+```
+cp -R data/signals $TMPDIR/ria-sim/signals
+python3 scripts/normalize.py --raw data/raw/2026-09-21/regulation-ria --complete --dry-run --today 2026-09-21 \
+    --out-dir $TMPDIR/ria-sim/signals --seen $TMPDIR/ria-sim/signals/seen.txt
+  -> would append 2 records across 1 file(s); 0 dropped by materiality; 0 incomplete;
+     0 refused by AC-GDPR1
+     $TMPDIR/ria-sim/signals/regulation/2026-09-21.jsonl: +2
+     dedup by identity key (append): 0 skipped
+     AC-GDPR1 allowlist: dropped 2 non-allowlisted field(s) across 2 record(s): evidence_type
+```
+
+**Owed to the coordinator:** the real
+`python3 scripts/normalize.py --raw data/raw/2026-09-21/regulation-ria --complete` and the
+`db.py upsert` line it prints. Nothing was committed.
+
+### Coverage gaps named
+
+1. **Gap 7 of the first pass (VeKLEP RIA sections for the 2026-09-21 fetch) is CLOSED.** All 11
+   surfaced `veklep-` materials had their problem statements read.
+2. **`veklep-KORNDVACDSIC` (firearms medical fitness, *skartováno*) has still never had its RIA
+   read.** It was dropped by materiality on 2026-09-19 and did not re-stage on 2026-09-21, so no
+   pass has opened it. New, small, and named so it does not vanish.
+3. **Nine of eleven materials re-stage every run and are dropped every run.** Every future
+   reg-scan will be handed the same nine unless their cards change. This pass has now read all
+   nine, so a future pass can skip them by id rather than by re-reading; the ids are listed
+   above.
+4. Gaps 1–6, 8 and 9 of the first pass of today are untouched by this scoped pass and stand as
+   written in `data/raw/2026-09-21/regulation/manifest-regulation.md`.
+
+### 5-line pass summary
+
+```
+feed:                reg-scan (evidence_type regulation, prefix reg-, scoped follow-up: checklist item 4 only)
+checklist sources:   1 of 1 in scope visited (VeKLEP RIA "Definice problému" — 11 of 11 surfaced veklep- materials read; sources 1-3 belong to today's first pass)
+records staged:      2 (both DRAFT: prison cell-space deferral to 2030, land-consolidation bill), dry-run clean, not appended
+coverage gaps named: 4 (1 closed, 1 new small, 1 structural re-stage loop, 1 pointer to the first pass's standing list)
+rotation state:      n/a (arb-scan duty)
+```

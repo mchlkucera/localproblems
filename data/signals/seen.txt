@@ -3085,6 +3085,7 @@ reg-plan2026-eu-infringement
 reg-platform-work
 reg-pld-software-liability
 reg-podpora-bydleni-2026
+reg-pozemkove-upravy-vykupy-2027
 reg-pp-doprava-terminy-2029
 reg-ppwr-packaging
 reg-predkupni-pravo-puda-2028
@@ -3120,6 +3121,7 @@ reg-uznavani-kvalifikace-treti-zeme-2028
 reg-vak-energeticke-posouzeni-cov
 reg-vak-srazkove-vody-poplatek
 reg-verejne-opatrovnictvi-prenos-2027
+reg-veznice-ubytovaci-plocha-2030
 reg-vida-timeline
 reg-vnitrni-sprava-egov
 reg-vodni-zakon-epr-mikropolutanty
