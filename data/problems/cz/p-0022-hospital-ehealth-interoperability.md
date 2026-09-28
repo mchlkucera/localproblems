@@ -3,7 +3,7 @@ id: p-0022
 region: cz
 title: 'Czech hospitals each pay millions for their own software to share patient data'
 solution: 'Build integration software that plugs into a hospital''s systems and links them to other providers, as 2 companies already do in 2 other countries.'
-brief: 'Hospital after hospital is buying its own software to share patient data, for up to 190M CZK [S1,S2,S3,S14,S15]. State auditors found the national version years behind [S6].'
+brief: 'Hospital after hospital is buying its own software to share patient data, for up to 85M CZK [S1,S2,S3,S14,S15]. State auditors found the national version years behind [S6].'
 good_for: 'Engineers who know hospital software and can wait out long public tenders.'
 category: health
 geo: CZ-national
@@ -22,7 +22,7 @@ entry:
   incumbents: direct
   integration: national-system
   money: outside-money
-  why: 'Easier: hospitals already buy integration in open tenders, they publish the message formats they want, and EU law requires exchangeable patient summaries from 2029. Harder: every sale is a public tender of €0.2M to €7.7M, seven established Czech vendors already sell it, and bidding costs money before any payment.'
+  why: 'Easier: hospitals already buy integration in open tenders, they publish the message formats they want, and EU law requires exchangeable patient summaries from 2029. Harder: every sale is a public tender of €0.2M to €3.4M, seven established Czech vendors already sell it, and bidding costs money before any payment.'
 comps:
 - name: Redox
   url: https://www.redoxengine.com/
@@ -49,7 +49,10 @@ locals:
     FN u sv. Anny, FN Olomouc and Kroměříž hospital all sign STAPRO amendments on the state contracts
     register [S5]. MMN, which runs the Semily hospital, signed its interoperability contract with
     STAPRO in April 2026 [S23], and Karlovarská krajská nemocnice signed its Karlovy Vary
-    interoperability contract with STAPRO on 27 June 2026 [S27].
+    interoperability contract with STAPRO on 27 June 2026 [S27]. Three Zlín-region hospitals have
+    run their shared data-sharing platform on STAPRO contracts since April 2022 [S1], and FN Ostrava
+    awarded it the link from its lab system to national eHealth services in August 2026, with no
+    competing bid [S32].
 - name: ICZ (eMEDOCS)
   url: https://www.i.cz/
   ico: '25145444'
@@ -102,14 +105,42 @@ locals:
   evidence: It sells hospital information-system integration, with customers including Psychiatrická
     léčebna Šternberk on the state contracts register [S11]. OR-CZ spol. s r.o. has traded since
     17 March 1993.
+- name: CleverTech
+  url: https://www.clevertech.cz/
+  ico: '27224325'
+  since: 2025
+  competes: direct
+  maturity: early
+  evidence: It won St Anne's university hospital's eHealth interoperability project in Brno, signed on
+    11 August 2025, as lead contractor with two subcontractors [S30]. The company was registered in
+    2005, but its own website lists telemedicine devices and software; this is the only hospital
+    data-sharing sale on file, so how much of this it sells is unknown.
 sources:
 - type: tender
-  name: "TED — Uherské Hradiště eHealth platform (~€7.7M)"
-  gist: "the €7.7M Uherské Hradiště award"
-  why: "A regional hospital bought a platform for provider-to-provider communication and data sharing in August 2026 — the largest single award in this wave."
+  name: "TED — Zlín-region hospitals' eHealth platform, 2022 contracts changed in 2026"
+  gist: "the Zlín-region platform, changed twice"
+  why: "Three Zlín-region hospitals signed contracts in April 2022 for a shared platform to exchange and share information with other providers, and in August and September 2026 changed one of them twice to pay for connecting more devices and middleware."
   url: https://ted.europa.eu/en/notice/-/detail/549134-2026
-  note: 'ted-549134-2026: Uherskohradišťská nemocnice awarded ~€7.7M to create an eHealth
-    platform for provider-to-provider communication and data sharing (Aug 2026).'
+  note: 'ted-549134-2026: first recorded as "Uherskohradišťská nemocnice awarded ~€7.7M to create
+    an eHealth platform for provider-to-provider communication and data sharing (Aug 2026)". CORRECTED
+    2026-09-28 from the notice XML (read that day): it is a contract-modification notice (can-modif),
+    published 7 Aug 2026, of notice 256059-2022, "Vytvoření eHealth platformy pro komunikaci, výměnu
+    a sdílení informací mezi poskytovateli zdravotních služeb v nemocnicích Zlínského kraje …".
+    Three STAPRO s. r. o. contracts, all signed 29 Apr 2022, 60-month term: Uherskohradišťská
+    nemocnice 84,455,540 CZK, Kroměřížská nemocnice 55,994,399 CZK, Vsetínská nemocnice 55,151,422
+    CZK; notice total 189,163,478 CZK (the three contract lines sum to 195,601,361; the total is as
+    the notice gives it). The modified contract is Kroměříž''s (CON-0002): 3 middleware-connection
+    licences, an iCIS MP900 configuration and a patient-calling-system hookup in a new wing. The
+    contracts register entry for Kroměříž (smlouvy.gov.cz/smlouva/20171235, read 2026-09-28) gives
+    concluded 29 Apr 2022, STAPRO, 54,663,565 CZK excluding VAT, with 11 linked amendments; the TED
+    lines therefore include later changes. So it is a 2022 award to three hospitals, notified by
+    Uherské Hradiště, not an August 2026 award of 189M CZK to one hospital. MERGED 2026-09-28:
+    ted-653864-2026, a SECOND modification of the same contract (can-modif, published 23 Sep 2026,
+    XML read that day), not a republication: Kroměříž 55,994,399 -> 56,870,819 CZK for one
+    device-connection module, one middleware connection and implementation work, the change value
+    also rolling in earlier unpublished amendments under § 222(4); notice total 196,477,781 CZK,
+    which the three lines now sum to. Not separately cited. Context and demand only: the same
+    hospital paying again, piece by piece, as [S5] documents.'
   date: '2026-08-07'
   signal: ted-549134-2026
 - type: tender
@@ -121,7 +152,8 @@ sources:
     OPEN competition ~€5.8M (Jul–Aug 2026). Open tender ≥5M CZK: money scored 2. Superseded
     2026-09-19: an open tender is public money nearby and earns no point on the new ladder; it
     names no award, and it bundles a whole hospital information system. Money now rests on the
-    awarded lines restated as [S21] and [S22].'
+    awarded lines restated as [S21] and [S22]. Since 2026-09-28 [S21] is a 2022 contract and counts
+    as asking by age; money 2 rests on [S22], [S24], [S28] and [S31].'
   date: '2026-07-10'
   signal: ted-476712-2026
 - type: tender
@@ -213,7 +245,7 @@ sources:
     framework already receipted on p-0008 via ted-373331-2026). Corroborates the per-hospital
     incumbent-stack spend this record describes; backs no new score point — money already
     rests on the open Plzeň tender [S2]. Superseded 2026-09-19: money now rests on the awarded
-    lines [S21] and [S22]; this contract buys health-IT licences and support, not the
+    lines [S21] and [S22] (since 2026-09-28 on [S22], [S24], [S28] and [S31]); this contract buys health-IT licences and support, not the
     data-sharing layer, so it stays untagged.'
   date: '2026-08-04'
   signal: hlidac-36661862
@@ -359,7 +391,8 @@ sources:
     read (it sits in the consolidated specific rules). WHY MONEY: an open grant far above 5M CZK
     for eHealth work at named hospitals; money was already 2 on S2 and does not move. Superseded
     2026-09-19: on the new ladder this is public money nearby, which only lifts an asking price;
-    money 2 now rests on the paid awards [S21] and [S22], so the lift is not needed. WHAT IT IS
+    money 2 now rests on the paid awards [S21] and [S22] (since 2026-09-28 on [S22], [S24], [S28]
+    and [S31]), so the lift is not needed. WHAT IT IS
     NOT: it pays the hospital, not a vendor, and the signal names no integration line item.'
   date: '2026-12-02'
   signal: dotace-irop-78-79-ehealth
@@ -385,21 +418,29 @@ sources:
   dims: []
 - type: price
   url: https://ted.europa.eu/en/notice/-/detail/549134-2026
-  name: "Uherské Hradiště — the eHealth platform award"
-  gist: "about 189M CZK for one hospital"
-  why: "A regional hospital awarded about 189M CZK in August 2026 for a platform to exchange and share patient information with other providers."
+  name: "Uherské Hradiště — its share of the Zlín-region platform, 2022"
+  gist: "about 84.5M CZK, signed in 2022"
+  why: "Uherské Hradiště's hospital signed about 84.5M CZK in April 2022 for its part of a platform, shared by three Zlín-region hospitals, to exchange and share patient information with other providers."
   note: 'Price receipt drawn from the tender already on this ledger [S1] (ted-549134-2026),
     added in the 2026-09-19 tagging pass. Awarded notice, buyer Uherskohradišťská nemocnice
     a.s.; value 189,163,478 CZK, read from the TED search API (result-value-notice, currency
     CZK) on 2026-09-19, which is the 189.2M CZK the 2026-08-24 fact check recorded and the
     ~€7.72M in the signal. It buys an eHealth platform for communication, exchange and sharing
     of information between providers: this job, awarded within 24 months. No term stated, so
-    one-off.'
-  date: '2026-08-07'
-  payer: 'Uherskohradišťská nemocnice a.s., a regional hospital'
-  amount_czk: 189163478
-  unit: one-off
-  basis: tender-line
+    one-off. CORRECTED 2026-09-28 from the notice XML (see [S1]): the notice modifies three STAPRO
+    contracts signed on 29 Apr 2022 by three Zlín-region hospitals, and 189,163,478 CZK is the
+    notice total across all three, not one hospital''s August 2026 award. Restated as Uherské
+    Hradiště''s own line: 84,455,540 CZK, contract signed 29 Apr 2022, 60-month term covering the
+    build plus support and development, so per-project; the value is the one the 2026
+    modification notices give. Dated more than 24 months before `updated`, so under SCORING.md
+    MONEY it shows what the job once cost and counts as ASKING, not PAID. Money stays 2 on the
+    paid receipts [S22] (awarded 5 Aug 2026, read from TED XML 2026-09-28), [S24] (10 Apr 2026),
+    [S28] (27 Jun 2026) and [S31] (11 Aug 2025).'
+  date: '2022-04-29'
+  payer: 'Uherskohradišťská nemocnice a.s., one of three Zlín-region hospitals on the platform'
+  amount_czk: 84455540
+  unit: per-project
+  basis: signed-contract
   dims: [money]
 - type: price
   url: https://ted.europa.eu/en/notice/-/detail/598479-2026
@@ -564,19 +605,137 @@ sources:
     points rather than on hospitals and is not recorded.'
   date: '2029-03-26'
   signal: reg-ehds-metadata-drzitele-dat-2029
+- type: tender
+  name: "TED — St Anne's Brno eHealth interoperability, held up by the state's gateway and other vendors"
+  gist: "the St Anne's hold-up"
+  why: "St Anne's university hospital in Brno amended its 2025 eHealth interoperability contract twice in 2026: its connection to the national contact point could not be tested, the state's test portal kept failing, and the makers of its other systems had not cooperated."
+  url: https://ted.europa.eu/en/notice/-/detail/657199-2026
+  note: 'ted-657199-2026 + ted-659253-2026, both TED XML read 2026-09-28; two contract-modification
+    notices (can-modif), issued 22 Sep and published 24 Sep 2026, of notice 531455-2025, "Rozvoj
+    služeb eHealth ve Fakultní nemocnici u sv. Anny v Brně", buyer Fakultní nemocnice u sv. Anny v
+    Brně (IČO 00159816), contractor CleverTech s.r.o. (IČO 27224325), subcontractors C SOLUTION
+    s.r.o. (28318340) and Seyfor, a. s. (01572377); awarded 24 Jul 2025, contract "SMLOUVA O DÍLO A
+    POSKYTOVÁNÍ SLUŽEB PROVOZNÍ PODPORY" signed 11 Aug 2025, 44,905,040 CZK (smlouvy.gov.cz/smlouva/
+    34406453, read 2026-09-28: 44,905,040 CZK excluding VAT, 54,335,098 including it); NPO/RRF
+    project CZ.31.1.0/0.0/0.0/23_088/0011026. Scope in NPO call 22 words: interoperable exchange,
+    sharing, storage and interpretation of medical records; data interfaces for exchange between
+    providers over national or regional infrastructure linked to the national and European one;
+    interfaces to e-health services, registries and central eGovernment services. AMENDMENT No. 1
+    (657199), verbatim in part: phase 4, "testování napojení na služby NCPeH", could not be
+    finished "z důvodu nemožnosti napojení na národní kontaktní bod NCPeH, opakovaných technických
+    omezení a chyb na straně testovacího portálu NIX-ZD"; the MPI, central audit log, code lists
+    and records-registry integrations waited on "STAPRO s.r.o. a DS Soft Olomouc, spol. s.r.o. v
+    případě laboratorního informačního systému, TatraMed Software s.r.o. v případě PACS a ICZ a.s.
+    v případě sdílení zdravotnické dokumentace"; the deadline moves to 20 working days after the
+    obstacles end, at the latest the grant''s newly extended deadline; the works price (art. 5.1)
+    reset to 25,239,060 CZK excluding VAT; the MEDICUS integration was dropped because
+    CompuGroupMedical Česká republika could not cooperate, cutting the price by 16,000 CZK.
+    AMENDMENT No. 2 (659253), a different amendment and not a republication (the signal card''s
+    "second tender" is wrong): NCPeH had issued no positive statement, so neither ÚZIS (checking
+    the NZIS link) nor DIA (checking the NIA link) could sign the confirmation of connection to
+    the interoperability ecosystem, and stage IV cannot be completed; the deadline extension of
+    No. 1 is applied to these obstacles too. WHY demand: the THIRD named hospital buyer filing
+    that the state''s e-health step held up its interoperability project, after Semily [S23] and
+    Karlovy Vary [S27], and the first on file to name other hospital-software vendors as a cause.
+    Demand was already 2 and does not move. The price is restated as [S31].'
+  date: '2026-09-24'
+  signal: ted-657199-2026
+  dims: [demand]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/34406453
+  name: "St Anne's Brno — the eHealth interoperability contract"
+  gist: "about 44.9M CZK for one hospital"
+  why: "St Anne's university hospital in Brno signed about 44.9M CZK in August 2025 for interoperability work that lets its records be exchanged with other providers, plus operational support."
+  note: 'Price receipt drawn from [S30] (ted-657199-2026). Contracts register 34406453, read
+    2026-09-28: "Smlouva o dílo a poskytování služeb provozní podpory", concluded 11 Aug 2025,
+    CleverTech s.r.o., 44,905,040 CZK excluding VAT, 54,335,098 CZK including it; the TED notices
+    give the same 44,905,040 CZK. It buys this job: interoperable exchange and sharing of medical
+    records with other providers and the NCPeH, registry and e-health interfaces. It bundles
+    operational support, stated here, not hidden; Amendment No. 1 resets the works part alone to
+    25,239,060 CZK excluding VAT, and the pre-amendment works figure is not in the notice. Signed
+    within 24 months of `updated`, so PAID. Money was already 2 and does not move.'
+  date: '2025-08-11'
+  payer: 'Fakultní nemocnice u sv. Anny v Brně, a university hospital'
+  amount_czk: 44905040
+  unit: per-project
+  basis: signed-contract
+  dims: [money]
+- type: tender
+  name: "TED — FN Ostrava lab system linked to national eHealth, one bid (~7.9M CZK)"
+  gist: "the Ostrava lab-system award"
+  why: "Ostrava's university hospital paid to link its lab system to the central eHealth services and registries, with four years of support, and got a single bid, from the supplier already inside."
+  url: https://ted.europa.eu/en/notice/-/detail/650475-2026
+  note: 'ted-650475-2026, TED XML read 2026-09-28. Award notice (can-standard), issued 21 Sep,
+    published 22 Sep 2026, open procedure, Fakultní nemocnice Ostrava (IČO 00843989), "Podpora a
+    rozvoj laboratorního informačního systému": connecting the lab information system to central
+    e-health services and registries and implementing the national standards for exchanging
+    electronic records, plus technical support, service and development; the buyer states it
+    already runs STAPRO''s FONS OpenLIMS. A replacement variant was allowed; ONE tender received.
+    Awarded 13 Aug 2026 to STAPRO s.r.o. (IČO 13583531), 7,949,224 CZK (estimate 7,733,248),
+    contract signed 25 Aug 2026, lowest price; investment part funded by NPO/RRF project
+    "Elektronizace zdravotnické dokumentace ve FNO" (CZ.31.1.0/0.0/0.0/23_088/0011187). NOT
+    restated as a price: the contract is chiefly support and development of the lab system, and
+    the share for the national link is not separable. Context only: the established incumbent
+    winning with no competing bid, consistent with gap 0.'
+  date: '2026-09-22'
+  signal: ted-650475-2026
+  dims: []
+- type: tender
+  name: "TED — Mělník hospital system with EU and Czech eHealth links, open (~20M CZK)"
+  gist: "the open Mělník tender"
+  why: "The company running Mělník's hospital opened a tender for a modernised hospital system linked to the national and European eHealth systems, with bids due 30 October 2026."
+  url: https://ted.europa.eu/en/notice/-/detail/660393-2026
+  note: 'ted-660393-2026, TED XML read 2026-09-28. Contract notice (cn-standard), issued 24 Sep,
+    published 25 Sep 2026, open procedure, Mělnická zdravotní, a.s. (IČO 27958639), administered
+    by enovation services s.r.o.: "Modernizace nemocničního informačního systému a integrace služeb
+    eHealth včetně napojení na centrální systémy elektronického zdravotnictví ČR a EU", estimated
+    20,000,000 CZK, lowest price wins, EU funds (programme not named), bids due 30 Oct 2026 10:00.
+    Scope: deliver, implement and integrate a modernised hospital system and e-health services,
+    links to national and European eHealth systems, central registries, an interface for sharing
+    records and selected integration services. Open and unawarded, and it bundles a hospital
+    system: not a price receipt. No rung moves.'
+  date: '2026-09-25'
+  signal: ted-660393-2026
+  dims: []
+- type: regulation
+  name: "EHDS patient identification for MyHealth@EU — Implementing Regulation (EU) 2026/2099"
+  gist: "the 2027 identification rule"
+  why: "From 26 March 2027 a hospital that asks for a patient's records from another EU country through MyHealth@EU, the EU exchange, must first identify the patient, with a secure electronic identity for online requests."
+  url: https://eur-lex.europa.eu/eli/reg_impl/2026/2099/oj
+  note: 'reg-ehds-identifikace-myhealth-2027 (reg-scan). Commission Implementing Regulation (EU)
+    2026/2099 of 21 Sep 2026, OJ L 22 Sep 2026, text read 2026-09-28 via CELEX content
+    negotiation. Art 9: applies from 26 Mar 2027; Art 3(3) and 5(2) from 26 Mar 2029. ARTICLE TEXT
+    RELIED ON. Art 4(1): "Before requesting the exchange of personal electronic health data of a
+    natural person through MyHealth@EU, the health professional or healthcare provider shall
+    identify that natural person." Art 4(2): where the provider requests that exchange following
+    a request submitted online, it identifies and authenticates the person with eIDAS means of at
+    least substantial assurance (high from 26 Mar 2030). Art 5(2) (from 2029): a provider
+    requesting the exchange accepts healthcare attributes from an EU Digital Identity Wallet. Art
+    3 binds Member States (national attribute set by 26 Mar 2028); Art 6 binds the entity each
+    Member State lists to authenticate professionals (substantial, high from 2032); Art 5(1), 7
+    and 8 bind the national contact points. WHY NOTHING MOVES: REAL and CLOSE pass (enacted,
+    ~6 months after `updated`), but no Article obliges a Czech hospital to exchange through
+    MyHealth@EU; every provider duty is conditioned on "before requesting" such an exchange, so it
+    binds only a provider that chooses cross-border exchange, and the channel itself runs through
+    the national contact point, the same ground on which the sibling act 2026/2083 was left out
+    on 2026-09-21. That is "a duty that reaches the buyer indirectly", rung 1, and Why now stays
+    1. It is also not the core of this job: patient identification is one step inside the
+    exchange that the integration layer carries. No sanction is named. Recorded, not scored.'
+  date: '2027-03-26'
+  signal: reg-ehds-identifikace-myhealth-2027
 created: '2026-08-13'
-updated: '2026-09-21'
+updated: '2026-09-28'
 ---
 
 Czech hospitals each buy their own software to link their systems and share patient data, one tender at a time [S1,S3].
 
-- Uherské Hradiště's hospital awarded about €7.7M for a data-sharing platform in August 2026 [S1].
+- Three Zlín-region hospitals keep paying to extend their 2022 data-sharing platform [S1].
 - Plzeň's hospital group tendered about €5.8M for a hospital system with integrations [S2].
 - Zlín and Olomouc bought systems and interoperability work for about €2.8M and €0.7M [S3].
 
-The layer they buy lets a hospital's own systems talk to each other and to outside providers [S1,S2]. Between June and August 2026, four regional hospital groups went to market for it separately [S1,S3].
+The layer they buy lets a hospital's own systems talk to each other and to outside providers [S1,S2]. Between June and August 2026, three regional hospital groups went to market for it separately [S2,S3].
 
-- Uherské Hradiště's platform is for communication and data sharing between healthcare providers [S1].
+- The Zlín region's platform, run by the Uherské Hradiště, Kroměříž and Vsetín hospitals, is for communication and data sharing between providers [S1]. Each hospital signed its own contract in April 2022, and Kroměříž's was changed in August and September 2026 to pay for connecting more devices and middleware [S1].
 - Plzeň's tender asks for an enterprise service bus, the switchboard that routes messages between clinical systems, plus the integrations around it [S2].
 - Zlín's regional hospital bought a hospital information system with integrations included, and Olomouc's university hospital bought eHealth interoperability work in the same weeks [S3].
 - Published hospital specifications ask for the same thing: a service bus inside the integration layer, exchanging messages in HL7 and DASTA (the two health-data formats Czech hospitals run on) [S11]. Zlín's own tender for an eHealth integration platform describes exactly such a one-off build [S11].
@@ -591,8 +750,16 @@ More hospitals followed in August and September 2026:
 - Olomouc's military hospital re-announced its interoperability tender in September 2026, estimated at about 7.3M CZK, with no supplier named [S25].
 - Semily's hospital signed for interoperability work in April 2026, including links to other providers and to the national health information system [S23].
 - Karlovy Vary's regional hospital bought the same kind of work in June 2026, and finished it in August [S27].
+- Ostrava's university hospital paid in August 2026 to link its lab system to the national eHealth services and registries, and got a single bid [S32].
+- Mělník's hospital company opened a tender in September 2026, estimated at 20M CZK, for a hospital system linked to Czech and EU eHealth systems; bids close on 30 October 2026 [S33].
 
-Two of those buyers have since filed that the state held them up. Semily's owner extended its contract because the health ministry's national e-health centre had not helped test the hospital's connection [S23]. Karlovy Vary's hospital had its work finished and handed over on 25 August 2026, but no confirmation from that same centre that it was connected [S27].
+Three hospitals have filed that the state held up their projects. Semily's owner extended its contract because the health ministry's national e-health centre had not helped test the hospital's connection [S23]. Karlovy Vary's hospital had its work finished and handed over on 25 August 2026, but no confirmation from that same centre that it was connected [S27].
+
+St Anne's university hospital in Brno, which signed for the same kind of work in August 2025, is the third [S30]. In September 2026 it amended its contract twice [S30]:
+
+- Testing its link to the national contact point, the state gateway for exchanging patient data with other EU countries, was impossible, and the state's test portal kept failing [S30].
+- Links to its lab, imaging and record-sharing systems waited on the companies that make them [S30].
+- With no positive statement from the contact point, the state health-information institute and the digital agency could not sign that the hospital is connected [S30].
 
 Existing non-solutions: Seven established Czech vendors already sell hospital integration, and the oldest keeps amending its hospital contracts after signing [S5,S8].
 
@@ -609,13 +776,14 @@ Those public contracts show what buying from the vendor already inside looks lik
 - St Anne's university hospital in Brno extended a works deadline with the same vendor in the same weeks [S5].
 - Olomouc's university hospital signed a third amendment on its hospital-system works [S5].
 - Kroměříž hospital signed the seventh and eighth amendments to its integration platform within a month [S5].
-- The same vendor won the repeat interoperability award in Prague and the Mladá Boleslav modernisation in August 2026 [S13,S14]. It also holds Semily's interoperability contract, signed in April 2026, and Karlovy Vary's, signed in June 2026 [S23,S27].
+- The same vendor won the repeat interoperability award in Prague and the Mladá Boleslav modernisation in August 2026 [S13,S14]. It also holds Semily's interoperability contract, signed in April 2026, and Karlovy Vary's, signed in June 2026 [S23,S27]. It has run the Zlín region's shared platform since 2022, and won Ostrava's lab-system link in August 2026 with no competing bid [S1,S32].
+- A company new to this work won St Anne's interoperability project in Brno in 2025, with two subcontractors [S30]. It is the only newer seller on file.
 
 The state audit office found one hospital buying its software the same way, from suppliers already inside and without competition [S20]. IKEM — Prague's institute of clinical and experimental medicine — paid three IT suppliers 59.5M CZK through at least 345 orders without a tender [S20]. One supplier alone got more than 31M CZK in 2022–2024 for building and maintaining 13 of its applications, in orders each under 150,000 CZK [S20].
 
-Why now: Hospitals are paying millions each for data-sharing software now, while the state's shared version runs six years late [S1,S6].
+Why now: Hospitals are paying millions each for data-sharing software now, while the state's shared version runs six years late [S6,S27,S30].
 
-- Each hospital pays millions for its own links to other providers [S1,S3].
+- Each hospital pays millions for its own links to other providers [S3,S27,S30].
 - After signing, the oldest vendor has raised prices and extended deadlines by amendment [S5].
 - National data sharing, planned for 2020, will come in 2026 at the earliest [S6].
 
@@ -625,6 +793,8 @@ Behind those three items are a state audit, a grant deadline and the dates of a 
 - The same report found registries the law requires still missing in early 2023, and 158M CZK spent on e-health goals in 2020–2024 with the infrastructure still absent [S6].
 - In September 2026 the Semily hospital's owner extended its interoperability contract, because the health ministry's national e-health centre had not helped test the hospital's connection [S23].
 - Also in September 2026 Karlovy Vary's hospital and its vendor moved to 31 December 2026 the date for producing the state's confirmation that the hospital is connected, because it had not been issued [S27].
+- In the same month St Anne's in Brno moved its deadline to the end of its extended grant, because the state gateway could not be tested [S30].
+- From 26 March 2027 a hospital that asks for a patient's records from another EU country through the EU exchange must first identify the patient, with a secure electronic identity for online requests [S34]. It applies only to hospitals that make such requests [S34].
 - The European Health Data Space, the EU regulation on sharing health records, has been in force since March 2025 [S7].
 - Its implementing acts, the detailed technical rules, are due in March 2027, and its rules for hospital record systems fall on the Czech vendors that sell them [S7].
 - From 26 March 2029 patient summaries and electronic prescriptions must be exchangeable across borders, and most rules on re-using health data apply [S7].
@@ -635,14 +805,17 @@ Behind those three items are a state audit, a grant deadline and the dates of a 
 - On 2 December 2026 at 14:00 the state's two eHealth grant calls close, after being open since November 2023 [S19].
 - Hospitals are not waiting for any of this: they buy their own systems and integration now, one at a time [S4].
 
-Who pays: Yes: hospitals, and the regions that own many of them, pay for integration now through public tenders [S1,S2].
+Who pays: Yes: hospitals, and the regions that own many of them, pay for integration now through public tenders [S23,S27,S30].
 
-- Three hospitals paid for exactly this work in 2026, through awarded tenders [S1,S14,S23].
-- Four hospital purchases came to about €17M in ten weeks of 2026 [S1,S3].
+- Four hospitals signed for exactly this work in 2025 and 2026 [S14,S23,S27,S30].
+- Three hospital tenders and awards came to about €9.3M in summer 2026 [S2,S3].
 - Motol and Homolka signed €11.7M of health-IT licences and support on one day [S9].
 - Karlovy Vary's hospital signed 70.9M CZK for its hospital system and support [S4].
 
-The first four projects ran from about €0.7M to €7.7M [S1,S3]. Three of the four were awards; Plzeň's was an open competition in July and August 2026 [S2].
+Those three ran from about €0.7M to €5.8M [S2,S3]. Two were awards; Plzeň's was an open competition in July and August 2026 [S2].
+
+- Three Zlín-region hospitals signed their own contracts for one shared platform in April 2022, and are still paying to extend it [S1].
+- Ostrava's university hospital paid about 7.9M CZK to link its lab system to national eHealth services, with four years of support [S32].
 
 - Motol and Homolka, two merged Prague hospitals that buy as one, signed a health-IT licence expansion of about €5.77M and a support contract of about €5.93M on 4 August 2026 [S9].
 - Karlovy Vary's regional hospital signed its 70.9M CZK contract for hospital-system delivery and service support on 27 June 2026 [S4]. The European notice for that same contract names it interoperability work, and its value without VAT is in the table of what one buyer pays [S27].
@@ -652,7 +825,7 @@ The first four projects ran from about €0.7M to €7.7M [S1,S3]. Three of the 
 
 Public money can pay part of it. Two state eHealth grant calls hold about 2.1bn CZK for a named list of hospitals, psychiatric hospitals and regional ambulance services, up to 28M CZK per provider [S19]. They pay the hospital, not a vendor, and their closing date is under [Why now](#why-now) [S19].
 
-A rough estimate, not a finding: if a third of the €17M were sold as licences instead, that would be about €5.7M, and these buyers keep paying for more work rather than finishing [S5,S14].
+A rough estimate, not a finding: if a third of the €9.3M were sold as licences instead, that would be about €3.1M, and these buyers keep paying for more work rather than finishing [S5,S14].
 
 Solved elsewhere: Two established foreign companies sell the shared layer as one product, built once and sold to many hospitals.
 
@@ -666,7 +839,7 @@ The Slovenian company is the closer template: a Central European firm long in ho
 
 1. Build a connector that links a hospital's existing systems to other providers, in the message formats Czech hospital tenders already ask for. The specifications hospitals publish ask for a service bus inside the integration layer that exchanges the two health-data formats Czech hospitals run on; see [The opportunity](#opportunity). Build that as one product that sits beside whatever hospital system is already installed, not as another hospital system. Established vendors already sell connections to the state's eHealth gateway, so yours has to work beside theirs; see [Market gap](#competition).
 2. Call the IT heads of the Zlín, Kroměříž and Olomouc hospitals, which keep signing amendments with their system vendor, and ask what integration costs them. Their contracts are public, and the amendments are listed under [Market gap](#competition), with what one of them cost under [Willing to pay](#willing-to-pay). Ask which connections they pay for again and again, and which they would rather buy once as a product. Then show them the date from which the EU makes exchangeable records compulsory, under [Why now](#why-now).
-3. Bid for the open hospital tenders, the only purchases here an outsider can enter without displacing a signed contract. The Plzeň hospital group's system with integrations, a psychiatric hospital's eHealth system and Brno's cancer institute's eHealth package all went out without a supplier named; see [The opportunity](#opportunity). Their results are not on file, so find out who won each. Where an established vendor won, the next open tender is the door.
+3. Bid for the open hospital tenders, the only purchases here an outsider can enter without displacing a signed contract. The Plzeň hospital group's system with integrations, a psychiatric hospital's eHealth system, Brno's cancer institute's eHealth package and Mělník's hospital system went out without a supplier named; see [The opportunity](#opportunity). Their results are not on file, so find out who won each. Where an established vendor won, the next open tender is the door.
 4. Plan for a long fight against seven established Czech vendors, and watch for the two events that could open the field. Each already sells hospital integration, and the oldest has sold hospital systems for decades; see [Market gap](#competition). The first event is who wins open tenders like Plzeň's. The second is the EU's detailed rules for hospital record systems, which fall on every one of those vendors; their date is under [Why now](#why-now). Bidding costs money long before a first payment, as [Execution difficulty](#execution-difficulty) explains.
 
 ## Revisions
@@ -701,3 +874,5 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 2 → 1 and `score` 8 → 7, so the band moves STRONG → FAIR; Willing to pay stays 2. Why now was 2 as deadline 1 plus the freshness point, which is retired. The only dated duty on file is the European Health Data Space: from 26 March 2029 patient summaries must be exchangeable, which is more than 18 months after this date, and its rules for record systems fall on the vendors [S7]. That is rung 1. The e-health act amendment and the HealthData@EU rules are drafts, already tagged `dims: []` [S10,S17]. The eHealth grants' 2 December 2026 close is a grant date, not a deadline [S19]. Willing to pay was 2 on the open Plzeň tender above 5M CZK [S2]. That is now public money nearby, and money is 2 on paid receipts instead. Tagging pass, every source on file that shows someone paying for this job, the integration and data-sharing layer: two awarded tender lines are restated as price receipts. [S21] is Uherskohradišťská nemocnice's eHealth platform for sharing information between providers, 189,163,478 CZK, awarded 7 August 2026 [S1]. The CZK value was read from the TED search API on this date, and matches the 189.2M CZK of the 2026-08-24 fact check. [S22] is Revmatologický ústav's "eHealth a interoperabilita" repeat award, 27,756,514 CZK, 31 August 2026 [S14]. Both are dated within 24 months. They are appended as new sources rather than retyped in place, because the body cites [S1] and [S14] for the buying wave and a cited price receipt fails `PRICE_RESTATED`; the p-0008 receipts set that pattern. Not restated, and why. Plzeň is an open competition with no award on file, and it bundles a whole hospital information system [S2]. Zlín's award buys a hospital information system [S3]; Olomouc's €0.7M interoperability work in the same note is this job, but its own notice and CZK value are not on file. Karlovy Vary and the psychiatric hospitals bought hospital systems with no data-sharing scope [S4]. The Zlín price rises [S18] are on a hospital-system service contract, so [S18] stays untagged; the Kroměříž integration-platform amendments in [S5] are this job but carry no amount on file. Motol and Homolka bought health-IT licences and support [S9]. Mladá Boleslav's award modernises its hospital system [S13]. Náchod's award line buys an imaging archive inside a data-sharing project, with only a euro value on file [S15]. Petrohrad and the cancer institute tendered with no award [S12,S16]. The eHealth grants stay on file as public money nearby, and their lift is not needed [S19]. Stale notes fixed on [S2], [S7], [S9] and [S19], which named the old money and deadline rungs. Why now prose re-read: it leads on what hospitals pay now and the state's delay, and claims no firm deadline, so it stands. Willing to pay's first list now opens with the two awards the score rests on, without their amounts, which live in the receipts [S1,S14]. Its "Yes" answer stands. `[Competition](#competition)` became `[Market gap](#competition)` in moves 1, 2 and 4. No other score, status, entry or body sentence changed. Same date, later pass, merged here: evidence audit — Linked four TED notices. Semily's interoperability contract with the oldest vendor [S23], restated as a paid award [S24]; its deadline was extended because the ministry's e-health centre did not help test the connection, tagged demand, which stays 1 (one buyer's filing, not recurring complaints). Olomouc military hospital's re-tender [S25]; Sokolov's eHealth award, no data-sharing scope [S26]. Money stays 2. Gap rechecked: both winners already on file, stays 0. entry.why's tender floor now €0.2M [S12], and its "long" cut to fit 320 characters. Petrohrad's third notice folded into [S12].
 
 2026-09-21 · evidence added and demand rescored — Three sources linked from the weekly scan. [S27] is Karlovy Vary's interoperability award, a contract-modification notice read from the TED search API this date: "Interoperabilita v nemocnici Karlovy Vary", buyer Karlovarská krajská nemocnice, supplier STAPRO, concluded 27 June 2026, result value 58,559,999.6 CZK, scope the interoperable exchange and sharing of medical documentation between providers over the national eHealth contact point. [S28] restates it as a price receipt; money was already 2 on [S21] and [S22] and does not move. [S29] is Commission Implementing Regulation (EU) 2026/2098, which makes the HealthDCAT-AP dataset description compulsory for every health data holder from 26 March 2029 — the same date as the EHDS rules already on file [S7], more than 18 months out, so Why now stays 1. DEMAND 1 → 2, `score` 7 → 8, band FAIR → STRONG. The rung is "recurring documented complaints". [S23], a notice published on 15 September 2026 and added here on 2026-09-19, is one buyer's filing that the health ministry's national e-health centre had not helped test its connection, and was recorded then as supporting demand 1 because one filing is not recurring. [S27] is a second named hospital buyer filing the same kind of thing six days later: the work was finished, handed over without defects and in production on 25 August 2026, but the ministry's confirmation that the hospital is connected to the interoperability ecosystem had not been issued, so the date for producing it moved to 31 December 2026. With the state audit [S6] and the amendment churn already tagged demand [S5], the complaints are recurring. Prose re-read under the moved score and made to match: The opportunity gained the Karlovy Vary purchase as a later buyer and a short paragraph naming both hold-ups [S23,S27]; Why now gained the Karlovy Vary date beside Semily's, and the 2029 metadata duty [S27,S29]; Market gap's sentence on the incumbent's wins gained Karlovy Vary [S23,S27]; STAPRO's ledger line names it as a further hospital customer [S27]. CORRECTION, ANNOUNCED. The 2026-09-19 entry above states that Karlovy Vary and the psychiatric hospitals "bought hospital systems with no data-sharing scope [S4]", which is why that contract was not restated as a price. That was true of the evidence then on file and is not true of the contract: the contracts register entry behind [S4] (38551596, read this date) gives "Smlouva o dílo a poskytování servisní podpory SM-AS008841", concluded 27 June 2026 with STAPRO, 58,559,999.60 CZK without VAT and 70,857,599.52 CZK with it, and the TED notice for the same procurement names interoperability in its title and its scope. So the ~70.9M CZK [S4] records is this interoperability contract, and Willing to pay now says so. Nothing is claimed about the psychiatric-hospital contracts in the same note, which still state no data-sharing scope. Gap re-checked: the winner is STAPRO, already on the ledger as direct and established, so gap stays 0 and `status` stays watching. Proof untouched. No source note was edited, no marker renumbered, and the three sources were appended at the end.
+
+2026-09-28 · fact check · evidence audit — CORRECTION, ANNOUNCED. [S1] and its price restatement [S21] described an August 2026 award of about 189M CZK (about €7.7M) by the Uherské Hradiště hospital. The notice XML, read this date, shows a contract-modification notice of 256059-2022: three STAPRO contracts signed on 29 April 2022 by three Zlín-region hospitals, Uherské Hradiště 84,455,540 CZK, Kroměříž 55,994,399 CZK and Vsetín 55,151,422 CZK, with 189,163,478 CZK the notice total; the Kroměříž entry in the contracts register (20171235) confirms the April 2022 signing. The wrong fact reached the brief, entry.why, S1 and S21 and nine body lines. Corrected: [S1] name, gist, why and note; [S21] restated as Uherské Hradiště's own line, 84,455,540 CZK, signed-contract, dated 2022-04-29, per-project, which is older than 24 months and so counts as asking; brief "for up to 190M CZK" → "for up to 85M CZK" (owner to approve; the old figure was the three-hospital total read as one award); entry.why tender range "€0.2M to €7.7M" → "€0.2M to €3.4M"; the opportunity's first item and the service-description bullet now describe the Zlín-region platform; "four regional hospital groups went to market" → three [S2,S3]; the €17M of four purchases → €9.3M of three tenders and awards [S2,S3], and the flagged licence estimate recomputed from it, €5.7M → €3.1M, still an inference; "three hospitals paid in 2026" → four signed in 2025 and 2026 [S14,S23,S27,S30]; the Why now and Who pays answer sentences re-cited away from [S1]. Stale "money rests on [S21] and [S22]" notes on [S2], [S9] and [S19] updated. MONEY STAYS 2: the paid receipts [S22] (awarded 5 August 2026, rechecked in the TED XML), [S24] (10 April 2026), [S28] (27 June 2026) and new [S31] (11 August 2025) are all within 24 months. Evidence added: [S1] now also carries ted-653864-2026, a second 2026 change to the Kroměříž contract (55,994,399 → 56,870,819 CZK for more device and middleware connections), merged rather than cited separately. [S30] merges St Anne's two September 2026 amendments (ted-657199-2026, ted-659253-2026) to its 44,905,040 CZK eHealth interoperability contract, signed 11 August 2025: the national contact point could not be tested, the state test portal kept failing, other vendors' systems were not ready, and without the contact point's statement the state institutes could not sign the connection confirmation. It is the third named hospital with a state-side hold-up after Semily and Karlovy Vary [S23,S27], tagged demand, which was already 2; the body now says so. [S31] restates that contract as a paid price receipt, since it buys this job. [S32] Ostrava's lab-system link, 7,949,224 CZK, one bid, kept as context because it is chiefly lab-system support. [S33] Mělník's open 20M CZK tender. [S34] Implementing Regulation (EU) 2026/2099, applying from 26 March 2027: WHY NOW STAYS 1. Article 4(1) reads "Before requesting the exchange of personal electronic health data of a natural person through MyHealth@EU, the health professional or healthcare provider shall identify that natural person"; every provider duty in Articles 4 and 5 is conditioned on requesting such an exchange, and Articles 3, 6, 7 and 8 bind Member States and national contact points. It does not oblige every Czech hospital to act, the ground on which 2026/2083 was left out on 2026-09-21. LOCALS: CleverTech s.r.o. added as direct and early. ARES gives IČO 27224325, registered 2 March 2005, but its only sale of this job on file is the August 2025 contract, and its website sells telemedicine devices and software, so since is 2025 and it fails the three-year limb. Gap stays 0 on the seven established direct sellers, entry.incumbents stays direct, and STAPRO's row gains the Zlín-region and Ostrava contracts [S1,S32]. No score or status changed. Title, solution and good_for unchanged.
