@@ -24,6 +24,7 @@ civic-jatka-kamery
 civic-kuklenske-rondely-hk
 civic-line-lzs-gigafactory
 civic-menstruacni-volno-2026
+civic-mf-odvody-rozpoctova-kazen-2025
 civic-mpsv-ltc-predikce-2035
 civic-mpsv-rocenka-neuspokojene-2024
 civic-munipolis-scale
@@ -172,10 +173,12 @@ de-ecoworks
 de-exnaton
 de-foodforecast
 de-fuchs-eule
+de-galvany
 de-hallo-theo
 de-integral
 de-jupus
 de-metycle
+de-mika
 de-peter-park
 de-phoenics
 de-plancraft
@@ -347,6 +350,7 @@ feed-bc5cf5ca
 feed-c9c39aff
 feed-f309aa0e
 fi-iceye
+fi-klinik
 fr-algoan
 fr-alta-ares
 fr-asap-work
@@ -2398,6 +2402,7 @@ hlidac-9341290
 hr-trustpath
 hu-allonic
 ie-octostar
+is-50skills
 is-snerpapower
 it-dedalo-ai
 it-iusful
@@ -2865,6 +2870,7 @@ nku-zemedelsky-vyzkum
 nl-avido-ai
 nl-bettercharge
 nl-codified-governance
+nl-duqu
 nl-gradyent
 nl-haboo-money
 nl-haskoning-aquasuite
@@ -2975,6 +2981,7 @@ reg-adr-spotrebitelske-spory-2028
 reg-agri-pisemne-smlouvy-2028
 reg-ai-act-cz-dozor
 reg-ai-act-milestones
+reg-aifmd2-130-2026
 reg-amlr-single-rulebook
 reg-autonomni-l3-2026
 reg-battery-due-diligence
@@ -3020,6 +3027,7 @@ reg-eed-energy-audits
 reg-eet2-2027
 reg-efti-freight
 reg-ehds
+reg-ehds-identifikace-myhealth-2027
 reg-ehds-metadata-drzitele-dat-2029
 reg-eidas2-eudi-wallet
 reg-ekon-ochrana-statu
@@ -3071,6 +3079,7 @@ reg-mf-eet2-2027
 reg-mica-casp-cz
 reg-mifid-issuer-sponsored-research
 reg-min-mzda-2027-164-2026
+reg-min-mzda-2027-171-2026
 reg-min-mzda-koeficient-2027-2028
 reg-mmr-dokumentace-131-2024
 reg-mpsv-min-duchod-2026
@@ -3095,12 +3104,14 @@ reg-nukib-411-2025
 reg-nukib-412-2025
 reg-obce-spolecenstvi-sdilene-agendy
 reg-odstoupit-tlacitko-159-2026
+reg-omnibus-i-2026-470
 reg-ovzdusi-aaqd-2026
 reg-pay-transparency-cz
 reg-plan2026-eu-infringement
 reg-platform-work
 reg-pld-software-liability
 reg-podpora-bydleni-2026
+reg-pohonne-hmoty-strop-2026-10
 reg-pozemkove-upravy-vykupy-2027
 reg-pp-doprava-terminy-2029
 reg-ppwr-packaging
@@ -3132,6 +3143,7 @@ reg-toy-safety-dpp
 reg-trestni-zakonik-kybernasili-2027
 reg-ttpa-political-ads
 reg-uhradova-2027-centrove-leky-slevy
+reg-uvery-osvc-ochrana-2028
 reg-uwwtd-epr
 reg-uznavani-kvalifikace-treti-zeme-2028
 reg-vak-energeticke-posouzeni-cov
