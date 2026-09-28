@@ -119,7 +119,9 @@ geo_origin — where the signal comes FROM, never where it might be useful:
   an ISO-3166-1 alpha-2 code in CAPITALS (GB not UK), or EU for an EU-level
   signal. Resolve a city or region to its country. A tender's geo is its
   buyer's country; a company's geo is its headquarters country. Do not infer a
-  country from the language of the text alone.
+  country from the language of the text alone. When the card names no country
+  at all, write XX (the explicit unknown, data/CONVENTIONS.md) — never guess
+  one, and never default a Y Combinator card to US.
 pain (boolean) — ONLY when the item asks for it. true when the text is a
   COMPLAINT, a FAILURE or a WORKAROUND (something is broken, missing, refused
   or unusable). false for neutral curiosity, how-to questions, marketing and
