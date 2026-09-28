@@ -36,13 +36,13 @@ process:
   - who: Bus company
     today: 'Tenders and buys the electric buses outright'
     known: documented
-    cites: [2, 3]
+    cites: [2, 3, 16]
     change: changes
     after: 'Rents the buses for a fee per bus'
   - who: Bus company
     today: 'Tenders the depot chargers as a separate contract'
     known: documented
-    cites: [8, 13]
+    cites: [8, 13, 15]
     change: changes
     after: 'Gets chargers built and run with the buses'
   - who: Bus company
@@ -387,7 +387,13 @@ sources:
     (result notice published 10 Sep 2026, estimated 188,500,000 CZK, same title and scope), closed
     with winner-selection-status clos-nw (no winner, competition closed), 2 tenders received,
     non-award code tch-pr-error, 1 review request logged; the notice gives no reason in words. Not
-    awarded, so not a price receipt; the charger half of the job bought separately. Backs no score.'
+    awarded, so not a price receipt; the charger half of the job bought separately. Backs no score.
+    Added 2026-09-28 (weekly match): a third TED notice of the same procurement, ted-651913-2026,
+    issued 21 Sep and published 22 Sep 2026, XML read 2026-09-28 (saved in the run scratchpad): a
+    change notice over 627506-2026 (ChangedNoticeIdentifier), ChangeDescription "Změna lhůty pro
+    podání nabídek. Nový termín pro podání nabídek je do 25.10.2026 do 23:59 hod. Více informací ve
+    Vysvětlení ZD č. 3", reason code update-add. Bids now due 25 Oct 2026 (was 18 Oct); estimate
+    unchanged at 206,500,000 CZK, EU funds. Same procurement, so no new source and no score moved.'
   date: '2026-09-11'
   signal: ted-627506-2026
   dims: []
@@ -403,12 +409,56 @@ sources:
     autobusů a maximálně 100 kusů mild-hybridních autobusů"; "Mild-hybridní autobusy musí splnit
     definici nízkoemisního vozidla kategorie M3 dle § 3 odst. c) zákona 360/2022 Sb." No electric
     bus in it. Context on how a large buyer meets the low-emission half of the share (S1 § 4(4)
-    requires only half of it to be zero-emission); not this job, backs no score.'
+    requires only half of it to be zero-emission); not this job, backs no score.
+    Added 2026-09-28 (weekly match): the bid deadline above is out of date. A further change
+    notice, ted-661716-2026, issued 24 Sep and published 25 Sep 2026, XML read 2026-09-28 (saved in
+    the run scratchpad), ChangedNoticeIdentifier 624737-2026, ChangeDescription "Lhůta pro podání
+    nabídek prodloužena z 5. 10. 2026 na 16. 10. 2026.": bids are now due 16 Oct 2026, 10:00.
+    Estimate unchanged at 1,581,000,000 CZK, funding code no-eu-funds. Same procurement, so no
+    new source and no score moved.'
   date: '2026-09-10'
   signal: ted-624737-2026
   dims: []
+- type: tender
+  name: 'TED — České Budějovice transport company, depot chargers with five years of service'
+  gist: 'design, build and service of depot chargers'
+  why: 'The České Budějovice city transport company is tendering the design, permits, building and commissioning of electric-bus chargers in its Novohradská bus yard, with five years of service support, paid partly with EU funds.'
+  url: https://ted.europa.eu/en/notice/-/detail/656395-2026
+  note: 'ted-656395-2026, contract notice (cn-standard) issued 22 Sep, published 23 Sep 2026, XML
+    read 2026-09-28 (saved in the run scratchpad). Dopravní podnik města České Budějovice, a.s.
+    (IČO 25166115), "Nabíjecí infrastruktura autobusové vozovny Novohradská": "projektování,
+    zajištění povolení, realizace, uvedení do provozu a předání nabíjecí infrastruktury pro
+    elektrobusy ve vozovně zadavatele. Součástí plnění je rovněž pětiletá servisní podpora", Design
+    & Build, works, open procedure, lowest price wins; site Novohradská 738/40; bid security
+    1,000,000 CZK; funding code eu-funds; bids due 26 Oct 2026 10:00; planned period 15 Dec 2026 to
+    29 Feb 2028. NO estimated value on the notice. A fourth city bus company buying its own depot
+    chargers as a separate contract, next to Liberec-Jablonec (S8) and Olomouc (S13). Not awarded
+    and no value, so public money nearby, not a price receipt; when the award notice lands, restate
+    it as a type: price receipt (tender-line). Backs no score.'
+  date: '2026-09-23'
+  signal: ted-656395-2026
+  dims: []
+- type: tender
+  name: 'TED — Děčín transport company buys 21 electric buses'
+  gist: '21 electric buses, bought outright'
+  why: 'The Děčín city transport company is buying 21 low-floor electric buses in three sizes on a purchase contract, estimated at 247M CZK and paid partly with EU funds.'
+  url: https://ted.europa.eu/en/notice/-/detail/667133-2026
+  note: 'ted-667133-2026, published 28 Sep 2026, XML read 2026-09-28 (saved in the run scratchpad):
+    a change notice over ted-593496-2026 (contract notice published 28 Aug 2026, bids then due 29
+    Sep 2026). Dopravní podnik města Děčína, a.s. (IČO 62240935), "Dodávka elektrobusů kategorie
+    10-11 m, 12-13 m a 17,5-18,75 m pro MAD Děčín": 21 low-floor electric buses, 3 at 10-11 m, 15 at
+    12-13 m, 3 at 17.5-18.75 m, plus related supplies and services under a "návrh kupní smlouvy"
+    (purchase contract), so bought outright. Estimated 247,185,975 CZK; lowest price wins; funding
+    code eu-funds; bid security 2,000,000 CZK. ChangeDescription: bids extended to 29 Oct 2026
+    10:00, and the delivery period and technical specification changed (planned period now 31 Jul
+    2027 to 28 Feb 2029, was to 31 Oct 2029). The notice names no chargers. The MATCH note said the
+    text named no grant; the XML funding code says EU funds, corrected here. An unawarded estimate
+    across three sizes, so not a price receipt; restate once awarded. Backs no score.'
+  date: '2026-09-28'
+  signal: ted-667133-2026
+  dims: []
 created: '2026-09-19'
-updated: '2026-09-21'
+updated: '2026-09-28'
 ---
 
 Czech city bus companies must add electric buses they can barely afford without EU grants, and those grants can be taken back [S1,S2].
@@ -428,6 +478,8 @@ What a bus company carries today:
 - A Prague operator's city contracts run to 2031 and do not allow a change of drivetrain [S3].
 - Olomouc's transport company closed its first tender for depot chargers without a winner in September 2026, and tendered them again the next day [S13].
 - Those chargers must fit the particular electric buses the company has already bought [S13].
+- České Budějovice's transport company is tendering depot chargers with five years of service, as a separate contract [S15].
+- Děčín's transport company is buying 21 electric buses outright, estimated at 247M CZK, with EU funds [S16].
 
 Existing non-solutions: Czech bus makers and energy companies sell electric buses and depot chargers outright, and nobody offers them for a fee per bus [S11].
 
@@ -480,3 +532,5 @@ See [Validated abroad](#validated-abroad).
 2026-09-19 · record created — Created from gb-zenobe with the ledger's Czech e-bus tenders, contracts and grant call. Scores on the 2026-09-19 ladders. Proof 3: Zenobē runs the whole model in Britain and Deutsche Leasing finances e-buses with their chargers in Germany, both established [S5,S6]; counting a finance-only comp is a judgement call. Money 2: three paid receipts within 24 months, for buses, chargers and a bus-plus-charger tender [S7,S8,S9]; reading an outright purchase as the manual form of a fee per bus is our judgement. Urgency 2: the law binds public buyers, which the city transport companies are, and its 60% share applies from 1 January 2026, within 12 months; a fine is named but no enforcement receipt was found, so not 3 [S1]. Private operators are not bound directly, only through the regions' contracts [S1]. Demand 2: the association and two operators on record [S2,S3]. Gap 2: nobody sells the bundle; the Ringil and in-market controls passed [S11]. Our readings, flagged: "more than twice" is 14M against 6M, a 2023 price, so the headline does not use it (coordinator edit, same day) [S2]; the 14M price is from 2023, and 2026 tenders run about 10M to 12.8M a bus [S3,S9]; the E15 claim of a 2035 fleet share misstates the law and is not used [S2]. The ledger's 129.7% grant oversubscription is no longer on the call page, which now shows 74.6% taken after a top-up [S4]. No draft-law badge: the law is in force. Build-gate fix, same day: Deutsche Leasing left comps[] because the comps schema cannot hold a founding year before 1980 (it was founded 1962) and a false year would dodge the gate; its Lübeck case stays as a source [S6]. Proof 3 to 2 (one established player, Zenobē, in Britain and Spain; Spain is not CEE-adjacent), score 11 to 10; the solution now counts one company. Same date, weekly match, merged here: evidence audit — linked a signed contract for 6 electric buses in Frýdek-Místek and Karviná [S12], whose seller joins `locals[]` as adjacent; Olomouc's charger tender, closed without a winner and re-run the next day [S13]; and Prague's diesel and mild-hybrid framework [S14]. S3's note records the Prague operator's extended bid date. Gap re-checked: no one sells a fee per bus, stays 2. No score moved: money was already 2.
 
 2026-09-21 · evidence audit — Weekly match over 34 mobility signals. Nothing new was linked: the three PID electric-bus tenders that arrived as ted-647388-2026, ted-648241-2026 and ted-649004-2026 are the same procurements this record already cites, re-notified a third time, and their notices were read and merged into that source's note rather than added again [S3]. The one new fact in them is a second extension of the bid deadline, from 1 to 5 October 2026, issued 17 September with no reason given in words [S3]; the estimated values did not change. Not linked, and why: a charging-station construction purchasing system set up by E.ON's charging arm (ted-648668-2026, about 43.5M CZK) buys civil works for charging stations in general, not a bus depot's chargers, and that arm is already on the record as an adjacent local that builds depot chargers [S11]; the rest of the week's mobility haul is motorway, rail and road-maintenance procurement by the state road and rail authorities, which buys nothing this record describes. Gap re-checked against the week's signals: the only new suppliers named in them build roads, rails and chargers, and none sells electric buses with their batteries and depot charging for a fee per bus, so gap stays 2 [S11]. No score moved. Same date, schema fix applied, merged here: `comps[].since` now floors at 1800 rather than 1980, so Deutsche Leasing (founded 1962) joins comps[] with the traction its own case study carries — 85 electric buses financed together with their charging infrastructure for the Lübeck city bus company, nearly EUR 66M over 2023-2027, plus Stadtrundfahrt Dresden and Ettenhuber on its public-transport page [S6]. Proof 2 to 3 and score 10 to 11, band unchanged (PRIME): two established foreign players in two markets, Zenōbē in Britain and Deutsche Leasing in Germany, and Germany is CEE-adjacent [S5,S6]. The judgement behind that point, stated plainly: Deutsche Leasing finances the buses AND their chargers but does not build or run the chargers, so it proves the financing half of this solution and not the charging half; Zenōbē remains the only comp that runs the whole model [S5,S6]. The abroad clause in `solution:` moved from "as a company already does in Britain and Spain" to "as 2 companies already do in 2 other countries": Spain is Zenōbē's market, not any comp's base, and the count now reads off the two comps' `geo` [S5,S6]. A bullet under Solved elsewhere says what the German one finances; that it neither builds nor runs the chargers is on its comps row [S6]. Deutsche Leasing ČR, the Prague arm, stays in locals[] as adjacent and early — no electric-bus or charger offer was found there, and it is a different company from the German parent [S11].
+
+2026-09-28 · evidence audit — Weekly match, TED XML read. Linked two unawarded tenders: České Budějovice's depot chargers with five years of service, no value on the notice [S15], and Děčín's 21 electric buses bought outright, about 247M CZK, EU-funded (the match note wrongly said no grant) [S16]. Both are public money nearby until awarded. Deadlines folded in: Prague's framework now closes 16 Oct 2026 [S14], Olomouc's chargers 25 Oct [S13]. Gap stays 2: no supplier named. No score moved.

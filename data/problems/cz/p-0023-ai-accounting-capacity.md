@@ -23,7 +23,7 @@ entry:
   incumbents: direct
   integration: national-system
   money: outside-money
-  why: 'Easier: small firms buy without a tender, and no licence is needed to sell bookkeeping. Harder: the firm needs outside money to hire licensed accountants before its first client''s books close, it files the monthly employer report to the state social-security system, and two established Czech firms sell this now.'
+  why: 'Easier: small firms buy without a tender, and no licence is needed to sell bookkeeping. Harder: the firm needs outside money to hire licensed accountants before its first client''s books close, it files the monthly employer report to the state social-security system, and established Czech firms already sell this.'
 comps:
 - name: Skalar
   url: https://skalar.de/
@@ -61,6 +61,14 @@ comps:
   traction: '€18M Series A, over €30M raised in total (Tech.eu, Sep 2026); AI agents prepare
     the books end to end for more than half of its clients'
   signal: de-integral
+- name: mika
+  url: https://getmika.de/
+  geo: DE
+  since: 2024
+  traction: '€6M seed led by Smedvig Ventures (Vestbee, Sep 2026); more than 750 small GmbH and
+    UG customers, up from about 400 at the start of 2026, and over €1M annual recurring revenue;
+    trained accountants review what the software books'
+  signal: de-mika
 locals:
 - name: Účtárna.ai
   url: https://www.uctarna.ai/
@@ -138,6 +146,27 @@ locals:
     payroll and tax for client firms, reads documents with AI and shows the work in a client
     portal [S12]. Its operator, Adoptimal Technology s.r.o., has traded since 26 January 2023,
     and its site names clients such as B & M WOOD s.r.o. and LEVEL 02, a.s.'
+- name: iÚčto (Direct Accounting)
+  url: https://www.iucto.cz/
+  ico: '28499638'
+  since: 2008
+  competes: direct
+  maturity: established
+  evidence: 'It sells an online accounting app that reads documents with AI, and on top of it the
+    bookkeeping itself: each client gets its own accountant, with tax filings and payroll, from
+    1,399 CZK a month per 30 documents. It says it is used by more than 40,000 businesses; Direct
+    Accounting s.r.o. has traded since 10 December 2008 [S14].'
+- name: HCH Consulting
+  url: https://hchconsulting.cz/online-ucetnictvi
+  ico: '06130381'
+  since: 2017
+  competes: adjacent
+  maturity: established
+  evidence: 'A conventional Prague accounting office, which says it has kept books since 1999 for
+    more than 100 clients and names some, such as Minoj and Nordpark Praha. It also sells a
+    self-service accounting app that reads invoices and bank statements with AI, from 199 CZK a
+    month. That is the software on one side and ordinary bookkeeping on the other, not the
+    software-run firm checked by accountants; its company has traded since 25 May 2017 [S14].'
 sources:
 - type: arbitrage
   name: "Skalar"
@@ -345,8 +374,43 @@ sources:
     so on the 2026-09-19 ladder it backs urgency 1 at most; urgency is 1.'
   date: '2028-01-01'
   signal: reg-jednotne-inkaso-samovymereni-2028
+- type: arbitrage
+  name: "mika"
+  gist: "the Berlin €6M seed, 750+ customers"
+  why: "Berlin, started in 2024: software books a small limited company's receipts and payments and prepares its VAT returns, annual accounts and tax filings, and trained accountants review the output. It raised a €6M seed in September 2026 and says more than 750 small companies use it."
+  url: https://www.vestbee.com/insights/articles/mika-raises-6-m
+  note: 'de-mika (arb-scan, 2026-09-28), linked in MATCH 2026-09-28. Vestbee, published 24 Sep
+    2026, read 2026-09-28: EUR 6M seed led by Smedvig Ventures; "Founded in 2024 by Agnieszka
+    Walorska, Lukas Linnekuhle, and Henry Müssemann"; "Trained accountants review the results and
+    step in when cases require human involvement"; "At the beginning of 2026, around 400 GmbHs and
+    UGs were using mika. That number has since grown to more than 750", ARR over EUR 1M. Company
+    site getmika.de, read 2026-09-28: Get Mika GmbH, Berlin; "ab 49€/Monat"; "Mehr als 800
+    Unternehmen zählen auf mika"; "Steuerfachangestellte prüfen". SELLING-SINCE, receipted, not
+    guessed: 2024. The legal entity is older and was a different business: northdata.de (HRB 244957
+    B, Charlottenburg) shows it registered 15 Aug 2022 as Mika Homes GmbH, renamed Get Mika GmbH 21
+    Mar 2023, Agnieszka Walorska made managing director 12 Jan 2024, the word mark "mika" 30 Jan
+    2024, and the company purpose set to finance and accounting services 23 Jun 2024. A Wayback
+    snapshot of getmika.de of 30 Aug 2023 shows an earlier "Accounting-as-a-Service" offer with two
+    unnamed logo images and no customer named or counted; the 16 Jun 2024 snapshot shows the current
+    AI product as "Join waitlist" and "Early Access". So the product with the 750+ customers was
+    not on sale before 2024, and even the 2023 offer carries no sales receipt. EARLY under the
+    established test (under three years selling, although the customer limb is met), so proof stays
+    1. CZ side, from the signal''s own check (two Czech queries, ares, own-funded-ledger, Wultra
+    control and known-vendor control passed), re-read 2026-09-28: iÚčto (iucto.cz: "Používá přes
+    40 000 podnikatelů"; its účetní služby page: "Přidělíme vám vlastní účetní", services only for
+    users of its app, "Kompletní zpracování účetních dokladů již od 1399 Kč měsíčně"; ARES Direct
+    Accounting s.r.o., IČO 28499638, datumVzniku 2008-12-10) ledgered direct and established. HCH
+    Consulting (hchconsulting.cz: AI "Online účetnictví" app from 199 Kč a month plus consultation
+    with an accountant; reference page names Minoj, Clarino, Roper Industries, Nordpark Praha and
+    "více než 100 spokojených subjektů", "účetní a daňové služby od roku 1999"; ARES IČO 06130381,
+    datumVzniku 2017-05-25) ledgered adjacent and established: the signal called it direct and
+    early, but its named clients are a conventional accounting office''s and its AI offer is
+    self-service software. The signal also calls MyÚčto.cz adjacent where locals[] has it direct;
+    not changed here, flagged. Gap was already 0 and does not move.'
+  date: '2026-09-24'
+  signal: de-mika
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-09-28'
 ---
 
 A new Czech accounting law, planned for 2028, would force every accountant to retrain and the main bookkeeping programs to be rewritten [S3].
@@ -365,12 +429,13 @@ Existing non-solutions: The AI-first accounting firm already trades in Czechia, 
 - Another sells bookkeeping with its own accountants, tax advisers and bank feeds [S9].
 - A third says its technology now posts up to 85% of transactions automatically [S9].
 
-The first publishes its prices; they are under [Willing to pay](#willing-to-pay) [S9]. Neither of the first two is new: one has traded since 2008, and the other's owner since 2012 [S9]. A fourth seller posts most bank movements automatically by rule, with a client portal and an AI assistant on top [S9]. A fifth, a digital accounting office in Zlín trading since 2023, reads client documents with AI [S12].
+The first publishes its prices; they are under [Willing to pay](#willing-to-pay) [S9]. Neither of the first two is new: one has traded since 2008, and the other's owner since 2012 [S9]. A fourth seller posts most bank movements automatically by rule, with a client portal and an AI assistant on top [S9]. A fifth, a digital accounting office in Zlín trading since 2023, reads client documents with AI [S12]. A sixth, trading since 2008, sells an online accounting app that more than 40,000 businesses use, and bookkeeping by its own accountants on top [S14].
 
 Others sell one piece of the job:
 
 - One firm automates only invoice capture, a single layer of the work [S2,S9].
 - ÚOL (an online bookkeeping service) sells the bookkeeping itself [S2].
+- An ordinary accounting office also sells a self-service app that reads invoices with AI [S14].
 - The accounting-software sellers sell the programs, not the bookkeeping, and will have to rewrite them for the new law [S3,S9].
 
 So a new firm would have to take clients from firms already selling, not fill an empty space [S9]. Its opening could be price, a niche, or the switch to the new law, and that switch is still only planned [S3].
@@ -402,7 +467,7 @@ Larger firms could follow if the new law passes, because it changes their books 
 
 Public money can pay part of the build. OP TAK (the state's business-support programme) pays small firms for work they buy from research institutes, with no allocation published [S7]. A deeper grant from the same programme funds joint projects that place research know-how inside a small firm [S8]. Both closing dates are under [Why now](#why-now).
 
-Solved elsewhere: Young AI accounting companies are funded in Germany, Sweden, Britain and the US, and none has traded three years [S1,S5].
+Solved elsewhere: Young AI accounting companies are funded in Germany, Sweden, Britain and the US, and none has traded three years [S1,S5,S14].
 
 - A Munich accounting firm raised €12M in July 2026, led by investor Headline [S1].
 - One professional there serves over 100 clients, with AI doing the groundwork [S1].
@@ -412,9 +477,11 @@ The first firm's AI does the bookkeeping, payroll and tax groundwork, and it sel
 
 A Berlin firm of the same kind, started in 2024, raised an €18M Series A on 16 September 2026, the largest round here [S12]. Its AI agents prepare the books end to end for more than half of its clients, and licensed advisers at an affiliated tax firm sign off [S12].
 
+A second Berlin firm, started in 2024, raised a €6M seed in September 2026 [S14]. More than 750 small limited companies use it, up from about 400 at the start of the year, and trained accountants review what its software books [S14].
+
 A Swedish company and a British one, both started in 2024, sell AI tools to accounting firms rather than keeping books themselves [S5]. Billow AI Labs came out of Y Combinator in summer 2026, pitching an AI accounting firm to replace the Big Four, the four largest audit firms [S5].
 
-None of them has traded for three years, so abroad the market is still being proven, which makes it a fair moment to join [S1,S5]. At home the seat is already held by firms that have sold for a decade or more; see [Market gap](#competition).
+None of them has traded for three years, so abroad the market is still being proven, which makes it a fair moment to join [S1,S5,S14]. At home the seat is already held by firms that have sold for a decade or more; see [Market gap](#competition).
 
 ## First moves
 
@@ -444,3 +511,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewrit
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the planned Accounting Act and holds the monthly employer report, the Czech sellers already trading and the missing shortage figure [S3,S6,S9,S10]. Why now opens on the payroll offices' new report and the retraining the law would bring, with the law, report and grant dates below as plain bullets [S3,S6,S7,S8]. Willing to pay now answers yes, from the Czech sellers' own client counts, and holds the public money that sat in move 5 [S7,S8,S9]. Competition describes the Czech sellers by what they sell and took the "displace, not fill a void" point from move 6 [S2,S3,S9]. The German funding moved from Why now to Validated abroad [S1,S4]. Every `comps[]` and `locals[]` name left the body and the moves; Billow AI Labs and ÚOL, which are not on a ledger, stay named. First moves went from six to five, with no markers or figures: move 4 (pre-sell, and ask the chamber of tax advisers) and move 6 (displace) were folded into moves 1 and 4, and move 5 lost its two links to the private sources pages but keeps both grants. `entry.why` became "Easier: … Harder: …" with the same gates. Detail added from sources already on file, none of it new evidence: the retroactive January–March filings [S6], the Act's submission date of 12 December 2025 [S3], the August 2026 vacancy count [S10], Germany's tax-adviser shortage, its 2027 e-invoicing duty and the EU digital-VAT plan [S1,S4], and Finto's backers [S4]. S10 gained a name, gist and why, and four source `why` lines were cleaned: S3 lost "ecosystem" and glosses IFRS, S6 names the social-security administration and drops "the payroll capacity that is already short", which no source supports, and S7 and S8 say small firms instead of SMEs. Corrected against the sources rather than against the old sentences: "Czech accountants are scarce" and "the same scarcity is here" are gone from the body, as they left the headline on 2026-09-16, because no Czech count of the shortage was found [S9] and the one hiring figure counts clerical jobs [S10]; "functional-currency accounting" is gone, because neither the [S3] note nor the EY article it links mentions it (the article, read 2026-09-18, speaks of widening IFRS use and bringing Czech practice closer to IFRS); Finto's round now cites its own source, about €2.9M [S4], where the body had cited Skalar's source [S1] for "$3.4M", which stays in Finto's ledger row; the Swedish and British companies are now said to sell AI tools to accounting firms, as their ledger rows show, rather than to be AI-first accounting firms [S5]; Combinely's profitability left the body because no source note carries it, and it stays in its ledger row; "the software vendors will ship compliance updates" became "will have to rewrite them", which is what [S3] says; and "small firms that cannot find an accountant" became "small firms", since no source shows they cannot find one. Flagged as inference: that the 2028 switch could loosen clients' ties to their accountants and accountants' ties to their software [S3]; that larger firms could follow if the law passes [S3]; and that the two ways to charge are service fees or switch-over tools, which is our reading, not a source's. No `process` block was added: no source on file says who does which bookkeeping or payroll step today, only that every employer files the report [S6] and that Czech sellers put accountants over software [S9]. No score, status, entry gate value, source, `note:`, `sources[]` order, title, brief, solution, good_for or draft_law changed. Same date, later pass, merged here: evidence added from the monthly scans. Integral, a Berlin AI-first accounting firm, raised an €18M Series A on 16 September 2026 and joins comps[] [S12]; it was founded in 2024, so it is early and proof stays 1. The same check named Adconta, a Zlín digital accounting office; its operator dates from January 2023 in ARES and its site names clients, so it joins locals[] as direct and established. Gap was already 0 and does not move. UcetniAi.cz was not ledgered: its domain served only a registrar placeholder. The finance ministry's planned 2028 merger of income-tax and contribution filing was added to the Why now dates [S13]; urgency was already 3. No score or status changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Tagging pass first: every source on file was read for someone paying for this job, bookkeeping done by software and checked by licensed accountants, bought by a small firm. One source is: the Czech seller's published price, from 5,000 CZK a month plus 300 CZK per employee a month for payroll [S11], a list price, now tagged `dims: [money]`. Not counted, and why: the accounting-software vendor's two public buyers on the contracts register buy the program, not the bookkeeping, so that is adjacent spend; the other direct sellers publish no price on file [S9,S12]; and the two OP TAK programmes [S7,S8] pay small firms for knowledge services bought from research organisations, which is not this job or its cost category, so they stay public money nearby and lift nothing. `scores.money` 0 → 1: an asking price. `scores.urgency` 3 → 1: the freshness point is retired; the Accounting Act [S3] is a bill and the 2028 tax-package item [S13] is only a plan, so both fail REAL, and the record carries `draft_law:`, which holds urgency at rung 1. FLAGGED for the owner: the monthly employer report [S6] is enacted, in force since 1 April 2026 and binds every employer, with no sanction on file, which is rung 2 on its own; it stays at 1 only because of the `draft_law:` badge, and whether the badge stays is a headline call. `score` 4 → 3, FAINT unchanged. The notes on S3, S6, S11 and S13 named retired rungs (deadline sub-scores, "dims omitted") and gained a dated rescore line; their original text is left as written. Four `[Competition](#competition)` links now read `[Market gap](#competition)`. Why now and Willing to pay were re-read against the new numbers and left as written: Why now already says the law is not passed and the monthly report is the only clock running [S3,S6], and Willing to pay says small firms pay a monthly fee, which the published price and the sellers' own client counts back [S9]. No other score, status, source order, marker or headline field changed.
+
+2026-09-28 · evidence audit — mika, a Berlin firm whose software books small companies' accounts while trained accountants review them, joins comps[]: €6M seed, 750+ customers [S14]. Started 2024 per the press and registry, so early; proof stays 1, no score moved. Its CZ check added two locals: iÚčto, direct and established, and HCH Consulting, adjacent and established [S14]. entry.why no longer says two Czech firms: four direct sellers pass the test. Solved elsewhere and Existing non-solutions gained a line each for them.
