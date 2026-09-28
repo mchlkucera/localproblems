@@ -142,14 +142,16 @@ sources:
 - type: regulation
   name: 'Sněmovní tisk 145 — the Czech consumer-credit amendment'
   gist: 'the bill and its status'
-  why: 'The Czech bill that brings in the EU rules: the government sent it to the lower house on 25 March 2026, and the house passed it in third reading on 11 September 2026; it had not yet reached the Senate.'
+  why: 'The Czech bill that brings in the EU rules: the government sent it to the lower house on 25 March 2026, the house passed it in third reading on 11 September 2026, and it went to the Senate on 24 September 2026.'
   url: https://www.psp.cz/sqw/historie.sqw?o=10&t=145
   note: 'psp.cz bill history read 2026-09-18: "Novela z. o spotřebitelském úvěru - EU"; "Vláda
     předložila sněmovní návrh zákona 25. 3. 2026"; 1st reading 22–23 Apr 2026, 2nd 25 Jun 2026,
     3rd reading 11 Sep 2026 at the 29th session, "Návrh zákona schválen" (vote 104); the approved
     text "se připravuje k zveřejnění a předání do dalších kroků legislativního procesu" — not yet
     with the Senate. Transposition deadline was 20 Nov 2025 (S1), so Czechia is late. Supersedes
-    the Feb 2025 inter-ministerial draft held as reg-ccd2-bnpl-2026.'
+    the Feb 2025 inter-ministerial draft held as reg-ccd2-bnpl-2026. Re-read 2026-09-28 ("Stav
+    projednávání ke dni: 28. září 2026"): "Poslanecká sněmovna postoupila dne 24. 9. 2026 návrh
+    zákona Senátu jako tisk 289"; "Další projednávání možné do 24. 10. 2026". Not yet enacted.'
   date: '2026-09-11'
 - type: regulation
   name: 'Finance ministry — the lower house passes the consumer-credit bill'
@@ -323,8 +325,41 @@ sources:
     February 2025 posting (the veklep record on p-0027). Cites urgency by type; the figures are
     context, not a price receipt.'
   date: '2025-02-14'
+- type: regulation
+  name: 'The consumer-credit bill as the lower house passed it'
+  gist: 'the start date and a price cap'
+  why: 'The text the lower house passed on 11 September 2026: the law takes effect on 1 February 2027, and it caps what a consumer loan may cost, at four times the central bank''s repo rate plus 8 points, never under 48% a year.'
+  url: https://www.psp.cz/sqw/text/orig2.sqw?idd=280624
+  note: 'Sněmovní tisk 145, "Text návrhu zákona schváleného Poslaneckou sněmovnou" (PDF, 40
+    pages), fetched and read 2026-09-28. Čl. IX: "Tento zákon nabývá účinnosti dnem 1. února
+    2027." Transitional point 13: interest-free consumer credit is governed by the new text "ode
+    dne 1. února 2027". New § 116a "Opatření proti nepřiměřeným cenám spotřebitelského úvěru":
+    (1) for consumer credit other than for housing the cost indicator "nesmí ... přesáhnout
+    čtyřnásobek repo sazby zvýšené o 8 procentních bodů"; (3) for credit of at most 12 months and
+    at most 20 000 Kč total cost may not exceed "a) částky 2 000 Kč a b) částky odpovídající
+    součinu celkové výše spotřebitelského úvěru, sjednané doby trvání ... a čtyřnásobku repo
+    sazby zvýšené o 8 procentních bodů"; (5) repo rate "nejméně však 4 %", so the cap is never
+    under 48 %. DATE CHECK: the government''s impact assessment of 24 Mar 2026 (S14) gave "účinnost
+    zákona od 11/2026"; the passed text is newer and sets 1 Feb 2027, which the record already
+    used [S3,S4]. The passed text also widens the short-loan band from the assessment''s 6 months
+    to 12. Still a bill: the Senate has it (S2). The cap is a pricing rule, not the check this
+    problem is about, so it is context and scores nothing.'
+  date: '2026-09-11'
+- type: regulation
+  name: 'Finance ministry — impact assessment of the bill, March 2026'
+  gist: 'the size of the consumer-loan book'
+  why: 'The ministry''s impact assessment of the bill sent to the lower house: consumer loans outstanding total about 380bn CZK, about 87% from banks and 13% from non-bank lenders.'
+  url: https://www.odok.cz/portal/services/download/attachment/KORNDSGAWDSA/
+  note: 'reg-ccd2-bnpl-2026 (same instrument, VeKLEP KORNDDVFVG8B, which psp.cz names as the
+    bill''s PID). Závěrečná zpráva RIA of 24 Mar 2026, saved as
+    data/raw/2026-09-28/sweep-veklep/pages/ria_KORNDSGAT6IS.txt, read 2026-09-28: "celková
+    hodnota dlužné jistiny u spotřebitelských úvěrů je cca 380 mld. Kč, přičemž podíl bankovní
+    produkce je z hlediska objemu přibližně 87 % a podíl nebankovní produkce 13 %". Its "účinnost
+    zákona od 11/2026" is superseded by the passed text (S13). Context, scores nothing.'
+  date: '2026-03-24'
+  signal: reg-ccd2-bnpl-2026
 created: '2026-09-18'
-updated: '2026-09-19'
+updated: '2026-09-28'
 ---
 
 Czech lenders must check that a borrower can repay, and the central bank keeps finding lenders that skip part of the check [S6,S7].
@@ -339,6 +374,7 @@ The law calls this the creditworthiness assessment: before lending, the lender c
 - In the fined case, goods and car loans could be granted without proof of income, and expenses came from flat amounts or the borrower's own figures [S7].
 - That lender did not check declared expenses even when it already held the borrower's bank statement [S7].
 - The central bank supervises 73 non-bank lenders, and new applicants increasingly automate the data work, above all the check that a borrower can repay [S6].
+- Consumer loans outstanding total about 380bn CZK, about 87% of it from banks [S14].
 - The complaints rose while lending grew under 13%, driven by lawyers who invite borrowers to challenge their loan contracts [S6].
 - The financial arbiter, the state's out-of-court forum for money disputes, opened 12,050 cases in 2025, 11,386 of them about consumer credit [S8].
 
@@ -361,8 +397,9 @@ Paying later means the shopper takes the goods now and pays in instalments or in
 The dates and rules behind this:
 
 - The EU directive applies from 20 November 2026, and Czechia missed its November 2025 deadline to write it into law [S1,S2].
-- On 11 September 2026 the lower house passed the Czech bill, 134 of the 136 deputies present voting for it [S2,S4]. It still has to pass the Senate [S2].
-- The finance ministry expects the law to take effect on 1 February 2027 [S3,S4].
+- On 11 September 2026 the lower house passed the Czech bill, 134 of the 136 deputies present voting for it [S2,S4]. The Senate received it on 24 September and has until 24 October [S2].
+- The text the lower house passed takes effect on 1 February 2027 [S3,S4,S13].
+- It also caps what a consumer loan may cost, at four times the central bank's repo rate plus 8 points, never under 48% a year [S13].
 - The check must rest on verified information about income and expenses, and the lender may lend only if the result says the borrower can likely repay [S1].
 - Every pay-later product where a firm other than the shop lends the money falls under the full law [S1,S5].
 - Interest-free credit needs the check too, a single payment put off until later may not exceed the average wage, and social-network data is banned [S4].
@@ -396,3 +433,5 @@ In France a company turns a borrower's bank transactions into a credit score and
 2026-09-19 · plain language (owner-approved) — Owner: "'that check to buy now pay later' what does that mean? its not self-explanatory". The headline block and every rendered line now say what the check and "pay later" are, in plain words. Title before, verbatim: "Czech lenders can be fined 4M CZK for not checking what borrowers earn and spend. A bill now extends that check to buy-now-pay-later." After: "Czech lenders can be fined 4M CZK for not checking that borrowers can afford to repay. A bill would extend the check to shoppers who pay later." Brief before: "Some lenders take borrowers at their word on expenses instead of checking bank statements, and non-bank lenders were fined 19M CZK last year [S6,S7]. A bill the lower house passed in September extends the check to buy-now-pay-later from February 2027 [S2,S3]." After: "Some lenders take borrowers at their word on what they spend, and non-bank lenders were fined 19M CZK last year [S6,S7]. From February 2027 a bill would add the check when shoppers pay in instalments or in one payment later [S2,S3]." Solution: "a documented affordability check" became "a documented check that the borrower can afford to repay". Checked against the sources: the 4M CZK fine was for granting loans without proof of income and taking expenses from flat amounts or the borrower's own figures [S7], so "not checking that borrowers can afford to repay" states what the decision found; "would" and "bill" replace "now extends", because the Czech law has passed only the lower house [S2]; the check reaches interest-free instalment sales [S3], interest-free credit and a single payment put off until later [S4], and every pay-later product where a firm other than the shop lends [S5]. The owner's example "after 30 days" is not used: no source on file gives a period, and the EU directive's 50-day and 14-day limits describe the shop's own credit that stays outside the law [S1]. "The lower house passed in September" left the brief for length and stays under Why now [S2]. Body: a new sentence under Why now's first three items explains paying later [S3,S4]; "buy-now-pay-later" became "pay later" everywhere a reader sees it; "creditworthiness assessment" is kept once, where the law's name is explained, and elsewhere reads "the check that a borrower can repay"; "a third party lends" became "a firm other than the shop lends the money"; "point of sale" became "goods bought in shops"; "debtor registers" became "registers of people's debts"; "presumed able to repay" became "counts as able to repay"; "a deferred payment" became "a single payment put off until later"; "affordability decision" became "a decision on what the borrower can afford"; move 3's "a licensed account-data provider's feed" became "bank data from a firm licensed to pass it on"; `entry.why`'s "audit trail" became "a record of each check". The same words changed in the rendered ledger and source lines: the Algoan and Dateio rows, CRIF's and Finbricks' evidence ("payment initiation" became "payments started from the account"), and the public `name`, `gist` or `why` of [S3], [S4], [S5], [S6], [S8] and [S9]; no `note:` was touched. No fact was removed. No score, status, source, note, marker, good_for, price_search or `entry` gate value changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 3 → 1 and the total 8 → 6; the band falls from STRONG to FAIR. Willing to pay stays 0. Why now: the old 3 was deadline 2 for the 1 February 2027 start plus the freshness point, which is retired. That start rests on sněmovní tisk 145 [S2,S3], which has passed only the lower house, and on the EU directive [S1], which Czechia has not yet written into law. Both fail REAL. The check lenders owe under the law in force has applied since 2016, so it is the status quo. The central bank's fines [S6,S7] are its routine supervision, not a newer dated change to the duty, and the ESSOX decision (June 2025) is more than 12 months old. So rung 1. Once the bill is law it would read 3, since the act it amends already fines a weak check [S7]. Willing to pay, tagging pass: no source on file shows anyone paying for this job. The banks' 5M–120M CZK IT estimates [S12] price adapting their own systems to the whole law, not this check, and are an estimate, not a payment. The fines [S6,S7] are sanctions. The gap check [S11] found Dateio priced per client with no figure, and SOLUS's published prices are for consumers checking themselves. The buyers are private lenders, so no public contract would show the price (`price_search` says where to ask). So 0, and no receipt was added. Body: the 3 `[Competition](#competition)` links now read `[Market gap](#competition)`, and `price_search` says "under Market gap". Willing to pay's opening sentence said lenders "pay for the check themselves", which read as a payment on file. It now says they would pay, but no Czech price or payment is on file, only fines [S6,S7,S11]. The Why now prose already matched rung 1 and is unchanged. No other score, status, marker, note or `entry` gate changed.
+
+2026-09-28 · fact check · regulation added — The VeKLEP sweep found the government's impact assessment giving the start as 11/2026 [S14], against the 1 February 2027 used here [S3,S4]. The text the lower house passed, read on psp.cz, is newer and sets 1 February 2027 in Čl. IX [S13], so the date stands and was not changed. The bill went to the Senate on 24 September 2026, which has until 24 October [S2]; the Why now item that said it still has to pass the Senate now says so. Added as context: the passed text's cost cap (four times the repo rate plus 8 points, floor 48%; loans up to 12 months and 20,000 CZK capped at 2,000 CZK plus a rate part, where the assessment had said 6 months) [S13], and the 380bn CZK loan book [S14]. Why now stays 1: still a bill, so it fails REAL, and the date did not move CLOSE. No score, title, brief, solution or good_for changed.

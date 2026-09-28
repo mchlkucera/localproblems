@@ -7,11 +7,11 @@ solution: 'Build a service that gives small schools a psychologist and a special
 good_for: 'Someone with a psychology or special-education team who can sell to schools.'
 category: education
 geo: CZ-national
-score: 8
+score: 9
 scores:
   proof: 2
   money: 2
-  urgency: 0
+  urgency: 1
   demand: 2
   gap: 2
 status: candidate
@@ -229,7 +229,7 @@ sources:
 - type: news
   name: "EDUin — new counselling-centre rules and funding planned for 2027"
   gist: "270 more centre staff planned"
-  why: "A new decree on counselling services and a new way of funding the centres are planned from January 2027, with about 270 more staff; the finance ministry disputes the cost."
+  why: "In April 2026 a new decree on counselling services and a new way of funding the centres were planned from January 2027, with about 270 more staff; the finance ministry disputed the cost."
   url: https://www.eduin.cz/clanky/tz-eduin-poradenske-sluzby-vyhlaska/
   note: 'EDUin, 23 Apr 2026, read by the research pass 2026-09-18: "nový systém financování ŠPZ,
     který má být účinný od 1. ledna 2027"; "předpokládá pro rok 2027 navýšení o 270 pracovníků
@@ -332,8 +332,61 @@ sources:
   unit: per-project
   basis: signed-contract
   dims: [money]
+- type: regulation
+  name: "Decree 170/2026 — counselling centres paid per client from 2027"
+  gist: "the enacted funding decree"
+  why: "The education ministry's decree, published on 24 September 2026, funds counselling centres by the clients they serve from 1 January 2027; its explanatory report budgets about 270 more centre staff, about 244M CZK, on 1.24bn CZK paid in 2025."
+  url: https://www.odok.cz/portal/services/download/attachment/KORNDXJDZM6I/
+  note: 'reg-spz-normativy-170-2026. Enactment read 2026-09-28 on the e-Sbírka sbr-cache API
+    (/sb/2026/170): "Vyhláška č. 170/2026 Sb., kterou se mění vyhláška č. 72/2005 Sb., o
+    poskytování poradenských služeb ve školách a školských poradenských zařízeních",
+    datumCasVyhlaseni 2026-09-24, datumUcinnostiOd 2027-01-01. Explanatory report (důvodová
+    zpráva, ODok attachment of 2 Sep 2026, saved as data/raw/2026-09-28/sweep-veklep/pages/
+    zd_KORNDXJDYQKE.txt), read 2026-09-28: "V roce 2025 bylo ŠPZ zřizovaným krajem nebo obcí
+    poskytnuto na pedagogickou práci cca 1,24 mld. Kč"; staff funded in 2025 "činil 1 437
+    pedagogických pracovníků"; need estimated "ve výši 1 707 pedagogických pracovníků"; "v roce
+    2027 bude normativně financováno o 270 pedagogických pracovníků více ... cca 244 mil. Kč";
+    funding moves from "potenciálního" clients to actual services, so private centres "může ...
+    dojít k nárůstu poskytovaných poradenských služeb". NOT AN URGENCY POINT: the decree changes
+    what the state pays the centres and binds no school to act (SCORING.md URGENCY, not a
+    deadline), so it cites demand only: the ministry''s own count of the staff gap.'
+  date: '2026-09-24'
+  signal: reg-spz-normativy-170-2026
+  dims: [demand]
+- type: regulation
+  name: "MŠMT bill — teaching assistants move to a cap per school"
+  gist: "the draft assistant reform"
+  why: "The education ministry's bill, with the government since 31 August 2026 and not yet passed, would fund teaching assistants in ordinary primary schools by a cap per school from 1 September 2027, ending the centres' recommendations for them."
+  url: https://www.odok.cz/portal/services/download/attachment/KORNDXGPSEBG/
+  note: 'reg-skolsky-asistenti (same instrument, VeKLEP KORNDUVFCEIZ). Impact assessment
+    (závěrečná zpráva RIA, 31 Aug 2026, saved as data/raw/2026-09-28/sweep-veklep/pages/
+    ria_KORNDXGEUQVB.txt), read 2026-09-28. Effect "1. 9. 2027". Tab. 1, ordinary classes of
+    public primary schools: pupils with special needs 61,042 (2016) to 157,311 (2025), assistant
+    FTE 5,946 to 17,096; "Výjimku tvoří rok 2025, ve kterém se ovšem změnila metodika vykazování
+    sociálního znevýhodnění". Tab. 5: "Podpůrná opatření AP (stav k 1.5.2026) 9,826 mld. Kč";
+    "snížení přibližně o 3 tisíce úvazků AP oproti stavu k 1. 5. 2026"; "ukončení platnosti
+    doporučení školských poradenských zařízení u těchto podpůrných opatření ex lege k 1. 9.
+    2027". Status on the live ODok page, read 2026-09-28: "7 - zařazeno do evidence", no
+    government meeting date, no sněmovní tisk. A draft, so it fails REAL and backs urgency 1
+    only.'
+  date: '2026-08-31'
+  signal: reg-skolsky-asistenti
+- type: regulation
+  name: "MŠMT bill — national registers of pupils and teachers"
+  gist: "the draft registers act"
+  why: "The education ministry's bill, not yet passed, would have every school feed individual pupil and teacher data to national registers from 1 September 2028; the ministry says it lacks the data to target support for pupils with special needs."
+  url: https://www.odok.cz/portal/services/download/attachment/KORNDUXGAHBD/
+  note: 'reg-registry-ve-vzdelavani-2028 (VeKLEP KORNDADEAZ7K). Impact assessment of 11 Jun
+    2026 (data/raw/2026-09-28/sweep-veklep/pages/ria_KORNDUXEDCPC.txt), read 2026-09-28:
+    "Ministerstvo nemá data pro to, aby dobře zacílilo podporu na děti, žáky a studenty se
+    speciálními vzdělávacími potřebami"; 170.6M CZK for 8,530 school directorates. Explanatory
+    report (zd_KORNDTTLELGM.txt): "Navrhované datum nabytí účinnosti dnem 1. září 2028". Status
+    B - signováno, not known to be enacted. A duty on schools, but a draft 23 months out that
+    does not force the purchase this problem is about, so context only.'
+  date: '2026-06-11'
+  signal: reg-registry-ve-vzdelavani-2028
 created: '2026-09-18'
-updated: '2026-09-19'
+updated: '2026-09-28'
 ---
 
 Pupils who need extra help at school wait months for a counselling-centre assessment, and more centres now miss their legal deadline [S1,S2].
@@ -346,7 +399,10 @@ A counselling centre assesses a pupil and recommends the support the school shou
 
 - In 2024/25 80% of workplaces kept the three-month limit at all, down from 85% [S1]. They miss it mostly for lack of capacity [S1].
 - The number of psychologists has stagnated, and two thirds of centres say they need more specialists [S1].
+- The ministry puts the need at 1,707 centre staff, against the 1,437 it funded in 2025 [S15].
 - Pedagogical-psychological centres served 212,653 clients in 2023/24, up from 198,404 in 2018/19 [S1].
+- Pupils with special needs in ordinary primary classes rose from 61,042 in 2016 to 157,311 in 2025 [S16]. Part of the 2025 rise comes from a new way of counting social disadvantage [S16].
+- Teaching-assistant posts in those classes rose from 5,946 to 17,096 full-time posts over the same years [S16].
 - The Liberec centre states a wait of about 10 months [S3].
 - About half of centre staff time goes to notes, reports and returns [S4].
 - The education ministry asked researchers how centres could decide support in one uniform way [S9].
@@ -361,7 +417,7 @@ Existing non-solutions: Czech firms sell counselling centres their record system
 
 The sellers are listed under [Market gap](#competition).
 
-Why now: No dated rule forces schools to act, but demand for support grew a fifth in a year and centres fall behind [S1,S2].
+Why now: Demand for support grew a fifth in a year, centres fall behind, and a bill would change how schools get assistants from September 2027 [S1,S2,S16].
 
 - Families wait half a year or more for a recommendation [S2].
 - Centre staff lose about half their day to paperwork [S4].
@@ -373,7 +429,9 @@ The dates on file:
 
 - In 2024/25 the share of workplaces keeping the three-month limit fell to 80% [S1].
 - From 1 January 2026 the state funds school psychologist and special educator posts through a standing allocation by school size [S8].
-- From January 2027 a new decree and a new way of funding the centres are planned, with about 270 more staff [S10]. The finance ministry disputes the cost [S10].
+- From 1 January 2027 a published decree pays the centres by the clients they serve, with about 270 more staff budgeted [S15]. The finance ministry disputed the cost while it was a plan [S10].
+- From 1 September 2027 a bill, not yet passed, would fund teaching assistants by a cap for each school and end the centres' recommendations for them [S16]. The ministry expects about 3,000 fewer assistant posts [S16].
+- From 1 September 2028 a draft act would have every school send pupil-level data to national registers, which the ministry says it needs to target support [S17].
 
 Who pays: Some schools already buy a psychologist's time from freelancers, and the state pays schools for psychologists every year [S7,S11].
 
@@ -384,7 +442,8 @@ Who pays: Some schools already buy a psychologist's time from freelancers, and t
 The ministry took these posts over from EU funding at the start of 2025 [S7]. What one school paid a freelance psychologist, and what a family pays for an assessment outside the free route, are in the table of what one buyer pays.
 
 - The centres' own software costs each centre a yearly licence [S11].
-- The planned 2027 funding would add about 244M CZK for new centre staff [S10].
+- The 2027 centre funding is expected to add about 244M CZK for new staff, on 1.24bn CZK paid in 2025 [S15].
+- Teaching assistants funded as support measures cost 9.826bn CZK a year in May 2026 [S16].
 
 Solved elsewhere: Two established US companies sell schools psychologists, speech therapists and special educators over video [S5,S6].
 
@@ -400,10 +459,12 @@ The younger company raised a USD 20M Series B in December 2025, USD 48.9M in tot
 2. Call the heads of small primary schools that have no psychologist of their own and offer a term's trial. The state pays schools for these posts by school size, and the smallest schools get too little for a post of their own; see [Willing to pay](#willing-to-pay). Some schools already pay freelancers for a psychologist's time, so the purchase is familiar.
 3. Recruit psychologists and special educators who want part-time remote work, including those on parental leave or outside the big cities. Psychologists are scarce, as [The opportunity](#opportunity) shows, so the service works only if it reaches people who are not in the job market full time.
 4. Visit the director of one regional counselling centre and agree how the school's cases reach it. The centre keeps the formal assessment and the recommendation, and it gains cases that arrive prepared; see [Why now](#why-now). A centre that trusts the service may send schools on its waiting list your way.
-5. Watch the planned new rules for counselling centres, and apply to register as a private centre if the service outgrows the school role. Only a registered centre can issue the formal recommendation, as [Execution difficulty](#execution-difficulty) explains.
+5. Watch the teaching-assistant bill and the centres' new funding, and apply to register as a private centre if the service outgrows the school role. Only a registered centre can issue the formal recommendation, as [Execution difficulty](#execution-difficulty) explains, and the state will soon pay centres by the clients they serve; see [Why now](#why-now).
 
 ## Revisions
 
 2026-09-18 · record created — Minted from the monthly broad scan's us-parallel-learning signal after Czech research. Proof 2 on Parallel Learning and Presence, both established in the US [S5,S6]; no comparable in a second market sells remote school specialists on file, so proof stays below 3. Lexplore (Sweden) sells reading screening, not specialists, and was left off the ledger rather than used to lift proof. Money 2 on recurring state spend on school psychologist and special educator posts [S7,S8]. Urgency 1, freshness only: the 2027 counselling-centre rules are a plan, not a compliance date [S10], and the 2025 school-entry amendment was not confirmed to add work for the centres. Demand 2 on the school inspectorate's report, two ČT24 reports, a centre's own 10-month notice and the ministry's research ask [S1,S2,S3,S4,S9]. Gap 2: no Czech seller of remote school specialists found, with a passing positive control; seven adjacent players recorded [S11]. Flagged as inference: that the smallest schools get too little for a post of their own is our reading of the allocation table, which starts at 180 pupils [S8]. The school inspectorate's 168 and 127 clients-per-worker figures are left out because the report uses them two different ways. The Mikulov price is per-project because the contract's period was not read [S12].
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0 and the total 9 → 8; the band stays STRONG. Willing to pay stays 2, now on paid receipts instead of state spending. Why now: the old 1 was the freshness point alone, which is retired. No `regulation` source is on file. The three-month limit falls on the counselling centres, not the schools, and it is the status quo. The 2027 rules are a plan [S10]. So rung 0. Willing to pay: the old 2 rested on state pay for school psychologist posts [S7,S8]. That is public money nearby, and it pays posts, not bought-in services, so it cannot lift a price. Tagging pass, settling the worksheet's judgement call by the owner's rule that a payment counts only if it buys this job: ZŠ Mikulov's contract [S12] was read in full on 2026-09-19. It buys a freelance psychologist for the school, 10 hours a week to support pupils, parents and teachers with individual consultations, at 450 CZK an hour, from 1 September 2026 to 30 June 2027. That is this job, done in person instead of over video, bought in by the school. It is now tagged money: a paid receipt, 180,000 CZK incl. VAT, signed 1 September 2026, within 24 months. The same school's earlier contract with the same psychologist, named in S12's note, is restated as a receipt [S14]: 144,000 CZK incl. VAT, signed 11 November 2025, 320 hours at the same rate and the same scope. Two paid receipts within 24 months give rung 2. Not tagged: the Prague centre's 2,300 CZK assessment [S13] is paid by families, not schools. The adjacent prices in the gap check [S11] (Didanet's licence, Kolín's reading-app licence, Frýdek-Místek's test order) buy software or tests, not a psychologist's time. Body: the `[Competition](#competition)` link now reads `[Market gap](#competition)`. Why now's opening sentence says no dated rule forces schools to act, and no longer names "their legal deadline", which is the centres' own, not the schools'. Willing to pay's opening sentence leads with the schools that pay, and its third item, which repeated it, now says schools buy the time from individual freelancers [S11]. S7's note no longer claims money 2, and S12's note records the contract's scope and its tag. No other score, status, marker or `entry` gate changed.
+
+2026-09-28 · fact check · regulation added — The VeKLEP sweep contradicted Why now's opening, "No dated rule forces schools to act". Three instruments added [S15,S16,S17]. The counselling-centre funding decree, a plan here until now [S10], is enacted as 170/2026 Sb., published 24 September 2026 and in force 1 January 2027 (e-Sbírka) [S15]. It changes what the state pays the centres and binds no school, so on the ladder it is not a deadline and backs demand only. The teaching-assistant bill binds schools from 1 September 2027, within 18 months, but is a draft, so it fails REAL [S16]. Why now 0 → 1, total 8 → 9, band STRONG unchanged; no sanction is on file. The registers bill is a draft 23 months out and context only [S17]. Why now's opening now reads "Demand for support grew a fifth in a year, centres fall behind, and a bill would change how schools get assistants from September 2027"; the dates list, Who pays, move 5 and S10's why ("were planned", "disputed") follow. Added from the same documents: the ministry's 1,707-staff need against 1,437 funded [S15], and the 2016–2025 rise in pupils and assistant posts, flagged by the ministry as partly a counting change in 2025 [S16]. Title, brief, solution and good_for unchanged.
