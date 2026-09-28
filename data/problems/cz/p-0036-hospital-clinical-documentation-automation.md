@@ -61,6 +61,17 @@ comps:
   traction: 'MOMO AI-assisted coding in more than 80 hospitals (medconweb, 2023); customers
     include Charité, Universitätsklinikum Schleswig-Holstein, Schön Klinik, BG Kliniken and
     Klinikum Lüneburg (company site, read 2026)'
+- name: Tandem Health
+  url: https://tandemhealth.ai/
+  geo: SE
+  since: 2023
+  traction: 'USD 100M Series B led by the Scaleup Europe Fund managed by EQT, 14 September 2026,
+    after a USD 50M Series A in 2025; used by more than 10,000 care organisations across 14
+    European markets, Ramsay Santé, Humanitas and the NHS among its customers; its AI scribe,
+    coding assistant and decision support are each certified Class IIa under EU MDR (company
+    release and TNW, September 2026)'
+  markets: [DE, FR, GB, ES, IT, NL, FI, NO, DK, BE, PT, EE, LT]
+  signal: se-tandem-health
 locals:
 - name: STAPRO (AI asistent výkaznictví)
   url: https://www.stapro.cz/
@@ -141,6 +152,77 @@ locals:
     městská nemocnice, Oblastní nemocnice Kladno and Nemocnice Prachatice in October 2025 [S21].
     It checks codes after they are assigned and does not read the report or propose the codes,
     so it is not this; it is who a hospital already pays to watch its coding.'
+- name: Mirek AI (Bindworks)
+  url: https://www.mirek.ai/
+  ico: '07436505'
+  competes: direct
+  maturity: early
+  evidence: 'It sells an ambient assistant that records the consultation, ward round or dictation,
+    separates the speakers and writes a structured report into the ward''s own templates, ready for
+    the hospital system, with HL7 and FHIR export; its site names hospital wards, the emergency
+    department among them, as its main focus, and it took second place at the DIGI@MED Award 2025
+    [S24]. This is the report-writing step, sold to hospitals. Bindworks s.r.o. dates from 2018 in
+    ARES, but no launch date for this product is published, so no year is recorded and it counts
+    as early. Its page offers no insurer codes, so ICZ still holds the coding step.'
+- name: AurisOne (Auris One)
+  url: https://www.aurisone.com/
+  ico: '22151265'
+  since: 2024
+  competes: direct
+  maturity: early
+  evidence: 'It sells a Czech AI assistant that listens to the consultation and turns it into a
+    structured record, an admission report or nursing notes for the doctor to check, with a
+    hospital offering and published prices from 950 CZK a licence a month; it claims 1.5 years in
+    live operation and more than 20,000 reports, quotes the director of MEDICA Třinec, a mobile
+    hospice, and won the DIGI@MED Award 2025 in its category [S24]. AurisOne s.r.o. was registered
+    on 14 October 2024, under three years ago, so it is early. It writes the report, and its page
+    offers no insurer codes.'
+- name: Medivox
+  url: https://medivox.cz/
+  ico: '24901946'
+  since: 2025
+  competes: direct
+  maturity: early
+  evidence: 'It sells software that records the doctor-patient conversation and drafts a structured
+    report in the doctor''s own templates, integrated both ways with the SmartMEDIX practice
+    system, with published prices from 1,075 CZK a month and hospitals named on its price list
+    [S24]. Its founders say they started in early 2025, sell mainly to outpatient practices and
+    polyclinics so far and want to move into hospitals, and that competition is growing fast [S24].
+    Medivox s.r.o. was registered on 1 April 2026, so it is early. It writes the report, and its page
+    offers no insurer codes.'
+- name: Emmy Scribe (Sestra Emmy)
+  url: https://www.sestraemmy.cz/en/zdravotnik/scribe
+  competes: direct
+  maturity: early
+  evidence: 'It sells a scribe that records the consultation and returns a transcript and a
+    structured summary, history, findings, conclusion and recommendation, to paste into the
+    practice system, at 1,490 CZK a month per practice; it names primary, outpatient and hospital
+    outpatient care as its market and quotes named GPs [S24]. The Sestra Emmy practice product is
+    older, but no launch date for the scribe is published and its operator''s IČO was not
+    resolved on this pass, so no year is recorded and it counts as early.'
+- name: mAIdoc
+  url: https://www.maidoc.cz/
+  competes: adjacent
+  maturity: early
+  evidence: 'It sells an AI that transcribes the doctor-patient conversation and prepares a
+    structured note, summary, diagnoses and plan, in templates for GPs, specialists, psychologists
+    and dentists, exported to the outpatient practice system, with a free tier and a 980 CZK a
+    month plan [S24]. Its page names practices, clinics and telemedicine and no hospital, so it
+    sells the same step to a different buyer; that is why it is adjacent here. Its operator, a
+    HealthProGroup member, was not resolved to an IČO, and no customer or launch year is
+    published, so it counts as early.'
+- name: NovaVoice (Consulting Company Novasoft)
+  ico: '27595137'
+  since: 2009
+  competes: adjacent
+  maturity: established
+  evidence: 'It sold NovaVoice, Czech medical speech-to-text with specialist dictionaries, to named
+    customers: the imaging clinic of Fakultní nemocnice Motol from 2009, and more than thirty
+    licences at Všeobecná fakultní nemocnice for pathology and forensic medicine (Medical Tribune,
+    21 September 2009) [S24]. Consulting Company Novasoft, a.s. is live in ARES, registered in
+    2006. Like NEWTON Dictate it types a dictated finding as free text and does not structure the
+    report. The newest receipt on file is from 2009, so whether it still sells this was not
+    confirmed.'
 process:
   summary:
     today: 'A doctor writes the finding or the discharge summary as free text, and two more people read that same text again — a coder for the insurer''s codes, a documentarian for the cancer registry [S1,S3].'
@@ -646,8 +728,91 @@ sources:
   date: '2027-01-01'
   signal: veklep-ALBSDXRFYLM6
   dims: []
+- type: arbitrage
+  name: "Tandem Health — USD 100M Series B for an AI scribe and coding assistant, Stockholm"
+  gist: "the Swedish AI-scribe company"
+  why: "A Stockholm company founded in 2023 sells an AI scribe that listens to the consultation and drafts the note, with a coding assistant beside it, to more than 10,000 care organisations in 14 European countries, and raised a USD 100M Series B in September 2026."
+  url: https://tandemhealth.ai/resources/news/tandem-health-raises-100m-to-bring-european-healthcare-into-the-ai-era-led-by-the-scaleup-europe-fund-managed-by-eqt
+  note: 'se-tandem-health (arb-scan, 2026-09-28; owner decision 11). Company release, 14 September
+    2026 (saved: data/raw/2026-09-28/funded-extra/pages/): USD 100M Series B led by the Scaleup
+    Europe Fund managed by EQT, with Kinnevik, Northzone, Amino Collective and Visionaries; a USD
+    50M Series A in 2025, USD 160M in total; "used by 10,000 care organisations across 14 European
+    markets"; offices in Germany, France, the UK, Spain, Italy, the Netherlands, Sweden, Finland,
+    Norway, Denmark, Belgium, Portugal, Estonia and Lithuania, none in Czechia; the AI scribe, the
+    coding assistant and the decision support each certified Class IIa under EU MDR; integrated with
+    more than 130 medical record systems; "Since being founded three years ago". TNW, 15 September
+    2026: founded in 2023 by Lukas Saari, Oliver Åstrand and Oscar Boldt-Christmas; customers
+    include Ramsay Santé, Humanitas and the NHS; the UK is its largest market by users (per
+    Tech.eu). ArcticStartup, 22 September 2026, corroborates the round. MATURITY, STATED
+    AGAINST THE SIGNAL: the signal and the brief for this pass called it EARLY on the three-year
+    limb. The test as this register runs it is the year of the register''s newest `updated` minus
+    `since`, 2026 minus 2023 = 3, which is the same arithmetic that made ICZ (since 2023)
+    established on this record on 2026-09-19; with a Series B and a public customer count it
+    passes, narrowly, and scripts/check-records.py reads it so. PROOF DOES NOT MOVE EITHER WAY: it
+    was already 3 on Germany and the US [S10,S11,S12,S13], and 3 is the top of the ladder. What it
+    adds is a CEE-adjacent seller of the note-writing step, which none of the other comps does:
+    the German and US comps sell templates, drafted radiology reports and codes. It drafts the note
+    from conversation rather than giving the doctor a template, so it is the neighbouring model to
+    this solution, not the same one.'
+  date: '2026-09-14'
+  signal: se-tandem-health
+- type: gap-check
+  name: "Czech AI scribes — who drafts the report from the consultation, swept in Czech"
+  gist: "the Czech scribes, swept"
+  why: "A Czech-language sweep for software that listens to the consultation and drafts the medical report found five young Czech sellers, four of them selling to hospitals or hospital outpatient clinics, none selling it for three years, and none offering insurer codes on its page."
+  url: https://www.digitalhealth.cz/ai-scribe-nastroje-praxe-lekarska-dokumentace/
+  note: 'Sweep 2026-09-28, run for se-tandem-health (its cz_check), pages saved in
+    data/raw/2026-09-28/funded-extra/pages/. digitalhealth.cz, 26 April 2026, tested five
+    commercial AI scribes "v konkurenční roli na českém trhu": mAIdoc, Auris One, Mirek AI, Emmy
+    Scribe and Medivox. Each vendor''s own page read: (1) Mirek AI (mirek.ai): "Strukturovaná zpráva
+    do vaší šablony", "Nemocnice a jejich oddělení — Naše hlavní zaměření", urgent admissions,
+    HL7 and FHIR export; "Za Mirkem stojí Bindworks", "8 let na trhu", 78 clinics "s našimi
+    řešeními" (the firm''s, not this product''s); ARES: Bindworks s.r.o., IČO 07436505, founded
+    6 September 2018. No product launch date, so no `since`. (2) Auris One (aurisone.com, about
+    and terms pages): "mění rozhovor s pacientem na strukturovanou zdravotnickou dokumentaci",
+    "řešení pro malé praxe, velké ordinace i nemocnice", admission report and nursing notes; "1,5
+    roku v ostrém provozu", "20 000+ vytvořených zpráv"; quote from the director of MEDICA
+    Třinec, which the quote itself describes as a mobile hospice; terms of 12 May 2025 name
+    AurisOne s.r.o., IČO 22151265; ARES: founded 14 October 2024. Zdravotnický deník, 27 May 2026:
+    first place in the DIGI@MED Award category for process efficiency, Mirek.ai by Bindworks
+    second. (3) Medivox (medivox.cz, DPA page): conversation to structured report, own templates,
+    two-way SmartMEDIX integration, Standard 1,075 CZK and Pro 2,075 CZK a month billed yearly,
+    "řešení pro malé praxe, velké ordinace i nemocnice"; DPA names Medivox s.r.o., IČO 24901946;
+    ARES: founded 1 April 2026. Naše zdravotnictví, 13 August 2026: the founders started "začátkem
+    roku 2025", "Ambulance pro nás byly přirozeným začátkem", polyclinics now and hospitals next,
+    "Konkurence rychle přibývá"; a site testimonial of 15 December 2025 shows it sold by then,
+    hence since 2025. (4) Emmy Scribe (sestraemmy.cz): transcript and structured summary to paste
+    into the practice system, 1,490 CZK a month per practice, for "primární, ambulantní i
+    nemocniční péče … nemocniční ambulance"; named GPs quoted; operator IČO not resolved. (5)
+    mAIdoc (maidoc.cz): conversation to structured note with templates for GP, specialist,
+    psychologist and dentist, export "do svého ambulantního systému", free tier and 980 CZK a
+    month; "mAIdoc.cz je členem HealthProGroup"; ARES name search "HealthPro" returned nothing, so
+    no IČO; no hospital named, so ADJACENT here (same step, different buyer). COMPETES, JUDGED
+    AGAINST THIS RECORD''S SOLUTION: the solution is the report written as data at the moment the
+    doctor writes it, inside the hospital''s software, sold to hospitals. The four that sell the
+    report-writing step to hospitals or their outpatient clinics are direct, as Medicalc''s dictated
+    structured report already is on this ledger; all four are EARLY, and an early local player
+    does not close the space (MATCH §1). None offers insurer codes on its page, so on the coding step ICZ
+    stays the established direct seller and gap stays 0 on ICZ alone [S21]; the signal files ICZ
+    and STAPRO as adjacent to the scribe leg, which is the same fact seen from the other product.
+    ALSO FOUND BY THE CONTROL QUERY: NovaVoice by Consulting Company Novasoft, a.s. (ARES IČO
+    27595137, founded 11 September 2006, live), Medical Tribune, 21 September 2009: speech-to-text
+    at the imaging clinic of FN Motol, more than thirty licences at VFN; recorded as adjacent,
+    since 2009, with its newest receipt 2009 stated. ARES name search run 2026-09-28 by this pass.
+    POSITIVE CONTROL, PASSED: ARES "Wultra" returned Wultra s.r.o., IČO 03643174; the dictation
+    queries surfaced NEWTON Dictate (already on this ledger) and NovaVoice, known Czech medical
+    speech vendors. NOT CHECKED: cz-contract-parties for the five scribes (the lookup was not read
+    for them on this pass), app stores, startupjobs.'
+  date: '2026-09-28'
+  queries:
+    - "automatický přepis lékařské zprávy z rozhovoru s pacientem AI"
+    - "AI asistent lékař dokumentace ambulance nahrává rozhovor s pacientem a píše zprávu"
+    - "hlasové zadávání lékařská zpráva ambulantní software diktování"
+    - "diktování lékařských zpráv přímo do nemocničního informačního systému převod řeči na text"
+  checked: [google-cz, ares, own-funded-ledger]
+  expires: '2026-12-28'
 created: '2026-09-03'
-updated: '2026-09-19'
+updated: '2026-09-28'
 ---
 
 Doctors write findings and discharge summaries as free text, and other staff then read that same text again by hand [S1,S3].
@@ -669,9 +834,11 @@ Three hospital-system vendors sell or pilot it, all from inside the hospital inf
 
 - Two of them already propose insurer codes from the discharge report: one as a free pilot opened in 2026, the other on sale since October 2023 [S4,S16].
 - Hospitals pay for the second under contracts in the public register, from a paid pilot in 2024 to a purchase by tender in February 2026 [S21].
-- The third promises a structured report out of a dictated ward round, consultation, operation or autopsy, and does not say that any hospital runs it [S16].
+- Four young Czech firms sell software that listens to the consultation and drafts a structured report for the doctor to check, to hospitals or their outpatient clinics; none has sold it for three years [S24].
+- A fifth sells that same step to outpatient practices only, and none of the five offers insurer codes on its page [S24].
+- The third hospital-system vendor promises a structured report out of a dictated ward round, consultation, operation or autopsy, and does not say that any hospital runs it [S16].
 - No Czech seller of structured radiology templates has been found, and nothing here proves that none exists [S16].
-- Three Czech firms sell something close by: one reads Czech clinical free text by machine to flag hospital-acquired infections across more than a third of Czech hospital beds, one types dictated findings into the hospital system as free text, and one reads chest X-rays for the radiologist [S16].
+- Three Czech firms sell something close by: one reads Czech clinical free text by machine to flag hospital-acquired infections across more than a third of Czech hospital beds, one types dictated findings into the hospital system as free text, and one reads chest X-rays for the radiologist [S16]. A second dictation seller had two faculty hospitals as customers in 2009 [S24].
 - A fourth sells hospitals a service that supervises the codes they have already reported, and has since at least 2017 [S21].
 - The state took the registry half itself: the health-statistics institute ran a 25.4M CZK project on EU money to 30 June 2026, using AI to complete and validate cancer-registry reporting from the registry's own data and the register of paid care, not from the hospital's report [S17].
 
@@ -712,7 +879,9 @@ The call is IROP call 79 — the eHealth call of the EU's regional-development p
 - The contracts keep the coder in charge: the software recommends the codes, and a coder decides them [S21].
 - 23 hospitals used another vendor's coding assistant free of charge to 31 August 2026, and no price for the months after it has been published [S4].
 
-Solved elsewhere: Both halves already sell as products: structured report templates from Germany, and code proposals from the report in Germany, Austria and Switzerland [S10,S12].
+Solved elsewhere: Both halves already sell as products abroad: report templates and code proposals in Germany, and notes drafted from the consultation in 14 European countries [S10,S12,S23].
+
+A Stockholm company founded in 2023 sells an AI scribe that listens to the consultation and drafts the note, with a coding assistant beside it, to more than 10,000 care organisations in 14 European countries, and raised a USD 100M Series B in September 2026 [S23]. The note is drafted from the conversation rather than filled in by the doctor from a template [S23].
 
 On the report half, a Munich company founded by radiologists in 2014 sells structured, machine-readable radiology and pathology reporting to more than 16,000 physicians in over 90 countries, and raised a EUR 23M Series C in April 2024 [S10]. Three large imaging manufacturers distribute it, and in October 2025 it agreed to buy a US reporting company, taking the two above 80 million exams a year between them [S10].
 
@@ -724,9 +893,9 @@ Two more US companies are funded on the coding half alone. CodaMetrix, built wit
 
 ## First moves
 
-1. Build the structured radiology report inside the hospital's own system, so the finding becomes data the moment the doctor types it. Brno's cancer institute asked for exactly that, and set it as a challenge for a hackathon this autumn; see [The opportunity](#opportunity) and [Why now](#why-now). Give it smart templates for its commonest examinations, inside the hospital system its doctors already use, so a doctor clicks through a finding instead of dictating prose. Nobody here has been found selling that half, while the coding half already has vendors working inside those same systems; see [Market gap](#competition).
+1. Build the structured radiology report inside the hospital's own system, so the finding becomes data the moment the doctor types it. Brno's cancer institute asked for exactly that, and set it as a challenge for a hackathon this autumn; see [The opportunity](#opportunity) and [Why now](#why-now). Give it smart templates for its commonest examinations, inside the hospital system its doctors already use, so a doctor clicks through a finding instead of dictating prose. Nobody here has been found selling radiology templates, while young Czech firms already draft reports from the consultation and the coding half has vendors working inside those same systems; see [Market gap](#competition).
 2. Take one named hospital through the open state call, and write its application as part of the deal. The call pays a hospital to change how it keeps its medical documentation, caps what it will fund per provider, and names the providers that may apply; see [Willing to pay](#willing-to-pay). It closes this winter and the funded work has to be finished the year after, as [Why now](#why-now) shows, so a hospital that wants this has to pick a supplier now. Build to the health ministry's own report specifications, which are listed under [Willing to pay](#willing-to-pay), because a funded hospital has to be able to work with them.
-3. Do not sell the coding step on its own; charge for the report and the registry entry. One hospital-system vendor let a group of hospitals use its coding assistant for nothing, and another already sells code proposals from the discharge report to paying hospitals; see [Market gap](#competition). What those hospitals pay shows the budget for the coding step exists; see [Willing to pay](#willing-to-pay). What no vendor here sells is the report written as data and the registry entry that falls out of it, so quote the whole chain rather than the coding step.
+3. Do not sell the coding step on its own; charge for the report and the registry entry. One hospital-system vendor let a group of hospitals use its coding assistant for nothing, and another already sells code proposals from the discharge report to paying hospitals; see [Market gap](#competition). What those hospitals pay shows the budget for the coding step exists; see [Willing to pay](#willing-to-pay). Young Czech firms already draft the report from the consultation, but none has been found selling the registry entry that falls out of a report written as data, so quote the whole chain rather than the coding step.
 4. Grow the way the German newcomer did, from a handful of pilot hospitals rather than from a national tender. The entrant on the coding half started about a decade ago with pilots and now sells to dozens of hospitals, a university hospital among them, while the old coding house beside it took four decades to reach more than a thousand; see [Validated abroad](#validated-abroad). Your pilot is the institute that wrote the ask, and it can have the work paid for; see [Willing to pay](#willing-to-pay).
 5. Read the registry side before you build the extraction, because the state has already spent EU money automating it from its own data. What the state worked from was the cancer registry's own records and the register of paid care, not the hospital's report; see [Market gap](#competition). Pulling the facts out of the clinical text is the half Brno's cancer institute still asks for; see [The opportunity](#opportunity). Build that, and the registry entry becomes the second thing you sell.
 
@@ -767,3 +936,5 @@ The coder wage, searched and not added: the ÚP vacancy data for March to Septem
 Body: Market gap now opens on the coding half being taken, with two new items: hospitals paying under registered contracts, and the adjacent coding-supervision firm [S21]. Its paragraph on the three vendors now names them as the subject, since the answer sentence no longer does. Willing to pay now opens on hospitals paying for the coding half in coders' time and in software [S3,S21]. Its second item, the free pilot, moved below the first three, and three items were added below: the tender purchase, pilot-before-invoice and the coder deciding the codes [S21]. Move 3 no longer says the coding half will be given away or that no hospital pays; it says not to sell the coding step alone and links to Willing to pay. Not changed: title, brief, solution, good_for, `price_search`, the process block, urgency, proof and demand. The headline's "pay twice" now has receipts behind it, and whether the brief should say so is the owner's call.
 
 2026-09-19 · solution line reworded (owner-delegated) — Before, verbatim: "Build report templates inside the hospital's own software that pre-fill codes for staff to check, as 3 companies already do in Germany." After: "Build report templates that doctors fill in inside the hospital's own software, so staff only confirm the codes, as companies in Germany already do." Why: the Willing to pay search above found hospitals paying a Czech vendor for code proposals from the finished report [S21], so a line that led on pre-filled codes now read as the product already on sale. The new line leads on the half nobody sells here, the template the doctor fills in, which First moves 1 and 3 already say [S16]. "3 companies" became "companies": the German companies on file split across the two halves, one on the report and two on the codes [S10,S12]. No score, status, source, title, brief or body sentence changed. Same date, evidence audit, merged here (one entry per date): linked the health ministry's draft reimbursement decree for 2027 [S22]: it keeps CZ-DRG payment for acute care and 95 percent pay for late-reported care. Context only, dims empty: a draft fails REAL, CZ-DRG is the status quo, and the 95 percent rule is kept, not new. Urgency stays 1 on [S6]. Two Why now detail bullets added. The solution line above stands: the decree bears on the coding half, not the template. Gap re-checked: no new seller, stays 0. Scores unchanged.
+
+2026-09-28 · owner decision 11 · evidence audit — Linked the Swedish AI-scribe company Tandem Health (se-tandem-health) as a comparable and a source [S23], and recorded the Czech sweep its signal ran as a new gap check [S24]. No score changed. Proof stays 3: it was already at the top of the ladder on Germany and the US [S10,S11,S12,S13]. The signal and this pass's brief called Tandem early on the three-year limb; the test as this register runs it, 2026 minus 2023, counts three years, the same arithmetic that made ICZ established here on 2026-09-19, so with a Series B and 10,000 organisations it passes narrowly, and that is stated in S23's note rather than hidden. New in locals[]: Mirek AI, AurisOne, Medivox and Emmy Scribe, direct and early, because they sell the report-writing step to hospitals or their outpatient clinics and none has three years selling; mAIdoc, adjacent and early, because it sells the same step to outpatient practices only; and NovaVoice, adjacent and established on 2009 receipts, dictation to free text like NEWTON [S24]. Gap stays 0 on ICZ alone: none of the scribes offers insurer codes, and early players close nothing [S21,S24]. entry.incumbents re-derived, still direct. Body: two Market gap items and one dictation sentence, a Solved elsewhere paragraph and a shorter answer sentence there (Austria and Switzerland stay in its paragraph), and moves 1 and 3 no longer say that nobody here sells the report half. Diverges from the signal: it filed mAIdoc as direct and did not list NovaVoice.
