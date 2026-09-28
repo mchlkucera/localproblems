@@ -156,7 +156,25 @@ sources:
     Willing to pay search 2026-09-19: the choice of WHICH buildings go into such a contract is also
     bought on its own, before it, from consultants: a hospital (S7), a public university (S8) and the
     state development bank''s EPC advisory programme (S9). Money is 2 on S7 and S8; this row stays
-    public money nearby, and the choice of measures inside these awards is still unpriced.'
+    public money nearby, and the choice of measures inside these awards is still unpriced.
+    Weekly match 2026-09-28, TED XML read via ted.europa.eu/en/notice/<id>/xml the same day. Two
+    more wave members folded in here rather than added as sources: (a) ted-664589-2026, issued 25
+    Sep 2026, Plzeňský kraj through Centrální nákup Plzeňského kraje, "Poskytování energetických
+    služeb metodou EPC v Plzeňském kraji", cn-standard, negotiated with call, EU-funded, estimated
+    309,233,617 CZK, requests due 2 Nov 2026; the ESCO drafts the measures and delivers them in the
+    buildings of four regional organisations (SPŠ dopravní Plzeň, Domov Harmonie, CSS Mirošov, CSS
+    Tachov). The same region whose EPC suitability analysis the state bank bought from PKV BUILD in
+    January 2026 (S9); the notice does not say how the four were chosen. (b) ted-666623-2026, issued
+    25 Sep 2026, Statutární město České Budějovice, EPC "ve vybraných objektech", cn-standard,
+    EU-funded, estimated 150,000,000 CZK, 1 May 2027 to 31 Dec 2038, two buildings (MŠ Jizerská, ZŠ
+    a MŠ Nová); stage I is "předběžné činnosti (ověření stavu využití energií v objektech)", and 70 %
+    of the quality criterion is "Správnost odhadu výše úspory". Both are contract notices, not
+    awards, so they are not added to the June-to-August totals above. DUP, same date: hlidac-37280601
+    is registr smluv 39649973 (read 2026-09-28), MČ Praha 6 and ENESA a.s. (IČO 27382052), contract
+    00615/2025/KS, amendment No. 4 of 22 Sep 2026, 404,258,884 CZK excl. VAT. It is the Praha 6 EPC
+    in this wave: TED ted-417801-2026 (can-modif, issued 16 Jun 2026, awarded 2 Jun 2025, contract
+    S615/3/2025/KS, same buyer and supplier, SEVEn Energy as procurement adviser) put it at
+    385,445,064 CZK, the ~€15.7M above. Public money nearby, dims unchanged, no score.'
   date: '2026-06-04'
   signal: ted-384935-2026
 - type: gap-check
@@ -357,8 +375,47 @@ sources:
   date: '2026-09-18'
   signal: ted-649067-2026
   dims: []
+- type: tender
+  name: 'TED — energy-savings contracts re-scoped and tendered, September 2026'
+  gist: 'the savings contracts, re-scoped'
+  why: 'A town changed the works in its energy-savings contract after the energy firm checked how its buildings actually use energy; a Prague hospital and a city put new contracts for chosen buildings out to tender.'
+  url: https://ted.europa.eu/en/notice/-/detail/651807-2026
+  note: 'Weekly match 2026-09-28; each notice''s XML read the same day via
+    ted.europa.eu/en/notice/<id>/xml. (1) ted-651807-2026, issued 18 Sep 2026, published 22 Sep,
+    Město Pelhřimov (IČO 00248801), can-modif of notice 545496-2025, "Poskytování energetických
+    služeb metodou EPC v budovách města Pelhřimov", awarded to ENETIQA Solutions s.r.o. (IČO
+    23239077), SEVEn Energy s.r.o. named as procurement adviser, contract term 24 Jul 2025 to 31 Mar
+    2037, 89,937,970.65 CZK, EU-funded (CF 2021); the notice gives the award date as 22 May 2024.
+    Change reason: Dodatek č. 1 "je nezbytné s ohledem na závěry zpracované verifikační zprávy o
+    ověření stavu využití energie v objektech"; the preliminary report records every change found in
+    the preliminary work, "na jejichž základě dochází k úpravě rozsahu provádění základních opatření
+    (vícepráce a méněpráce)", and the client added external shading to the whole town hall where the
+    project had it on less than three sides. The notice gives one value, the one above. (2)
+    ted-654272-2026, issued 22 Sep 2026, Fakultní nemocnice Bulovka (IČO 00064211), "ENERGETICKY
+    ÚSPORNÁ OPATŘENÍ V AREÁLU FN BULOVKA, 2. ETAPA", cn-standard, negotiated with call, EU-funded,
+    estimated 350,000,000 CZK, 1 Feb 2027 to 31 Dec 2038, bids due 2 Nov 2026, place of performance
+    the hospital campus with the buildings listed in an annex; SEVEn Energy again the procurement
+    adviser. (3) ted-661702-2026, issued 24 Sep 2026, Statutární město Jablonec nad Nisou (IČO
+    00262340), "Poskytování energetických služeb metodou EPC ve vybraných objektech", cn-standard,
+    negotiated with call, no EU funds, estimated 48,000,000 CZK, 12 years of guaranteed savings, 30
+    Apr 2027 to 31 Dec 2040, bids due 30 Oct 2026, three buildings (MŠ Švédská, ZŠ Šumava''s Švédská
+    site, MŠ Nová Pasířská); the supplier proposes the mandatory measures and any further ones
+    suited to the buildings. Jablonec is the client of the state bank''s EPC advisory contract of 4
+    September 2025 in S9, whose analysis must list which buildings suit an EPC; this notice does not
+    say how the three were chosen, so the link is the same owner, not a proven sequence. Sum of (2),
+    (3) and the two S4 notices of the same week (Plzeň region, České Budějovice): 857,233,617 CZK
+    estimated (our addition). WHAT THIS IS NOT: every one buys renovation delivery with the measures
+    inside it. Pelhřimov shows the measures being re-set AFTER award, once the buildings'' real energy
+    use was verified, which is the step a ranking would do before the tender, but nothing here prices
+    that step. Public money nearby on the 2026-09-19 MONEY ladder, not a price receipt, backs no
+    score; money stays 2 on S7 and S8. Gap: the firms named are an ESCO and an EPC tender adviser
+    (SEVEn Energy, already in S9 as an adviser in the state bank''s programme), neither selling
+    software that ranks an owner''s buildings.'
+  date: '2026-09-18'
+  signal: ted-651807-2026
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-21'
+updated: '2026-09-28'
 ---
 
 New EU building rules require minimum energy standards for buildings such as hospitals and town halls, and Czechia is late adopting them [S3].
@@ -410,6 +467,7 @@ Who pays: Public owners already pay consultants to rank their buildings by hand,
 - Prague 6 awarded about €15.7M, and Klatovy hospital about €8.3M [S4].
 - The hospitals in Stod and Domažlice awarded about €3.3M and €5.3M [S4].
 - Three towns and a hospital hold about 348M CZK of energy-saving building contracts [S10].
+- A Prague university hospital, the Plzeň region and two cities put about 857M CZK of energy-savings contracts out to tender in September 2026 [S4,S11].
 
 The ranking is bought as its own study, before the renovation is put out to tender [S9].
 
@@ -418,12 +476,13 @@ The ranking is bought as its own study, before the renovation is put out to tend
 - Olomouc's university signed in December 2025 for a card on each building, with measures, cost and payback, and then a list of priorities [S9].
 - The state development bank runs an advisory programme that prices the same analysis as its own line, for regions, towns and hospitals [S9].
 - An EU fund for local energy projects, run by the European Investment Bank, pays up to 90% of that advice, and the owner pays the rest [S9].
+- The Plzeň region and Jablonec, both clients of that programme, tendered energy-savings contracts on four and three of their buildings in September 2026 [S4,S9,S11].
 
 This way of paying is energy-performance contracting: a firm renovates, and is repaid out of the energy the building then saves [S4].
 
 - The contracts are 15 notices from 11 buyers, among them Hodonín, Kuřim and the state railway [S4].
 - The three Plzeň-region hospitals, Klatovy, Stod and Domažlice, all awarded theirs in one week [S4].
-- The choice of measures comes bundled with the work, through the energy-service firm [S4]. Choosing which buildings go in can be a separate study, bought first [S9]. That renovation spend is what a ranking product would sit in front of [S4].
+- The choice of measures comes bundled with the work, through the energy-service firm [S4]. In Pelhřimov, the firm's check of how the town's buildings actually use energy changed the works after the contract was signed [S11]. Choosing which buildings go in can be a separate study, bought first [S9]. That renovation spend is what a ranking product would sit in front of [S4].
 - Commercial and institutional owners with many buildings face the same choice of which renovation to fund first. Public owners are the route in, through their tenders.
 
 Solved elsewhere: Three funded companies in Germany and France sell owners software that ranks which building to renovate, and at what cost [S1].
@@ -477,3 +536,5 @@ Gap: unchanged at 1. The sellers found are consultancies doing the job by hand, 
 Body: Willing to pay now opens on owners paying consultants to rank their buildings by hand as well as paying firms to renovate [S4,S9]. Its first two items are the hospital and university purchases, and the €58M item moved to third. A new paragraph says the ranking is bought as its own study before the renovation is tendered, with the bank's programme and its EU co-funding [S9]. "Owners pay for choosing the measures together with the work" now reads that the choice of measures comes bundled with the work, and that choosing which buildings go in can be a separate study bought first [S4,S9]. Market gap now opens on consultants ranking by hand with no Czech software found that does it [S5,S9]; the old answer sentence became the line under it, and two items on the consultancies were added. Move 2 said "nobody sells them the ranking that decides which building goes first", which the receipts make false; it now says public owners like them already pay consultants to rank buildings by hand, so price against that study; it does not claim that these particular owners did. Not changed: title, brief, solution, good_for, draft_law, `price_search`, `entry`, urgency, proof, demand and gap. The headline block stays true: the solution is software, and what owners pay for today is the ranking done by hand.
 
 2026-09-21 · evidence audit — Weekly match over the week's housing and energy signals. Appended one source: four public owners with energy-saving building works under contract in September 2026, about 348M CZK together — two towns' primary schools, a third town's school canteen and a university hospital's supervision contract, each notice's XML read on the day [S10]. It is the same kind of spend as the June-to-August wave [S4] and is recorded for the same reason: it shows the renovation money did not stop, and that the choice of which building goes first is still made before the tender and never priced inside it. It is public money nearby, not a price receipt, so it backs no score; money stays 2 on the hospital and university consultant contracts [S7,S8]. Not linked, and why: three towns' new school and kindergarten builds, a heritage roof repair and a defence kitchen rebuild buy new or restored buildings rather than an energy decision across a portfolio; a small municipality's contract for heat supply with the renewal of its heating system (about 45M CZK) buys heat, not a ranking. Gap re-checked against the week's signals: the suppliers they name are construction firms and one site-supervision firm, none selling software that ranks an owner's buildings, so gap stays 1 on the three Czech products already on the ledger [S5]. No score moved.
+
+2026-09-28 · evidence audit — Weekly match. New source [S11]: Pelhřimov amended its energy-savings contract after the energy firm verified its buildings' real energy use, which re-set the works; Prague's Bulovka hospital (about 350M CZK to 2038) and Jablonec (three buildings, 48M CZK) tendered new ones. The Plzeň region (about 309M CZK) and České Budějovice (150M CZK) were folded into [S4]; Prague 6's fourth amendment (404M CZK) is [S4]'s Prague 6 contract, a duplicate. All buy renovation delivery: public money nearby, no price receipt. Flagged as inference: that the Plzeň and Jablonec tenders follow the state bank's building analysis [S9]; the notices do not say how buildings were chosen. Gap stays 1: the new names are an energy-service firm and a tender adviser. No score moved.

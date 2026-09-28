@@ -2,14 +2,14 @@
 id: p-0031
 region: cz
 title: 'Czech towns buy solar panels one by one, and waste months doing it'
-brief: 'Every town writes its own tender for the same thing: panels on a public roof [S1]. Some towns ran the same tender again, one of them 3 times in 10 weeks [S2,S9].'
+brief: 'Every town writes its own tender for the same thing: panels on a public roof [S1]. Some towns ran theirs again, and one moved its bid deadline 7 times in 5 months [S9,S11,S13].'
 solution: 'Build a buying service that pools many towns'' solar roofs into one tender, as 1 company already does in the Netherlands.'
 good_for: 'Someone who knows public tenders and likes working with towns on solar.'
 price_search: 'Registr smluv full-text for "administrace zadávacího řízení" with "fotovoltaick"
   — what a town pays a procurement administrator to run one rooftop-solar tender is the manual
   equivalent of a pooling fee — and for "společný nákup energií" to see what SMS ČR members or
   eCENTRE customers pay for pooled commodity buying; otherwise ask the town clerk (tajemník) of
-  Špindlerův Mlýn what its repeated tenders cost in administrator fees; the MS2021+ index under
+  Špindlerův Mlýn what re-tendering its unbid building works cost in administrator fees; the MS2021+ index under
   "fotovoltaick" returns only installation grants.'
 category: energy
 geo: CZ-national
@@ -113,7 +113,7 @@ locals:
     has hired it.'
 process:
   summary:
-    today: 'Each town writes its own design-build tender for its own roof, installers bid lot by lot, and some towns publish the same tender again, for reasons no source gives [S1,S2].'
+    today: 'Each town writes its own design-build tender for its own roof, installers bid lot by lot, and some tenders stall or run again: one lot drew no bids, one town cancelled its own tender over its own errors, and one tender''s deadline has moved for five months [S1,S2,S9,S13].'
     after: 'One buying service puts many towns'' roofs into one tender with one specification, and installers bid once for the whole pool.'
   steps:
   - who: The town
@@ -129,9 +129,9 @@ process:
     change: changes
     after: 'Bid once for many towns'' roofs'
   - who: The town
-    today: 'Publishes the same tender again'
+    today: 'Tenders again, or keeps moving the deadline'
     known: documented
-    cites: [2, 9, 11]
+    cites: [2, 9, 11, 13]
     change: changes
     after: 'Any re-run happens once, for the pool'
   - who: The winning installer
@@ -157,14 +157,29 @@ sources:
   date: '2026-07-01'
   signal: ted-450591-2026
 - type: tender
-  name: "TED — Špindlerův Mlýn, the same tender published three times"
-  gist: "three re-runs in ten weeks"
-  why: "One town republished an identical wastewater-plant PV tender three times in ten weeks, and Hrabová and Nymburk re-ran their own lots — the transaction-cost receipt for fragmentation."
+  name: "TED — Špindlerův Mlýn, one tender whose building lot drew no bids"
+  gist: "one lot, no bids"
+  why: "One town's solar tender for its wastewater plant, split into panels and the building works under them, was changed three times, and in August 2026 the building-works lot closed with no bids."
   url: https://ted.europa.eu/en/notice/-/detail/427895-2026
   note: 'ted-427895-2026: Town of Špindlerův Mlýn published the same WWTP-building PV tender
     for the THIRD time in ten weeks (ted-417514, ted-421736, ted-427895); Hrabová and Nymburk
     also re-ran identical lots in the window. Small municipal PV lots repeatedly fail to close
-    — the transaction-cost receipt for procurement fragmentation.'
+    — the transaction-cost receipt for procurement fragmentation.
+    Corrected 2026-09-28 (fact check; the TED XML of every notice named here was read on this
+    date): the three ids are ONE procedure, not three tenders. ted-417514-2026 (issued 16 Jun
+    2026) is the contract notice, "Výstavba FVE na budově čističky odpadních vod ve Špindlerově
+    Mlýně", two lots — Část 1 dodávka FVE (139.2 kW), Část 2 stavební úpravy (strengthening the
+    roofs the panels go on); ted-421736-2026 (18 Jun) moved the bid deadline 22 to 23 Jul;
+    ted-427895-2026 (19 Jun) changed the opening time and the lot names, reason cor-buy; all
+    three share ContractFolderID 2409aceb…. A fourth change, ted-513941-2026 (23 Jul), moved the
+    deadline to 29 Jul after clarification no. 3. The award notice ted-560047-2026 (11 Aug)
+    closes lot 2 with no winner, reason no-rece — no tenders received — and lists lot 1 as
+    open-nw, no winner yet. "The third time in ten weeks" was a TED republication read as a
+    re-run, the counting trap of docs/weekly/2026-09-21.md; what the notices do show is one lot
+    that drew no bids, re-tendered on its own as [S8]. Hrabová, read the same day: one procedure
+    (ted-377554-2026, one two-day deadline extension in ted-443397-2026), awarded in August, see
+    [S15]. Nymburk: one procedure whose deadline moved seven times, see [S13]. Neither re-ran a lot.
+    Moves no score: no dimension ever rested on this source.'
   date: '2026-06-22'
   signal: ted-427895-2026
 - type: contract
@@ -288,31 +303,41 @@ sources:
 - type: tender
   name: "TED — Špindlerův Mlýn, still not built two months later"
   gist: "the saga continues into August"
-  why: "The same wastewater-plant PV project that republished three times in June now needs its
-    own building modified before the solar can go on — a fourth procurement action on one site,
-    ten weeks turned two months."
+  why: "The building works under the town's wastewater-plant solar drew no bids in its June
+    tender, so in August 2026 the town tendered those works as a procedure of their own."
   url: https://ted.europa.eu/en/notice/-/detail/568275-2026
   note: 'ted-568275-2026: Město Špindlerův Mlýn tendered construction work to modify its WWTP
     building so it can host the FVE plant (17 Aug 2026) — the same site as the triple-republished
     tender in [S2], still generating separate procurement actions two months on. No contract
     value published. Corroborates the procurement-friction claim already on file; does not move
-    a score.'
+    a score.
+    Corrected 2026-09-28: [S2] was not triple-republished; it is one procedure whose lot 2, these
+    same building works, closed on 11 Aug 2026 with no tenders received (ted-560047-2026). This
+    notice (issued 14 Aug, bids due 21 Sep 2026, ContractFolderID 1705788d…) is that lot tendered
+    again on its own: a second procedure on one site, not a fourth.'
   date: '2026-08-17'
   signal: ted-568275-2026
   dims: []
 - type: tender
   name: "TED — Jince re-tenders its own solar, one day later"
   gist: "a second named town's repeat tender"
-  why: "A second named town joins Špindlerův Mlýn, Hrabová and Nymburk in the repeat-tender
-    pattern: Jince's own notice is titled 'opakované zadání' — re-issued tendering — one day
-    after its first attempt."
+  why: "Jince closed its first solar tender without a winner, by its own decision over technical
+    or procedural errors, and re-issued it the next day as 'opakované zadání', re-issued tendering."
   url: https://ted.europa.eu/en/notice/-/detail/591378-2026
   note: 'ted-591378-2026: Městys Jince re-issued its own municipal-building FVE tender
     ("opakované zadání", ~EUR 760k, 27 Aug 2026), one day after the first attempt on the same
     buildings (ted-589208-2026, same buyer, ~EUR 680k, 26 Aug 2026 — not separately linked, same
     underlying fact). A second named town in the repeat-tender pattern documented in [S2] for
     Špindlerův Mlýn/Hrabová/Nymburk. Corroborates the procurement-friction claim already on file;
-    does not move a score.'
+    does not move a score.
+    Corrected 2026-09-28 (TED XML read): ted-589208-2026 is not a first attempt but the notice
+    that ENDED it — a contract award notice (issued 24 Aug) closing the first procedure
+    (ContractFolderID 28b259fd…, estimated 17,000,000 CZK) with no winner, reason tch-pr-error:
+    the buyer''s own decision because of technical or procedural errors. The re-issue is a new
+    procedure (599fb70e…, 19,000,000 CZK), so this is a genuine re-run. The Špindlerův Mlýn,
+    Hrabová and Nymburk pattern it was said to join is withdrawn in [S2]. Merged 2026-09-28,
+    ted-655677-2026 (change notice issued 21 Sep): after clarification no. 1 the town extended
+    the re-run''s bid deadline from 29 Sep to 2 Oct 2026. A change notice, not a third tender.'
   date: '2026-08-27'
   signal: ted-591378-2026
   dims: []
@@ -351,7 +376,9 @@ sources:
     primary school, at least 96.75 kWp and 117.76 kWh, with a monitoring and control system. The
     first call is ted-433105-2026 (25 Jun 2026, about EUR 202k estimated, bid deadline passed by
     the ledger''s reading). The notice does not say why a second call was needed. A fifth named
-    town in the repeat-tender pattern of S2 and S9; corroborates, moves no score.'
+    town in the repeat-tender pattern of S2 and S9; corroborates, moves no score.
+    Checked 2026-09-28 against the counting trap: the two calls carry different ContractFolderIDs
+    (73cdbaaa… and 2372f663…), so the second call is a new procedure, not a republication.'
   date: '2026-09-15'
   signal: ted-635308-2026
   dims: []
@@ -367,19 +394,77 @@ sources:
     as ted-590480-2026 (changing 504198-2026, deadline 10 Sep), ted-620380-2026 (deadline 18 Sep)
     and this notice (deadline 24 Sep 2026); each change reads "Změna termínu konce lhůty pro podání
     nabídek a otevírání nabídek", reason "Vysvětlení zadávací dokumentace". Deadline extensions,
-    not re-runs. A region pooling its own buildings, as S4 describes; context, moves no score.'
+    not re-runs. A region pooling its own buildings, as S4 describes; context, moves no score.
+    Merged 2026-09-28: ted-654888-2026 (issued 21 Sep 2026), the same procedure, the same
+    25,624,681.60 CZK and six lot values, moved the deadline a fourth time, from 24 Sep to 2 Nov
+    2026, for the same reason, "Vysvětlení zadávací dokumentace".'
   date: '2026-09-17'
   signal: ted-641475-2026
   dims: []
+- type: tender
+  name: "TED — Nymburk's stadium and pool solar, deadline moved seven times"
+  gist: "one tender, five months open"
+  why: "Nymburk opened one tender for solar on its winter stadium and pool in April 2026 and has moved its bid deadline seven times since, to 9 October."
+  url: https://ted.europa.eu/en/notice/-/detail/659258-2026
+  note: 'ted-659258-2026, change notice issued 23 Sep 2026, XML read 2026-09-28 together with
+    every earlier notice of the procedure: Město Nymburk (IČO 00239500), "FVE – Zimní stadion
+    Nymburk a Relaxační centrum Labe", open procedure, two lots (4,016,396 and 3,056,024.67
+    CZK), estimated 7,072,420.67 CZK in all, supply, installation and servicing of PV on the
+    winter stadium and the Labe relaxation centre. ONE procedure (ContractFolderID fd0c0886…):
+    contract notice ted-276325-2026 (21 Apr, bids due 29 May), then seven changes, each to
+    "Lhůta pro podání nabídek" and nothing else — ted-360551-2026 to 19 Jun, ted-418145-2026 to
+    20 Jul, ted-493516-2026 to 10 Aug, ted-551516-2026 to 24 Aug, ted-568539-2026 to 11 Sep,
+    ted-622763-2026 to 25 Sep, and this notice to 9 Oct 2026. No notice gives a reason. The
+    weekly triage counted four changes; the XML holds seven. Deadline extensions, not re-runs:
+    it corrects the claim in [S2] that Nymburk re-ran identical lots. Friction, not a complaint:
+    dims [], demand stays 0.'
+  date: '2026-09-24'
+  signal: ted-659258-2026
+  dims: []
+- type: tender
+  name: "TED — a water company's solar with batteries at two Znojmo plants"
+  gist: "25M CZK, deadline moved to November"
+  why: "A water company is tendering solar with batteries at its Znojmo water treatment plant and the Dobšice wastewater plant, estimated at 25M CZK."
+  url: https://ted.europa.eu/en/notice/-/detail/665642-2026
+  note: 'ted-665642-2026, change notice issued 24 Sep 2026, XML read 2026-09-28: VODÁRENSKÁ
+    AKCIOVÁ SPOLEČNOST, a.s. (IČO 49455842), "FVE VAS, ÚV Znojmo a ČOV Dobšice", PV plants with
+    battery storage at two of its sites, estimated 25,000,000 CZK, one lot. NOT a first notice,
+    as the weekly triage read it: it changes ted-566557-2026, the contract notice issued 14 Aug
+    2026 (same ContractFolderID 9a56dcd1…), moving bids from 29 Sep to 9 Nov 2026 after
+    clarifications no. 1 to 6 unified the tender documents. Not a re-run either. Because the
+    procedure opened in August it may already sit among the ~80 notices [S1] counts, so it is
+    not added to that count. Another wastewater-plant buyer tendering its own solar; context,
+    dims [], moves no score.'
+  date: '2026-09-28'
+  signal: ted-665642-2026
+  dims: []
+- type: tender
+  name: "TED — Hrabová's town-hall solar, ten bids and awarded"
+  gist: "a small lot that drew ten bids"
+  why: "Hrabová's small solar lot on its town hall drew ten bids and was awarded in August 2026, below its estimate; it was never re-run."
+  url: https://ted.europa.eu/en/notice/-/detail/575114-2026
+  note: 'ted-575114-2026, contract award notice, XML read 2026-09-28 with its predecessors:
+    Obec Hrabová, "FVE obecní úřad Hrabová", one open procedure (ContractFolderID bc545f22…) in
+    two lots — lot 1 the town-hall roof, lot 2 the PV plant on it. Contract notice
+    ted-377554-2026 (1 Jun 2026, bids due 7 Jul); one change, ted-443397-2026 (26 Jun), extending
+    the deadline to 9 Jul after clarifying the documents; award in this notice (issued 13 to 17
+    Aug). Lot 2, the PV, drew 10 tenders, all from SMEs, from 1,140,836 to 3,061,375 CZK, and was
+    won at 1,140,836 CZK against an estimate of 1,762,315 CZK; lot 1 drew 3 tenders and was won
+    at 5,600,000 CZK. It buys panels and a roof, not pooling, so it is no price receipt. Read to
+    check [S2]''s claim that Hrabová re-ran identical lots: it did not. Counter-evidence to the
+    reading that small solar lots draw few bidders. dims [], moves no score.'
+  date: '2026-08-19'
+  signal: ted-575114-2026
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-09-28'
 ---
 
 Czech towns and other public bodies each tender their own solar panels, one small lot at a time [S1].
 
 - 53 public buyers put out about 80 solar procurement notices this summer [S1].
 - Most lots cost between €120k and €1M each [S1].
-- Several towns published the same tender again [S2,S9,S11].
+- Several towns tendered again, and one has kept a tender open since April [S2,S9,S11,S13].
 
 Between June and August 2026 those notices were worth roughly €60M together [S1]. The buyers were towns, school districts, zoos, wastewater plants and regional governments [S1].
 
@@ -395,7 +480,7 @@ Existing non-solutions: Towns can already pool their buying, but no company sell
 The subsidy is RES+ (the state's renewable-energy subsidy line, paid from the Modernisation Fund), and it explicitly funds joint projects across several municipal sites [S4].
 
 - A union of towns may buy centrally for its members, through a framework agreement or a standing list of pre-qualified suppliers [S7].
-- The Moravian-Silesian region put solar for buildings of the organisations it runs into one six-part tender in 2026, and moved its bid deadline three times while clarifying the documents [S12].
+- The Moravian-Silesian region put solar for buildings of the organisations it runs into one six-part tender in 2026, and moved its bid deadline four times while clarifying the documents, to 2 November 2026 [S12].
 - Each of these is a buyer pooling for itself, or a rule a town must use on its own; none is a company a town can hire [S7].
 - Installers sell one town at a time a turnkey installation: design, panels and a battery [S7]. The closest offers to build one plant that several towns share, which is one shared asset and not many towns' roofs in one tender [S7].
 - A subsidy consultant sells the application work, and each town still runs its own tender after it [S7].
@@ -403,16 +488,18 @@ The subsidy is RES+ (the state's renewable-energy subsidy line, paid from the Mo
 
 53 public buyers still tendered separately in one summer [S1]. No town's complaint has been found, so the case rests on those separate small tenders [S1].
 
-Why now: Towns lose time whenever a solar tender runs again, and several have already re-run theirs this summer [S2,S9].
+Why now: Towns lose months when a solar tender stalls or runs again, and several did this summer [S2,S9,S13].
 
-- Špindlerův Mlýn published the same solar tender three times in ten weeks [S2].
-- Two months later that town was still tendering work on the same site [S8].
-- Jince re-issued its solar tender one day after the first attempt [S9].
+- Nymburk has moved its tender's bid deadline seven times since April [S13].
+- Špindlerův Mlýn's building works drew no bids, so it tendered them again [S2,S8].
+- Jince cancelled its solar tender over its own errors, then re-issued it [S9].
 
-Hrabová and Nymburk also re-ran identical lots [S2]. Veltrusy published its tender for panels and batteries on four town buildings a second time in September 2026, after a first call in June [S11]. A notice published again shows that the tender ran again, not why [S2,S9,S11]. That small lots attract few bidders is a reading of those re-runs, not something a source states [S2].
+Veltrusy published its tender for panels and batteries on four town buildings a second time in September 2026, after a first call in June [S11]. Its notices do not say why [S11]. A change notice is not a new tender: Nymburk's eight notices are one tender whose deadline moved from 29 May to 9 October 2026 [S13]. Small lots do not always draw few bidders: Hrabová's solar lot drew ten bids and was awarded in August 2026, below its estimate [S15].
 
-- Špindlerův Mlýn's tender was for panels on its wastewater plant; in August 2026 it tendered changes to the plant's building so the panels can go on, a fourth procurement action on one site [S2,S8].
-- Jince's first attempt, on 26 August 2026, was worth about €680k, and the re-issue on 27 August about €760k [S9].
+- Špindlerův Mlýn's June tender for its wastewater plant had two lots: the panels, and the building works under them [S2].
+- In August 2026 the works lot closed with no bids and the panels lot had no winner yet; days later the town tendered the works on their own [S2,S8].
+- Jince's first tender, estimated at about €680k, was closed without a winner in a notice of 26 August 2026; the re-issue on 27 August was estimated at about €760k [S9].
+- Jince then moved the re-issue's bid deadline from 29 September to 2 October 2026 [S9].
 - In 2024 a change to the municipalities act let unions of towns buy centrally for their members [S7].
 - A bill from the interior ministry, proposed to take effect on 1 January 2027, would widen those unions into platforms for work a small town cannot run alone, with state-budget support [S10]. The government approved the package in July 2026 [S10].
 
@@ -422,7 +509,7 @@ Who pays: Public bodies already spend on the solar itself, about €60M of tende
 - Jindřichův Hradec signed about 2.5M CZK to build and service one roof's solar [S3].
 - More than 200 customers already buy energy through one joint purchase [S6].
 
-The region's competition covers panels and battery storage on its own buildings, and was open to any bidder [S1]. Jindřichův Hradec's contract, below the EU tender threshold, bundles the build with servicing afterwards [S3].
+The region's competition covers panels and battery storage on its own buildings, and was open to any bidder [S1]. Jindřichův Hradec's contract, below the EU tender threshold, bundles the build with servicing afterwards [S3]. A water company is tendering solar with batteries at two of its Znojmo plants, estimated at 25M CZK [S14].
 
 That joint purchase is run for a small-municipalities association, covers 2026 and 2027, and is open to towns that are not members; each town pays its supplier directly [S6]. Each town's solar project is also its own subsidy application, unless neighbouring towns apply jointly [S7].
 
@@ -432,7 +519,7 @@ The British councils run it under the name Solar Together [S5]. Its site lists t
 
 ## First moves
 
-1. Call the town clerks of the towns that ran the same solar tender again, and ask what the re-runs cost them. They are named under [Why now](#why-now). Each has a tender that has already run more than once. Ask how long it took and what they paid to have it administered, then offer to put their roof into one tender with other towns.
+1. Call the town clerks of the towns whose solar tenders stalled or ran again, and ask what that cost them. They are named under [Why now](#why-now). Each has a tender that has taken months. Ask how long it took and what they paid to have it administered, then offer to put their roof into one tender with other towns.
 2. Build one pooled tender that puts many towns' solar roofs into a single procedure, with one specification and one fixed price per installed kilowatt. The model already runs abroad, as [Validated abroad](#validated-abroad) shows. No new law is needed: the state's solar subsidy already allows a joint project for neighbouring towns, and unions of towns may already buy for their members; see [Market gap](#competition). A bill would make those unions stronger still, as [Why now](#why-now) explains.
 3. Open every conversation with how many public bodies tendered the same thing separately this summer. The count and the money are under [The opportunity](#opportunity). Each of those tenders carried its own documents, its own evaluation and its own contract, which is work a pooled tender does once.
 4. Move before the Czech operator that already pools towns' electricity and gas buying adds solar to what it sells. It already runs one contract for many towns, households and firms, including the small-municipalities association's joint purchase, but it offers no solar procurement; see [Market gap](#competition). It is one product decision away, so win the first towns before it makes it.
@@ -459,3 +546,5 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 2026-09-18 · body rewritten to the writing rules, process figure added — Every section now opens with ONE answer sentence, each first list carries its three most important items, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on towns tendering their solar one lot at a time, with the 53 buyers, the lot sizes and the re-runs as its items, and gained the municipalities count from move 2 (6,254 averaging 1,710 inhabitants, against 10,250 across the OECD) [S1,S2,S9,S10]. Competition opens on the missing seller and describes every player without naming it: Brno's waste company, the regions' own packages, the joint-project rule, the union of towns, the installers, the subsidy consultant and the energy-pooling operator; names, dates, named customers and IČOs stay in their `locals[]` rows, so eCENTRE's customers and its 2006 start, which lived in move 4, now live only in its row [S4,S6,S7]. Why now opens on the time towns lose to re-runs, with the 2024 municipalities-act change and the interior ministry's bill (moved from move 2) below as dated bullets [S7,S10]. Willing to pay now answers whether anyone pays: public bodies spend on the solar itself, and nobody sells them the pooling [S1,S7]. Validated abroad opens on the Dutch company without naming it; its name and traction stay in `comps[]`. The moves lost every marker, figure and company name for links; move 1 now calls the clerks of the towns whose tenders ran again instead of selling to them. `entry.why` was rewritten as "Easier: … Harder: …" and names the same gates. `S10.why` said "this record's pooled tender", which a reader sees; it now says "a pooled tender". Added from sources already on file: Špindlerův Mlýn's August tender to change its plant's building [S8], Jince's re-issue a day after its first attempt and both values [S9], the region's competition being open to any bidder [S1], Jindřichův Hradec's contract bundling build and servicing below the EU threshold [S3], the joint energy purchase being open to non-members with each town paying its supplier directly [S6], and the government's July 2026 approval of the bill [S10]. Corrected against the sources rather than against the old sentences: [S1] lists towns, school districts, zoos, wastewater plants and regional governments, not hospitals, so hospitals are gone from the buyer list; "about 80 separate rooftop-solar tenders" became "about 80 solar procurement notices", since [S1] counts procurement records and re-published notices are among them; "RES+ pays out on fixed call deadlines, so the tenders keep coming" was cited to [S4], which says only that RES+ funds joint multi-site municipal projects, so the deadlines and the cause are cut; "small lots struggle to attract bidders" and "every re-run burns months against a subsidy clock" are not in [S2], so the re-runs are stated as facts, the time lost is shown by Špindlerův Mlýn's ten weeks and its August building tender [S2,S8], and the bidder claim is written as a reading; "failed procedures on lots too small to interest an efficient supplier" became the spending the sources show, since no source says a procedure failed or why; and "the state pays again, administering subsidies for hundreds of micro-projects" carried no source and no source counts the projects, so the count is cut. Flagged as inference: that towns lose time whenever a tender runs again [S2,S8,S9]; that each town's solar project is its own subsidy application unless neighbouring towns apply jointly, read from the joint-project rule [S7]; that what the Dutch company pools is mostly households' demand, read from its households-served figure [S5]; and in `entry.why`, that the first fee comes only after a pooled tender closes. Not changed, and reported: the owner-approved brief says "Small tenders attract few bidders" [S2], which the body now calls a reading. PROCESS FIGURE ADDED, four steps, each backed by sources already cited: the town writes a tender for its own roof [S1]; installers bid on one small lot at a time [S1,S7]; the town publishes the same tender again [S2,S9]; the winning installer builds and services the panels [S3]. Why the tenders ran again is not known, and `summary.today` says so rather than drawing a guess; no actor or system was invented. No score, status, source, `note:`, `sources[]` order, title, brief, solution, good_for or `entry` gate value changed.
 
 2026-09-19 · brief corrected (owner-approved) — Brief before, verbatim: "Every town writes its own tender for the same thing: panels on a public roof [S1]. Small tenders attract few bidders, and some have to run again [S2]." After: "Every town writes its own tender for the same thing: panels on a public roof [S1]. Some towns ran the same tender again, one of them 3 times in 10 weeks [S2,S9]." Why: no source on file says small tenders attract few bidders. [S2] records that notices were published again, not why, and the 2026-09-16 and 2026-09-18 entries had already written the bidder claim down as a reading; the owner approved removing it from the brief. "Have to run again" also claimed a cause, so it became what the notices show: Špindlerův Mlýn published the same tender 3 times in 10 weeks, Hrabová and Nymburk re-ran identical lots [S2], and Jince re-issued its own a day after the first attempt [S9]; "some towns" covers those four. The 3 times in 10 weeks puts the time lost the title names ("waste months") on the card. Checked against [S2]'s and [S9]'s notes. The body already calls the bidder claim a reading under Why now and is unchanged. No score, status, source, note, marker, title, solution, good_for or body sentence changed. Same date, later pass, merged here (two same-date entries folded into one): rescored to the 2026-09-19 ladders — `scores.money` 2 → 0, `scores.urgency` 1 → 0, `score` 7 → 4, band FAIR → FAINT. Money: the old 2 was the retired public-budget rung, an open tender of 5M CZK or more [S1]. On the new ladder only a price receipt for this job earns a point. Tagging pass: every payment on file buys solar plants, not the pooling of towns' tenders. That covers South Moravia's competition for plants and batteries [S1], Špindlerův Mlýn's tenders and its August building works [S2,S8], Jindřichův Hradec's contract of about 2.5M CZK to build and service one roof [S3], and Jince's two tenders [S9]. Each buys the thing a pooled tender would buy, not the pooling, so none counts. The small-municipalities association's joint purchase absorbs a town's administrative work [S6]. It pools energy, not solar, and no fee for it is on file, so it does not count either. No receipt for the manual equivalent is on file, meaning what a town pays an administrator to run one solar tender; `price_search` says where to look. No receipt was added, and money 0 matches the worksheet. Urgency: the old 1 was the retired freshness point alone. The only `regulation` source is the interior ministry's bill [S10]. It is a draft that widens a buying vehicle towns may use, which is a permission, and it already carries `dims: []`. No dated duty falls on this buyer, so the score is 0. S1's note, which named "money 2", gained a dated correction line. Prose re-read against the new numbers: Why now describes the time lost to re-runs and claims no legal deadline; Willing to pay already says nobody sells towns the pooling. Neither changed. Two links in moves 2 and 4 now read Market gap instead of Competition. No other score, status, source order or body sentence changed. Same date, weekly match, merged here: evidence audit — Veltrusy published its solar tender a second time, after a June call, a fifth named town re-running [S11]; the Moravian-Silesian region's six-part pooled tender moved its deadline three times while clarifying documents [S12]. Both back no score: a re-run is not a complaint, so demand stays 0, and neither prices the pooling, so money stays 0. Gap re-checked: no pooling seller surfaced, stays 2.
+
+2026-09-28 · fact check · evidence audit — CORRECTED: the repeat-tender evidence overcounted, the counting trap docs/weekly/2026-09-21.md warns about, where a TED notice published again was read as a tender run again. The TED XML of every notice behind [S2], [S8], [S9], [S11] and [S12] was read on this date. Špindlerův Mlýn did not publish the same tender three times in ten weeks: its three notices are one tender and two change notices issued within four days in June, and a third change in July moved the deadline again [S2]. What the notices do show is narrower and firmer: the tender's building-works lot closed in August 2026 with no bids received, and the town tendered those works again on their own [S2,S8]. Nymburk did not re-run identical lots: its eight notices are one tender, open since April, whose bid deadline moved seven times, to 9 October 2026 [S13]. Hrabová did not re-run either: one tender, one two-day extension, awarded in August, and its solar lot drew ten bids [S15]. Jince's earlier notice was not a first attempt but the notice closing it without a winner, by the town's own decision over technical or procedural errors, so its re-issue stands as a genuine re-run [S9]; Veltrusy's two calls are separate procedures, so its second call stands too [S11]. Rewritten to match: S2's name, gist and why, S8's why and S9's why; dated correction lines appended to the notes of S2, S8, S9, S11 and S12, whose original text is kept; the opportunity bullet, the Why now answer, its three items and its detail; process step 3 and the process summary, which also no longer says no source gives a reason, since two now do (no bids, the buyer's own errors); price_search; and move 1, which called the clerks of towns whose tender "has already run more than once". Brief before, verbatim: "Every town writes its own tender for the same thing: panels on a public roof [S1]. Some towns ran the same tender again, one of them 3 times in 10 weeks [S2,S9]." After: "Every town writes its own tender for the same thing: panels on a public roof [S1]. Some towns ran theirs again, and one moved its bid deadline 7 times in 5 months [S9,S11,S13]." The title's "waste months" stands on Nymburk's five months and Špindlerův Mlýn's June-to-September works; solution and good_for unchanged. The body's reading that small lots draw few bidders now carries its counter-evidence beside it [S15]. Added: [S13] Nymburk, [S14] a water company's solar with batteries at two Znojmo plants, estimated at 25M CZK, which is a change notice of an August tender and not a September first notice as the weekly triage read it, so it is not added to the count in [S1], and [S15] Hrabová's award. Merged as duplicates: the Moravian-Silesian region moved its deadline a fourth time, to 2 November 2026 [S12]; Jince moved its re-run's deadline from 29 September to 2 October [S9]. Scores: none moves. No dimension ever rested on [S2]: demand was already 0, since a re-run is not a complaint, and money 0, since every tender on file buys panels, not the pooling. Gap re-checked against these notices: the only pooling in them is buyers pooling their own buildings [S12], so it stays 2 on [S7].

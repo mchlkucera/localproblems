@@ -541,8 +541,71 @@ sources:
   date: '2026-09-18'
   signal: ted-649114-2026
   dims: []
+- type: tender
+  url: https://ted.europa.eu/en/notice/-/detail/662615-2026
+  name: "TED — Prague 2 outsources the support and monitoring of its security systems"
+  gist: "a second city district buys the work"
+  why: "A second Prague city district tenders four years of outside support for its cyber-security systems, including continuous security monitoring, at an estimated 7.8M CZK."
+  note: 'ted-662615-2026: Městská část Praha 2 (IČO 00063461), contract notice (cn-standard),
+    open procedure, issued 23 Sep 2026, published 25 Sep 2026, bids due 26 Oct 2026 10:00.
+    "Služby podpory systémů kybernetické bezpečnosti": system and operational support of the
+    devices, systems and technologies that secure the district''s information systems, plus
+    continuous security monitoring of those systems through its own SIEM, IDM, log management,
+    XDR/NDR endpoint and network protection and DLP; duration 48 months; estimated value
+    7,800,000 CZK excl. VAT; award on the lowest 48-month total price and the lowest hourly rate
+    for extended support; no EU funds; ikis, s.r.o. (Brno) acts as the procurement service
+    provider. TED XML read 2026-09-28. Like Prague 5 [S27], and two weeks after it, this buys
+    the security work itself rather than kit, from a town-level public buyer. Open with no
+    award, so it is public money nearby and backs no score; once awarded, the winning 48-month
+    line is a tender-line price receipt for this job. The notice does not cite Act 264/2025.'
+  date: '2026-09-23'
+  signal: ted-662615-2026
+  dims: []
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/39602937
+  name: "Registr smluv — Vysočina region lends Třebíč hospital the cash for its cybersecurity project (~36.9M CZK)"
+  gist: "a loan to pay the project up front"
+  why: "A region lent its hospital about 36.9M CZK, interest-free, to pay up front for an EU-funded cybersecurity project, repayable by April 2028."
+  note: 'hlidac-37235789: Kraj Vysočina (IČO 70890749) and Nemocnice Třebíč, příspěvková
+    organizace (IČO 00839396), "Smlouva o zápůjčce za účelem podpory předfinancování projektu
+    s názvem Zvýšení kybernetické bezpečnosti Nemocnice Třebíč", contract no. 187806, signed
+    20 Sep 2026, published 21 Sep 2026, 36,866,582.50 CZK (registr smluv 39602937). Contract
+    text read 2026-09-28: an interest-free loan paid out in one sum, only for prefinancing the
+    project of that name "financovaného z Integrovaného regionálního operačního programu", to be
+    repaid by 15 Apr 2028. The contract does not say why prefinancing is needed; that the IROP
+    grant pays out only after the hospital has spent the money is our reading of the word
+    "předfinancování" and the 2028 repayment date, flagged in Revisions. Context for Who pays:
+    the grant route [S9] needs the buyer, or its owner, to carry the cash first. Třebíč already
+    appears among the smaller hospital awards in the [S3] note. A loan is not a price for the
+    job, so no dims and no score moves.'
+  date: '2026-09-20'
+  signal: hlidac-37235789
+  dims: []
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/39629109
+  name: "Registr smluv — Třebíč hospital buys the kit for the same project (~52.3M CZK)"
+  gist: "what the loan pays for"
+  why: "Two days after the region's loan, the hospital signed about 52.3M CZK for the project's hardware and software, installed and supported for five years."
+  note: 'hlidac-37260633: Nemocnice Třebíč, příspěvková organizace (IČO 00839396) signed with
+    Aricoma Systems a.s. (IČO 04308697) on 22 Sep 2026, "Dodávka hardware a software IT
+    infrastruktury včetně montáže, instalace a jejich implementace a poskytování servisní a
+    provozní podpory", 52,278,000 CZK excl. VAT / 63,256,380 CZK incl. VAT (registr smluv
+    39629109). Contract attachment (63 pages) read 2026-09-28: a purchase contract concluded in
+    the above-threshold public contract "Zvýšení kybernetické bezpečnosti Nemocnice Třebíč -
+    Infrastruktura" (system no. P26V00000027); purchase price 48,738,000 CZK plus 3,540,000 CZK
+    for 60 months of service and operating support, both excl. VAT; every invoice must carry
+    the IROP project registration no. CZ.06.01.01/00/22_004/0000282 and the project name the
+    loan [S31] prefinances. The tender annex states that the buyer is a provider of a regulated
+    service in the higher-obligations regime of Act 264/2025 and decree 409/2025. A purchase of
+    kit with installation and support, not the security measures and paperwork this problem
+    sells, so not restated as a price receipt and no dims; linked as context beside the loan
+    [S31], the same pattern as Jihlava [S28]. The TED award notice for the same purchase
+    (ted-658603-2026, 52,278,000 CZK, Aricoma) is a duplicate and is not cited.'
+  date: '2026-09-22'
+  signal: hlidac-37260633
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-21'
+updated: '2026-09-28'
 ---
 
 The new cybersecurity law makes each covered organisation register, then put security measures in place within a year [S1].
@@ -599,7 +662,9 @@ The €33M is spread over about 77 tenders and awards [S7]. Buyers range from la
 - 341 cyber-security contracts have entered the state contracts register since June 2026 [S6].
 - The town of Týn nad Vltavou paid just to find out whether the law applied to it [S7].
 - Prague 5, a city district, is tendering two years of outside running of its security tools, including handling attacks, estimated at 11.8M CZK [S27].
+- Prague 2, a second district, followed two weeks later: four years of outside support for its security systems, including continuous monitoring, estimated at 7.8M CZK [S30].
 - Jihlava's psychiatric hospital, one of the grant applicants, signed about 22.9M CZK in September 2026 for security hardware and software, part-paid by the EU's regional-development programme [S8,S28].
+- Třebíč hospital needed cash up front for its own grant-funded project. Its region lent it about 36.9M CZK, interest-free, to pay its EU-funded cybersecurity project up front [S31]. Two days later it signed about 52.3M CZK for the project's hardware and software [S32].
 
 The EU grant is IROP call 120 (the cyber-security call of the EU's regional-development programme). It holds about €99.6M and pays 50% of the cost [S9].
 
@@ -643,3 +708,5 @@ Solved elsewhere: Two funded European companies sell software that automates sec
 
 
 2026-09-21 · the security-manager tender is still open — One signal linked. Mendel University's repeated tender for the outsourced cybersecurity manager, already on file as the August notice [S19], came back on 21 September as a change to the same procedure moving the closing date for bids from 29 September to 22 October 2026 [S29]. The TED XML names the change and the driver in the buyer's own words: it is an obligated entity under Act 264/2025 in the higher-obligations regime, and the manager it is buying would run its information-security management system, coordinate the security measures and deal with the regulator [S29]. Three body lines now carry the September date, and the process step that reads "nobody carries out the security measures" cites it too. No score moved: The opportunity is at 2 and Why now at 3 already, the notice states no value so it is not a price receipt, and it names no local seller, so Market gap is untouched at 1 and `status` stays `candidate` — the direct Czech sellers on the ledger are all still early and the one established local, ICZ, is adjacent. Dismissed the same day, and why: ČEPS's anti-DDoS equipment tender (ted-646533-2026) buys security kit, which this record already carries five examples of [S17,S18,S20,S21,S22] and which is not the security work this problem sells, and it states no value.
+
+2026-09-28 · evidence audit — Three signals linked, each read at source. Prague 2 tenders four years of outside support and continuous monitoring of its security systems, estimated at 7.8M CZK: a second district buying the work itself, open, so public money nearby with no dims [S30]. Vysočina region lent Třebíč hospital about 36.9M CZK, interest-free, to prefinance its IROP-funded cybersecurity project [S31], and the hospital signed about 52.3M CZK with five years of support for that project's kit [S32]; both context, no dims. Inference flagged: that the grant pays only after the spend is our reading of the loan's purpose, which the contract does not explain. Not added: the Academy of Sciences SIEM tender also names the law's higher obligations, which [S29] already shows a buyer doing. Gap re-checked: the kit supplier in [S32] sells hardware and support, not this job, so like the Jihlava supplier [S28] it joins no ledger; no new local seller of this job, gap stays 1 and status stays candidate. No score moved.
