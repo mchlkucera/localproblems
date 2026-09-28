@@ -1828,6 +1828,9 @@ def frontmatter(fm_text, path):
     return doc if isinstance(doc, dict) else {}
 
 
+LEAKED_MARKUP = re.compile(r"</?(?:content|invoke|parameter|function_calls|antml:[a-z_]+)\b[^>]*>")
+
+
 def check(path, year):
     text = open(path, encoding="utf-8").read()
     fm, arg, firstmoves, revisions = split_record(text)
@@ -1844,6 +1847,17 @@ def check(path, year):
     gapchecks = [s for s in sources if s.get("type") == "gap-check"]
     status = str(doc.get("status") or "")
     live = status != "rejected"
+
+    # ---- LEAKED TOOL MARKUP -------------------------------------------------
+    # 2026-09-28: p-0051 was committed with `</content>` and `</invoke>` lines
+    # inside its Revisions — an authoring agent's tool-call syntax, written into
+    # the file. Every gate passed and the page would have printed them. A
+    # record never contains these tags, so any of them is an error, anywhere.
+    for n, line in enumerate(text.splitlines(), 1):
+        m = LEAKED_MARKUP.search(line)
+        if m:
+            errors.append(f"line {n} carries tool markup {m.group(0)!r} — an authoring "
+                          f"agent's syntax leaked into the file; delete the line")
 
     # ---- STRUCTURE: the silent-failure class this file exists for ----------
     # Rejected records are EXEMPT, for the same reason the cross-field

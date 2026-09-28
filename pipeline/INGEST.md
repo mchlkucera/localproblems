@@ -286,6 +286,16 @@ this loop, and it is the only step that needs you.
        its card is re-staged by hand at the scores the document supports —
        never by editing this log, which records what happened and is not a
        worklist to tick off.
+       KNOWN HOLE, MEASURED 2026-09-28: THE 2026-09-21 RUN'S DROPS ARE NOT IN
+       THIS LOG. That run's --complete (commit 3b9dd29) ran a normalize.py with
+       no drop-log code; the log arrived that evening (124b2e3), backfilled
+       from the 2026-09-19 payloads only. So any entry with first_seen on or
+       before 2026-09-21 may have times_dropped short by ONE, and last_seen may
+       be a week stale; an entry first seen 2026-09-28 may really date from
+       09-21. The 09-21 payloads are pruned, so no count can be receipted and
+       none is hand-edited. When ranking repeat offenders, read a count of 1
+       with first_seen 2026-09-19 as possibly 2. The 2026-09-28 fold itself was
+       checked line by line: 3,984 prior entries, 0 violations.
    3d. MODEL PASS B — generation, SURVIVORS ONLY: the English title
        ("Thing — what it is") and the <=2-sentence English summary. Every
        feed needs this except yc-oss, which ships English one_liners and
