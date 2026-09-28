@@ -2,10 +2,10 @@
 id: p-0018
 region: cz
 title: 'Czech employers with 150+ staff would have to redesign how they set pay under a new law'
-brief: 'Czechia is late on the EU rules, and its draft would make every employer set pay by a written system [S1]. Applicants would learn the minimum pay, and firms with 150+ staff would report their pay gap by April 2028 [S1].'
+brief: 'Czechia is late on the EU rules, and its draft would make every employer set pay by a written system [S1]. Applicants would learn the minimum pay, and firms with 150+ staff would report their pay gap by March 2028 [S12].'
 solution: 'Build software that reads a company''s payroll export and produces the pay-gap report the draft law would require.'
 good_for: 'Someone who knows HR and payroll and can sell to larger employers.'
-draft_law: 'Czech pay transparency law, still a draft [S1]'
+draft_law: 'Czech pay transparency law, still a draft [S1,S12]'
 category: legal-compliance
 geo: CZ-national
 score: 6
@@ -98,7 +98,7 @@ sources:
 - type: regulation
   name: "Czech transposition of the Pay Transparency Directive"
   gist: "the 2027 law and 2028 reports"
-  why: "Law-firm analysis of the MPSV draft: effective 1 Jan 2027, most duties from 1 Jan 2028, and pay-gap reports for employers with 150+ staff first due 30 April 2028. Czechia missed the June 2026 transposition deadline."
+  why: "Law-firm analysis of the MPSV draft: effective 1 Jan 2027, most duties from 1 Jan 2028, and pay-gap reports for employers with 150+ staff first due 30 April 2028; the government's July 2026 explanatory report puts that date at 31 March 2028. Czechia missed the June 2026 transposition deadline."
   url: https://iuslaboris.com/insights/czechia-charts-its-own-course-on-pay-transparency-directive-transposition/
   note: 'reg-pay-transparency-cz: EU Pay Transparency Directive (2023/970); CZ missed the
     7 Jun 2026 transposition deadline (infringement exposure). MPSV draft law (26 Mar 2026)
@@ -106,7 +106,13 @@ sources:
     employee employers with first reports due 30 Apr 2028. Deadline <18 months. Rescored
     2026-09-19: the Czech law is still a bill (government-approved 31 Aug 2026, before
     parliament) and the directive is untransposed, so it fails REAL and backs Why now 1, not
-    the deadline point it carried under v1.'
+    the deadline point it carried under v1.
+    Corrected 2026-09-28, fact check: the first-report dates above are the law firm''s reading
+    of the March draft. The explanatory report sent to the government in July 2026 (S12) reads
+    "Pro zaměstnavatele se 150 a více zaměstnanci je první vypracování zpráv stanoveno do
+    31. března 2028" and puts the 100 to 149 staff threshold at 31 March 2031. It also names a
+    second deadline, "do 31. března, potažmo 30. dubna", without saying which report takes
+    which. The record now follows the government text: 31 March 2028 and 31 March 2031.'
   date: '2027-01-01'
   signal: reg-pay-transparency-cz
 - type: arbitrage
@@ -207,13 +213,22 @@ sources:
 - type: regulation
   name: "VeKLEP — unified monthly employer reporting rules amended"
   gist: "the second reporting regime"
-  why: "A second reporting regime is landing on the same payroll data: the decree implementing unified monthly employer reporting (417/2025 Sb.) is already being amended, with comments closed in July 2026."
+  why: "The decree behind the employer's single monthly report to the state (417/2025 Sb.) is being amended to carry the data fields the pay-transparency law needs; comments closed in July 2026."
   url: https://odok.cz/portal/veklep/material/KORNDWGLMTLV/
   note: 'veklep-KORNDWGLMTLV: draft regulation amending nařízení č. 417/2025 Sb., which
     implements the jednotné měsíční hlášení zaměstnavatele law; public comments closed
     Jul 2026 (first VeKLEP harvest, 2026-08-25). A DIFFERENT obligation from pay transparency
     — linked as context only: both regimes pull structured reporting out of the same Czech
-    payroll systems this record''s buyers run. Backs no score dimension.'
+    payroll systems this record''s buyers run. Backs no score dimension.
+    Corrected 2026-09-28, fact check: not a different obligation. The decree''s explanatory
+    report (zd_KORNDWGLMTLV, saved in the 2026-09-28 VeKLEP sweep) says the amendment answers
+    the planned Labour Code change on pay transparency, and "Nově byly rovněž doplněny údaje
+    nezbytné pro plnění nových informačních povinností souvisejících s připravovanou právní
+    úpravou transparentnosti odměňování", mainly for agency workers and state prosecutors. The
+    Labour Code bill''s own explanatory report (S12) says the ministry will compute each
+    employer''s pay-gap figures under Art. 9(1)(a) to (f) of the directive from these monthly
+    reports. So this decree is the data vehicle for part of the same pay-gap reporting. Still
+    dims: []: it backs no score.'
   date: '2026-07-30'
   signal: veklep-KORNDWGLMTLV
   dims: []
@@ -403,8 +418,31 @@ sources:
     paying customers of the Czech sellers in locals[]. Gap was 0 and stays 0.'
   date: '2026-08-12'
   dims: [gap]
+- type: regulation
+  name: "VeKLEP — the Labour Code pay-transparency bill, explanatory report"
+  gist: "the government's own dates and costs"
+  why: "The government's explanatory report on the pay-transparency bill: first pay-gap reports for firms with 150+ staff by 31 March 2028, only 15% of Czech firms tracking the gap, and the cost to employers."
+  url: https://odok.cz/portal/veklep/material/KORNDSJHRRGS/
+  note: 'veklep-KORNDSJHRRGS: Důvodová zpráva (attachment zd_KORNDVYHMQIC, dated 14 July 2026,
+    saved in the 2026-09-28 VeKLEP sweep) to the MPSV bill amending the Labour Code and the
+    Labour Inspection Act to transpose directive 2023/970. VeKLEP status "B - signováno",
+    government session 31 August 2026; not enacted. Dates: "Pro zaměstnavatele se 150 a více
+    zaměstnanci je první vypracování zpráv stanoveno do 31. března 2028, o zaměstnavateli se
+    100–149 zaměstnanci bude první zpráva o rozdílech v odměňování vypracována do 31. března
+    2031." Elsewhere it names the deadlines as "do 31. března, potažmo 30. dubna" without
+    assigning them. Split of the report: the ministry drafts each employer''s report under
+    § 37g (Art. 9(1)(a) to (f)) from JMHZ monthly-report data; the employer itself writes the
+    report on gaps within groups of work under § 37i (Art. 9(1)(g)), gives it to the ministry
+    and its staff, and runs a joint assessment where a group''s gap is 5% or more and
+    unexplained. Survey: "rozdíly v odměňování žen a mužů na srovnatelných pozicích sleduje
+    pouze 15 % českých podniků" (MPSV representative survey, 2025). Employer cost: "Celkové
+    dopady na zaměstnavatele jde odhadnout mezi 197, 9 mil. Kč a 2 256,5 mil. Kč" for
+    introducing and maintaining pay systems, across 30/60/90% of employers needing to act at
+    low/mid/high effort. A compliance cost estimate, not a price receipt: backs no money point.'
+  date: '2026-07-14'
+  signal: veklep-KORNDSJHRRGS
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-09-28'
 ---
 
 A draft Czech law would make every employer set pay by a written system, and larger ones report their gender pay gap [S1].
@@ -421,7 +459,7 @@ The law would put the EU's Pay Transparency Directive (2023/970) into Czech law 
 - Telling applicants the minimum pay is narrower than the EU's rule, which asks for the starting pay or its range [S1].
 - Firms with 250 or more staff would report every year, and those with 100 to 249 every three years [S1].
 - Where a gap of 5% or more cannot be explained, the employer would run a joint pay assessment with staff representatives [S1].
-- No Czech employer survey, business-chamber statement or complaint about pay-gap reporting has been found; the evidence is the draft law and its dates [S1].
+- No business-chamber statement or complaint about pay-gap reporting has been found; the evidence is the draft law, its dates and the ministry's own survey [S1,S12].
 
 Existing non-solutions: The Czech field is taken: two established sellers offer pay-gap analysis, two newer ones sell it too, and the state gives audits away [S5,S11].
 
@@ -437,7 +475,7 @@ The survey firm also sells job evaluation and wage benchmarks, drawn from the sa
 - Employers already run Czech payroll and personnel systems such as Vema, Pamica and OKbase; the sources say nothing about whether these analyse pay gaps [S3,S4].
 - No Czech product was found that turns a payroll export into the whole filing the EU rules prescribe [S5]. The contracts read cover the mean and median gap and the gap in bonuses, but none lists the share of women and men in each quarter of the pay scale, or the joint assessment [S11]. Not finding one does not prove none exists [S5].
 
-Why now: Employers would have to rebuild how they set pay from January 2027, and firms with 150+ staff would report by April 2028 [S1].
+Why now: Employers would have to rebuild how they set pay from January 2027, and firms with 150+ staff would report by March 2028 [S1,S12].
 
 - Personnel teams would sort every job into groups by its value [S1].
 - Lacking a written pay system could cost an employer up to CZK 1M [S1].
@@ -447,15 +485,17 @@ The draft goes further than the EU directive, so employers would rebuild how the
 
 - The written pay system, the benefits system and the grouping of jobs are Czech additions; the directive asks for none of them [S1].
 - Lesser breaches, such as limiting what staff may learn about pay, could cost up to CZK 400,000 [S1].
+- In 2025 only 15% of Czech firms tracked the pay gap between women and men in comparable jobs, the labour ministry's survey found [S12].
 
-The dates come from the draft, and a second reporting change lands on the same payroll data [S1,S6]:
+The dates come from the draft, and the state's monthly payroll report is being changed to feed the pay-gap figures [S6,S12]:
 
 - On 7 June 2026 Czechia missed the EU's deadline to put the directive into Czech law [S1].
 - On 1 January 2027 the law would take effect, with the pay system, the minimum pay for applicants and the ban on relying on past pay [S1].
 - On 1 January 2028 most other duties would start, including the pay-gap reports and the joint assessments [S1].
-- By 30 April 2028 firms with 150 or more staff would file their first pay-gap report [S1].
-- By 30 April 2031 firms with 100 to 149 staff would file theirs [S1].
-- In July 2026 public comments closed on changes to decree 417/2025, which sets the rules for the employer's single monthly report to the state [S6]. It is a different duty, drawn from the same payroll systems [S6].
+- By 31 March 2028 the first pay-gap reports for firms with 150 or more staff would be due [S12].
+- By 31 March 2031 the first reports for firms with 100 to 149 staff would be due [S12].
+- The ministry would work out each firm's headline pay gap from its monthly payroll reports [S12]. The firm itself would write the report on gaps within each group of work, for the ministry and its staff [S12].
+- In July 2026 public comments closed on changes to decree 417/2025, which sets the rules for the employer's single monthly report to the state [S6]. The changes add the data the pay-transparency law needs, mainly for agency workers [S6].
 
 Who pays: Some Czech employers already pay specialists to calculate their pay gap from payroll data, before the law has passed [S11].
 
@@ -474,7 +514,9 @@ Every paying employer on file is a public one, because public bodies must publis
 - Investors backed a Czech personnel-software firm that markets pay-gap analysis, in June 2026 [S5].
 - Five consultancies offer pay-equity work as paid advice [S5].
 
-The buyers would be employers with 150 or more staff first, then every employer that hires, since all would need the written pay system [S1]. A seller can come in two ways: a standalone audit tool, or a module inside the payroll systems employers already run [S3,S4]. Whether most employers buy before 30 April 2028 or scramble after is still open [S1].
+The ministry puts employers' total cost of building or formalising their pay systems at CZK 197.9M to 2,256.5M, depending on how many must start over [S12]. That is a cost to employers, not a price anyone has paid [S12].
+
+The buyers would be employers with 150 or more staff first, then every employer that hires, since all would need the written pay system [S1]. A seller can come in two ways: a standalone audit tool, or a module inside the payroll systems employers already run [S3,S4]. Whether most employers buy before 31 March 2028 or scramble after is still open [S1,S12].
 
 Solved elsewhere: Three foreign firms, in France, Iceland and the US, already sell the pay analysis these rules would force on Czech employers [S2].
 
@@ -509,3 +551,5 @@ Market gap: new in `locals[]`, Greenometer, a sustainability-reporting firm that
 Body: Willing to pay now opens on employers already paying specialists to calculate their pay gap [S11]. Its first three items are the paying employers, the ministry's free audits and the list prices [S5,S11]; below them, what the contracts cover, the Liberec reporting template, the library, the other advisers, the survey firm's audit and the ministry's cost per analysis [S11], with the funding and consultancy items kept [S5]. The old answer, "no Czech employer is yet shown paying", is false and is gone. Market gap now counts two newer sellers and the free audits in its answer sentence, adds the sustainability firm as item 3 and the ministry's audits as a bullet, and the "no product turns a payroll export into the finished filing" bullet now says what the contracts cover (mean and median gaps, the gap in bonuses) and what none lists (quartile bands, the joint assessment) [S5,S11]. Flagged as our reading: "because public bodies must publish their contracts" is the contracts-register law, not a sentence in any source; every payer found is public [S11]. "Two universities" counts Liberec, whose contract recalculates the gap after regrouping jobs [S11].
 
 Searched and not added, all in S11's note: university and institute gender audits (2017 to 2026), whose texts were not read and whose scope does not show a pay gap; job-architecture and job-grading contracts (Deloitte for the Microbiology Institute, 1,203,400 CZK, May 2026; a sole trader for the Institute of Physics, September 2026), which buy the draft's other duty [S11]; BD Advisory, BL Services and LEGALITÉ, whose pay-gap line is bundled with pay policy or legal advice; the rest of Greenometer's pay-gap contracts (Liberec, the city library, the Olomouc water utility, the January 2026 university pilot), kept in the row, two receipts being enough; and the labour ministry's 15,792,300 CZK contract with Ernst & Young for at least 30 equal-pay audits [S11]. That last one is public money for this job, but the employer pays nothing, so it is fully funded and cannot lift money (SCORING.md); it is recorded as a free competitor. Web: the consultancy pages read (PwC, Deloitte, BDO, EY, Accace) and Greenometer's product page publish no fee. Positive control: the query on TREXIMA's IČO surfaced the labour ministry's ISPV contract with it (May and September 2024), the mandate the ledger already names. Only the first page of each query was read; "rovného odměňování" has 1,159 hits and was not exhausted. Not changed: title, brief, solution, good_for, draft_law, urgency, proof, demand and `entry`; none of the headline fields is made false by what was found.
+
+2026-09-28 · fact check — The first pay-gap report date moves from 30 April to 31 March 2028, and the 100–149 staff date from 30 April to 31 March 2031, on the government's July 2026 explanatory report to the bill, added as [S12]: "Pro zaměstnavatele se 150 a více zaměstnanci je první vypracování zpráv stanoveno do 31. března 2028". The 30 April dates came from the law firm's reading of the March draft [S1]; the explanatory report also names "31. března, potažmo 30. dubna" without saying which report takes which, so the record follows its one dated sentence. Brief before, verbatim: "Czechia is late on the EU rules, and its draft would make every employer set pay by a written system [S1]. Applicants would learn the minimum pay, and firms with 150+ staff would report their pay gap by April 2028 [S1]." After: "Czechia is late on the EU rules, and its draft would make every employer set pay by a written system [S1]. Applicants would learn the minimum pay, and firms with 150+ staff would report their pay gap by March 2028 [S12]." Title unchanged. Body: the Why now answer sentence, the two date bullets and the open question under Willing to pay now say March; a bullet says the ministry would work out each firm's headline gap from its monthly payroll reports and the firm itself would write the report on gaps within each group of work [S12]. S1's `why` names both dates and its note carries a correction line. [S6] was called "a different duty" and "a different obligation"; the decree's own explanatory report says it adds the data fields the pay-transparency law needs, and [S12] says the ministry computes the pay-gap figures from that monthly report, so the sentence, S6's `why` and a correction line in its note now say so. Added from [S12]: only 15% of Czech firms tracked the pay gap in comparable jobs in the ministry's 2025 survey (Why now), and employers' cost of building compliant pay systems at CZK 197.9M to 2,256.5M (Willing to pay, stated as a cost, not a price). The Opportunity bullet that said no Czech employer survey had been found now names the ministry's survey. `draft_law:` also cites [S12], the newer status receipt: a government bill approved on 31 August 2026, not enacted. No score moved: urgency stays 1 under `draft_law:`, money stays 2 on [S8] and [S9], demand stays 0 because a ministry survey is not a buyer asking.
