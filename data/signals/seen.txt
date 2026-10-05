@@ -48,6 +48,7 @@ civic-rodicovsky-prispevek
 civic-translatologie-ffuk
 civic-tyrani-zvirat-tresty
 civic-uohs-metodika-nakup-leciv
+civic-uohs-prezkum-vz-2025
 civic-vlaky-stredocesky-2021
 civic-vrbenske-rybniky-cb
 civic-vzp-centrove-leky-bonusy
@@ -163,6 +164,7 @@ de-1-cp
 de-aedifion
 de-aquabench
 de-arcos
+de-ark-climate
 de-arx-robotics
 de-caigos
 de-conmeet
@@ -177,6 +179,7 @@ de-galvany
 de-hallo-theo
 de-integral
 de-jupus
+de-kuro
 de-metycle
 de-mika
 de-peter-park
@@ -197,6 +200,9 @@ de-vytal
 dk-amgros
 dk-envidan
 dk-festina
+dk-good-tape
+dk-pandektes
+dk-trypcom
 dotace-amif-49-asistence-oamp
 dotace-amif-50-informace-cizincum-2
 dotace-amif-51-rekonstrukce-suz
@@ -207,6 +213,7 @@ dotace-digital-2026-ehds
 dotace-digital-2026-health-ai-skills
 dotace-digital-2026-safer-internet
 dotace-digital-2026-skills-coalitions
+dotace-fvb-18-vymahani-konfiskace-majetku
 dotace-fvb-20-prum
 dotace-horizon-cl5-2026-11-energy
 dotace-horizon-eccc-cyber-2026
@@ -236,6 +243,7 @@ dotace-nshv-22-biometrie-zastupitelske-urady
 dotace-nzu-2026-zranitelne-domacnosti
 dotace-opd-44-rychlodobijeci-prioritni
 dotace-opd-45-bezne-dobijeci-mesta
+dotace-opd-46-ultrarychle-dobijeci-cela-cr
 dotace-opjak-map-2
 dotace-opjak-msca-fellowships-cz
 dotace-opjak-open-science-3
@@ -247,6 +255,8 @@ dotace-oprybarstvi-35-intenzivni-akvakultura
 dotace-oprybarstvi-36-investice-akvakultura
 dotace-oprybarstvi-37-zpracovani-produktu
 dotace-oprybarstvi-38-propagacni-kampane
+dotace-opst-117-ai-vyuka-ss-karlovarsky
+dotace-opst-118-ai-vyuka-ss-ustecky
 dotace-optak-aplikace-mezinarodni
 dotace-optak-inovacni-vouchery-4
 dotace-optak-ipcei-mikroelektronika
@@ -341,6 +351,7 @@ ee-rendin
 ee-salu
 eru-vyuctovani-2025
 es-mjn-neuro
+es-reply-next
 es-the-blue-box
 fa-spotrebitelske-uvery
 feed-18010cb1
@@ -362,10 +373,13 @@ fr-asap-work
 fr-climerock
 fr-ecov
 fr-healshape
+fr-marble
 fr-padam-mobility
+fr-relaisante
 fr-trashboard
 fr-tremau
 fr-veesion
+fr-voltaback
 fr-waiv
 fr-wind-fisher
 gb-academyai
@@ -386,6 +400,7 @@ gb-solim-health
 gb-sprout-ai
 gb-tova-earth
 gb-vamstar
+gb-xylo
 gb-zen-educate
 gb-zenobe
 hack-02917635
@@ -2490,7 +2505,9 @@ ie-octostar
 is-50skills
 is-snerpapower
 it-dedalo-ai
+it-gamindo
 it-iusful
+it-nando
 lt-enforceshield
 lt-ondato
 lv-handwave
@@ -2921,7 +2938,9 @@ nku-15776
 nku-15849
 nku-15851
 nku-15934
+nku-brownfieldy
 nku-cista-mobilita
+nku-ctu-ucetni-zaverka-2024
 nku-dia-ucetnictvi
 nku-digi-sluzby
 nku-doprava2020
@@ -2935,21 +2954,27 @@ nku-fakultni-nemocnice
 nku-gacr-tacr
 nku-ikem-hospodareni
 nku-justicni-pohledavky
+nku-knihovny-digitalizace
 nku-lesnictvi
 nku-letecka-sluzba
 nku-majetkove-ucasti
 nku-mekke-cile
 nku-mistni-komunikace
+nku-mk-ucetni-zaverka-2024
 nku-modernizacni-fond
+nku-mpsv-ucetni-zaverka-2024
 nku-msmt-horizont-kontroly
 nku-nelegalni-prace
+nku-nsa-ucetni-zaverka-2024
 nku-odpocivky
 nku-pesi-komunikace
+nku-podpora-startupu
 nku-pozemkove-upravy
 nku-protipovodnova-ochrana
 nku-react-eu-nemocnice
 nku-rizeni-skolstvi
 nku-rsc-sport
+nku-socialni-sluzby-infrastruktura
 nku-srazkove-vody
 nku-statni-sluzba
 nku-up-ucetni-zaverka-2025
@@ -2960,6 +2985,7 @@ nku-viza-it
 nku-vrt
 nku-vycvik-acr
 nku-vysoke-skoly
+nku-vystroj-policie
 nku-zdravotnicky-vyzkum
 nku-zemedelsky-vyzkum
 nl-avido-ai
@@ -3023,6 +3049,7 @@ pl-tidio
 pl-upacjenta
 pl-zowie
 pt-deskamigo
+pt-frank
 reddit-t3-1qk52y8
 reddit-t3-1qs0lkw
 reddit-t3-1qvleg2
@@ -3089,6 +3116,7 @@ reg-cbam-definitive
 reg-ccd2-bnpl-2026
 reg-ccd2-consumer-credit
 reg-cer-zakon-266
+reg-cestovni-nahrady-175-2026
 reg-chraneny-trh-prispevky-2027
 reg-cizinecky-zakon-2029
 reg-cnb-dora-roi-2026
@@ -3106,6 +3134,7 @@ reg-csrd-post-omnibus
 reg-ctu-poplatky-spektrum-2027
 reg-cuzk-dtm-editace
 reg-cz-cenovy-vymer-1-2026-olzp
+reg-cz-drg-2027-174-2026
 reg-cz-jmhz
 reg-cz-psilocybin-2026
 reg-cz-stavebni-digi
@@ -3149,6 +3178,7 @@ reg-ets2-carbon-price
 reg-eturista-registr-ubytovani-2028
 reg-eu-customs-code-2026-2108
 reg-eu-disability-card
+reg-eu261-revize-2027
 reg-eudr-annex-i-scope-2027
 reg-eudr-deforestation
 reg-euro7
@@ -3171,6 +3201,7 @@ reg-jednotne-inkaso-samovymereni-2028
 reg-jmhz-rizikove-prace-2027
 reg-kamiony-parkovani-13-1997-2028
 reg-katastr-omezeni-dat
+reg-ki-portal-178-2026
 reg-klecove-chovy-2027
 reg-kriticke-suroviny
 reg-ksef-pl
@@ -3224,6 +3255,7 @@ reg-pozemkove-upravy-vykupy-2027
 reg-pp-doprava-terminy-2029
 reg-ppwr-packaging
 reg-predkupni-pravo-puda-2028
+reg-preshranicni-vymahani-pokut-2027
 reg-prispevek-na-peci-2026
 reg-prispevek-na-peci-prevod-ussz-2028
 reg-prumyslove-vzory-oprava-2027
