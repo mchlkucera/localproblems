@@ -7,19 +7,19 @@ solution: 'Build a small security agency that does the security work, and writes
 good_for: 'Someone with cybersecurity skills who''s interested in grants and public-sector sales.'
 category: legal-compliance
 geo: CZ-national
-score: 11
+score: 10
 scores:
   proof: 3
   money: 2
   urgency: 3
   demand: 2
-  gap: 1
+  gap: 0
 status: candidate
 entry:
   level: hard
   buyer: public
   permission: none
-  incumbents: adjacent
+  incumbents: direct
   integration: software
   money: bootstrap
   why: 'Easier: the law''s deadlines push towns and firms to buy now, an EU grant pays half for towns, and no licence is needed to do the work. Harder: the buyers are public bodies, so each sale goes through their slow purchasing rules and tenders, and they want references a new provider does not have yet.'
@@ -97,15 +97,117 @@ locals:
   url: https://www.aricoma.com/
   ico: '04308697'
   since: 2017
+  competes: direct
+  maturity: established
+  evidence: 'A large IT systems house that also sells this job to small public bodies. In
+    December 2025 the Olomouc region signed with it to set up the information-security
+    management system at OLÚ Paseka, a small regional sanatorium, and in December 2023, under
+    its former name AUTOCONT, it wrote the security documents the cyber-security law requires
+    for Povodí Ohře, a state water company. Most of what it sells the public sector is kit and
+    support, such as Třebíč hospital''s hardware and software with five years of support [S32].
+    Aricoma Systems a.s. was registered in November 2017, and has 10 distinct public buyers in
+    the contracts register.'
+- name: Equica
+  url: https://www.equica.cz/130-vyzva-kyberneticka-bezpecnost-obce/
+  ico: '26490951'
+  since: 2021
+  competes: direct
+  maturity: established
+  evidence: 'A grant and public-sector consultancy that sells towns both halves of the job. It
+    wrote Lovosice''s EU-funded cyber-security project in October 2021, wrote the security
+    documents for Lysá nad Labem in December 2025 and Přelouč''s NIS2 documents in February
+    2026, and since May 2026 has held the outsourced role in charge of cyber security for
+    Brandýs nad Labem-Stará Boleslav; it was the Ústí region''s outside security manager from
+    November 2022. Named customers include these towns and the region, all in the state
+    contracts register. Equica, a.s. has traded since November 2001.'
+- name: Blue Partners
+  url: https://www.bluepartners.cz/sluzby-a-produkty/sluzba/nis2
+  ico: '27373622'
+  since: 2020
+  competes: direct
+  maturity: established
+  evidence: 'A Prague security firm that does the work the new law requires for small public
+    bodies, at a price fixed item by item. It set up the security management system for the
+    town of Lanškroun under NIS2 (contract published January 2026), delivered the measures
+    decree 410/2025 asks of the town of Holice in March 2026, and in September 2026 signed to
+    bring a Uherské Hradiště social-services provider into line with Act 264/2025 and decree
+    409/2025: documents, risk analysis, recovery and continuity plans, and staff training. Its
+    NIS2 page also offers help with grants. Named customers include these buyers and Prague 4,
+    whose IT security it assessed in March 2020. Blue Partners s.r.o. has traded since August
+    2005.'
+- name: Next Generation Security Solutions
+  url: https://www.ngss.cz/sluzba/kyberneticky-zakon-a-smernice-nis2
+  ico: '06291031'
+  since: 2017
+  competes: direct
+  maturity: established
+  evidence: 'A Prague security firm that sells compliance with the cyber-security law end to
+    end: a gap analysis, the required documents, technical measures, and help through the
+    agency''s inspection. In May 2026 Prague 9, a city district, signed with it to put in place
+    the security measures Act 264/2025 sets for the lower-obligations regime, and the town of
+    Břeclav and regional ambulance services also buy its cyber-security work. Named customers
+    include Fakultní nemocnice Ostrava and Lesy hl. m. Prahy. Next Generation Security
+    Solutions s.r.o. has traded since July 2017.'
+- name: Lexnova Technology
+  ico: '22340564'
+  since: 2024
+  competes: direct
+  maturity: early
+  evidence: 'A sister company of Lexnova Energy that sells the same fixed-price NIS2 package to
+    care homes: an audit, the required documents, training and, for Domov pro seniory Chodov,
+    registration with the national cyber-security agency. The state contracts register shows
+    dozens of such orders since October 2025, and in July 2026 Domov sociálních služeb
+    Slatiňany signed a larger contract for its expert security services. Lexnova Technology
+    s.r.o. was founded in December 2024, so it has sold for less than three years.'
+- name: Integra Czech Republic
+  url: https://www.integra.cz/cs/gap-analyza/
+  ico: '24216941'
+  since: 2012
   competes: adjacent
   maturity: established
-  evidence: 'A large IT systems house that sold Třebíč hospital about 52.3M CZK of hardware and
-    software with five years of support for its cybersecurity project [S32]: kit and its upkeep,
-    not the security measures and paperwork this problem sells. Its enterprise cybersecurity line
-    does list NIS2 and cyber-security-law compliance, ISMS set-up and risk analysis (aricoma.com,
-    read 2026-09-28), but as project work for large firms, hospitals and regions, not the
-    fixed-price job a small town or firm buys. Aricoma Systems a.s. was registered in November
-    2017, and has 10 distinct public buyers in the contracts register.'
+  evidence: 'A security consultancy that sells the check, not the work: gap analyses against
+    the law, penetration tests, and the closing audits towns must buy for grant-funded cyber
+    projects, such as Tábor in October 2025 and Vyškov in February 2026. Its page offers to
+    carry out some of the recommended steps on request, but no order for the security work
+    itself was found. Named customers include Tábor, Vyškov and the Czech environmental
+    inspectorate. Integra Czech Republic, s.r.o. has traded since February 2012.'
+- name: Storage One
+  url: https://storageone.cz/aktuality/nis2_healthcheck/
+  ico: '02301245'
+  since: 2013
+  competes: adjacent
+  maturity: established
+  evidence: 'A storage and backup supplier to public bodies that also sells NIS2 HealthCheck, a
+    short gap analysis for small and mid-sized firms: a review of their documents and a few
+    interviews, scored against each section of the decree, with recommendations. It sells the
+    check, not the security work. Named customers include ČVUT and Správa státních hmotných
+    rezerv. STORAGE ONE, a.s. has traded since November 2013.'
+- name: Zymestic Solutions
+  url: https://www.zymestic.cz/en/services/gap-analysis-according-to-nis2/
+  ico: '08071128'
+  since: 2019
+  competes: adjacent
+  maturity: established
+  evidence: 'A security firm that sells NIS2 gap analyses, security audits, penetration tests
+    and security software, mostly to ministries and universities; no order from a town or a
+    care home was found. Named customers include the labour ministry, the defence ministry and
+    Palacký University Olomouc. Zymestic Solutions, a.s. was founded in April 2019.'
+- name: Sec4good
+  url: https://www.sec4good.cz/en/service-post/nis2-gap-analysis/
+  ico: '17932114'
+  since: 2023
+  competes: adjacent
+  maturity: early
+  evidence: 'A Prague consultancy that sells a NIS2 gap analysis, priced from 4,000 EUR before
+    VAT and taking about four weeks. It sells the check, not the security work, and names no
+    customers. Sec4good, s.r.o. was founded in January 2023.'
+- name: Guardians
+  url: https://newsletter.guardians.cz/p/gap-analyza-podle-nis2-a-noveho-kybernetickeho
+  competes: adjacent
+  maturity: early
+  evidence: 'A Czech security newsletter that, with a law firm, sells Verief, a gap analysis
+    against the new law and NIS2. It sells the check, not the security work. The pages read
+    publish no company number and name no customers.'
 process:
   summary:
     today: 'A covered town or care home buys help in pieces: one seller checks what it owes, another writes the grant application, a third sells paperwork [S7,S8,S16].'
@@ -617,8 +719,78 @@ sources:
   date: '2026-09-22'
   signal: hlidac-37260633
   dims: []
+- type: gap-check
+  name: "Czech security firms already doing the work"
+  gist: "the established firms"
+  why: "Established Czech firms already sell towns and care homes the security work the law requires, and one also writes their EU grant applications."
+  url: https://smlouvy.gov.cz/smlouva/39636329
+  note: 'Gap re-check 2026-10-05 (owner decision 17, docs/weekly/2026-09-28.md). Question: does
+    an ESTABLISHED Czech player sell THIS job, the security work under Act 264/2025 (plus the
+    grant application) for a fixed price, to small towns, care homes and small firms? Read
+    against solution: a security agency, so a service firm doing this work is the manual
+    equivalent and counts as direct; a firm selling only the gap analysis or audit is adjacent.
+    ANSWER: YES, so gap 1 -> 0. Decisive receipts, each read at smlouvy.gov.cz on 2026-10-05:
+    (1) Blue Partners s.r.o. (IČO 27373622, ARES 2005-08-24): smlouva 39636329, Sociální služby
+    Uherské Hradiště, signed 21 Sep 2026, 495,000 CZK excl. VAT fixed, contract text read: ISMS
+    and compliance with ZKB 264/2025 and vyhláška 409/2025 §3-26, documentation, asset
+    catalogue, BIA, risk analysis, DR and BCP plans, training, final verification; smlouva
+    37311249, Město Holice, 24 Mar 2026, 82,000 CZK excl. VAT, order text: measures under
+    vyhláška 410/2025; smlouva 36488353, Město Lanškroun, published 22 Jan 2026 (contract dates
+    it 19.01.2025, its number SML/2026/0006), 229,000 CZK excl. VAT, ISMS implementing NIS2;
+    smlouva 39172330, SOL Trutnov, Aug 2026, ISMS implementation, 488,000 CZK excl. VAT;
+    smlouva 37185477, SSL Olšava gap analysis, Mar 2026; smlouva 12041304, MČ Praha 4, IT
+    security assessment, 24 Mar 2020, the earliest receipt, hence since 2020. (2) Equica, a.s.
+    (IČO 26490951, ARES 2001-11-21): smlouva 18079191, Město Lovosice, Oct 2021, IROP II cyber
+    project write-up, 200,000 CZK excl. VAT; 22206473, Ústecký kraj, Nov 2022, cyber-security
+    manager services; 24616323, Město Sokolov, May 2023, intro NIS2 audit; 36035685, Lysá nad
+    Labem, Dec 2025, ISMS documentation; 36907049, Přelouč, Feb 2026, NIS2 documents, 330,000
+    CZK excl. VAT; 38147065, Brandýs nad Labem-Stará Boleslav, May 2026, outsourced cyber role;
+    Hlídač lists 110 Equica contracts matching kybernetické, many of them closing audits of
+    grant-funded town projects. Equica is the one player selling BOTH the grant application and
+    the security work to towns, the exact bundle solution names. (3) Next Generation Security
+    Solutions s.r.o. (IČO 06291031, ARES 2017-07-31): smlouva 38178269, MČ Praha 9, 27 May 2026,
+    measures under 264/2025 for the lower regime, 1,894,000 CZK excl. VAT; Hlídač shows 232
+    contracts incl. Břeclav, ZZS Liberecký kraj ISMS, Psychiatrická nemocnice Opava security
+    manager. (4) Aricoma Systems a.s. (IČO 04308697): smlouva 35979689, Olomoucký kraj for OLÚ
+    Paseka, 8 Dec 2025, ISMS, 421,000 CZK excl. VAT; smlouva 26790631, Povodí Ohře, Dec 2023,
+    ZoKB security documentation (as AUTOCONT a.s., same IČO). This answers the owner flag of
+    2026-09-28: Aricoma moves adjacent -> direct. Also found and ledgered: Lexnova Technology
+    s.r.o. (IČO 22340564, ARES 2024-12-06, Hlídač 51 contracts, care-home NIS2 packages; verified
+    38636940 Slatiňany 2,760,000 CZK excl. VAT and 37391333 Chodov incl. NÚKIB registration),
+    direct early. Decision-17 names: Integra Czech Republic (24216941, 2012; audits and pen
+    tests for towns, e.g. Tábor, Vyškov; adjacent), STORAGE ONE (02301245, 2013; NIS2 HealthCheck
+    gap analysis; adjacent), Zymestic Solutions (08071128, 2019; NIS2 gap analysis, audits;
+    adjacent), Sec4good (17932114, 2023; gap analysis from 4,000 EUR; adjacent early), Guardians
+    (Verief gap analysis with AK Cisek; no IČO found in ARES under that name; adjacent early).
+    Scenario could not be tied to any NIS2 offer: ARES has a Scenario s.r.o. (29462177) but no
+    page found links it to this service, so it is not ledgered. Seen in the same Hlídač
+    full-text search and NOT ledgered for want of a read at source (named for the next pass):
+    SoTe consulting (06187269, ISMS for Praha 10), DynamicData (08219281, Sociální služby
+    Kroměříž), s-boost (23037539, 2025), I3 Consultants (27921344), DATASENSE (24664812,
+    security manager for Karlovarská krajská nemocnice), Fitio Platform (09454764, Prostějov
+    documents), KMM net, CYBERSAFE, EduKyb, Taylor McCoy, DATACONS; and on the web ASITIS,
+    Kybit, Secureon, Selecos, umimenis2, 4CYBER, TNS, NetDirect, RSM, Deloitte. POSITIVE
+    CONTROL: the Hlídač full-text query "NIS 2" balíček, run blind, returned the Lexnova
+    packages already on file (Napajedla, the Zlín-region services) among its first results, so
+    the method surfaces a known direct seller: PASSED. Hlídač API (token) was not used this
+    pass; contract subjects were read on smlouvy.gov.cz and Hlídač public search pages.'
+  date: '2026-10-05'
+  queries:
+    - "NIS2 pro obce kybernetická bezpečnost služba zákon 264/2025"
+    - "manažer kybernetické bezpečnosti jako služba obce NIS2 implementace"
+    - "posouzení souladu NIS2 malé firmy gap analýza cena"
+    - "NÚKIB registrace pomoc obec kybernetická bezpečnost dotace IROP 120 zpracování žádosti implementace"
+    - "Zymestic NIS2 gap analýza kybernetická bezpečnost"
+    - "Scenario s.r.o. NIS2 GAP analýza zákon o kybernetické bezpečnosti"
+    - "Guardians NIS2 kybernetická bezpečnost GAP analýza česká firma"
+    - "Storage One NIS2 HealthCheck GAP analýza"
+    - 'hlidacstatu.cz smlouvy: "264/2025" zavedení systému řízení bezpečnosti'
+    - 'hlidacstatu.cz smlouvy: "NIS 2" balíček'
+    - 'hlidacstatu.cz smlouvy: ico:27373622 kybernetické · ico:26490951 kybernetické · ico:06291031 · ico:04308697 "systému řízení bezpečnosti" · ico:24216941 kybernetické · ico:22340564 · ico:02301245 · ico:08071128'
+  checked: [google-cz, ares, registr-smluv, hlidac-statu-search, own-contract-lookup, own-tender-ledger, vendor-sites]
+  expires: '2027-01-03'
 created: '2026-08-13'
-updated: '2026-09-28'
+updated: '2026-10-05'
 ---
 
 The new cybersecurity law makes each covered organisation register, then put security measures in place within a year [S1].
@@ -635,12 +807,19 @@ The law is Act No. 264/2025, the Czech version of the EU's NIS2 directive (its c
 - The security measures are concrete steps set out in two decrees, No. 409/2025 and No. 410/2025 [S16]. They include a list of the organisation's computers and data, a risk assessment, supplier checks, staff training, and reporting an attack to the agency within 24 hours [S16].
 - The university is Mendel University in Brno. In August 2026 it went back to market for an outsourced security manager, a role the law requires [S19]. In September it moved the closing date for bids to 22 October 2026, so it had still not found one [S29].
 
-Existing non-solutions: Four Czech sellers offer the paperwork the law requires, and none sells the security work itself [S7,S16].
+Existing non-solutions: Established Czech security firms already do this work for small towns and care homes, and one also writes their EU grant applications [S33].
 
-None of the four puts the security measures in place, and that work is what the public contracts under [Who pays](#how-big) buy [S7,S16]. They sell the documents as ready-made packs or online tools [S16]. Other firms sell single pieces of the job:
+- A care provider bought the whole job at a fixed price in 2026 [S33].
+- Small towns such as Holice bought the security measures, not just documents [S33].
+- One grant consultancy writes towns' grant projects and their security documents [S33].
+
+The care provider is a social-services organisation in Uherské Hradiště, and its September 2026 contract covers the documents, a risk analysis, recovery and continuity plans, and staff training [S33]. The town of Lanškroun bought the same set-up of its security management [S33]. The grant consultancy wrote a town's EU cyber-security project in 2021, and now also acts as the outside security manager for towns [S33].
+
+Four younger Czech sellers offer the paperwork the law requires, as ready-made packs or online tools, and do not put the security measures in place [S7,S16]. That work is what the public contracts under [Who pays](#how-big) buy [S7,S16]. Other firms sell single pieces of the job:
 
 - Institut kybernetické bezpečnosti sells scope analysis: whether the law applies, and what is owed [S7].
 - enovation writes the EU grant applications that towns pay for [S8].
+- Several security firms sell only the first check, a gap analysis of what the law still requires [S33].
 
 Why now: Towns, care homes and firms under the new law run out of time in late 2026, and first steps already cost about [100,000 CZK](#willing-to-pay) [S1,S8].
 
@@ -694,7 +873,7 @@ Solved elsewhere: Two funded European companies sell software that automates sec
 1. Build a simple, fixed-price check that tells a small town exactly what the new cybersecurity law requires of it and by when. The check answers three questions. First, does [the new law](#opportunity) cover the town at all? Second, has the town registered, meaning told the national cyber-security agency that it runs a covered service, which is the step that starts its one-year clock? Third, which security measures is it still missing? The measures are the concrete steps the law's decrees set out, such as a list of the town's computers and data, a risk assessment, supplier checks, staff training and reporting an attack quickly; they are listed under [The opportunity](#opportunity). The town gets a short report: what is done, what is missing, and the date each missing piece is due, before [its deadline](#why-now). Give it one price agreed up front, because the smallest buyers already choose ready-made packages, as [Willing to pay](#willing-to-pay) shows.
 2. Call the directors of care homes and small towns that are already paying for help with this law, and offer them the check. They are easy to find, because public bodies must publish their contracts in the state contracts register. Start with the care homes, social-care services and small towns listed under [Willing to pay](#willing-to-pay), which bought ready-made packages or paid just to learn whether the law applies to them. These people have already shown they will spend money on this, and their deadline is close, as [Why now](#why-now) explains. Ask each one what they have done so far and what worries them, and use the answers to improve the check.
 3. For each town that can get the EU grant, write its grant application, so the EU pays half of the security work that follows. The grant is EU money for towns, regions and hospitals covered by the law, described under [Willing to pay](#willing-to-pay). Towns already pay consultants a fee just to write this application, as [Why now](#why-now) shows. If you write it as part of your price, the town saves that fee and deals with one provider instead of two. Start early, because the grant stops taking applications on a fixed date, also under [Why now](#why-now).
-4. Do the security work the check found missing, rather than only writing the documents that describe it. The work means putting the measures in place for real: making the list of computers and data, setting up supplier checks, training the staff, and being ready to report an attack in time. Several Czech sellers already sell the documents, as ready-made packs or online tools, but none of them does the work itself; see [Market gap](#competition). The public contracts pay for the work, and even a small town has signed a large contract for it; see [Willing to pay](#willing-to-pay). Hiring their own person is hard, too, since one university had to run its tender for an outside security manager again, as [Why now](#why-now) tells. So one provider that does the check, the application and the work, at a fixed price, saves the buyer from buying three times.
+4. Do the security work the check found missing, rather than only writing the documents that describe it. The work means putting the measures in place for real: making the list of computers and data, setting up supplier checks, training the staff, and being ready to report an attack in time. Established Czech firms already do this work for towns and care homes, so a new provider competes with them on price, speed and doing the whole job at once; see [Market gap](#competition). The public contracts pay for the work, and even a small town has signed a large contract for it; see [Willing to pay](#willing-to-pay). Hiring their own person is hard, too, since one university had to run its tender for an outside security manager again, as [Why now](#why-now) tells. So one provider that does the check, the application and the work, at a fixed price, saves the buyer from buying three times.
 5. Once a town or care home trusts you, help it meet a second new law on critical infrastructure, which binds many of the same organisations. That law is the Czech version of the EU's rules for critical entities. It asks the organisations the state names to write resilience plans, meaning how they keep their essential services running through physical threats, and to report serious incidents. Its dates are under [Why now](#why-now). You already know these customers and their systems, so this is the natural next job to offer them.
 
 ## Revisions
@@ -723,3 +902,5 @@ Solved elsewhere: Two funded European companies sell software that automates sec
 2026-09-21 · the security-manager tender is still open — One signal linked. Mendel University's repeated tender for the outsourced cybersecurity manager, already on file as the August notice [S19], came back on 21 September as a change to the same procedure moving the closing date for bids from 29 September to 22 October 2026 [S29]. The TED XML names the change and the driver in the buyer's own words: it is an obligated entity under Act 264/2025 in the higher-obligations regime, and the manager it is buying would run its information-security management system, coordinate the security measures and deal with the regulator [S29]. Three body lines now carry the September date, and the process step that reads "nobody carries out the security measures" cites it too. No score moved: The opportunity is at 2 and Why now at 3 already, the notice states no value so it is not a price receipt, and it names no local seller, so Market gap is untouched at 1 and `status` stays `candidate` — the direct Czech sellers on the ledger are all still early and the one established local, ICZ, is adjacent. Dismissed the same day, and why: ČEPS's anti-DDoS equipment tender (ted-646533-2026) buys security kit, which this record already carries five examples of [S17,S18,S20,S21,S22] and which is not the security work this problem sells, and it states no value.
 
 2026-09-28 · evidence audit — Three signals linked, each read at source. Prague 2 tenders four years of outside support and continuous monitoring of its security systems, estimated at 7.8M CZK: a second district buying the work itself, open, so public money nearby with no dims [S30]. Vysočina region lent Třebíč hospital about 36.9M CZK, interest-free, to prefinance its IROP-funded cybersecurity project [S31], and the hospital signed about 52.3M CZK with five years of support for that project's kit [S32]; both context, no dims. Inference flagged: that the grant pays only after the spend is our reading of the loan's purpose, which the contract does not explain. Not added: the Academy of Sciences SIEM tender also names the law's higher obligations, which [S29] already shows a buyer doing. Gap re-checked: the kit supplier in [S32] sells hardware and support, not this job, so like the Jihlava supplier [S28] it joins no ledger; no new local seller of this job, gap stays 1 and status stays candidate. No score moved. Same date, owner decision 2026-09-28 (MATCH §2, every local player found goes in `locals[]`), which overrides "joins no ledger" above for the Třebíč supplier: Aricoma Systems a.s. added as adjacent and established. ARES, read this date: IČO 04308697, registered 7 November 2017; 10 distinct public buyers in the contracts register. What it sold Třebíč is kit and support [S32]. FLAGGED FOR THE OWNER: its website also lists NIS2 and cyber-security-law compliance, ISMS set-up and risk analysis. It is kept adjacent on the same ground as ICZ Risk*Guide: enterprise project work, with no small-town or small-firm sale on file. If the owner reads it as selling this job, it is direct and established, and gap falls 1 → 0. Gap stays 1 and `entry.incumbents` stays adjacent. The Jihlava supplier [S28] is not named in the ledger by this pass. No score moved.
+
+2026-10-05 · gap re-check — Owner decision 17: searched in Czech and in the state contracts register, with a passing positive control [S33]. Equica, Blue Partners and Next Generation Security Solutions, all established, sell this work to small towns and care homes; Equica also writes their grant applications. Aricoma's OLÚ Paseka contract moves it adjacent → direct. Gap 1 → 0, score 11 → 10, `entry.incumbents` adjacent → direct. Market gap and move 4 rewritten; nine more firms ledgered.
