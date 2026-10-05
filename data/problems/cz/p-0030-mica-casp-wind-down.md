@@ -258,8 +258,25 @@ sources:
     - '"wind-down" plán ukončení činnosti poskytovatele kryptoaktiv ČNB právní pomoc advokátní kancelář nabídka Česko 2026'
   checked: [google-cz, ares, cz-contract-parties, own-funded-ledger]
   expires: '2026-11-23'
+- type: regulation
+  name: "ČNB — draft decree on crypto-firm reporting"
+  gist: "about 11 firms, reports from 2027"
+  why: "The central bank's draft decree on what licensed crypto firms must report to it: it counts about 11 crypto service providers on 1 July 2026, and the reports would start on 1 January 2027."
+  url: https://odok.gov.cz/portal/services/download/attachment/KORNDYFARTX8/
+  note: 'Důvodová zpráva (zd_KORNDYFAKWLD.docx) of VeKLEP material KORNDYFAKWLD, "Vyhláška o
+    informačních povinnostech osob podnikajících na trhu kryptoaktiv"; local copy
+    data/raw/2026-10-05/regulation/pages/veklep/zd_KORNDYFAKWLD.txt, and the odok attachment
+    re-downloaded and read 2026-10-05. "Odhaduje se, že povinnost dle této vyhlášky se bude týkat
+    nižšího počtu vykazujících osob (k 1. 7. 2026 se jedná cca o 11 poskytovatelů služeb
+    souvisejících s kryptoaktivy)." Effect: "Stanoví se účinnost vyhlášky, a to k 1. lednu 2027."
+    Reports CSP (ČNB) 01-04, 02-04, 10-01 (audited accounts), 11-01 (safeguarding of client
+    funds), electronically via the ČNB collection system. Not a ledger signal (reg-scan 2026-10-05
+    finding, no record). A draft decree binding licensed firms, not the departing firms this
+    problem sells to: corroborates the 11 in [S2], backs no score.'
+  date: '2027-01-01'
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-10-05'
 ---
 
 Only 11 Czech crypto firms won the new EU licence, and every other provider must stop serving clients [S1,S2].
@@ -310,6 +327,8 @@ Not every licensed firm need have been among the 188, so the number of firms lea
 
 The 11 licensed firms need the opposite, recurring work [S1,S3]. That means keeping client assets safe and separate, meeting DORA (the EU's rules on IT resilience in finance), and anti-money-laundering reporting to the new EU standard [S1,S3].
 
+A draft central-bank decree also counts about 11 crypto service providers on 1 July 2026, and would have them send it regular reports from 1 January 2027 [S8].
+
 Four Czech advisers' pages show no price for either job, so no revenue figure is claimed [S6].
 
 Solved elsewhere: Nobody abroad is known to sell a crypto firm's wind-down as a product, so there is no template to copy [S4,S7].
@@ -344,3 +363,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 9 `locals[].evidence` lines were rewrit
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the 11 licences and holds the old trade licence's 30,000 holders, the 188 that kept trading rights and the duty to move clients' coins and cash, with MiCA, the licence and the central bank explained in plain words below [S1,S2,S5]. Why now opens on the passed deadline, with the fine and the wind-down's four duties as its items and the 2025 application funnel and the dates below as plain bullets [S1,S2,S4,S5,S7]. Willing to pay answers that no Czech price for a wind-down is published and names the three kinds of buyer [S1,S3,S5,S6,S7]. Competition and Validated abroad describe each ledger firm by what it sells; every `locals[]` name left the body, and MarketGuard, AMLBot, KYC-Chain, Sigma360, CertiK and Binance, which are not on a ledger, stay named [S3,S4,S7]. `entry.why` became "Easier: … Harder: …", with semicolons in the Easier half because one of its items carries its own comma list, and no longer names a ledger firm. Detail added from sources already on file, none of it new evidence: the 5,000 companies among the old licence holders and the 2025 funnel of 245 applications, 210 by 31 July 2025 and none granted that year [S5]; the four wind-down duties [S7]; the established adviser's due-diligence advice for firms buying a crypto provider [S7]; and Binance among the applicants that failed [S4]. Corrected against the sources rather than against the old sentences: "171 were terminated on procedural defects" became "it stopped 171, 117 of them because the application was incomplete", because the central bank's 2025 supervision report, Box 5, read 2026-09-18, lists 17 withdrawals among the 171, and a withdrawal is not a defect [S5]; "roughly 175 one-off exits" is gone, because it subtracts the 11 licences from the 188 and no source says every licensed firm was among the 188, as the 2026-09-16 headline pass had already found [S2,S5]; "a wind-down most have never run" is gone, because it carried no marker and no source supports it; and "No Czech firm publishes a price" now says what [S6] checked, four Czech advisers' pages. "The rest must stop" now says the warning asks a firm to stop the service, not to close the company, as the 2026-09-16 pass read [S1]. Flagged as inference: that licensed firms taking over departing firms' customers may pay for help rests on one adviser selling due diligence to such buyers [S7]; and that the 11 licensed firms need recurring compliance work rests on the compliance jobs the licensing-advisory check names [S3]. No `process` block was added: the wind-down is a one-off duty that began on 1 July 2026, and the sources say what a departing firm owes, not who does each step today or how [S1,S7]. No score, status, entry gate value, source, `note:`, `sources[]` order, title, brief, solution or good_for changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — `scores.urgency` 3 → 2 and `score` 4 → 3, band FAINT unchanged; `scores.money` stays 0. Urgency: the old 3 was the deadline sub-score 2 plus the retired freshness point. The trigger is the end of the MiCA transition on 1 July 2026 [S1]. It is REAL, because the EU regulation binds the unlicensed provider directly, and CLOSE, because it passed 2.5 months before this date. TEETH is not met: for a passed date the ladder needs fines levied or proceedings opened within 12 months, and the only sanction on file is the central bank's warning naming a ceiling above 100M CZK [S1]. An enforcement receipt would restore 3. Tagging pass for money: no source on file shows anyone paying for a wind-down. The one direct seller bills by the hour and publishes no rate [S7]. Four advisers' pages publish no fee [S6]. Firms pay for licence applications [S3], which is the opposite job and does not count. No receipt was added, so money stays 0 on the same evidence as the worksheet. S1's note, which named the deadline sub-score and freshness, gained a dated correction line. Prose re-read against the new numbers: Why now states the passed date and the fine a firm risks, not a fine levied, and Willing to pay says no price is published, so neither changed. The body had no Competition link to rename. No other score, status, source order or body sentence changed.
+
+2026-10-05 · fact check — The central bank's draft reporting decree was read and linked [S8]: it counts about 11 crypto service providers on 1 July 2026, which agrees with the 11 licences in the headline [S2], and would make them report to it from 1 January 2027. It binds the licensed firms, not the departing ones this problem sells to, so no score moved. Gap re-checked, no new seller; stays 1.

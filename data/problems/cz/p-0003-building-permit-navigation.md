@@ -70,6 +70,23 @@ locals:
     receives an application and checks it — since September 2023. It is the other side of the
     same counter: every hour it saves the office is an hour it does not save the person
     assembling the application.'
+- name: VITA software, s.r.o.
+  ico: '61060631'
+  since: 1996
+  competes: adjacent
+  maturity: early
+  evidence: 'Sells Vita, an agenda system that building offices use to keep their files and run
+    their procedures; the regional development ministry names it among the systems the offices
+    work in. It sells to the office that decides a permit, not to the person preparing one. The
+    company has traded since February 1996; nothing on file says how many offices run it, and
+    no public contract for it was found.'
+- name: Ministry for Regional Development (MMR)
+  url: https://mmr.gov.cz/
+  competes: non-seller
+  evidence: 'Runs the state''s digital building-procedure portal and information system, and in
+    January 2026 funded AI pilots in seven building offices. It sells nothing, but it decides
+    which state systems a permit tool must work with, and it is paying for AI on the office''s
+    side of the counter.'
 process:
   summary:
     today: 'A permit engineer checks the drawings, sends a request to every office and utility that must give an opinion, follows each one up, and files the application with the building office [S10,S7].'
@@ -312,8 +329,42 @@ sources:
   unit: per-project
   basis: list-price
   dims: [money]
+- type: subsidy
+  name: "ASB Portal — building offices test AI"
+  gist: "24.5M CZK call, 7 pilots"
+  why: "The regional development ministry set aside 24.5M CZK for AI pilots in building offices and funded seven; finishing the state's digital permitting may now take until about 2030."
+  url: https://www.asb-portal.cz/aktualne/stavebni-urady-testuji-umelou-inteligenci-ministerstvo-jim-prerozdeli-miliony-korun
+  note: 'ASB Portal (ČTK), 18 Feb 2026, read from the saved page
+    data/raw/2026-10-05/funded/pages/cz-asb-su-ai.html: MMR NPO call "AI pro stavební úřady"
+    announced end of Oct 2025, "vyčlenilo 24,5 milionu korun z prostředků NPO a státního
+    rozpočtu"; supports seven projects, "více než tři miliony korun"; tools that "automaticky
+    analyzovat dokumentaci, identifikovat neúplné či chybně vyplněné podklady" and predict case
+    complexity; offices run Vita, Vera or ISSŘ; the bypass period "Původně mělo ... trvat do
+    začátku roku 2028", completion of digitalisation "přibližně v roce 2030"; an NPO milestone is
+    "zkrácení procesu povolování staveb minimálně o dva roky". Found by the 2026-10-05 arb-scan
+    cz_check on gb-xylo (Xylo itself dismissed for this record: it sells to the authority side).
+    Public money nearby for the building office, not this record''s buyer (design offices and
+    builders), so it backs no money point and lifts nothing: the programme does not name this
+    buyer. Backs demand (the state funds faster permitting), already at its ceiling.'
+  date: '2026-02-18'
+  dims: [demand]
+- type: subsidy
+  name: "MMR — approved and rejected AI projects"
+  gist: "18 towns applied, 7 funded"
+  why: "The ministry's list of the 18 towns that asked for money to bring AI into their building office: 7 funded for 3,081,787 CZK in total, 11 turned down."
+  url: https://mmr.gov.cz/getattachment/21e5e2ef-0ea0-4eab-ba24-7dd01e35b989/Podklad-pro-schvaleni-financovani-projektu_1-6-4_AI-pro-SU.pdf.aspx?lang=cs-CZ&ext=.pdf
+  note: 'Příloha č. 1 – Výzva č. 31_25_169, Seznam schválených projektů ke dni 06. 01. 2026,
+    saved as data/raw/2026-10-05/funded/pages/cz-mmr-ai-su-seznam.pdf (url is the attachment
+    link on the MMR list page, saved as cz-mmr-ai-su-seznam.html). Approved: Valašské Klobouky
+    121,000; Bystřice pod Hostýnem 77,000; Úpice 180,000; Aš 600,000; Vizovice 108,900;
+    Židlochovice 847,000; Lovosice 1,147,887; total 3,081,787 CZK. Rejected: 11 towns incl.
+    Praha 11, total requested 4,724,050 CZK. Vendors are not named in the list; the arb-scan
+    snippet naming AI Efektivia as Bystřice''s contractor could not be re-opened (404), so it
+    is not carried here. Public money nearby for the authority side; backs demand only.'
+  date: '2026-01-06'
+  dims: [demand]
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-10-05'
 ---
 
 Czech building permits take six months to a year, and whoever prepares one must chase opinions from many offices and utilities [S5,S7].
@@ -333,11 +384,12 @@ Requests also go to ČEZ, GasNet and CETIN — the electricity, gas and telecom 
 
 Existing non-solutions: Permit engineers still chase the opinions by hand, and a Czech online service that automates the job names no customer yet [S10,S7].
 
-The state's own answer is its digital permit portal, which a year after its launch the trade press called stabilized "but still facing complications" [S2].
+The state's own answer is its digital permit portal, which a year after its launch the trade press called stabilized "but still facing complications" [S2]. Finishing the state's digital permitting, first planned for early 2028, may now take until about 2030 [S16].
 
 - Engineering offices do the job case by case, for a published price [S10].
 - A Czech online service checks the drawings, sends the requests through the state's e-mailbox and tracks each deadline [S7].
 - Another Czech firm sells AI document checking to the building offices themselves, the other side of the same counter [S7].
+- The state now pays for AI pilots in building offices that spot missing or wrong documents, on the office's side, not the applicant's [S16,S17].
 
 Why now: Builders still wait months for each permit in 2026, and four rounds of red-tape cuts since 2022 have barely sped them up [S5,S12].
 
@@ -366,6 +418,7 @@ Two kinds of buyer pay today: the builder who commissions the work, and the desi
 - The buildings permitted in 2025 had an indicative value of 503.3bn CZK, 13.3% less than in 2024 [S8].
 - A rough estimate: if a tenth of a year's permits went through such a service at its per-project price, it would bring in about €3M a year, and only if it sells per permit [S7,S8].
 - The ministry's portal contract pays for the state's own system; it is not a tender that a seller of permit software could win [S11].
+- In January 2026 the regional development ministry funded AI pilots in 7 of the 18 towns that applied, 3,081,787 CZK from a 24.5M CZK call [S16,S17]. It pays for the building office's tools, not for anyone preparing a permit [S16].
 
 Solved elsewhere: In the United States, funded start-ups sell AI software for building permits, zoning and plan review, all of it for the US market [S1,S4].
 
@@ -403,3 +456,5 @@ Permitting rules differ from country to country, so none of these products arriv
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the three sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the six-months-to-a-year wait and the chasing of opinions, with the survey, the 30/60/90-day answer windows and the permit engineer's four stages as its items and detail [S5,S7,S10]; the network operators, the state e-mailbox and the lapsed-consent certificate moved there from the Průvodka sentence and the moves [S7]. Competition opens on the chasing done by hand, keeps the state portal's "stabilized but still facing complications" quote as the state's own answer [S2], and describes Průvodka and Efektivia by what each sells, leaving their names, prices, offices and dates to their `locals[]` rows. Why now opens on the builder's wait, with the 192 building complaints, the July 2024 portal launch and the decade-long urban-plan update as its three items, and the red-tape packages, the ombudsman's quarter and the portal contract below as dated bullets [S2,S12,S13,S11]. Willing to pay answers that builders pay engineers by hand and a Czech service charges per project, then holds the buyer pool, the 2025 permit count and the rough €3M estimate [S7,S8,S9,S10]. Validated abroad lost the ledger names PermitPortal and Autositu for descriptions [S1,S4]; Permitify and Verdant, not on the ledger, stay named. Say it once: the 16,000–42,000 CZK range and Průvodka's 12,900 CZK left the body for their price receipts [S14,S15], whose `why` lines already state the range and the monthly tier; the ~€0.8M portal contract now lives once, under Willing to pay, with Why now linking to it. The moves lost every [Sn] marker and figure for links; move 1 now builds the deadline tracker (it was move 2), and the old "Sell to the engineering offices" move is move 3; the chamber move now contacts the chamber. `entry.why` was rewritten as "Easier: … Harder: …" naming the same gates the entry fields already carry, plus the direct Czech seller in `locals[]`. S6.why and S11.why no longer say "this record". Detail added from sources already on file, none of it new evidence: the 10,453 fall in permits and their 503.3bn CZK indicative value [S8]; the 32,000 engineers and 4,288 architects inside the 36,300 [S9]; the ombudsman's 2,509 complaints, up 132 [S13]; the Commission's 1,800 obligations and 71-against-57 percent [S12]; and, read at S10's url on 2026-09-18, the four stages the CESPRON price list itemises for the standard family-house permit (preparing and working out the opinions needed, requesting them, following them up and working in their conditions, filing and seeing the permit through) [S10]. Process block added (none before): five steps, the permit engineer sending the requests and following them up (changes), the consulted offices and utilities answering on their own deadlines and the building office deciding (both stay), and an unknown fifth step, how much of the six to twelve months is waiting on opinions; each drawn step is backed by S10's itemised stages or S7's deadline windows, and no step names a ledger company or a price. Corrected against the sources rather than against the old sentences: "Applicants and building offices both lost throughput" is not what S2 or its signal says; the yc-permitportal harvest behind S2 says the July 2024 launch "created acute pain for both stavebníci and úřady" and that the new building act changed procedures, and the body now says that [S2]; "Czech software for permit preparation does exist [S3]" cited the first sweep, which found none, so that claim now cites S7, the re-check that found it; "law firms" working case by case was cut, since no source on file mentions them, and permit-engineering offices stay [S10]; "Neither publishes a launch year, a customer or a funding round" was wrong for Efektivia, whose row names two town halls it serves and dates it to September 2023, so the body no longer says it; "a proceeding still runs six months to a year" read the early-2024 survey as today's figure, so the survey is now dated [S5]; the 36,300 are engineers, technicians and architects, not engineers and architects [S9]; and the Průvodka row in `locals[]` said it sells at 12,900 CZK or 29,900 CZK a month in the present tense, while S15's note records that on 4 September 2026 its page listed 14,900 CZK and no monthly plan, so the row now dates both [S15]. Flagged as inference: that builders still wait months in 2026 rests on the 2024 survey [S5] and on the Commission's June 2026 finding that the red-tape packages had little measured effect [S12]; that none of the US products arrives here on its own, because permitting rules differ by country, is our reading of S1 and S4 recording them as US-only; the €3M figure is our rough estimate from S7's per-project price and S8's permit count, as it was before; and in the moves, that an office runs the procedure many times a year and that few engineers expect the state to fix this soon are our reading, not a source's. No score, status, source, `note:`, `sources[]` order, entry level, title, brief, solution or good_for changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0; Willing to pay stays 1; score 7 → 6, still FAIR. Why now: the old 1 was the retired freshness point on a deadline part of 0. No regulation is on file. The new building act and the July 2024 portal launch [S2] are older than 12 months, so they are the status quo, and nothing on file puts a new dated duty on a builder or a design office. Willing to pay, tagging pass first: every source on file was read for someone paying for this exact job, sending the permit requests and tracking each answer, or that work bought in. Counted: permit engineering done by a person, from 16,000 CZK a project on a published price list [S14], and the Czech online service at 12,900 CZK a project [S15]. Both were already price receipts, untagged; both now carry `dims: [money]`. Both are asking receipts, a manual-equivalent and a list price, so rung 1; no contract or award for this job is on file, so nothing reaches rung 2. Not counted: the ministry's contract to upgrade its own permit portal [S11], which was tagged money on the old ladder's adjacent-spend reading; it buys the state's system, not this job, so it is set to `dims: []` and its note gained a rescore line, as did the notes of S14 and S15, which said they back no score. Body: under Willing to pay, the portal-contract item now says it buys none of this job [S11]. The link to the section now named Market gap carries that name. Same result as the worksheet, which offered `dims: []` on S11 as optional.
+
+2026-10-05 · evidence audit — Added the regional development ministry's call for AI in building offices: 24.5M CZK set aside, 18 towns applied, 7 funded with 3,081,787 CZK, and digital permitting slipping to about 2030 [S16,S17]. Public money for the office's side: no money point; tagged demand. VITA software (adjacent) and the ministry (non-seller) added to the ledger. Xylo (UK, for planning officers) not added abroad: it sells the office's side. Gap re-checked, stays 1. No score or status changed.

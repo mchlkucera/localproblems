@@ -194,8 +194,29 @@ sources:
     is the relevant part.'
   date: '2029-03-26'
   signal: reg-ehds-identifikace-myhealth-2027
+- type: regulation
+  name: "Czech eIDAS 2 bill — who must accept the app, and when"
+  gist: "the Czech bill and its dates"
+  why: "The Czech government bill that adapts Czech law to the EU rules: public bodies accept the app from 24 December 2026, and banks, lenders, insurers and other firms that must identify clients from 24 December 2027. It is not yet law."
+  url: https://www.odok.cz/portal/services/download/attachment/KORNDQ5R4GIM/
+  note: 'reg-eidas2-cz-prijimani-penezenky-2026: DIA government bill adapting Czech law to eIDAS 2
+    (VeKLEP card veklep-ALBSDHZA32NV), důvodová zpráva downloaded and read 2026-10-05. Not enacted:
+    no Sbírka record on file. "Povinnost akceptovat Evropskou peněženku digitální identity ... dopadá
+    na široký okruh soukromých subjektů, zejména tzv. povinné osoby dle AML zákona" — banks and
+    other financial institutions, notaries, lawyers, insurers, estate agents, casinos and betting
+    shops, consumer-credit providers. Effect: "Povinnost pro subjekty soukromého práva k umožnění
+    prokázání totožnosti s využitím elektronické identifikace je odložena na 24. prosince 2027",
+    when Art 5f(2) of eIDAS 2 applies; wallet provisions from 24 Dec 2026. Cost estimate for a
+    medium firm: "Odhadem lze počítat s 5–15 tis. Kč na každé ověřovací pracoviště" (device and
+    software), plus training and integration "v řádu desítek až stovek tisíc Kč". New offence
+    (§ 25 odst. 2): a private relying party that does not allow identification by the wallet.
+    WHY NO RUNG MOVES: the date is inside 18 months, as [S1] already was, so CLOSE is unchanged;
+    the fine is in a bill, not in force, so TEETH is not met. The cost estimate is the state''s
+    model of a desk, not a price paid for this job, so it is not a price receipt.'
+  date: '2026-12-24'
+  signal: reg-eidas2-cz-prijimani-penezenky-2026
 created: '2026-08-13'
-updated: '2026-09-28'
+updated: '2026-10-05'
 ---
 
 Banks and other regulated firms must soon accept the EU's digital identity app wherever a customer proves who they are [S1].
@@ -208,6 +229,7 @@ The law is Regulation (EU) 2024/1183, known as eIDAS 2.0, the EU's updated rules
 
 - Banks and payment firms already have to check who a customer is under the EU's payment-services rules, known as PSD2 [S1].
 - E-shops that must check a buyer's identity, and towns, need the same check [S1].
+- A Czech bill names who must accept it: banks, lenders, insurers, notaries, lawyers, estate agents and other firms that must identify clients under anti-money-laundering law [S9].
 - How many businesses the duty covers is not published.
 
 Existing non-solutions: The Czech field is taken: a bank-identity service already sells firms a connection to the app, and a Prague firm sells a gateway [S4,S6].
@@ -232,6 +254,8 @@ A firm that has not built its check by then misses a legal deadline [S1]. The da
 - In December 2024 the EU adopted the implementing acts that start both clocks [S1].
 - By the end of 2026 Czechia must offer at least one wallet, and the Commission puts the launch at the end of 2026 [S1,S2].
 - During 2027, within 36 months of those implementing acts, regulated firms must accept the app [S1].
+- The Czech bill sets 24 December 2026 for public bodies and 24 December 2027 for private firms [S9].
+- The same bill would fine a private firm that refuses a customer's app, but it is not yet law [S9].
 - From 26 March 2029, under a separate EU rule, a health provider that requests a patient's records from another EU country must also accept health details shown in the app [S8].
 
 Who pays: No firm is yet shown paying to accept the app, but the state is paying to build it [S3,S5].
@@ -245,6 +269,7 @@ The firms that will pay are the ones that must accept the app, listed under [The
 - The tender, an open competition, came from the Digital and Information Agency, the state's digital agency, and was the largest open Czech IT tender in the EU's tenders journal at the time [S3].
 - The 221M CZK contract, about €8.85M, went from the state trust-services authority to MONET+, a Czech firm with 30 years in cryptography, to build and run the app's core system [S5,S6].
 - The same agency also pays NAKIT (the state IT agency) about €5.43M to support the national identity system the app plugs into [S7].
+- The state estimates a firm's cost at 5,000–15,000 CZK for each desk where staff check the app, plus training and connecting it to the firm's systems [S9].
 
 Solved elsewhere: Two funded European firms, in Germany and Spain, already sell wallet acceptance, before the duty to accept the app lands in 2027 [S1].
 
@@ -274,3 +299,5 @@ Neither sells against a duty in force yet, so the model is still being proven [S
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 3 → 2, Willing to pay 2 → 0 and `score` 6 → 3, so the band moves FAIR → FAINT. Why now was 3 as deadline 2 plus the freshness point, which is retired. It is now 2 (a firm deadline): eIDAS 2.0 is an EU regulation, binding as published, and it obliges regulated firms such as banks to accept the wallet (REAL). Their deadline falls during 2027, 36 months after the December 2024 implementing acts, inside 18 months of this date (CLOSE) [S1]. It stops short of 3: the regulation leaves penalties to member states, and no Czech sanction or enforcement is on file (TEETH). Willing to pay was 2 on the open DIA tender above 5M CZK [S3], which is now public money nearby. Tagging pass, every source on file that might show someone paying for this job: the DIA wallet-client tender [S3], the MONET+ core-system contract [S5] and the NAKIT support contract [S7] all pay for the state's own wallet and identity system. None buys a bank's or a regulated firm's acceptance of the wallet, the payer is the state rather than the buyer, and banks are not eligible for that money. Online services have bought bank-identity checks from a Czech seller since 2021, but no amount is on file [S6]. No receipt could be written, so money is 0, as the worksheet had it. [S3]'s and [S5]'s notes named the old money rung and now carry the correction. Why now prose re-read: it names the end-2027 cut-off and says a late firm misses a legal deadline, with no fine claimed, which fits rung 2. Willing to pay already says no firm is yet shown paying, so it stands. `[Competition](#competition)` became `[Market gap](#competition)` in Solved elsewhere. No other score, status, entry or body sentence changed.
 
 2026-09-28 · regulation added — One signal linked as context: Implementing Regulation (EU) 2026/2099, published 22 September 2026, makes a health provider that requests a patient's records from another EU country accept the patient's health details from the wallet, from 26 March 2029 [S8]. Article 5(2) and Article 9 were read in the regulation's text. Added as one Why now date bullet. No rung moves: the date is more than 18 months out, and it binds health providers, not the banks and regulated firms this problem sells to, so Why now stays 2 on [S1]. Gap re-checked: the signal names no seller, so gap stays 0 on the established Czech bank-identity service [S6] and status stays watching. No score moved.
+
+2026-10-05 · regulation added — The Czech eIDAS 2 bill was read and linked [S9]: private firms that must identify clients accept the app from 24 December 2027, public bodies from 24 December 2026, with a state estimate of 5,000–15,000 CZK per checking desk and a draft fine for refusing the app. Why now stays 2: the date was already close, and the fine is not yet law. The estimate is not a price paid, so money stays 0. Gap re-checked, no new seller; stays 0.

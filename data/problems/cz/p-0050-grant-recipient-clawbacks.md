@@ -409,8 +409,44 @@ sources:
   - 'jak se vyhnout odvodu za porušení rozpočtové kázně kontrola výběrového řízení dotace služba firma'
   checked: [google-cz, ares, cz-saas-directories]
   expires: '2026-12-27'
+- type: statistic
+  name: 'Supreme Audit Office — brownfield regeneration grants (23/14)'
+  gist: 'the brownfield-grant audit'
+  why: 'The state auditor checked 19 brownfield-regeneration projects at 17 grant holders and found that grant holders often got their tenders wrong, with suspected paybacks in 7 of them.'
+  url: https://www.nku.cz/assets/kon-zavery/k23014.pdf
+  note: 'nku-brownfieldy: NKÚ kontrolní závěr 23/14, published in the Věstník 17 Feb 2025; local copy
+    data/raw/2026-10-05/demand/pages/nku-k23014.txt, read 2026-10-05. Sample: 17 recipients, 19
+    projects under MMR Brownfieldy I and SFPI Brownfieldy II, about 255m CZK. "Příjemci chybovali
+    při zadávání veřejných zakázek. Chyby se vyskytovaly nejvíce v oblasti podstatných změn u
+    dodatků ke smlouvám o dílo a v oblasti požadovaných kvalifikačních kritérií"; also documents
+    not published in the Věstník or on the buyer profile, and breaches of the buyer''s own call
+    conditions. "U sedmi projektů (což je téměř 37 % kontrolního vzorku) postupovali příjemci buď v
+    rozporu se zákonem o zadávání veřejných zakázek, nebo v rozporu s pravidly způsobilosti výdajů
+    ... Některé zjištěné nedostatky nasvědčují porušení rozpočtové kázně až do výše 32 447 817 Kč."
+    The 7 mix tender and eligibility faults; the report does not split the amount between them.
+    Suspected breaches, not levies ordered.'
+  date: '2025-02-17'
+  signal: nku-brownfieldy
+  dims: [demand]
+- type: statistic
+  name: 'Supreme Audit Office — social-services buildings and vehicles (24/10)'
+  gist: 'the social-care grant audit'
+  why: 'The state auditor checked 14 grant-funded social-care projects and found suspected paybacks of up to 19.1M CZK, most of one project''s grant put at risk by a single tender change.'
+  url: https://www.nku.cz/assets/kon-zavery/k24010.pdf
+  note: 'nku-socialni-sluzby-infrastruktura: NKÚ kontrolní závěr 24/10, published in the Věstník 19 May
+    2025; local copy data/raw/2026-10-05/demand/pages/nku-k24010.txt, read 2026-10-05. 14 projects,
+    357.6m CZK paid out; "skutečnosti nasvědčující porušení rozpočtové kázně až do výše 19,1 mil. Kč",
+    up to 5.3% of the money paid, mostly in two projects. Example 5 (para 4.28): the recipient of
+    project *02338 let the chosen building contractor swap the required bank guarantee for its own
+    promissory note, a substantial change to the contract made without a new tender; NKÚ rated it
+    a fact suggesting a budget-discipline breach "až do výše 14 820 148 Kč", against 15,778,377 Kč
+    of grant approved and paid. The other large finding is cars bought beyond need, not a tender
+    fault. Suspected breaches, not levies ordered.'
+  date: '2025-05-19'
+  signal: nku-socialni-sluzby-infrastruktura
+  dims: [demand]
 created: '2026-09-28'
-updated: '2026-09-28'
+updated: '2026-10-05'
 ---
 
 Czech towns, firms and charities can be ordered to pay back part of a grant when a tender or report breaks its rules [S1].
@@ -431,6 +467,8 @@ The payback is called a levy for breaching budget discipline. It is a tax-office
 - Other common faults were missed deadlines, missed targets and follow-up reports never filed, sometimes years after the project [S1].
 - Small towns have the least staff and software to check their own spending, the finance ministry says [S1].
 - Research grants are one part of this: auditors found 8 of 14 sampled farm-research projects broke their grant contract, with suspected paybacks in 4 [S3].
+- The state auditor found 7 of 19 sampled brownfield-regeneration projects broke the tender law or the grant's spending rules, with suspected paybacks of up to 32.4M CZK [S11].
+- In one grant-funded social-care project, a single contract change made without a new tender put up to 14.8M CZK of a 15.8M CZK grant at risk [S12].
 
 Existing non-solutions: Established Czech grant consultants and tender administrators already run and check grant tenders and reports by hand, and towns pay them [S10].
 
@@ -476,3 +514,5 @@ In the United States, software tracks a grant's compliance, reporting and money 
 ## Revisions
 
 2026-09-28 · record created — Created from the 2026-09-28 demand-scan signal civic-mf-odvody-rozpoctova-kazen-2025 [S1,S2], on the recipient-side framing proposed in the 2026-09-21 weekly report (section 6.B and decision 9): the pain is carried by every class of grant holder, and research is one segment, resting on the one research audit that names budget-discipline breaches [S3]; the demand scan found NKÚ 24/17 and 25/13 do not, so they are not cited. Not a duplicate: p-0031 pools towns' solar tenders; none of p-0001 to p-0049 covers grant paybacks. Scores: proof 3 on two established sellers, in the US and in Poland [S8,S9]; money 2 on three paid invoices in towns' own books, all within 24 months [S5,S6,S7]; urgency 0, because the payback rule dates from 2000 [S4] and neither the CJEU ruling (a court ruling, rung 0 by rule) nor Act 231/2025 (it binds public bodies' internal control, not a grant holder's duty to the grant) is a dated duty on this buyer, flagged for the owner; demand 2 on the finance ministry's "as in previous years" findings, 193 waiver requests, appeals and lawsuits and the state auditor's sample [S1,S2,S3]; gap 0 because six established Czech firms already sell the job by hand to towns [S10]. Status watching under the de-rank rule. Flagged as our calculation: 374,000 CZK is 365.3M CZK divided by 977 levies [S2]; the report states neither the average nor that every levy is one grant holder. Flagged as inference: that the invoiced tender in Lysá nad Labem sits inside its cybersecurity grant project rests on the same-day project-administration invoice, because the tender line's own description is cut off in the source [S5]. The solution counts both comps as doing this, the US one as software tracking a recipient's compliance and reporting, the Polish one as the service by hand; the US comp's since 2013 is its earliest year on file, not a stated founding year [S8]. The 118M CZK waived in 2025 need not come from the 2025 requests alone, and the tax report says much of the waived levy total came from one taxpayer [S2]. No process step is drawn as documented without a cited source; who checks the files before they are sent is marked unknown. Same date, owner review, merged here: the solution's closing clause overstated the comps and is withdrawn. The US software tracks a grant recipient's compliance and reporting and checks no tenders, and the Polish consultancy settles EU-funded projects by hand [S8,S9]; neither sells the tender check, so no count is claimed. The solution changed from "Build a checking service that compares each tender and each report a town or firm files under a grant with that grant's rules before it goes out, as 2 companies already do in 2 other countries." to "Build a checking service that compares each tender and each report a town or firm files under a grant with that grant's rules before it goes out, as similar services already do for grant reports, not tenders, in the United States and Poland.", approved by the owner 2026-09-28. The earlier sentence above that counts both comps as doing this is superseded by this one. Only the wording changed; no score was touched.
+
+2026-10-05 · evidence audit — Two state-auditor reports linked as demand, both read in full: in 7 of 19 brownfield projects grant holders broke the tender law or spending rules, suspected paybacks up to 32.4M CZK [S11]; in one social-care project a contract change made without a new tender put up to 14.8M CZK of a 15.8M CZK grant at risk [S12]. Both are suspicions, not levies. Demand stays 2; gap re-checked, no new seller, stays 0. No score moved.

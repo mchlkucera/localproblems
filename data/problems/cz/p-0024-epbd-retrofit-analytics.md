@@ -414,8 +414,31 @@ sources:
   date: '2026-09-18'
   signal: ted-651807-2026
   dims: []
+- type: regulation
+  name: "Building act 283/2021, section 167"
+  gist: "car-park chargers by January 2027"
+  why: "Czech building law already obliges owners of heated or cooled non-residential buildings with more than 20 parking spaces to fit chargers by 1 January 2027, and larger ones to have building automation; breaking an owner's duty can cost a fine of up to 400,000 CZK."
+  url: https://www.zakonyprolidi.cz/cs/2021-283
+  note: 'reg-dobijeci-body-parkoviste-2027 (2026-09-28 VeKLEP sweep finding for p-0024/p-0025).
+    Read 2026-10-05 in the consolidated text of zákon 283/2021 Sb.: § 167 písm. e) "pokud je to
+    technicky proveditelné, zajistit do 1. ledna 2027 za podmínek stanovených prováděcím právním
+    předpisem instalaci alespoň 1 dobíjecího bodu na každých 10 parkovacích stání ... nebo
+    alespoň 50 % kabelovodů" for non-residential heated/cooled buildings with more than 20
+    spaces, deferrable to 1 Jan 2029 if a charger was fitted 28 May 2022 - 28 May 2024; písm. f)
+    cabling for 50 % of spaces by 1 Jan 2033 where a public body owns or uses the building;
+    písm. g) building automation by 1 Jan 2025 above 290 kW; písm. h) by 1 Jan 2030 above 70 kW.
+    § 302 odst. 3: an owner breaching § 167 a)-k) commits an offence; the fine is up to
+    400 000 Kč. The MMR decree setting the technical conditions (the signal''s VeKLEP document)
+    proposed effect 1 Jul 2026 and its issuance is not confirmed; the VeKLEP attachment could not
+    be opened on 2026-10-05 (ODok error page), so the act itself is cited. Linked as context, not
+    urgency: the duty binds this buyer and is REAL, CLOSE and has TEETH, but it forces chargers
+    and automation, not the renovation ranking this problem is about, and the record carries
+    draft_law (urgency stops at 1). dims: [].'
+  date: '2026-10-05'
+  signal: reg-dobijeci-body-parkoviste-2027
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-28'
+updated: '2026-10-05'
 ---
 
 New EU building rules require minimum energy standards for buildings such as hospitals and town halls, and Czechia is late adopting them [S3].
@@ -453,11 +476,18 @@ Why now: Hospitals and towns are paying for renovations now, and the overdue Cze
 - Three Plzeň-region hospitals awarded renovation contracts in a single week [S4].
 - When Czech dates are set, owners must survey many buildings at short notice [S3].
 
-The dates so far come from the EU, because the Czech ones are not set [S3]:
+The new directive's dates so far come from the EU, because the Czech ones are not set [S3]:
 
 - By 29 May 2026 every EU country had to write the directive into its own law [S3].
 - On 15 July 2026 the European Commission opened infringement proceedings, its formal case against a country that misses such a deadline, against all 27 member states, Czechia among them [S3].
-- The Czech dates for the new duties are still unset, and the proceedings press the government to set them [S3]. An owner's own deadlines start only once the Czech law is published [S3].
+- The Czech dates for the new duties are still unset, and the proceedings press the government to set them [S3]. An owner's deadlines under the new directive start only once the Czech law is published [S3].
+
+Czech building law already carries some older duties of the same kind [S12]:
+
+- By 1 January 2027 owners of heated or cooled non-residential buildings with over 20 parking spaces must fit one charger per 10 spaces, or ducting for half [S12].
+- Building automation was due by 1 January 2025 in the largest such buildings, and is due by 1 January 2030 in mid-sized ones [S12].
+- An owner who breaks these duties can be fined up to 400,000 CZK [S12].
+- The decree that sets the charging duty's technical conditions has not been confirmed as issued [S12].
 
 Who pays: Public owners already pay consultants to rank their buildings by hand, and pay energy-service firms to renovate from the savings [S4,S9].
 
@@ -538,3 +568,5 @@ Body: Willing to pay now opens on owners paying consultants to rank their buildi
 2026-09-21 · evidence audit — Weekly match over the week's housing and energy signals. Appended one source: four public owners with energy-saving building works under contract in September 2026, about 348M CZK together — two towns' primary schools, a third town's school canteen and a university hospital's supervision contract, each notice's XML read on the day [S10]. It is the same kind of spend as the June-to-August wave [S4] and is recorded for the same reason: it shows the renovation money did not stop, and that the choice of which building goes first is still made before the tender and never priced inside it. It is public money nearby, not a price receipt, so it backs no score; money stays 2 on the hospital and university consultant contracts [S7,S8]. Not linked, and why: three towns' new school and kindergarten builds, a heritage roof repair and a defence kitchen rebuild buy new or restored buildings rather than an energy decision across a portfolio; a small municipality's contract for heat supply with the renewal of its heating system (about 45M CZK) buys heat, not a ranking. Gap re-checked against the week's signals: the suppliers they name are construction firms and one site-supervision firm, none selling software that ranks an owner's buildings, so gap stays 1 on the three Czech products already on the ledger [S5]. No score moved.
 
 2026-09-28 · evidence audit — Weekly match. New source [S11]: Pelhřimov amended its energy-savings contract after the energy firm verified its buildings' real energy use, which re-set the works; Prague's Bulovka hospital (about 350M CZK to 2038) and Jablonec (three buildings, 48M CZK) tendered new ones. The Plzeň region (about 309M CZK) and České Budějovice (150M CZK) were folded into [S4]; Prague 6's fourth amendment (404M CZK) is [S4]'s Prague 6 contract, a duplicate. All buy renovation delivery: public money nearby, no price receipt. Flagged as inference: that the Plzeň and Jablonec tenders follow the state bank's building analysis [S9]; the notices do not say how buildings were chosen. Gap stays 1: the new names are an energy-service firm and a tender adviser. No score moved.
+
+2026-10-05 · regulation added — Czech building law already obliges owners of large heated or cooled non-residential buildings to fit car-park chargers by 1 January 2027 and building automation by 2025 and 2030, fines up to 400,000 CZK [S12]. Added to Why now as context; Why now stays 1: it forces chargers and controls, not the renovation ranking, and the main pain still waits on the unpassed law. Air-quality bill not linked. Gap stays 1. No score or status changed.

@@ -13,12 +13,12 @@ price_search: 'Registr smluv full-text for "zaměstnanecká karta" or "relokačn
   not the employer''s filing.'
 category: legal-compliance
 geo: CZ-national
-score: 7
+score: 8
 scores:
   proof: 3
   money: 0
   urgency: 1
-  demand: 1
+  demand: 2
   gap: 2
 status: candidate
 entry:
@@ -307,8 +307,48 @@ sources:
     the uncited 1,000 CZK embassy fee. dims empty: backs no score.'
   date: '2026-09-19'
   dims: []
+- type: regulation
+  name: "Government bill — a new foreigners act from 2029"
+  gist: "the ministry's own delay figures"
+  why: "The interior ministry's bill for a new foreigners act: it counts almost 634,000 residence applications a year, says up to a third of those filed in Czechia are decided late, and that up to 40% filed abroad are incomplete."
+  url: https://www.odok.cz/portal/services/download/attachment/KORNDSCG5B1Y/
+  note: 'Held on reg-cizinecky-zakon-2029 (that signal is the plan entry; this is the bill
+    itself, VeKLEP KORNDQ6FEQB9, OVA 23/26, government resolution 162/2026 of 16 Mar 2026,
+    material ma_KORNDSCFXXNI.docx, read 2026-10-05). Explanatory report: "celkový počet žádostí
+    ... na aktuálních téměř 634 tisíc ročně"; "z důvodu personální poddimenzovanosti úřadu až
+    třetina řízení o žádostech podávaných na území vyřizována po lhůtě, rovněž objednací doba ...
+    v řádu několika týdnů až měsíce"; "dle informací zastupitelských úřadů je až 40 % žádostí o
+    pobyt podaných v zahraničí nekompletních. Chybějí (případně jsou nedostačující) i náležitosti,
+    které cizinci vyhotovuje garant (doklad prokazující pracovněprávní vztah ...)"; overlong
+    proceedings are "předmětem časté kritiky". Act: § 81-82 a registered "garant" (for an employee
+    card, the employer) confirms the purpose of stay through its account in the Integrovaný
+    cizinecký agendový systém; § 85 bars a garant who gave false information. Effect "dnem 1.
+    ledna 2029" (exceptions 1 Oct 2028, 1 Jan 2030). Status, psp.cz tisk 144 read 2026-10-05:
+    Chamber passed it 11 Sep 2026 (usnesení 279), Senate tisk 287 on the agenda from 21 Oct 2026.
+    The figures are for all residence applications, not employee cards alone. Demand: the
+    ministry itself documents the delays and the recurring criticism. A bill 27 months out fails
+    REAL and CLOSE, so it adds no Why now point beyond S8''s rung 1.'
+  date: '2026-03-16'
+  signal: reg-cizinecky-zakon-2029
+  dims: [demand]
+- type: regulation
+  name: "Draft decree — the farm, food and forestry work visa to 2028"
+  gist: "2,500 work visas a year"
+  why: "The agriculture ministry's draft decree would renew the special work visa for farms, food firms and forestry, 2,500 applications a year, to the end of 2028, citing an acute and lasting shortage of workers."
+  url: https://www.odok.cz/portal/services/download/attachment/ALBSDYDBHLZE/
+  note: 'VeKLEP KORNDYDBGPRF, OVA 739/26, version for the government of 29 Sep 2026; explanatory
+    report zd_KORNDYDBGPRF saved as data/raw/2026-10-05/regulation/pages/veklep/, read
+    2026-10-05: decree 437/2023 "pozbývá platnosti dnem 31. prosince 2026"; the draft renews it
+    "ve stejném rozsahu" until 31 Dec 2028 because the new foreigners act (tisk 144) should apply
+    from 1 Jan 2029; 2,500 applications a year (Ukraine 1,500, Bosnia, Georgia, Moldova and North
+    Macedonia 250 each); "trvající akutní nedostatek pracovníků"; 2,500 CZK collected per
+    application. Comment procedure waived. Not a ledger signal (reg-scan 2026-10-05 finding).
+    An extraordinary work visa, not an employee card; it renews the status quo and binds no
+    employer, so it backs no score.'
+  date: '2026-09-29'
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-10-05'
 ---
 
 A worker hired from outside the EU needs an employee card to work and live here, and agencies prepare each file by hand [S4,S7].
@@ -322,6 +362,10 @@ Czech employers hire from Ukraine, the Philippines and India through government 
 - The 82,000 were 14,287 new applications filed at embassies, 44,869 extensions and 22,793 changes of employer or position [S5]. 12,843 new cards were granted that year [S5].
 - A government decree caps new applications at about 45,300 a year across the listed embassies, and most countries never come close [S6].
 - Ukraine used about 10% of its 11,000 places in 2024, and only for India and Kazakhstan is the quota the real limit [S6].
+- The interior ministry gets almost 634,000 residence applications a year, from all foreigners, not only workers [S10].
+- Up to a third of those filed inside Czechia are decided late, which the ministry puts down to too few staff [S10].
+- Up to 40% of applications filed abroad are incomplete, and the missing papers include the employer's proof of the job [S10].
+- A separate work visa lets farms, food firms and forestry hire up to 2,500 people a year, and a draft decree would keep it to the end of 2028 [S11]. The ministry behind it cites an acute and lasting shortage of workers [S11].
 
 Existing non-solutions: Seven Czech agencies and law firms sell this work by hand, and none sells software that tracks a case [S4,S7].
 
@@ -340,6 +384,14 @@ Why now: Foreign staff wait on stalled permit cases, and every renewal or job ch
 - 3,518 complaints in 2024 said foreigners' cases sat untouched, and 40.6% were upheld [S5].
 - 44,869 extensions and 22,793 job changes in 2024 each needed a new file [S5].
 - Employers pay agencies high fees for each file done by hand [S2].
+
+The interior ministry itself says overlong cases draw frequent criticism, and that asking for missing papers is one of the main causes of delay [S10].
+
+A new foreigners act would change how employers take part from 1 January 2029 [S10]:
+
+- The government's bill was passed by the lower house on 11 September 2026 and goes to the Senate in October [S10].
+- An employer would confirm a hire's job through its own account in the ministry's foreigners system [S10].
+- The ministry could bar an employer that gave false details in that confirmation [S10].
 
 A draft law would add a second file for some of these hires from 2028 [S8]:
 
@@ -390,3 +442,5 @@ That model fits Czechia, where this work sits with agencies and law firms [S1,S3
 2026-09-19 · state fee corrected, source added (owner-approved) — "The state fee alone is 1,000 CZK at an embassy [S5]" was flagged on 2026-09-18: [S5]'s note, the interior ministry's migration report, carries no fee. The official fee schedule was fetched on this date and added as [S9]: Act 634/2004 on administrative fees, in the version in force from 1 September 2026, consular item 162 c), charges 5,000 CZK to accept an application for an employee card at an embassy [S9]. So the figure was wrong as well as uncited, and the bullet now reads "The state's own fee is public: an embassy charges 5,000 CZK to accept each application [S9]." Item 162 d) charges 1,000 CZK to book the appointment to hand in a long-term or permanent residence application, which is probably where the old figure came from; it does not name the employee card, so it is recorded in [S9]'s note and not claimed in the body. [S9] is appended after [S8], so no marker moved; it backs no score. The bullet sits under "What the work costs is not public" and says the state fee is the exception. No score, status, note, other marker, headline field or other body sentence changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now stays 1 and Willing to pay stays 0, so `score` stays 7 and the band stays FAIR; what changed is the evidence under Why now. It was 1 as deadline 0 plus the freshness point, which is retired. It is now 1 on the education ministry's draft amendment to Act 18/2004, which from 1 January 2028 would add a second qualification file for hires into regulated professions: a dated duty reaching these employers, inside 18 months of this date, but a bill in comment procedure rather than enacted law, so it fails REAL and stops at rung 1 [S8]. [S8] was tagged `dims: []` with a note saying 2028 is beyond the 18-month window; it is not, so the note now says so and the source is tagged `dims: [urgency]`. The employee-card quota decree [S6] had backed Why now by its type alone; it caps what the state accepts and puts no dated duty on employers, so it is now `dims: []`. Tagging pass for Willing to pay: no source on file shows anyone paying for this job with an amount. The agencies and law firms sell the work by hand but publish no fee [S2,S4,S7], and the 5,000 CZK embassy fee is a state charge for the application, not the preparation work [S9]. No receipt added; money stays 0, as the worksheet had it. `[Competition](#competition)` became `[Market gap](#competition)` in moves 1 and 4. Why now and Willing to pay prose re-read against the numbers and left as written: Why now already calls the 2028 law a draft, and Willing to pay already says no provider publishes its fee. No other score, status, entry or body sentence changed.
+
+2026-10-05 · evidence audit — Added the government's new foreigners act [S10] (held on reg-cizinecky-zakon-2029): up to a third of in-country residence cases decided late for lack of staff, up to 40% filed abroad incomplete, including employer papers; employers confirm hires through a state account from 2029. Demand 1 → 2, score 7 → 8: the ministry itself documents recurring delays and criticism, beside the 3,518 complaints [S5]. Added the farm work-visa decree draft [S11]. Gap re-check: no Czech product found; gap stays 2.

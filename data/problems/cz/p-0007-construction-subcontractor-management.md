@@ -140,6 +140,47 @@ locals:
     papers are in order", sold as a service with a margin on every hour — the contractor
     engages no subcontractor and buys no software — and it is one of hundreds of holders of
     this licence, naming none of the firms it staffs.'
+- name: ÚRS CZ (KROS)
+  url: https://www.urs.cz/software-a-data/kros-4-ocenovani-a-rizeni-stavebni-vyroby
+  ico: '47115645'
+  since: 1992
+  competes: adjacent
+  maturity: established
+  evidence: 'Sells KROS, the cost-estimating program it calls the most widespread in Czechia,
+    used by thousands of people daily in construction and design firms and at public offices.
+    Its OFERTA module sends enquiries to subcontractors and evaluates their bids, and a bid
+    comparison app with an AI assistant checks them against the control budget. It prices the
+    subcontracted work; it does not find crews, check workers'' papers or pay anybody. ÚRS CZ
+    a.s. has traded since November 1992.'
+- name: Callida (euroCALC)
+  url: https://callida.cz/cs/produkty/eurocalc
+  ico: '65415183'
+  since: 1996
+  competes: adjacent
+  maturity: early
+  evidence: 'Sells euroCALC, cost-estimating software for general contractors and building
+    firms, with subcontractor enquiries, a side-by-side price mirror of their bids and AI
+    functions. Like the program above it prices the subcontracted work and stops there: no crew
+    sourcing, no document checks, no pay. Callida, s.r.o. has traded since April 1996; nothing
+    on file shows who runs it.'
+- name: cifro
+  url: https://cifro.cz/
+  competes: adjacent
+  maturity: early
+  evidence: 'Sells an AI junior estimator that prices a bill of quantities from the firm''s own
+    price lists and compares subcontractor bids. Before an enquiry goes out it shows what the
+    business register and the VAT register say about the subcontractor firm, which is the
+    nearest Czech product to a document check, but it checks the firm, not its workers. No
+    company of that brand name was found on the business register, and no launch year is
+    published.'
+- name: RozpočetPRO
+  url: https://rozpocetpro.cz/
+  competes: adjacent
+  maturity: early
+  evidence: 'Sells online AI estimating by monthly subscription: it builds a bill of quantities
+    from project documents, prices it from a market price database and lets a building firm
+    compare prices from different subcontractors. It neither finds crews nor checks or pays
+    them, and it publishes no launch year.'
 process:
   summary:
     today: 'Contractors find Ukrainian and Balkan crews in Facebook groups and through brokers, nobody checks the crews'' papers, and their pay runs on general payroll software or at an outside accountant [S2,S3].'
@@ -298,8 +339,25 @@ sources:
   date: '2026-08-31'
   signal: mpsv-2026-08-manual-trades
   dims: [demand]
+- type: news
+  name: "ÚRS — the KROS estimating program"
+  gist: "subcontractor bids priced, not vetted"
+  why: "The most widespread Czech cost-estimating program sends a contractor's enquiries to subcontractors and compares their bids against the budget, with an AI assistant; it checks no worker's papers and pays nobody."
+  url: https://www.urs.cz/software-a-data/kros-4-ocenovani-a-rizeni-stavebni-vyroby
+  note: 'Read 2026-10-05 from the saved pages data/raw/2026-10-05/funded/pages/cz-urs-kros.html
+    ("V doplňkovém modulu OFERTA pak poptáváte a vyhodnocujete nabídky od subdodavatelů";
+    "Aplikace Porovnání nabídek automaticky srovná nahrané nabídky s kontrolním rozpočtem";
+    "AI asistent") and cz-urs-studenti.html ("nejrozšířenějšího rozpočtovacího programu v
+    Česku. Denně ho využívají tisíce lidí ve stavebních a projekčních firmách i na úřadech").
+    Surfaced by the arb-scan cz_check on de-kuro (Kuro, DE, AI tender reading and subcontractor
+    bid evaluation), which was dismissed as a comparable here: it prices and compares bids and
+    does none of this problem''s crew sourcing, document checks or pay. Same check surfaced
+    Callida euroCALC, cifro and RozpočetPRO, all recorded in locals[] as adjacent. Backs no
+    score.'
+  date: '2026-10-05'
+  dims: []
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-10-05'
 ---
 
 Czech builders are short of workers, and crews found through Facebook groups and brokers come with nobody checking their papers [S3,S7].
@@ -328,6 +386,7 @@ The agencies recruit Ukrainian workers, employ them, and handle their wages, ins
 - The closest Czech platform runs a contracting firm's whole office, from leads and quotes to purchasing and cashflow, but does no crew sourcing, vetting or payroll [S5].
 - The state's list of qualified suppliers and the certified-contractor schemes serve public tenders, not a contractor hiring a crew [S6].
 - One building catalogue checks a tradesman's company number against the state business register at signup, and PwC screens business partners inside SAP (the business software many large firms run); neither vets a crew for the contractor hiring it [S6].
+- The most widespread Czech estimating program sends enquiries to subcontractors and compares their bids, but checks no worker's papers and pays nobody [S8].
 - No Czech marketplace matching contractors with checked crews has been found, and no payroll product built for construction [S3,S6].
 
 Why now: Building firms are short of workers today, with 2,313 building-trade vacancies posted by 1,629 employers in August 2026 alone [S7].
@@ -369,3 +428,5 @@ Each half is proven in one country only.
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the shortage and the unchecked crews, lists the 400,000 workers, the Facebook-and-broker sourcing and the missing check first, and holds the paying end (general payroll software or an accountant, staffing agencies, A1 certificates) as detail [S1,S2,S3]. Competition opens on the staffing agencies as the one trade that delivers a crew with papers in order, then lists what stops short: consumer marketplaces, lead portals, site-diary apps, horizontal payroll, the Austrian documentation tool, the closest Czech contractor platform, the state's qualification lists and the two partial checks (a catalogue's company-number check and PwC's screening inside SAP), all described by what they sell rather than by name [S2,S3,S4,S5,S6]. Why now opens on the vacancies as the pain, with the German comparable moved out of it to Validated abroad, where it belongs [S1,S7]. Willing to pay now answers whether anyone pays: contractors pay staffing agencies and payroll software or accountants today [S2,S6]. Validated abroad became one answer sentence and short paragraphs, one per company [S1,S2,S4]. Every comps[] and locals[] company left the body (CoCrafter, Hammr, conmeet, Wilio, Nejřemeslníci, Stavario, PlanRadar, NejStav, Vema, Pamica, Bildix); each stays in its own row. Detail added from sources already on file, none of it new evidence: the 6,866 places behind the 2,313 vacancies and what they count [S7]; the agencies recruiting, employing and paying the workers, the state's qualification lists, the catalogue's company-number check and PwC's SAP screening [S6]; the Austrian tool's spring-2025 Czech entry and the closest Czech platform's scope [S5]; the Y Combinator batches and conmeet's 10–500-staff buyer [S1,S2,S4]. `entry.why` was rewritten as "Easier: … Harder: …" from the same gates (no licence, ordinary software, contractors buying for themselves; established neighbours and the staffing agencies), and it no longer names Stavario. A `process:` block was added, because the sources on file say who does each step today: contractors find crews in Facebook groups and through brokers, and nobody checks the papers [S3]; pay runs on general payroll software or at an outside accountant [S2]. Who handles the A1 papers for posted workers is marked unknown: the yc-hammr signal names A1 compliance as part of the market, and nothing on file says who does it. Two source lines changed: S6's why said the control query returned "a dozen" site-diary vendors, and its note counts seven, so it now says seven; S7 gained a public name, gist and why, written from its note. Corrected against the sources rather than against the old sentences: the old body said firms "file A1 certificates … on general payroll software — Vema, Pamica — or at an accountant [S2]", but the signal behind S2 lists A1 compliance and generic payroll as two separate facts, and Vema's own row says it carries no A1 paperwork, so the body now states them apart and the process marks the A1 step unknown; "Germany subcontracts the same way" became what S1 supports, a German marketplace matching general contractors with subcontractor crews. Kept, and flagged: the 400,000 workforce figure and "runs on subcontracted crews" rest on the transfer notes of the signals behind S1 and S2 (yc-cocrafter, yc-hammr), not on a primary statistic. Flagged as inference: that the office runs the payroll software, in the process step's who (the source says only "generic software or external accountants") [S2]; and the pricing line under Willing to pay (per crew hired, per document check, a monthly fee per worker), which was always a proposal with no source and is now written as "could". No score, status, source order, `note:`, title, brief, solution or good_for changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0; Willing to pay stays 0; score 6 → 5, still FAIR. Why now: the old 1 was the retired freshness point on a deadline part of 0. No regulation is on file: the labour shortage and the August 2026 vacancies [S7] are a market condition, not a dated duty on a contractor. Willing to pay, tagging pass first: every source on file was read for someone paying for this exact job, finding a crew with checked papers and handling its documents and pay, or that work bought in. The licensed staffing agencies that lease out workers with papers in order are that job bought in [S6], but no source on file gives what they charge, so there is nothing to restate. The labour-office vacancies [S7] are wages for building work, not for this job, and state no wage in any case. No price, contract, tender or subsidy is on file; money stays 0. Body: the Willing to pay list gained an item saying no agency's rate and no payroll price is on file, so the answer that contractors pay agencies and accountants [S2,S6] no longer reads as a priced receipt beside a score of 0. This record carried no link to the section now named Market gap, so none changed. Same result as the worksheet.
+
+2026-10-05 · evidence audit — Kuro, a German start-up that reads tender documents and evaluates subcontractor bids for general contractors, was not added abroad: it sells neither crew sourcing, document checks nor pay. Its Czech check found four Czech estimating products that price subcontractor bids; all four are added to the ledger as adjacent, one of them established [S8]. Gap re-checked: no Czech seller of this product, stays 2. No score or status changed.

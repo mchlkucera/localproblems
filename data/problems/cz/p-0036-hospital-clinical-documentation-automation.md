@@ -811,8 +811,35 @@ sources:
     - "diktování lékařských zpráv přímo do nemocničního informačního systému převod řeči na text"
   checked: [google-cz, ares, own-funded-ledger]
   expires: '2026-12-28'
+- type: regulation
+  name: "CZ-DRG version 2027 — statistical office notice 174/2026 Sb."
+  gist: "the 2027 coding rules, issued"
+  why: "The Czech statistical office has issued CZ-DRG version 2027 for care from 1 January 2027: new grouping software, new rules for coding and reporting diagnoses, and new case weights."
+  url: https://e-sbirka.gov.cz/eli/cz/sb/2026/174
+  note: 'reg-cz-drg-2027-174-2026 (reg-scan, 2026-10-05). Sdělení ČSÚ č. 174/2026 Sb. ze dne
+    24. září 2026, o aktualizaci Klasifikace hospitalizovaných pacientů (CZ-DRG), under s. 19(2)
+    of Act 89/1995; ENACTED, promulgated 29 Sep 2026, "s účinností od 1. ledna 2027". Read in full
+    from the saved text (data/raw/2026-10-05/regulation/pages/esbirka/sb-2026-174.txt) on
+    2026-10-05. It issues for 2027: the case-building methodology with Pre-grouper 2027; the
+    definition manual with Grouper 2027, DRG markers and the critical-procedure list; "Pravidla
+    kódování a vykazování diagnóz v systému CZ-DRG, verze 2027"; the relative-weight methodology
+    and code list. The health ministry distributes the materials and software; ÚZIS is the
+    service organisation. It amends notice 159/2018 Sb. for the eleventh time (ten earlier
+    amending notices, 253/2019 to 363/2025). URGENCY, JUDGED 2026-10-05, dims empty. REAL is
+    doubtful as a duty on THIS buyer for THIS job: the notice announces a classification and
+    names no duty-bearer and no act to perform; that hospitals code and report under it comes
+    from the payment rules, whose 2027 decree is still the draft at S22. CLOSE passes (1 Jan 2027).
+    TEETH fails: no sanction named. Decisive: it is the yearly update of a duty hospitals already
+    meet with their current software and coders, so it is the status quo renewed, not a new duty;
+    and it changes the rules coders code to, not how doctors write reports, which is the half the
+    solution leads on. Urgency stays 1 on S6. S22''s clause "CZ-DRG is the status quo rather than
+    a new dated duty" re-read against it and held: version 2027 is dated, but it is the eleventh
+    routine version.'
+  date: '2027-01-01'
+  signal: reg-cz-drg-2027-174-2026
+  dims: []
 created: '2026-09-03'
-updated: '2026-09-28'
+updated: '2026-10-05'
 ---
 
 Doctors write findings and discharge summaries as free text, and other staff then read that same text again by hand [S1,S3].
@@ -857,6 +884,7 @@ Behind those three items are the pilots hospitals have already run, the hackatho
 - The state money closes on 2 December 2026 at 14:00, and every project it pays for has to be finished by 31 December 2027 [S8].
 - A draft health ministry decree for 2027, open for comment until 23 September 2026, keeps paying hospitals' acute inpatient care through CZ-DRG (the Czech system of case groups the insurer pays on) and moves all 2025 acute care into its 2027 version [S22].
 - The same draft keeps paying only 95 percent for 2027 care reported after 31 March 2028 [S22].
+- The statistical office has issued CZ-DRG version 2027 for care from 1 January 2027, with new grouping software, coding rules and case weights [S25]. It is the eleventh yearly update since 2018, and it changes how coders code, not how doctors write reports [S25].
 
 The only legal date for reports as data is the EU's, in 2031; December is when the grant money stops, not a duty on hospitals [S6,S8].
 
@@ -938,3 +966,5 @@ Body: Market gap now opens on the coding half being taken, with two new items: h
 2026-09-19 · solution line reworded (owner-delegated) — Before, verbatim: "Build report templates inside the hospital's own software that pre-fill codes for staff to check, as 3 companies already do in Germany." After: "Build report templates that doctors fill in inside the hospital's own software, so staff only confirm the codes, as companies in Germany already do." Why: the Willing to pay search above found hospitals paying a Czech vendor for code proposals from the finished report [S21], so a line that led on pre-filled codes now read as the product already on sale. The new line leads on the half nobody sells here, the template the doctor fills in, which First moves 1 and 3 already say [S16]. "3 companies" became "companies": the German companies on file split across the two halves, one on the report and two on the codes [S10,S12]. No score, status, source, title, brief or body sentence changed. Same date, evidence audit, merged here (one entry per date): linked the health ministry's draft reimbursement decree for 2027 [S22]: it keeps CZ-DRG payment for acute care and 95 percent pay for late-reported care. Context only, dims empty: a draft fails REAL, CZ-DRG is the status quo, and the 95 percent rule is kept, not new. Urgency stays 1 on [S6]. Two Why now detail bullets added. The solution line above stands: the decree bears on the coding half, not the template. Gap re-checked: no new seller, stays 0. Scores unchanged.
 
 2026-09-28 · owner decision 11 · evidence audit — Linked the Swedish AI-scribe company Tandem Health (se-tandem-health) as a comparable and a source [S23], and recorded the Czech sweep its signal ran as a new gap check [S24]. No score changed. Proof stays 3: it was already at the top of the ladder on Germany and the US [S10,S11,S12,S13]. The signal and this pass's brief called Tandem early on the three-year limb; the test as this register runs it, 2026 minus 2023, counts three years, the same arithmetic that made ICZ established here on 2026-09-19, so with a Series B and 10,000 organisations it passes narrowly, and that is stated in S23's note rather than hidden. New in locals[]: Mirek AI, AurisOne, Medivox and Emmy Scribe, direct and early, because they sell the report-writing step to hospitals or their outpatient clinics and none has three years selling; mAIdoc, adjacent and early, because it sells the same step to outpatient practices only; and NovaVoice, adjacent and established on 2009 receipts, dictation to free text like NEWTON [S24]. Gap stays 0 on ICZ alone: none of the scribes offers insurer codes, and early players close nothing [S21,S24]. entry.incumbents re-derived, still direct. Body: two Market gap items and one dictation sentence, a Solved elsewhere paragraph and a shorter answer sentence there (Austria and Switzerland stay in its paragraph), and moves 1 and 3 no longer say that nobody here sells the report half. Diverges from the signal: it filed mAIdoc as direct and did not list NovaVoice.
+
+2026-10-05 · regulation added — Linked the enacted CZ-DRG version 2027 notice, 174/2026 Sb., effective 1 January 2027, as context with no dimension [S25], and one Why now bullet. Urgency stays 1 on [S6]: the notice names no duty or sanction, it is the eleventh yearly update of coding hospitals already do, and it does not touch how reports are written. The 2027 decree is still a draft [S22]. Gap already 0, so the de-rank rule moves nothing. No score changed.
