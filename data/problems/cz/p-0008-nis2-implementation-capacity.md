@@ -797,7 +797,7 @@ sources:
     - 'hlidacstatu.cz smlouvy: "264/2025" zavedení systému řízení bezpečnosti'
     - 'hlidacstatu.cz smlouvy: "NIS 2" balíček'
     - 'hlidacstatu.cz smlouvy: ico:27373622 kybernetické · ico:26490951 kybernetické · ico:06291031 · ico:04308697 "systému řízení bezpečnosti" · ico:24216941 kybernetické · ico:22340564 · ico:02301245 · ico:08071128'
-  checked: [google-cz, ares, registr-smluv, hlidac-statu-search, own-contract-lookup, own-tender-ledger, vendor-sites]
+  checked: [google-cz, ares, cz-contract-parties]
   expires: '2027-01-03'
 - type: contract
   url: https://smlouvy.gov.cz/smlouva/39747509
