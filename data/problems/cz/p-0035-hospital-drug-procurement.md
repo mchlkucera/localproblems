@@ -139,6 +139,26 @@ locals:
     analyse what they could buy together, led by facility management [S12]. It sells nothing and
     compares no prices in the open; its own price database is closed to all but its hospitals
     [S11]. A builder meets it as the founder that decides whether its hospitals pool.
+- name: Krajská zdravotní (central purchasing for its hospitals)
+  url: https://www.kzcr.eu/cz/kz/o-spolecnosti-1/informace-o-spolecnosti-1/
+  ico: '25488627'
+  competes: non-seller
+  evidence: The Ústí region's hospital company, formed in 2007 and owned solely by the region,
+    runs seven hospitals as branches of one company and buys their medicines through one standing
+    purchasing system, each order delivered into the pharmacies of its individual hospitals
+    [S27,S35]. It is a buyer pooling for itself, not a vendor, and nothing on file shows it
+    comparing what it pays with other hospitals [S35]. A builder meets it as one large buyer
+    already buying centrally for a whole region.
+- name: Jihočeské nemocnice (central purchasing for its hospitals)
+  url: https://jihnem.cz/o-nas/
+  ico: '26093804'
+  competes: non-seller
+  evidence: The South Bohemian region's hospital company, owned by the region, leads the
+    region's eight hospitals and centralises their buying; its trade department runs one ordering
+    system that, on its own site, guarantees the hospitals the same goods at the same purchase
+    prices [S36]. In October 2026 it opened three medicine tenders in its own name, one active
+    substance to a lot [S36]. It is a buyer pooling for itself, not a vendor; it evens out prices
+    inside its own group, and nothing on file shows it comparing them with other groups [S36].
 sources:
 - type: tender
   name: "TED — Všeobecná fakultní nemocnice v Praze, 38 medicine purchasing systems"
@@ -838,8 +858,103 @@ sources:
   date: '2026-09-22'
   signal: ted-652604-2026
   dims: []
+- type: tender
+  name: "TED — Krajská zdravotní orders fibrinogen under the system that buys for its seven hospitals"
+  gist: "the Ústí group's central drug system"
+  why: "The Ústí region's hospital company placed another single-drug order under its standing medicine purchasing system, delivered into the pharmacies of its individual hospitals; the company runs seven hospitals and is owned solely by the region."
+  url: https://ted.europa.eu/en/notice/-/detail/682393-2026
+  note: 'ted-682393-2026, TED notice XML read 2026-10-05. Award notice (can-standard), restricted
+    procedure, issued 2 Oct 2026, buyer Krajská zdravotní, a.s. (IČO 25488627) and no other,
+    "Dynamický nákupní systém na dodávky léčivých přípravků - 5209", call "DNS LP 2026-040 -
+    LIDSKÝ FIBRINOGEN 2026", lot estimate 19,230,000 CZK, lowest price without VAT. SAME SYSTEM
+    AS [S27]: the contract folder 45a7fe5f-d7e7-4f8b-804b-ab21fe13a390 is identical on both
+    notices, so the 16,000,000,000 CZK (the signal card''s EUR 640M) is that system''s stated
+    value, a CEILING already captioned in [S27], never spend. The lot text buys "pro potřeby
+    zadavatele, jako poskytovatele zdravotních služeb" with "přímý závoz do lékáren jednotlivých
+    odštěpných závodů zadavatele". WHO IT BUYS FOR, read 2026-10-05 at
+    kzcr.eu/cz/kz/o-spolecnosti-1/informace-o-spolecnosti-1/: the company was formed on
+    1 September 2007 by turning five regional hospitals (Děčín, Ústí nad Labem, Teplice, Most,
+    Chomutov) into its branches ("odštěpnými závody"), took in Litoměřice from 1 April 2021 and
+    Rumburk from 1 July 2021, "je provozovatelem 7 nemocnic", and "Jediným vlastníkem akcií ...
+    je Ústecký kraj". ARES: Krajská zdravotní, a.s., IČO 25488627, incorporated 5 May 2004, Ústí
+    nad Labem. This is the receipt for its locals[] row (non-seller, owner rule of 2026-09-28).
+    No start date for the purchasing system was found, so the row carries no since. CONTEXT,
+    dims empty: it buys medicines, not a price comparison.'
+  date: '2026-10-02'
+  signal: ted-682393-2026
+  dims: []
+- type: tender
+  name: "TED — Jihočeské nemocnice tenders medicines for the South Bohemian hospitals, three calls in a day"
+  gist: "the South Bohemian group's drug calls"
+  why: "The South Bohemian region's hospital company, which centralises buying for the region's eight hospitals, opened three medicine tenders on one day in October 2026, one active substance to a lot."
+  url: https://ted.europa.eu/en/notice/-/detail/683991-2026
+  note: 'ted-683991-2026, TED notice XML read 2026-10-05. Contract notice (cn-standard), open
+    procedure, issued 2 Oct 2026, buyer Jihočeské nemocnice, a.s. (IČO 26093804) and no other,
+    "Léčiva pro Jihnem (202026)", ref 029J2026ZN, lowest price, two lots, 48 months: A09AA02
+    multienzyme preparations (KREON) 13,046,000 CZK and A10BX16 tirzepatide (MOUNJARO)
+    77,770,000 CZK, together 90,816,000 CZK estimated. Folded in, each read from its XML the same
+    day, not cited separately: ted-685516-2026, "Léčiva pro Jihnem (182026)", ref 027J2026ZN,
+    24 months, epoetin theta 6,700,000, epoetin alfa 7,952,000 and fremanezumab (N02CD03, in the
+    antimigraine group N02C)
+    10,416,000 CZK, together 25,068,000 CZK; and ted-685493-2026, "Léčiva pro Jihnem (192026)",
+    ref 028J2026ZN, 12 months, intravenous clindamycin in 2 ml and 4 ml ampoules and intravenous
+    paracetamol at 500 mg and 1,000 mg, together 2,982,500 CZK; all three issued 2 Oct 2026.
+    Fremanezumab is also the drug of [S27]''s Krajská zdravotní award, issued 18 Sep 2026: two
+    regional groups buying one substance, each for itself. WHO IT BUYS FOR, read 2026-10-05 at
+    jihnem.cz and jihnem.cz/o-nas/: "V kraji se nachází osm nemocnic ... Všechny nemocnice
+    spolupracují pod jednotným vedením společnosti Jihočeské nemocnice, a.s. Ta centralizuje
+    nákup"; under "Centrální nákup": "Obchodní oddělení zajišťuje jednotný objednávkový systém,
+    který nemocnicím garantuje stejnou kvalitu zboží a stejné nákupní ceny"; the eight hospitals
+    were founded as joint-stock companies by Jihočeský kraj, "jejich jediným a stoprocentním
+    vlastníkem", and the region is "zakladatel a vlastník" of Jihočeské nemocnice, a.s. ARES:
+    IČO 26093804, incorporated 12 Sep 2005, České Budějovice. The notices themselves do not name
+    the receiving hospitals, so that the three calls supply all eight rests on the company''s own
+    page. Receipt for its locals[] row (non-seller); no since, as no start date for the central
+    buying was found. NOT CLAIMED: any price, overpayment or saving. CONTEXT, dims empty.'
+  date: '2026-10-02'
+  signal: ted-683991-2026
+  dims: []
+- type: tender
+  name: "TED — Thomayer and Hradec Králové each tender nerandomilast on their own, a day apart"
+  gist: "one new drug, two separate calls"
+  why: "Two university hospitals, neither a signatory of the ministry's joint-buying memorandum, opened separate tenders for the same drug, nerandomilast, on 30 September and 1 October 2026."
+  url: https://ted.europa.eu/en/notice/-/detail/676183-2026
+  note: 'ted-676183-2026, TED notice XML read 2026-10-05. Contract notice (cn-standard), open
+    procedure, issued 30 Sep 2026, buyer Fakultní Thomayerova nemocnice (IČO 00064190) and no
+    other, "Dodávky léků – Léčivá látka nerandomilast – ATC L04AA61", ref FTN-Ř-61/2026, run on
+    TENDERARENA, lowest price, quantities 3,000 packs of 60 x 18 mg and 400 packs of 60 x 9 mg,
+    delivered to the hospital''s own pharmacy, estimated 306,000,000 CZK. Folded in, read the
+    same day: ted-680099-2026, Fakultní nemocnice Hradec Králové (IČO 00179906) and no other,
+    "Léčivé přípravky s obsahem nerandomilastu", ref 153/2026, issued 1 Oct 2026, four years of
+    supply "dle aktuálních potřeb zadavatele", lowest total price over four years, estimated
+    624,000,000 CZK. Both notices carry 2 Nov 2026 as an end date. NO COMPARISON MAY BE DRAWN:
+    the two estimates cover different periods and only Thomayer states quantities. Neither buyer
+    signed the memorandum [S12]; nerandomilast is not a lot of [S24]. Same pattern as the
+    lenvatinib pair [S20,S21]. CONTEXT, dims empty.'
+  date: '2026-09-30'
+  signal: ted-676183-2026
+  dims: []
+- type: tender
+  name: "TED — Motol awards nusinersen under its own purchasing system, call No. 291"
+  gist: "Motol's own nusinersen award"
+  why: "Prague's Motol and Homolka hospital awarded nusinersen under its own standing purchasing system in September 2026, the same month Brno's university hospital published its own nusinersen award; both signed the ministry's memorandum on buying together."
+  url: https://ted.europa.eu/en/notice/-/detail/674659-2026
+  note: 'ted-674659-2026, TED notice XML read 2026-10-05. Award notice (can-standard), issued
+    29 Sep 2026, buyer Fakultní nemocnice Motol a Homolka (IČO 00064203) and no other, "Výzva
+    č. 291 Nusinersen – Dynamický nákupní systém na dodávky léčivých přípravků", a call-off
+    (oth-single, dps-list) under a system whose notice gives a start of 10 Jan 2023 and a stated
+    value of 50,000,000,000 CZK, A CEILING and never spend. Winner Avenier a.s. (IČO 26260654),
+    award date 10 Sep 2026, call estimate 422,540,000 CZK; the XML gives 422,539,677.9 CZK as the
+    tender total and 422,119,239.3 CZK as the payable amount, so no result figure is quoted in the
+    body. Call No. 291 against call No. 274 in July [S4]: the numbering kept running. Brno''s own
+    nusinersen award [S29] went to a different wholesaler (PHOENIX); both buyers signed the
+    memorandum [S12] and nusinersen is not a lot of [S24]. NOT CLAIMED: that either paid too
+    much; no volumes or unit prices are on file. CONTEXT, dims empty.'
+  date: '2026-09-29'
+  signal: ted-674659-2026
+  dims: []
 created: '2026-09-03'
-updated: '2026-09-28'
+updated: '2026-10-05'
 ---
 
 Czech hospitals buy most medicines alone, and a state audit found some paying over 3 times what others paid [S1,S7].
@@ -863,6 +978,8 @@ The notices came out between 6 July and 2 September 2026 [S1]. Each runs under a
 - A regional hospital group runs a standing purchasing system for medicines of its own, and awarded a two-year supply of one drug under it in September 2026 [S27].
 - On 21 September 2026 Brno's university hospital opened a new four-year purchasing system for all its own medicines [S28]. Its 20.67bn CZK is the system's ceiling, not money spent [S28].
 - In September 2026 the same hospital awarded a four-year nusinersen supply alone, and Motol signed a trastuzumab framework alone [S29,S30]. Neither drug is a lot of the joint purchase [S24].
+- Motol then awarded nusinersen on its own too, as call No. 291 under its own purchasing system [S4,S38]. Its order and Brno's went to different wholesalers [S29,S38].
+- On 30 September and 1 October 2026 Thomayer's and Hradec Králové's university hospitals each opened their own tender for the same new drug, nerandomilast [S37].
 
 The state keeps finding what this costs:
 
@@ -883,6 +1000,8 @@ That firm has pooled public buying since 2006 [S18]. It gathers the demand of ma
 - The ministry built that database because it could not otherwise compare what its own hospitals paid [S11]. Each report shows a product's average price and its highest and lowest real price [S11].
 - Some buyers pool for themselves: the Pardubice region's hospital company buys medicines centrally for its own hospitals [S18]. The health ministry's joint buying for its own hospitals is under [Why now](#why-now).
 - One region buys medicines for six hospitals it founded through one standing purchasing system, running since 2020 [S34]. Each hospital then signs its own contract [S34].
+- Two more regions' hospital companies buy medicines centrally for their own hospitals: one in the Ústí region for seven hospitals, one in South Bohemia for eight [S35,S36].
+- The South Bohemian company says its one ordering system gives each of its hospitals the same purchase prices [S36]. The pooling stops at the group's edge: in September and October 2026 both companies went to market for the same migraine drug, fremanezumab, each for itself [S27,S36].
 - Some university hospitals pool single drugs: Olomouc, Hradec Králové and Ostrava opened joint calls for two drugs in September 2026 [S22]. None of the three signed the ministry's July memorandum [S12,S22].
 - Pooling goes drug by drug: in the same month Olomouc and Hradec Králové bought lenvatinib separately [S20,S21]. Pooled buying is not a comparison of prices [S22].
 - Olomouc and Hradec Králové also opened a joint call for molnupiravir, an antiviral, in September 2026; a South Bohemian hospital group had bought it alone that spring [S33].
@@ -957,3 +1076,5 @@ Two more answers are not on the map, a public buyer and a cooperative:
 2026-09-21 · evidence added, no score moved — Four TED notices linked from the weekly scan, all read from the TED search API this date, all context with `dims` empty: every one of them buys medicines, and Willing to pay is read from price receipts for the comparison this problem is about, which none of them is. [S24] is "Dodávky LP - společný nákup", one purchase of 28 medicines, an active substance to a lot, opened by Fakultní nemocnice Bulovka and Fakultní nemocnice Královské Vinohrady on 21 September 2026, 2,509,611,143.46 CZK on the notice. [S25] is St Anne's in Brno awarding guselkumab alone on 16 September 2026, 27,890,665.8 CZK to Janssen-Cilag. [S26] is Brno's university hospital opening its own second ustekinumab tender on 21 September 2026, 138,141,590 CZK estimated over two lots. Both substances are lots of [S24], and all four hospitals signed the health ministry's July 2026 memorandum on buying together [S12] — which is why the two new Market gap bullets say pooling and buying alone run side by side among the same six. [S27] is Krajská zdravotní's own standing purchasing system for medicines, with a two-year framework for one drug awarded under it; its 16,000,000,000 CZK is the system's stated value, not money spent, and the body says so about such figures already [S1]. NOT CLAIMED, and deliberately: nothing here shows any hospital overpaid, because the volumes behind the separate procedures are not on file; and the per-lot estimates of [S24] are not paired with their substances, because that pairing would be read off the order of two separate lists the API returns. Nothing moved. Money stays 0: no price receipt for the comparison exists, and a drug tender is public money nearby whatever its size. Demand stays 2 on the state's own findings [S7,S9,S19]. Urgency stays 1: no new dated instrument. Gap re-checked against the new notices — their named suppliers are a medicines manufacturer and, where stated, wholesalers, and no Czech seller of a comparison of what each hospital paid appears — so gap stays 2 on [S18]'s check and `status` stays candidate. No source note was edited, no marker renumbered, and the four sources were appended at the end.
 
 2026-09-28 · evidence added, brief corrected — Seven sources appended, all context with dims empty and each read at the primary this date. [S28] Brno's university hospital opened a new four-year medicine purchasing system eight weeks after the memorandum [S12]; its 20.67bn CZK is a ceiling, and the corrigendum ted-654684-2026 fixes its end to 30 Nov 2030. [S29] the same hospital's nusinersen award; its XML gives 840,819,842 CZK as the winning tender and 940,819,842 CZK as the notice total, so no figure is quoted. [S30] Motol's trastuzumab framework with Roche. Neither drug is a lot of [S24]; plain trastuzumab is not trastuzumab emtansine, so neither is written as bought twice. [S31] St Anne's bimekizumab award, a lot of [S24]; the 27,237,144.92 CZK in its XML also appears on the same buyer's tirzepatide award, so no result value is quoted. [S32] the military hospital's vedolizumab call, a change notice to ted-620247-2026. [S33] the joint molnupiravir call, with three buyers that bought it alone read from TED. [S34] the Moravian-Silesian region's medicine system: its tender documents show it buying as a central buyer for six hospitals it founded since 2020. That makes "Each hospital buys medicine on its own [S1]" untrue, so the brief now reads "Most hospitals buy medicine on their own [S1]." (old, verbatim: "Each hospital buys medicine on its own [S1]."); the region joins locals[] as adjacent and established, a buyer pooling for itself, not a vendor. Alemtuzumab, a third joint call by the Olomouc, Hradec Králové and Ostrava trio, was merged into [S22]'s note, and three Krajská zdravotní call-offs into [S27]'s. NOT CLAIMED: that any hospital overpaid; no volumes or unit prices are on file. Nothing moved: money stays 0, no price receipt for the comparison; demand stays 2; urgency stays 1, no new dated instrument. Gap re-checked: the new names are wholesalers, makers and public buyers pooling for themselves, none sells a comparison of what each hospital paid, so gap stays 2, status candidate, entry.incumbents adjacent. No score, marker target or other headline field changed. Same date, owner decision 2026-09-28: buyers that pool purchasing for themselves are recorded one way, all of them, in locals[] at competes: non-seller. Moravskoslezský kraj moved adjacent + established → non-seller, maturity dropped; Nemocnice Pardubického kraje (IČO 27520536) and Ministerstvo zdravotnictví (IČO 00024341) joined as non-seller rows, both read this date at their own pages and in ARES [S12,S18]; [S18]'s sentence keeping them out of locals[] is superseded by a dated line, and [S22] and [S34] gained dated lines. The Market gap bullet now says the Pardubice company buys medicines centrally for its own hospitals, not "for the region". Non-sellers move nothing: gap stays 2, status candidate, entry.incumbents adjacent → adjacent (still derived from the five adjacent established rows).
+
+2026-10-05 · evidence added — Four context sources, dims empty, read at TED XML: [S35] Krajská zdravotní's fibrinogen order, same system as [S27]; [S36] Jihočeské nemocnice's three calls, two folded in; [S37] the nerandomilast pair; [S38] Motol's nusinersen award. Krajská zdravotní (seven hospitals) and Jihočeské nemocnice (eight) join locals[] as non-seller pooling buyers, read at their own sites and ARES. Nobody is claimed to have overpaid. Gap re-checked: none sells the comparison; no score moved.

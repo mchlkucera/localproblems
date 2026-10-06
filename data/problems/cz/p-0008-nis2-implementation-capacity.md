@@ -171,6 +171,16 @@ locals:
     carry out some of the recommended steps on request, but no order for the security work
     itself was found. Named customers include Tábor, Vyškov and the Czech environmental
     inspectorate. Integra Czech Republic, s.r.o. has traded since February 2012.'
+- name: Liberecká IS
+  ico: '25450131'
+  since: 2002
+  competes: adjacent
+  maturity: established
+  evidence: 'The city of Liberec''s own IT company, founded by the city to serve it and its
+    organisations. From October 2026 it runs the city''s systems and the security measures the
+    law requires, under a contract signed without a tender because the city owns it [S34]. It
+    does this work only for its owner, so an outside provider cannot win it. Named customer:
+    the city of Liberec. Liberecká IS, a.s. has traded since June 2002.'
 - name: Storage One
   url: https://storageone.cz/aktuality/nis2_healthcheck/
   ico: '02301245'
@@ -789,6 +799,112 @@ sources:
     - 'hlidacstatu.cz smlouvy: ico:27373622 kybernetické · ico:26490951 kybernetické · ico:06291031 · ico:04308697 "systému řízení bezpečnosti" · ico:24216941 kybernetické · ico:22340564 · ico:02301245 · ico:08071128'
   checked: [google-cz, ares, registr-smluv, hlidac-statu-search, own-contract-lookup, own-tender-ledger, vendor-sites]
   expires: '2027-01-03'
+- type: contract
+  url: https://smlouvy.gov.cz/smlouva/39747509
+  name: "Registr smluv — Liberec hands its security measures to its own IT company (~60M CZK)"
+  gist: "a city's deadline, in its contract"
+  why: "Liberec, covered by the law since January 2026 and due to have the security measures in place by January 2027, pays its own city IT company about 841,000 CZK a month to run its systems and those measures."
+  note: 'hlidac-37374181: Statutární město Liberec (IČO 00262978) and Liberecká IS, a.s. (IČO
+    25450131), "Zabezpečení informačního systému SML - II", contract no. DS202603013, signed and
+    published 1 Oct 2026, 60,068,759.63 CZK incl. VAT (registr smluv 39747509). Contract text and
+    price annex read 2026-10-05. Preamble: "Objednatel je od ledna 2026 povinným subjektem dle
+    zákona č. 264/2025 Sb." in the lower-obligations regime (decrees 408/2025 and 410/2025), and
+    under decree 410/2025 "je Objednatel tyto bezpečnostní opatření povinen zavést nejdéle od
+    ledna 2027"; the city chose to have the technical and some organisational measures done by
+    a supplier, which replaces a 2024 contract widened because of the new law. Signed under § 11
+    of the procurement act ("vertikální spolupráce"), so with no tender: Liberecká IS was founded
+    by the city to serve it (ARES: since 17 Jun 2002). Indefinite term, notice no earlier than
+    month 60, services from 1 Oct 2026. Annex 2, monthly fee excl. VAT: data-centre operation
+    254,652; backup 44,174; secure operation (firewalls, antivirus, multi-factor login,
+    privileged accounts, network probe, penetration tests) 439,105; organisational security
+    rules "v souladu se ZKB" 103,486; total 841,417 CZK a month. Annex 1 (the detailed
+    description) is withheld for security reasons. Most of the fee runs the city''s systems,
+    which is not this job, and the seller is captive to its owner, so it is not restated as a
+    price receipt and carries no dims; Willing to pay is already 2 on receipts for this job.
+    A dated deadline in the buyer''s own words: a receipt for the Why now dates [S1], which is
+    already 3.'
+  date: '2026-10-01'
+  signal: hlidac-37374181
+  dims: []
+- type: regulation
+  url: https://e-sbirka.gov.cz/eli/cz/sb/2026/178
+  name: "Decree No. 178/2026 Coll. (critical-infrastructure portal)"
+  gist: "the second law's state portal"
+  why: "Since 1 October 2026 the organisations named under the critical-infrastructure law report incidents, and register the staff who act for them, through a state portal."
+  note: 'reg-ki-portal-178-2026: vyhláška č. 178/2026 Sb. o portálu kritické infrastruktury
+    (interior ministry, 23 Sep 2026, under § 29(2) of Act 266/2025, in force the day after
+    promulgation, i.e. 1 Oct 2026). Text read 2026-10-05 from the saved copy
+    data/raw/2026-10-05/regulation/pages/esbirka/sb-2026-178.txt: § 2(4) the portal is how an
+    authorised user "hlásit incident podle § 18 a 19 zákona o kritické infrastruktuře"; § 3(1)
+    the "poskytovatel základní služby nebo subjekt kritické infrastruktury" identifies itself,
+    its critical suppliers and its critical-infrastructure manager; § 4(2)-(3) it notifies each
+    authorised person with name, date of birth, role, phone and e-mail; § 4(7) it answers for
+    the data being correct and current. It binds only the organisations under Act 266/2025 [S5],
+    not the towns and care homes Act 264/2025 covers, and names no sanction, so it moves no
+    score: context for the second law and move 5 only. The interior ministry''s 6M CZK portal
+    build (VeKLEP KORNDTUBDJRM, sweep 2026-09-28) is the state''s own cost and is not cited.'
+  date: '2026-10-01'
+  signal: reg-ki-portal-178-2026
+  dims: []
+- type: regulation
+  url: https://odok.gov.cz/portal/services/download/attachment/ALBSDVCCZ27M/
+  name: "VeKLEP — the critical-infrastructure resilience decree and its costs"
+  gist: "the second law's clocks and costs"
+  why: "The interior ministry's explanatory report for the decree on resilience plans and incident reports: 9 and 10 months from being named, and new measures costing a few million to a few tens of millions CZK per organisation."
+  note: 'Finding from the 2026-09-28 VeKLEP sweep (KORNDQ2H6JVT, "Vyhláška o plánu odolnosti,
+    posouzení rizik, opatřeních k zajištění odolnosti subjektů kritické infrastruktury a o
+    hlášení incidentu"; the sweep manifest records it as 122/2026 Sb., which was not confirmed
+    in the Sbírka this pass). Důvodová zpráva zd_KORNDVCCU4OP.docx, attachment dated 24 Jun
+    2026, read 2026-10-05: § 14(1)(d) of Act 266/2025 gives a critical-infrastructure entity 9
+    months from delivery of the decision naming it to produce its risk assessment, and §
+    14(1)(f) 10 months to produce its resilience plan; on cost, "obecně lze kalkulovat s
+    průměrnou částkou v řádu jednotek či nižších desítek milionů korun", for public-budget
+    entities "zejména s ohledem na opatření v oblasti fyzické bezpečnosti". These duties bind
+    only the entities the state names under Act 266/2025 [S5], not the towns and care homes Act
+    264/2025 covers, so no score moves; the cost is for physical resilience, not this job, so it
+    is not a price receipt. Context for the second law and move 5.'
+  date: '2026-06-24'
+  dims: []
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/38178269
+  name: "Prague 9 — a city district pays a security firm to put the law's measures in place"
+  gist: "about 1.9M CZK for one district"
+  why: "A Prague city district paid a security firm about 1.9M CZK, fixed, to put in place the security measures the new law sets for its lighter regime."
+  note: 'Price receipt restating a contract already read for the 2026-10-05 gap re-check [S33]:
+    Městská část Praha 9 and Next Generation Security Solutions s.r.o. (IČO 06291031), "Zavedení
+    bezpečnostních opatření podle zákona č. 264/2025 Sb. pro režim nižších povinností", smlouva o
+    dílo no. 2026/KSTSIT/0003/DINO, signed 27 May 2026, published 29 May 2026, 1,894,000 CZK
+    excl. VAT / 2,291,740 CZK incl. VAT (registr smluv 38178269, record page read 2026-10-05).
+    A fixed-price work contract for exactly the security work solution: names, so a paid
+    receipt for this job within 24 months: per-project, signed-contract, dims [money].
+    Stronger than the receipts already on file in one way: its subject names Act 264/2025
+    itself. Willing to pay was already 2, so no score moves.'
+  date: '2026-05-27'
+  payer: 'Městská část Praha 9, a Prague city district'
+  amount_czk: 1894000
+  unit: per-project
+  basis: signed-contract
+  dims: [money]
+- type: price
+  url: https://smlouvy.gov.cz/smlouva/39636329
+  name: "Uherské Hradiště — a care provider buys the whole job at a fixed price"
+  gist: "about 495k CZK for a care provider"
+  why: "A social-services provider paid a security firm about 495,000 CZK, fixed, for its documents, risk analysis, recovery and continuity plans, and staff training under the new law."
+  note: 'Price receipt restating a contract already read for the 2026-10-05 gap re-check [S33]:
+    Sociální služby Uherské Hradiště, příspěvková organizace and Blue Partners s.r.o. (IČO
+    27373622), "Smlouva o dílo na poskytování služeb v oblasti kybernetické bezpečnosti", signed
+    21 Sep 2026, published 23 Sep 2026, 495,000 CZK excl. VAT (registr smluv 39636329, record
+    page read 2026-10-05; the contract text, read for [S33], covers compliance with Act
+    264/2025 and decree 409/2025: documentation, asset catalogue, business-impact and risk
+    analysis, recovery and continuity plans, training and a final check). A paid receipt for
+    this job within 24 months: per-project, signed-contract, dims [money]. Willing to pay was
+    already 2, so no score moves.'
+  date: '2026-09-21'
+  payer: 'Sociální služby Uherské Hradiště, a social-services provider'
+  amount_czk: 495000
+  unit: per-project
+  basis: signed-contract
+  dims: [money]
 created: '2026-08-13'
 updated: '2026-10-05'
 ---
@@ -833,11 +949,14 @@ The dates behind these deadlines come from the law itself, and from a second law
 - On 1 November 2025 the new cybersecurity law took effect [S1].
 - By 17 July 2026 the state had to name the organisations covered by the second law, on critical infrastructure [S5].
 - In late 2026 the first one-year deadlines for security measures run out [S1].
+- By January 2027 a city such as Liberec, covered since January 2026, must have its security measures in place [S34].
 - On 17 December 2026 the EU grant for towns, regions and hospitals stops taking applications [S9].
 - By mid 2027 most of the remaining deadlines have run out [S1].
 - The top fine is CZK 250m or 2% of global turnover, and the agency counts a long delay against an organisation when it sets the fine [S1,S13].
 
 The second law is Act No. 266/2025, the Czech version of the EU's CER directive (its rules for critical entities) [S5]. It puts physical-resilience duties on many of the same organisations: resilience plans, meaning how they keep essential services running through physical threats, and incident reporting, through 2027 [S5]. Many customers for the first law will need this work too [S5].
+
+Its clocks start only when the state names an organisation: 9 months for a risk assessment, 10 for a resilience plan [S36]. The interior ministry expects each named organisation's new measures to cost a few million to a few tens of millions CZK, mostly for physical security [S36]. Since 1 October 2026 named organisations report incidents through a state portal [S35].
 
 Who pays: The covered organisations pay, and towns, regions and hospitals can get half back from an EU grant [S1,S9].
 
@@ -857,6 +976,7 @@ The €33M is spread over about 77 tenders and awards [S7]. Buyers range from la
 - Prague 2, a second district, followed two weeks later: four years of outside support for its security systems, including continuous monitoring, estimated at 7.8M CZK [S30].
 - Jihlava's psychiatric hospital, one of the grant applicants, signed about 22.9M CZK in September 2026 for security hardware and software, part-paid by the EU's regional-development programme [S8,S28].
 - Třebíč hospital needed cash up front for its own grant-funded project. Its region lent it about 36.9M CZK, interest-free, to pay its EU-funded cybersecurity project up front [S31]. Two days later it signed about 52.3M CZK for the project's hardware and software [S32].
+- Liberec pays its own city IT company about 841,000 CZK a month, without a tender, to run its systems and the security measures the law asks for [S34].
 
 The EU grant is IROP call 120 (the cyber-security call of the EU's regional-development programme). It holds about €99.6M and pays 50% of the cost [S9].
 
@@ -903,4 +1023,4 @@ Solved elsewhere: Two funded European companies sell software that automates sec
 
 2026-09-28 · evidence audit — Three signals linked, each read at source. Prague 2 tenders four years of outside support and continuous monitoring of its security systems, estimated at 7.8M CZK: a second district buying the work itself, open, so public money nearby with no dims [S30]. Vysočina region lent Třebíč hospital about 36.9M CZK, interest-free, to prefinance its IROP-funded cybersecurity project [S31], and the hospital signed about 52.3M CZK with five years of support for that project's kit [S32]; both context, no dims. Inference flagged: that the grant pays only after the spend is our reading of the loan's purpose, which the contract does not explain. Not added: the Academy of Sciences SIEM tender also names the law's higher obligations, which [S29] already shows a buyer doing. Gap re-checked: the kit supplier in [S32] sells hardware and support, not this job, so like the Jihlava supplier [S28] it joins no ledger; no new local seller of this job, gap stays 1 and status stays candidate. No score moved. Same date, owner decision 2026-09-28 (MATCH §2, every local player found goes in `locals[]`), which overrides "joins no ledger" above for the Třebíč supplier: Aricoma Systems a.s. added as adjacent and established. ARES, read this date: IČO 04308697, registered 7 November 2017; 10 distinct public buyers in the contracts register. What it sold Třebíč is kit and support [S32]. FLAGGED FOR THE OWNER: its website also lists NIS2 and cyber-security-law compliance, ISMS set-up and risk analysis. It is kept adjacent on the same ground as ICZ Risk*Guide: enterprise project work, with no small-town or small-firm sale on file. If the owner reads it as selling this job, it is direct and established, and gap falls 1 → 0. Gap stays 1 and `entry.incumbents` stays adjacent. The Jihlava supplier [S28] is not named in the ledger by this pass. No score moved.
 
-2026-10-05 · gap re-check — Owner decision 17: searched in Czech and in the state contracts register, with a passing positive control [S33]. Equica, Blue Partners and Next Generation Security Solutions, all established, sell this work to small towns and care homes; Equica also writes their grant applications. Aricoma's OLÚ Paseka contract moves it adjacent → direct. Gap 1 → 0, score 11 → 10, `entry.incumbents` adjacent → direct. Market gap and move 4 rewritten; nine more firms ledgered.
+2026-10-05 · gap re-check — Owner decision 17: searched in Czech and in the state contracts register, with a passing positive control [S33]. Equica, Blue Partners and Next Generation Security Solutions, all established, sell this work to small towns and care homes; Equica also writes their grant applications. Aricoma's OLÚ Paseka contract moves it adjacent → direct. Gap 1 → 0, score 11 → 10, `entry.incumbents` adjacent → direct. Market gap and move 4 rewritten; nine more firms ledgered. Merged, evidence audit: Liberec's contract dates its deadline to January 2027 [S34], its in-house IT company ledgered adjacent; Prague 9 and Uherské Hradiště restated as price receipts [S37,S38]; the second law's portal decree and costs bind only named entities [S35,S36]. No further score moved.

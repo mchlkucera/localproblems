@@ -106,7 +106,8 @@ locals:
   maturity: established
   evidence: 'Czech bus maker that sells electric buses to city transport companies, named customers
     in Prague and Opava; in Opava its winning offer included the chargers and ten years of charger
-    service. The buses are bought outright, so it sells no financing or fee per bus [S11].'
+    service. In September 2026 the Jablonec city bus company signed for 8 of its electric buses
+    [S17]. The buses are bought outright, so it sells no financing or fee per bus [S11].'
 - name: SOLARIS CZECH
   ico: '25914723'
   since: 2002
@@ -457,8 +458,33 @@ sources:
   date: '2026-09-28'
   signal: ted-667133-2026
   dims: []
+- type: price
+  name: 'Jablonec bus company — 8 electric buses, signed'
+  gist: '8 electric city buses, signed'
+  why: 'The Jablonec nad Nisou city bus company signed in September 2026 to buy 8 electric buses with one portable charger, delivered in late 2027; the seller bears the cost if a late delivery loses the bus company its grant.'
+  url: https://smlouvy.gov.cz/smlouva/39768913
+  note: 'hlidac-37394625. Registr smluv 39768913 (ID smlouvy 37394625), page and the attached
+    "Kupní smlouva_final vč. příloh.pdf" read 2026-10-05: Jablonecká dopravní a.s. (IČO 06873031)
+    buys from SOR Libchavy spol. s r.o. (IČO 15030865), contract 6/JD/2026, concluded 29 Sep 2026
+    (seller signed 23 Sep), published 2 Oct 2026, after the above-threshold open tender
+    "Dodávka elektrobusů pro Jabloneckou dopravní a.s.". Clause 1.2: "dodávka 8 ks nových
+    jednočlánkových elektrobusů, v plně nízkopodlažní úpravě", driver training, warranty service,
+    "1 ks přenosné nabíjecí stanice" of at least 22 kW, and summer tyres. Clause 4.1: 11,250,000
+    CZK excl. VAT a bus, "Elektrobusy 8 ks 90.000.000 Kč" excl. VAT, 108,900,000 incl. VAT, fixed
+    maximum price, warranty service included. Clause 3.1: delivery from 1 Nov 2027 to 31 Dec 2027
+    at the latest. Clause 10.4: if delivery is late the grant provider ("pokud bude poskytnuta")
+    may refuse or claw back the grant, and that loss counts as damage caused by the seller. No
+    depot chargers are bought here. Outright purchase, read as the manual form of a fee per bus,
+    as for S7, S9 and S12; signed-contract within 24 months. Money already 2; no score moves.'
+  date: '2026-09-29'
+  signal: hlidac-37394625
+  dims: [money]
+  payer: 'Jablonecká dopravní (Jablonec nad Nisou city bus company)'
+  amount_czk: 90000000
+  unit: per-project
+  basis: signed-contract
 created: '2026-09-19'
-updated: '2026-09-28'
+updated: '2026-10-05'
 ---
 
 Czech city bus companies must add electric buses they can barely afford without EU grants, and those grants can be taken back [S1,S2].
@@ -534,3 +560,5 @@ See [Validated abroad](#validated-abroad).
 2026-09-21 · evidence audit — Weekly match over 34 mobility signals. Nothing new was linked: the three PID electric-bus tenders that arrived as ted-647388-2026, ted-648241-2026 and ted-649004-2026 are the same procurements this record already cites, re-notified a third time, and their notices were read and merged into that source's note rather than added again [S3]. The one new fact in them is a second extension of the bid deadline, from 1 to 5 October 2026, issued 17 September with no reason given in words [S3]; the estimated values did not change. Not linked, and why: a charging-station construction purchasing system set up by E.ON's charging arm (ted-648668-2026, about 43.5M CZK) buys civil works for charging stations in general, not a bus depot's chargers, and that arm is already on the record as an adjacent local that builds depot chargers [S11]; the rest of the week's mobility haul is motorway, rail and road-maintenance procurement by the state road and rail authorities, which buys nothing this record describes. Gap re-checked against the week's signals: the only new suppliers named in them build roads, rails and chargers, and none sells electric buses with their batteries and depot charging for a fee per bus, so gap stays 2 [S11]. No score moved. Same date, schema fix applied, merged here: `comps[].since` now floors at 1800 rather than 1980, so Deutsche Leasing (founded 1962) joins comps[] with the traction its own case study carries — 85 electric buses financed together with their charging infrastructure for the Lübeck city bus company, nearly EUR 66M over 2023-2027, plus Stadtrundfahrt Dresden and Ettenhuber on its public-transport page [S6]. Proof 2 to 3 and score 10 to 11, band unchanged (PRIME): two established foreign players in two markets, Zenōbē in Britain and Deutsche Leasing in Germany, and Germany is CEE-adjacent [S5,S6]. The judgement behind that point, stated plainly: Deutsche Leasing finances the buses AND their chargers but does not build or run the chargers, so it proves the financing half of this solution and not the charging half; Zenōbē remains the only comp that runs the whole model [S5,S6]. The abroad clause in `solution:` moved from "as a company already does in Britain and Spain" to "as 2 companies already do in 2 other countries": Spain is Zenōbē's market, not any comp's base, and the count now reads off the two comps' `geo` [S5,S6]. A bullet under Solved elsewhere says what the German one finances; that it neither builds nor runs the chargers is on its comps row [S6]. Deutsche Leasing ČR, the Prague arm, stays in locals[] as adjacent and early — no electric-bus or charger offer was found there, and it is a different company from the German parent [S11].
 
 2026-09-28 · evidence audit — Weekly match, TED XML read. Linked two unawarded tenders: České Budějovice's depot chargers with five years of service, no value on the notice [S15], and Děčín's 21 electric buses bought outright, about 247M CZK, EU-funded (the match note wrongly said no grant) [S16]. Both are public money nearby until awarded. Deadlines folded in: Prague's framework now closes 16 Oct 2026 [S14], Olomouc's chargers 25 Oct [S13]. Gap stays 2: no supplier named. No score moved.
+
+2026-10-05 · money receipted — Weekly match. Added a paid receipt: Jablonec's city bus company signed in September 2026 for 8 electric buses, 90M CZK without VAT, the seller liable if late delivery costs the grant [S17]. Its seller, already on the ledger, gained the customer. Money was already 2; no score moved. Not linked: two coach tenders silent on clean buses, a minibus, a refuse truck and a German truck-depot sharing start-up. Gap stays 2.

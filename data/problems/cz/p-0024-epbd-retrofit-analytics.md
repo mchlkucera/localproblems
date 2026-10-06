@@ -60,6 +60,7 @@ locals:
     no ranking of measures and no capex modelling in the software [S2,S5]. As a consultant it does
     that ranking by hand, and the state development bank pays it to judge which of the Plzeň region's
     buildings suit an energy-savings contract [S9]. That is a paid study, not a product that ranks.
+    It also runs the Central Bohemian region's energy-savings tender of September 2026 [S13].
     Trading since 2013, with customers including the property group CTP, where Enmon is installed
     [S5].
 - name: DEKSOFT (ENERGOMETR)
@@ -437,6 +438,43 @@ sources:
   date: '2026-10-05'
   signal: reg-dobijeci-body-parkoviste-2027
   dims: []
+- type: tender
+  name: 'TED — two regions and two universities tender or reprice energy-savings contracts, late September 2026'
+  gist: 'the savings contracts, still coming'
+  why: 'The Pardubice region tendered an energy-savings contract for three of its hospitals, the Central Bohemian region and Charles University tendered theirs for chosen buildings, and a faculty''s contract was repriced after unforeseen findings during the works.'
+  url: https://ted.europa.eu/en/notice/-/detail/668627-2026
+  note: 'Weekly match 2026-10-05; each notice''s XML read the same day via
+    ted.europa.eu/en/notice/<id>/xml. (1) ted-668627-2026, cn-standard issued 28 Sep 2026,
+    Pardubický kraj (IČO 70892822), "Poskytování energetických služeb metodou EPC ve vybraných
+    objektech v majetku Pardubického kraje - balíček XII", negotiated with call, no EU funds,
+    estimated 230,625,000 CZK, bids due 2 Nov 2026; places of performance Litomyšlská nemocnice,
+    Orlickoústecká nemocnice and Svitavská nemocnice; "bude poskytovatelem služeb vypracován návrh
+    energeticky úsporných opatření"; criteria price for the basic measures, annual guaranteed
+    savings and yearly energy-management price; LOYD GROUP s.r.o. (IČO 24821471) as procurement
+    service provider. Pardubický kraj is a client of the state bank''s EPC advisory (S9). (2)
+    ted-670626-2026, cn-standard issued 28 Sep 2026, Středočeský kraj (IČO 70891095), "Realizace
+    akce EPC V – energetické úspory Středočeského kraje", negotiated with call, no EU funds,
+    estimated 61,400,000 CZK, bids due 2 Nov 2026, buildings listed in the tender documents; PKV
+    BUILD s.r.o. (IČO 28149785) as procurement service provider, the firm S9 names as the state
+    bank''s adviser for Středočeský kraj. (3) ted-672477-2026, cn-standard issued 28 Sep 2026,
+    Univerzita Karlova (IČO 00216208), "ENERGETICKY ÚSPORNÁ OPATŘENÍ V OBJEKTECH UK KAM METODOU
+    EPC", guaranteed-result energy services under § 10e(4) of Act 406/2000 in its halls of
+    residence and canteens (Brandýs nad Labem, Praha 6 Větrník and Zvoníčkova among them),
+    negotiated with call, EU funds, estimated 140,000,000 CZK, bids due 4 Nov 2026, to 31 Dec 2038;
+    SEVEn Energy s.r.o. as service provider. (1) to (3) sum to 432,025,000 CZK estimated (our
+    addition). (4) ted-680842-2026, can-modif issued 2 Oct 2026, ČVUT Fakulta jaderná a fyzikálně
+    inženýrská (IČO 68407700), EPC contract of 13 Jun 2024 with ENESA a.s. (IČO 27382052) for the
+    faculty''s buildings at Břehová, Trojanova and in Děčín, SEVEn Energy as service provider;
+    Dodatek č. 2 of 11 Aug 2026 (registr smluv 39112354), value now 311,806,828 CZK, reason mod-cir:
+    during stage II, the basic measures, "nastaly skutečnosti, které nemohla ani jedna ze smluvních
+    stran předpokládat, a které mají vliv na cenu". WHAT THIS IS NOT: each buys renovation delivery
+    with the measures inside it, for buildings chosen before the tender; none prices the choice.
+    Public money nearby, dims [], backs no score; money stays 2 on S7 and S8. Gap: the firms named
+    are an ESCO and three tender administrators, PKV BUILD already on locals[] as adjacent; none
+    sells software that ranks an owner''s buildings.'
+  date: '2026-09-28'
+  signal: ted-668627-2026
+  dims: []
 created: '2026-08-13'
 updated: '2026-10-05'
 ---
@@ -498,6 +536,7 @@ Who pays: Public owners already pay consultants to rank their buildings by hand,
 - The hospitals in Stod and Domažlice awarded about €3.3M and €5.3M [S4].
 - Three towns and a hospital hold about 348M CZK of energy-saving building contracts [S10].
 - A Prague university hospital, the Plzeň region and two cities put about 857M CZK of energy-savings contracts out to tender in September 2026 [S4,S11].
+- Two regions and Charles University put about 432M CZK more out to tender in late September 2026, for three hospitals and other chosen buildings [S13].
 
 The ranking is bought as its own study, before the renovation is put out to tender [S9].
 
@@ -512,7 +551,7 @@ This way of paying is energy-performance contracting: a firm renovates, and is r
 
 - The contracts are 15 notices from 11 buyers, among them Hodonín, Kuřim and the state railway [S4].
 - The three Plzeň-region hospitals, Klatovy, Stod and Domažlice, all awarded theirs in one week [S4].
-- The choice of measures comes bundled with the work, through the energy-service firm [S4]. In Pelhřimov, the firm's check of how the town's buildings actually use energy changed the works after the contract was signed [S11]. Choosing which buildings go in can be a separate study, bought first [S9]. That renovation spend is what a ranking product would sit in front of [S4].
+- The choice of measures comes bundled with the work, through the energy-service firm [S4]. In Pelhřimov, the firm's check of how the town's buildings actually use energy changed the works after the contract was signed [S11]. At a Prague technical faculty, findings neither side foresaw during the works changed the contract's price in August 2026 [S13]. Choosing which buildings go in can be a separate study, bought first [S9]. That renovation spend is what a ranking product would sit in front of [S4].
 - Commercial and institutional owners with many buildings face the same choice of which renovation to fund first. Public owners are the route in, through their tenders.
 
 Solved elsewhere: Three funded companies in Germany and France sell owners software that ranks which building to renovate, and at what cost [S1].
@@ -569,4 +608,4 @@ Body: Willing to pay now opens on owners paying consultants to rank their buildi
 
 2026-09-28 · evidence audit — Weekly match. New source [S11]: Pelhřimov amended its energy-savings contract after the energy firm verified its buildings' real energy use, which re-set the works; Prague's Bulovka hospital (about 350M CZK to 2038) and Jablonec (three buildings, 48M CZK) tendered new ones. The Plzeň region (about 309M CZK) and České Budějovice (150M CZK) were folded into [S4]; Prague 6's fourth amendment (404M CZK) is [S4]'s Prague 6 contract, a duplicate. All buy renovation delivery: public money nearby, no price receipt. Flagged as inference: that the Plzeň and Jablonec tenders follow the state bank's building analysis [S9]; the notices do not say how buildings were chosen. Gap stays 1: the new names are an energy-service firm and a tender adviser. No score moved.
 
-2026-10-05 · regulation added — Czech building law already obliges owners of large heated or cooled non-residential buildings to fit car-park chargers by 1 January 2027 and building automation by 2025 and 2030, fines up to 400,000 CZK [S12]. Added to Why now as context; Why now stays 1: it forces chargers and controls, not the renovation ranking, and the main pain still waits on the unpassed law. Air-quality bill not linked. Gap stays 1. No score or status changed.
+2026-10-05 · regulation added, evidence audit — Czech building law obliges large heated or cooled non-residential buildings to get car-park chargers by 1 January 2027 and automation by 2025 and 2030, fines up to 400,000 CZK [S12]. Why now stays 1: it forces chargers and controls, not the ranking, and the main pain awaits the unpassed law. Air-quality bill not linked. Two regions and a university tendered 432M CZK of energy-savings contracts; a faculty's was repriced [S13]. Gap stays 1.

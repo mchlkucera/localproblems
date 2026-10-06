@@ -62,7 +62,8 @@ locals:
   evidence: It sells eMEDOCS, a hospital data-exchange platform connected to the national eHealth
     contact point (NCPeH) [S8]. Trading since 1997, with customers including Český statistický
     úřad for ICZ a.s. and Nemocnice Břeclav for ICZ.HEA a.s. (IČO 07240091) on the state contracts
-    register [S5].
+    register [S5]. ICZ.HEA supplies the integration platform in the Kroměříž psychiatric
+    hospital's 2026 systems award, as a subcontractor [S37].
 - name: Medicalc (mEx)
   url: https://www.medicalc.cz/
   ico: '26350513'
@@ -172,6 +173,21 @@ locals:
     read 2026-09-28), not hospital data sharing. It is one of CleverTech's two subcontractors at St
     Anne's in Brno [S30]; the notices do not say for what. Registered in 2013, with 2 distinct public
     buyers in the contracts register, the town of Krnov and the Kroměříž psychiatric hospital.
+    In Kroměříž's 2026 systems award it is a subcontractor for the electronic records archive and
+    the patient portal [S37].
+- name: HIPPO
+  url: https://www.hipposoftware.cz/
+  ico: '15528561'
+  since: 1991
+  competes: adjacent
+  maturity: established
+  evidence: It sells IS HIPPO, a records system built for psychiatric hospitals, and PINEL plus for
+    outpatient and social-care services (hipposoftware.cz, read 2026-10-05), not a layer for sharing
+    records between providers. Named customers include the Kroměříž psychiatric hospital, which
+    awarded it its 2026 systems modernisation with the integration platform subcontracted to
+    another vendor [S37], and the Horní Beřkovice, Opařany and Marianny Oranžské psychiatric
+    hospitals, which signed hospital-system contracts with it in June 2026 on the state contracts
+    register. Registered on 12 February 1991.
 sources:
 - type: tender
   name: "TED — Zlín-region hospitals' eHealth platform, 2022 contracts changed in 2026"
@@ -803,6 +819,44 @@ sources:
   date: '2027-07-01'
   signal: reg-ezadanka-elektronicka-dokumentace-2027
   dims: []
+- type: tender
+  name: "TED — Havlíčkův Brod psychiatric hospital interoperability, open"
+  gist: "the open Havlíčkův Brod tender"
+  why: "A psychiatric hospital opened its own tender for software to exchange and share its patients' records under the Czech and EU exchange standards, with bids due 30 October 2026."
+  url: https://ted.europa.eu/en/notice/-/detail/672719-2026
+  note: 'ted-672719-2026, TED XML read 2026-10-05. Contract notice (cn-standard), issued 29 Sep
+    2026, open procedure, Psychiatrická nemocnice Havlíčkův Brod (IČO 00179230), administered by
+    Vysočina Service: "e-Health – Interoperabilita PNHB". Scope, verbatim in part: a solution for
+    keeping health records "umožňující její interoperabilní výměnu, sdílení, bezpečné uložení a
+    interpretaci, prostřednictvím modernizace informačních systémů", to the standards of the
+    health ministry and NCEZ and of MyHealth@EU, including the duties from the new central
+    eHealth systems and the EHDS regulation. EU funds (programme not named), lowest 10-year
+    life-cycle cost wins, bids due 30 Oct 2026 09:00, delivery to 30 Nov 2027, service contract
+    open-ended. No value stated. Open and unawarded: not a price receipt. Another hospital buying
+    this job on its own; demand already 2, no rung moves.'
+  date: '2026-09-30'
+  signal: ted-672719-2026
+  dims: []
+- type: tender
+  name: "TED — Kroměříž psychiatric hospital systems award, integration subcontracted (~28.3M CZK)"
+  gist: "the Kroměříž systems award"
+  why: "Kroměříž's psychiatric hospital awarded about 28.3M CZK to modernise its hospital and lab systems, including links to the Zlín-region exchange network and the national eHealth gateway, after 2 bids."
+  url: https://ted.europa.eu/en/notice/-/detail/679849-2026
+  note: 'ted-679849-2026, TED XML read 2026-10-05. Award notice (can-standard), issued 1 Oct
+    2026, open procedure, Psychiatrická nemocnice v Kroměříži (IČO 00567914): "Modernizace
+    informačních systémů Psychiatrické nemocnice v Kroměříži", estimate 45,598,400 CZK. Scope:
+    modernising the hospital system (NIS) and lab system (LIS), structured electronic records,
+    long-term archiving, and connection to the accredited affinity domain, the Zlín-region
+    exchange network, NCPeH and other eHealth services. Awarded 14 Aug 2026 to HIPPO, spol. s
+    r.o. (IČO 15528561), 28,317,028 CZK, 2 tenders, lowest price; works and service contracts
+    (registr smluv 39636697, 39694797); funded by IROP call 78. Subcontractors, verbatim: Seyfor
+    (DEA archive and patient portal), ICZ.HEA ("Dodávka a implementace integrační platformy
+    ESB"), DS Soft Olomouc (LIS modernisation). NOT restated as a price: it is chiefly a hospital
+    and lab system modernisation, and the integration platform''s share is not separable. Context:
+    the integration layer bought inside a hospital-system award, from an established vendor.'
+  date: '2026-10-01'
+  signal: ted-679849-2026
+  dims: []
 created: '2026-08-13'
 updated: '2026-10-05'
 ---
@@ -832,6 +886,8 @@ More hospitals followed in August and September 2026:
 - Karlovy Vary's regional hospital bought the same kind of work in June 2026, and finished it in August [S27].
 - Ostrava's university hospital paid in August 2026 to link its lab system to the national eHealth services and registries, and got a single bid [S32].
 - Mělník's hospital company opened a tender in September 2026, estimated at 20M CZK, for a hospital system linked to Czech and EU eHealth systems; bids close on 30 October 2026 [S33].
+- Havlíčkův Brod's psychiatric hospital opened its own interoperability tender in September 2026, to Czech and EU exchange standards; bids close on 30 October 2026 [S36].
+- Kroměříž's psychiatric hospital awarded about 28.3M CZK in August 2026 for its hospital and lab systems, links to other providers included, after 2 bids [S37].
 
 Three hospitals have filed that the state held up their projects. Semily's owner extended its contract because the health ministry's national e-health centre had not helped test the hospital's connection [S23]. Karlovy Vary's hospital had its work finished and handed over on 25 August 2026, but no confirmation from that same centre that it was connected [S27].
 
@@ -959,4 +1015,4 @@ FIRST MOVES WRITTEN. `data/RECORD-TEMPLATE.md` reserves the section for records 
 
 2026-09-28 · fact check · evidence audit — CORRECTION, ANNOUNCED. [S1] and its price restatement [S21] described an August 2026 award of about 189M CZK (about €7.7M) by the Uherské Hradiště hospital. The notice XML, read this date, shows a contract-modification notice of 256059-2022: three STAPRO contracts signed on 29 April 2022 by three Zlín-region hospitals, Uherské Hradiště 84,455,540 CZK, Kroměříž 55,994,399 CZK and Vsetín 55,151,422 CZK, with 189,163,478 CZK the notice total; the Kroměříž entry in the contracts register (20171235) confirms the April 2022 signing. The wrong fact reached the brief, entry.why, S1 and S21 and nine body lines. Corrected: [S1] name, gist, why and note; [S21] restated as Uherské Hradiště's own line, 84,455,540 CZK, signed-contract, dated 2022-04-29, per-project, which is older than 24 months and so counts as asking; brief "for up to 190M CZK" → "for up to 85M CZK" (owner to approve; the old figure was the three-hospital total read as one award); entry.why tender range "€0.2M to €7.7M" → "€0.2M to €3.4M"; the opportunity's first item and the service-description bullet now describe the Zlín-region platform; "four regional hospital groups went to market" → three [S2,S3]; the €17M of four purchases → €9.3M of three tenders and awards [S2,S3], and the flagged licence estimate recomputed from it, €5.7M → €3.1M, still an inference; "three hospitals paid in 2026" → four signed in 2025 and 2026 [S14,S23,S27,S30]; the Why now and Who pays answer sentences re-cited away from [S1]. Stale "money rests on [S21] and [S22]" notes on [S2], [S9] and [S19] updated. MONEY STAYS 2: the paid receipts [S22] (awarded 5 August 2026, rechecked in the TED XML), [S24] (10 April 2026), [S28] (27 June 2026) and new [S31] (11 August 2025) are all within 24 months. Evidence added: [S1] now also carries ted-653864-2026, a second 2026 change to the Kroměříž contract (55,994,399 → 56,870,819 CZK for more device and middleware connections), merged rather than cited separately. [S30] merges St Anne's two September 2026 amendments (ted-657199-2026, ted-659253-2026) to its 44,905,040 CZK eHealth interoperability contract, signed 11 August 2025: the national contact point could not be tested, the state test portal kept failing, other vendors' systems were not ready, and without the contact point's statement the state institutes could not sign the connection confirmation. It is the third named hospital with a state-side hold-up after Semily and Karlovy Vary [S23,S27], tagged demand, which was already 2; the body now says so. [S31] restates that contract as a paid price receipt, since it buys this job. [S32] Ostrava's lab-system link, 7,949,224 CZK, one bid, kept as context because it is chiefly lab-system support. [S33] Mělník's open 20M CZK tender. [S34] Implementing Regulation (EU) 2026/2099, applying from 26 March 2027: WHY NOW STAYS 1. Article 4(1) reads "Before requesting the exchange of personal electronic health data of a natural person through MyHealth@EU, the health professional or healthcare provider shall identify that natural person"; every provider duty in Articles 4 and 5 is conditioned on requesting such an exchange, and Articles 3, 6, 7 and 8 bind Member States and national contact points. It does not oblige every Czech hospital to act, the ground on which 2026/2083 was left out on 2026-09-21. LOCALS: CleverTech s.r.o. added as direct and early. ARES gives IČO 27224325, registered 2 March 2005, but its only sale of this job on file is the August 2025 contract, and its website sells telemedicine devices and software, so since is 2025 and it fails the three-year limb. Gap stays 0 on the seven established direct sellers, entry.incumbents stays direct, and STAPRO's row gains the Zlín-region and Ostrava contracts [S1,S32]. No score or status changed. Title, solution and good_for unchanged. Same date, owner decision 2026-09-28 (MATCH §2, every local player found goes in `locals[]`): the five vendors the St Anne's amendments name [S30] and the ledger lacked were added; none was already on it. ARES read this date for each Czech firm. DS Soft Olomouc (IČO 60778644, registered 1994, Envis LIMS since 2006), adjacent and established on named hospital customers: a lab system is one of the systems the layer connects, not the layer. TatraMed Software (Bratislava, not in ARES, so no IČO; first PACS installation 2000), adjacent and established on 190+ PACS installations and 200 Czech facilities on its teleradiology service: it moves images, not the whole record. CompuGroup Medical Česká republika (IČO 47902442, registered 1992), adjacent and established on named customers: MEDICUS is an outpatient records and billing system. Seyfor (IČO 01572377, registered 2013), adjacent and established on 2 distinct public buyers in the contracts register: business software. SURPRISE, LABELLED DIRECT: C SOLUTION (IČO 28318340, registered 2008, health business moved into it in 2021) sells hospital integration platforms and eHealth services on its own site, which is this job, so it is `direct`, not the adjacent the decision assumed. It is `early`: since 2021, with its St Anne's subcontract the only hospital sale on file and no customer named on its site. Gap stays 0 on the seven established direct sellers and `entry.incumbents` stays direct; neither an early direct row nor an adjacent one moves either. Market gap's "the only newer seller on file" became two newer sellers [S30]. No score or status changed.
 
-2026-10-05 · regulation added · fact check — Linked the e-health bill's dated duties as context with no dimension [S35]: electronic referrals compulsory from 1 July 2027, electronic records from 1 January 2029; the bill went to the government on 30 September 2026 with three data-protection disputes open. A bill fails REAL, so Why now stays 1, and no draft-law badge, since the pain exists today. Corrected the Why now line calling [S10] a draft "with no dated duty yet". Gap already 0. No score changed.
+2026-10-05 · regulation added · fact check · evidence audit — Merged. E-health bill linked as context [S35]: electronic referrals compulsory from 1 July 2027, records from 1 January 2029; at the government since 30 September 2026, three data-protection disputes open. A bill fails REAL: Why now stays 1, no draft-law badge. Corrected the line calling [S10] a draft "with no dated duty yet". Added Havlíčkův Brod's open interoperability tender [S36] and Kroměříž's systems award [S37]; HIPPO added as adjacent. Gap stays 0. No score changed.

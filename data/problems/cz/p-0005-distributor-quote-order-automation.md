@@ -46,6 +46,12 @@ comps:
   since: 2025
   traction: 'YC W26, 2-person team (YC, 2026); ERP-integrated quote and order entry automation; funding beyond YC undisclosed'
   signal: yc-ventura
+- name: Titanio
+  url: https://www.titanio.ai/
+  geo: US
+  since: 2024
+  traction: 'YC S24, San Francisco, a team of three; AI that quotes, takes orders, collects payments, places purchase orders and enters data into ERPs for wholesalers and distributors (Y Combinator company page, read 2026-10-05); no customer, customer count or round beyond YC named'
+  signal: yc-titanio
 locals:
 - name: Apertia Tech
   url: https://apertia.ai/b2b-objednavky-agent
@@ -170,8 +176,21 @@ sources:
     source only, no comps entry.'
   date: '2026-08-31'
   signal: yc-asakana
+- type: arbitrage
+  name: "Titanio"
+  gist: "AI order taking for wholesalers"
+  why: "A three-person US team from Y Combinator's summer 2024 batch selling AI that quotes, takes orders and enters them into wholesalers' and distributors' business systems: this job, still young."
+  url: https://www.ycombinator.com/companies/titanio
+  note: 'yc-titanio, YC company page read 2026-10-05: "Titanio is a suite of AI Employees for
+    Wholesalers & Distributors. Instead of relying on humans to quote, take orders, collect
+    payments, place purchase orders and enter data into ERPs." Summer 2024, active, San
+    Francisco, team of three, titanio.ai. It sells this job (order entry into the ERP) among
+    other back-office tasks. EARLY: under three years selling, no named customer, no customer
+    count, no round beyond YC. Added to comps; proof stays 2 on the one established comparable.'
+  date: '2026-10-05'
+  signal: yc-titanio
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-10-05'
 ---
 
 Quote requests and orders reach Czech wholesalers as e-mails, PDFs and spreadsheets, and staff type them into their accounting software by hand [S1,S4].
@@ -220,6 +239,7 @@ Solved elsewhere: Young, funded companies in Germany and the US already sell thi
 - The US team came from the early-2026 batch, and handles quotes too [S3].
 - Asakana, listed by Y Combinator in August 2026, turns e-mailed and texted orders into entries in US food distributors' business systems [S5].
 - Of the four companies listed above, only the oldest has a funding round beyond seed money on record.
+- A three-person US team from Y Combinator's mid-2024 batch also sells AI that takes orders and enters them into distributors' systems, and names no customer [S6].
 - Funding abroad opens no empty field here: three Czech firms already sell this [S4]; see [Market gap](#competition).
 
 ## Revisions
@@ -239,3 +259,5 @@ Solved elsewhere: Young, funded companies in Germany and the US already sell thi
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the hand typing and keeps the three accounting systems with their gloss [S1,S4]; the "no complaint is documented" line moved there from Solved elsewhere, reworded without "the demand case is structural". Competition opens on the three Czech sellers and describes them by what they sell, with their names, years and the Digitoo link left to their `locals[]` rows; the product steps, the integration list and the building-materials worked example stay [S4]; "integration ... was the planned defence" became "connecting to the Czech accounting systems gives a newcomer no head start" [S4]. Why now opens on who loses time and the sale, with the funding abroad below as detail [S1,S3,S5]. Validated abroad describes each foreign company without its name; Mercura, turian, Workist and Ventura left the body for their `comps[]` rows, Workist's €9M Series A with them, and Apertia Tech, Alice by Redque and Dativery left it for `locals[]`. `entry.why` is now "Easier: … Harder: …" and names no company. S5 gained a public `name`, `gist` and `why` beside its unchanged note, and is now cited [S5]. Added from the pages behind sources already on file, both read on this date and neither in its note: the hand steps the Czech seller lists ("Manuální čtení každého e-mailu s poptávkou", "Ruční vyhledávání produktů v databázi podle názvu nebo kódu", "Ruční vyplňování objednávkových formulářů", "Lidské chyby při přepisování dat", "Zdlouhavá reakce na zákazníky", "Nemožnost zpracovat větší objem poptávek bez navyšování týmu"), its worked example's bricks, mortar and lintels, and its "Každá poptávka vyžadovala 10-15 minut manuální práce", written as the seller's own claim [S4]; and the Y Combinator page's description of inside sales teams reading each request against the catalogue by hand, delaying replies and risking revenue [S1]. Process figure added, three steps, all `documented`: the customer sends the order [S1,S4]; sales staff read it and look up each item [S1,S4]; sales staff type it into the accounting system, marked `reenters` and `goes` [S4]. The "sales staff" role is S1's page's word; S4's page names no role. Corrected against the sources: "A Czech product already sells this" cited [S2], the first sweep, which found none, so it now cites [S4]; "caps how many quotes a desk turns around" was cited to [S1], whose page says the hand work keeps staff from selling, and the capacity point is S4's page, now cited there [S1,S4]; "a quote returned first wins the order" has no source and became S1's "delaying responses … risk of lost revenue" and S4's slow reply; "AI document extraction is commodity" has no source and was cut, the funding dates standing in its place [S1,S3,S5]; S2's note says only that searches returned Appmine, WizCommerce and turian, so "writing one-off scripts" and "no Czech integrations or language handling" were cut; and "only Workist … is three years in and past seed" carried no marker and Ventura's funding beyond Y Combinator is undisclosed, so the body now says only the oldest has a round beyond seed "on record". Flagged as inference: that Czech firms already buy this rests on S4's "dozens of completed customer integrations", with no price or contract on file [S4]; that distributors abroad pay for it rests on the `comps[]` traction lines, not on a source; and that wholesalers decide and buy for themselves rests on `entry.buyer`. No score, status, entry gate, source order, `note:`, title, brief, solution or good_for changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0; Willing to pay stays 0; score 3 → 2, still FAINT. Why now: the old 1 was the retired freshness point on a deadline part of 0, and no regulation is on file; lost staff time and slow replies [S1,S4] are a cost, not a dated duty. Willing to pay, tagging pass first: every source on file was read for someone paying for this exact job, software that reads an incoming order and writes it into the wholesaler's accounting system, or that work bought in. None names an amount: the Czech seller's "dozens of completed customer integrations" [S4] shows firms buying, but no price, contract or award is on file, so nothing was restated or tagged and money stays 0. Body: the Willing to pay answer said "Yes: Czech firms already buy this", which read as a paid receipt beside a score of 0; it now says Czech firms appear to buy this and no price is on file [S4], which is what the 2026-09-18 entry had already flagged as inference. The link to the section now named Market gap carries that name. Same result as the worksheet.
+
+2026-10-05 · evidence audit — Added a US comparable from Y Combinator's summer 2024 batch that sells AI order taking and entry into distributors' systems, early: three people, no named customer, no round beyond YC [S6]. Proof stays 2 on the one established comparable. Gap already 0 on the established Czech sellers. No score changed.

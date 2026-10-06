@@ -2,7 +2,7 @@
 id: p-0007
 region: cz
 title: 'Czech builders are short of workers, and crews found online come with unchecked papers'
-brief: 'Czech employers listed 2,313 new building-worker vacancies in a single month [S7]. Contractors who need crews with papers in order can lease them from agencies or use websites that check no documents [S6].'
+brief: 'Building labourers were the manual job Czech employers advertised most at the labour office in August 2026 [S7]. Contractors who need crews with papers in order can lease them from agencies or use websites that check no documents [S6].'
 solution: 'Build an online marketplace where contractors hire building crews with checked papers, then handle their documents and pay.'
 good_for: 'Someone who''d like to work with builders and building crews.'
 category: housing
@@ -327,15 +327,23 @@ sources:
   checked: [ares, google-cz, own-funded-ledger]
   expires: '2026-11-23'
 - type: hiring
-  name: "Labour Office — August 2026 building-trade vacancies"
+  name: "Labour Office — August 2026 manual-trade vacancies"
   gist: "the 2,313-vacancy month"
-  why: "1,629 Czech employers posted 2,313 new vacancies for building construction and maintenance workers, 6,866 places in all, in August 2026. These are job vacancies, not a count of subcontracted crews."
+  why: "1,629 Czech employers posted 2,313 new vacancies for craft, machine-operator, farm and labouring jobs, 6,866 places in all, in August 2026; building and maintenance labourers were the job posted most often. These are job vacancies across every manual trade, not a count of building workers or of subcontracted crews."
   url: https://data.mpsv.cz/web/data/otevrena-data
   note: 'mpsv-2026-08-manual-trades: August 2026 MPSV open-data aggregate — 2,313
     building-construction and maintenance vacancies (6,866 seats, 1,629 employers). The first
     Czech receipt behind the lead''s labour-shortage clause, which until now cited only foreign
     comparables. Caveat: MPSV counts employee vacancies, not the subcontracted crews the
-    marketplace matches — cited as demand context, not as a crew count.'
+    marketplace matches — cited as demand context, not as a crew count.
+    Corrected 2026-10-05 (fact check, against scripts/mpsv_reduce.py): the theme manual-trades is
+    every posting whose CZ-ISCO code starts 6, 7, 8 or 9 — "Craft, plant-operator, agricultural
+    and elementary occupations" — not building workers. The 2,313 vacancies, 6,866 seats and
+    1,629 employers are that whole class. The quote "Dělníci v oblasti výstavby a údržby budov" is
+    the single most-posted occupation in it (quote_for), so building and maintenance labourers
+    were the commonest manual job posted, but their own count is not in the signal and the August
+    raw extract is not on file. The September run shows the same shape: 2,773 manual-trade
+    postings, of which 238 for that occupation (data/raw/2026-10-05/mpsv-hiring-2026-09.json).'
   date: '2026-08-31'
   signal: mpsv-2026-08-manual-trades
   dims: [demand]
@@ -360,7 +368,7 @@ created: '2026-08-13'
 updated: '2026-10-05'
 ---
 
-Czech builders are short of workers, and crews found through Facebook groups and brokers come with nobody checking their papers [S3,S7].
+Czech builders are short of workers, and crews found through Facebook groups and brokers come with nobody checking their papers [S1,S3].
 
 - Czech construction employs about 400,000 people and runs on subcontracted crews [S1,S2].
 - Contractors find Ukrainian and Balkan crews in Facebook groups and through brokers [S3].
@@ -389,13 +397,13 @@ The agencies recruit Ukrainian workers, employ them, and handle their wages, ins
 - The most widespread Czech estimating program sends enquiries to subcontractors and compares their bids, but checks no worker's papers and pays nobody [S8].
 - No Czech marketplace matching contractors with checked crews has been found, and no payroll product built for construction [S3,S6].
 
-Why now: Building firms are short of workers today, with 2,313 building-trade vacancies posted by 1,629 employers in August 2026 alone [S7].
+Why now: Building firms are short of workers today, and building labourers were the manual job most often advertised at the labour office in August 2026 [S1,S7].
 
 - The labour shortage in Czech construction is chronic [S1,S3].
 - Crews hired via Facebook groups or brokers come with unchecked papers [S3].
 - To get papers in order, a contractor leases workers from a staffing agency [S6].
 
-The 2,313 vacancies cover 6,866 places [S7]. They are job vacancies at the labour office, so they count employees wanted, not subcontracted crews [S7].
+That month 1,629 employers posted 2,313 new vacancies for craft, machine-operator, farm and labouring jobs, 6,866 places in all [S7]. The count covers every manual trade, not building alone, and it counts employees wanted, not subcontracted crews [S7].
 
 Who pays: Contractors already pay staffing agencies for crews with papers in order, and pay for general payroll software or an accountant [S2,S6].
 
@@ -429,4 +437,4 @@ Each half is proven in one country only.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0; Willing to pay stays 0; score 6 → 5, still FAIR. Why now: the old 1 was the retired freshness point on a deadline part of 0. No regulation is on file: the labour shortage and the August 2026 vacancies [S7] are a market condition, not a dated duty on a contractor. Willing to pay, tagging pass first: every source on file was read for someone paying for this exact job, finding a crew with checked papers and handling its documents and pay, or that work bought in. The licensed staffing agencies that lease out workers with papers in order are that job bought in [S6], but no source on file gives what they charge, so there is nothing to restate. The labour-office vacancies [S7] are wages for building work, not for this job, and state no wage in any case. No price, contract, tender or subsidy is on file; money stays 0. Body: the Willing to pay list gained an item saying no agency's rate and no payroll price is on file, so the answer that contractors pay agencies and accountants [S2,S6] no longer reads as a priced receipt beside a score of 0. This record carried no link to the section now named Market gap, so none changed. Same result as the worksheet.
 
-2026-10-05 · evidence audit — Kuro, a German start-up that reads tender documents and evaluates subcontractor bids for general contractors, was not added abroad: it sells neither crew sourcing, document checks nor pay. Its Czech check found four Czech estimating products that price subcontractor bids; all four are added to the ledger as adjacent, one of them established [S8]. Gap re-checked: no Czech seller of this product, stays 2. No score or status changed.
+2026-10-05 · evidence audit, fact check — Kuro, a German start-up that evaluates subcontractor bids, was not added abroad; its Czech check added four estimating products as adjacent, one established [S8]. Corrected: the August labour-office count [S7] covers every manual trade, not building workers; building labourers were only its commonest job. The brief, S7's name and why, Why now and the opener now say so. September's count was not linked. Gap stays 2. No score or status changed.
