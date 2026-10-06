@@ -2,7 +2,7 @@
 id: p-0011
 region: cz
 title: 'Czech home-care agencies run on phones and paper while nurses are scarce'
-brief: 'Agencies book, move and confirm visits by phone, while Czech employers posted 380 new nurse vacancies in one month [S1,S6]. Care services may now also help with medicines and stoma bags [S5].'
+brief: 'Agencies book, move and confirm visits by phone, while Czech employers posted 380 new health and care vacancies in one month, nurses the most sought [S1,S6]. Care services may now also help with medicines and stoma bags [S5].'
 solution: 'Build a Czech-speaking phone assistant that books, moves and confirms visits in the home-care agency''s own scheduling software.'
 good_for: 'Someone who''d like to work with home-care agencies.'
 category: health
@@ -175,15 +175,18 @@ sources:
   date: '2026-07-01'
   signal: reg-soc-sluzby-92-2026
 - type: hiring
-  name: "Labour Office — July 2026 nurse hiring wave"
-  gist: "the 380-vacancy hiring month"
-  why: "262 employers posted 380 new general-nurse vacancies in July 2026 — the nurse shortage, now measured every month by a state dataset."
+  name: "Labour Office — July 2026 health and care hiring"
+  gist: "380 health and care vacancies"
+  why: "262 employers posted 380 new vacancies for health and personal-care workers through the Labour Office in July 2026, general nurses the most posted job — the care staff shortage, now measured every month by a state dataset."
   url: https://data.mpsv.cz/od/soubory/volna-mista-prirustek/
   note: 'mpsv-2026-07-health-care: 380 new general-nurse vacancies across 262 employers (651
     seats), annualised wage floor €10.8M, July 2026 — among the first records of the hiring
     ledger. Hiring evidence backs demand and money, never proof. Demand 1→2: the nurse
     shortage was previously documented only through the yc-sagecare signal note; it is now a
-    recurring state-published measurement.'
+    recurring state-published measurement. Corrected 2026-10-05: the 380 count is the
+    health-care theme, CZ-ISCO groups 22, 32 and 53 (scripts/mpsv_reduce.py THEMES), at any
+    employer, teaching assistants included; general nurses without specialisation are only
+    the most posted occupation, not the whole count.'
   date: '2026-07-31'
   signal: mpsv-2026-07-health-care
   dims: [demand]
@@ -233,7 +236,7 @@ sources:
   signal: dotace-opz-112-pas
   dims: [money]
 created: '2026-08-13'
-updated: '2026-09-19'
+updated: '2026-10-05'
 ---
 
 Czech home-care agencies still book and move visits by phone and on paper, while nurses are scarce [S1,S2].
@@ -260,11 +263,11 @@ What each does, and what else is in the field:
 
 Why now: Agencies short of nurses lose care hours to phone admin, and since July 2026 their care staff may take on health tasks too [S1,S5].
 
-- Czech employers posted 380 new general-nurse vacancies in July 2026 alone [S6].
+- Employers posted 380 health and care vacancies in July, nurses the most sought [S6].
 - With nurses scarce, every hour of intake calls is care capacity lost [S1].
 - Care services may now also help with medicines and stoma bags [S5].
 
-The 380 vacancies cover 651 places at 262 employers [S6]. They count every Czech employer, not home-care agencies alone [S6].
+The 380 vacancies cover 651 places at 262 employers [S6]. They count every Czech employer, not home-care agencies alone, and every health and personal-care job, teaching assistants included; general nurses are the single most posted job, not the whole count [S6].
 
 The change behind the third item is Act No. 92/2026, an amendment to the social services act, in force since 1 July 2026 [S5]. Care services may now help a client take a medicine, as long as the skin is not broken, and handle stoma and urine bags [S5]. That widens the work flowing through the same scarce staff and the same phone-and-paper coordination [S5].
 
@@ -305,3 +308,5 @@ The opening left in Czechia is Czech-language voice intake on top of whichever p
 2026-09-18 · body rewritten to the writing rules — Every section now opens with ONE answer sentence, the sections whose items the page shows carry their three most important ones first, and the rest follows as plain bullets and short paragraphs (pipeline/REWRITE.md; data/RECORD-TEMPLATE.md, "Writing the body"; p-0008 and p-0036 as the pattern). What moved where: The opportunity opens on the phone-and-paper booking under a nurse shortage, with the hundreds of agencies, the intake and visit work, and the records software as its first three items; the Czech names of the two kinds of provider and the Včelka-to-charity range are its detail [S1,S2]. Competition opens on the Czech vendors that already sell the planning layer, and describes each by what it sells, with short items first and the billing codes, the one-off licence, the newer app's features, the regional grant project and the records software's limits below [S2,S4]. Why now opens on the care hours lost to phone admin and the July 2026 change, with the vacancies, the lost capacity and the new health tasks as its first three items and the amendment's detail below [S1,S5,S6]. Willing to pay now answers whether anyone pays: agencies buy care software, and the state pays to cost home nursing care [S4,S7,S9]. Validated abroad became one answer sentence and short paragraphs [S1,S3,S8]. Every comps[] and locals[] company left the body (Cygnus DP and IRESOFT, VeruApp, e-Sestřička, pecovatelska.cz and Petr Zajíc software, E-péče, Sage Care, TakeCareOS, Birdie, AlayaCare); each is described by what it sells, and its name, year and customers stay in its row. Detail added from sources already on file, none of it new evidence: the 651 places behind the 380 vacancies, and that they count every Czech employer [S6]; what the amendment allows, medicines without breaking the skin and stoma and urine bags [S5]; KOMPAS's signing date and ÚZIS glossed [S7]; the OPZ+ call's number and applicants, and that it pays for care, not software [S9]; and Evergrove, whose source S8 the body never cited, as the closest template for voice intake [S8]. `entry.why` was rewritten as "Easier: … Harder: …" from the same gates, and it no longer names Cygnus DP, e-Sestřička or pecovatelska.cz. Four source lines changed: S1's, S5's and S6's why said "this record", and S8 gained a public name, gist and why, written from its note and signal. No `process:` block was added: the sources say agencies run intake and scheduling on phone, paper and a records system [S1,S2], but none says who takes the calls or books the visits (the 2026-09-16 headline pass already found no source saying nurses do), so the steps could not name who does what without inventing it. Corrected against the sources rather than against the old sentences: the amendment was said to add "work per scarce nurse", but it widens what care services, which are carers rather than nurses, may do, and S5's note says "the same scarce staff", so the body and S5's why now say that [S5]; "Birdie (Britain) and AlayaCare (Canada) have sold … for over a decade" was wrong for Birdie, founded in 2017, so it now says "for years"; "neither sells in continental Europe" and "the model is proven, but never under Czechia's reimbursement rules" had no source on file and were cut; "the agencies buy capacity" became "what an agency gains is capacity", since no source records an agency buying for that reason. Flagged as inference: that freed time lets nurses deliver more of the care the insurers pay for, which rests on S1's note that admin time converts to capacity and on the insurers' nursing billing codes [S1,S4]; and that the opening left in Czechia is Czech-language voice intake on top of an agency's existing system, since no search on file looked for a Czech voice-intake seller [S4]. No score, status, source order, `note:`, title, brief, solution or good_for changed.
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0, Willing to pay 1 → 0 and `score` 6 → 4, so the band moves FAIR → FAINT. Why now was 1 as deadline 0 plus the freshness point, which is retired. The only dated instrument on file, Act No. 92/2026, says care services may help with medicines and stoma bags from 1 July 2026 [S5]. That permits something and sets nothing due, so it is rung 0. The autism-services grant's closing date is a grant date, not a deadline [S9]. Willing to pay was 1 on the ÚZIS KOMPAS contract [S7], which is public money nearby: the state paying for its own cost models of home nursing care, not an agency paying for this job. It now earns nothing. Tagging pass, every source on file that might show someone paying for this job: more than 200 sites bought a Czech care system as a one-off licence, but no amount is on file [S4]; the OPZ+ call pays for care services, not software [S9]; the hiring data prices nurses' wages, not intake or scheduling [S6]. No receipt could be written, so money is 0, as the worksheet had it. [S7]'s and [S9]'s notes named the old money rung and now carry the correction. Their `dims: [money]` stay, because on the new ladder that tag is what shows them as public money nearby. Why now prose re-read: it describes lost care hours and the new tasks the amendment permits, and claims no deadline, so it stands. Willing to pay's answer sentence read as a yes. It now says agencies buy Czech care software, that no price for it is on file, and that the public money nearby pays for other work [S4,S7,S9]. `[Competition](#competition)` became `[Market gap](#competition)` in The opportunity. No other score, status, entry or body sentence changed.
+
+2026-10-05 · fact check — CORRECTION: the Labour Office count in [S6] covers every health and personal-care job at any employer (CZ-ISCO groups 22, 32, 53, teaching assistants included); general nurses are only its most posted job. "380 general-nurse vacancies" was wrong. The brief, body, and S6's name, gist, why and note now say 380 health and care vacancies, nurses the most sought. Brief changed (see report). Demand stays 2: still a recurring state measurement of care-staff hiring.

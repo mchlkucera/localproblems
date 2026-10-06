@@ -299,13 +299,17 @@ sources:
 - type: hiring
   name: "MPSV open data — back-office vacancies"
   gist: "the clerical-vacancy count"
-  why: "The labour ministry's open data for August 2026: 540 office, clerical and finance-support vacancies, 791 places at 416 employers. It counts back-office jobs, not accountants."
+  why: "The labour ministry's open data for August 2026: 540 newly posted office, clerical and finance-support vacancies, 791 places at 416 employers. Accountant posts fall inside this count but are not split out; its commonest job is general office worker."
   url: https://data.mpsv.cz/web/data/otevrena-data
   note: 'mpsv-2026-08-back-office: August 2026 MPSV open-data aggregate — 540 admin/clerical/
     finance-support vacancies (791 seats, 416 employers). Weak, deliberately narrow receipt:
     it evidences back-office and administrative hiring an AI pipeline displaces, NOT the
     accountant shortage itself (headline CZ-ISCO is general administrative workers, and the
-    record still lacks an accountant-specific figure). dims demand only.'
+    record still lacks an accountant-specific figure). dims demand only. Corrected 2026-10-05
+    (fact check, against scripts/mpsv_reduce.py): theme back-office = CZ-ISCO groups 4, 121,
+    241, 242, 331, 334, 335, so accountants (2411) and accounting associates (3313) are INSIDE
+    the 540, not outside it; the signal does not separate them, and its quoted occupation is
+    only the most-posted one. Only postings new in the month are counted.'
   date: '2026-08-31'
   signal: mpsv-2026-08-back-office
   dims: [demand]
@@ -410,7 +414,7 @@ sources:
   date: '2026-09-24'
   signal: de-mika
 created: '2026-08-13'
-updated: '2026-09-28'
+updated: '2026-10-05'
 ---
 
 A new Czech accounting law, planned for 2028, would force every accountant to retrain and the main bookkeeping programs to be rewritten [S3].
@@ -421,7 +425,7 @@ A new Czech accounting law, planned for 2028, would force every accountant to re
 
 The new law is the Accounting Act. It moves Czech rules closer to IFRS (the international accounting standards) and lets more firms use them [S3]. It would force rewrites of the programs Czech firms keep their books on: the two established ones under [Market gap](#competition), and ABRA and Helios (two more Czech business programs) [S3].
 
-No Czech count of an accountant shortage has been found [S9]. The nearest figure counts 540 office, clerical and finance-support vacancies, 791 places at 416 employers, in August 2026, and those are not accountants [S10]. So the case for demand rests on Germany, where the same kind of firm sells against a shortage of tax advisers [S1].
+No Czech count of an accountant shortage has been found [S9]. The nearest figure counts 540 office, clerical and finance-support vacancies newly posted in August 2026, 791 places at 416 employers; accountant posts are among them but are not counted separately, and the commonest job is general office worker [S10]. So the case for demand rests on Germany, where the same kind of firm sells against a shortage of tax advisers [S1].
 
 Existing non-solutions: The AI-first accounting firm already trades in Czechia, run by firms that have traded for over a decade [S9].
 
@@ -513,3 +517,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewrit
 2026-09-19 · rescored to the 2026-09-19 ladders — Tagging pass first: every source on file was read for someone paying for this job, bookkeeping done by software and checked by licensed accountants, bought by a small firm. One source is: the Czech seller's published price, from 5,000 CZK a month plus 300 CZK per employee a month for payroll [S11], a list price, now tagged `dims: [money]`. Not counted, and why: the accounting-software vendor's two public buyers on the contracts register buy the program, not the bookkeeping, so that is adjacent spend; the other direct sellers publish no price on file [S9,S12]; and the two OP TAK programmes [S7,S8] pay small firms for knowledge services bought from research organisations, which is not this job or its cost category, so they stay public money nearby and lift nothing. `scores.money` 0 → 1: an asking price. `scores.urgency` 3 → 1: the freshness point is retired; the Accounting Act [S3] is a bill and the 2028 tax-package item [S13] is only a plan, so both fail REAL, and the record carries `draft_law:`, which holds urgency at rung 1. FLAGGED for the owner: the monthly employer report [S6] is enacted, in force since 1 April 2026 and binds every employer, with no sanction on file, which is rung 2 on its own; it stays at 1 only because of the `draft_law:` badge, and whether the badge stays is a headline call. `score` 4 → 3, FAINT unchanged. The notes on S3, S6, S11 and S13 named retired rungs (deadline sub-scores, "dims omitted") and gained a dated rescore line; their original text is left as written. Four `[Competition](#competition)` links now read `[Market gap](#competition)`. Why now and Willing to pay were re-read against the new numbers and left as written: Why now already says the law is not passed and the monthly report is the only clock running [S3,S6], and Willing to pay says small firms pay a monthly fee, which the published price and the sellers' own client counts back [S9]. No other score, status, source order, marker or headline field changed.
 
 2026-09-28 · evidence audit — mika, a Berlin firm whose software books small companies' accounts while trained accountants review them, joins comps[]: €6M seed, 750+ customers [S14]. Started 2024 per the press and registry, so early; proof stays 1, no score moved. Its CZ check added two locals: iÚčto, direct and established, and HCH Consulting, adjacent and established [S14]. entry.why no longer says two Czech firms: four direct sellers pass the test. Solved elsewhere and Existing non-solutions gained a line each for them.
+
+2026-10-05 · fact check — Corrected: the August labour-office count [S10] covers all clerical, administrative and finance-support jobs (scripts/mpsv_reduce.py), and that includes accountant posts; the body and S10 had said those 540 vacancies were not accountants. They now say accountants are inside the count but not split out, its commonest job is general office worker, and only new postings are counted. Still no accountant-specific figure [S9]. No score, status, title, brief, solution or good_for changed.
