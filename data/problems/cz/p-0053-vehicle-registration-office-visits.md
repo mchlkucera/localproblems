@@ -14,7 +14,7 @@ scores:
   urgency: 0
   demand: 2
   gap: 0
-status: watching
+status: candidate
 entry:
   level: moderate
   buyer: small-firms
@@ -312,7 +312,7 @@ sources:
   checked: [google-cz, ares, cz-saas-directories]
   expires: '2027-01-03'
 created: '2026-10-05'
-updated: '2026-10-05'
+updated: '2026-10-07'
 ---
 
 Czech car buyers, dealers and leasing firms still have to go to a registration office to finish almost every change to a car's registration [S1].
@@ -372,3 +372,5 @@ In Germany, a registration group handles about a million registrations a year fo
 ## Revisions
 
 2026-10-05 · record created — Created from owner decision 19 (docs/weekly/2026-09-28.md), candidate B, on the signal reg-registrace-vozidel-online-2027 [S1], whose impact assessment was re-read from ODok on this date, plus three news reports [S2,S3,S4]. Scores: proof 3 on established sellers in Germany and the United States [S7,S8,S9]; money 1 on two published per-job prices [S5,S6], with no paid receipt found; urgency 0, because the only dated change is a bill not yet passed and it would remove a duty rather than add one, flagged for the owner; demand 2 on the state's own visit count, the queue report and the largest dealer's call at a chamber event [S1,S2,S3]; gap 0 because two established Czech firms sell this to dealers, leasing firms and fleets [S10]. Status watching under the de-rank rule. No draft_law key: the queues exist today under the law in force, and the bill is the fix, not the pain. The 2.4bn CZK is the bill's expected yearly saving, mid scenario, not a measured cost [S1]. "An afternoon" for each car is the news report's phrase [S2]. The impact assessment says the bill would reduce the need for paid go-betweens, so the opportunity shrinks if it passes, and go-betweens may connect to the new online route [S1]; the German comp kept selling after Germany opened online registration to firms (search listing only, recorded in the S8 note). The solution counts all 3 comps as doing this. SPZ služby's since 2012 is its own statement; ARES dates the sole trader to 1996.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

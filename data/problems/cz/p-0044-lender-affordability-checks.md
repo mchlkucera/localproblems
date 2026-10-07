@@ -15,7 +15,7 @@ scores:
   urgency: 1
   demand: 2
   gap: 0
-status: watching
+status: candidate
 entry:
   level: moderate
   buyer: large-firms
@@ -359,7 +359,7 @@ sources:
   date: '2026-03-24'
   signal: reg-ccd2-bnpl-2026
 created: '2026-09-18'
-updated: '2026-09-28'
+updated: '2026-10-07'
 ---
 
 Czech lenders must check that a borrower can repay, and the central bank keeps finding lenders that skip part of the check [S6,S7].
@@ -435,3 +435,5 @@ In France a company turns a borrower's bank transactions into a credit score and
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 3 → 1 and the total 8 → 6; the band falls from STRONG to FAIR. Willing to pay stays 0. Why now: the old 3 was deadline 2 for the 1 February 2027 start plus the freshness point, which is retired. That start rests on sněmovní tisk 145 [S2,S3], which has passed only the lower house, and on the EU directive [S1], which Czechia has not yet written into law. Both fail REAL. The check lenders owe under the law in force has applied since 2016, so it is the status quo. The central bank's fines [S6,S7] are its routine supervision, not a newer dated change to the duty, and the ESSOX decision (June 2025) is more than 12 months old. So rung 1. Once the bill is law it would read 3, since the act it amends already fines a weak check [S7]. Willing to pay, tagging pass: no source on file shows anyone paying for this job. The banks' 5M–120M CZK IT estimates [S12] price adapting their own systems to the whole law, not this check, and are an estimate, not a payment. The fines [S6,S7] are sanctions. The gap check [S11] found Dateio priced per client with no figure, and SOLUS's published prices are for consumers checking themselves. The buyers are private lenders, so no public contract would show the price (`price_search` says where to ask). So 0, and no receipt was added. Body: the 3 `[Competition](#competition)` links now read `[Market gap](#competition)`, and `price_search` says "under Market gap". Willing to pay's opening sentence said lenders "pay for the check themselves", which read as a payment on file. It now says they would pay, but no Czech price or payment is on file, only fines [S6,S7,S11]. The Why now prose already matched rung 1 and is unchanged. No other score, status, marker, note or `entry` gate changed.
 
 2026-09-28 · fact check · regulation added — The VeKLEP sweep found the government's impact assessment giving the start as 11/2026 [S14], against the 1 February 2027 used here [S3,S4]. The text the lower house passed, read on psp.cz, is newer and sets 1 February 2027 in Čl. IX [S13], so the date stands and was not changed. The bill went to the Senate on 24 September 2026, which has until 24 October [S2]; the Why now item that said it still has to pass the Senate now says so. Added as context: the passed text's cost cap (four times the repo rate plus 8 points, floor 48%; loans up to 12 months and 20,000 CZK capped at 2,000 CZK plus a rate part, where the assessment had said 6 months) [S13], and the 380bn CZK loan book [S14]. Why now stays 1: still a bill, so it fails REAL, and the date did not move CLOSE. No score, title, brief, solution or good_for changed.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

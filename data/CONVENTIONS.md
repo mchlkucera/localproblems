@@ -310,7 +310,7 @@ sentence: the likely solution), good_for? (one line: who it suits), draft_law? (
 cited line: the unpassed law the main pain depends on), category
 (sector list above), geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
-status: candidate | active | watching | stale | claimed | solved | rejected,
+status: candidate | active | stale | claimed | solved | rejected,   (`watching` retired 2026-10-07: it restated gap 0)
 entry {level, buyer, permission, incumbents, integration, money, why},
 comps [{name, url, geo, since, traction, signal?: <evidence id>, markets?: [ISO2..]}],
 locals? [{name, url?, ico?, since, competes: direct|adjacent,
@@ -1023,7 +1023,7 @@ company's existence is evidence about that company and nothing else.
 
 | direction | who decides | why |
 |---|---|---|
-| down (**ESTABLISHED** player that **SELLS THIS** found → `gap: 0`) | any check, immediately | SPEC §4 de-rank rule: name it in `locals[]` at `competes: direct` + `maturity: established`, record `status: watching` |
+| down (**ESTABLISHED** player that **SELLS THIS** found → `gap: 0`) | any check, immediately | SPEC §4 de-rank rule: name it in `locals[]` at `competes: direct` + `maturity: established`; status does not move (`watching` retired 2026-10-07) |
 | down (player that sells this found, all **EARLY** → `gap: 1`) | any check, immediately | it is a contested field, not a closed one — see the established test |
 | sideways (**ADJACENT** player found → no change) | any check, immediately | record it in `locals[]` at `competes: adjacent` and say what it sells; it is intelligence, not a competitor |
 | up (found nothing → raise) | **nobody** | not-finding-it and not-existing are indistinguishable from where the searcher sits |

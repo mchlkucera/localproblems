@@ -170,7 +170,7 @@ legibly. Future regions get their own directory and p-NNNN namespace (a problem 
 ```
 id, region, title, category, geo, score (0-12),
 scores {proof 0-3, money 0-2, urgency 0-3, demand 0-2, gap 0-2},
-status (candidate|active|watching|stale|claimed|solved|rejected),
+status (candidate|active|stale|claimed|solved|rejected),  — `watching` retired 2026-10-07
 entry {level: easy|moderate|hard|very-hard, buyer: small-firms|large-firms|public,
        permission: none|registration|licence, incumbents: open|adjacent|direct,
        integration: software|national-system|certified, money: bootstrap|outside-money,
@@ -248,7 +248,7 @@ local buyer? does this matter here?* Then:
   to move gap at all.** A mature vendor selling something adjacent has closed nothing.
 
   - A **direct + established** local player → `gap: 0` (TAKEN), named in `locals[]` with
-    the limb it passes, plus a gap-check source; status → `watching`.
+    the limb it passes, plus a gap-check source. Status does not move (below).
   - **Direct** players exist but are **all early** → `gap: 1` (CONTESTED), and **THE
     RECORD STAYS A CANDIDATE**. An early competitor does not close a space; it is
     evidence the market is being made, and that is a reason to move, not to stand down.
@@ -268,8 +268,11 @@ local buyer? does this matter here?* Then:
   with no maturity test at all. It is why a one-person operator selling a 3,000 CZK/month
   tool de-ranked p-0008 — a record that scores 11/12 on the corrected ladder — to
   `watching`, and why the register systematically understated its own best entries.
-  Status follows gap: `0` → `watching`, `1` and `2` → `candidate`, subject to the
-  freshness decay below.
+  Status no longer follows gap (owner, 2026-10-07: "they're just badly ranking
+  problems"). `watching` meant both "an established local sells this" and "our
+  evidence is old"; the first is `gap: 0`, already priced into the score and the
+  rank, so a gap-0 record is a `candidate` that ranks low. One fact, one field
+  (MATCH.md §0). `scripts/check-records.py` fails any record that writes `watching`.
 
 A gap-check source may record the `queries` run, the surfaces `checked`, and an `expires`
 date (`date + 90 days`). **Expiry is a display-only staleness flag: it never changes
@@ -283,7 +286,7 @@ on any day. Vocabulary in `data/CONVENTIONS.md`.
 Per `SCORING.md` exactly — binding and unchanged: `score = proof + money + urgency +
 demand + gap`, every point justified by a `sources[]` entry, verdict words
 (PRIME/STRONG/FAIR/FAINT), tie-break by (urgency.deadline, money). Decay: newest source
->120 days → freshness lost, `active→watching`; >240 days → `stale`.
+>120 days → freshness lost (the Verified date shows it); >240 days → `stale`.
 
 ## 5. The site (`web/` — Next.js, pure SSG)
 

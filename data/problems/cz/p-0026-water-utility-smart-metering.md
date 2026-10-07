@@ -14,7 +14,7 @@ scores:
   urgency: 0
   demand: 0
   gap: 0
-status: watching
+status: candidate
 entry:
   level: very-hard
   buyer: public
@@ -307,7 +307,7 @@ sources:
   signal: ted-672826-2026
   dims: []
 created: '2026-08-13'
-updated: '2026-10-05'
+updated: '2026-10-07'
 ---
 
 Czech water utilities that fit smart meters each buy them alone, one tender at a time [S5,S8].
@@ -393,3 +393,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 6 `locals[].evidence` lines were rewrit
 2026-09-19 · rescored to the 2026-09-19 ladders — Tagging pass first: every source on file was read for someone paying for this job, smart meters fitted and read remotely for a water utility, and three are. Židlochovicko's two same-day contracts, about 8.4M CZK for meters and readers plus the running of the system, were already a price receipt and are now tagged `dims: [money]` [S10]. Two more are restated as price receipts, appended so no marker moves: Kroměříž's signed contract, about 21.4M CZK including VAT for the supply, implementation and support of a remote meter-reading system, dated 8 June 2026, which S2's note already cited by its register link [S11]; and Benešov's remote-reading pilot, 149,670 CZK including VAT, signed 1 July 2026, the payment behind S8's €5,987 [S12]. All three are signed contracts within 24 months, so each is a PAID receipt. Not restated, and why: Ivančice's competition [S1] and Bruntál's data-dispatch tender [S2] were open, not awarded; Břeclav's framework amendment, Pardubice's licence amendment and Most's added service [S4,S5] buy this job but state no amount; and the Prague water company's ~12M CZK in S3's note has no contract link on file. `scores.money` stays 2, now on paid receipts rather than on the size of an open tender. `scores.urgency` 1 → 0: the only point was freshness, which is retired, and no regulation source is on file. `score` 3 → 2, FAINT unchanged. The notes on S1, S8 and S10 named the retired money rung ("open tender ≥5M CZK: money 2", "money already rests on the open Ivančice tender") and gained a dated rescore line; their original text is left as written. S8 keeps `dims: []`, so the Benešov payment is counted once, in its receipt. One `[Competition](#competition)` link now reads `[Market gap](#competition)`. Prose re-read against the new numbers. Why now's answer was "Small water utilities kept signing metering deals this summer, each buying alone and paying its own supplier [S3,S8]." and is now "No deadline forces this purchase; small water utilities simply kept signing metering deals this summer, each buying alone [S3,S8].", so the section no longer reads as a deadline where urgency is 0; "no deadline forces this" is our reading of an empty regulation ledger, not a source's words. Two figures left the body for their new receipts, as the Židlochovicko total did on 2026-09-18: the Benešov pilot's €5,987 (Why now), which now points at Willing to pay, and Kroměříž's 21.4M CZK (Willing to pay), which its receipt now shows in that section's price table. Willing to pay's answer already says utilities are paying now [S3,S5] and stands. No other score, status, source order, marker or headline field changed. Same date, weekly match, merged here: evidence audit — Ivančice's smart-metering tender [S1] and its separate meter tender both closed in September 2026 without a winner, after four and three bids [S13,S14]; the notices give no reason in words. Both appended, backing no score. Gap re-checked: no new seller surfaced, the five established sellers stand, gap stays 0. No score moved.
 
 2026-10-05 · evidence audit — Linked Brno's water company's open tender for four years of remote meter reading run as a service, about 38M CZK [S15]: the reading half of this job bought from a supplier, by a large city utility. Open, so no price receipt and no score moves. Gap re-checked: no new seller surfaced, the five established sellers stand, gap stays 0.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

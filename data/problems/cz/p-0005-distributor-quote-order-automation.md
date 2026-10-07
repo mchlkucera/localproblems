@@ -14,7 +14,7 @@ scores:
   urgency: 0
   demand: 0
   gap: 0
-status: watching
+status: candidate
 entry:
   level: easy
   buyer: small-firms
@@ -190,7 +190,7 @@ sources:
   date: '2026-10-05'
   signal: yc-titanio
 created: '2026-08-13'
-updated: '2026-10-05'
+updated: '2026-10-07'
 ---
 
 Quote requests and orders reach Czech wholesalers as e-mails, PDFs and spreadsheets, and staff type them into their accounting software by hand [S1,S4].
@@ -261,3 +261,5 @@ Solved elsewhere: Young, funded companies in Germany and the US already sell thi
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0; Willing to pay stays 0; score 3 → 2, still FAINT. Why now: the old 1 was the retired freshness point on a deadline part of 0, and no regulation is on file; lost staff time and slow replies [S1,S4] are a cost, not a dated duty. Willing to pay, tagging pass first: every source on file was read for someone paying for this exact job, software that reads an incoming order and writes it into the wholesaler's accounting system, or that work bought in. None names an amount: the Czech seller's "dozens of completed customer integrations" [S4] shows firms buying, but no price, contract or award is on file, so nothing was restated or tagged and money stays 0. Body: the Willing to pay answer said "Yes: Czech firms already buy this", which read as a paid receipt beside a score of 0; it now says Czech firms appear to buy this and no price is on file [S4], which is what the 2026-09-18 entry had already flagged as inference. The link to the section now named Market gap carries that name. Same result as the worksheet.
 
 2026-10-05 · evidence audit — Added a US comparable from Y Combinator's summer 2024 batch that sells AI order taking and entry into distributors' systems, early: three people, no named customer, no round beyond YC [S6]. Proof stays 2 on the one established comparable. Gap already 0 on the established Czech sellers. No score changed.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

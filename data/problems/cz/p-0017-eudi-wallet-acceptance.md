@@ -14,7 +14,7 @@ scores:
   urgency: 2
   demand: 0
   gap: 0
-status: watching
+status: candidate
 entry:
   level: very-hard
   buyer: large-firms
@@ -216,7 +216,7 @@ sources:
   date: '2026-12-24'
   signal: reg-eidas2-cz-prijimani-penezenky-2026
 created: '2026-08-13'
-updated: '2026-10-05'
+updated: '2026-10-07'
 ---
 
 Banks and other regulated firms must soon accept the EU's digital identity app wherever a customer proves who they are [S1].
@@ -301,3 +301,5 @@ Neither sells against a duty in force yet, so the model is still being proven [S
 2026-09-28 · regulation added — One signal linked as context: Implementing Regulation (EU) 2026/2099, published 22 September 2026, makes a health provider that requests a patient's records from another EU country accept the patient's health details from the wallet, from 26 March 2029 [S8]. Article 5(2) and Article 9 were read in the regulation's text. Added as one Why now date bullet. No rung moves: the date is more than 18 months out, and it binds health providers, not the banks and regulated firms this problem sells to, so Why now stays 2 on [S1]. Gap re-checked: the signal names no seller, so gap stays 0 on the established Czech bank-identity service [S6] and status stays watching. No score moved.
 
 2026-10-05 · regulation added — The Czech eIDAS 2 bill was read and linked [S9]: private firms that must identify clients accept the app from 24 December 2027, public bodies from 24 December 2026, with a state estimate of 5,000–15,000 CZK per checking desk and a draft fine for refusing the app. Why now stays 2: the date was already close, and the fine is not yet law. The estimate is not a price paid, so money stays 0. Gap re-checked, no new seller; stays 0.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

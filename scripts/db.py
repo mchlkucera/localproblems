@@ -86,7 +86,10 @@ import textwrap
 import unicodedata
 from datetime import date, datetime, timedelta, timezone
 
-SCHEMA_VERSION = "12"  # 12: problem_locals.competes gains a third value,
+SCHEMA_VERSION = "13"  # 13: `watching` leaves problems.status (owner,
+#                          2026-10-07). It restated `gap: 0`; a taken market
+#                          is now a low-ranked `candidate`.
+#                      12: problem_locals.competes gains a third value,
 #                          `non-seller`, and `maturity` becomes NULL-able and
 #                          FORBIDDEN at it. A body in the room that sells
 #                          nothing — the trade inspectorate on p-0048 — had no
@@ -509,7 +512,7 @@ CREATE TABLE IF NOT EXISTS problems (
   CHECK (s_urgency BETWEEN 0 AND 3),
   CHECK (s_demand  BETWEEN 0 AND 2),
   CHECK (s_gap     BETWEEN 0 AND 2),
-  CHECK (status IN ('candidate','active','watching','stale','claimed','solved','rejected')),
+  CHECK (status IN ('candidate','active','stale','claimed','solved','rejected')),  -- `watching` retired 2026-10-07
   -- The entry vocabulary, asserted the way `status` is: a typo'd gate is a
   -- refused row and a named one, never a slug that reaches the page.
   CHECK (entry_level       IN ('easy','moderate','hard','very-hard')),

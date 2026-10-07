@@ -14,7 +14,7 @@ scores:
   urgency: 1
   demand: 2
   gap: 0
-status: watching
+status: candidate
 entry:
   level: moderate
   buyer: small-firms
@@ -389,7 +389,7 @@ sources:
   date: '2018-08-31'
   dims: [demand]
 created: '2026-09-18'
-updated: '2026-09-19'
+updated: '2026-10-07'
 ---
 
 Czech hotels, guesthouses and private hosts send the same guest details to several authorities, each in its own way [S1].
@@ -452,3 +452,5 @@ It was founded in Seville in 2017 and names filing for Spain, Italy, Portugal an
 2026-09-18 · record created — Minted from the eTurista bill and its impact assessment [S1,S4] and the EU short-term rental regulation [S2]. Demand 2 on the state's own statement of the duplicate burden [S1], hoteliers' statements [S5] and the ministry's figures on unpaid fees [S6]. Money 1 on the ministry's contract to build the register, which is public money on this problem but pays for the state's own system [S8]. Urgency 2: the bill's 1 January 2028 date is under 18 months away but it is still a draft, so the deadline scores 1, plus sources fresher than 90 days [S4,S7]. Proof 2 on one established Spanish comparable [S10]. Gap 0 and status watching: the most used Czech hotel software already files foreign guests to the police automatically, and the Spanish comparable sells the same in Czech [S9,S10]. Correction to the signal: the ministry's plan date of 1 January 2027 could not be confirmed from a primary source; the bill itself says 1 January 2028 [S4]. No draft-law badge: hosts file several ways today whatever happens to the bill. The web search budget ran out during this pass, so the standing positive controls were run on Seznam and missed; an in-market control passed [S9].
 
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 2 → 1 and the total 7 → 6; the band stays FAIR. Willing to pay stays 1, now on a price receipt instead of public money. Why now: the old 2 was deadline 1 for the eTurista bill plus the freshness point, which is retired. The bill [S1,S4] is still a draft, so it fails REAL. The EU short-term-rental rule [S2] puts its duties on platforms and on a national registration scheme Czechia does not run, so it reaches hosts only indirectly. The 3-working-day police report [S3] is the status quo. Rung 1. Willing to pay: the old 1 rested on the ministry's contract to build the state register [S8]. That buys the state's own system, not this job, so its dims are now empty and its note no longer claims money 1. Tagging pass: Best Guest's list price, 10 CZK per completed check-in [S11], is a published price for an online check-in that files the police report. That is this job, so it is now tagged money: an asking receipt, rung 1. Not tagged or restated: Previo's 9,490 CZK setup fee [S12] buys a whole hotel system, of which the police filing is one feature. Of the other prices in the gap check [S9], Trevlix's "from 90 CZK a month" and Ubytovačka's 69 CZK a month are the entry tiers of booking systems. Neither page, re-read 2026-09-19, shows that the tier includes the police filing. Checkinn.cz's price is given only as "about 590 CZK a month", and whether ubytovaci-kniha.cz files to the police at all is unconfirmed. No price for this job has been paid on file, so there is no paid receipt, and hosts are private buyers with no public contract to find. Body: the 2 `[Competition](#competition)` links now read `[Market gap](#competition)`. The Why now and Willing to pay prose already matched the new numbers and is unchanged. S1's note no longer names the deadline sub-score. No other score, status, marker or `entry` gate changed. Same date, evidence audit, merged here: the bill text [S4] and the impact assessment [S1] were re-read for the town side. The town's fee office gets register data, a register entry counts as the host's fee notification, and platforms must remove listings without a number [S4], so the town-side fee problem sits inside the bill, not in a separate record. Added: Prague's 2018 data deal with the tax authority [S13], and a Czech town-side fee system on the ledger as adjacent [S9]. A US town-side vendor was judged not a comparable. No score changed.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

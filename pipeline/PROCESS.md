@@ -65,7 +65,9 @@ consumes is produced by the other one.
        A silent deletion is the same sin as the invention it corrected.
    - DE-RANK RULE: re-check the gap on every problem you touch; if a local
      player now exists or entered the market -> gap: 0, add a gap-check
-     source naming the incumbent, status -> watching.
+     source naming the incumbent. Status does NOT move: `watching` was
+     retired on 2026-10-07 (owner: a taken market is just a badly ranking
+     problem), because gap 0 already prices it into the score and rank.
    Record EVERY decision, including every rejection — the dismissals are
    memory that exists nowhere else and cannot be recovered later:
 
@@ -105,8 +107,8 @@ consumes is produced by the other one.
 
 4. SCORE: for every problem created or touched, set scores{} and score per
    SCORING.md exactly — every point justified by a sources[] entry. Decay:
-   newest source >120 days old -> freshness lost (re-derive urgency) and
-   status active->watching; >240 days -> stale. An expired gap-check is a
+   newest source >120 days old -> freshness lost (re-derive urgency; the
+   Verified date shows it); >240 days -> status stale. An expired gap-check is a
    DISPLAY-ONLY staleness flag and never moves `gap`; only the de-rank rule
    in step 3 moves it.
 

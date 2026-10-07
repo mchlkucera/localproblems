@@ -15,7 +15,7 @@ scores:
   urgency: 1
   demand: 0
   gap: 0
-status: watching
+status: candidate
 entry:
   level: hard
   buyer: small-firms
@@ -414,7 +414,7 @@ sources:
   date: '2026-09-24'
   signal: de-mika
 created: '2026-08-13'
-updated: '2026-10-05'
+updated: '2026-10-07'
 ---
 
 A new Czech accounting law, planned for 2028, would force every accountant to retrain and the main bookkeeping programs to be rewritten [S3].
@@ -519,3 +519,5 @@ THE LEDGER NOTES, IN PLAIN LANGUAGE. All 7 `locals[].evidence` lines were rewrit
 2026-09-28 · evidence audit — mika, a Berlin firm whose software books small companies' accounts while trained accountants review them, joins comps[]: €6M seed, 750+ customers [S14]. Started 2024 per the press and registry, so early; proof stays 1, no score moved. Its CZ check added two locals: iÚčto, direct and established, and HCH Consulting, adjacent and established [S14]. entry.why no longer says two Czech firms: four direct sellers pass the test. Solved elsewhere and Existing non-solutions gained a line each for them.
 
 2026-10-05 · fact check — Corrected: the August labour-office count [S10] covers all clerical, administrative and finance-support jobs (scripts/mpsv_reduce.py), and that includes accountant posts; the body and S10 had said those 540 vacancies were not accountants. They now say accountants are inside the count but not split out, its commonest job is general office worker, and only new postings are counted. Still no accountant-specific figure [S9]. No score, status, title, brief, solution or good_for changed.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

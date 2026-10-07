@@ -14,7 +14,7 @@ scores:
   urgency: 0
   demand: 2
   gap: 0
-status: watching
+status: candidate
 entry:
   level: hard
   buyer: public
@@ -555,7 +555,7 @@ sources:
   signal: ombud-spravni-rad-praxe
   dims: [demand]
 created: '2026-09-18'
-updated: '2026-09-21'
+updated: '2026-10-07'
 ---
 
 Small Czech villages must look after the affairs of adults a court says can't manage alone, and in many the mayor does it personally [S1,S2].
@@ -640,3 +640,5 @@ Ledger: VERA's `since` moves from 2022 to 2017, because Uherské Hradiště orde
 Body: Willing to pay now opens on the 2025 rentals [S18]. The old opening, "Towns pay, and the state gives them 430M CZK a year for this work, less than its own costing says it needs [S2]", moved into the list as "The state's 430M CZK a year is less than its own costing says [S2]". "Towns bought add-ons for this work in 2018 and 2022 [S9]" became "Towns have bought add-ons for this work since at least 2017 [S9,S18]" and moved first. Market gap: a sentence was added saying both established suppliers signed new towns in 2025 [S18]. The sentence on a third seller now covers two more sellers, the online register and the social-department software. Not changed: title, brief, solution, good_for, the process block, `entry`, urgency, proof, demand and gap. No existing `note:` was edited and no marker moved. None of the headline fields becomes false. The solution's "as 1 company already does in Sweden" still holds, and that established Czech suppliers sell this was already on file.
 
 2026-09-21 · evidence added — A second ombudsman survey joins the ledger as [S19]: 1,422 returns from 1,126 authorities, collected March to May 2026, finding that offices run on their own settled habits rather than written rules and that type-I municipalities, the smallest, name staffing, expertise and technical capacity as the constraint underneath. No score moved. It backs demand, which is already at its ceiling of 2 on [S1] and [S4], and it says nothing about gap, money, urgency or proof. What it is NOT: it is a survey of practice under the správní řád, the Administrative Procedure Code, and none of its eight areas is this work, so it is cited for one claim only and the body says exactly that claim. Its value here is that the same office asked the same population of small municipalities, a year after the survey on [S1], what limits them, and got the answer this problem turns on. Gap re-checked on this date and unchanged: the two established suppliers on the ledger still sell this, so gap stays 0 and status stays watching. Nothing else on the file was touched.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

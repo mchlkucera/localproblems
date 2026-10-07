@@ -15,7 +15,7 @@ scores:
   urgency: 1
   demand: 0
   gap: 0
-status: watching
+status: candidate
 entry:
   level: moderate
   buyer: large-firms
@@ -442,7 +442,7 @@ sources:
   date: '2026-07-14'
   signal: veklep-KORNDSJHRRGS
 created: '2026-08-13'
-updated: '2026-09-28'
+updated: '2026-10-07'
 ---
 
 A draft Czech law would make every employer set pay by a written system, and larger ones report their gender pay gap [S1].
@@ -553,3 +553,5 @@ Body: Willing to pay now opens on employers already paying specialists to calcul
 Searched and not added, all in S11's note: university and institute gender audits (2017 to 2026), whose texts were not read and whose scope does not show a pay gap; job-architecture and job-grading contracts (Deloitte for the Microbiology Institute, 1,203,400 CZK, May 2026; a sole trader for the Institute of Physics, September 2026), which buy the draft's other duty [S11]; BD Advisory, BL Services and LEGALITÉ, whose pay-gap line is bundled with pay policy or legal advice; the rest of Greenometer's pay-gap contracts (Liberec, the city library, the Olomouc water utility, the January 2026 university pilot), kept in the row, two receipts being enough; and the labour ministry's 15,792,300 CZK contract with Ernst & Young for at least 30 equal-pay audits [S11]. That last one is public money for this job, but the employer pays nothing, so it is fully funded and cannot lift money (SCORING.md); it is recorded as a free competitor. Web: the consultancy pages read (PwC, Deloitte, BDO, EY, Accace) and Greenometer's product page publish no fee. Positive control: the query on TREXIMA's IČO surfaced the labour ministry's ISPV contract with it (May and September 2024), the mandate the ledger already names. Only the first page of each query was read; "rovného odměňování" has 1,159 hits and was not exhausted. Not changed: title, brief, solution, good_for, draft_law, urgency, proof, demand and `entry`; none of the headline fields is made false by what was found.
 
 2026-09-28 · fact check — The first pay-gap report date moves from 30 April to 31 March 2028, and the 100–149 staff date from 30 April to 31 March 2031, on the government's July 2026 explanatory report to the bill, added as [S12]: "Pro zaměstnavatele se 150 a více zaměstnanci je první vypracování zpráv stanoveno do 31. března 2028". The 30 April dates came from the law firm's reading of the March draft [S1]; the explanatory report also names "31. března, potažmo 30. dubna" without saying which report takes which, so the record follows its one dated sentence. Brief before, verbatim: "Czechia is late on the EU rules, and its draft would make every employer set pay by a written system [S1]. Applicants would learn the minimum pay, and firms with 150+ staff would report their pay gap by April 2028 [S1]." After: "Czechia is late on the EU rules, and its draft would make every employer set pay by a written system [S1]. Applicants would learn the minimum pay, and firms with 150+ staff would report their pay gap by March 2028 [S12]." Title unchanged. Body: the Why now answer sentence, the two date bullets and the open question under Willing to pay now say March; a bullet says the ministry would work out each firm's headline gap from its monthly payroll reports and the firm itself would write the report on gaps within each group of work [S12]. S1's `why` names both dates and its note carries a correction line. [S6] was called "a different duty" and "a different obligation"; the decree's own explanatory report says it adds the data fields the pay-transparency law needs, and [S12] says the ministry computes the pay-gap figures from that monthly report, so the sentence, S6's `why` and a correction line in its note now say so. Added from [S12]: only 15% of Czech firms tracked the pay gap in comparable jobs in the ministry's 2025 survey (Why now), and employers' cost of building compliant pay systems at CZK 197.9M to 2,256.5M (Willing to pay, stated as a cost, not a price). The Opportunity bullet that said no Czech employer survey had been found now names the ministry's survey. `draft_law:` also cites [S12], the newer status receipt: a government bill approved on 31 August 2026, not enacted. No score moved: urgency stays 1 under `draft_law:`, money stays 2 on [S8] and [S9], demand stays 0 because a ministry survey is not a buyer asking.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

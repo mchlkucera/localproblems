@@ -1697,6 +1697,33 @@ SCORING_V2_ENFORCED = frozenset({
 SCORING_V2_DETAIL = False       # set by `--scoring-v2`
 SCORING_V2_PENDING: dict[str, list[str]] = {}   # not-yet-rescored findings, per record
 SCORING_V2_MIRROR = os.path.join(ROOT, "web", "lib", "scoring-v2.ts")
+
+# ---- VOCABULARIES READ FROM THE WEB SCHEMA, NEVER RETYPED HERE --------------
+# Until 2026-10-05 this checker validated neither `status` nor a gap-check's
+# `checked[]`, so an editor running it alone saw a false green and only
+# `next build` (zod, web/lib/data.ts) failed — late, and after the gates an
+# agent is told to run. Retyping the lists here would make two copies that
+# drift; reading the TS source keeps ONE list (data/CONVENTIONS.md names it).
+DATA_TS = os.path.join(ROOT, "web", "lib", "data.ts")
+
+
+def ts_string_array(name):
+    """The quoted strings of `const <name> = [ ... ]` in web/lib/data.ts,
+    comments stripped. Raises if the array is missing: a vocabulary this
+    checker cannot read must fail loudly, never validate against nothing."""
+    src = open(DATA_TS, encoding="utf-8").read()
+    m = re.search(r"const\s+" + name + r"\s*=\s*\[(.*?)\]\s*as\s+const", src, re.S)
+    if not m:
+        raise SystemExit(f"check-records: cannot read {name} from web/lib/data.ts")
+    body = re.sub(r"//[^\n]*", "", m.group(1))
+    vals = re.findall(r'"([^"]+)"', body)
+    if not vals:
+        raise SystemExit(f"check-records: {name} in web/lib/data.ts is empty")
+    return frozenset(vals)
+
+
+STATUS_VOCAB = ts_string_array("STATUSES")
+GAP_CHECKED_VOCAB = ts_string_array("GAP_CHECKED")
 MONEY_PAID_BASES = ("signed-contract", "tender-line")
 MONEY_PAID_WINDOW_DAYS = 730    # "within 24 months of `updated`"
 MONEY_PUBLIC_TYPES = ("tender", "contract", "subsidy")   # TYPE_TO_DIM -> money
@@ -1847,6 +1874,22 @@ def check(path, year):
     gapchecks = [s for s in sources if s.get("type") == "gap-check"]
     status = str(doc.get("status") or "")
     live = status != "rejected"
+
+    # ---- STATUS AND GAP-CHECK VOCABULARY (read from web/lib/data.ts) ----------
+    # `watching` was retired on 2026-10-07: it restated gap 0, one fact in two
+    # fields (MATCH.md §0). Named specifically so the fix is obvious.
+    if status == "watching":
+        errors.append("status `watching` is retired (owner, 2026-10-07) — a taken market is "
+                      "already `scores.gap: 0`; write `candidate`")
+    elif status not in STATUS_VOCAB:
+        errors.append(f"status {status!r} is not one of {', '.join(sorted(STATUS_VOCAB))} "
+                      f"(web/lib/data.ts STATUSES)")
+    for s in gapchecks:
+        bad = [c for c in (s.get("checked") or []) if c not in GAP_CHECKED_VOCAB]
+        if bad:
+            errors.append(f"gap-check {s.get('id') or s.get('name')!r} lists checked "
+                          f"{', '.join(map(str, bad))} — not in web/lib/data.ts GAP_CHECKED "
+                          f"({', '.join(sorted(GAP_CHECKED_VOCAB))}); the build would fail on zod")
 
     # ---- LEAKED TOOL MARKUP -------------------------------------------------
     # 2026-09-28: p-0051 was committed with `</content>` and `</invoke>` lines

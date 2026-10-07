@@ -14,7 +14,7 @@ scores:
   urgency: 0
   demand: 2
   gap: 0
-status: watching
+status: candidate
 entry:
   level: easy
   buyer: small-firms
@@ -236,7 +236,7 @@ sources:
   signal: dotace-opz-112-pas
   dims: [money]
 created: '2026-08-13'
-updated: '2026-10-05'
+updated: '2026-10-07'
 ---
 
 Czech home-care agencies still book and move visits by phone and on paper, while nurses are scarce [S1,S2].
@@ -310,3 +310,5 @@ The opening left in Czechia is Czech-language voice intake on top of whichever p
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0, Willing to pay 1 → 0 and `score` 6 → 4, so the band moves FAIR → FAINT. Why now was 1 as deadline 0 plus the freshness point, which is retired. The only dated instrument on file, Act No. 92/2026, says care services may help with medicines and stoma bags from 1 July 2026 [S5]. That permits something and sets nothing due, so it is rung 0. The autism-services grant's closing date is a grant date, not a deadline [S9]. Willing to pay was 1 on the ÚZIS KOMPAS contract [S7], which is public money nearby: the state paying for its own cost models of home nursing care, not an agency paying for this job. It now earns nothing. Tagging pass, every source on file that might show someone paying for this job: more than 200 sites bought a Czech care system as a one-off licence, but no amount is on file [S4]; the OPZ+ call pays for care services, not software [S9]; the hiring data prices nurses' wages, not intake or scheduling [S6]. No receipt could be written, so money is 0, as the worksheet had it. [S7]'s and [S9]'s notes named the old money rung and now carry the correction. Their `dims: [money]` stay, because on the new ladder that tag is what shows them as public money nearby. Why now prose re-read: it describes lost care hours and the new tasks the amendment permits, and claims no deadline, so it stands. Willing to pay's answer sentence read as a yes. It now says agencies buy Czech care software, that no price for it is on file, and that the public money nearby pays for other work [S4,S7,S9]. `[Competition](#competition)` became `[Market gap](#competition)` in The opportunity. No other score, status, entry or body sentence changed.
 
 2026-10-05 · fact check — CORRECTION: the Labour Office count in [S6] covers every health and personal-care job at any employer (CZ-ISCO groups 22, 32, 53, teaching assistants included); general nurses are only its most posted job. "380 general-nurse vacancies" was wrong. The brief, body, and S6's name, gist, why and note now say 380 health and care vacancies, nurses the most sought. Brief changed (see report). Demand stays 2: still a recurring state measurement of care-staff hiring.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

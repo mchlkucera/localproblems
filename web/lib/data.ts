@@ -424,7 +424,14 @@ export type Signal = z.infer<typeof SignalSchema> & { type: EvidenceType };
 
 // ---- region layer --------------------------------------------------------
 
-const STATUSES = ["candidate", "active", "watching", "stale", "claimed", "solved", "rejected"] as const;
+// `watching` RETIRED (owner, 2026-10-07). It was set for two reasons — "an
+// established local sells this" and "our evidence is over 120 days old" — and
+// the first is exactly what `scores.gap: 0` already says and already prices
+// into the rank. One fact, two fields. A taken market is a low-ranked
+// candidate; old evidence is the Verified date, and past 240 days `stale`.
+// scripts/check-records.py reads this list and fails a record that writes
+// `watching`, so the two validators cannot disagree about it.
+const STATUSES = ["candidate", "active", "stale", "claimed", "solved", "rejected"] as const;
 
 /** Where a gap-check actually looked (architecture-v3 §8.1). Vocabulary is
     closed on purpose: an enum fails loudly on a typo, which is the whole reason

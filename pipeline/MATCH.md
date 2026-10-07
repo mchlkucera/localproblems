@@ -14,7 +14,7 @@ bug someone already paid for.
 
 ## 0. The failure this register keeps making: ONE FIELD, TWO MEANINGS
 
-Six separate times, a single field was made to carry two different questions,
+Seven separate times, a single field was made to carry two different questions,
 and every time the register ended up publicly contradicting itself:
 
 | Field | Meaning A | Meaning B | What shipped |
@@ -25,6 +25,7 @@ and every time the register ended up publicly contradicting itself:
 | `locals.status` | "young company" | "sells something adjacent" | two agents hit it, solved it two different ways, register encoded the same fact twice |
 | `urgency` | "a deadline forces buyers" | "we looked recently" (the freshness point) | 13 of 29 records scoring Why now on nothing but a recent source; retired 2026-09-19, the Verified date carries it |
 | `money` | "buyers pay for this" | "public money moves nearby" | a section named Willing to pay scored on tenders a different party ran for a different thing; since 2026-09-19 only a price receipt earns a point |
+| `status: watching` | "an established local sells this" | "our evidence is old" | 13 of 41 live records `watching`, three gap-0 records `candidate` anyway; retired 2026-10-07, gap 0 carries the first and the Verified date the second |
 
 **When a field's value would be set for two different reasons, it is two fields.**
 Split it before you write, not after someone reads the contradiction on the site.

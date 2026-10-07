@@ -14,7 +14,7 @@ scores:
   urgency: 0
   demand: 1
   gap: 0
-status: watching
+status: candidate
 entry:
   level: easy
   buyer: small-firms
@@ -259,7 +259,7 @@ sources:
   signal: yc-coperniq
   dims: []
 created: '2026-08-13'
-updated: '2026-09-21'
+updated: '2026-10-07'
 ---
 
 Small Czech installation firms size, price and file the subsidy paperwork for the heat pumps and solar panels the state subsidises [S1,S2].
@@ -346,3 +346,5 @@ What the German tool shows now is depth, a heat-load calculation and a digital s
 2026-09-19 · rescored to the 2026-09-19 ladders — Why now 1 → 0; Willing to pay stays 1; score 6 → 5, still FAIR. Why now: the old 1 was the retired freshness point on a deadline part of 0. No regulation is on file: the redesigned subsidy [S4] and the renovation-pass call closing on 30 November 2026 [S5] are a grant's rules and closing date, which put no dated duty on an installer, and this ladder does not read a grant's date. Willing to pay, tagging pass first: every source on file was read for someone paying for this exact job, installer software that sizes and prices the job and prepares the subsidy forms, or that work bought in. Counted: Wue's list price, 650 CZK per seat a month for quoting, contracts and the state subsidy paperwork, with the heat-pump module extra [S8]. It was already a price receipt, untagged; it now carries `dims: [money]`. A list price is an asking receipt, rung 1. Not counted: the roughly 20 installer firms running another vendor's solar module, which name no amount [S6]; the state subsidy and its 2026 redesign [S2,S4], which pay households; and the renovation-pass grant, which pays for an accredited specialist's assessment, not installer software [S5]. None of the three grants names installers as eligible, so there is no public-money lift. S8's note, which said it backs no score, gained a rescore line. Body: Why now gained a bullet saying none of its dates is a legal deadline for the installers [S4,S5]. The two links to the section now named Market gap carry that name. Same result as the worksheet.
 
 2026-09-21 · evidence audit — Weekly match over the week's energy signals. Appended one foreign comparable: a San Francisco company in Y Combinator's Winter 2023 batch selling solar and energy contractors one workflow tool, its page read the same day [S9]. It is a repeat of what this record already says — the same product exists abroad and is funded — and it moves nothing. On the established test it is EARLY: selling since 2021 clears the years, but it names no customer, publishes no count and has raised seed money only, so proof stays 3 on the two German sellers [S1]. Its own page's savings claims are recorded in the source note as the company's claims and are used in no sentence here [S9]. Not linked, and why: a US company selling microgrids in a box sells hardware, not the installer's back office; nothing in the week's haul names a Czech installer, a Czech price or a new Czech vendor. Gap re-checked against the week's signals: no new Czech seller of installer software surfaced, so gap stays 0 on the established Czech vendor already on the ledger, and the record stays watching [S6]. No score moved.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.

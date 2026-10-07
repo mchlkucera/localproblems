@@ -14,7 +14,7 @@ scores:
   urgency: 0
   demand: 2
   gap: 0
-status: watching
+status: candidate
 entry:
   level: hard
   buyer: public
@@ -374,7 +374,7 @@ sources:
   checked: [google-cz, ares]
   expires: '2027-01-03'
 created: '2026-10-05'
-updated: '2026-10-05'
+updated: '2026-10-07'
 ---
 
 Czech towns, hospitals and regions can wait months to sign a contract when a losing bidder asks the competition office to review the tender [S1,S2].
@@ -434,3 +434,5 @@ In Germany, a publisher has helped public buyers run tenders for over 30 years a
 ## Revisions
 
 2026-10-05 · record created — Created from owner decision 19 (docs/weekly/2026-09-28.md), candidate A: the withdrawn procurement-review bill's impact assessment [S3], read from ODok on this date, plus a second evidence stream staged today as civic-uohs-prezkum-vz-2025, the competition office's 2025 annual report [S1], and the ministry's 2024 figures [S2]. Scores: proof 3 on two established sellers in Germany and the United States [S8,S9]; money 2 on two paid contracts within 24 months [S5,S6] plus a list price [S7]; urgency 0, because the bill was withdrawn and no dated duty binds the buyers, flagged for the owner; demand 2 on the office's own count and its head's statement, the ministry's figures and a hospital case [S1,S2,S4]; gap 0 because three established Czech firms sell the job by hand [S10]. Status watching under the de-rank rule. The 5-month wait is the ministry's 2022-based figure for the time to a final decision [S2]; the office's 42 days is the time to a first decision and is a different measure, so the two are not combined. The 80bn CZK is the value of tenders under first review started in 2022, not a yearly frozen total [S3]. The solution counts both comps as doing its first half, checking or building compliant tender documents; neither is shown defending a buyer in a challenge [S8,S9]. The German comp's since 1996 reads "over 30 years" back from 2026. Related, not a duplicate: p-0050 covers grant paybacks over badly run tenders and shares RTS and QCM on its ledger. No process step is drawn as documented without a cited source; whether anyone checks the conditions before publishing is marked unknown.
+
+2026-10-07 · status change — Status watching → candidate. The owner retired watching as a verdict on the market (2026-10-07): a taken market is already priced by Market gap 0, which lowers the score and the rank, so a status that said the same thing counted one fact twice. No score, source or body sentence changed; the earlier entries that moved this record to watching stand as history.
