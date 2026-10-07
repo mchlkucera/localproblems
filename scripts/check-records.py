@@ -1722,6 +1722,11 @@ def ts_string_array(name):
     return frozenset(vals)
 
 
+MPSV_THEME_SIGNAL = re.compile(r"^mpsv-\d{4}-\d{2}-[a-z]+(?:-[a-z]+)*$")
+MPSV_COUNT_PHRASE = re.compile(r"\b\d[\d,.]*\s+(?:new\s+)?((?:[A-Za-z-]+\s+){0,2}?[A-Za-z-]+)\s+(?:vacanc|posting|seat)", re.I)
+MPSV_GROUP_WORDS = frozenset("""health care office clerical finance manual trade trades
+    logistics engineering education sales service safety it all group theme job jobs
+    personal support new""".split())
 STATUS_VOCAB = ts_string_array("STATUSES")
 GAP_CHECKED_VOCAB = ts_string_array("GAP_CHECKED")
 MONEY_PAID_BASES = ("signed-contract", "tender-line")
@@ -1884,6 +1889,21 @@ def check(path, year):
     elif status not in STATUS_VOCAB:
         errors.append(f"status {status!r} is not one of {', '.join(sorted(STATUS_VOCAB))} "
                       f"(web/lib/data.ts STATUSES)")
+    # ---- LABOUR-OFFICE THEME COUNTS (2026-10-05) -----------------------------
+    # An mpsv-<YYYY>-<MM>-<theme> signal counts EVERY vacancy in a broad job
+    # group; the occupation it quotes is only the most-posted one. Four records
+    # printed "380 nurse vacancies" off such a count. Warn when a source citing
+    # one puts a number straight before a job word that is not a group word.
+    for s in sources:
+        if not MPSV_THEME_SIGNAL.match(str(s.get("signal") or "")):
+            continue
+        for fld in ("name", "gist", "why"):
+            for m in MPSV_COUNT_PHRASE.finditer(str(s.get(fld) or "")):
+                words = set(re.findall(r"[a-z]+", m.group(1).lower()))
+                if not words & MPSV_GROUP_WORDS:
+                    warns.append(f"{s.get('id') or s.get('name')!r} {fld}: {m.group(0)!r} reads a "
+                                 f"labour-office THEME count as one occupation — the count covers "
+                                 f"the whole job group; name the group (scripts/mpsv_reduce.py THEMES)")
     for s in gapchecks:
         bad = [c for c in (s.get("checked") or []) if c not in GAP_CHECKED_VOCAB]
         if bad:

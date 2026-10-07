@@ -115,6 +115,10 @@ this loop, and it is the only step that needs you.
    `fetch_all.sh <rawdir>` skips role: enrichment entirely — they are
    monthly lookup refreshes and ares is meaningless before mpsv. Naming
    one explicitly runs it.
+   SINCE 2026-10-05 scripts/ingest.sh RUNS ares ITSELF right after the fetch
+   whenever this run's mpsv-hiring-*.json has not been folded yet (no `ares`
+   key). That run staged 11 employer records unnamed before anyone ran ares
+   by hand; the fold has to land before normalize stages anything.
    THE PAYLOAD FILENAME IS ALSO A CROSS-FILE CONTRACT, and it broke once
    already. normalize.py maps <raw>/<file> back to a registry feed key by
    matching a distinctive token in the name, so a fetcher renaming its

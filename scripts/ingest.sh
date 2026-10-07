@@ -92,6 +92,21 @@ echo "ingest: pruned payloads from $pruned run dir(s) dated before $CUTOFF (mani
 #    worker owns.
 if [ -x scripts/fetch_all.sh ]; then
   scripts/fetch_all.sh "$RAW" "$@" || FEED_RC=1
+  # ARES FOLLOWS A FRESH MPSV MONTH, IN THE SAME RUN (owner, 2026-10-05,
+  # decision 18). ares is `role: enrichment`, so the default dispatch skips it,
+  # and on 2026-10-05 mpsv's 11 employer aggregates were STAGED UNNAMED — ARES
+  # was run by hand afterwards and the mechanical pass re-run before grading.
+  # The fold must happen before normalize stages anything, so it happens here:
+  # only when mpsv wrote a payload into this run's dir that ARES has not
+  # folded yet (no top-level `ares` key), which is exactly "a new month".
+  for agg in "$RAW"/mpsv-hiring-*.json; do
+    [ -f "$agg" ] || continue
+    if ! python3 -c "import json,sys; sys.exit(0 if 'ares' in json.load(open(sys.argv[1])) else 1)" "$agg" 2>/dev/null; then
+      echo "ingest: $agg has employer candidates ARES has not folded — running ares into $RAW" >&2
+      scripts/fetch_all.sh "$RAW" ares || FEED_RC=1
+    fi
+    break
+  done
 else
   echo "ingest: scripts/fetch_all.sh not present or not executable — SKIPPING FETCH." >&2
   echo "ingest: normalize will run over whatever already sits in $RAW." >&2

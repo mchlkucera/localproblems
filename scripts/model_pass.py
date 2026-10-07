@@ -166,6 +166,14 @@ title — English, the exact form "Thing — what it is": the subject, then a sp
   capacity-expansion feasibility study".
 summary — English, AT MOST TWO SENTENCES, factual, no marketing language, no
   speculation about opportunity. Say what the signal is and what it evidences.
+  Avoid abbreviations that end in a period ("s.r.o.", "a.s.", "e.g.", "No.") —
+  sentences are counted at ". ", so write "Ltd", "for example", "number".
+LABOUR-OFFICE THEME CARDS (ids like mpsv-2026-09-health-care, no IČO in the id):
+  the count is EVERY vacancy in a broad job group, and the occupation on the card
+  is only the most-posted job in it. Never put the count next to that occupation.
+  Name the group, then the top job in brackets, e.g. "Health and care vacancies —
+  373 new Czech Labour Office postings, September 2026 (top job: nurse)". The
+  title must contain "(top job:" or it is refused.
 """
 
 
@@ -473,6 +481,10 @@ def validate_a(item, fields):
     return w, e
 
 
+# A labour-office THEME aggregate: mpsv-<YYYY>-<MM>-<theme>, no employer IČO.
+MPSV_THEME_ID = re.compile(r"^mpsv-\d{4}-\d{2}-[a-z]+(?:-[a-z]+)*$")
+
+
 def validate_b(item, _fields):
     w, e = {}, []
     t = collapse(item.get("title") or "")
@@ -485,6 +497,12 @@ def validate_b(item, _fields):
             e.append(f"title has no ' — ' separator: {t[:60]!r}")
         elif len(t) > 140:
             e.append(f"title {len(t)} chars > 140")
+        elif MPSV_THEME_ID.match(str(item.get("id") or "")) and "(top job:" not in t:
+            # 2026-10-05: four records read a theme count as a count of its top
+            # occupation ("380 nurse vacancies"), because these titles printed it
+            # that way. The writer card says so; this makes the card binding.
+            e.append(f"labour-office theme title must name the group and put the top "
+                     f"job in brackets as '(top job: …)': {t[:60]!r}")
         else:
             w["title"] = t.rstrip(" .")
     s = collapse(item.get("summary") or "")
